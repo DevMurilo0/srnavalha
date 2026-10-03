@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin, Plus, Star } from "lucide-react";
 import { brand } from "@/config/brand";
 import { PhotoFrame } from "@/components/brand/photo-frame";
+import { ScissorScroll } from "@/components/brand/scissor-scroll";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { faqs, photos, serviceHighlights, teamMoments } from "./content";
@@ -48,6 +49,7 @@ export function Services() {
 export function About() {
   return (
     <section id="sobre" className="section about-v2">
+      <ScissorScroll />
       <div className="container about-v2-grid">
         <Reveal className="about-v2-media">
           <PhotoFrame photo={photos.space} label={"Dentro da " + brand.name} />
