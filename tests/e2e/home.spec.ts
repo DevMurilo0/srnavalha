@@ -74,7 +74,7 @@ for (const width of [320, 375, 768, 1440]) {
       .click();
     await expect(page).toHaveURL(/\/agendar$/);
     await expect(
-      page.getByText("Nenhum horário é reservado nesta página."),
+      page.getByRole("heading", { name: /ESCOLHA/i }),
     ).toBeVisible();
     expect(
       await page.evaluate(
