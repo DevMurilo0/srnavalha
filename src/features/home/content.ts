@@ -1,76 +1,97 @@
 import type { PhotoAsset } from "@/components/brand/photo-frame";
 
-// Recortes reais dos prints fornecidos no ambiente. Origem em docs/image-sources.md.
-// Preserve width/height originais ao substituir; sizes descreve a largura no layout.
 export const photos: Record<
   "hero" | "space" | "team" | "service" | "work1" | "work2" | "work3",
   PhotoAsset
 > = {
   hero: {
     src: "/images/hero/corte-e-barba.webp",
-    alt: "Corte com volume no topo e barba com contornos definidos, em perfil",
+    alt: "Resultado de corte com volume no topo e barba com contornos definidos",
     width: 266,
     height: 326,
-    sizes:
-      "(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 42vw, 430px",
+    sizes: "(max-width: 639px) 44vw, 250px",
   },
   space: {
     src: "/images/barbershop/ambiente.webp",
     alt: "Interior da SR Navalha com cadeiras pretas, bancada amadeirada, espelhos e iluminação linear",
     width: 246,
     height: 148,
-    sizes: "(max-width: 639px) calc(100vw - 40px), 360px",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 420px",
   },
   team: {
     src: "/images/team/atendimento.webp",
-    alt: "Profissionais trabalhando em atendimentos na barbearia",
+    alt: "Profissionais da SR Navalha trabalhando em atendimentos na barbearia",
     width: 264,
     height: 321,
-    sizes: "(max-width: 639px) calc(100vw - 40px), 340px",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 360px",
   },
   service: {
     src: "/images/work/barboterapia.webp",
-    alt: "Detalhe de atendimento com aplicação de produto no rosto e proteção dos olhos",
+    alt: "Atendimento de barboterapia com proteção dos olhos e aplicação de produto",
     width: 263,
     height: 325,
-    sizes: "(max-width: 639px) 180px, 230px",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 320px",
   },
   work1: {
     src: "/images/work/corte-perfil.webp",
     alt: "Corte masculino visto de perfil, com volume e acabamento na lateral",
     width: 265,
     height: 326,
-    sizes: "(max-width: 639px) calc(100vw - 40px), 40vw",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 330px",
   },
   work2: {
     src: "/images/work/barba.webp",
     alt: "Barba grisalha com acabamento definido após atendimento",
     width: 265,
     height: 326,
-    sizes:
-      "(max-width: 359px) calc(100vw - 40px), (max-width: 639px) 43vw, 27vw",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 330px",
   },
   work3: {
     src: "/images/work/corte-cacheado.webp",
     alt: "Cabelo cacheado com degradê na lateral e acabamento na nuca",
     width: 265,
     height: 322,
-    sizes:
-      "(max-width: 359px) calc(100vw - 40px), (max-width: 639px) 43vw, 27vw",
+    sizes: "(max-width: 639px) calc(100vw - 40px), 330px",
   },
 };
 
-export const serviceReferences = [
-  { number: "01", name: "Cortes", detail: "Estilos, formas e acabamentos." },
+export const serviceHighlights = [
   {
-    number: "02",
-    name: "Barba",
-    detail: "Contornos e cuidado em cada detalhe.",
+    name: "Cortes",
+    detail: "Do clássico ao fade, com acabamento limpo e atenção ao formato.",
+    photo: photos.work1,
   },
   {
-    number: "03",
+    name: "Barba",
+    detail: "Desenho, contorno e cuidado para manter o visual alinhado.",
+    photo: photos.work2,
+  },
+  {
     name: "Identidade",
-    detail: "Cor, riscos e novas possibilidades.",
+    detail: "Textura, riscos e detalhes para sair do comum sem perder precisão.",
+    photo: photos.work3,
+  },
+];
+
+export const teamMoments = [
+  {
+    title: "Equipe SR Navalha",
+    detail: "Profissionais em atendimento.",
+    photo: photos.team
+      ? { ...photos.team, objectPosition: "34% center" }
+      : photos.team,
+  },
+  {
+    title: "Na cadeira",
+    detail: "Atendimento de perto.",
+    photo: photos.team
+      ? { ...photos.team, objectPosition: "78% center" }
+      : photos.team,
+  },
+  {
+    title: "Cuidado no detalhe",
+    detail: "Técnica durante o atendimento.",
+    photo: photos.service,
   },
 ];
 
@@ -78,26 +99,21 @@ export const faqs = [
   {
     question: "Como posso agendar um horário?",
     answer:
-      "O agendamento online está em preparação. Por enquanto, acesse o Instagram da barbearia para consultar o canal de agendamento utilizado atualmente.",
+      "O novo agendamento online está sendo preparado. Até lá, o Instagram da SR Navalha continua sendo o canal mais direto para consultar o atendimento.",
   },
   {
-    question: "Onde encontro os serviços e os valores?",
+    question: "Posso escolher o profissional?",
     answer:
-      "A tabela oficial de serviços, preços e durações será publicada após confirmação com o proprietário. As categorias apresentadas nesta página são referências de conteúdo, não um catálogo disponível para reserva.",
-  },
-  {
-    question: "Posso escolher meu profissional?",
-    answer:
-      "A escolha do profissional está prevista no novo agendamento. A equipe e os serviços realizados por cada profissional ainda precisam ser confirmados.",
+      "Sim. O novo sistema está sendo estruturado para permitir a escolha do profissional disponível para o serviço e horário desejados.",
   },
   {
     question: "A barbearia atende crianças?",
     answer:
-      "Há referências a atendimento infantil no conteúdo da marca. Faixas etárias, serviços e regras de agendamento pelo responsável precisam ser confirmados diretamente com a barbearia.",
+      "O perfil da SR Navalha mostra atendimentos infantis. Para confirmar serviço, idade e disponibilidade, fale diretamente com a equipe.",
   },
   {
-    question: "Como funcionarão cancelamentos e remarcações?",
+    question: "Como vão funcionar cancelamentos e remarcações?",
     answer:
-      "A política será publicada junto com o sistema de agendamento, após aprovação do proprietário. Para um horário marcado pelo canal atual, consulte a barbearia por esse mesmo canal.",
+      "As regras definitivas serão exibidas no próprio fluxo de agendamento antes da confirmação do horário.",
   },
 ];
