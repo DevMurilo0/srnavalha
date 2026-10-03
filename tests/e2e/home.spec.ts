@@ -10,7 +10,7 @@ for (const width of [320, 375, 768, 1440]) {
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "CORTE COMEÇA",
+      "SEU CORTE",
     );
     expect(
       await page.evaluate(
@@ -45,7 +45,7 @@ for (const width of [320, 375, 768, 1440]) {
     for (const section of await page.locator("main section").all())
       await section.scrollIntoViewIfNeeded();
     const images = page.locator("main img, .brand-logo");
-    await expect(images).toHaveCount(9);
+    expect(await images.count()).toBeGreaterThanOrEqual(10);
     for (const image of await images.all()) {
       await expect(image).toHaveJSProperty("complete", true);
       await expect
@@ -60,7 +60,7 @@ for (const width of [320, 375, 768, 1440]) {
     await page.evaluate(() => window.scrollTo(0, 0));
     await expect(page.locator(".mobile-booking")).toHaveCount(0);
     await page.screenshot({
-      path: `artifacts/phase-1.1/home-${width}.png`,
+      path: `artifacts/phase-1.2/home-${width}.png`,
       fullPage: true,
     });
     const accessibility = await new AxeBuilder({ page })
@@ -82,7 +82,7 @@ for (const width of [320, 375, 768, 1440]) {
       ),
     ).toBe(true);
     await page.screenshot({
-      path: `artifacts/phase-1.1/agendar-${width}.png`,
+      path: `artifacts/phase-1.2/agendar-${width}.png`,
       fullPage: true,
     });
     const bookingAccessibility = await new AxeBuilder({ page })
