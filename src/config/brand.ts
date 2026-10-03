@@ -1,5 +1,8 @@
 const instagram = "https://www.instagram.com/barbeariasrnavalha01/";
 
+const addressLabel =
+  "Av. Governador Agamenon Magalhães, 349 - Prado, Gravatá - PE, 55642-210";
+
 export const brand = {
   name: "SR Navalha",
   fullName: "Sr. Navalha Barbearia",
@@ -14,24 +17,40 @@ export const brand = {
   instagramHandle: "@barbeariasrnavalha01",
   phone: { display: "(81) 99572-2396", e164: "+5581995722396" },
   address: {
-    street: "Avenida Agamenon Magalhães, Nº 349",
+    street: "Av. Governador Agamenon Magalhães, 349",
+    district: "Prado",
+    postalCode: "55642-210",
     city: "Gravatá",
     state: "PE",
     stateName: "Pernambuco",
     country: "BR",
+    full: addressLabel,
   },
   timezone: "America/Recife",
+  rating: {
+    value: 5.0,
+    count: 460,
+    source: "Google",
+  },
+  openingHours: [
+    { label: "Segunda a sábado", value: "08:30 — 18:30" },
+    { label: "Domingo", value: "09:30 — 14:00" },
+  ],
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent("Avenida Agamenon Magalhães, 349, Gravatá, PE"),
+    encodeURIComponent(addressLabel),
+  mapsEmbedUrl:
+    "https://www.google.com/maps?q=" +
+    encodeURIComponent(addressLabel) +
+    "&output=embed",
   bookingPath: "/agendar",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || undefined,
-  detailsStatus: "Informações de contato a confirmar com o proprietário.",
 } as const;
 
 export const navigation = [
   { label: "Serviços", href: "/#servicos" },
   { label: "A barbearia", href: "/#sobre" },
+  { label: "Equipe", href: "/#profissionais" },
   { label: "Trabalhos", href: "/#trabalhos" },
-  { label: "Onde estamos", href: "/#localizacao" },
+  { label: "Localização", href: "/#localizacao" },
 ];
