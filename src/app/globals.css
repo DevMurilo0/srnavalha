@@ -1966,3 +1966,98 @@ svg {
     height: 54vh;
   }
 }
+/* === Phase 1.3: realistic floating scissors === */
+
+.about-v2 {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+}
+.about-v2 > .container {
+  position: relative;
+  z-index: 3;
+}
+
+.scissor-float-layer {
+  position: absolute;
+  inset: -14% 0 -8%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: clip;
+  perspective: 1200px;
+  perspective-origin: 50% 45%;
+}
+.scissor-3d {
+  position: absolute;
+  width: clamp(250px, 31vw, 470px);
+  left: 43%;
+  top: 8%;
+  transform-origin: 48% 54%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.scissor-real {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform: translateZ(22px);
+  filter:
+    drop-shadow(0 20px 20px rgba(11, 13, 14, .16))
+    drop-shadow(0 5px 5px rgba(11, 13, 14, .11));
+}
+.scissor-3d-shadow {
+  position: absolute;
+  z-index: -1;
+  width: 76%;
+  height: 18%;
+  left: 13%;
+  bottom: 5%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(11, 13, 14, .34) 0%,
+    rgba(11, 13, 14, .12) 46%,
+    transparent 74%
+  );
+  filter: blur(18px);
+  transform: translate3d(12px, 22px, -35px) rotate(-4deg);
+  opacity: .75;
+}
+
+@media (min-width: 1024px) {
+  .scissor-3d {
+    left: 46%;
+    top: 2%;
+    width: clamp(340px, 33vw, 510px);
+  }
+}
+
+@media (max-width: 767px) {
+  .scissor-float-layer {
+    inset: -6% -28% auto -28%;
+    height: 78%;
+  }
+  .scissor-3d {
+    width: clamp(220px, 76vw, 320px);
+    left: 35%;
+    top: 12%;
+    opacity: .92;
+  }
+  .about-v2-copy {
+    position: relative;
+    z-index: 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scissor-float-layer {
+    opacity: .18;
+  }
+  .scissor-3d {
+    left: auto;
+    right: -90px;
+    top: 16%;
+    transform: rotate(-10deg) scale(.86);
+  }
+}
