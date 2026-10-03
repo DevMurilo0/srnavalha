@@ -1,54 +1,45 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Plus } from "lucide-react";
+import { ArrowUpRight, MapPin, Plus, Star } from "lucide-react";
 import { brand } from "@/config/brand";
 import { PhotoFrame } from "@/components/brand/photo-frame";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { faqs, photos, serviceReferences } from "./content";
+import { faqs, photos, serviceHighlights, teamMoments } from "./content";
 
 export function Services() {
   return (
-    <section id="servicos" className="section services">
+    <section id="servicos" className="section services-v2">
       <div className="container">
         <Reveal>
-          <div className="section-heading">
+          <div className="section-heading services-v2-heading">
             <div>
-              <p className="eyebrow">01 / O QUE FAZEMOS</p>
+              <p className="eyebrow">SERVIÇOS</p>
               <h2>
-                O DETALHE
+                O QUE VOCÊ
                 <br />
-                FAZ O ESTILO.
+                QUER FAZER HOJE?
               </h2>
             </div>
             <p className="section-intro">
-              Do primeiro traço ao acabamento.
-              <br />
-              Um espaço para encontrar a sua versão.
+              Uma seleção visual do que já aparece no trabalho da SR Navalha.
+              A tabela oficial de serviços entra junto com o agendamento.
             </p>
           </div>
-          <div className="services-composition">
-            <PhotoFrame
-              photo={photos.service}
-              label="O cuidado de perto"
-              index="SR"
-              className="service-photo"
-            />
-            <div className="service-list">
-              {serviceReferences.map((service) => (
-                <div className="service-row" key={service.number}>
-                  <span className="service-number">{service.number}</span>
+        </Reveal>
+
+        <div className="service-cards">
+          {serviceHighlights.map((service) => (
+            <Reveal key={service.name} className="service-card-reveal">
+              <article className="service-card-v2">
+                <PhotoFrame photo={service.photo} label={service.name} />
+                <div className="service-card-copy">
                   <h3>{service.name}</h3>
                   <p>{service.detail}</p>
-                  <span className="service-tag">Referência editorial</span>
                 </div>
-              ))}
-            </div>
-          </div>
-          <p className="content-note">
-            Conteúdo provisório · Serviços, valores e durações precisam ser
-            confirmados com o proprietário.
-          </p>
-        </Reveal>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -56,40 +47,28 @@ export function Services() {
 
 export function About() {
   return (
-    <section id="sobre" className="section about">
-      <div className="container about-grid">
-        <Reveal className="about-image">
-          <PhotoFrame
-            photo={photos.space}
-            label={`Dentro da ${brand.name}`}
-            index="02 / ESPAÇO"
-          />
+    <section id="sobre" className="section about-v2">
+      <div className="container about-v2-grid">
+        <Reveal className="about-v2-media">
+          <PhotoFrame photo={photos.space} label={"Dentro da " + brand.name} />
         </Reveal>
-        <Reveal className="about-copy">
-          <p className="eyebrow">02 / A BARBEARIA</p>
+
+        <Reveal className="about-v2-copy">
+          <p className="eyebrow">A BARBEARIA</p>
           <h2>
-            MAIS QUE
+            UM ESPAÇO FEITO
             <br />
-            UM CORTE.
-            <br />
-            <span>
-              UM MOMENTO
-              <br />
-              SEU.
-            </span>
+            PARA CORTAR BEM.
           </h2>
           <p>
-            A proposta é simples: abrir espaço na rotina para cuidar de você.
-            Com personalidade, atenção aos detalhes e um olhar para o que faz
-            seu estilo ser seu.
+            Ambiente claro, bancada longa, cadeiras alinhadas e uma equipe
+            trabalhando ao mesmo tempo. A SR Navalha tem uma presença visual
+            própria e o site precisa mostrar isso sem inventar personagem.
           </p>
-          <p className="content-note">
-            Texto institucional provisório, sujeito à aprovação.
-          </p>
-          <div className="about-signature">
-            <span>{brand.name}</span>
+          <div className="about-v2-meta">
+            <span>{brand.address.district}</span>
             <span>
-              {brand.address.city} / {brand.address.state}
+              {brand.address.city} · {brand.address.state}
             </span>
           </div>
         </Reveal>
@@ -100,32 +79,39 @@ export function About() {
 
 export function Professionals() {
   return (
-    <section id="profissionais" className="section professionals">
+    <section id="profissionais" className="section team-v2">
       <div className="container">
-        <Reveal className="team-grid">
-          <div>
-            <p className="eyebrow">03 / QUEM FAZ ACONTECER</p>
-            <h2>
-              MÃOS PRECISAS.
-              <br />
-              ESTILOS ÚNICOS.
-            </h2>
-            <p className="section-intro">
-              Por trás de cada corte, um profissional.
-              <br />
-              Um registro real de quem faz o cuidado acontecer.
-            </p>
-            <p className="content-note">
-              Nomes, especialidades e composição da equipe
-              <br />a confirmar com o proprietário.
+        <Reveal>
+          <div className="team-v2-heading">
+            <div>
+              <p className="eyebrow">EQUIPE</p>
+              <h2>
+                QUEM ESTÁ
+                <br />
+                ATRÁS DA CADEIRA.
+              </h2>
+            </div>
+            <p>
+              Os registros públicos mostram mais de um profissional em
+              atendimento. Enquanto os nomes individuais não estão confirmados,
+              mostramos a equipe real sem atribuir identidades erradas.
             </p>
           </div>
-          <PhotoFrame
-            photo={photos.team}
-            label="Profissionais em atendimento"
-            index="03 / PESSOAS"
-          />
         </Reveal>
+
+        <div className="team-v2-grid">
+          {teamMoments.map((item, index) => (
+            <Reveal
+              key={item.title}
+              className={
+                index === 0 ? "team-v2-card team-v2-card-main" : "team-v2-card"
+              }
+            >
+              <PhotoFrame photo={item.photo} label={item.title} />
+              <p>{item.detail}</p>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -133,16 +119,16 @@ export function Professionals() {
 
 export function Gallery() {
   return (
-    <section id="trabalhos" className="section gallery">
+    <section id="trabalhos" className="section gallery-v2">
       <div className="container">
         <Reveal>
-          <div className="section-heading">
+          <div className="section-heading gallery-v2-heading">
             <div>
-              <p className="eyebrow">04 / NOSSO OLHAR</p>
+              <p className="eyebrow">TRABALHOS</p>
               <h2>
-                O ESTILO ESTÁ
+                RESULTADO
                 <br />
-                NOS DETALHES.
+                SEM FILTRO.
               </h2>
             </div>
             <a
@@ -151,37 +137,23 @@ export function Gallery() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Explore no Instagram <ArrowUpRight size={18} />
+              Ver mais no Instagram <ArrowUpRight size={18} />
               <span className="sr-only"> (abre em nova aba)</span>
             </a>
           </div>
         </Reveal>
-        <div className="gallery-grid">
-          <Reveal className="gallery-main">
-            <PhotoFrame
-              photo={photos.work1}
-              label="Forma & identidade"
-              index="I"
-            />
+
+        <div className="gallery-v2-grid">
+          <Reveal className="gallery-v2-main">
+            <PhotoFrame photo={photos.work1} label="Corte e forma" />
           </Reveal>
           <Reveal>
-            <PhotoFrame
-              photo={photos.work2}
-              label="Precisão no acabamento"
-              index="II"
-            />
+            <PhotoFrame photo={photos.work2} label="Barba e acabamento" />
           </Reveal>
           <Reveal>
-            <PhotoFrame
-              photo={photos.work3}
-              label="Novas perspectivas"
-              index="III"
-            />
+            <PhotoFrame photo={photos.work3} label="Textura e degradê" />
           </Reveal>
         </div>
-        <p className="content-note">
-          Registros reais da barbearia. Mais trabalhos no nosso Instagram.
-        </p>
       </div>
     </section>
   );
@@ -189,31 +161,26 @@ export function Gallery() {
 
 export function SocialProof() {
   return (
-    <section className="social-proof">
-      <div className="container social-grid">
-        <p className="eyebrow">
-          QUEM SENTA NA CADEIRA
-          <br />
-          TEM HISTÓRIA PARA CONTAR.
-        </p>
+    <section className="proof-v2">
+      <div className="container proof-v2-grid">
+        <div className="proof-v2-score">
+          <Star size={24} fill="currentColor" aria-hidden="true" />
+          <strong>{brand.rating.value.toFixed(1)}</strong>
+        </div>
         <div>
-          <h2>
-            A PRÓXIMA HISTÓRIA
-            <br />
-            PODE SER A SUA.
-          </h2>
+          <p className="eyebrow">NO GOOGLE</p>
+          <h2>{brand.rating.count} AVALIAÇÕES.</h2>
           <p>
-            Este espaço receberá avaliações reais e verificadas.
-            <br />
-            Enquanto isso, acompanhe a barbearia pelo Instagram.
+            A reputação já existe fora do site. Aqui ela entra como dado real,
+            não como depoimento inventado.
           </p>
         </div>
         <a
           className="round-link"
-          href={brand.instagram}
-          aria-label={`Conhecer ${brand.name} no Instagram (nova aba)`}
+          href={brand.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Abrir SR Navalha no Google Maps"
         >
           <ArrowUpRight size={28} />
         </a>
@@ -224,22 +191,63 @@ export function SocialProof() {
 
 export function Location() {
   return (
-    <section id="localizacao" className="section location">
+    <section id="localizacao" className="section location-v2">
       <div className="container">
         <Reveal>
-          <p className="eyebrow">05 / NOS ENCONTRAMOS AQUI</p>
-          <div className="location-grid">
+          <div className="location-v2-heading">
             <div>
+              <p className="eyebrow">LOCALIZAÇÃO</p>
               <h2>
-                SEU PRÓXIMO
+                É AQUI EM
                 <br />
-                DESTINO.
+                GRAVATÁ.
               </h2>
-              <address>
-                {brand.address.street}
-                <br />
-                {brand.address.city} — {brand.address.state}
-              </address>
+            </div>
+            <p>{brand.address.full}</p>
+          </div>
+        </Reveal>
+
+        <Reveal className="map-v2-shell">
+          <iframe
+            src={brand.mapsEmbedUrl}
+            title="Mapa da SR Navalha Barbearia em Gravatá"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </Reveal>
+
+        <div className="location-v2-info">
+          <Reveal>
+            <div className="location-v2-block">
+              <MapPin size={22} aria-hidden="true" />
+              <div>
+                <span className="eyebrow">ENDEREÇO</span>
+                <p>{brand.address.street}</p>
+                <p>
+                  {brand.address.district} · {brand.address.city} ·{" "}
+                  {brand.address.state}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="location-v2-block">
+              <span className="location-v2-icon">↗</span>
+              <div>
+                <span className="eyebrow">HORÁRIOS NO MAPS</span>
+                {brand.openingHours.map((item) => (
+                  <p key={item.label}>
+                    {item.label}: <strong>{item.value}</strong>
+                  </p>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="location-v2-actions">
               <a
                 className="text-link"
                 href={brand.mapsUrl}
@@ -247,42 +255,13 @@ export function Location() {
                 rel="noopener noreferrer"
               >
                 Traçar rota <ArrowUpRight size={18} />
-                <span className="sr-only"> (abre em nova aba)</span>
               </a>
-              <div className="hours">
-                <h3>Horários de funcionamento</h3>
-                <p>Em breve, os horários oficiais por aqui.</p>
-                <span className="content-note">
-                  Precisamos confirmar com o proprietário.
-                </span>
-              </div>
-              <p className="location-phone">
-                Contato informado:{" "}
-                <a href={`tel:${brand.phone.e164}`}>{brand.phone.display}</a>
-              </p>
-              <p className="content-note">{brand.detailsStatus}</p>
+              <a className="text-link" href={"tel:" + brand.phone.e164}>
+                {brand.phone.display}
+              </a>
             </div>
-            <div className="location-panel">
-              <MapPin size={30} strokeWidth={1.3} />
-              <span className="eyebrow">{brand.address.stateName}</span>
-              <span className="location-city">
-                {brand.address.city.toUpperCase()}
-                <span>.</span>
-              </span>
-              <div className="location-panel-bottom">
-                <span>
-                  Um endereço.
-                  <br />
-                  Muitas possibilidades.
-                </span>
-                <span>
-                  {brand.address.state} / {brand.address.country}
-                </span>
-              </div>
-              <span className="location-panel-lines" aria-hidden="true" />
-            </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -290,21 +269,20 @@ export function Location() {
 
 export function FAQ() {
   return (
-    <section className="section faq" id="duvidas">
+    <section className="section faq faq-v2" id="duvidas">
       <div className="container faq-grid">
         <div>
-          <p className="eyebrow">06 / ANTES DE CHEGAR</p>
+          <p className="eyebrow">DÚVIDAS</p>
           <h2>
-            SEM
+            ANTES DE
             <br />
-            DÚVIDAS.
+            SENTAR NA CADEIRA.
           </h2>
         </div>
         <div className="faq-list">
-          {faqs.map((faq, index) => (
+          {faqs.map((faq) => (
             <details key={faq.question}>
               <summary>
-                <span className="faq-number">0{index + 1}</span>
                 <span>{faq.question}</span>
                 <Plus size={18} aria-hidden="true" />
               </summary>
@@ -319,22 +297,31 @@ export function FAQ() {
 
 export function FinalCTA() {
   return (
-    <section className="final-cta">
+    <section className="final-cta final-cta-v2">
       <div className="container">
         <Reveal>
-          <p className="eyebrow">SEU ESTILO NÃO PRECISA ESPERAR.</p>
-          <div className="final-cta-row">
-            <h2>
-              VAMOS DAR
-              <br />O PRÓXIMO <span>CORTE?</span>
-            </h2>
+          <div className="final-cta-v2-row">
             <div>
+              <p className="eyebrow">PRÓXIMO PASSO</p>
+              <h2>
+                PRONTO PARA
+                <br />
+                MARCAR?
+              </h2>
+            </div>
+            <div className="final-cta-v2-action">
               <Button variant="light" asChild>
                 <Link href={brand.bookingPath}>
                   Agendar horário <ArrowUpRight size={20} />
                 </Link>
               </Button>
-              <p>Agendamento online em preparação.</p>
+              <a
+                href={brand.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ou fale com a SR Navalha no Instagram
+              </a>
             </div>
           </div>
         </Reveal>
