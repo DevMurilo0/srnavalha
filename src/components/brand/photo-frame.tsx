@@ -19,7 +19,7 @@ export function PhotoFrame({
 }: {
   photo?: PhotoAsset;
   label: string;
-  index: string;
+  index?: string;
   className?: string;
   priority?: boolean;
 }) {
@@ -57,7 +57,7 @@ export function PhotoFrame({
       )}
       <figcaption className="photo-caption">
         <span>{label}</span>
-        <span>{index}</span>
+        {index ? <span>{index}</span> : null}
       </figcaption>
     </figure>
   );
