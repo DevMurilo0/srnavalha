@@ -10,7 +10,6 @@ import {
   Services,
   SocialProof,
 } from "@/features/home/sections";
-import { ScissorScroll } from "@/components/brand/scissor-scroll";
 import { MobileBooking } from "@/components/layout/mobile-booking";
 import { brand } from "@/config/brand";
 
@@ -24,7 +23,6 @@ export default function Home() {
       <main id="conteudo">
         <Hero />
         <Services />
-        <ScissorScroll />
         <About />
         <Professionals />
         <Gallery />
