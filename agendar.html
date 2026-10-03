@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agendar horário — SR Navalha</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#0b0d0e;--paper:#f2f0eb;--surface:#e8e5de;--wood:#b98b68;--muted:#66645f;--line:#d4d0c8;--darkline:#343637;--display:"Barlow Condensed",Impact,sans-serif;--sans:"Manrope",Arial,sans-serif;--gutter:clamp(20px,5vw,78px);--max:1320px}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.6}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.container{width:min(100%,calc(var(--max) + var(--gutter)*2));padding-inline:var(--gutter);margin-inline:auto}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.top{padding-block:34px 18px}.back{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700}.intro{display:grid;gap:22px;align-items:end;padding-bottom:28px}.intro h1,.step h2,.success h1{font-family:var(--display);text-transform:uppercase;line-height:.94;letter-spacing:-.025em;margin:0}.intro h1{font-size:clamp(58px,7vw,108px)}.intro h1 span,.success h1 span{color:#8c664a}.intro>p{max-width:470px;color:var(--muted)}
+    .progress{display:flex;overflow:auto;border-block:1px solid var(--line);scrollbar-width:none}.progress::-webkit-scrollbar{display:none}.progress button{flex:1 0 auto;min-width:130px;min-height:56px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.progress button.active{background:var(--surface);color:var(--ink);box-shadow:inset 0 -3px 0 var(--wood)}.progress button.done{color:var(--ink)}.progress button:disabled{opacity:.5;cursor:default}
+    .layout{display:grid;gap:30px;padding-block:38px 90px}.step{min-width:0}.stephead{display:flex;gap:14px;align-items:flex-start;margin-bottom:30px}.stephead .icon{width:24px;height:24px;color:#8c664a;font-weight:900}.stephead h2{font-size:clamp(42px,5.5vw,74px)}.stephead .eyebrow{color:var(--muted);margin-bottom:7px}
+    .grid-services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{position:relative;border:1px solid var(--line);background:transparent;padding:0;text-align:left;color:var(--ink);overflow:hidden;transition:.2s}.card:hover{transform:translateY(-2px);border-color:#9b8979}.card.selected{border-color:var(--ink);background:#ece8df}.card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}.cardcopy{display:grid;gap:6px;padding:14px}.cardcopy strong{font-family:var(--display);font-size:25px;line-height:1;text-transform:uppercase}.cardcopy small{color:var(--muted);font-size:10px}.mark{position:absolute;right:10px;top:10px;width:28px;height:28px;display:grid;place-items:center;background:#0b0d0ecc;color:#fff;border:1px solid #ffffffaa;font-size:13px}
+    .pros{display:grid;gap:14px}.pro{display:grid;grid-template-columns:92px 1fr;align-items:center;padding-right:45px;min-height:114px}.pro img{width:92px;height:114px;object-fit:cover}.pro .cardcopy{padding:16px}
+    .dates{display:flex;gap:10px;overflow:auto;padding-bottom:8px}.date{flex:0 0 84px;min-height:108px;border:1px solid var(--line);background:transparent;display:grid;place-items:center;align-content:center;gap:2px}.date.selected{background:var(--ink);color:var(--paper);border-color:var(--ink)}.date small{font-size:9px;color:var(--muted);text-transform:uppercase}.date.selected small{color:#b8b7af}.date strong{font-family:var(--display);font-size:36px;line-height:1}.date span{font-size:10px;text-transform:uppercase}.timeshead{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-top:32px;margin-bottom:14px}.timeshead p{margin:0;color:var(--muted);font-size:10px}.hold{font-weight:800;color:#8c664a;font-variant-numeric:tabular-nums}.times{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.times button{min-height:49px;border:1px solid var(--line);background:transparent;font-weight:700}.times button.selected{background:var(--ink);color:var(--paper)}.times button:disabled{background:#ece8e0;color:#aaa5a0;text-decoration:line-through;cursor:not-allowed}.empty{padding:28px;border:1px dashed #bdb8af;text-align:center;color:var(--muted);margin-top:24px}
+    .form{display:grid;gap:18px}.form label{display:grid;gap:7px}.form span{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}.form input{min-height:58px;border:1px solid var(--line);background:transparent;padding:0 15px;outline:none}.form input:focus{border-color:var(--ink);box-shadow:inset 0 -2px 0 var(--wood)}.whatsapp{display:flex;gap:14px;margin-top:24px;padding:18px;background:#e5e9e1;border-left:3px solid #5f745e}.wa{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:#5f745e;color:#fff;font-size:9px;font-weight:900}.whatsapp p{margin:4px 0 0;color:#586056;font-size:11px}
+    .review{border-top:1px solid var(--line)}.review div{display:grid;grid-template-columns:110px 1fr;gap:18px;padding-block:17px;border-bottom:1px solid var(--line)}.review span{color:var(--muted);font-size:10px;text-transform:uppercase}.review strong{font-size:13px}.warning{margin-top:22px;padding:17px 19px;background:#eee4da;border:1px solid #d7c7b8}.warning p{margin:4px 0 0;color:#725f4d;font-size:11px}
+    .actions{display:flex;justify-content:space-between;gap:12px;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}.btn,.secondary{min-height:52px;padding:0 18px;border:1px solid transparent;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.06em}.btn{background:var(--wood);color:var(--ink)}.btn:disabled{opacity:.4;cursor:not-allowed}.secondary{border-color:var(--line);background:transparent}.secondary:disabled{opacity:.3;cursor:default}
+    aside{align-self:start;background:var(--ink);color:var(--paper);padding:23px}.sumhead{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--darkline)}.sumhead span{font-size:9px;color:var(--wood);text-transform:uppercase}.summary dl{margin:0}.summary dl div{padding-block:15px;border-bottom:1px solid var(--darkline)}.summary dt{font-size:9px;color:#b5b5ae;text-transform:uppercase;letter-spacing:.1em}.summary dd{margin:4px 0 0;font-family:var(--display);font-size:23px;line-height:1.1;text-transform:uppercase}.summary .holdbox{margin-top:20px;color:var(--wood)}.summary>p{color:#b5b5ae;font-size:10px;margin-top:16px}
+    .success{max-width:820px;padding-block:70px 110px}.success h1{font-size:clamp(66px,9vw,126px)}.success>p{max-width:600px;color:var(--muted);font-size:15px}.successcard{display:grid;gap:8px;margin-top:28px;padding:22px;background:var(--surface);border:1px solid var(--line)}.successcard strong{font-family:var(--display);font-size:28px;text-transform:uppercase}.success-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}.hidden{display:none}
+    .note{margin-top:16px;color:var(--muted);font-size:10px}
+    @media(min-width:700px){.intro{grid-template-columns:1fr minmax(260px,.7fr)}.grid-services{grid-template-columns:repeat(4,1fr)}.pros{grid-template-columns:repeat(3,1fr)}.pro{display:block;padding:0}.pro img{width:100%;height:auto;aspect-ratio:4/5}.form{grid-template-columns:1fr 1fr}.times{grid-template-columns:repeat(4,1fr)}}
+    @media(min-width:980px){.layout{grid-template-columns:minmax(0,1fr) 330px;gap:58px}.summary{position:sticky;top:28px}.times{grid-template-columns:repeat(5,1fr)}}
+    @media(max-width:520px){.intro h1{font-size:56px}.actions{position:sticky;bottom:0;z-index:5;margin-inline:-20px;padding:13px 20px max(13px,env(safe-area-inset-bottom));background:#f2f0ebf2;backdrop-filter:blur(10px)}.btn{flex:1}}
+  </style>
+</head>
+<body>
+  <div class="container top"><a class="back" href="./index.html">← Voltar para o site</a></div>
+  <main class="container">
+    <section class="intro">
+      <div><p class="eyebrow">AGENDAMENTO</p><h1>ESCOLHA.<br>CONFIRME.<br><span>PRONTO.</span></h1></div>
+      <p>Esta fase é apenas a interface. Nenhuma escolha é enviada ou salva fora do navegador.</p>
+    </section>
+
+    <nav class="progress" id="progress"></nav>
+
+    <div id="success" class="success hidden">
+      <p class="eyebrow">DEMONSTRAÇÃO CONCLUÍDA</p>
+      <h1>FLUXO<br><span>FINALIZADO.</span></h1>
+      <p>A interface chegou até o final. Como ainda não existe backend, nenhum horário foi salvo ou reservado de verdade.</p>
+      <div class="successcard" id="successCard"></div>
+      <div class="success-actions"><button class="btn" id="resetBtn">Testar novamente →</button><a class="secondary" style="display:inline-flex;align-items:center" href="./index.html">Voltar ao site</a></div>
+    </div>
+
+    <div id="bookingUI" class="layout">
+      <section class="step">
+        <div id="stepContent"></div>
+        <div class="actions">
+          <button id="backBtn" class="secondary">← Voltar</button>
+          <button id="nextBtn" class="btn">Continuar →</button>
+        </div>
+      </section>
+
+      <aside class="summary">
+        <div class="sumhead"><p class="eyebrow">SEU AGENDAMENTO</p><span>Prévia</span></div>
+        <dl>
+          <div><dt>Serviço</dt><dd id="sumService">Escolha um serviço</dd></div>
+          <div><dt>Profissional</dt><dd id="sumPro">Escolha um profissional</dd></div>
+          <div><dt>Data</dt><dd id="sumDate">Escolha uma data</dd></div>
+          <div><dt>Horário</dt><dd id="sumTime">Escolha um horário</dd></div>
+        </dl>
+        <div id="holdBox" class="holdbox hidden">Reserva visual · <strong id="holdTime">07:00</strong></div>
+        <p>Nenhum horário está sendo bloqueado de verdade nesta fase.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const services=[
+      {id:"corte",name:"Corte",note:"Corte masculino e acabamento.",image:"./public/images/work/corte-perfil.webp"},
+      {id:"barba",name:"Barba",note:"Desenho, contorno e acabamento.",image:"./public/images/work/barba.webp"},
+      {id:"combo",name:"Corte + barba",note:"Atendimento combinado na mesma visita.",image:"./public/images/hero/corte-e-barba.webp"},
+      {id:"barboterapia",name:"Barboterapia",note:"Cuidado de barba e pele.",image:"./public/images/work/barboterapia.webp"}
+    ];
+    const professionals=[
+      {id:"any",name:"Qualquer profissional",note:"Mostra o primeiro horário disponível.",pos:"50%"},
+      {id:"pro-1",name:"Profissional 01",note:"Nome será substituído pela equipe oficial.",pos:"28%"},
+      {id:"pro-2",name:"Profissional 02",note:"Nome será substituído pela equipe oficial.",pos:"78%"}
+    ];
+    const slots=["08:30","09:10","09:50","10:30","11:10","13:30","14:10","14:50","15:30","16:10","16:50","17:30"];
+    const unavailable=new Set(["09:50","14:50","16:50"]);
+    const steps=["Serviço","Profissional","Data e horário","Seus dados","Revisão"];
+    const state={step:0,service:null,pro:null,date:null,time:null,name:"",phone:"",seconds:420,timer:null};
+    const progress=document.getElementById("progress"),content=document.getElementById("stepContent"),back=document.getElementById("backBtn"),next=document.getElementById("nextBtn");
+
+    function dates(){
+      const out=[],base=new Date();
+      for(let i=0;i<8;i++){const d=new Date(base);d.setDate(base.getDate()+i);out.push({key:d.toISOString().slice(0,10),date:d,rel:i===0?"Hoje":i===1?"Amanhã":"",wd:d.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".",""),day:d.toLocaleDateString("pt-BR",{day:"2-digit"}),month:d.toLocaleDateString("pt-BR",{month:"short"}).replace(".","")})}return out
+    }
+    const dateOptions=dates();
+    const service=()=>services.find(x=>x.id===state.service);
+    const pro=()=>professionals.find(x=>x.id===state.pro);
+    const dateObj=()=>dateOptions.find(x=>x.key===state.date);
+    const fullDate=()=>dateObj()?dateObj().date.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"}):"Escolha uma data";
+
+    function startTimer(){
+      clearInterval(state.timer);state.seconds=420;updateSummary();
+      state.timer=setInterval(()=>{state.seconds--; if(state.seconds<=0){clearInterval(state.timer);state.time=null;state.seconds=420;render()}else updateSummary()},1000)
+    }
+    function renderProgress(){progress.innerHTML=steps.map((s,i)=>`<button ${i>state.step?"disabled":""} data-step="${i}" class="${i===state.step?"active":i<state.step?"done":""}">${i<state.step?"✓ ":""}${s}</button>`).join("");progress.querySelectorAll("button").forEach(b=>b.onclick=()=>{const i=+b.dataset.step;if(i<=state.step){state.step=i;render()}})}
+    function render(){
+      renderProgress();back.disabled=state.step===0;next.textContent=state.step===4?"Confirmar demonstração ✓":"Continuar →";next.disabled=!valid();
+      if(state.step===0) content.innerHTML=`<div class="stephead"><div class="icon">✂</div><div><p class="eyebrow">ESCOLHA O SERVIÇO</p><h2>O QUE VOCÊ VAI FAZER?</h2></div></div><div class="grid-services">${services.map(s=>`<button class="card ${state.service===s.id?"selected":""}" data-service="${s.id}"><img src="${s.image}" alt=""><span class="cardcopy"><strong>${s.name}</strong><small>${s.note}</small></span><span class="mark">${state.service===s.id?"✓":""}</span></button>`).join("")}</div><p class="note">Serviços, preços e durações continuam provisórios até a confirmação oficial da barbearia.</p>`;
+      if(state.step===1) content.innerHTML=`<div class="stephead"><div class="icon">◎</div><div><p class="eyebrow">ESCOLHA O PROFISSIONAL</p><h2>COM QUEM VOCÊ QUER CORTAR?</h2></div></div><div class="pros">${professionals.map(p=>`<button class="card pro ${state.pro===p.id?"selected":""}" data-pro="${p.id}"><img src="./public/images/team/atendimento.webp" style="object-position:${p.pos} center" alt=""><span class="cardcopy"><strong>${p.name}</strong><small>${p.note}</small></span><span class="mark">${state.pro===p.id?"✓":""}</span></button>`).join("")}</div>`;
+      if(state.step===2) content.innerHTML=`<div class="stephead"><div class="icon">▦</div><div><p class="eyebrow">DATA E HORÁRIO</p><h2>QUANDO VOCÊ QUER IR?</h2></div></div><div class="dates">${dateOptions.map(d=>`<button class="date ${state.date===d.key?"selected":""}" data-date="${d.key}"><small>${d.rel||d.wd}</small><strong>${d.day}</strong><span>${d.month}</span></button>`).join("")}</div>${state.date?`<div class="timeshead"><div><p class="eyebrow">HORÁRIOS DISPONÍVEIS</p><p>Disponibilidade visual de demonstração.</p></div>${state.time?`<strong class="hold" id="inlineHold">${formatTimer()}</strong>`:""}</div><div class="times">${slots.map(t=>`<button ${unavailable.has(t)?"disabled":""} data-time="${t}" class="${state.time===t?"selected":""}">${t}</button>`).join("")}</div><p class="note">O contador simula a reserva temporária de 7 minutos. Sem backend, ele vale apenas nesta tela.</p>`:`<div class="empty">Escolha um dia para ver os horários.</div>`}`;
+      if(state.step===3) content.innerHTML=`<div class="stephead"><div class="icon">☎</div><div><p class="eyebrow">SEUS DADOS</p><h2>COMO A GENTE FALA COM VOCÊ?</h2></div></div><div class="form"><label><span>Nome</span><input id="name" value="${state.name}" placeholder="Seu nome"></label><label><span>WhatsApp</span><input id="phone" value="${state.phone}" placeholder="(81) 99999-9999" inputmode="tel"></label></div><div class="whatsapp"><span class="wa">WA</span><div><strong>Confirmação por WhatsApp</strong><p>Na fase com backend, este número receberá o código de verificação e a confirmação nas últimas 24 horas.</p></div></div>`;
+      if(state.step===4) content.innerHTML=`<div class="stephead"><div class="icon">✓</div><div><p class="eyebrow">REVISE ANTES DE CONFIRMAR</p><h2>ESTÁ TUDO CERTO?</h2></div></div><div class="review"><div><span>Serviço</span><strong>${service()?.name}</strong></div><div><span>Profissional</span><strong>${pro()?.name}</strong></div><div><span>Data</span><strong>${fullDate()}</strong></div><div><span>Horário</span><strong>${state.time}</strong></div><div><span>Cliente</span><strong>${state.name}</strong></div><div><span>WhatsApp</span><strong>${state.phone}</strong></div></div><div class="warning"><strong>Demonstração frontend</strong><p>O botão abaixo apenas mostra a tela de sucesso. Nenhum registro será criado.</p></div>`;
+      bind();updateSummary();
+    }
+    function bind(){
+      content.querySelectorAll("[data-service]").forEach(b=>b.onclick=()=>{state.service=b.dataset.service;render()});
+      content.querySelectorAll("[data-pro]").forEach(b=>b.onclick=()=>{state.pro=b.dataset.pro;render()});
+      content.querySelectorAll("[data-date]").forEach(b=>b.onclick=()=>{state.date=b.dataset.date;state.time=null;render()});
+      content.querySelectorAll("[data-time]").forEach(b=>b.onclick=()=>{state.time=b.dataset.time;startTimer();render()});
+      const n=document.getElementById("name"),p=document.getElementById("phone");if(n)n.oninput=e=>{state.name=e.target.value;next.disabled=!valid()};if(p)p.oninput=e=>{state.phone=e.target.value;next.disabled=!valid()};
+    }
+    function valid(){if(state.step===0)return!!state.service;if(state.step===1)return!!state.pro;if(state.step===2)return!!(state.date&&state.time);if(state.step===3)return state.name.trim().length>=2&&state.phone.replace(/\D/g,"").length>=10;return true}
+    function formatTimer(){return String(Math.floor(state.seconds/60)).padStart(2,"0")+":"+String(state.seconds%60).padStart(2,"0")}
+    function updateSummary(){document.getElementById("sumService").textContent=service()?.name||"Escolha um serviço";document.getElementById("sumPro").textContent=pro()?.name||"Escolha um profissional";document.getElementById("sumDate").textContent=fullDate();document.getElementById("sumTime").textContent=state.time||"Escolha um horário";const hb=document.getElementById("holdBox");hb.classList.toggle("hidden",!state.time);document.getElementById("holdTime").textContent=formatTimer();const ih=document.getElementById("inlineHold");if(ih)ih.textContent=formatTimer()}
+    back.onclick=()=>{if(state.step>0){state.step--;render()}};
+    next.onclick=()=>{if(!valid())return;if(state.step<4){state.step++;render();scrollTo({top:0,behavior:"smooth"})}else finish()};
+    function finish(){clearInterval(state.timer);document.getElementById("bookingUI").classList.add("hidden");document.getElementById("progress").classList.add("hidden");const s=document.getElementById("success");s.classList.remove("hidden");document.getElementById("successCard").innerHTML=`<span>${service().name}</span><strong>${fullDate()}</strong><strong>${state.time}</strong><span>${pro().name}</span>`;scrollTo({top:0,behavior:"smooth"})}
+    document.getElementById("resetBtn").onclick=()=>{Object.assign(state,{step:0,service:null,pro:null,date:null,time:null,name:"",phone:"",seconds:420});document.getElementById("bookingUI").classList.remove("hidden");document.getElementById("progress").classList.remove("hidden");document.getElementById("success").classList.add("hidden");render()};
+    render();
+  </script>
+</body>
+</html>
