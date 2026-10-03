@@ -21,8 +21,8 @@ export function Services() {
               </h2>
             </div>
             <p className="section-intro">
-              Uma seleção visual do que já aparece no trabalho da SR Navalha.
-              A tabela oficial de serviços entra junto com o agendamento.
+              Cortes, barba e estilos que aparecem no dia a dia da barbearia.
+              Escolha o que combina com você e veja os resultados reais.
             </p>
           </div>
         </Reveal>
@@ -61,9 +61,9 @@ export function About() {
             PARA CORTAR BEM.
           </h2>
           <p>
-            Ambiente claro, bancada longa, cadeiras alinhadas e uma equipe
-            trabalhando ao mesmo tempo. A SR Navalha tem uma presença visual
-            própria e o site precisa mostrar isso sem inventar personagem.
+            Ambiente claro, estrutura confortável e uma equipe focada no
+            atendimento. Um espaço para chegar, sentar e sair com o visual
+            alinhado do seu jeito.
           </p>
           <div className="about-v2-meta">
             <span>{brand.address.district}</span>
@@ -92,9 +92,8 @@ export function Professionals() {
               </h2>
             </div>
             <p>
-              Os registros públicos mostram mais de um profissional em
-              atendimento. Enquanto os nomes individuais não estão confirmados,
-              mostramos a equipe real sem atribuir identidades erradas.
+              Quem faz a SR Navalha acontecer no dia a dia. Profissionais
+              trabalhando lado a lado, com atenção ao corte e ao acabamento.
             </p>
           </div>
         </Reveal>
@@ -171,8 +170,8 @@ export function SocialProof() {
           <p className="eyebrow">NO GOOGLE</p>
           <h2>{brand.rating.count} AVALIAÇÕES.</h2>
           <p>
-            A reputação já existe fora do site. Aqui ela entra como dado real,
-            não como depoimento inventado.
+            Quem já passou pela cadeira ajuda a contar a experiência. A ficha
+            da SR Navalha no Google reúne centenas de avaliações.
           </p>
         </div>
         <a
