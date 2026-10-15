@@ -1,0 +1,148 @@
+{
+  "pages": [
+    {
+      "page": "agendar.html",
+      "width": 320,
+      "allSteps": true,
+      "validation": true,
+      "backAndReset": true,
+      "overflow": false,
+      "consoleErrors": []
+    },
+    {
+      "page": "index.html",
+      "width": 320,
+      "overflow": false,
+      "consoleErrors": [],
+      "failedRequests": [],
+      "gallery": {
+        "during": 52,
+        "after": 146
+      },
+      "images": "loaded",
+      "fonts": "local"
+    },
+    {
+      "page": "agendar.html",
+      "width": 375,
+      "allSteps": true,
+      "validation": true,
+      "backAndReset": true,
+      "overflow": false,
+      "consoleErrors": []
+    },
+    {
+      "page": "index.html",
+      "width": 375,
+      "overflow": false,
+      "consoleErrors": [],
+      "failedRequests": [],
+      "gallery": {
+        "during": 52,
+        "after": 170
+      },
+      "images": "loaded",
+      "fonts": "local"
+    },
+    {
+      "page": "agendar.html",
+      "width": 768,
+      "allSteps": true,
+      "validation": true,
+      "backAndReset": true,
+      "overflow": false,
+      "consoleErrors": []
+    },
+    {
+      "page": "index.html",
+      "width": 768,
+      "overflow": false,
+      "consoleErrors": [],
+      "failedRequests": [],
+      "gallery": {
+        "during": 75,
+        "after": 233
+      },
+      "images": "loaded",
+      "fonts": "local"
+    },
+    {
+      "page": "agendar.html",
+      "width": 1440,
+      "allSteps": true,
+      "validation": true,
+      "backAndReset": true,
+      "overflow": false,
+      "consoleErrors": []
+    },
+    {
+      "page": "index.html",
+      "width": 1440,
+      "overflow": false,
+      "consoleErrors": [],
+      "failedRequests": [],
+      "gallery": {
+        "during": 74,
+        "after": 209
+      },
+      "images": "loaded",
+      "fonts": "local"
+    }
+  ],
+  "checks": [
+    "Reduced motion: initial and runtime; visible content; no parallax; gallery functional",
+    "No JavaScript: home content and gallery visible; booking guidance",
+    "No npm/build dependencies or CDN runtime requests",
+    "Local fonts and images; native touch scrolling; mouse drag; keyboard gallery",
+    "Footer credit, external hrefs and target=_blank on both pages",
+    "Final pass after card alignment: both pages at all four widths, equal card heights, visible footer credit, images, all reveal targets, no overflow or page errors"
+  ],
+  "errors": [],
+  "screenshots": [
+    "home-1440",
+    "agendar-1440",
+    "revisao-1440",
+    "home-320",
+    "agendar-320",
+    "home-375",
+    "agendar-375",
+    "calendario-375",
+    "conclusao-375",
+    "home-768",
+    "agendar-768"
+  ],
+  "externalLinks": [
+    "https://www.instagram.com/barbeariasrnavalha01/",
+    "https://www.google.com/maps/search/?api=1&query=SR%20Navalha%20Barbearia%20Gravat%C3%A1",
+    "https://www.google.com/maps/search/?api=1&query=Av.%20Governador%20Agamenon%20Magalh%C3%A3es%2C%20349%20-%20Prado%2C%20Gravat%C3%A1%20-%20PE%2C%2055642-210",
+    "https://wa.me/5581995722396",
+    "https://murilogabriel.com.br/"
+  ],
+  "date": "2026-10-15T20:37:46.477Z",
+  "performance": {
+    "domElements": 342,
+    "scripts": [
+      "http://127.0.0.1:4173/js/animations.js",
+      "http://127.0.0.1:4173/js/gallery.js",
+      "http://127.0.0.1:4173/js/main.js",
+      "http://127.0.0.1:4173/js/interactions.js"
+    ],
+    "initialTransferBytes": 647695,
+    "externalRuntimeRequests": []
+  },
+  "externalNavigation": {
+    "portfolio": {
+      "httpStatus": 200,
+      "resolvedURL": "https://www.murilogabriel.com.br/",
+      "clickedNewTab": true,
+      "openerNull": true
+    },
+    "instagram": {
+      "httpStatus": 200
+    },
+    "googleMaps": {
+      "httpStatus": 200,
+      "reviewAttributionVerified": false
+    }
+  }
+}
