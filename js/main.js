@@ -13,6 +13,7 @@
     header?.classList.toggle('sr-header--scrolled', scrollY > 24);
     const length = document.documentElement.scrollHeight - innerHeight;
     header?.style.setProperty('--page-progress', String(length > 0 ? Math.min(1,scrollY/length) : 0));
+    updateActive();
     if (hero && mobileBooking) {
       const show = innerWidth <= 760 && hero.getBoundingClientRect().bottom <= 0 && footer.getBoundingClientRect().top > innerHeight + 30;
       mobileBooking.classList.toggle('is-visible', show);
@@ -57,20 +58,36 @@
     }
   });
   addEventListener('scroll',schedule,{passive:true});
-  addEventListener('resize',()=>{ if(innerWidth>1040) setMenu(false,false);schedule(); },{passive:true});
+  addEventListener('resize',()=>{ if(innerWidth>1040&&toggle?.getAttribute('aria-expanded')==='true'){setMenu(false,false);header.querySelector('.sr-header__logo')?.focus({preventScroll:true});}schedule(); },{passive:true});
   const links=[...document.querySelectorAll('[data-section-link]')];
-  if ('IntersectionObserver' in window) {
-    const observer=new IntersectionObserver(entries=>{
-      entries.filter(entry=>entry.isIntersecting).forEach(entry=>{
-        links.forEach(link=>{
-          const active=link.dataset.sectionLink===entry.target.id;
-          link.classList.toggle('is-active',active);
-          if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
-        });
-      });
-    },{rootMargin:'-12% 0px -65% 0px'});
-    links.forEach(link=>{const section=document.getElementById(link.dataset.sectionLink);if(section)observer.observe(section);});
+  const nav=document.querySelector('.sr-header__nav');
+  const indicator=document.createElement('span');indicator.className='motion-nav-indicator';indicator.setAttribute('aria-hidden','true');
+  if(links.length){nav.append(indicator);nav.classList.add('motion-nav');}
+  let active=links.find(link=>link.classList.contains('is-active'))||links[0];
+  function moveIndicator(animate=true){
+    if(!active||!nav||!nav.getClientRects().length)return;
+    const box=active.getBoundingClientRect(),parent=nav.getBoundingClientRect();
+    const target={x:box.left-parent.left,width:box.width,opacity:1};
+    if(window.gsap){gsap.to(indicator,{...target,duration:animate&&!window.SrMotion?.preferences().reduced ? .45 : 0,ease:'power3.out',overwrite:true});}
+    else{indicator.style.transform=`translateX(${target.x}px)`;indicator.style.width=`${target.width}px`;indicator.style.opacity='1';}
   }
+  function select(link){
+    active=link;
+    links.forEach(item=>{const selected=item===link;item.classList.toggle('is-active',selected);if(selected)item.setAttribute('aria-current','location');else item.removeAttribute('aria-current');});
+    moveIndicator();
+  }
+  // Semantic section state shares the header's existing rAF; no extra observer or scroll writer.
+  const sections=links.map(link=>({link,node:document.getElementById(link.dataset.sectionLink)})).filter(item=>item.node).sort((a,b)=>a.node.compareDocumentPosition(b.node)&Node.DOCUMENT_POSITION_FOLLOWING?-1:1);
+  function updateActive(){
+    let current=sections[0];const boundary=header.offsetHeight+40;
+    sections.forEach(item=>{if(item.node.getBoundingClientRect().top<=boundary)current=item;});
+    if(current&&current.link!==active)select(current.link);
+  }
+  const navResize=nav&&'ResizeObserver'in window?new ResizeObserver(()=>moveIndicator(false)):null;if(navResize)navResize.observe(nav);
+  addEventListener('sr:motionchange',()=>moveIndicator(false));
+  addEventListener('sr:motiondispose',()=>{navResize?.disconnect();window.gsap?.killTweensOf(indicator);},{once:true});
+  active?.setAttribute('aria-current','location');
+  document.fonts?.ready.then(()=>moveIndicator(false));
   document.querySelectorAll('[data-current-year]').forEach(item=>item.textContent=new Date().getFullYear());
   update();
 })();

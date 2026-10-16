@@ -1,0 +1,1454 @@
+[
+  {
+    "width": 320,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -12,
+        "right": 332
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -26,
+        "right": 346
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -52.0574951171875,
+        "right": 331.125
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 437,
+    "headerOverlap": false
+  },
+  {
+    "width": 320,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  },
+  {
+    "width": 375,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -12,
+        "right": 387
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -26,
+        "right": 401
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 430,
+    "headerOverlap": false
+  },
+  {
+    "width": 375,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  },
+  {
+    "width": 390,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -12,
+        "right": 402
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -26,
+        "right": 416
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "15px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "15px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 430,
+    "headerOverlap": false
+  },
+  {
+    "width": 390,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  },
+  {
+    "width": 768,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -20,
+        "right": 788
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "18px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "15.8432px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "15.8432px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "15.8432px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15.072px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15.072px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15.072px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "15.072px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "15.8432px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 382,
+    "headerOverlap": false
+  },
+  {
+    "width": 768,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  },
+  {
+    "width": 1366,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -20,
+        "right": 1386
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14.098px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16.026px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13.732px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13.732px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13.732px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "19.124px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "19.124px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "19.124px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "19.124px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13.732px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 354,
+    "headerOverlap": false
+  },
+  {
+    "width": 1366,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14.098px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.732px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  },
+  {
+    "width": 1440,
+    "file": "index",
+    "errors": [],
+    "overflow": false,
+    "wide": [
+      {
+        "tag": "IMG",
+        "cls": "",
+        "x": -20,
+        "right": 1460
+      }
+    ],
+    "type": [
+      {
+        "selector": "is-active",
+        "font": "14.32px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-hero__lede",
+        "font": "16.84px",
+        "text": "Estilo, precisão e o cuidado q"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Degradê, social, moderno ou no"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Cuidados que valorizam o seu v"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Mais personalidade nos detalhe"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13.88px",
+        "text": "CONHECER O ESPAÇO"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13.88px",
+        "text": "VER MAIS TRABALHOS"
+      },
+      {
+        "selector": "sr-btn sr-btn--outline",
+        "font": "13.88px",
+        "text": "CONHECER NOSSA EQUIPE"
+      },
+      {
+        "selector": "P",
+        "font": "20px",
+        "text": "Excelente! Todos os funcionári"
+      },
+      {
+        "selector": "P",
+        "font": "20px",
+        "text": "Atendimento excepcional! A equ"
+      },
+      {
+        "selector": "P",
+        "font": "20px",
+        "text": "Servico de qualidade e bom ate"
+      },
+      {
+        "selector": "P",
+        "font": "20px",
+        "text": "O atendimento foi top de linha"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "Av. Governador Agamenon Magalh"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "Segunda a sábado: 08:30 — 18:3"
+      },
+      {
+        "selector": "LI",
+        "font": "16px",
+        "text": "(81) 99572-2396"
+      },
+      {
+        "selector": "sr-btn sr-btn--ghost",
+        "font": "13.88px",
+        "text": "VER NO MAPA →"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Como posso agendar um horário?"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "O agendamento online está em d"
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Posso escolher o profissional?"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "O fluxo demonstrativo permite "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "A barbearia atende crianças?+"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "Para confirmar serviço, idade "
+      },
+      {
+        "selector": "SUMMARY",
+        "font": "17px",
+        "text": "Como funcionam os cancelamento"
+      },
+      {
+        "selector": "P",
+        "font": "16px",
+        "text": "As regras devem ser confirmada"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO ›"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "reviewHeight": 359,
+    "headerOverlap": false
+  },
+  {
+    "width": 1440,
+    "file": "agendar",
+    "errors": [],
+    "overflow": false,
+    "wide": [],
+    "type": [
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Início"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Serviços"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Ambiente"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Equipe"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Trabalhos"
+      },
+      {
+        "selector": "A",
+        "font": "14.32px",
+        "text": "Localização"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled sr-header__book",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO ↗"
+      },
+      {
+        "selector": "sr-btn sr-btn--filled",
+        "font": "13.88px",
+        "text": "AGENDAR HORÁRIO ↗"
+      }
+    ],
+    "headerOverlap": false
+  }
+]

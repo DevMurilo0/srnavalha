@@ -1,0 +1,97 @@
+[
+  {
+    "mode": "no-js",
+    "passed": true,
+    "debug": null
+  },
+  {
+    "mode": "gsap",
+    "passed": true,
+    "debug": {
+      "status": "fallback",
+      "generation": 0,
+      "splits": 0,
+      "scrollTriggers": 0,
+      "heroProgress": 1,
+      "error": "A local animation library is unavailable"
+    }
+  },
+  {
+    "mode": "ScrollTrigger",
+    "passed": true,
+    "debug": {
+      "status": "fallback",
+      "generation": 0,
+      "version": "3.15.0",
+      "splits": 0,
+      "scrollTriggers": 0,
+      "heroProgress": 1,
+      "error": "A local animation library is unavailable"
+    }
+  },
+  {
+    "mode": "SplitText",
+    "passed": true,
+    "debug": {
+      "status": "fallback",
+      "generation": 0,
+      "version": "3.15.0",
+      "splits": 0,
+      "scrollTriggers": 0,
+      "heroProgress": 1,
+      "error": "A local animation library is unavailable"
+    }
+  },
+  {
+    "mode": "reduced",
+    "passed": true,
+    "debug": {
+      "status": "reduced",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 0,
+      "scrollTriggers": 0,
+      "heroProgress": 1,
+      "error": null
+    }
+  },
+  {
+    "mode": "runtime",
+    "passed": true,
+    "debug": {
+      "status": "ready",
+      "generation": 3,
+      "version": "3.15.0",
+      "splits": 10,
+      "scrollTriggers": 13,
+      "heroProgress": 1,
+      "error": null
+    }
+  },
+  {
+    "mode": "resize",
+    "passed": true,
+    "debug": {
+      "status": "ready",
+      "generation": 7,
+      "version": "3.15.0",
+      "splits": 10,
+      "scrollTriggers": 13,
+      "heroProgress": 1,
+      "error": null
+    }
+  },
+  {
+    "mode": "recovery",
+    "passed": true,
+    "debug": {
+      "status": "fallback",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 0,
+      "scrollTriggers": 0,
+      "heroProgress": 1,
+      "error": "intentional test"
+    }
+  }
+]

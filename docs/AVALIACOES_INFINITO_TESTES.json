@@ -1,0 +1,222 @@
+[
+  {
+    "width": 320,
+    "initial": {
+      "speed": 30,
+      "width": 1032,
+      "viewport": 280,
+      "duration": 34400,
+      "rate": 1,
+      "cards": 4,
+      "clones": 1,
+      "duplicateFocus": false,
+      "height": 524.625,
+      "overflow": false
+    },
+    "cycles": {
+      "wraps": [
+        {
+          "at": 34106.80000001788,
+          "phase": 5.458229999805044
+        },
+        {
+          "at": 68355.40000001788,
+          "phase": 0.9162299998052186
+        }
+      ],
+      "samples": 708,
+      "gaps": [],
+      "maxNormalStep": 6.958877918350481e-13,
+      "maxSeamResidual": 3.907985046680551e-13,
+      "start": 7457.299999982119,
+      "last": {
+        "phase": 0.9162299998052186,
+        "now": 75812.7
+      },
+      "finished": 68369.70000001788
+    },
+    "stopped": {
+      "time": 0,
+      "rate": 0,
+      "state": "paused"
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 375,
+    "initial": {
+      "speed": 30,
+      "width": 1252,
+      "viewport": 327,
+      "duration": 41733.333333333336,
+      "rate": 1,
+      "cards": 4,
+      "clones": 1,
+      "duplicateFocus": false,
+      "height": 421.046875,
+      "overflow": false
+    },
+    "cycles": {
+      "wraps": [
+        {
+          "at": 41681.399999988076,
+          "phase": 2.950189999573922
+        },
+        {
+          "at": 83329.69999998808,
+          "phase": 0.39918999957371853
+        }
+      ],
+      "samples": 867,
+      "gaps": [],
+      "maxNormalStep": 1.0551559626037488e-12,
+      "maxSeamResidual": 9.992007221626409e-14,
+      "start": 7469.800000011921,
+      "last": {
+        "phase": 0.39918999957371853,
+        "now": 90799.5
+      },
+      "finished": 83336.80000001192
+    },
+    "stopped": {
+      "time": 0,
+      "rate": 0,
+      "state": "paused"
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 768,
+    "initial": {
+      "speed": 30,
+      "width": 1128,
+      "viewport": 691,
+      "duration": 37600,
+      "rate": 1,
+      "cards": 4,
+      "clones": 1,
+      "duplicateFocus": false,
+      "height": 544.984375,
+      "overflow": false
+    },
+    "cycles": {
+      "wraps": [
+        {
+          "at": 37198.69999999404,
+          "phase": 0.9552599997792276
+        },
+        {
+          "at": 74780.49999999403,
+          "phase": 0.4092599997788784
+        }
+      ],
+      "samples": 678,
+      "gaps": [],
+      "maxNormalStep": 6.45705711121991e-13,
+      "maxSeamResidual": 2.913225216616411e-13,
+      "start": 7906.9000000059605,
+      "last": {
+        "phase": 0.4092599997788784,
+        "now": 82687.4
+      },
+      "finished": 74795.79999998212
+    },
+    "stopped": {
+      "time": 0,
+      "rate": 0,
+      "state": "paused"
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 1366,
+    "initial": {
+      "speed": 30,
+      "width": 1608,
+      "viewport": 1210,
+      "duration": 53600,
+      "rate": 1,
+      "cards": 4,
+      "clones": 1,
+      "duplicateFocus": false,
+      "height": 409.09375,
+      "overflow": false
+    },
+    "cycles": {
+      "wraps": [
+        {
+          "at": 53884.39999997616,
+          "phase": 4.436729999973904
+        },
+        {
+          "at": 107382.19999997616,
+          "phase": 1.3707299999739917
+        }
+      ],
+      "samples": 928,
+      "gaps": [],
+      "maxNormalStep": 3.500999999999967,
+      "maxSeamResidual": 6.350475700855895e-14,
+      "start": 8329.600000023842,
+      "last": {
+        "phase": 1.3707299999739917,
+        "now": 115711.8
+      },
+      "finished": 107394.5
+    },
+    "stopped": {
+      "time": 0,
+      "rate": 0,
+      "state": "paused"
+    },
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "initial": {
+      "speed": 30,
+      "width": 1608,
+      "viewport": 1210,
+      "duration": 53600,
+      "rate": 1,
+      "cards": 4,
+      "clones": 1,
+      "duplicateFocus": false,
+      "height": 449.5625,
+      "overflow": false
+    },
+    "cycles": {
+      "wraps": [
+        {
+          "at": 53699.99999998808,
+          "phase": 0.9350999999962369
+        },
+        {
+          "at": 107347.89999998808,
+          "phase": 2.3720999999962804
+        }
+      ],
+      "samples": 973,
+      "gaps": [],
+      "maxNormalStep": 0.5019000000036442,
+      "maxSeamResidual": 1.545430450278218e-13,
+      "start": 7787.300000011921,
+      "last": {
+        "phase": 2.3720999999962804,
+        "now": 115135.2
+      },
+      "finished": 107358.90000000596
+    },
+    "stopped": {
+      "time": 0,
+      "rate": 0,
+      "state": "paused"
+    },
+    "errors": [],
+    "passed": true
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "width": 1041,
+    "overlap": false,
+    "navSize": "14px"
+  },
+  {
+    "width": 1100,
+    "overlap": false,
+    "navSize": "14px"
+  },
+  {
+    "width": 1200,
+    "overlap": false,
+    "navSize": "14px"
+  },
+  {
+    "cpuThrottle": 4,
+    "width": 375,
+    "cls": 0,
+    "layoutShifts": [],
+    "longTasks": [
+      181,
+      224,
+      371,
+      462,
+      76,
+      119,
+      132,
+      81,
+      181,
+      55,
+      57,
+      102
+    ],
+    "debug": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 9,
+      "scrollTriggers": 7,
+      "heroProgress": 1,
+      "error": null
+    },
+    "hiddenLines": 0
+  }
+]

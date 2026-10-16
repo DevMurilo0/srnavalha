@@ -1,0 +1,290 @@
+[
+  {
+    "width": 320,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 3,
+      "scrollTriggers": 32,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 3
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 3
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 375,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 2,
+      "scrollTriggers": 32,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 3
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 3
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 3,
+      "scrollTriggers": 32,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 3
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 3
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 3,
+      "scrollTriggers": 37,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 2
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 3
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1366,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 3,
+      "scrollTriggers": 37,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 2
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 2
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 2
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "passed": true,
+    "initial": {
+      "status": "ready",
+      "generation": 1,
+      "version": "3.15.0",
+      "splits": 3,
+      "scrollTriggers": 37,
+      "heroProgress": 1,
+      "error": null
+    },
+    "seen": [
+      {
+        "text": "DETALHES QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "UM AMBIENTE FEITO PARA VOCÊ.",
+        "lines": 2
+      },
+      {
+        "text": "ESTILO EM CADA DETALHE.",
+        "lines": 2
+      },
+      {
+        "text": "PROFISSIONAIS QUE FAZEM A DIFERENÇA.",
+        "lines": 3
+      },
+      {
+        "text": "A MELHOR REFERÊNCIA É QUEM JÁ VEIO.",
+        "lines": 2
+      },
+      {
+        "text": "É AQUI EM GRAVATÁ.",
+        "lines": 2
+      },
+      {
+        "text": "ANTES DE SENTAR NA CADEIRA.",
+        "lines": 2
+      },
+      {
+        "text": "TE ESPERA.",
+        "lines": 1
+      }
+    ],
+    "errors": []
+  }
+]

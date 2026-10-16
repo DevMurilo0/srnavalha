@@ -1,5 +1,7 @@
 # Avaliações e comprovação de autoria
 
+> Registro histórico da rodada V2. O status pendente foi resolvido na V4; consulte [AVALIACOES_GOOGLE.md](AVALIACOES_GOOGLE.md) para fontes e dados atuais.
+
 A seção da Home está preparada com `data-review-slot` e `data-review-status="pending-verification"`. Ela exibe um convite editorial para ler avaliações no Google Maps; não representa um depoimento, nem atribui falas a clientes.
 
 Na revisão de 15/10/2026, a busca pública localizou o estabelecimento e comentários em diretórios, mas não permitiu confirmar diretamente no Google Maps os nomes dos autores, os textos originais e links individuais. Por isso não foram publicados nomes, citações, nota média ou quantidade de avaliações. Os números “5.0” e “+460”, presentes na versão anterior, foram retirados da Home por falta de confirmação nesta revisão.

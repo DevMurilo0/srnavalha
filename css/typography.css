@@ -1,0 +1,11 @@
+/* Single informational type scale shared by Home and the booking flow. */
+:root{
+ --type-body:clamp(16px,1.1vw + 1px,18px);
+ --type-small:clamp(15px,.24vw + 14px,16px);
+ --type-nav:clamp(14px,.3vw + 10px,15px);
+ --type-action:clamp(13px,.2vw + 11px,14px);
+ --type-faq:clamp(15px,.4vw + 12px,17px);
+ --type-review:clamp(18px,1.4vw,20px);
+ --type-meta:clamp(12px,.2vw + 11px,14px);
+ --type-label:clamp(11px,.14vw + 10px,12px);
+}
