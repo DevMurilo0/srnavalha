@@ -1,0 +1,103 @@
+[
+  {
+    "vw": 320,
+    "sw": 320,
+    "height": 9561,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 320,
+    "errors": []
+  },
+  {
+    "vw": 375,
+    "sw": 375,
+    "height": 8824,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 375,
+    "errors": []
+  },
+  {
+    "vw": 390,
+    "sw": 390,
+    "height": 8789,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 390,
+    "errors": []
+  },
+  {
+    "serviceClick": "Detalhe de cuidado de barba na Sr. Navalha"
+  },
+  {
+    "galleryExpanded": true
+  },
+  {
+    "lightboxOpen": true
+  },
+  {
+    "lightboxClosed": true
+  },
+  {
+    "reviewsPaused": "true"
+  },
+  {
+    "vw": 768,
+    "sw": 768,
+    "height": 7826,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 768,
+    "errors": []
+  },
+  {
+    "vw": 1024,
+    "sw": 1024,
+    "height": 7696,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 1024,
+    "errors": []
+  },
+  {
+    "vw": 1366,
+    "sw": 1366,
+    "height": 8393,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 1366,
+    "errors": []
+  },
+  {
+    "vw": 1440,
+    "sw": 1440,
+    "height": 8446,
+    "broken": 1,
+    "tiles": 6,
+    "reviews": 8,
+    "width": 1440,
+    "errors": []
+  },
+  {
+    "vw": 390,
+    "sw": 390,
+    "broken": 0,
+    "width": 390,
+    "errors": [],
+    "emptyFormError": "Informe seu primeiro nome para continuar."
+  },
+  {
+    "vw": 1366,
+    "sw": 1366,
+    "broken": 0,
+    "width": 1366,
+    "errors": [],
+    "emptyFormError": "Informe seu primeiro nome para continuar."
+  }
+]

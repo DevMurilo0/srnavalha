@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Sr. Navalha V6",
+  "source": "css/tokens.css; css/base.css; css/site.css; css/booking.css",
+  "direction": "Ensaio de cuidado",
+  "colors": {
+    "paper": "#e5e1d8",
+    "surface": "#dad5ca",
+    "ink": "#2a1d17",
+    "muted": "#65564c",
+    "green": "#456f3a",
+    "dark": "#241e1a",
+    "lightInk": "#ece7df"
+  },
+  "typography": {
+    "family": "Manrope",
+    "localFont": "assets/fonts/manrope-v6-latin.woff2",
+    "body": "clamp(1rem,.95rem + .22vw,1.125rem)",
+    "heading": "clamp(2.25rem,4.4vw,4rem)",
+    "small": "13px",
+    "weightDisplay": 500
+  },
+  "layout": {
+    "max": "1440px",
+    "gutter": "clamp(20px,4vw,64px)"
+  },
+  "motion": {
+    "ease": "cubic-bezier(.22,1,.36,1)",
+    "interfaceMs": 220,
+    "reviewPixelsPerSecond": 30,
+    "reducedMotion": "static content, cancel active animations, remove review clones"
+  },
+  "focus": {
+    "width": "3px",
+    "color": "#456f3a",
+    "offset": "5px"
+  },
+  "provenance": {
+    "tasteSeed": 882532839,
+    "impeccableEngine": "Unavailable; local skill instructions used; no automated Impeccable verdict"
+  }
+}

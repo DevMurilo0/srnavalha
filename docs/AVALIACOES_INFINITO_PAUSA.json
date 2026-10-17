@@ -1,9 +1,0 @@
-{
-  "samples": 125,
-  "maxResidual": 0.0024588623046929436,
-  "minStep": 0,
-  "heights": [
-    468.5625
-  ],
-  "passed": true
-}

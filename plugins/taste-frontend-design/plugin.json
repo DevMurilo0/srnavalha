@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "taste-frontend-design",
+  "version": "1.0.0",
+  "description": "Plugin pessoal de direção artística para sites públicos adaptado do Taste Skill enviado pelo usuário. Ajuda a pesquisar e definir conceitos visuais autorais, composição, tipografia, cores, imagens e movimento. Inclui bibliotecas, referências e scripts do pacote de origem, sujeitos às ferramentas disponíveis.",
+  "author": {
+    "name": "Pacote pessoal adaptado"
+  },
+  "keywords": [
+    "frontend",
+    "design",
+    "ux",
+    "interface"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Taste Frontend",
+        "shortDescription": "Direção artística para sites",
+        "longDescription": "Plugin pessoal de direção artística para sites públicos adaptado do Taste Skill enviado pelo usuário. Ajuda a pesquisar e definir conceitos visuais autorais, composição, tipografia, cores, imagens e movimento. Inclui bibliotecas, referências e scripts do pacote de origem, sujeitos às ferramentas disponíveis.",
+        "developerName": "Pacote pessoal adaptado",
+        "category": "Creativity",
+        "capabilities": [
+          "Direção de arte web",
+          "Composição e tipografia",
+          "Revisão de landing pages",
+          "Design não genérico"
+        ],
+        "defaultPrompt": [
+          "Crie uma direção artística autoral para meu site usando o Taste Frontend.",
+          "Revise esta landing page para que ela não pareça um template genérico."
+        ]
+      }
+    }
+  }
+}

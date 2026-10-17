@@ -1,0 +1,24 @@
+SR. NAVALHA — PLUGINS LOCAIS PARA CODEX
+
+Este pacote contém os três plugins originais para uso local no Codex:
+  - Emil Design Engineering
+  - Impeccable UI
+  - Taste Frontend
+
+INSTALAÇÃO (dentro da pasta raiz do projeto Sr. Navalha):
+1) Extraia o conteúdo deste ZIP diretamente na raiz do projeto (sem criar pasta adicional).
+   Importante: se já existir .agents/plugins/marketplace.json, faça backup e mescle o conteúdo; não substitua entradas existentes.
+2) No terminal, dentro da raiz do projeto, execute:
+
+   codex plugin marketplace add .
+   codex
+
+3) Dentro do Codex, digite /plugins, procure a fonte Sr. Navalha — Design, instale os três plugins.
+4) Abra uma nova sessão do Codex a partir da raiz do projeto. O AGENTS.md já existente continua valendo.
+5) Teste: Peça 'Identifique os plugins/skills locais disponíveis e diga como aplicá-los ao site Sr. Navalha antes de alterar qualquer arquivo.'
+
+Se o comando marketplace não for reconhecido, atualize o Codex e confira a versão.
+Apenas os plugins foram incluídos; nenhum AGENTS.md ou arquivo do site foi substituído.
+Plugins baseados em skills não exigem servidor MCP ou integrações externas.
+
+Referência: https://developers.openai.com/plugins/build/plugins

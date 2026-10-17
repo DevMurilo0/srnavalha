@@ -1,0 +1,970 @@
+{
+  "date": "2026-10-17T02:45:24.141Z",
+  "browser": "Firefox WebDriver BiDi, native HTTP",
+  "base": "http://127.0.0.1:8016/.v6-stage/",
+  "viewports": [
+    {
+      "width": 320,
+      "client": 308,
+      "scroll": 308,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 121
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 121
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 102
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 106
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 110
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 147
+        }
+      ]
+    },
+    {
+      "width": 375,
+      "client": 363,
+      "scroll": 363,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 149
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 149
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 125
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 131
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 130
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 184
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "client": 378,
+      "scroll": 378,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 156
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 156
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 131
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 137
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 130
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 191
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "client": 756,
+      "scroll": 756,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 110
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 155
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 120
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 105
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 180
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 195
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "client": 1012,
+      "scroll": 1012,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 122
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 180
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 140
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 115
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 220
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 155
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 235
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "client": 1354,
+      "scroll": 1354,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 146
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 210
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 168
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 138
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 205
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 265
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "client": 1428,
+      "scroll": 1428,
+      "overflow": false,
+      "font": true,
+      "broken": [],
+      "pendingImages": [],
+      "photoSizes": [
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-perfil.webp",
+          "natural": 265,
+          "rendered": 146
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 210
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-corte-cacheado.webp",
+          "natural": 265,
+          "rendered": 168
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/work-barba.webp",
+          "natural": 265,
+          "rendered": 138
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/barbershop-ambiente.webp",
+          "natural": 246,
+          "rendered": 246
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/team-atendimento.webp",
+          "natural": 264,
+          "rendered": 205
+        },
+        {
+          "src": "http://127.0.0.1:8016/.v6-stage/assets/images/hero-corte-e-barba.webp",
+          "natural": 266,
+          "rendered": 265
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "name": "320px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7344524434190115
+          }
+        ],
+        "clip": "inset(26.5548% 0px 0px)"
+      }
+    },
+    {
+      "name": "320px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7321803508888839
+          }
+        ],
+        "clip": "inset(0px 0px 0px 26.782%)"
+      }
+    },
+    {
+      "name": "320px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7319129568379591
+          }
+        ],
+        "clip": "inset(26.8087% 0px 0px)"
+      }
+    },
+    {
+      "name": "375px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.68438188221365
+          }
+        ],
+        "clip": "inset(0px 0px 0px 31.5618%)"
+      }
+    },
+    {
+      "name": "375px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.6866878136028767
+          }
+        ],
+        "clip": "inset(31.3312% 0px 0px)"
+      }
+    },
+    {
+      "name": "390px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.733046819971258
+          }
+        ],
+        "clip": "inset(0px 0px 0px 26.6953%)"
+      }
+    },
+    {
+      "name": "390px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Menu móvel abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Menu móvel Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7258178398388909
+          }
+        ],
+        "clip": "inset(27.4182% 0px 0px)"
+      }
+    },
+    {
+      "name": "768px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7191529932532589
+          }
+        ],
+        "clip": "inset(0px 0px 0px 28.0847%)"
+      }
+    },
+    {
+      "name": "768px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.6837137413823736
+          }
+        ],
+        "clip": "inset(31.6286% 0px 0px)"
+      }
+    },
+    {
+      "name": "1024px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7330106545091001
+          }
+        ],
+        "clip": "inset(0px 0px 0px 26.6989%)"
+      }
+    },
+    {
+      "name": "1024px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7322936395400376
+          }
+        ],
+        "clip": "inset(26.7706% 0px 0px)"
+      }
+    },
+    {
+      "name": "1366px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7346426249742295
+          }
+        ],
+        "clip": "inset(0px 0px 0px 26.5357%)"
+      }
+    },
+    {
+      "name": "1366px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px barba: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.6831119973559993
+          }
+        ],
+        "clip": "inset(31.6888% 0px 0px)"
+      }
+    },
+    {
+      "name": "1440px barba: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px acabamento: máscara em andamento",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "animations": [
+          {
+            "state": "running",
+            "progress": 0.7298712348327248
+          }
+        ],
+        "clip": "inset(0px 0px 0px 27.0129%)"
+      }
+    },
+    {
+      "name": "1440px acabamento: revelação completa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px corte: máscara em andamento",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px portfólio seleciona",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px lightbox abre",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px teclado navega no lightbox",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px Escape e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Esteira: movimento automático direita para esquerda",
+      "pass": true,
+      "detail": {
+        "scrollStart": 87,
+        "scrollEnd": 88,
+        "measuredPxPerSecond": 0.7142857142857143
+      }
+    },
+    {
+      "name": "Esteira: pausa",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Esteira: clones inacessíveis e quatro avaliações originais",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Esteira: retoma",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 320,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "320px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "375px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 375,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "375px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "375px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "390px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 390,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "390px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "390px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "768px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 768,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "768px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "768px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "1024px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 1024,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "1024px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1024px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "1366px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 1366,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "1366px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1366px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    },
+    {
+      "name": "1440px agendamento responsivo e preferência",
+      "pass": true,
+      "detail": {
+        "width": 1440,
+        "overflow": false,
+        "service": "Barba"
+      }
+    },
+    {
+      "name": "1440px validação e foco",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440px mensagem WhatsApp codificada",
+      "pass": true,
+      "detail": {
+        "phone": "/5581995722396",
+        "message": "Olá! Gostaria de solicitar um horário na Sr. Navalha.\n\nMeu nome: João & Ana\n\nServiço: Barba\nProfissional: Qualquer profissional\nDia de preferência: 20/12/2026\nHorário de preferência: 14:35\n\nPoderiam confirmar a disponibilidade?",
+        "feedback": "Seu pedido foi preparado. Continue a conversa no WhatsApp para consultar a disponibilidade. Abrir conversa novamente."
+      }
+    }
+  ],
+  "limitations": [],
+  "testHarnessErrorCorrected": "TypeError: Cannot read properties of undefined (reading 'map')\n    at decode (file:///home/murilo/Dev/andamento/srnavalha/scripts/v6-browser.mjs:40:74)\n    at Firefox.evaluate (file:///home/murilo/Dev/andamento/srnavalha/scripts/v6-browser.mjs:45:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///home/murilo/Dev/andamento/srnavalha/scripts/test-v6.mjs:79:5",
+  "console": []
+}

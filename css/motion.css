@@ -1,0 +1,2 @@
+/* Content is visible by default. WAAPI adds temporary masks only while playing. */
+.hero-frame{overflow:visible}.service-entry summary:focus-visible{outline-offset:-5px}.service-body{transform-origin:top}.viewer-photo img,.lightbox img{user-select:none;-webkit-user-drag:none}.viewer-photo-area.is-dragging{cursor:grabbing}.work-index:focus-visible{outline:3px solid #b5cd9e;outline-offset:5px}.site-header .brand{transition:transform 180ms var(--ease)}.brand:active{transform:scale(.97)}

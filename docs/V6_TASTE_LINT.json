@@ -1,0 +1,21 @@
+{
+ "files": 11,
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "numbering",
+   "file": "js/booking.js",
+   "line": 11,
+   "match": "padStart(2, '0')",
+   "message": "Zero-padding in script. Fine for a clock, a date or a price; if it builds 01 / 02 / 03 labels, remove it."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "7 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

@@ -1,4 +1,0 @@
-/* Ajustes para larguras pequenas e preservação de leitura em telefones compactos. */
-@media(max-width:360px){.sr-hero h1{font-size:60px}.sr-hero__features>div{font-size:var(--type-meta)}.sr-hero__actions .sr-btn{padding-inline:13px}.sr-services h2{font-size:39px}.sr-location__map{height:260px}.booking-flow-header h1{font-size:43px}.booking-step-heading h2{font-size:34px}.booking-progress button{min-width:108px;padding-inline:9px}.booking-step-actions .button{gap:8px;padding-inline:12px}}
-.sr-mobile-booking{position:fixed;inset:auto 0 0;z-index:90;padding:12px 22px max(12px,env(safe-area-inset-bottom));background:#101314ef;backdrop-filter:blur(10px);border-top:1px solid #f7efe523;opacity:0;visibility:hidden;transform:translateY(100%);transition:opacity .25s,transform .25s,visibility .25s}.sr-mobile-booking.is-visible{opacity:1;visibility:visible;transform:translateY(0)}.sr-mobile-booking .sr-btn{width:100%}
-@media(min-width:1041px){.sr-mobile-booking{display:none}}

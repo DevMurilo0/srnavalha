@@ -1,22 +1,12 @@
-# Avaliações e comprovação de autoria
+# Origem e limites das avaliações
 
-> Registro histórico da rodada V2. O status pendente foi resolvido na V4; consulte [AVALIACOES_GOOGLE.md](AVALIACOES_GOOGLE.md) para fontes e dados atuais.
+O conjunto foi obtido da versão pública do repositório [DevMurilo0/srnavalha](https://github.com/DevMurilo0/srnavalha), em `js/reviews-data.js` e `docs/AVALIACOES_GOOGLE.md`, consultados nesta reconstrução.
 
-A seção da Home está preparada com `data-review-slot` e `data-review-status="pending-verification"`. Ela exibe um convite editorial para ler avaliações no Google Maps; não representa um depoimento, nem atribui falas a clientes.
+- Ficha: [Sr. Navalha Barbearia — Place ID ChIJU15canBJqgcRARZqMshC8cA](https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA&hl=pt-BR)
+- Média e contagem no registro: **5,0 / 466 avaliações**, conferidas em **15/10/2026**. Não são dados ao vivo.
+- Fernanda Santos: trecho com reticências; [perfil de origem](https://www.google.com/maps/contrib/114895505051989083139/reviews?hl=pt-BR).
+- João Neto: texto de atendimento; [perfil de origem](https://www.google.com/maps/contrib/118341742729193053160/reviews?hl=pt-BR).
+- Luís Gustavo Coelho: depoimento curto com ortografia original; [perfil de origem](https://www.google.com/maps/contrib/111783008765039420465/reviews?hl=pt-BR).
+- Lucas Gabriel: depoimento curto; [perfil de origem](https://www.google.com/maps/contrib/108814860750749521795/reviews?hl=pt-BR).
 
-Na revisão de 15/10/2026, a busca pública localizou o estabelecimento e comentários em diretórios, mas não permitiu confirmar diretamente no Google Maps os nomes dos autores, os textos originais e links individuais. Por isso não foram publicados nomes, citações, nota média ou quantidade de avaliações. Os números “5.0” e “+460”, presentes na versão anterior, foram retirados da Home por falta de confirmação nesta revisão.
-
-Fontes consultadas:
-
-- Google Maps: https://www.google.com/maps/search/?api=1&query=SR%20Navalha%20Barbearia%20Gravat%C3%A1 — a extração direta não forneceu avaliações verificáveis.
-- https://www.locaisdobrasil.com.br/encontre/barbearia/gravata-pe/barbearia-sr-navalha/68a459152648b322fc5ff636 — o diretório mostra comentários sem nomes identificados no conteúdo acessível; não comprova autoria no Google.
-- https://guiafix.com.br/gravata-pe/barbearias — apresenta avaliações do próprio diretório. Não deve ser usado como origem de depoimentos do Google.
-
-Para publicar depoimentos no futuro, confirmar na ficha correta do Google Maps:
-
-1. Nome público do autor, texto completo, data, nota e permalink individual.
-2. Correspondência do estabelecimento com o endereço e o Instagram oficial.
-3. Resumo fiel, sem inventar elogios, nome, foto, quantidade ou nota.
-4. Inserção no espaço `data-review-slot`, com link para a fonte e data da conferência neste documento.
-
-Até essa conferência, o convite com link externo permanece adequado. Nenhuma chave de API é necessária para o site atual.
+Não houve nova conferência independente de cada autor no Google Maps durante a V5; os textos foram reutilizados integralmente do relatório anterior, que documentava verificação manual. Revalidar antes de publicar se necessário. O carrossel não representa a totalidade das opiniões. Os perfis não são links diretos para cada avaliação individual.

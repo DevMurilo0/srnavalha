@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Movimento normal inicial",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Preferência alterada ao vivo: conteúdo visível e movimento cancelado",
+    "pass": true,
+    "detail": {
+      "reduce": true,
+      "clones": 0,
+      "control": true,
+      "clip": "none",
+      "animations": 0
+    }
+  },
+  {
+    "name": "Reduced motion ao carregar",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Retorno ao movimento normal sem recarregar",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Sem JavaScript: conteúdo e links fotográficos essenciais",
+    "pass": true,
+    "detail": {
+      "enhanced": false,
+      "photos": 5,
+      "viewerHidden": true,
+      "reviews": 4,
+      "services": 3,
+      "bodyVisible": "1",
+      "menu": "DETAILS"
+    }
+  },
+  {
+    "name": "Sem JavaScript: agendamento oferece WhatsApp direto",
+    "pass": true,
+    "detail": null
+  }
+]

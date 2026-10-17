@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "impeccable-ui",
+  "version": "1.0.0",
+  "description": "Plugin pessoal adaptado do conteúdo Impeccable fornecido pelo usuário. Aplica métodos de auditoria visual, direção de interface, tipografia, acessibilidade, responsividade, performance e polimento de frontend. Inclui referências e scripts originais que podem depender das ferramentas disponíveis no ambiente.",
+  "author": {
+    "name": "Pacote pessoal adaptado"
+  },
+  "keywords": [
+    "frontend",
+    "design",
+    "ux",
+    "interface"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Impeccable UI",
+        "shortDescription": "Auditoria e refinamento de UX",
+        "longDescription": "Plugin pessoal adaptado do conteúdo Impeccable fornecido pelo usuário. Aplica métodos de auditoria visual, direção de interface, tipografia, acessibilidade, responsividade, performance e polimento de frontend. Inclui referências e scripts originais que podem depender das ferramentas disponíveis no ambiente.",
+        "developerName": "Pacote pessoal adaptado",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Auditoria de interfaces",
+          "UX e acessibilidade",
+          "Responsividade e hierarquia visual",
+          "Polimento de UI"
+        ],
+        "defaultPrompt": [
+          "Faça uma auditoria completa da UX desta página com o Impeccable.",
+          "Melhore a hierarquia visual, a responsividade e a acessibilidade deste layout."
+        ]
+      }
+    }
+  }
+}

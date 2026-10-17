@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Skip link oculto em repouso",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Skip link visível ao focar",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Lightbox contém foco: Shift+Tab",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Lightbox contém foco: Tab",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Swipe por toque no lightbox",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Clique fora fecha e devolve foco/rolagem",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Arraste no portfólio muda imagem sem abrir modal",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Toque pausa esteira para leitura manual",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Rolagem rápida e retorno mantêm conteúdo visível",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Atualização posicionada no portfólio",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Mapa ativa interação por escolha explícita",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Mapa desativa interação sem capturar rolagem",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Nenhuma biblioteca externa de JavaScript",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Link de serviço preenche acabamento",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Data passada recusada",
+    "pass": true,
+    "detail": null
+  }
+]

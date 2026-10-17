@@ -1,0 +1,44 @@
+{
+  "name": "sr-navalha-design",
+  "interface": {
+    "displayName": "Sr. Navalha Design"
+  },
+  "plugins": [
+    {
+      "name": "emil-design-engineering",
+      "source": {
+        "source": "local",
+        "path": "./plugins/emil-design-engineering"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "impeccable-ui",
+      "source": {
+        "source": "local",
+        "path": "./plugins/impeccable-ui"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "taste-frontend-design",
+      "source": {
+        "source": "local",
+        "path": "./plugins/taste-frontend-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

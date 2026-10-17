@@ -1,0 +1,35 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "emil-design-engineering",
+  "version": "1.0.0",
+  "description": "Plugin pessoal de design engineering adaptado do conteúdo fornecido pelo usuário. Orienta a criação e revisão de componentes de interface, refinamento visual, animações, feedback de interação e decisões de movimento baseadas em princípios de design engineering.",
+  "author": {
+    "name": "Pacote pessoal adaptado"
+  },
+  "keywords": [
+    "frontend",
+    "design",
+    "ux",
+    "interface"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Emil Design Engineering",
+        "shortDescription": "Animações e microinterações",
+        "longDescription": "Plugin pessoal de design engineering adaptado do conteúdo fornecido pelo usuário. Orienta a criação e revisão de componentes de interface, refinamento visual, animações, feedback de interação e decisões de movimento baseadas em princípios de design engineering.",
+        "developerName": "Pacote pessoal adaptado",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Design de componentes",
+          "Animações e microinterações",
+          "Revisão e refinamento de UX"
+        ],
+        "defaultPrompt": [
+          "Aplique o Emil Design Engineering para revisar as microinterações desta interface.",
+          "Desenhe animações refinadas e acessíveis para este componente."
+        ]
+      }
+    }
+  }
+}

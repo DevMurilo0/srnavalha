@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Esteira cruza emenda sem espaço adicional",
+    "pass": true,
+    "detail": {
+      "cycle": 1664,
+      "left": 12,
+      "gap": 16
+    }
+  },
+  {
+    "name": "Hover desacelera e pausa sem saltar",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "390px CTA corrigido",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "390px skip link fora da captura inicial",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "768px CTA corrigido",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "768px skip link fora da captura inicial",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "1440px CTA corrigido",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "1440px skip link fora da captura inicial",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "DPR2 sem imagem maior falsa e sem overflow",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Google Maps carregado em contexto real",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Falha do provedor mantém endereço/link e layout",
+    "pass": true,
+    "detail": {
+      "blockedRequests": 1
+    }
+  },
+  {
+    "name": "Dependências externas de bibliotecas: nenhuma",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "name": "Métrica CLS disponível neste Firefox",
+    "informational": true,
+    "pass": true,
+    "detail": "Indisponível: layout conferido por dimensões reservadas e capturas, sem número CLS inventado."
+  }
+]

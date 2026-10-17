@@ -1,0 +1,27 @@
+{
+  "archive": "entrega/srnavalha-v6.zip",
+  "bytes": 245293,
+  "files": 50,
+  "sha256": "2557ebae240c714186fb7e99815f2e83b0474d7cfcb806b121798db4d8dc43db",
+  "runtime_images": [
+    "assets/images/barbershop-ambiente.webp",
+    "assets/images/brand-logo.webp",
+    "assets/images/hero-corte-e-barba.webp",
+    "assets/images/team-atendimento.webp",
+    "assets/images/work-barba.webp",
+    "assets/images/work-barboterapia.webp",
+    "assets/images/work-corte-cacheado.webp",
+    "assets/images/work-corte-perfil.webp"
+  ],
+  "excluded": [
+    ".git",
+    "node_modules",
+    "plugins",
+    "backup",
+    "capturas",
+    ".v6-stage",
+    "caches",
+    "unused cinematic derivatives"
+  ],
+  "crc": "pass"
+}

@@ -1,0 +1,10 @@
+{
+  "missing_paths": [],
+  "invariants": {
+    "review_texts_unchanged": true,
+    "four_reviews": true,
+    "original_iframe_preserved": true,
+    "credit": true,
+    "photographs_unchanged": true
+  }
+}

@@ -1,46 +1,49 @@
 (() => {
-  const form = document.querySelector('[data-booking-form]');
+  'use strict';
+  const form = document.querySelector('#booking-form');
   if (!form) return;
-  const error = form.querySelector('[data-booking-error]');
-  const dateInput = form.elements.date;
-  const summaries = {
-    service: document.querySelector('[data-summary-service]'),
-    professional: document.querySelector('[data-summary-professional]'),
-    date: document.querySelector('[data-summary-date]'),
-    time: document.querySelector('[data-summary-time]'),
+  form.noValidate = true;
+  const day = form.elements.dia;
+  const time = form.elements.horario;
+  const error = document.querySelector('#form-error');
+  const localDate = () => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
   };
-  const today = new Date();
-  dateInput.min = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')].join('-');
-
-  const serviceValue = () => form.querySelector('input[name="service"]:checked')?.value || '';
-  function dateLabel(value) {
-    if (!value) return 'Escolha um dia';
-    const [year, month, day] = value.split('-').map(Number);
-    return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(year, month - 1, day));
-  }
-  function updateSummary() {
-    summaries.service.textContent = serviceValue() || 'Escolha um serviço';
-    summaries.professional.textContent = form.elements.professional.value;
-    summaries.date.textContent = dateLabel(dateInput.value);
-    summaries.time.textContent = form.elements.time.value || 'Escolha um horário';
-  }
-  form.addEventListener('input', () => { error.hidden = true; updateSummary(); });
-  form.addEventListener('submit', (event) => {
+  day.min = localDate();
+  const preference = new URLSearchParams(location.search).get('servico');
+  if (preference) [...form.elements.servico].find(input => input.value.toLowerCase() === preference.toLowerCase())?.click();
+  [day, time].forEach(input => input.addEventListener('input', () => {
+    input.removeAttribute('aria-invalid');
+    document.getElementById(input.getAttribute('aria-describedby')).textContent = '';
+    error.hidden = true;
+    document.querySelector('#booking-feedback').hidden = true;
+  }));
+  form.addEventListener('submit', event => {
     event.preventDefault();
-    if (!form.checkValidity()) {
+    day.min = localDate();
+    error.hidden = true;
+    [day, time].forEach(input => { input.removeAttribute('aria-invalid'); document.getElementById(input.getAttribute('aria-describedby')).textContent = ''; });
+    const failures = [];
+    if (!day.value || !day.validity.valid || day.value < day.min) failures.push([day, 'Escolha um dia a partir de hoje.']);
+    if (!time.value || !time.validity.valid) failures.push([time, 'Informe seu horário de preferência.']);
+    if (failures.length) {
+      failures.forEach(([input, message]) => { input.setAttribute('aria-invalid', 'true'); document.getElementById(input.getAttribute('aria-describedby')).textContent = message; });
+      error.textContent = 'Confira o dia e o horário para continuar.';
       error.hidden = false;
-      form.reportValidity();
+      failures[0][0].focus();
       return;
     }
-    const message = [
-      `Olá! Meu nome é ${form.elements.name.value.trim()} e gostaria de solicitar um horário na Sr. Navalha.`, '',
-      `Serviço: ${serviceValue()}`,
-      `Profissional: ${form.elements.professional.value}`,
-      `Dia de preferência: ${dateLabel(dateInput.value)}`,
-      `Horário de preferência: ${form.elements.time.value}`, '',
-      'Poderiam confirmar a disponibilidade?',
-    ].join('\n');
-    window.open(`https://wa.me/5581995722396?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    const [year, month, date] = day.value.split('-');
+    const name = form.elements.nome.value.trim();
+    const message = `Olá! Gostaria de solicitar um horário na Sr. Navalha.${name ? '\n\nMeu nome: ' + name : ''}\n\nServiço: ${form.elements.servico.value}\nProfissional: ${form.elements.profissional.value}\nDia de preferência: ${date}/${month}/${year}\nHorário de preferência: ${time.value}\n\nPoderiam confirmar a disponibilidade?`;
+    const url = 'https://wa.me/5581995722396?text=' + encodeURIComponent(message);
+    const retry = document.querySelector('#booking-retry');
+    retry.href = url;
+    // A direct user gesture opens the conversation. No message is sent by this site.
+    const link = document.createElement('a');
+    Object.assign(link, { href: url, target: '_blank', rel: 'noopener noreferrer' });
+    document.body.append(link); link.click(); link.remove();
+    document.querySelector('#booking-feedback').hidden = false;
   });
-  updateSummary();
 })();

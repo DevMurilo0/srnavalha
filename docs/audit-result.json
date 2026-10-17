@@ -1,0 +1,29 @@
+{
+  "static": {
+    "index.html": {
+      "localPaths": 17,
+      "missingPaths": []
+    },
+    "agendar.html": {
+      "localPaths": 6,
+      "missingPaths": []
+    }
+  },
+  "browser": {
+    "reducedMotion": {
+      "reviewCount": 4,
+      "hiddenText": 0,
+      "marqueeControlsHidden": true
+    },
+    "withoutJS": {
+      "cardsVisible": 6,
+      "gallerySummary": 1,
+      "textVisible": true
+    },
+    "booking": {
+      "selectedDate": "2026-10-22",
+      "formErrorHidden": true,
+      "whatsappFormatInSource": true
+    }
+  }
+}
