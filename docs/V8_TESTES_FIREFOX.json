@@ -1,0 +1,85 @@
+[
+  {
+    "width": 320,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 375,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 390,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 768,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 1024,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 1366,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "width": 1440,
+    "pass": true,
+    "result": {
+      "overflow": -12,
+      "services": 42,
+      "fonts": true,
+      "logo": 640
+    }
+  },
+  {
+    "name": "Equipe Yan",
+    "pass": true
+  },
+  {
+    "name": "Serviços filtro",
+    "pass": true
+  },
+  {
+    "name": "Erros console",
+    "pass": true,
+    "detail": []
+  }
+]

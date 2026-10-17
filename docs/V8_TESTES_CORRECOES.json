@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Touch professional Rafael",
+    "pass": true
+  },
+  {
+    "name": "Three rapid product requests preserved",
+    "pass": true
+  },
+  {
+    "name": "Reduced motion pause actually hidden",
+    "pass": true
+  },
+  {
+    "name": "No ongoing motion",
+    "pass": true
+  },
+  {
+    "name": "Live preference restored",
+    "pass": true
+  },
+  {
+    "name": "Swipe handler advances lightbox (synthetic pointer)",
+    "pass": true
+  },
+  {
+    "name": "Ivory focus contrast >=3",
+    "pass": true,
+    "ratio": 5.144458611122864,
+    "computed": "rgb(117, 97, 83)"
+  }
+]

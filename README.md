@@ -1,32 +1,48 @@
-# Sr. Navalha — Ateliê Navalha (redesign estático)
+# Sr. Navalha · V8
 
-Uma reconstrução editorial da Barbearia Sr. Navalha: identidade verde-carvão, papel quente e cobre discreto, hero com fotografias originais em montagem, catálogo interativo, portfólio/visualizador, avaliações reais documentadas, Google Maps e agendamento direto via WhatsApp.
+Site estático da Sr. Navalha Barbearia, no Prado, Gravatá–PE. HTML, CSS e JavaScript, compatível com Live Server, sem npm ou etapa de build para visualizar ou hospedar.
 
-## Abrir com Live Server (sem npm)
-1. Extraia este ZIP **na pasta do projeto**, preservando as subpastas.
-2. No VS Code, clique com o botão direito em `index.html` e selecione **Open with Live Server**.
-3. `agendar.html` funciona de modo independente. Não utiliza backend e **não confirma uma reserva**.
+## Abrir
 
-Este pacote NÃO atualiza seu repositório GitHub sozinho e não deve ser usado para apagar dados não relacionados da versão anterior. A implementação usa nomes próprios (`css/site.css`, `css/motion.css`, `js/site.js`, `js/reviews.js`, `js/booking.js`) e foi criada como substituição de interface. Faça backup antes de sobrepor arquivos como `index.html` e `agendar.html`.
+Abra a pasta no VS Code e use **Open with Live Server** em `index.html`. Alternativa: `python -m http.server 8018`, acessando `http://localhost:8018`. Use HTTP local para módulos JavaScript; o HTML essencial também existe sem JS. `agendar.html` oferece acesso ao AppBarber oficial.
 
-### Pastas
-- `index.html` / `agendar.html`: páginas estáticas.
-- `css/`: identidade, responsividade, animações e agendamento.
-- `js/`: interações e dados das avaliações.
-- `assets/images/`: variantes WebP tratadas conservadoramente.
-- `assets/originais/`: fotografias-fonte preservadas para futuras substituições por arquivos maiores.
-- `assets/decor/`: SVGs originais do novo sistema gráfico.
-- `docs/`: pesquisa, motion, procedência e verificação.
-- `preview/`: capturas renderizadas da interface.
+## V8 implementada
 
-### Publicar depois de conferir localmente
-Após copiar o conteúdo do ZIP para a raiz do seu repositório, execute `git status`, confira exatamente as alterações, e então use `git add index.html agendar.html css/ js/ assets/ docs/ README.md`, `git commit -m "feat: nova experiencia editorial Sr Navalha"` e `git push origin main` se desejar publicar na branch main. Estes comandos **não foram executados** pelo assistente.
+- Logo original recuperada do AppBarber e favicon derivado da própria marca.
+- Paleta carvão/marfim/cobre com Manrope e Young Serif locais.
+- Catálogo de 42 serviços, preços fixos, iniciais e sob consulta, durações e filtros.
+- Damião, Eduardo, Kauã, Rafael e Yan com retratos reais e seleção por toque, hover e teclado.
+- 22 produtos, 18 fotos oficiais, preços e consulta no WhatsApp; sem checkout fictício.
+- Assinaturas mensais, pagamentos, comodidades cadastradas, endereço e horários com fonte.
+- Google: 5,0 e 467 avaliações, conferidos em 17/10/2026. Depoimentos preservados com data própria.
+- Fotografia que atravessa a abertura, máscaras de retratos, entrada tipográfica, produtos em camadas, galeria horizontal, lightbox espacial e esteira com pausa.
+- Conteúdo essencial em HTML, foco visível e suporte a movimento reduzido inicial e dinâmico.
 
-### Integrações
-- WhatsApp: +55 81 99572-2396. Mensagens são montadas no navegador e abertas em `wa.me`.
-- Google Maps: Place ID `ChIJU15canBJqgcRARZqMshC8cA`. O mapa embutido só carrega com rede; fallback oferece link externo.
-- Depoimentos: 4 registros do snapshot datado de 15/10/2026, não são atualizados automaticamente. Ver `docs/AVALIACOES.md`.
-- Fontes: pilha tipográfica do navegador (`Impact`, `Arial`, `Georgia` e alternativas locais). Nenhum download de fonte é necessário.
+## Atualizar o conteúdo
 
-### Limitações honestas
-A fotografia original de vários trabalhos é muito pequena (~265 × 325 px). Os derivados WebP foram redimensionados com Lanczos, ajustes sutis de contraste/cor e nitidez conservadora; **isso não cria detalhes originais ausentes**. A montagem foi desenhada para que as fotos não precisem virar backgrounds enormes. Para qualidade documental superior, peça aos profissionais os arquivos de câmera ou as fotos originais exportadas sem compressão de redes sociais.
+Fonte de dados: `js/data/services.js`, `professionals.js`, `products.js`, `reviews.js`. São snapshots, não sincronização automática. Serviços preservam o nome do sistema em `sourceName`; categorias são editoriais. Após editar os dados, execute opcionalmente `node scripts/build-v8.mjs` para gerar `index.html` e `agendar.html` prontos. O visitante nunca precisa desse comando. Não edite valores também no HTML: gere novamente a partir dos módulos.
+
+Tokens em `css/tokens.css`, apresentação em `css/site.css`, movimento em `css/motion.css` e comportamento em `js/site.js`. Arquivos de calendário demonstrativo e estilos não utilizados foram removidos. V6/V7 permanecem no histórico do Git e documentação anterior.
+
+## Fontes e imagens
+
+[AppBarber oficial](https://sites.appbarber.com.br/srnavala-pqjj) · [Google Maps](https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA) · [Instagram](https://www.instagram.com/barbeariasrnavalha01/).
+
+Originais oficiais em `assets/originals/v8/`; WebP limitados à resolução original em `assets/images/v8/`. A marca não foi redesenhada. Fotografias do catálogo não implicam comprovação de local/autoria de captura. Instagram bloqueou coleta automatizada; a pequena foto de ambiente anterior permanece em escala reduzida. Não houve reconstrução generativa de pessoas ou lugar.
+
+## Pesquisa e validação
+
+- `docs/PESQUISA_SR_NAVALHA_V8.md`
+- `docs/CONTEUDO_VERIFICADO_V8.md`
+- `docs/IMAGENS_V8.md`
+- `docs/IDENTIDADE_VISUAL_V8.md`
+- `docs/REFERENCIAS_AWWWARDS_V8.md`
+- `docs/MOTION_REFERENCIAS_V8.md`
+- `docs/MOTION_V8.md`
+- `docs/TESTES_V8.md`
+
+Capturas antes/depois e estados intermediários em `capturas/v8/`. Evidências automatizadas em `docs/V8_*.json`. Scripts de navegador são ferramentas de desenvolvimento opcionais; alguns usam um Chromium local (`CHROME_PATH`) ou Playwright instalado fora do projeto. Não integram as dependências do site.
+
+## Limites
+
+Agendamento e contratação ocorrem no AppBarber; estoque é consultado no WhatsApp. Valores e nota Google podem mudar após a data indicada. Biografias e especialidades não foram inventadas. Quatro produtos não têm foto no catálogo; o site usa texto. Necessários do proprietário para avançar a fotografia do espaço: originais em alta resolução e vídeos autorizados. Sem commit ou push nesta entrega.

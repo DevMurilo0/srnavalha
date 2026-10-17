@@ -1,24 +1,10 @@
-SR. NAVALHA — PLUGINS LOCAIS PARA CODEX
+SR. NAVALHA V8
 
-Este pacote contém os três plugins originais para uso local no Codex:
-  - Emil Design Engineering
-  - Impeccable UI
-  - Taste Frontend
+Abra index.html com Live Server no VS Code. Alternativa: python -m http.server 8018
+Acesse http://localhost:8018
 
-INSTALAÇÃO (dentro da pasta raiz do projeto Sr. Navalha):
-1) Extraia o conteúdo deste ZIP diretamente na raiz do projeto (sem criar pasta adicional).
-   Importante: se já existir .agents/plugins/marketplace.json, faça backup e mescle o conteúdo; não substitua entradas existentes.
-2) No terminal, dentro da raiz do projeto, execute:
+Não precisa instalar npm, React ou backend. O site é estático. JavaScript em módulos requer HTTP local para as interações; conteúdos e links essenciais estão no HTML.
 
-   codex plugin marketplace add .
-   codex
-
-3) Dentro do Codex, digite /plugins, procure a fonte Sr. Navalha — Design, instale os três plugins.
-4) Abra uma nova sessão do Codex a partir da raiz do projeto. O AGENTS.md já existente continua valendo.
-5) Teste: Peça 'Identifique os plugins/skills locais disponíveis e diga como aplicá-los ao site Sr. Navalha antes de alterar qualquer arquivo.'
-
-Se o comando marketplace não for reconhecido, atualize o Codex e confira a versão.
-Apenas os plugins foram incluídos; nenhum AGENTS.md ou arquivo do site foi substituído.
-Plugins baseados em skills não exigem servidor MCP ou integrações externas.
-
-Referência: https://developers.openai.com/plugins/build/plugins
+Agendamentos: AppBarber oficial. WhatsApp: consultas. Não existe calendário demonstrativo.
+Dados comerciais: 17/10/2026. Consulte README.md e docs/TESTES_V8.md para fontes e limites.
+Originais e variantes de imagens incluídos. Sem commit ou push.

@@ -1,0 +1,242 @@
+[
+  {
+    "name": "damiao",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png",
+    "width": 725,
+    "height": 725,
+    "bytes": 52176,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "eduardo",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 73985,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "kaua",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 68140,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "rafael",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 48264,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "yan",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 46955,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "body-splash",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 86762,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "leave-in",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e912f567393.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 78854,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "locao-pos-barba",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28c7665987.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 69240,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "oleo-para-barba",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9144f5c3ef.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 87881,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-fox-premium",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a109f1bf15ea.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 76338,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-orange",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 99515,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-queratina",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deced3628a8.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 101740,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-teia",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68decffccdb62.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 98702,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-toq-seco",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deca1fa902c.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 102418,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomada-uv",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dece2a79ced.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 97214,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "pomda-coffee",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9179b5ffe4.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 105500,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "serum-pos-barba",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877dc933d85.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 88489,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "shampoo-4em1",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7b268017.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 77333,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "shampoo-anticaspa",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7e7f17b6.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 80813,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "shampoo-escurecedor-dom-pelo",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28b3c069a2.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 70701,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "shampoo-ice",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fc405df74.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 95065,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "shampoo-matizador",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 109883,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "tonico-de-crescimento",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec85639618.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 81177,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "logo",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "width": 791,
+    "height": 509,
+    "bytes": 44365,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-barba-simples",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea85370f10.png",
+    "width": 358,
+    "height": 358,
+    "bytes": 18978,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-barboterapia",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea8a7cd8ee.png",
+    "width": 698,
+    "height": 698,
+    "bytes": 83421,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-comb-cort-barb-simples",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb074b2ad5.png",
+    "width": 410,
+    "height": 410,
+    "bytes": 26212,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-corte-infantil",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeafb152350.png",
+    "width": 647,
+    "height": 647,
+    "bytes": 73424,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-luzes",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb0f543b19.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 84494,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  },
+  {
+    "name": "servico-platinado",
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb129440e1.png",
+    "width": 290,
+    "height": 290,
+    "bytes": 13015,
+    "treatment": "auto-orient, réduction Lanczos sans agrandissement, WebP q85"
+  }
+]

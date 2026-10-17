@@ -1,0 +1,37 @@
+[
+  {
+    "y": 0,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 160,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 320,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 480,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 640,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 800,
+    "pass": true,
+    "overlap": []
+  },
+  {
+    "y": 960,
+    "pass": true,
+    "overlap": []
+  }
+]

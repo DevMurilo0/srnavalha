@@ -1,47 +1,76 @@
-(() => {
-  'use strict';
-  const $ = (s,root=document)=>root.querySelector(s), $$=(s,root=document)=>[...root.querySelectorAll(s)];
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const canHover=window.matchMedia('(hover:hover) and (pointer:fine)');
-  // Intro does not obscure the site if anything goes wrong; CSS includes an independent failsafe.
-  const loader=$('#intro-loader');
-  const finishIntro=()=>{if(!loader||loader.classList.contains('is-leaving'))return;loader.classList.add('is-leaving');try{sessionStorage.setItem('sr-intro-seen','yes')}catch(e){}setTimeout(()=>{document.documentElement.classList.remove('intro-active');loader.remove()},830)};
-  if(document.documentElement.classList.contains('intro-active')&&loader){window.addEventListener('load',()=>setTimeout(finishIntro,930),{once:true});setTimeout(finishIntro,2100)} else loader?.remove();
-  // Header, active navigation and the shared moving underline.
-  const header=$('.site-header'),nav=$('.desktop-nav'),navLine=$('.nav-line');
-  function activeLink(){const y=scrollY+innerHeight*.28;let active='';for(const id of ['servicos','trabalhos','espaco','avaliacoes','localizacao']){const el=document.getElementById(id);if(el&&el.offsetTop<=y)active=id;}const links=$$('a[href^="#"]',nav);for(const a of links){const current=a.getAttribute('href')==='#'+active;a.classList.toggle('is-active',current);if(current&&navLine){navLine.style.left=`${a.offsetLeft}px`;navLine.style.width=`${a.offsetWidth}px`;}}if(!active&&navLine)navLine.style.width='0';}
-  let scrollBusy=false;function onScroll(){if(scrollBusy)return;scrollBusy=true;requestAnimationFrame(()=>{header?.classList.toggle('is-stuck',scrollY>45);document.documentElement.style.setProperty('--page-progress',(Math.max(0,Math.min(1,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)))*100).toFixed(2)+'%');activeLink();scrollBusy=false})}addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',activeLink);onScroll();
-  const menuButton=$('.menu-toggle'),mobile=$('.mobile-nav');function setMenu(open){menuButton?.setAttribute('aria-expanded',String(open));menuButton?.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');mobile?.classList.toggle('is-open',open);if(mobile)mobile.inert=!open;}
-  menuButton?.addEventListener('click',()=>setMenu(menuButton.getAttribute('aria-expanded')!=='true'));
-  $$('.mobile-nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));addEventListener('keydown',e=>{if(e.key==='Escape'&&mobile?.classList.contains('is-open')){setMenu(false);menuButton.focus()}});
-  // Scroll reveals do not hide content until this script has initialized.
-  if(!reduced.matches&&'IntersectionObserver' in window){const reveal=$$('.reveal');const near=reveal.filter(el=>el.getBoundingClientRect().top<innerHeight*.9);for(const el of near)el.classList.add('is-revealed');document.documentElement.classList.add('motion-ready');const io=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-revealed');io.unobserve(entry.target)}},{rootMargin:'0px 0px -8% 0px',threshold:.05});reveal.forEach(el=>!el.classList.contains('is-revealed')&&io.observe(el));}
-  // Services: one picture slot, responsive to mouse, focus and touch; not a generic card set.
-  const serviceImage=$('#service-image'),number=$('#service-count');let serviceSeq=0;
-  async function changeService(button){if(!serviceImage||!button||button.classList.contains('is-current'))return;const id=++serviceSeq;const next=new Image();next.src=button.dataset.photo;try{await next.decode()}catch{return}if(id!==serviceSeq)return;$$('.service-choice').forEach(b=>{const on=b===button;b.classList.toggle('is-current',on);b.setAttribute('aria-pressed',String(on))});number.textContent=String(Number(button.dataset.service)+1).padStart(2,'0');const old=serviceImage.cloneNode();old.removeAttribute('id');old.setAttribute('aria-hidden','true');old.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:1';serviceImage.parentNode.append(old);serviceImage.src=next.src;serviceImage.alt=button.dataset.alt||'Trabalho Sr. Navalha';if(!reduced.matches){serviceImage.animate([{clipPath:'polygon(0 0,0 0,0 100%,0 100%)',transform:'scale(1.08)'},{clipPath:'polygon(0 0,100% 0,100% 100%,0 100%)',transform:'scale(1)'}],{duration:720,easing:'cubic-bezier(.77,0,.175,1)'});old.animate([{opacity:1},{opacity:0}],{duration:650,fill:'forwards'})}setTimeout(()=>old.remove(),750)}
-  $$('.service-choice').forEach(button=>{button.addEventListener('click',()=>changeService(button));if(canHover.matches)button.addEventListener('mouseenter',()=>changeService(button));button.addEventListener('focus',()=>changeService(button))});
-  // Magnetic buttons: very small, spring-free offset; easy to interrupt.
-  if(canHover.matches&&!reduced.matches)$$('.magnetic').forEach(button=>{button.addEventListener('pointermove',e=>{const r=button.getBoundingClientRect(),dx=(e.clientX-r.left-r.width/2)*.085,dy=(e.clientY-r.top-r.height/2)*.12;button.style.transform=`translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px)`});button.addEventListener('pointerleave',()=>button.style.transform='')});
-  // Decorative pointer response stays on IMG, never on the CSS animated frame.
-  if(canHover.matches&&!reduced.matches)$$('[data-tilt]').forEach(frame=>{const img=$('img',frame);frame.addEventListener('pointermove',e=>{const r=frame.getBoundingClientRect(),x=((e.clientX-r.left)/r.width-.5)*9,y=((e.clientY-r.top)/r.height-.5)*9;img.style.transform=`translate(${x}px,${y}px) scale(1.055)`});frame.addEventListener('pointerleave',()=>img.style.transform='')});
-  // Gallery / lightbox
-  const gallery=$('#portfolio-grid'),expand=$('#expand-work');expand?.addEventListener('click',()=>{const open=expand.getAttribute('aria-expanded')!=='true';expand.setAttribute('aria-expanded',String(open));gallery.classList.toggle('is-expanded',open);$$('.portfolio-shot--extra').forEach(el=>el.hidden=!open);expand.innerHTML=open?'VER MENOS TRABALHOS <span>−</span>':'VER A COLEÇÃO COMPLETA <span>＋</span>';if(open)$$('.portfolio-shot--extra').forEach(el=>el.classList.add('is-revealed'))});
-  const shots=$$('[data-work]'),dialog=$('#lightbox'),dialogImage=$('#lightbox-image'),dialogCap=$('#lightbox-caption');let photoIndex=0,trigger=null,startX=null;
-  function displayPhoto(i){photoIndex=(i+shots.length)%shots.length;const shot=shots[photoIndex],im=$('img',shot);dialogImage.src=im.currentSrc||im.src;dialogImage.alt=im.alt;dialogCap.textContent=$('.portfolio-shot__label',shot).childNodes[0]?.textContent.trim()||'Trabalho Sr. Navalha'}
-  function openPhoto(i,b){trigger=b;displayPhoto(i);if(!dialog.open)dialog.showModal();$('#lightbox-close')?.focus()}
-  shots.forEach((s,i)=>s.addEventListener('click',()=>openPhoto(i,s)));
-  function closePhoto(){if(dialog?.open)dialog.close();trigger?.focus()}
-  $('#lightbox-close')?.addEventListener('click',closePhoto);$('#lightbox-prev')?.addEventListener('click',()=>displayPhoto(photoIndex-1));$('#lightbox-next')?.addEventListener('click',()=>displayPhoto(photoIndex+1));
-  dialog?.addEventListener('click',e=>{if(e.target===dialog)closePhoto()});dialog?.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();displayPhoto(photoIndex+1)}if(e.key==='ArrowLeft'){e.preventDefault();displayPhoto(photoIndex-1)}});
-  dialog?.addEventListener('pointerdown',e=>{startX=e.clientX});dialog?.addEventListener('pointerup',e=>{if(startX!==null&&Math.abs(e.clientX-startX)>58)displayPhoto(photoIndex+(e.clientX<startX?1:-1));startX=null});
-  // Google review ribbon with a readable no-motion layout and one visual clone set.
-  const track=$('#reviews-track'),pause=$('#review-pause');const data=window.SR_REVIEWS?.items||[];const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function reviewCard(r,clone=false){const article=document.createElement('article');article.className='review-card';if(clone){article.setAttribute('aria-hidden','true');article.inert=true}article.innerHTML=`<div class="stars" aria-label="Cinco estrelas">★★★★★</div><p>“${esc(r.text)}”</p><a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" tabindex="${clone?-1:0}">${esc(r.author)} ↗</a><footer>AVALIAÇÃO PÚBLICA DO GOOGLE · ${esc(r.period)}</footer>`;return article}
-  if(track&&data.length){data.forEach(r=>track.append(reviewCard(r)));if(!reduced.matches){data.forEach(r=>track.append(reviewCard(r,true)));requestAnimationFrame(()=>{const groupWidth=track.scrollWidth/2;track.style.setProperty('--review-duration',`${Math.max(36,groupWidth/31)}s`)})} else {track.style.animation='none';track.style.width='max-content';track.parentNode.style.overflowX='auto';track.parentNode.style.touchAction='pan-x'} }
-  function setPaused(paused){$('.reviews')?.classList.toggle('is-paused',paused);pause?.setAttribute('aria-pressed',String(paused));if(pause)pause.innerHTML=paused?'RETOMAR MOVIMENTO <span>▶</span>':'PAUSAR MOVIMENTO <span>Ⅱ</span>'}
-  pause?.addEventListener('click',()=>setPaused(pause.getAttribute('aria-pressed')!=='true'));if(reduced.matches){setPaused(true);pause.hidden=true}
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)setPaused(true)});
-  // Map only activates on request to preserve regular scrolling.
-  const mapFrame=$('[data-map-frame]'),mapCard=$('.contact__map');if(mapFrame){const src=mapFrame.dataset.src;const observer=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){mapFrame.src=src;observer.disconnect()}},{rootMargin:'200px'});observer.observe(mapCard);mapFrame.addEventListener('load',()=>{mapCard?.classList.add('map-ready')});}
-  $('#map-activate')?.addEventListener('click',()=>{mapCard.classList.add('map-active');mapFrame?.removeAttribute('tabindex');mapFrame?.focus()});
-})();
+import products from './data/products.js';
+import professionals from './data/professionals.js';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),hover=matchMedia('(hover:hover) and (pointer:fine)');
+document.documentElement.classList.add('enhanced');
+const ease='cubic-bezier(.22,1,.36,1)';
+function motion(el,frames,options={}){el.getAnimations().forEach(a=>a.cancel());if(reduced.matches)return;return el.animate(frames,{duration:220,easing:ease,...options});}
+// Native menu remains functional without scripting; Escape and selection return to a predictable state.
+const menu=$('.mobile-menu');$$('.mobile-menu nav a').forEach((a,i)=>{a.style.setProperty('--i',i);a.addEventListener('click',()=>menu.open=false)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.open){menu.open=false;$('summary',menu).focus()}});
+document.addEventListener('click',e=>{if(menu?.open&&!menu.contains(e.target))menu.open=false});
+matchMedia('(min-width:851px)').addEventListener('change',()=>{if(menu)menu.open=false});
+const nav=$('.desktop-nav'),indicator=$('.nav-indicator');
+function indicate(a){if(!indicator)return;indicator.style.width=a?a.offsetWidth+'px':'0';indicator.style.transform=`translateX(${a?.offsetLeft||0}px)`;}
+const navObserver=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){const a=$(`a[href="#${entry.target.id}"]`,nav);$$('a',nav).forEach(x=>{if(x===a)x.setAttribute('aria-current','location');else x.removeAttribute('aria-current')});indicate(a)}},{rootMargin:'-15% 0px -65% 0px'});$$('main section[id]').forEach(s=>navObserver.observe(s));addEventListener('resize',()=>indicate($('[aria-current]',nav)));
+// Service filtering keeps native details and prices in the document, including with JS disabled.
+const serviceRows=$$('.service-row');$$('[data-service-filter]').forEach(button=>button.addEventListener('click',()=>{
+ const category=button.dataset.serviceFilter;$$('[data-service-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));let count=0;
+ serviceRows.forEach(row=>{row.hidden=category!=='Todos'&&row.dataset.category!==category;if(!row.hidden)count++});
+ $('#full-services').open=category!=='Todos';$('.filter-status').textContent=`${count} serviços em ${category.toLowerCase()}`;
+ motion($('.service-catalog'),[{transform:'translateY(7px)',opacity:.7},{transform:'none',opacity:1}]);
+}));
+// Photograph navigation: persistent layers, decoded before activation, last request wins.
+let portraitSequence=0,currentProfessional=0;const portraitFigures=$$('[data-portrait]');
+async function selectProfessional(index,keyboard=false){
+ if(index===currentProfessional)return;const seq=++portraitSequence,next=portraitFigures[index],img=$('img',next);
+ img.loading='eager';try{await img.decode()}catch{}if(seq!==portraitSequence)return;
+ portraitFigures.forEach((f,i)=>{f.classList.toggle('is-outgoing',i===currentProfessional);f.classList.toggle('is-active',i===index);f.setAttribute('aria-hidden',String(i!==index))});
+ $$('[data-professional]').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));
+ currentProfessional=index;$('#professional-caption').textContent=professionals[index].name+' · Profissional da Sr. Navalha';
+ if(keyboard)portraitFigures.forEach(f=>f.getAnimations().forEach(a=>a.finish()));
+}
+$$('[data-professional]').forEach((b,i)=>{b.addEventListener('click',e=>selectProfessional(i,e.detail===0));b.addEventListener('focus',()=>selectProfessional(i,true));if(hover.matches)b.addEventListener('pointerenter',()=>selectProfessional(i));});
+// Products: image and copy respond together; the contact link always names the visible item.
+let productIndex=7,requestedProductIndex=7,productSequence=0;const productPhoto=$('#product-photo');
+async function selectProduct(index){const nextIndex=(index+products.length)%products.length,p=products[nextIndex],seq=++productSequence;requestedProductIndex=nextIndex;let img;
+ if(p.image){img=new Image();img.src=p.image;img.alt='Fotografia oficial: '+p.name;img.width=800;img.height=800;try{await img.decode()}catch{img=null}}if(seq!==productSequence)return;
+ productIndex=nextIndex;
+ const previous=productPhoto.firstElementChild?.cloneNode(true);productPhoto.querySelectorAll('.product-previous').forEach(n=>n.remove());
+ if(img)productPhoto.replaceChildren(img);else{const fallback=document.createElement('div');fallback.className='typographic-product';const title=document.createElement('span');title.textContent=p.name;const note=document.createElement('small');note.textContent='Fotografia não disponibilizada';fallback.append(title,note);productPhoto.replaceChildren(fallback)}
+ $('#product-name').textContent=p.name;$('#product-price').textContent=p.price;$('#product-category').textContent=p.category;$('#product-position').textContent=`${nextIndex+1} / ${products.length}`;
+ $('#product-detail').textContent='Valor do catálogo da Sr. Navalha. Fale com a equipe para conhecer o produto e consultar a disponibilidade.';
+ $('#product-contact').href='https://wa.me/5581995722396?text='+encodeURIComponent(`Olá! Gostaria de consultar a disponibilidade de ${p.name} (${p.price}).`);
+ const active=productPhoto.firstElementChild;if(previous&&!reduced.matches){previous.classList.add('product-previous');previous.setAttribute('aria-hidden','true');productPhoto.append(previous);active.style.position='relative';active.style.zIndex='2';setTimeout(()=>previous.remove(),320)}
+ motion(active,[{clipPath:'inset(0 0 0 100%)',transform:'translateX(16px)'},{clipPath:'inset(0)',transform:'none'}],{duration:280});
+ motion($('.product-copy'),[{transform:'translateY(8px)',opacity:.7},{transform:'none',opacity:1}],{duration:220});
+}
+$('#product-prev').addEventListener('click',()=>selectProduct(requestedProductIndex-1));$('#product-next').addEventListener('click',()=>selectProduct(requestedProductIndex+1));$$('[data-product]').forEach(b=>b.addEventListener('click',()=>{selectProduct(Number(b.dataset.product));$('#product-stage').scrollIntoView({behavior:reduced.matches?'instant':'smooth',block:'center'});}));
+$$('[data-product-filter]').forEach(b=>b.addEventListener('click',()=>{$$('[data-product-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$$('[data-product-category]').forEach(a=>a.hidden=b.dataset.productFilter!=='Todos'&&a.dataset.productCategory!==b.dataset.productFilter)}));
+// Spatial lightbox entry/return, native modal focus trap, swipe and keyboard controls.
+const dialog=$('.lightbox'),lightImage=$('#lightbox-image'),shots=$$('[data-work]');let shotIndex=0,returnFocus=null,photoSequence=0;
+async function displayPhoto(index,opening=false){shotIndex=(index+shots.length)%shots.length;const seq=++photoSequence,s=shots[shotIndex],source=$('img',s),next=new Image();next.src=s.href;try{await next.decode()}catch{}if(seq!==photoSequence)return;lightImage.src=next.src;lightImage.alt=source.alt;$('#lightbox-caption').textContent=$('figcaption span',s).textContent+` · ${shotIndex+1} / ${shots.length}`;if(!dialog.open)dialog.showModal();
+ if(opening){const from=source.getBoundingClientRect(),to=lightImage.getBoundingClientRect();motion(lightImage,[{transform:`translate(${from.x-to.x}px,${from.y-to.y}px) scale(${from.width/Math.max(1,to.width)})`,transformOrigin:'top left',opacity:.6},{transform:'none',transformOrigin:'top left',opacity:1}],{duration:320})}else motion(lightImage,[{opacity:.3,transform:'translateX(14px)'},{opacity:1,transform:'none'}]);}
+shots.forEach((s,i)=>s.addEventListener('click',e=>{e.preventDefault();returnFocus=s;displayPhoto(i,true)}));
+function closePhoto(){if(!dialog.open)return;const target=$('img',returnFocus),from=lightImage.getBoundingClientRect(),to=target.getBoundingClientRect();const a=motion(lightImage,[{transform:'none',opacity:1},{transform:`translate(${to.x-from.x}px,${to.y-from.y}px) scale(${to.width/Math.max(1,from.width)})`,transformOrigin:'top left',opacity:.25}],{duration:180});if(a)a.finished.catch(()=>{}).then(()=>dialog.close());else dialog.close();}
+$('.lightbox-close').addEventListener('click',closePhoto);$('.lightbox-next').addEventListener('click',()=>displayPhoto(shotIndex+1));$('.lightbox-prev').addEventListener('click',()=>displayPhoto(shotIndex-1));dialog.addEventListener('cancel',e=>{e.preventDefault();closePhoto()});dialog.addEventListener('close',()=>{photoSequence++;returnFocus?.focus({preventScroll:true})});
+dialog.addEventListener('click',e=>{if(e.target===dialog)closePhoto()});dialog.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();displayPhoto(shotIndex+1)}if(e.key==='ArrowLeft'){e.preventDefault();displayPhoto(shotIndex-1)}});
+let startX=null;dialog.addEventListener('pointerdown',e=>{startX=e.clientX});dialog.addEventListener('pointerup',e=>{if(startX!==null&&Math.abs(e.clientX-startX)>50)displayPhoto(shotIndex+(e.clientX<startX?1:-1));startX=null});dialog.addEventListener('pointercancel',()=>startX=null);
+// Continuous review ribbon uses native horizontal scrolling: touch can take over without a snap.
+const viewport=$('.review-viewport'),track=$('.review-track'),group=$('.review-group'),pause=$('#review-pause');let userPaused=false,pointerPaused=false,focusPaused=false,reviewVisible=false,last=0,raf=0,reviewPosition=0;
+function setReviewMode(){track.querySelector('[data-review-clone]')?.remove();viewport.scrollLeft=0;reviewPosition=0;last=0;cancelAnimationFrame(raf);if(reduced.matches){pause.hidden=true;return}pause.hidden=false;const clone=group.cloneNode(true);clone.dataset.reviewClone='';clone.setAttribute('aria-hidden','true');clone.inert=true;$$('a',clone).forEach(a=>a.tabIndex=-1);track.append(clone);raf=requestAnimationFrame(tick);}
+function tick(time){const dt=last?Math.min(time-last,50):0;last=time;if(reviewVisible&&!document.hidden&&!userPaused&&!pointerPaused&&!focusPaused&&!reduced.matches){if(Math.abs(viewport.scrollLeft-reviewPosition)>2)reviewPosition=viewport.scrollLeft;reviewPosition+=dt*.025;const cycle=group.getBoundingClientRect().width;if(reviewPosition>=cycle)reviewPosition-=cycle;viewport.scrollLeft=reviewPosition}raf=requestAnimationFrame(tick)}
+pause.addEventListener('click',()=>{userPaused=!userPaused;pause.setAttribute('aria-pressed',String(userPaused));pause.textContent=userPaused?'Retomar movimento':'Pausar movimento'});
+viewport.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')pointerPaused=true});viewport.addEventListener('pointerleave',()=>pointerPaused=false);viewport.addEventListener('pointerdown',()=>pointerPaused=true);viewport.addEventListener('pointerup',()=>{pointerPaused=false;userPaused=true;pause.setAttribute('aria-pressed','true');pause.textContent='Retomar movimento'});viewport.addEventListener('pointercancel',()=>pointerPaused=false);viewport.addEventListener('focusin',()=>focusPaused=true);viewport.addEventListener('focusout',()=>focusPaused=false);
+new IntersectionObserver(entries=>{reviewVisible=entries[0].isIntersecting;last=0}).observe(viewport);document.addEventListener('visibilitychange',()=>last=0);setReviewMode();
+// Signature editorial passage. The same photograph leaves the hero and docks beside the story.
+const heroPhoto=$('[data-editorial-photo]'),intro=$('.intro'),dock=document.createElement('div');dock.className='editorial-dock';dock.setAttribute('aria-hidden','true');$('.intro-title').prepend(dock);let passage=null;
+function measurePassage(){heroPhoto.style.transform='';$('figcaption',heroPhoto).style.transform='';passage=null;if(reduced.matches||innerWidth<=850){dock.hidden=true;return}dock.hidden=false;const a=heroPhoto.getBoundingClientRect(),d=dock.getBoundingClientRect();passage={x:d.x-a.x,y:d.y-a.y,scale:d.width/a.width,start:80,end:intro.offsetTop-210};updatePassage()}
+function updatePassage(){if(!passage)return;const t=Math.max(0,Math.min(1,(scrollY-passage.start)/Math.max(1,passage.end-passage.start)));const smooth=v=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)};const shrink=smooth(t/.3),across=smooth((t-.3)/.4),land=smooth((t-.7)/.3);const intermediate=Math.max(0,passage.y-260);const dy=intermediate*shrink+260*land;const scale=1+(passage.scale-1)*shrink;heroPhoto.style.transform=`translate(${passage.x*across}px,${dy}px) scale(${scale})`;$('figcaption',heroPhoto).style.transform=`scale(${1/scale})`;}
+let scrollPending=false;addEventListener('scroll',()=>{if(scrollPending)return;scrollPending=true;requestAnimationFrame(()=>{updatePassage();scrollPending=false})},{passive:true});addEventListener('resize',measurePassage);document.fonts.ready.then(measurePassage);addEventListener('load',measurePassage);
+// On-demand map leaves direct address and route accessible during provider failures.
+$('#load-map').addEventListener('click',()=>{const frame=$('#map'),button=$('#load-map');button.textContent='Carregando mapa…';button.disabled=true;frame.src=frame.dataset.src;const timer=setTimeout(()=>{button.textContent='Tentar carregar novamente';button.disabled=false},9000);frame.addEventListener('load',()=>{clearTimeout(timer);frame.hidden=false;button.textContent='Recarregar mapa';button.disabled=false},{once:true});});
+// Image failures become explicit labels, with identity and navigation intact.
+function imageFailed(img){if(img.closest('.identity')||img.classList.contains('brand')){img.alt='Sr. Navalha Barbearia';return}img.classList.add('image-unavailable');img.alt='Fotografia indisponível: '+img.alt;}
+$$('img').forEach(img=>{img.addEventListener('error',()=>imageFailed(img));if(img.complete&&!img.naturalWidth)imageFailed(img)});
+reduced.addEventListener('change',()=>{document.getAnimations().forEach(a=>a.cancel());setReviewMode();measurePassage()});

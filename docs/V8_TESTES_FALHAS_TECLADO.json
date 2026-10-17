@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Image failures retain content and CTA",
+    "pass": true
+  },
+  {
+    "name": "Blocked map retains route link and address",
+    "pass": true
+  },
+  {
+    "name": "Keyboard skip link",
+    "pass": true
+  },
+  {
+    "name": "Skip target",
+    "pass": true
+  },
+  {
+    "name": "Real keyboard lightbox",
+    "pass": true
+  },
+  {
+    "name": "Native focus return",
+    "pass": true
+  },
+  {
+    "name": "Official booking from legacy URL",
+    "pass": true
+  }
+]
