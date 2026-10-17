@@ -1,54 +1,32 @@
-# Sr. Navalha V6 — Ensaio de cuidado
+# Sr. Navalha — Ateliê Navalha (redesign estático)
 
-Site estático da Sr. Navalha Barbearia, Gravatá–PE. **A V6 está na raiz**, em HTML, CSS e JavaScript. Não exige npm, build ou backend.
+Uma reconstrução editorial da Barbearia Sr. Navalha: identidade verde-carvão, papel quente e cobre discreto, hero com fotografias originais em montagem, catálogo interativo, portfólio/visualizador, avaliações reais documentadas, Google Maps e agendamento direto via WhatsApp.
 
-## Abrir
+## Abrir com Live Server (sem npm)
+1. Extraia este ZIP **na pasta do projeto**, preservando as subpastas.
+2. No VS Code, clique com o botão direito em `index.html` e selecione **Open with Live Server**.
+3. `agendar.html` funciona de modo independente. Não utiliza backend e **não confirma uma reserva**.
 
-Abra a pasta no VS Code e use **Open with Live Server** em `index.html`. O agendamento está em `agendar.html`. Alternativa: `python3 -m http.server 8016` e `http://localhost:8016/`.
+Este pacote NÃO atualiza seu repositório GitHub sozinho e não deve ser usado para apagar dados não relacionados da versão anterior. A implementação usa nomes próprios (`css/site.css`, `css/motion.css`, `js/site.js`, `js/reviews.js`, `js/booking.js`) e foi criada como substituição de interface. Faça backup antes de sobrepor arquivos como `index.html` e `agendar.html`.
 
-## Experiência
+### Pastas
+- `index.html` / `agendar.html`: páginas estáticas.
+- `css/`: identidade, responsividade, animações e agendamento.
+- `js/`: interações e dados das avaliações.
+- `assets/images/`: variantes WebP tratadas conservadoramente.
+- `assets/originais/`: fotografias-fonte preservadas para futuras substituições por arquivos maiores.
+- `assets/decor/`: SVGs originais do novo sistema gráfico.
+- `docs/`: pesquisa, motion, procedência e verificação.
+- `preview/`: capturas renderizadas da interface.
 
-- Hero editorial com retratos reais em escala controlada.
-- Serviços em faixas expansíveis, com fotos e links para solicitar cada cuidado.
-- Ambiente/equipe com fotografias originais, sem fundos ampliados artificialmente.
-- Portfólio de cinco registros: seleção, teclado, arraste/swipe e lightbox acessível.
-- Quatro avaliações originais em esteira da direita para a esquerda, aproximadamente30px/s. Pausa no mouse, botão, teclado e toque; lista estática com movimento reduzido.
-- Google Maps real com ativação da interação, endereço e link independente.
-- FAQ, Instagram oficial, telefone e crédito de Murilo Gabriel preservados.
-- Agendamento direto por WhatsApp. Dia/hora são preferências: **a equipe precisa confirmar a disponibilidade**. Nenhuma reserva é criada automaticamente.
+### Publicar depois de conferir localmente
+Após copiar o conteúdo do ZIP para a raiz do seu repositório, execute `git status`, confira exatamente as alterações, e então use `git add index.html agendar.html css/ js/ assets/ docs/ README.md`, `git commit -m "feat: nova experiencia editorial Sr Navalha"` e `git push origin main` se desejar publicar na branch main. Estes comandos **não foram executados** pelo assistente.
 
-## Arquitetura
+### Integrações
+- WhatsApp: +55 81 99572-2396. Mensagens são montadas no navegador e abertas em `wa.me`.
+- Google Maps: Place ID `ChIJU15canBJqgcRARZqMshC8cA`. O mapa embutido só carrega com rede; fallback oferece link externo.
+- Depoimentos: 4 registros do snapshot datado de 15/10/2026, não são atualizados automaticamente. Ver `docs/AVALIACOES.md`.
+- Fontes: pilha tipográfica do navegador (`Impact`, `Arial`, `Georgia` e alternativas locais). Nenhum download de fonte é necessário.
 
-```text
-index.html / agendar.html   Home e solicitação V6
-css/tokens.css             Paleta, fonte local e escalas
-css/base.css               Base, foco e estilos compartilhados
-css/site.css               Home e responsividade
-css/motion.css             Complementos de interação
-css/booking.css            Formulário
-js/site.js                 Menu, catálogo, mapa e motion nativo
-js/portfolio.js            Seleção, lightbox e gestos
-js/reviews.js              Esteira, clones e pausas
-js/booking.js              Validação e mensagem WhatsApp
-assets/fonts/              Manrope local e licença
-assets/images/             Fotografias WebP preservadas
-scripts/                   Testes opcionais, sem pacotes npm
-capturas/v6/               Antes, etapa isolada e versão integrada
-docs/                      Direção, imagens, motion e resultados
-```
-
-`.v6-stage/` conserva a implementação isolada e não é necessária para servir o site. Documentos V5 permanecem como histórico; a documentação vigente tem sufixo `V6`.
-
-## Imagens e dados
-
-As fotos têm aproximadamente265×326px; o ambiente246×148px. A V6 respeita isso pela composição e tamanho de exibição. Não foram gerados clientes, cortes ou detalhes artificiais. Não existem originais melhores confirmados. Derivados cinematográficos antigos foram preservados nos assets, mas não são usados pela V6 nem incluídos no pacote de execução.
-
-Manrope é servida localmente. Google Maps é o único conteúdo incorporado externo; Instagram, Google e WhatsApp dependem de rede e dos respectivos serviços.
-
-Endereço, telefone, horários e registro de466 avaliações foram preservados. A nota é um instantâneo de15/10/2026, não uma consulta automática. Não há disponibilidade, preços ou nomes de profissionais inventados.
-
-## Testes e manutenção
-
-Veja [testes](docs/TESTES_V6.md), [imagens](docs/AUDITORIA_IMAGENS_V6.md), [componentes](docs/COMPONENTES_V6.md) e [motion](docs/MOTION_V6.md). Os testes usam Firefox instalado, servidor HTTP e Node22 como ferramentas opcionais; não são dependências do site publicado.
-
-Backup anterior: `/home/murilo/Dev/andamento/srnavalha-pre-v6-20261016.zip`. Alterações locais preexistentes preservadas. Nenhum commit ou push.
+### Limitações honestas
+A fotografia original de vários trabalhos é muito pequena (~265 × 325 px). Os derivados WebP foram redimensionados com Lanczos, ajustes sutis de contraste/cor e nitidez conservadora; **isso não cria detalhes originais ausentes**. A montagem foi desenhada para que as fotos não precisem virar backgrounds enormes. Para qualidade documental superior, peça aos profissionais os arquivos de câmera ou as fotos originais exportadas sem compressão de redes sociais.
