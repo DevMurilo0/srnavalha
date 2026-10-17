@@ -159,9 +159,18 @@ button:disabled{cursor:default}
 .sr-location__details ul{gap:17px;margin-bottom:23px}
 .sr-location__details li{line-height:1.7;font-size:var(--type-small)}
 .sr-location__details li a{padding-bottom:4px;border-bottom:1px solid #bba28b88}
-.sr-location__map{height:100%;min-height:360px;border:1px solid #bfa78c}
-.sr-location__map img{filter:saturate(.7);transition:transform 1.2s var(--sr-ease)}
-.sr-map-pin{left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.sr-location__map{height:100%;min-height:360px;border:1px solid #bfa78c;background:#e8e1d8}
+.sr-location__map iframe{z-index:1;pointer-events:none;background:transparent;opacity:0;transition:opacity .25s ease}
+.sr-location__map.is-loaded iframe{opacity:1}
+.sr-location__map.is-active iframe{pointer-events:auto}
+.sr-location__map-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:32px;text-align:center;color:#403832;background:#e8e1d8}
+.sr-location__map-fallback strong{font:600 25px/1.1 var(--font-display);text-transform:uppercase}
+.sr-location__map-fallback span{font-size:var(--type-small);line-height:1.65;color:#675d54}
+.sr-location__map-fallback a{min-height:44px;display:inline-flex;align-items:center;margin-top:5px;font-size:var(--type-action);text-transform:uppercase;text-decoration:underline;text-underline-offset:5px}
+.sr-location__map-activate{position:absolute;z-index:2;left:50%;bottom:16px;transform:translateX(-50%);display:none;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 15px;border:1px solid #a98464;border-radius:2px;background:#f4eee7ef;color:#2d2925;font:700 var(--type-action)/1 var(--font-sans);white-space:nowrap;box-shadow:0 5px 18px #251d1730;cursor:pointer}
+.sr-location__map.is-loaded .sr-location__map-activate{display:inline-flex}
+.sr-location__map-activate:is(:hover,:focus-visible){background:#fff;border-color:#7e5d44}
+.sr-location__map.is-active .sr-location__map-activate{display:none}
 .sr-location__faq{padding-left:29px}
 .sr-faq-item summary{min-height:56px;font-size:var(--type-faq);line-height:1.6;padding-right:8px;transition:color .3s,padding-left .4s var(--sr-ease)}
 .sr-faq-item summary:hover{color:#926b4c;padding-left:4px}

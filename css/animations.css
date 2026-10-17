@@ -8,7 +8,7 @@
 /* Camera wrappers own reveal transforms; images keep their existing CSS hover. */
 .sr-services__titlewrap::before{transform:scaleY(var(--motion-rule,1));transform-origin:top}
 .sr-team::before{content:"";position:absolute;top:0;left:var(--sr-edge);right:var(--sr-edge);height:1px;background:#c7a68555;transform:scaleX(var(--team-rule,0));transform-origin:left;pointer-events:none}
-.sr-location__map::after{content:"";position:absolute;left:14px;right:14px;bottom:14px;height:1px;background:#cfad8644;transform:scaleX(var(--map-rule,0));transform-origin:left;pointer-events:none}
+.sr-location__map::after{content:"";position:absolute;z-index:2;left:14px;right:14px;bottom:8px;height:1px;background:#8f694844;transform:scaleX(var(--map-rule,0));transform-origin:left;pointer-events:none}
 /* Only GSAP arrow/key navigation disables snapping; native touch retains native momentum. */
 .sr-gallery__viewport.motion-gallery{scroll-behavior:auto}
 .sr-gallery__viewport.is-programmatic,.sr-gallery__viewport.is-dragging,.sr-gallery__viewport.is-user-scrolling{scroll-snap-type:none;scroll-behavior:auto}

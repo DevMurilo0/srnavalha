@@ -14,8 +14,14 @@
       if(!frame)return;
       const image=frame.querySelector('img');if(!image)return;
       const camera=scope.wrap(image,'motion-image-camera');scope.save(frame,camera);
+      const masks={
+        left:'polygon(0% 0%,0% 0%,0% 100%,0% 100%)',
+        right:'polygon(100% 0%,100% 0%,100% 100%,100% 100%)',
+        bottom:'polygon(0% 100%,100% 100%,100% 100%,0% 100%)',
+        top:'polygon(0% 0%,100% 0%,100% 0%,0% 0%)'
+      };
       return gsap.timeline({scrollTrigger:once(trigger)})
-        .fromTo(frame,{clipPath:({left:'inset(0 100% 0 0)',right:'inset(0 0 0 100%)',bottom:'inset(100% 0 0 0)',top:'inset(0 0 100% 0)'})[direction]},{clipPath:'inset(0 0% 0% 0)',duration,ease:'power3.inOut',clearProps:'clipPath'},delay)
+        .fromTo(frame,{clipPath:masks[direction]},{clipPath:'polygon(0% 0%,100% 0%,100% 100%,0% 100%)',duration,ease:'power3.inOut',clearProps:'clipPath'},delay)
         .fromTo(camera,{scale:1.08},{scale:1,duration:duration+.18,ease:'power3.out',clearProps:'transform'},delay);
     }
     M.text.hero(scope);
@@ -26,13 +32,24 @@
     const rule=document.querySelector('.sr-services__titlewrap');
     if(rule){scope.save(rule);gsap.fromTo(rule,{'--motion-rule':0},{'--motion-rule':1,duration:.9,ease:'power3.inOut',scrollTrigger:once(rule)});}
     paragraph('.sr-services__intro',{delay:.15});
-    document.querySelectorAll('.sr-service').forEach((card,index)=>{
-      const frame=card.querySelector('.sr-service__image');
-      const delay=desktop?index*.13:.05;
-      photo(frame,{direction:['left','bottom','right'][index%3],duration:desktop?1.05:.82,delay,trigger:desktop?document.querySelector('.sr-services__grid'):frame});
-      const text=card.querySelector('.sr-service__bottom');scope.save(text);
-      gsap.fromTo(text,{opacity:.2,clipPath:'inset(0 0 100% 0)'},{opacity:1,clipPath:'inset(0 0 0% 0)',duration:.62,delay:delay+.42,ease:'power3.out',clearProps:'opacity,clipPath',scrollTrigger:once(desktop?document.querySelector('.sr-services__grid'):frame)});
-    });
+    const serviceGrid=document.querySelector('.sr-services__grid'),serviceCards=[...document.querySelectorAll('.sr-service')];
+    if(serviceGrid&&serviceCards.length){
+      const masks=['polygon(0% 0%,0% 0%,0% 100%,0% 100%)','polygon(0% 100%,100% 100%,100% 100%,0% 100%)','polygon(100% 0%,100% 0%,100% 100%,100% 100%)'];
+      const buildCard=(timeline,card,index,position)=>{
+        const frame=card.querySelector('.sr-service__image'),image=frame?.querySelector('img'),text=card.querySelector('.sr-service__bottom');
+        if(!frame||!image||!text)return;
+        const camera=scope.wrap(image,'motion-image-camera');scope.save(frame,camera,text);
+        timeline.fromTo(frame,{clipPath:masks[index%3]},{clipPath:'polygon(0% 0%,100% 0%,100% 100%,0% 100%)',duration:1,ease:'power3.inOut',clearProps:'clipPath'},position)
+          .fromTo(camera,{scale:1.075},{scale:1,duration:1.12,ease:'power3.out',clearProps:'transform'},position)
+          .fromTo(text,{opacity:.25,clipPath:'inset(0% 0% 100% 0%)'},{opacity:1,clipPath:'inset(0% 0% 0% 0%)',duration:.64,ease:'power3.out',clearProps:'opacity,clipPath'},position+.34);
+      };
+      if(desktop){
+        const sequence=gsap.timeline({scrollTrigger:once(serviceGrid,{start:'top 76%'})});
+        serviceCards.forEach((card,index)=>buildCard(sequence,card,index,index*.22));
+      }else{
+        serviceCards.forEach((card,index)=>buildCard(gsap.timeline({scrollTrigger:once(card.querySelector('.sr-service__image'),{start:'top 76%'})}),card,index,0));
+      }
+    }
     const about=document.querySelector('.sr-about'),aboutFrame=about?.querySelector('.sr-about__photo');
     if(aboutFrame){
       const camera=scope.wrap(aboutFrame.querySelector('img'),'motion-image-camera');scope.save(aboutFrame,camera);
@@ -73,8 +90,8 @@
     if(review){scope.save(review);gsap.fromTo(review,{opacity:.55,clipPath:'inset(0 0 0 100%)'},{opacity:1,clipPath:'inset(0 0 0 0%)',duration:1,delay:.12,ease:'power3.inOut',clearProps:'opacity,clipPath',scrollTrigger:once(review)});}
     title('.sr-location__details h2',{duration:.88,stagger:.095});
     title('.sr-location__faq h2',{duration:.82,stagger:.08});
-    const map=document.querySelector('.sr-location__map'),pin=map?.querySelector('.sr-map-pin');
-    if(map&&pin){scope.save(map,pin);gsap.fromTo(map,{'--map-rule':0},{'--map-rule':1,duration:1.1,ease:'power3.inOut',scrollTrigger:once(map)});gsap.fromTo(pin,{scale:.76,opacity:0},{scale:1,opacity:1,duration:.8,delay:.22,ease:'power3.out',clearProps:'transform,opacity',scrollTrigger:once(map)});}
+    const map=document.querySelector('.sr-location__map');
+    if(map){scope.save(map);gsap.fromTo(map,{'--map-rule':0},{'--map-rule':1,duration:1.1,ease:'power3.inOut',scrollTrigger:once(map)});}
     const contacts=[...document.querySelectorAll('.sr-location__details li')];if(contacts.length){scope.save(contacts);gsap.fromTo(contacts,{opacity:.4,x:-7},{opacity:1,x:0,stagger:.08,duration:.65,ease:'power3.out',clearProps:'opacity,transform',scrollTrigger:once(contacts[0])});}
     title('#sr-cta-title',{duration:1.03,stagger:.09});
     paragraph('.sr-cta p:not(.sr-kicker)',{delay:.15});

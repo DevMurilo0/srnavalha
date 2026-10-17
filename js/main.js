@@ -89,5 +89,14 @@
   active?.setAttribute('aria-current','location');
   document.fonts?.ready.then(()=>moveIndicator(false));
   document.querySelectorAll('[data-current-year]').forEach(item=>item.textContent=new Date().getFullYear());
+  document.querySelectorAll('[data-map]').forEach(map=>{
+    const frame=map.querySelector('[data-map-frame]'),activate=map.querySelector('[data-map-activate]');
+    frame?.addEventListener('load',()=>map.classList.add('is-loaded'));
+    frame?.addEventListener('error',()=>map.classList.remove('is-loaded','is-active'));
+    const loadMap=()=>{if(frame?.dataset.src)fetch(frame.dataset.src,{mode:'no-cors'}).then(()=>{frame.src=frame.dataset.src;}).catch(()=>map.classList.remove('is-loaded','is-active'));};
+    if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{if(entries[0].isIntersecting){observer.disconnect();loadMap();}},{rootMargin:'300px'});observer.observe(map);}else loadMap();
+    activate?.addEventListener('click',()=>{map.classList.add('is-active');frame.tabIndex=0;frame.focus();});
+    frame?.addEventListener('blur',()=>map.classList.remove('is-active'));
+  });
   update();
 })();
