@@ -2,7 +2,7 @@
 
 Barbearia no bairro Prado, em Gravatá–PE. O site apresenta profissionais, serviços, produtos, trabalhos reais, avaliações e informações para a visita. A ação principal é abrir o agendamento oficial: https://sites.appbarber.com.br/srnavala-pqjj. WhatsApp é canal de conversa e consulta de produtos; o site não confirma reservas.
 
-A V8 foi autorizada como reconstrução visual: carvão, marfim e cobre substituem a paleta V6, com o logo original, fontes locais Manrope e Young Serif, fotografias oficiais e composição editorial de escalas desiguais. A especificação atual está em `DESIGN.md` e `.impeccable/design.json`; registros V6 são históricos.
+A V9 foi autorizada como reconstrução visual: carvão, marfim e cobre substituem a paleta anterior, com o logo original, fontes locais Manrope e Young Serif, fotografias oficiais e hero cinematográfico em moldura de espelho e narrativa de scroll. A especificação atual está em `DESIGN.md` e `.impeccable/design.json`; registros V6 são históricos.
 
 ## Conteúdo e confiança
 
@@ -14,6 +14,6 @@ Nota e total de avaliações são um retrato datado em 17/10/2026; os textos de 
 
 ## Implementação e acesso
 
-HTML, CSS e JavaScript nativos, compatíveis com servidor estático/Live Server, sem backend e sem build obrigatório. Tokens e estilos atuais: `css/tokens.css`, `css/site.css`, `css/motion.css`; interações: `js/site.js`. Dados e conteúdo essenciais permanecem no HTML, com detalhes nativos e links diretos.
+HTML, CSS e JavaScript nativos, compatíveis com servidor estático/Live Server, sem backend e sem build obrigatório. Tokens e estilos atuais: `css/tokens.css`, `css/site.css`, `css/motion.css`; interações: `js/site.js` e módulos `js/motion/`. Dados e conteúdo essenciais permanecem no HTML, com detalhes nativos e links diretos.
 
-Filtros, retratos, produtos, visualizador, esteira e mapa são melhorias progressivas. Preservar navegação por teclado, foco visível, nomes acessíveis, retorno do foco e suporte inicial/dinâmico a `prefers-reduced-motion`. A passagem da fotografia do hero até a introdução é uma assinatura desktop opcional; não pode impedir leitura, consulta ou agendamento.
+Filtros, retratos, produtos, visualizador, esteira e mapa são melhorias progressivas. Preservar navegação por teclado, foco visível, nomes acessíveis, retorno do foco e suporte inicial/dinâmico a `prefers-reduced-motion`. A passagem da fotografia do hero até a apresentação tem composições próprias desktop e mobile; não pode impedir leitura, consulta ou agendamento.

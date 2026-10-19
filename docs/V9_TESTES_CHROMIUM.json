@@ -1,0 +1,187 @@
+[
+  {
+    "name": "320 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "375 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "390 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "768 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1024 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1366 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1440 layout/conteúdo",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "images": [],
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "curtain": false
+    }
+  },
+  {
+    "name": "Hero: progresso reversível",
+    "pass": true,
+    "detail": {
+      "p": 0.5325443786982249,
+      "t": "matrix(0.862476, 0, 0, 0.862476, -372.771, 28.3138)"
+    }
+  },
+  {
+    "name": "Hero: scroll real",
+    "pass": true
+  },
+  {
+    "name": "Hero: controles ocultos ficam inertes",
+    "pass": true
+  },
+  {
+    "name": "Hero: rolagem rápida retorna estável",
+    "pass": true
+  },
+  {
+    "name": "Filtro de serviços",
+    "pass": true
+  },
+  {
+    "name": "Serviço: fotografia sincronizada",
+    "pass": true
+  },
+  {
+    "name": "Serviço sem foto não herda imagem anterior",
+    "pass": true
+  },
+  {
+    "name": "Equipe: última seleção vence",
+    "pass": true
+  },
+  {
+    "name": "Produto sem foto: fallback honesto",
+    "pass": true
+  },
+  {
+    "name": "Produtos: cliques rápidos e WhatsApp",
+    "pass": true
+  },
+  {
+    "name": "Lightbox abre",
+    "pass": true
+  },
+  {
+    "name": "Lightbox: teclado",
+    "pass": true
+  },
+  {
+    "name": "Lightbox: gesto swipe",
+    "pass": true
+  },
+  {
+    "name": "Lightbox: Escape e foco",
+    "pass": true
+  },
+  {
+    "name": "Avaliações em movimento",
+    "pass": true
+  },
+  {
+    "name": "Avaliações: pausa",
+    "pass": true
+  },
+  {
+    "name": "Motor dorme fora da viewport",
+    "pass": true
+  },
+  {
+    "name": "Movimento reduzido dinâmico",
+    "pass": true
+  },
+  {
+    "name": "Menu por toque",
+    "pass": true
+  },
+  {
+    "name": "Menu: Escape",
+    "pass": true
+  },
+  {
+    "name": "Teclado: foco navegável",
+    "pass": true
+  },
+  {
+    "name": "Sem JavaScript: serviços, equipe, links",
+    "pass": true
+  },
+  {
+    "name": "Agendar: destino oficial",
+    "pass": true
+  },
+  {
+    "name": "Console sem exceções",
+    "pass": true,
+    "detail": []
+  }
+]

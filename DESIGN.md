@@ -1,6 +1,6 @@
 ---
-name: Sr. Navalha V8
-description: Fotografia real, composição editorial e cuidado em carvão, marfim e cobre
+name: Sr. Navalha V9
+description: Fotografia real, enquadramento cinematográfico e movimento em carvão, marfim e cobre
 colors:
   charcoal: "#141414"
   soft-black: "#202020"
@@ -14,25 +14,25 @@ colors:
 typography:
   display:
     fontFamily: "Manrope, Arial, sans-serif"
-    fontSize: "clamp(48px,7.3vw,106px)"
+    fontSize: "clamp(88px,9.7vw,154px)"
     fontWeight: 500
     lineHeight: 1.08
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.055em"
   headline:
     fontFamily: "Manrope, Arial, sans-serif"
-    fontSize: "clamp(38px,5.2vw,76px)"
+    fontSize: "clamp(44px,6.2vw,88px)"
     fontWeight: 500
-    lineHeight: 1.08
+    lineHeight: 1.07
     letterSpacing: "-0.04em"
   emphasis:
     fontFamily: "Young, Georgia, serif"
     fontWeight: 400
-    letterSpacing: "-0.035em"
+    letterSpacing: "-0.04em"
   title:
     fontFamily: "Manrope, Arial, sans-serif"
-    fontSize: "28px"
+    fontSize: "23px"
     fontWeight: 400
-    lineHeight: 1.25
+    lineHeight: 1.07
   body:
     fontFamily: "Manrope, Arial, sans-serif"
     fontSize: "16px"
@@ -51,138 +51,150 @@ components:
     backgroundColor: "{colors.ivory}"
     textColor: "{colors.charcoal}"
     rounded: "{rounded.square}"
-    padding: "17px 23px"
+    padding: "16px 25px"
   button-on-paper:
     backgroundColor: "{colors.charcoal}"
     textColor: "{colors.ivory}"
     rounded: "{rounded.square}"
-    padding: "17px 23px"
+    padding: "16px 25px"
   button-outline:
     backgroundColor: "transparent"
     textColor: "{colors.ivory}"
     rounded: "{rounded.square}"
-    padding: "17px 23px"
+    padding: "16px 25px"
   button-primary-hover:
     backgroundColor: "{colors.copper}"
     textColor: "{colors.charcoal}"
   filter:
-    backgroundColor: "{colors.paper-shade}"
-    textColor: "{colors.dark-text}"
+    backgroundColor: "transparent"
+    textColor: "{colors.charcoal}"
     rounded: "{rounded.square}"
-    padding: "9px 14px"
+    padding: "8px 14px"
   filter-selected:
     backgroundColor: "{colors.charcoal}"
     textColor: "{colors.ivory}"
   review:
     backgroundColor: "{colors.charcoal}"
     textColor: "{colors.ivory}"
-    padding: "30px"
+    padding: "32px"
     width: "360px"
 ---
 
-# Design System: Sr. Navalha V8
+# Design System: Sr. Navalha V9
 
 ## Overview
 
 **Creative North Star: "O cuidado em enquadramento"**
 
-A V8 combina carvão, marfim e cobre com o logo original e fotografias reais da Sr. Navalha. A direção editorial usa proporções desiguais, intervalos amplos e títulos que alternam Manrope com Young Serif para aproximar o cuidado cotidiano de uma apresentação autoral.
+A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O enquadramento remete ao espelho da barbearia: retrato dominante, cantos recortados e tipografia editorial em duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.
 
-A identidade depende das pessoas, dos serviços e do acervo da casa. Movimento acompanha escolhas e relações espaciais: a mesma fotografia atravessa o hero até a introdução no desktop; máscaras revelam títulos e retratos. O conteúdo permanece legível sem movimento.
+O movimento é uma camada progressiva da composição. Abertura por painéis, fotografia e título compartilham uma sequência; a rolagem nativa transforma o enquadramento até a apresentação da casa. Passagens breves alternam corte fotográfico, superfície e tipografia, sem tornar todas as seções sticky. O HTML preserva conteúdo e destinos reais sem depender dessas cenas.
 
 **Key Characteristics:**
 
-- Fotografia real em retângulos de tamanhos e posições desiguais.
-- Contraste entre superfícies carvão e marfim, com cobre pontual.
-- Manrope local para leitura e estrutura; Young Serif local para ênfase.
-- HTML nativo, controles explícitos e movimento progressivo.
+- Retratos oficiais em molduras de espelho e composições fotográficas assimétricas.
+- Carvão e marfim estruturam capítulos; cobre e tabaco pontuam estados e acabamentos.
+- Manrope local organiza leitura e escala; Young Serif local dá contraste editorial.
+- Scroll nativo, controles explícitos e responsáveis distintos para entrada e progresso.
 
-Esta documentação descreve a implementação atual em `css/tokens.css`, `css/site.css`, `css/motion.css`, `index.html` e `js/site.js`. A V8 substitui a especificação V6; arquivos históricos e estudos anteriores não são autoridade visual atual.
+Esta atualização reconcilia o sistema V8 com a implementação V9 em `css/tokens.css`, `css/site.css`, `css/motion.css`, `index.html`, `js/site.js` e `js/motion/`. Os tokens confirmados de paleta e fontes permanecem; a composição e o movimento antigos não são autoridade para novas alterações.
 
 ## Colors
 
 ### Primary
 
-Cobre é o acento contido: indicador de navegação, foco em superfícies escuras, estrelas, seleção de texto e resposta ao hover. Tabaco dá contraste ao foco no marfim e aparece na palavra editorial dos produtos.
+Cobre envelhecido marca foco no escuro, indicador de navegação, estrelas e resposta ao hover. Tabaco dá contraste no marfim e participa das composições tipográficas de produtos. Os valores normativos estão no frontmatter, extraídos dos tokens CSS.
 
 ### Neutral
 
-Carvão estrutura a página e a identidade; preto suave diferencia avaliações e o menu móvel. Marfim abre os catálogos e a localização. Papel sombreado sustenta filtros e produtos; mineral marca nomes inativos e contornos. Texto claro e texto escuro organizam legendas conforme a superfície. Os valores normativos estão no frontmatter e vêm dos tokens CSS.
+Carvão é a superfície principal; preto secundário diferencia avaliações e menu móvel. Marfim abre catálogos e localização. Papel sombreado sustenta produtos e mapa; texto claro e escuro oferecem notas adequadas às superfícies. Mineral permanece no vocabulário de tokens; não deve substituir automaticamente o texto principal.
 
 **The Surface Contrast Rule.** Texto principal alterna entre marfim sobre carvão e carvão sobre marfim; cobre marca foco, estado e pequenos acentos.
 
 ## Typography
 
-Manrope variável local (`manrope-v6-latin.woff2`, pesos 200–800) é a voz de leitura e estrutura. Young Serif local (`young-serif.ttf`, registrada como `Young`, peso 400) traz ênfase em palavras e linhas específicas, sem itálico sintético. Não substituir o logo por texto composto nessas fontes.
+Manrope variável local (`manrope-v6-latin.woff2`, pesos 200–800) sustenta estrutura e leitura. Young Serif local (`young-serif.ttf`, registrada como `Young`, peso 400) compõe ênfases e nomes de produtos; não usa itálico sintético.
 
-O hero e os títulos de seção seguem os papéis display/headline; o destaque serifado herda o tamanho do título. Produtos usam Young em títulos próprios, com escala de 34–54px no desktop. Corpo tem limite de leitura de 65ch; descrições e legendas são mais curtas. Preços e indicadores numéricos usam algarismos tabulares quando definidos no componente.
+O display do hero segue o frontmatter. A segunda linha usa Young a 0.84em; a entrelinha do hero é 1.08. As adaptações atuais são 11vw até 1100px, 11.5vw até 850px, `clamp(51px,14vw,82px)` até 600px e 14vw até 350px; acima de 1600px o display é 160px. No mobile a segunda linha usa 0.86em, ou 0.85em até 350px. O tracking observado do hero é -0.055em, específico desta composição, sem propagá-lo ao corpo.
 
-No mobile até 600px, o hero usa `clamp(38px,8.7vw,52px)` e entrelinha 1.12; a 350px ou menos usa 38px. Legendas relevantes permanecem em 13px e o texto de leitura em 16px. As regras finais de `site.css` prevalecem sobre os tamanhos menores que aparecem anteriormente no arquivo.
+Títulos de seção usam o papel headline, entrelinha 1.07 e tracking -0.04em; nos cabeçalhos de seção passam a 48px até 850px e `clamp(36px,10vw,52px)` até 600px. O título da apresentação usa `clamp(44px,5.4vw,76px)` e 40px no mobile com cena ativa. Produtos usam Young em `clamp(35px,4vw,58px)`, com adaptações para 34px no tablet e 38px no mobile. Texto base permanece em 16px/1.65; medidas de leitura são locais, como 33ch na apresentação e 38ch nos produtos. Preços e indicadores usam algarismos tabulares quando definidos no componente.
 
 ## Layout
 
-Contêiner máximo de 1440px com margens fluidas e seções amplas. Até 600px as margens são 22px e o ritmo de seção é 76px; até 350px as margens são 18px. Breakpoints efetivos: 1600, 1100, 850, 600 e 350px.
+Contêiner máximo de 1440px, margens e espaçamento de seção fluidos conforme frontmatter. Até 600px, margens de 22px e seções de 76px; até 350px, margens de 18px. Breakpoints usados: 1600, 1100, 850, 600 e 350px.
 
-O hero combina texto e duas fotografias de escala desigual. Catálogos e equipe usam colunas assimétricas; na equipe, lista de nomes e retrato continuam lado a lado no mobile, com legenda e ação abaixo. Catálogos, localização e convite se empilham em telas pequenas. O apoio lateral de serviços desaparece até 600px sem remover o catálogo.
+O cabeçalho sticky tem alturas de 94px, 82px até 850px e 76px até 600px. A navegação horizontal cede a `details` móvel até 850px. A ação de agendamento permanece no cabeçalho.
 
-A galeria mantém rolagem horizontal nativa com encaixe e fotografias desencontradas. A navegação desktop cede a um `details` móvel até 850px; o cabeçalho fica fixo durante a rolagem, com alturas de 100px, 86px e 82px conforme a largura. A passagem da fotografia do hero só atua acima de 850px e com movimento permitido; nessa condição a fotografia termina junto da introdução, em um encaixe de 240px.
+O hero desktop combina retrato principal, detalhe fotográfico menor, convite e título em duas linhas. A fotografia ocupa 31.5% da largura, limitada a 460px, com altura `clamp(400px,48vh,500px)`; a segunda linha fica separada pela composição, com intervalo `clamp(340px,38vh,430px)`. A cena tem altura `calc(100svh - 94px)`, mínimo de 820px e máximo de 1000px. Com JavaScript e movimento permitido, a jornada ocupa 185svh e sua cena é sticky; no mobile a cena mede 795px e a jornada `calc(795px + 85svh)`. A foto mobile usa largura de 69%, altura de 300px e posição própria. Esses valores descrevem a cena existente; não são um modelo universal para novas páginas.
+
+Catálogos usam colunas assimétricas; no mobile os serviços preservam fotografia de apoio de 125px junto da legenda. Equipe mantém nomes e retrato lado a lado, com ação abaixo. Produtos e localização empilham no mobile. Portfólio é grid editorial no desktop e faixa horizontal nativa com snap até 600px. Movimento reduzido transforma a jornada em leitura estática e avaliações em grade; sem JavaScript o HTML mantém conteúdo e links.
 
 ## Elevation & Depth
 
-Superfícies planas, separadas por cor, espaço e filetes. Não há sombra de elevação recorrente; o contorno do botão secundário é um filete interno. Fotografia sobreposta, máscara de recorte e o fundo escuro do diálogo produzem profundidade sem cartões flutuantes.
+Profundidade nasce da sobreposição fotográfica, recorte, diferença de superfícies e diálogo nativo. Não há sistema recorrente de sombras de elevação. O pequeno text-shadow da legenda desktop serve somente ao contraste fotográfico.
 
-**The Progressive Motion Rule.** Movimento reforça a relação entre elementos; navegação, leitura e agendamento continuam disponíveis sem animação.
+**The Single Motion Owner Rule.** Entrada e scroll usam camadas distintas; uma única fonte de progresso controla os wrappers do hero.
 
 ## Shapes
 
-Cantos retos em botões, filtros, retratos e contêineres. As fotografias variam de quadrado a retrato e enquadramento horizontal, com recorte definido por contexto. Setas diagonais finas indicam ações; sinais de mais giram na abertura de detalhes. Divisores discretos organizam as linhas do catálogo.
+Botões e catálogos têm cantos retos. A moldura de espelho recorta os cantos superiores do retrato e recebe acabamentos SVG próprios. Setas diagonais indicam destinos; sinais de mais giram nos detalhes nativos. Filetes organizam catálogos e acompanham a precisão do enquadramento; não são uma decoração universal para novas superfícies.
 
-**The Real Photograph Rule.** Usar imagens oficiais e do acervo com escala compatível com a resolução; ausência de fotografia vira apresentação tipográfica explícita.
+**The Real Photograph Rule.** Usar imagens oficiais com escala compatível com a resolução; ausência de fotografia específica recebe apresentação tipográfica explícita.
 
 ## Components
 
 ### Buttons
 
-Ações retangulares, texto em Manrope 14px e peso 700; altura mínima de 58px. A ação clara no carvão inverte no papel. A variante transparente tem contorno mineral. Hover com ponteiro fino usa cobre e desloca a seta; pressionar reduz a escala para 0.98. Foco visível tem contorno de 2px e afastamento de 6px, cobre no escuro e tabaco no papel. Links textuais sublinhados têm alvo mínimo de 44px.
-
-### Filters and catalogs
-
-Filtros retangulares têm altura mínima de 44px, estado explícito `aria-pressed` e seleção carvão/marfim. Serviços são linhas de `details` nativo com nome, preço, duração e descrição; nenhuma linha depende de uma animação para abrir. O catálogo completo fica sob uma abertura própria. Produtos têm consulta nominal via WhatsApp; itens sem fotografia oficial exibem nome e aviso tipográfico, sem imagem fabricada.
+Ações retangulares em Manrope 15px, peso 650, altura mínima de 58px e padding conforme frontmatter. Superfícies claras e escuras invertem a ação. A variante transparente tem borda cobre. Hover com ponteiro fino muda para cobre e desloca a seta; pressionar reduz a escala para 0.98. Foco usa contorno de 2px e afastamento de 6px, cobre no escuro e tabaco no marfim. Links textuais têm alvo mínimo de 44px. Adaptações mobile do CTA usam 14px e mínimo de 54px.
 
 ### Navigation
 
-Logo original preservado, links em 14px e indicador cobre animado sob a seção ativa. O menu móvel usa `details`, fecha por seleção, clique externo ou Escape e retorna o foco ao acionador por Escape. O link de agendamento aponta diretamente ao sistema oficial.
+Logo original, links desktop de 14px e indicador cobre sob a seção ativa. Menu móvel com detalhes nativos, entrada por máscara e links por deslocamento curto; Escape fecha e devolve foco ao acionador. Navegação e agendamento preservam destinos reais.
 
-### Editorial photograph and masked title
+### Opening and hero
 
-O mesmo elemento fotográfico do hero reduz, atravessa e se acomoda na introdução conforme a rolagem desktop. A fotografia não é duplicada para simular a passagem. Títulos entram por máscara tipográfica; os estados HTML padrão continuam visíveis sem JavaScript. A passagem é cancelada no mobile e com movimento reduzido.
+Abertura injetada por JavaScript, com identidade central, filete e dois painéis. O movimento principal dos painéis dura 930ms, após atraso de 430ms; a cortina é removida em 1400ms, com timeout JS de segurança de 2200ms e fallback CSS de 2400ms. O orçamento de espera pelos recursos essenciais é de 180ms. Rolagem, movimento reduzido e falhas de execução encerram a abertura.
 
-### Professional portrait selector
+Máscara da fotografia (1050ms), escala do seu filho (1250ms), linhas tipográficas (900ms, intervalo de 95ms) e elementos de apoio (550ms) se coordenam com os painéis. A entrada pertence aos filhos; o scroll pertence aos wrappers `hero-photo-travel` e `hero-title-travel`, nunca aos mesmos transforms.
 
-Nomes em grande escala, seleção marfim e estado inativo mineral. Retratos persistem em camadas: a imagem seguinte é decodificada antes da ativação, com máscara horizontal de 480ms. Trocas rápidas aceitam a última solicitação; foco e clique também selecionam. O nome ativo é anunciado em região `aria-live`. Hover apenas existe para ponteiro fino.
+O módulo do hero calcula um único progresso limitado de 0 a 1. Foto reduz e desloca entre 0.05 e 0.72; título e apoios recuam antes da apresentação aparecer entre 0.58 e 0.94. Controles dos apoios ficam inert quando sua opacidade cai abaixo de 0.05; a apresentação conserva texto disponível a leitores de tela e retira o link da ordem de Tab enquanto não está legível. Movimento reduzido restaura controles e leitura estática.
 
-### Product showcase and gallery
+### Section passages
 
-Produto e descrição mudam juntos, com máscara de 280ms e texto de 220ms. O catálogo textual conserva nome, preço e consulta. A galeria abre `dialog` nativo, com setas, Escape, gesto horizontal e retorno de foco; os links originais abrem a imagem sem script.
+Serviços para equipe: faixa tipográfica desloca horizontalmente e uma fotografia revela a seguinte por corte de máscara. Equipe para produtos: superfície marfim atravessa a passagem enquanto suas palavras respondem em sentidos opostos. Portfólio para avaliações: duas linhas desaceleram visualmente a sequência fotográfica. Encerramento: fotografia recebe deslocamento e escala discretos junto do convite e rodapé. As passagens trabalham apenas enquanto próximas da viewport; entradas fotográficas avulsas usam máscara de 850ms ao atingir 12% de visibilidade.
+
+### Filters and services
+
+Filtros retangulares, altura mínima de 44px, `aria-pressed` e seleção carvão/marfim. Serviços são `details` nativos com nome, preço, duração e destino oficial. Fotografias específicas são decodificadas antes da troca, em máscara de 560ms; pedidos rápidos aceitam a última seleção. Serviços sem fotografia específica mostram fallback tipográfico identificado. O catálogo completo mantém seus dados no HTML.
+
+### Professional selector
+
+Cinco profissionais reais, nomes em escala editorial e retratos persistentes em camadas. Máscara e deslocamento de 560ms, escala da imagem de 650ms e estado ativo explícito. Clique, toque e foco selecionam; hover complementa apenas com ponteiro fino. O carregamento termina antes da ativação e a última seleção prevalece.
+
+### Products and gallery
+
+Imagem e informações mudam juntas; máscara do produto dura 520ms e transição textual 220ms. O catálogo mantém consulta nominal por WhatsApp. Falta de fotografia recebe apresentação tipográfica honesta. O portfólio abre `dialog` nativo, expansão espacial de 320ms, fechamento de 180ms, setas, Escape, swipe e retorno de foco; sem script os links abrem a imagem.
 
 ### Reviews and map
 
-Depoimentos são blocos carvão sobre preto suave, sem arredondamento ou sombra. A esteira avança 25px/s quando visível; pausa com foco, ponteiro e controle explícito. Com movimento reduzido, remove clones e exibe grade estática. O mapa carrega por ação do visitante, preservando endereço e links diretos para rotas caso o provedor falhe.
+Avaliações usam superfície carvão sobre preto secundário, largura desktop de 360px e padding conforme frontmatter; no mobile, largura de 285px e padding de 26px. A esteira avança a 22px/s enquanto visível, com pausa por foco, ponteiro e controle explícito. Movimento reduzido remove clones e apresenta grade estática. O mapa carrega por ação do visitante e preserva endereço e links para rotas quando o provedor falha.
+
+O motor coordena leituras, escritas e esteira em um único requestAnimationFrame, dorme sem trabalho contínuo e pausa na aba oculta. Transições CSS usam `--ease`; animações WAAPI usam `cubic-bezier(.16,1,.3,1)`. Ambos são valores atuais distintos; máscaras usam `--cut`. Recursos externos, acervo antigo pequeno e estados de catálogo datados são limitações documentadas, não tokens ou regras para ocultar falhas.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- Do preservar o logo original e identificar fotografias do catálogo e do acervo.
-- Do usar os tokens reais e conferir o contraste na superfície correspondente.
-- Do manter links diretos, detalhes nativos, foco visível e alvos de pelo menos 44px nos controles.
-- Do respeitar prefers-reduced-motion inicialmente e quando a preferência mudar.
-- Do apresentar datas de consulta, preços condicionais e disponibilidade sob consulta.
+- Do preservar o logo original e usar fotografias oficiais na escala permitida pela resolução.
+- Do manter um único responsável por transformação; separar wrappers de entrada, scroll e imagem.
+- Do manter conteúdo padrão visível, foco perceptível e controles ocultos fora da navegação por teclado.
+- Do respeitar prefers-reduced-motion inicialmente e em mudanças durante a visita.
+- Do identificar ausência de fotografia e manter datas, preços e disponibilidade sob consulta.
 
 ### Don't:
 
-- Don't gerar profissionais, clientes, ambiente ou fotografias fictícias para preencher o layout.
-- Don't recuperar o verde e a tinta chocolate da V6 como tokens atuais.
-- Don't ampliar a pequena fotografia antiga do interior como imagem de destaque.
-- Don't apresentar o catálogo estático como estoque, agenda ou confirmação de reserva em tempo real.
-- Don't transformar todos os blocos em cartões arredondados com sombra.
+- Don't transferir cores, símbolos gastronômicos ou recursos proprietários do Salomé para a marca.
+- Don't fabricar fotografias de profissionais, cortes ou ambiente, nem ampliar indiscriminadamente o acervo pequeno.
+- Don't substituir a marca original por texto estilizado.
+- Don't apresentar catálogo estático como estoque ou confirmação de reserva em tempo real.
+- Don't acumular soluções de suavização, timelines concorrentes ou efeitos sticky em todas as seções.

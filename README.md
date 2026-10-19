@@ -1,48 +1,46 @@
-# Sr. Navalha · V8
+# Sr. Navalha · V9
 
-Site estático da Sr. Navalha Barbearia, no Prado, Gravatá–PE. HTML, CSS e JavaScript, compatível com Live Server, sem npm ou etapa de build para visualizar ou hospedar.
+Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. HTML, CSS, JavaScript e SVG, com fontes e fotografias locais. Funciona diretamente no Live Server, sem npm ou build obrigatório.
 
 ## Abrir
 
-Abra a pasta no VS Code e use **Open with Live Server** em `index.html`. Alternativa: `python -m http.server 8018`, acessando `http://localhost:8018`. Use HTTP local para módulos JavaScript; o HTML essencial também existe sem JS. `agendar.html` oferece acesso ao AppBarber oficial.
+No VS Code, abra `index.html` com **Open with Live Server**. Alternativa: `python3 -m http.server 8019`, depois `http://localhost:8019`. Use HTTP para os módulos JavaScript. Sem JavaScript, o conteúdo e os links essenciais continuam disponíveis. `agendar.html` leva ao AppBarber oficial.
 
-## V8 implementada
+## V9
 
-- Logo original recuperada do AppBarber e favicon derivado da própria marca.
-- Paleta carvão/marfim/cobre com Manrope e Young Serif locais.
-- Catálogo de 42 serviços, preços fixos, iniciais e sob consulta, durações e filtros.
-- Damião, Eduardo, Kauã, Rafael e Yan com retratos reais e seleção por toque, hover e teclado.
-- 22 produtos, 18 fotos oficiais, preços e consulta no WhatsApp; sem checkout fictício.
-- Assinaturas mensais, pagamentos, comodidades cadastradas, endereço e horários com fonte.
-- Google: 5,0 e 467 avaliações, conferidos em 17/10/2026. Depoimentos preservados com data própria.
-- Fotografia que atravessa a abertura, máscaras de retratos, entrada tipográfica, produtos em camadas, galeria horizontal, lightbox espacial e esteira com pausa.
-- Conteúdo essencial em HTML, foco visível e suporte a movimento reduzido inicial e dinâmico.
+- Abertura curta com logo original, filete e dois painéis coordenados à revelação do hero.
+- Hero com retrato oficial em moldura de espelho, título monumental e progresso reversível de scroll.
+- Apresentação da casa integrada à transformação do hero em desktop e mobile.
+- Passagens próprias entre serviços/equipe, equipe/produtos, portfólio/avaliações e encerramento.
+- 42 serviços, preços e durações; 5 profissionais reais; 22 produtos; assinaturas e contatos preservados.
+- Seleção de serviços com máscara de foto ou fallback honesto; equipe em camadas e produtos sincronizados ao WhatsApp.
+- Galeria editorial no desktop, coleção deslizável no mobile, lightbox espacial com teclado/Escape/swipe.
+- Esteira de comentários com pausa, foco, toque e suspensão fora da tela.
+- Rolagem nativa, scheduler compartilhado, redução de movimento inicial/dinâmica e conteúdo sem JS.
 
-## Atualizar o conteúdo
+## Manutenção
 
-Fonte de dados: `js/data/services.js`, `professionals.js`, `products.js`, `reviews.js`. São snapshots, não sincronização automática. Serviços preservam o nome do sistema em `sourceName`; categorias são editoriais. Após editar os dados, execute opcionalmente `node scripts/build-v8.mjs` para gerar `index.html` e `agendar.html` prontos. O visitante nunca precisa desse comando. Não edite valores também no HTML: gere novamente a partir dos módulos.
+Dados: `js/data/services.js`, `professionals.js`, `products.js`, `reviews.js`. Após editar, execute **opcionalmente** `node scripts/build-v9.mjs`, que gera `index.html` e `agendar.html`. `build-v8.mjs` agora encaminha ao gerador V9 para evitar restaurar acidentalmente o layout antigo. O gerador original e os arquivos anteriores estão em `backup/v9-preflight/`; backups anteriores foram preservados.
 
-Tokens em `css/tokens.css`, apresentação em `css/site.css`, movimento em `css/motion.css` e comportamento em `js/site.js`. Arquivos de calendário demonstrativo e estilos não utilizados foram removidos. V6/V7 permanecem no histórico do Git e documentação anterior.
+Visual: `css/tokens.css`, `css/site.css` e `css/motion.css`. Comportamento: `js/site.js` e módulos `js/motion/` (core, opening, hero, passages, services, reviews). Não acrescente outra timeline ao transform de um wrapper já controlado por scroll.
 
-## Fontes e imagens
+O site não depende de CDN, GSAP ou Lenis. AppBarber, Google Maps, WhatsApp e Instagram continuam como destinos externos reais; o mapa só é solicitado por ação do visitante. Reservas e compras não são simuladas.
 
-[AppBarber oficial](https://sites.appbarber.com.br/srnavala-pqjj) · [Google Maps](https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA) · [Instagram](https://www.instagram.com/barbeariasrnavalha01/).
+## Pesquisa e testes
 
-Originais oficiais em `assets/originals/v8/`; WebP limitados à resolução original em `assets/images/v8/`. A marca não foi redesenhada. Fotografias do catálogo não implicam comprovação de local/autoria de captura. Instagram bloqueou coleta automatizada; a pequena foto de ambiente anterior permanece em escala reduzida. Não houve reconstrução generativa de pessoas ou lugar.
+- [Pesquisa Salomé](docs/REFERENCIA_SALOME_V9.md)
+- [Direção artística](docs/ART_DIRECTION_V9.md)
+- [Sistema de movimento](docs/MOTION_V9.md)
+- [Imagens e limites de resolução](docs/IMAGENS_V9.md)
+- [Testes executados e limitações](docs/TESTES_V9.md)
+- [Sistema visual](DESIGN.md)
 
-## Pesquisa e validação
+Capturas V8/V9 e estados intermediários: `capturas/v9/`. Evidências: `docs/V9_*.json`. Scripts de navegador são opcionais e usam Node 22+, Chromium local (`CHROME_PATH`) e Firefox BiDi. Nenhuma ferramenta de teste é dependência de produção.
 
-- `docs/PESQUISA_SR_NAVALHA_V8.md`
-- `docs/CONTEUDO_VERIFICADO_V8.md`
-- `docs/IMAGENS_V8.md`
-- `docs/IDENTIDADE_VISUAL_V8.md`
-- `docs/REFERENCIAS_AWWWARDS_V8.md`
-- `docs/MOTION_REFERENCIAS_V8.md`
-- `docs/MOTION_V8.md`
-- `docs/TESTES_V8.md`
+## Conteúdo e limites
 
-Capturas antes/depois e estados intermediários em `capturas/v8/`. Evidências automatizadas em `docs/V8_*.json`. Scripts de navegador são ferramentas de desenvolvimento opcionais; alguns usam um Chromium local (`CHROME_PATH`) ou Playwright instalado fora do projeto. Não integram as dependências do site.
+[AppBarber](https://sites.appbarber.com.br/srnavala-pqjj) consultado em 19/10/2026; acervo comercial original de 17/10 mantido. [Google Maps](https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA) confirmou 5,0 na consulta de 19/10, mas não exibiu o total: as 467 avaliações permanecem explicitamente datadas de 17/10/2026. Depoimentos mantêm suas fontes individuais.
 
-## Limites
+Instagram bloqueou a consulta automatizada. Não houve acesso a novos originais de atendimento ou ambiente em alta resolução, nem geração de rostos/detalhes. Fotografias pequenas continuam em escala adequada. Sem validação em aparelho físico, Safari/iOS ou leitor de tela real. O detector estilístico Taste conserva ressalvas documentadas; não se declara aprovação integral.
 
-Agendamento e contratação ocorrem no AppBarber; estoque é consultado no WhatsApp. Valores e nota Google podem mudar após a data indicada. Biografias e especialidades não foram inventadas. Quatro produtos não têm foto no catálogo; o site usa texto. Necessários do proprietário para avançar a fotografia do espaço: originais em alta resolução e vídeos autorizados. Sem commit ou push nesta entrega.
+Crédito de Murilo Gabriel preservado. Sem commit ou push nesta entrega.

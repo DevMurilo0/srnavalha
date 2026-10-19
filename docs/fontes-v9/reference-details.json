@@ -1,0 +1,36 @@
+{
+  "gallery": {
+    "open": true,
+    "fly": false,
+    "animations": [
+      {
+        "target": "",
+        "state": "running"
+      },
+      {
+        "target": "ticker-track",
+        "state": "running"
+      },
+      {
+        "target": "dir-music-halo",
+        "state": "paused"
+      }
+    ],
+    "hero": {
+      "edition": "hero-v2.9.3",
+      "scrollProgress": 1,
+      "sceneUpdates": 2,
+      "replays": 1,
+      "replay": {}
+    },
+    "director": {
+      "edition": "2.7",
+      "heroPlays": 0,
+      "musicScrollUpdates": 0,
+      "galleryFlips": 1,
+      "enabled": true,
+      "updateMusic": {}
+    }
+  },
+  "google": "\n\n\n\nSalvos\n\nRecentes\n\nBaixar o aplicativo\n\nVer fotos\nSr. Navalha Barbearia\n5,0\nBarbearia\n \n\nRotas\n\nSalvar\n\nPróximo\n\nEnviar para o smartphone\n\nCompartilhar\n\nAgendar on-line\n \n \n\nAv. Gov. Agamenon Magalhães, 349 - Prado, Gravatá - PE, 55642-210\n\n\nFechado · Abre ter. às 08:30\n\n\nsites.appbarber.com.br\n\n\n\n(81) 99572-2396\n\n\n\nRC2P+5C Prado, Gravatá - PE\n\n\n \n\nSugerir mudança\n \nAdic. informações ausentes\n\n\nAdicionar uma foto\n \n \n\nAvaliar\n \nSobre esses dados\n\nEsta é uma visualização limitada do Google Maps. Ver mais\n\nRecolher painel lateral\n\t"
+}

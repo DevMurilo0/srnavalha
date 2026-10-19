@@ -1,0 +1,3 @@
+@font-face{font-family:Manrope;src:url('../assets/fonts/manrope-v6-latin.woff2') format('woff2');font-style:normal;font-weight:200 800;font-display:swap}
+@font-face{font-family:Young;src:url('../assets/fonts/young-serif.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+:root{--charcoal:#141414;--soft-black:#202020;--ivory:#f3f0eb;--mineral:#85817b;--copper:#ad8b73;--tobacco:#756153;--light-text:#c7c2ba;--dark-text:#655f58;--paper-shade:#e7e2da;--ink:var(--charcoal);--paper:var(--ivory);--body:Manrope,Arial,sans-serif;--display:Young,Georgia,serif;--ease:cubic-bezier(.22,1,.36,1);--cut:cubic-bezier(.76,0,.24,1);--gutter:clamp(20px,5vw,80px);--section:clamp(80px,10vw,150px)}

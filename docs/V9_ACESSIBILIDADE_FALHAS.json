@@ -1,0 +1,131 @@
+[
+  {
+    "name": "axe 390",
+    "violations": [],
+    "passes": 25
+  },
+  {
+    "name": "axe 1440",
+    "violations": [],
+    "passes": 25
+  },
+  {
+    "name": "Falhas de imagem",
+    "pass": true
+  },
+  {
+    "name": "Mapa bloqueado: endereço e rota",
+    "pass": true
+  },
+  {
+    "name": "Carregamento local (não benchmark de dispositivo)",
+    "resources": [
+      {
+        "name": "manrope-v6-latin.woff2",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "damiao-725.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "site.css",
+        "bytes": 300,
+        "duration": 0
+      },
+      {
+        "name": "motion.css",
+        "bytes": 300,
+        "duration": 0
+      },
+      {
+        "name": "site.js",
+        "bytes": 300,
+        "duration": 17.299999999813735
+      },
+      {
+        "name": "logo.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "tokens.css",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "servico-barboterapia-640.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "barbershop-ambiente.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "servico-comb-cort-barb-simples-640.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "yan-640.webp",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "young-serif.ttf",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "products.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "professionals.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "core.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "opening.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "hero.js",
+        "bytes": 300,
+        "duration": 13.200000000186265
+      },
+      {
+        "name": "passages.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "reviews.js",
+        "bytes": 0,
+        "duration": 0
+      },
+      {
+        "name": "services.js",
+        "bytes": 0,
+        "duration": 0
+      }
+    ],
+    "navigation": [
+      {
+        "dom": 374,
+        "load": 443.79999999981374
+      }
+    ]
+  }
+]

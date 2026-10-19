@@ -1,0 +1,308 @@
+[
+  {
+    "width": 1440,
+    "selector": ".hero-scene",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v9/damiao-725.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-barboterapia-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/barbershop-ambiente.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#espaco",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/barbershop-ambiente.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#servicos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": ".craft-passage",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/eduardo-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#equipe",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/damiao-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/eduardo-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/kaua-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/rafael-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/yan-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#produtos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/pomada-orange-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#trabalhos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/work-corte-cacheado.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-barboterapia-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-luzes-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/work-corte-perfil.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "selector": "#avaliacoes",
+    "photos": []
+  },
+  {
+    "width": 1440,
+    "selector": "#localizacao",
+    "photos": []
+  },
+  {
+    "width": 1440,
+    "selector": ".invitation",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/yan-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": ".hero-scene",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v9/damiao-400.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-barboterapia-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/barbershop-ambiente.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#espaco",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/barbershop-ambiente.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#servicos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": ".craft-passage",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/eduardo-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#equipe",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/damiao-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/eduardo-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/kaua-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/rafael-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/yan-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#produtos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/pomada-orange-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#trabalhos",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/work-corte-cacheado.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-barboterapia-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/servico-luzes-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      },
+      {
+        "src": "http://127.0.0.1:8019/assets/images/work-corte-perfil.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "selector": "#avaliacoes",
+    "photos": []
+  },
+  {
+    "width": 390,
+    "selector": "#localizacao",
+    "photos": []
+  },
+  {
+    "width": 390,
+    "selector": ".invitation",
+    "photos": [
+      {
+        "src": "http://127.0.0.1:8019/assets/images/v8/yan-640.webp",
+        "loaded": true,
+        "opacity": "1"
+      }
+    ]
+  }
+]

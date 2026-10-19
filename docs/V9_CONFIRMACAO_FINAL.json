@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Percurso wheel 1200px em Chromium local",
+    "metrics": {
+      "TaskDuration": 0.102209,
+      "ScriptDuration": 0.007232,
+      "LayoutDuration": 0.000906,
+      "RecalcStyleDuration": 0.013105,
+      "LayoutCount": 4,
+      "RecalcStyleCount": 46
+    }
+  },
+  {
+    "name": "Erros JS",
+    "errors": []
+  }
+]

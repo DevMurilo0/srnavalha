@@ -1,10 +1,12 @@
-SR. NAVALHA V8
+SR. NAVALHA V9
 
-Abra index.html com Live Server no VS Code. Alternativa: python -m http.server 8018
-Acesse http://localhost:8018
+Abra index.html pelo Live Server no VS Code.
+Alternativa: python3 -m http.server 8019 e http://localhost:8019
+Não precisa de npm, React, Vite ou comando de build para visualizar.
+Módulos JS precisam de servidor HTTP; não use duplo clique/file:// para avaliar animações.
 
-Não precisa instalar npm, React ou backend. O site é estático. JavaScript em módulos requer HTTP local para as interações; conteúdos e links essenciais estão no HTML.
+Para regenerar o HTML após editar js/data/:
+node scripts/build-v9.mjs
 
-Agendamentos: AppBarber oficial. WhatsApp: consultas. Não existe calendário demonstrativo.
-Dados comerciais: 17/10/2026. Consulte README.md e docs/TESTES_V8.md para fontes e limites.
-Originais e variantes de imagens incluídos. Sem commit ou push.
+A agenda oficial é o AppBarber. Não há reserva fictícia ou estoque em tempo real.
+Documentação: README.md e docs/TESTES_V9.md.

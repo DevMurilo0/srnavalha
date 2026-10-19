@@ -1,0 +1,1140 @@
+{
+  "base": {
+    "scripts": [
+      "https://salome-bistro-a5cj-theta.vercel.app/js/iphone-motion-preferences.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/menu-data.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/app.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/motion.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/motion-encore.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/motion-director.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/hero-v2.js",
+      "https://salome-bistro-a5cj-theta.vercel.app/js/mobile-motion.js"
+    ],
+    "styles": [
+      "https://salome-bistro-a5cj-theta.vercel.app/css/fonts.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/site.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/motion.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/motion-encore.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/motion-director.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/hero-v2.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/hero-v3.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/mobile-motion.css",
+      "https://salome-bistro-a5cj-theta.vercel.app/css/iphone-motion-fix.css"
+    ],
+    "sections": [
+      {
+        "id": "",
+        "class": "hero hero-v2 hero-v3",
+        "height": 824
+      },
+      {
+        "id": "a-casa",
+        "class": "welcome",
+        "height": 810
+      },
+      {
+        "id": "cozinha",
+        "class": "kitchen",
+        "height": 1205
+      },
+      {
+        "id": "cardapio",
+        "class": "menu-section",
+        "height": 1348
+      },
+      {
+        "id": "musica",
+        "class": "music",
+        "height": 814
+      },
+      {
+        "id": "",
+        "class": "together",
+        "height": 790
+      },
+      {
+        "id": "galeria",
+        "class": "gallery",
+        "height": 1175
+      },
+      {
+        "id": "visite",
+        "class": "visit",
+        "height": 620
+      }
+    ],
+    "buttons": [
+      {
+        "text": "",
+        "class": "menu-toggle"
+      },
+      {
+        "text": "Rever abertura \u21bb",
+        "class": "mo-replay"
+      },
+      {
+        "text": "Todos os sabores",
+        "class": "category active"
+      },
+      {
+        "text": "Entradas",
+        "class": "category"
+      },
+      {
+        "text": "Petiscos",
+        "class": "category"
+      },
+      {
+        "text": "Grelhados",
+        "class": "category"
+      },
+      {
+        "text": "Regionais",
+        "class": "category"
+      },
+      {
+        "text": "Parmegianas",
+        "class": "category"
+      },
+      {
+        "text": "Fil\u00e9s",
+        "class": "category"
+      },
+      {
+        "text": "Peixes",
+        "class": "category"
+      },
+      {
+        "text": "Massas & Fondue",
+        "class": "category"
+      },
+      {
+        "text": "Sobremesas",
+        "class": "category"
+      },
+      {
+        "text": "Bebidas",
+        "class": "category"
+      },
+      {
+        "text": "Ver mais 10 itens \u2193",
+        "class": "load-more"
+      },
+      {
+        "text": "Limpar filtros \u21ba",
+        "class": "menu-reset"
+      },
+      {
+        "text": "01 / IDENTIDADE",
+        "class": "g-photo ga"
+      },
+      {
+        "text": "02 / ATMOSFERA",
+        "class": "g-photo gb"
+      },
+      {
+        "text": "03 / SABORES",
+        "class": "g-photo gc"
+      },
+      {
+        "text": "04 / NOSSA CASA",
+        "class": "g-photo gd"
+      },
+      {
+        "text": "05 / GRAVAT\u00c1",
+        "class": "g-photo ge"
+      },
+      {
+        "text": "\u00d7",
+        "class": "lightbox-close"
+      },
+      {
+        "text": "\u2190",
+        "class": "lightbox-prev"
+      },
+      {
+        "text": "\u2192",
+        "class": "lightbox-next"
+      }
+    ],
+    "height": 9692
+  },
+  "samples": [
+    {
+      "width": 1440,
+      "y": 650,
+      "visible": [
+        "hero hero-v2 hero-v3"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.02058, 0, 0, 1.02058, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 1300,
+      "visible": [
+        "hero hero-v2 hero-v3",
+        "a-casa"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 1950,
+      "visible": [
+        "hero hero-v2 hero-v3",
+        "a-casa"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 2600,
+      "visible": [
+        "a-casa",
+        "cozinha"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 3250,
+      "visible": [
+        "cozinha"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 3900,
+      "visible": [
+        "cozinha",
+        "cardapio"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 4550,
+      "visible": [
+        "cardapio"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 5200,
+      "visible": [
+        "cardapio",
+        "musica"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 5850,
+      "visible": [
+        "musica",
+        "together mo-chapter-arriving"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 6500,
+      "visible": [
+        "together mo-chapter-arriving",
+        "galeria"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 7150,
+      "visible": [
+        "together",
+        "galeria"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 7800,
+      "visible": [
+        "galeria",
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 8450,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 8792,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "y": 8792,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.035, 0, 0, 1.035, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 650,
+      "visible": [
+        "hero hero-v2 hero-v3"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.04147, 0, 0, 1.04147, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 1300,
+      "visible": [
+        "hero hero-v2 hero-v3",
+        "a-casa"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 1950,
+      "visible": [
+        "a-casa"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 2600,
+      "visible": [
+        "a-casa",
+        "cozinha"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 3250,
+      "visible": [
+        "cozinha"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 3900,
+      "visible": [
+        "cozinha",
+        "cardapio"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 4550,
+      "visible": [
+        "cardapio"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 5200,
+      "visible": [
+        "cardapio",
+        "musica"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 5850,
+      "visible": [
+        "cardapio",
+        "musica"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 6500,
+      "visible": [
+        "musica",
+        "together"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 7150,
+      "visible": [
+        "musica",
+        "together"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 7800,
+      "visible": [
+        "together",
+        "galeria"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 8450,
+      "visible": [
+        "galeria"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 9100,
+      "visible": [
+        "galeria",
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 9750,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 10216,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 10216,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "y": 10216,
+      "visible": [
+        "visite"
+      ],
+      "transforms": [
+        {
+          "class": "",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-smallprint-ornament",
+          "transform": "none",
+          "clip": "none"
+        },
+        {
+          "class": "",
+          "transform": "matrix(1.05, 0, 0, 1.05, 0, 0)",
+          "clip": "none"
+        },
+        {
+          "class": "ornament hero-corner-ornament",
+          "transform": "none",
+          "clip": "none"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

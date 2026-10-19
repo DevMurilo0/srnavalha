@@ -1,0 +1,115 @@
+[
+  {
+    "name": "320px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "375px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "390px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "768px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1024px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1366px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1440px",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "services": 42,
+      "products": 22,
+      "pros": 5,
+      "motion": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "Scroll vinculado",
+    "pass": true
+  },
+  {
+    "name": "Equipe Yan",
+    "pass": true
+  },
+  {
+    "name": "Serviços Barba",
+    "pass": true
+  },
+  {
+    "name": "Produtos",
+    "pass": true
+  },
+  {
+    "name": "Dialog abre",
+    "pass": true
+  },
+  {
+    "name": "Escape fecha",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JS",
+    "pass": true,
+    "detail": []
+  }
+]

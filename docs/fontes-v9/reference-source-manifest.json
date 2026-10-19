@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/js/hero-v2.js",
+    "bytes": 3664,
+    "sha256": "29e66dfe106eb5299d73c6cffaa11a805f0d6fd386b460481dd993b11f3f6107",
+    "date": "2026-10-19"
+  },
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/js/motion.js",
+    "bytes": 29913,
+    "sha256": "678a8070ead792e4f21c07ec1757e746b307994cf01cd206ef34d07324b862b4",
+    "date": "2026-10-19"
+  },
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/css/hero-v3.css",
+    "bytes": 9360,
+    "sha256": "5fae1e232c411c0993ffcca6abfc273aab50de826718c883a40fe3fbe7bc21a6",
+    "date": "2026-10-19"
+  },
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/css/motion-director.css",
+    "bytes": 5467,
+    "sha256": "ced62edff4021f8d392e37f72cc01f7905be8bd6e6d6460606506ee35b54a05d",
+    "date": "2026-10-19"
+  },
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/js/motion-director.js",
+    "bytes": 6663,
+    "sha256": "e4bc851536920fd4a120b973ef186343f6d4c52152b60e8bfc5313d6901010fa",
+    "date": "2026-10-19"
+  },
+  {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/",
+    "bytes": 19192,
+    "sha256": "5d014236c5c973e79c80aa9ad739b0781e080d2eea924d50d0c3c64b0eef0814",
+    "date": "2026-10-19"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "out": [
+    {
+      "width": 1440,
+      "overflow": 0,
+      "hero": 1665,
+      "images": [],
+      "motion": {
+        "frames": 68,
+        "heroProgress": 0,
+        "activeScenes": 0,
+        "continuous": 0
+      }
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "hero": 1560,
+      "images": [],
+      "motion": {
+        "frames": 77,
+        "heroProgress": 0,
+        "activeScenes": 0,
+        "continuous": 0
+      }
+    }
+  ],
+  "errors": []
+}
