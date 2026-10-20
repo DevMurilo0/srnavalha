@@ -1,0 +1,11 @@
+{
+  "generator_identical": true,
+  "installer_idempotent": true,
+  "missing_hero_paths": [],
+  "other_sections_byte_identical": true,
+  "preexisting_missing_gallery_assets": [
+    "assets/images/work-corte-cacheado.webp",
+    "assets/images/work-corte-perfil.webp"
+  ],
+  "original_reference_sha256": "9b0fc5f6c2fd4ca3dc8600d88d3f954f0f890a47b86c76d32b05670707b7c167"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "width": 1672,
+    "violations": []
+  },
+  {
+    "width": 390,
+    "violations": []
+  },
+  {
+    "width": 320,
+    "violations": []
+  },
+  {
+    "name": "Preferência dinâmica após evento matchMedia",
+    "pass": true
+  },
+  {
+    "name": "Console",
+    "errors": []
+  }
+]

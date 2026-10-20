@@ -1,0 +1,18 @@
+TASTESKILL · LINT   4 file(s)
+
+FAIL
+  [claude-palette] Claude-brand cream / terracotta colour.  (1×)
+      css/hero-v11.css:5  #faf9f5
+  [hairline] Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields.  (4×)
+      css/hero-v11.css:6  border-bottom:1px
+      css/hero-v11.css:13  height:1px
+      css/hero-v11.css:46  border-right:1px
+      css/hero-v11.css:57  height:1px
+  [gradient] Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception).  (2×)
+      css/hero-v11.css:28  linear-gradient(
+      css/hero-v11.css:62  linear-gradient(
+  [eyebrow] Eyebrow / kicker label above a heading.  (1×)
+      scripts/v11-templates/hero.html:13  class="nv2-eyebrow
+
+RESULT: 8 FAIL, 0 WARN — fix the FAILs before rendering.
+Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore.

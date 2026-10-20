@@ -1,53 +1,79 @@
-# Sr. Navalha — Correção pontual V10
+# Sr. Navalha — Hero conforme a referência aprovada
 
-A atualização **NÃO substitui a Home nem as seções do site**. Ela se aplica sobre a sua versão V9 mais recente do GitHub e substitui **apenas o cabeçalho e o hero**, acrescentando um único arquivo de animação de palavras (progressivo e acessível). Mantém todo o restante do HTML/CSS e todos os dados comerciais exatamente como estão.
+O hero atual reproduz em HTML/CSS/SVG a composição de `assets/herosrnavalha.png`, com fotografia limpa separada, fontes locais e abertura coordenada. Abra `index.html` pelo Live Server; nenhum build é obrigatório.
 
-## Instalação no Linux / VS Code
+- Fonte do HTML: `scripts/v11-templates/`; regeneração opcional com `node scripts/build-v9.mjs`.
+- Estilos e entrada: `css/hero-v11.css` e `js/hero-v11.js`.
+- [Documentação, testes e limitações](docs/HERO_REFERENCE.md).
+- [Captura desktop](capturas/hero-reference/final-1672.png) e [mobile](capturas/hero-reference/final-mobile-390.png).
 
-1. Faça uma cópia do projeto ou mantenha o backup que você já fez.
-2. Extraia este ZIP em qualquer pasta.
-3. Abra um terminal **na pasta extraída**.
-4. Execute:
+Validado em Chromium nas larguras 1672, 1440, 768, 390 e 320. O fundo limpo disponível difere em detalhes e nitidez da referência; a documentação descreve essa limitação. As seções a partir de Serviços permanecem idênticas ao backup.
 
-```bash
-python3 APLICAR_CORRECAO_V10.py ~/Dev/andamento/srnavalha
+---
+
+## Registro histórico do pacote anterior
+
+As instruções e observações abaixo registram a entrega anterior. Para a implementação, fontes e validação atuais, prevalece `docs/HERO_REFERENCE.md` acima.
+
+# Sr. Navalha — Hero V11 (atualização conservadora)
+
+Este ZIP **não substitui o restante da Sr. Navalha**. Ele instala somente:
+
+- O cabeçalho na composição aprovada: navegação lateral, logo oficial central e botão de agendamento;
+- O hero com a fotografia do interior, títulos e informações da captura aprovada;
+- Uma entrada cinematográfica curta (cortina + logo), seguida por revelação dos textos;
+- Um movimento fotográfico discreto ligado ao scroll, respeitando movimento reduzido;
+- Imagens responsivas em WebP: 3840 × 2160 (saída 4K), 1920 × 1080 e versão mobile.
+
+Os serviços, equipe, produtos, galeria, avaliações, mapa e rodapé são **preservados**, assim como os dados e links existentes. O instalador também atualiza o gerador HTML opcional para que ele não reverta o hero numa geração futura.
+
+## Instalação no Linux com fish (sem npm)
+
+1. Extraia o ZIP com o gerenciador de arquivos.
+2. Abra o terminal **dentro da pasta extraída**, onde está `APLICAR_HERO_V11.py`.
+3. Primeiro faça a verificação (não modifica nada):
+
+```fish
+python3 APLICAR_HERO_V11.py ~/Dev/andamento/srnavalha --dry-run
 ```
 
-5. Abra o `index.html` da sua pasta `srnavalha` no VS Code → **Open with Live Server**.
+4. Se aparecer `OK`, aplique:
 
-O instalador cria um backup dos arquivos originais ao lado do repositório e gera também `srnavalha-V10-completo.zip` com **todos os arquivos do seu projeto**, sem `node_modules`, caches e artefatos de teste. Se sua pasta tiver outro caminho, substitua o argumento pelo caminho correto.
-
-Para testar o reconhecimento de arquivos sem alterar nada:
-
-```bash
-python3 APLICAR_CORRECAO_V10.py ~/Dev/andamento/srnavalha --dry-run
+```fish
+python3 APLICAR_HERO_V11.py ~/Dev/andamento/srnavalha
 ```
 
-## Alterações exatas
+5. Volte à pasta `~/Dev/andamento/srnavalha`, abra `index.html` no Live Server e use **Ctrl+Shift+R** para limpar o cache da página.
 
-- `index.html`: somente o `<header>` e a seção que antecede `<section class="services paper section">` (hero), mais 2 tags de recursos no `<head>`;
-- `js/site.js`: desliga somente `initHero()` e `initOpening()` antigos (dependem do hero removido), mantém todas as outras funções;
-- `scripts/build-v9.mjs`: aplica também a nova composição quando alguém executa o gerador opcional;
-- novos arquivos: `css/hero-pontual-v10.css`, `js/hero-pontual-v10.js`, fotografia WebP e tipografia Noto Serif Display via Google Fonts, com fallback Georgia.
+O instalador cria uma pasta de backup ao lado do projeto (`srnavalha-backup-hero-v11-*`), nunca dá `git reset`, não apaga arquivos antigos e gera um ZIP **completo** da versão local atualizada: `srnavalha-Hero-V11-completo.zip`. Pode executar novamente, sem duplicar o hero.
 
-Serviços, equipe, produtos, portfólio, avaliações, mapa, agendamento e rodapé **não são reescritos**. Logotipo original continua no cabeçalho e no rodapé, sem duplicar no conteúdo do hero.
+**Aviso importante:** a pasta do projeto precisa conter `index.html`, `js/site.js` e `scripts/build-v9.mjs`. Se algum desses arquivos estiver ausente, o instalador informa o caminho e não modifica nada. Não restaure todo o repositório com `git reset --hard`.
 
-## Fotografia
+## Fotografia em 4K
 
-O fundo segue a referência visual aprovada e usa o recurso anterior em 1672 px, com uma versão WebP de 2048 px com correção conservadora de contraste, cor e nitidez. **Ampliar pixels não recupera detalhes originalmente ausentes**. Para qualidade fotográfica significativamente superior, substitua por uma fotografia original do ambiente em alta resolução. Este recurso não deve ser descrito como registro fotográfico não modificado.
+O arquivo `assets/images/hero-ambiente-3840.webp` possui **3840 × 2160 pixels**, exportado com reamostragem Lanczos e leve correção de nitidez/cor a partir da fotografia já usada na V10. É uma versão de saída 4K, **não uma nova fotografia capturada originalmente em 4K**. O detalhe que não existia na fotografia de origem não pode ser recuperado por simples reamostragem. A imagem mantém o enquadramento e a identidade visual já aprovados.
 
-## Fonte
+O navegador carrega uma versão apropriada à largura/tela via `picture` e `srcset`; celulares não precisam baixar a versão 4K.
 
-**Noto Serif Display Medium**, família tipográfica real do Google Fonts, carregada pelo navegador com fallback Georgia, usada **somente no título do hero**. Nenhum arquivo de fonte adicional é distribuído; demais fontes do site permanecem inalteradas.
+## Arquivos incluídos
 
-## Animações
+- `APLICAR_HERO_V11.py` — instalador seguro com `--dry-run`, backup e ZIP completo;
+- `templates/header.html`, `templates/hero.html` — HTML do cabeçalho e hero;
+- `css/hero-v11.css`, `js/hero-v11.js` — CSS e animação do hero somente;
+- `scripts/hero-v11-patch.mjs`, `scripts/v11-templates/` — persistência no gerador existente;
+- `assets/images/` — imagens WebP do fundo;
+- `preview/` — screenshots da prévia de layout.
 
-- Entrada editorial coordenada de cada linha do hero e dos elementos de apoio;
-- Zoom/deslocamento suave na fotografia limitado ao avanço da rolagem;
-- Revelação de palavras por blocos em outras seções ao entrarem na viewport (sem alterar os dados e a semântica);
-- Sem dependência de React/npm ou smooth-scroll artificial;
-- Respeita `prefers-reduced-motion`; sem JS todo conteúdo permanece visível.
+## Verificações realizadas
 
-## Validação local desta entrega
+- Integridade e sintaxe Python/JavaScript;
+- Aplicação em teste contra a estrutura V10 e preservação literal do conteúdo a partir da seção `Serviços`;
+- Teste de idempotência do instalador para não duplicar scripts;
+- Prévia HTML/CSS/JS carregada diretamente no Chromium em 320, 390, 768, 1440 e 1672 px: sem overflow horizontal e sem erro JS observado;
+- O servidor HTTP local foi bloqueado pelo ambiente de teste; **a navegação real via Live Server ainda deve ser conferida no seu computador**.
 
-Apliquei o instalador a uma estrutura de teste representativa da V9. Foram verificados sete tamanhos (320, 375, 390, 768, 1024, 1366 e 1440 px), com **zero overflow horizontal e zero exceções JavaScript**, e o fallback tipográfico. O acesso do Chromium a URLs locais está bloqueado neste ambiente; a prévia foi inspecionada por HTML/CSS/JS incorporados em uma página de testes. Ainda é necessário conferir a atualização aplicada ao repositório completo pelo Live Server.
+### Fonte e licenciamento
+
+Os arquivos do fundo são variantes do material aprovado nas etapas anteriores, não fotos documentais originais 4K. Nenhuma fonte do sistema foi incluída no ZIP. O CSS utiliza `Noto Serif Display` via Google Fonts e um fallback serifado; a marca original é reutilizada da pasta existente do repositório (`assets/images/v9/logo.webp`).
+
+Nenhuma alteração foi enviada ao GitHub nesta entrega.

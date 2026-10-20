@@ -1,0 +1,86 @@
+[
+  {
+    "name": "1672: abertura ativa",
+    "pass": true,
+    "detail": 11
+  },
+  {
+    "name": "1672: estado final sem propriedades presas",
+    "pass": true
+  },
+  {
+    "name": "390: abertura ativa",
+    "pass": true,
+    "detail": 11
+  },
+  {
+    "name": "390: estado final sem propriedades presas",
+    "pass": true
+  },
+  {
+    "name": "320: abertura ativa",
+    "pass": true,
+    "detail": 11
+  },
+  {
+    "name": "320: estado final sem propriedades presas",
+    "pass": true
+  },
+  {
+    "name": "Atualização: final da sequência real",
+    "pass": true
+  },
+  {
+    "name": "Tab interrompe abertura e revela controles",
+    "pass": true
+  },
+  {
+    "name": "Menu abre por toque/clique",
+    "pass": true
+  },
+  {
+    "name": "Escape fecha menu e retorna foco",
+    "pass": true
+  },
+  {
+    "name": "Link Serviços navega para seção preservada",
+    "pass": true
+  },
+  {
+    "name": "Scroll durante abertura libera conteúdo",
+    "pass": true
+  },
+  {
+    "name": "Retorno de scroll mantém enquadramento estável",
+    "pass": true
+  },
+  {
+    "name": "Movimento reduzido inicial",
+    "pass": true
+  },
+  {
+    "name": "Movimento reduzido durante abertura",
+    "pass": true
+  },
+  {
+    "name": "Sem JavaScript: conteúdo e links visíveis",
+    "pass": true
+  },
+  {
+    "name": "Falha da fotografia não bloqueia agenda",
+    "pass": true
+  },
+  {
+    "name": "Fontes locais sem Google Fonts",
+    "pass": true
+  },
+  {
+    "name": "CTA usa AppBarber oficial",
+    "pass": true
+  },
+  {
+    "name": "Nenhuma exceção JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

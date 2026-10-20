@@ -1,0 +1,153 @@
+[
+  {
+    "name": "390: composição legível",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 17,
+        "y": 233.734375,
+        "width": 334.828125,
+        "height": 122.90625,
+        "top": 233.734375,
+        "right": 351.828125,
+        "bottom": 356.640625,
+        "left": 17
+      },
+      "subtitle": {
+        "x": 20,
+        "y": 370.515625,
+        "width": 331.828125,
+        "height": 51.1875,
+        "top": 370.515625,
+        "right": 351.828125,
+        "bottom": 421.703125,
+        "left": 20
+      },
+      "cta": {
+        "x": 20,
+        "y": 446.703125,
+        "width": 259.359375,
+        "height": 56,
+        "top": 446.703125,
+        "right": 279.359375,
+        "bottom": 502.703125,
+        "left": 20
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 844,
+        "top": 0,
+        "right": 390,
+        "bottom": 844,
+        "left": 0
+      },
+      "logo": {
+        "x": 100,
+        "y": 5,
+        "width": 190,
+        "height": 65,
+        "top": 5,
+        "right": 290,
+        "bottom": 70,
+        "left": 100
+      },
+      "values": {
+        "x": 20,
+        "y": 702.25,
+        "width": 350,
+        "height": 109.75,
+        "top": 702.25,
+        "right": 370,
+        "bottom": 812,
+        "left": 20
+      },
+      "font": "\"Navalha Bodoni\", Georgia, serif",
+      "curtain": false,
+      "image": 960,
+      "animations": 0
+    }
+  },
+  {
+    "name": "320: composição legível",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 13,
+        "y": 203.1875,
+        "width": 291,
+        "height": 98.859375,
+        "top": 203.1875,
+        "right": 304,
+        "bottom": 302.046875,
+        "left": 13
+      },
+      "subtitle": {
+        "x": 16,
+        "y": 318.5,
+        "width": 288,
+        "height": 76.78125,
+        "top": 318.5,
+        "right": 304,
+        "bottom": 395.28125,
+        "left": 16
+      },
+      "cta": {
+        "x": 16,
+        "y": 420.28125,
+        "width": 259.359375,
+        "height": 56,
+        "top": 420.28125,
+        "right": 275.359375,
+        "bottom": 476.28125,
+        "left": 16
+      },
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 844,
+        "top": 0,
+        "right": 320,
+        "bottom": 844,
+        "left": 0
+      },
+      "logo": {
+        "x": 78,
+        "y": 5,
+        "width": 164,
+        "height": 65,
+        "top": 5,
+        "right": 242,
+        "bottom": 70,
+        "left": 78
+      },
+      "values": {
+        "x": 16,
+        "y": 702.25,
+        "width": 288,
+        "height": 109.75,
+        "top": 702.25,
+        "right": 304,
+        "bottom": 812,
+        "left": 16
+      },
+      "font": "\"Navalha Bodoni\", Georgia, serif",
+      "curtain": false,
+      "image": 960,
+      "animations": 0
+    }
+  },
+  {
+    "name": "Nenhuma exceção JavaScript",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "Demais seções idênticas",
+    "pass": true
+  }
+]

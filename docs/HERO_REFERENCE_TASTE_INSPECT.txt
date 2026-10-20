@@ -1,0 +1,57 @@
+TASTESKILL · INSPECT   index.html
+
+MEASURED (first viewport listed)
+  hero headline   "Seu corte começa aqui."  4 words · 2 line(s) · 133.8px (8vw) · Navalha Bodoni 500 · tracking -0.045em · leading 0.83
+  @390px          2 line(s) · 59.7px
+  typefaces       Manrope 98%, Young 2%
+  sizes in use    13 / 14 / 15 / 16 / 17 / 18 / 19 / 20 / 22 / 23 / 24 / 25 / 26 / 27 / 30 / 34 / 45 / 58 / 68 / 72 / 88 / 94 / 115 / 116 / 134 / 160 px   body 16px / 1.7
+  colour          page #141414 · sections #101111 #f3f0eb #141414 #202020 · button #141414
+  page            10.6 screens · 653 words · 18 images · hero media 90% img
+  headings        21 · longest 2 line(s) · median 3 words
+
+FAIL — fix every one of these
+  [eyebrow] @1672px (+390, 320)  11 eyebrow/kicker label(s) above headings: "Barbearia Sr. Navalha" above "Seu corte começa aqui."; "Agendar no AppBarber" above "O corte tem técnica. O cuidado tem nome."; "O valor varia conforme o tamanho do cabelo." above "Damião"; "O valor varia conforme o tamanho do cabelo." above "Eduardo"; "Para todos os tipos de pele" above "Kauã"
+      → Delete them. If the label carried real information, fold it into the headline or the supporting sentence.
+  [micro-label] @1672px (+390, 320)  4 tiny uppercase letter-spaced labels (e.g. "Cortesmodernos", "Barbacom precisão", "Atendimentode confiança", "Em Gravatá, PE").
+      → Use sentence-case text at a readable size, or delete the label.
+  [emoji] @1672px (+390, 320)  Emoji in the page: ★
+      → Remove. Use words or real imagery.
+  [hairline] @1672px (+390, 320)  72 thin rule(s)/divider line(s): header#topo.header.nv2-header 1672px | details.service-row 864px | details.service-row 864px | details.service-row 864px
+      → Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.
+  [icon-cards] @1672px (+390, 320)  2 row(s) of identical cards each topped with a small icon (4, 4 cards).
+      → Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.
+  [broken-image] @1672px (+390)  Broken image(s): http://127.0.0.1:41783/assets/images/work-corte-cacheado.webp, http://127.0.0.1:41783/assets/images/work-corte-perfil.webp
+      → Fix the URL or replace the asset.
+  [small-text] @390px (+320)  6 text blocks under 13px.
+      → Nothing meant to be read goes below 13px.
+
+WARN — fix, or be able to defend
+  [mixed-font-headline] @1672px (+390, 320)  14 headline(s) switch typeface or to italic mid-line (the "one italic serif word" move).
+      → Set the whole headline in one face. Emphasis comes from the words.
+  [palette-cream] @1672px (+390, 320)  Yellow-cream background (section #f3f0eb, text #f3f0eb, text #faf9f5).
+      → Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.
+  [size-count] @1672px (+390, 320)  26 different font sizes (13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 30, 34, 45, 58, 68, 72, 88, 94, 115, 116, 134, 160).
+      → A page needs about five: display, heading, lead, body, small.
+  [no-footage] @1672px  No video anywhere on the page.
+      → Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject.
+  [side-scroll] @1672px (+390, 320)  1 row(s) scroll sideways with content past their edge.
+      → Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.
+  [still-page] @1672px  Little motion: 11 element(s) moved while the page loaded and scrolled.
+      → Give every section an entrance for its parts (not one fade of the whole block) and add one moving picture: a looping clip or a slow move on a photograph.
+  [no-hero] @320px  No headline found in the first viewport.
+      → The first screen needs a clear focal statement or image.
+
+LOOK AT THE RENDER — open these with your image viewer / Read tool before saying anything about quality:
+  desktop 1672px  capturas/hero-reference/taste/desktop-fold.jpg
+                  capturas/hero-reference/taste/desktop-page-01.jpg
+                  capturas/hero-reference/taste/desktop-page-02.jpg
+                  capturas/hero-reference/taste/desktop-page-03.jpg
+  mobile 390px    capturas/hero-reference/taste/mobile-fold.jpg
+                  capturas/hero-reference/taste/mobile-page-01.jpg
+                  capturas/hero-reference/taste/mobile-page-02.jpg
+  mobile 320px    capturas/hero-reference/taste/mobile-fold.jpg
+                  capturas/hero-reference/taste/mobile-page-01.jpg
+                  capturas/hero-reference/taste/mobile-page-02.jpg
+
+report: capturas/hero-reference/taste/report.json
+RESULT: 7 FAIL, 7 WARN — not done.
