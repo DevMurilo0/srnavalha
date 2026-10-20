@@ -64,4 +64,4 @@ $('#load-map').addEventListener('click',()=>{const frame=$('#map'),button=$('#lo
 // Image failures become explicit labels, with identity and navigation intact.
 function imageFailed(img){if(img.closest('.identity')||img.classList.contains('brand')){img.alt='Sr. Navalha Barbearia';return}img.classList.add('image-unavailable');img.alt='Fotografia indisponível: '+img.alt;}
 $$('img').forEach(img=>{img.addEventListener('error',()=>imageFailed(img));if(img.complete&&!img.naturalWidth)imageFailed(img)});
-initHero();initPassages();initReviews();initServices();initOpening();
+initPassages();initReviews();initServices();

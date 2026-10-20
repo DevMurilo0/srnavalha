@@ -1,3 +1,4 @@
+import {transformHeroV10} from './hero-v10-patch.mjs';
 // V9 canonical HTML generator. Build-time helper only. The shipped site needs no Node or build step.
 import reviewData from '../js/data/reviews.js';import services from '../js/data/services.js';import pros from '../js/data/professionals.js';import products from '../js/data/products.js';import {writeFileSync,readFileSync} from 'node:fs';
 const app='https://sites.appbarber.com.br/srnavala-pqjj', wa='https://wa.me/5581995722396',maps='https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA';
@@ -44,5 +45,5 @@ const html=`<!doctype html>
 </main><footer class="footer wrap"><a href="#topo" aria-label="Sr. Navalha — voltar ao topo">${logo}</a><div><a href="https://www.instagram.com/barbeariasrnavalha01/">Instagram ${arrow}</a><a href="${wa}">WhatsApp ${arrow}</a><a href="#topo">Voltar ao topo ↑</a></div><p>Gravatá · Pernambuco<br>Site por <a href="https://murilogabriel.com.br">Murilo Gabriel</a></p></footer>
 <dialog class="lightbox" aria-label="Fotografias da Sr. Navalha"><button class="lightbox-close" type="button" aria-label="Fechar fotografia">Fechar ×</button><button class="lightbox-prev" type="button" aria-label="Fotografia anterior">←</button><figure><img id="lightbox-image" alt=""><figcaption id="lightbox-caption"></figcaption></figure><button class="lightbox-next" type="button" aria-label="Próxima fotografia">→</button></dialog>
 </body></html>`;
-writeFileSync('index.html',html);
+writeFileSync('index.html',transformHeroV10(html));
 writeFileSync('agendar.html',`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agendar — Sr. Navalha</title><link rel="icon" href="assets/decor/favicon-v8.png"><link rel="stylesheet" href="css/site.css"></head><body class="booking-page"><main class="wrap section"><a href="index.html">${logo}</a><h1>Seu horário.<br><em>No AppBarber.</em></h1><p>Escolha o serviço, o profissional e consulte os horários disponíveis no sistema oficial da Sr. Navalha.</p>${action('Agendar horário')}<a class="text-link" href="${wa}">Prefere conversar? WhatsApp ${arrow}</a><a class="text-link" href="index.html">Voltar ao site</a></main></body></html>`);

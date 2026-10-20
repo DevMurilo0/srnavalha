@@ -1,47 +1,53 @@
-# Sr. Navalha · V9
+# Sr. Navalha — Correção pontual V10
 
-Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. HTML, CSS, JavaScript e SVG, com fontes e fotografias locais. Funciona diretamente no Live Server, sem npm ou build obrigatório.
+A atualização **NÃO substitui a Home nem as seções do site**. Ela se aplica sobre a sua versão V9 mais recente do GitHub e substitui **apenas o cabeçalho e o hero**, acrescentando um único arquivo de animação de palavras (progressivo e acessível). Mantém todo o restante do HTML/CSS e todos os dados comerciais exatamente como estão.
 
-## Abrir
+## Instalação no Linux / VS Code
 
-No VS Code, abra `index.html` com **Open with Live Server**. Alternativa: `python3 -m http.server 8019`, depois `http://localhost:8019`. Use HTTP para os módulos JavaScript. Sem JavaScript, o conteúdo e os links essenciais continuam disponíveis. `agendar.html` leva ao AppBarber oficial.
+1. Faça uma cópia do projeto ou mantenha o backup que você já fez.
+2. Extraia este ZIP em qualquer pasta.
+3. Abra um terminal **na pasta extraída**.
+4. Execute:
 
-## V9
+```bash
+python3 APLICAR_CORRECAO_V10.py ~/Dev/andamento/srnavalha
+```
 
-- Abertura curta com logo original, filete e dois painéis coordenados à revelação do hero.
-- Hero com fachada real em moldura arquitetônica, título equilibrado e progresso reversível da entrada ao salão.
-- Apresentação da casa integrada à transformação do hero em desktop e mobile.
-- Passagens próprias entre serviços/equipe, equipe/produtos, portfólio/avaliações e encerramento.
-- 42 serviços, preços e durações; 5 profissionais reais; 22 produtos; assinaturas e contatos preservados.
-- Seleção de serviços com máscara de foto ou fallback honesto; equipe em camadas e produtos sincronizados ao WhatsApp.
-- Galeria editorial no desktop, coleção deslizável no mobile, lightbox espacial com teclado/Escape/swipe.
-- Esteira de comentários com pausa, foco, toque e suspensão fora da tela.
-- Rolagem nativa, scheduler compartilhado, redução de movimento inicial/dinâmica e conteúdo sem JS.
+5. Abra o `index.html` da sua pasta `srnavalha` no VS Code → **Open with Live Server**.
 
-## Manutenção
+O instalador cria um backup dos arquivos originais ao lado do repositório e gera também `srnavalha-V10-completo.zip` com **todos os arquivos do seu projeto**, sem `node_modules`, caches e artefatos de teste. Se sua pasta tiver outro caminho, substitua o argumento pelo caminho correto.
 
-Dados: `js/data/services.js`, `professionals.js`, `products.js`, `reviews.js`. Após editar, execute **opcionalmente** `node scripts/build-v9.mjs`, que gera `index.html` e `agendar.html`. `build-v8.mjs` agora encaminha ao gerador V9 para evitar restaurar acidentalmente o layout antigo. O gerador original e os arquivos anteriores estão em `backup/v9-preflight/`; backups anteriores foram preservados.
+Para testar o reconhecimento de arquivos sem alterar nada:
 
-Visual: `css/tokens.css`, `css/site.css` e `css/motion.css`. Comportamento: `js/site.js` e módulos `js/motion/` (core, opening, hero, passages, services, reviews). Não acrescente outra timeline ao transform de um wrapper já controlado por scroll.
+```bash
+python3 APLICAR_CORRECAO_V10.py ~/Dev/andamento/srnavalha --dry-run
+```
 
-O site não depende de CDN, GSAP ou Lenis. AppBarber, Google Maps, WhatsApp e Instagram continuam como destinos externos reais; o mapa só é solicitado por ação do visitante. Reservas e compras não são simuladas.
+## Alterações exatas
 
-## Pesquisa e testes
+- `index.html`: somente o `<header>` e a seção que antecede `<section class="services paper section">` (hero), mais 2 tags de recursos no `<head>`;
+- `js/site.js`: desliga somente `initHero()` e `initOpening()` antigos (dependem do hero removido), mantém todas as outras funções;
+- `scripts/build-v9.mjs`: aplica também a nova composição quando alguém executa o gerador opcional;
+- novos arquivos: `css/hero-pontual-v10.css`, `js/hero-pontual-v10.js`, fotografia WebP e tipografia Noto Serif Display via Google Fonts, com fallback Georgia.
 
-- [Reconstrução do hero e origem da fachada](docs/HERO_REDESIGN.md)
-- [Pesquisa Salomé](docs/REFERENCIA_SALOME_V9.md)
-- [Direção artística](docs/ART_DIRECTION_V9.md)
-- [Sistema de movimento](docs/MOTION_V9.md)
-- [Imagens e limites de resolução](docs/IMAGENS_V9.md)
-- [Testes executados e limitações](docs/TESTES_V9.md)
-- [Sistema visual](DESIGN.md)
+Serviços, equipe, produtos, portfólio, avaliações, mapa, agendamento e rodapé **não são reescritos**. Logotipo original continua no cabeçalho e no rodapé, sem duplicar no conteúdo do hero.
 
-Capturas V8/V9 e estados intermediários: `capturas/v9/`. Evidências: `docs/V9_*.json`. Scripts de navegador são opcionais e usam Node 22+, Chromium local (`CHROME_PATH`) e Firefox BiDi. Nenhuma ferramenta de teste é dependência de produção.
+## Fotografia
 
-## Conteúdo e limites
+O fundo segue a referência visual aprovada e usa o recurso anterior em 1672 px, com uma versão WebP de 2048 px com correção conservadora de contraste, cor e nitidez. **Ampliar pixels não recupera detalhes originalmente ausentes**. Para qualidade fotográfica significativamente superior, substitua por uma fotografia original do ambiente em alta resolução. Este recurso não deve ser descrito como registro fotográfico não modificado.
 
-[AppBarber](https://sites.appbarber.com.br/srnavala-pqjj) consultado em 19/10/2026; acervo comercial original de 17/10 mantido. [Google Maps](https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA) confirmou 5,0 na consulta de 19/10, mas não exibiu o total: as 467 avaliações permanecem explicitamente datadas de 17/10/2026. Depoimentos mantêm suas fontes individuais.
+## Fonte
 
-Instagram bloqueou a consulta automatizada. Não houve acesso a novos originais de atendimento ou ambiente em alta resolução, nem geração de rostos/detalhes. Fotografias pequenas continuam em escala adequada. Sem validação em aparelho físico, Safari/iOS ou leitor de tela real. O detector estilístico Taste conserva ressalvas documentadas; não se declara aprovação integral.
+**Noto Serif Display Medium**, família tipográfica real do Google Fonts, carregada pelo navegador com fallback Georgia, usada **somente no título do hero**. Nenhum arquivo de fonte adicional é distribuído; demais fontes do site permanecem inalteradas.
 
-Crédito de Murilo Gabriel preservado. Sem commit ou push nesta entrega.
+## Animações
+
+- Entrada editorial coordenada de cada linha do hero e dos elementos de apoio;
+- Zoom/deslocamento suave na fotografia limitado ao avanço da rolagem;
+- Revelação de palavras por blocos em outras seções ao entrarem na viewport (sem alterar os dados e a semântica);
+- Sem dependência de React/npm ou smooth-scroll artificial;
+- Respeita `prefers-reduced-motion`; sem JS todo conteúdo permanece visível.
+
+## Validação local desta entrega
+
+Apliquei o instalador a uma estrutura de teste representativa da V9. Foram verificados sete tamanhos (320, 375, 390, 768, 1024, 1366 e 1440 px), com **zero overflow horizontal e zero exceções JavaScript**, e o fallback tipográfico. O acesso do Chromium a URLs locais está bloqueado neste ambiente; a prévia foi inspecionada por HTML/CSS/JS incorporados em uma página de testes. Ainda é necessário conferir a atualização aplicada ao repositório completo pelo Live Server.
