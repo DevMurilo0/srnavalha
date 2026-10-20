@@ -1,0 +1,133 @@
+[
+  {
+    "name": "320px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "320px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "320px retorno",
+    "pass": true
+  },
+  {
+    "name": "375px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "375px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "375px retorno",
+    "pass": true
+  },
+  {
+    "name": "390px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "390px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "390px retorno",
+    "pass": true
+  },
+  {
+    "name": "768px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "768px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "768px retorno",
+    "pass": true
+  },
+  {
+    "name": "1024px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "1024px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "1024px retorno",
+    "pass": true
+  },
+  {
+    "name": "1366px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "1366px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "1366px retorno",
+    "pass": true
+  },
+  {
+    "name": "1440px inicial",
+    "pass": true,
+    "detail": {
+      "overflow": -12,
+      "loaded": true,
+      "curtain": false,
+      "individual": false
+    }
+  },
+  {
+    "name": "1440px fachada → interior",
+    "pass": true
+  },
+  {
+    "name": "1440px retorno",
+    "pass": true
+  },
+  {
+    "name": "Console JS",
+    "pass": true,
+    "detail": []
+  }
+]

@@ -1,0 +1,52 @@
+TASTESKILL · INSPECT   http://127.0.0.1:40043/
+
+MEASURED (first viewport listed)
+  hero headline   "Seu corte. Sua identidade."  4 words · 2 line(s) · 106px (7.4vw) · Manrope 500 · tracking -0.045em · leading 1.08
+  @768px          1 line(s) · 65.3px
+  @390px          2 line(s) · 51.5px
+  typefaces       Manrope 98%, Young 2%
+  sizes in use    13 / 14 / 15 / 16 / 17 / 18 / 19 / 20 / 21 / 22 / 23 / 25 / 26 / 27 / 30 / 34 / 45 / 58 / 68 / 72 / 77 / 86 / 88 / 94 / 106 / 115 / 158 px   body 16px / 1.7
+  colour          page #141414 · sections #141414 #f3f0eb #202020 · button #141414
+  page            12.9 screens · 700 words · 20 images · hero media 22% svg
+  headings        24 · longest 2 line(s) · median 3 words
+
+FAIL — fix every one of these
+  [eyebrow] @1440px (+768, 390)  12 eyebrow/kicker label(s) above headings: "Agendar no AppBarber" above "O corte tem técnica. O cuidado tem nome."; "Agendar no AppBarber" above "Quem cuida do seu estilo."; "O valor varia conforme o tamanho do cabelo." above "Damião"; "O valor varia conforme o tamanho do cabelo." above "Eduardo"; "Para todos os tipos de pele" above "Kauã"
+      → Delete them. If the label carried real information, fold it into the headline or the supporting sentence.
+  [emoji] @1440px (+768, 390)  Emoji in the page: ★
+      → Remove. Use words or real imagery.
+  [hairline] @1440px (+768, 390)  71 thin rule(s)/divider line(s): details.service-row 778px | details.service-row 778px | details.service-row 778px | details.service-row 778px
+      → Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.
+  [icon-cards] @1440px (+768, 390)  2 row(s) of identical cards each topped with a small icon (4, 4 cards).
+      → Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.
+  [covered-text] @1440px (+768, 390)  Large text lies under another element at some scroll position: "Seu corte." (screen 2, 100% hidden)
+      → Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.
+
+WARN — fix, or be able to defend
+  [mixed-font-headline] @1440px (+768, 390)  15 headline(s) switch typeface or to italic mid-line (the "one italic serif word" move).
+      → Set the whole headline in one face. Emphasis comes from the words.
+  [palette-cream] @1440px (+768, 390)  Yellow-cream background (section #f3f0eb, text #f3f0eb).
+      → Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.
+  [size-count] @1440px (+768, 390)  27 different font sizes (13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 30, 34, 45, 58, 68, 72, 77, 86, 88, 94, 106, 115, 158).
+      → A page needs about five: display, heading, lead, body, small.
+  [no-footage] @1440px  No video anywhere on the page.
+      → Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject.
+  [side-scroll] @1440px (+768, 390)  1 row(s) scroll sideways with content past their edge.
+      → Jurors and most visitors read a row cut at the edge as clipped, not as scrollable. Wrap it onto more lines, or end it inside the grid.
+  [pinned-over-picture] @390px  Pinned large text slides across pictures while the page scrolls: "Entre. Sinta-se da casa." (screen 2, 100% over a picture)
+      → Jurors read a pinned title crossing drawings or photographs as a collision. Keep the pictures in the column the title does not occupy, or unpin it.
+
+LOOK AT THE RENDER — open these with your image viewer / Read tool before saying anything about quality:
+  desktop 1440px  .taste-skill/inspect/desktop-fold.jpg
+                  .taste-skill/inspect/desktop-page-01.jpg
+                  .taste-skill/inspect/desktop-page-02.jpg
+                  .taste-skill/inspect/desktop-page-03.jpg
+  tablet 768px    .taste-skill/inspect/tablet-fold.jpg
+                  .taste-skill/inspect/tablet-page-01.jpg
+                  .taste-skill/inspect/tablet-page-02.jpg
+  mobile 390px    .taste-skill/inspect/mobile-fold.jpg
+                  .taste-skill/inspect/mobile-page-01.jpg
+                  .taste-skill/inspect/mobile-page-02.jpg
+
+report: .taste-skill/inspect/report.json
+RESULT: 5 FAIL, 6 WARN — not done.

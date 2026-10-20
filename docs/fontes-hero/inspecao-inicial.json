@@ -1,0 +1,69 @@
+{
+  "out": [
+    {
+      "width": 1440,
+      "overflow": 0,
+      "p": 1,
+      "images": [
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/fachada-480.webp",
+          "w": 439
+        },
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/interior-480.webp",
+          "w": 480
+        }
+      ],
+      "services": 42
+    },
+    {
+      "width": 768,
+      "overflow": 0,
+      "p": 1,
+      "images": [
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/fachada-480.webp",
+          "w": 322
+        },
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/interior-480.webp",
+          "w": 322
+        }
+      ],
+      "services": 42
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "p": 1,
+      "images": [
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/fachada-480.webp",
+          "w": 343
+        },
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/interior-480.webp",
+          "w": 343
+        }
+      ],
+      "services": 42
+    },
+    {
+      "width": 320,
+      "overflow": 0,
+      "p": 1,
+      "images": [
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/fachada-320.webp",
+          "w": 281
+        },
+        {
+          "src": "http://127.0.0.1:8019/assets/images/hero-redesign/interior-320.webp",
+          "w": 281
+        }
+      ],
+      "services": 42
+    }
+  ],
+  "errors": []
+}

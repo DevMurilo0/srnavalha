@@ -2,7 +2,7 @@
 
 Barbearia no bairro Prado, em Gravatá–PE. O site apresenta profissionais, serviços, produtos, trabalhos reais, avaliações e informações para a visita. A ação principal é abrir o agendamento oficial: https://sites.appbarber.com.br/srnavala-pqjj. WhatsApp é canal de conversa e consulta de produtos; o site não confirma reservas.
 
-A V9 foi autorizada como reconstrução visual: carvão, marfim e cobre substituem a paleta anterior, com o logo original, fontes locais Manrope e Young Serif, fotografias oficiais e hero cinematográfico em moldura de espelho e narrativa de scroll. A especificação atual está em `DESIGN.md` e `.impeccable/design.json`; registros V6 são históricos.
+A V9 foi autorizada como reconstrução visual: carvão, marfim e cobre substituem a paleta anterior, com o logo original, fontes locais Manrope e Young Serif, fotografias oficiais e hero com fachada real, composição arquitetônica e narrativa da entrada ao salão. A especificação atual está em `DESIGN.md` e `.impeccable/design.json`; registros V6 são históricos.
 
 ## Conteúdo e confiança
 

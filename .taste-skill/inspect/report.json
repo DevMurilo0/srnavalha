@@ -1,6 +1,6 @@
 {
- "url": "http://127.0.0.1:8019/",
- "at": "2026-10-19T22:23:24.746Z",
+ "url": "http://127.0.0.1:40043/",
+ "at": "2026-10-19T23:53:09.358Z",
  "allow": [],
  "viewports": [
   {
@@ -9,24 +9,24 @@
    "load": "load",
    "screens": 12,
    "filled": [
-    0.45,
-    0.48,
+    0.35,
+    0.47,
     0.72,
-    0.91,
-    0.55,
+    0.93,
+    0.57,
     0.46,
     0.91,
     0.51,
-    0.43,
-    0.46,
-    0.73,
+    0.53,
+    0.48,
+    0.74,
     0.89
    ],
    "motion": {
-    "elements": 17,
+    "elements": 22,
     "css": 0,
     "transitions": 0,
-    "scripted": 17,
+    "scripted": 22,
     "videos": 0,
     "playingVideos": 0
    },
@@ -36,13 +36,13 @@
      "h": 900
     },
     "page": {
-     "height": 11630,
+     "height": 11634,
      "screens": 12.9,
-     "words": 695,
-     "img": 21,
+     "words": 700,
+     "img": 20,
      "video": 0,
      "canvas": 0,
-     "svg": 128,
+     "svg": 130,
      "sections": 9,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
@@ -52,8 +52,8 @@
      "videoCount": 0,
      "uiPictures": 0,
      "pictureSamples": [
-      "damiao-725.webp",
-      "servico-barboterapia-640.webp",
+      "fachada-480.webp",
+      "interior-480.webp",
       "servico-comb-cort-barb-simples-640.webp",
       "eduardo-640.webp",
       "servico-comb-cort-barb-simples-640.webp",
@@ -73,19 +73,19 @@
      "words": 4,
      "chars": 26,
      "lines": 2,
-     "size": 139.7,
-     "vw": 9.7,
+     "size": 106,
+     "vw": 7.4,
      "font": "Manrope",
      "weight": 500,
-     "tracking": -0.055,
+     "tracking": -0.045,
      "leading": 1.08,
      "upper": false,
      "italic": false,
      "mono": false,
      "align": "left",
-     "position": "center",
-     "widthRatio": 0.9,
-     "top": 169,
+     "position": "left",
+     "widthRatio": 0.44,
+     "top": 279,
      "mixedFonts": [
       "Manrope",
       "Young"
@@ -97,7 +97,7 @@
      "text": "Seu corte. Sua identidade.",
      "words": 4,
      "lines": 2,
-     "size": 139.7,
+     "size": 106,
      "font": "Manrope"
     },
     "headings": [
@@ -106,19 +106,19 @@
       "words": 4,
       "chars": 26,
       "lines": 2,
-      "size": 139.7,
-      "vw": 9.7,
+      "size": 106,
+      "vw": 7.4,
       "font": "Manrope",
       "weight": 500,
-      "tracking": -0.055,
+      "tracking": -0.045,
       "leading": 1.08,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "center",
-      "widthRatio": 0.9,
-      "top": 169,
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 279,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -127,23 +127,23 @@
       "kind": "heading"
      },
      {
-      "text": "Sinta-se da casa.",
-      "words": 3,
-      "chars": 17,
+      "text": "Entre. Sinta-se da casa.",
+      "words": 4,
+      "chars": 24,
       "lines": 2,
-      "size": 76,
-      "vw": 5.3,
+      "size": 68,
+      "vw": 4.7,
       "font": "Manrope",
       "weight": 500,
       "tracking": -0.04,
-      "leading": 1.07,
+      "leading": 1.1,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "right",
-      "widthRatio": 0.41,
-      "top": 346,
+      "position": "left",
+      "widthRatio": 0.37,
+      "top": 303,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -168,7 +168,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.34,
-      "top": 1903,
+      "top": 1907,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -193,7 +193,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.27,
-      "top": 2565,
+      "top": 2569,
       "tag": "p",
       "kind": "statement"
      },
@@ -214,7 +214,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.31,
-      "top": 2873,
+      "top": 2877,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -239,7 +239,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 3341,
+      "top": 3345,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -264,7 +264,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.35,
-      "top": 4108,
+      "top": 4112,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -289,7 +289,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4389,
+      "top": 4393,
       "tag": "button",
       "kind": "heading"
      },
@@ -310,7 +310,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4484,
+      "top": 4488,
       "tag": "button",
       "kind": "heading"
      },
@@ -331,7 +331,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4579,
+      "top": 4583,
       "tag": "button",
       "kind": "heading"
      },
@@ -352,7 +352,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4673,
+      "top": 4677,
       "tag": "button",
       "kind": "heading"
      },
@@ -373,7 +373,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4768,
+      "top": 4772,
       "tag": "button",
       "kind": "heading"
      },
@@ -394,7 +394,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 5131,
+      "top": 5135,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -419,7 +419,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 5535,
+      "top": 5539,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -444,7 +444,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.43,
-      "top": 5792,
+      "top": 5796,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -469,7 +469,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.34,
-      "top": 5919,
+      "top": 5923,
       "tag": "h3",
       "kind": "heading"
      },
@@ -490,7 +490,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.39,
-      "top": 6005,
+      "top": 6009,
       "tag": "p",
       "kind": "statement"
      },
@@ -511,7 +511,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.31,
-      "top": 6880,
+      "top": 6884,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -536,7 +536,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 1,
-      "top": 8419,
+      "top": 8423,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -561,7 +561,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.3,
-      "top": 8928,
+      "top": 8932,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -586,7 +586,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.14,
-      "top": 8938,
+      "top": 8942,
       "tag": "span",
       "kind": "heading"
      },
@@ -607,7 +607,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 9866,
+      "top": 9870,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -632,7 +632,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.35,
-      "top": 10024,
+      "top": 10028,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -657,7 +657,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.41,
-      "top": 10949,
+      "top": 10953,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -698,6 +698,7 @@
       18,
       19,
       20,
+      21,
       22,
       23,
       25,
@@ -709,13 +710,12 @@
       58,
       68,
       72,
-      76,
+      77,
       86,
       88,
       94,
+      106,
       115,
-      117,
-      140,
       158
      ],
      "sizeCount": 27,
@@ -755,7 +755,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 3279
+      "top": 3283
      },
      {
       "text": "Agendar no AppBarber",
@@ -765,7 +765,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4049
+      "top": 4053
      },
      {
       "text": "O valor varia conforme o tamanho do cabelo.",
@@ -775,7 +775,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 4356
+      "top": 4360
      },
      {
       "text": "O valor varia conforme o tamanho do cabelo.",
@@ -785,7 +785,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 4449
+      "top": 4453
      },
      {
       "text": "Para todos os tipos de pele",
@@ -795,7 +795,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 4542
+      "top": 4546
      },
      {
       "text": "Agendar no AppBarber",
@@ -805,7 +805,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4700
+      "top": 4704
      },
      {
       "text": "Agendar no AppBarber",
@@ -815,7 +815,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5046
+      "top": 5050
      },
      {
       "text": "Agendar no AppBarber",
@@ -825,7 +825,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5697
+      "top": 5701
      },
      {
       "text": "R$ 20,00",
@@ -835,7 +835,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 5878
+      "top": 5882
      },
      {
       "text": "30 min",
@@ -845,7 +845,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 5974
+      "top": 5978
      },
      {
       "text": "Cabelo",
@@ -855,7 +855,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 6852
+      "top": 6856
      },
      {
       "text": "R$ 90,00",
@@ -865,7 +865,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 8853
+      "top": 8857
      }
     ],
     "numbered": [],
@@ -879,17 +879,8 @@
      "dark": true,
      "sectionBgs": [
       {
-       "color": "#f3f0eb",
-       "top": 1759,
-       "hsl": {
-        "h": 38,
-        "s": 0.25,
-        "l": 0.94
-       }
-      },
-      {
        "color": "#141414",
-       "top": 3964,
+       "top": 94,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -897,8 +888,17 @@
        }
       },
       {
+       "color": "#f3f0eb",
+       "top": 1763,
+       "hsl": {
+        "h": 38,
+        "s": 0.25,
+        "l": 0.94
+       }
+      },
+      {
        "color": "#202020",
-       "top": 8784,
+       "top": 8788,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -913,7 +913,7 @@
       },
       {
        "color": "#f3f0eb",
-       "share": 0.18
+       "share": 0.17
       },
       {
        "color": "#655f58",
@@ -940,8 +940,8 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 20,
-     "inHero": 2,
+     "count": 21,
+     "inHero": 3,
      "radius": 0,
      "height": 44,
      "withShadow": 0,
@@ -950,6 +950,7 @@
      "upper": 0,
      "heroLabels": [
       "Pular para o conteúdo",
+      "Agendar meu horário",
       "Agendar meu horário"
      ]
     },
@@ -974,7 +975,7 @@
      "blurred": 0,
      "roundedBoxes": 0,
      "boxRadius": 0,
-     "squareMedia": 16,
+     "squareMedia": 17,
      "roundedMedia": 0,
      "mediaRadius": 0,
      "textShadow": 0,
@@ -983,24 +984,28 @@
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 9181
+       "top": 9185
       },
       {
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 9181
+       "top": 9185
       }
      ]
     },
     "heroMedia": [
      {
       "type": "svg",
-      "ratio": 0.16
+      "ratio": 0.22
      },
      {
       "type": "img",
-      "ratio": 0.15
+      "ratio": 0.2
+     },
+     {
+      "type": "img",
+      "ratio": 0.2
      }
     ],
     "nav": {
@@ -1023,23 +1028,23 @@
    "load": "load",
    "screens": 11,
    "filled": [
-    0.44,
-    0.46,
+    0.39,
+    0.5,
     0.85,
-    0.95,
-    0.63,
-    0.92,
-    0.56,
-    0.79,
+    0.94,
+    0.66,
+    0.9,
+    0.51,
+    0.81,
     0.96,
-    0.54,
+    0.53,
     0.43
    ],
    "motion": {
-    "elements": 17,
+    "elements": 22,
     "css": 0,
     "transitions": 0,
-    "scripted": 17,
+    "scripted": 22,
     "videos": 0,
     "playingVideos": 0
    },
@@ -1049,30 +1054,30 @@
      "h": 1024
     },
     "page": {
-     "height": 10365,
+     "height": 10293,
      "screens": 10.1,
-     "words": 681,
-     "img": 21,
+     "words": 691,
+     "img": 20,
      "video": 0,
      "canvas": 0,
-     "svg": 128,
+     "svg": 130,
      "sections": 9,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 16,
+     "realPictures": 17,
      "videoCount": 0,
      "uiPictures": 0,
      "pictureSamples": [
-      "damiao-725.webp",
+      "fachada-480.webp",
+      "interior-480.webp",
       "servico-comb-cort-barb-simples-640.webp",
       "eduardo-640.webp",
       "servico-comb-cort-barb-simples-640.webp",
       "damiao-640.webp",
       "eduardo-640.webp",
-      "kaua-640.webp",
-      "rafael-640.webp"
+      "kaua-640.webp"
      ],
      "blendText": 0,
      "sideScrollers": 1,
@@ -1082,81 +1087,73 @@
      ]
     },
     "hero": {
-     "text": "Seu corte. Sua identidade.",
-     "words": 4,
-     "chars": 26,
-     "lines": 2,
-     "size": 88.3,
-     "vw": 11.5,
+     "text": "Seu corte.",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 65.3,
+     "vw": 8.5,
      "font": "Manrope",
      "weight": 500,
-     "tracking": -0.055,
+     "tracking": -0.045,
      "leading": 1.08,
      "upper": false,
      "italic": false,
      "mono": false,
      "align": "left",
-     "position": "center",
-     "widthRatio": 0.9,
-     "top": 172,
-     "mixedFonts": [
-      "Manrope",
-      "Young"
-     ],
-     "tag": "h1",
+     "position": "left",
+     "widthRatio": 0.51,
+     "top": 308,
+     "tag": "span",
      "kind": "heading"
     },
     "h1": {
      "text": "Seu corte. Sua identidade.",
      "words": 4,
      "lines": 2,
-     "size": 88.3,
+     "size": 65.3,
      "font": "Manrope"
     },
     "headings": [
      {
-      "text": "Seu corte. Sua identidade.",
-      "words": 4,
-      "chars": 26,
-      "lines": 2,
-      "size": 88.3,
-      "vw": 11.5,
+      "text": "Seu corte.",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 65.3,
+      "vw": 8.5,
       "font": "Manrope",
       "weight": 500,
-      "tracking": -0.055,
+      "tracking": -0.045,
       "leading": 1.08,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "center",
-      "widthRatio": 0.9,
-      "top": 172,
-      "mixedFonts": [
-       "Manrope",
-       "Young"
-      ],
-      "tag": "h1",
+      "position": "left",
+      "widthRatio": 0.51,
+      "top": 308,
+      "tag": "span",
       "kind": "heading"
      },
      {
-      "text": "Sinta-se da casa.",
-      "words": 3,
-      "chars": 17,
+      "text": "Entre. Sinta-se da casa.",
+      "words": 4,
+      "chars": 24,
       "lines": 2,
-      "size": 44,
-      "vw": 5.7,
+      "size": 45,
+      "vw": 5.9,
       "font": "Manrope",
       "weight": 500,
       "tracking": -0.04,
-      "leading": 1.07,
+      "leading": 1.1,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
-      "position": "right",
-      "widthRatio": 0.45,
-      "top": 363,
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 322,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1181,7 +1178,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.35,
-      "top": 2056,
+      "top": 1985,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1206,7 +1203,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.33,
-      "top": 3044,
+      "top": 2972,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1231,7 +1228,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 3470,
+      "top": 3398,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1256,7 +1253,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.36,
-      "top": 4104,
+      "top": 4032,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1281,7 +1278,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4282,
+      "top": 4210,
       "tag": "button",
       "kind": "heading"
      },
@@ -1302,7 +1299,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4348,
+      "top": 4277,
       "tag": "button",
       "kind": "heading"
      },
@@ -1323,7 +1320,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4414,
+      "top": 4343,
       "tag": "button",
       "kind": "heading"
      },
@@ -1344,7 +1341,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4481,
+      "top": 4409,
       "tag": "button",
       "kind": "heading"
      },
@@ -1365,7 +1362,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.41,
-      "top": 4547,
+      "top": 4475,
       "tag": "button",
       "kind": "heading"
      },
@@ -1386,7 +1383,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 4847,
+      "top": 4776,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1411,7 +1408,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.4,
-      "top": 5132,
+      "top": 5060,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1436,7 +1433,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.45,
-      "top": 5320,
+      "top": 5248,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1461,7 +1458,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.37,
-      "top": 5349,
+      "top": 5277,
       "tag": "h3",
       "kind": "heading"
      },
@@ -1482,7 +1479,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.4,
-      "top": 5409,
+      "top": 5338,
       "tag": "p",
       "kind": "statement"
      },
@@ -1503,7 +1500,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.32,
-      "top": 6095,
+      "top": 6023,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1528,7 +1525,7 @@
       "align": "center",
       "position": "center",
       "widthRatio": 1,
-      "top": 7139,
+      "top": 7067,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1553,7 +1550,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.17,
-      "top": 7492,
+      "top": 7420,
       "tag": "span",
       "kind": "heading"
      },
@@ -1574,7 +1571,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.3,
-      "top": 7495,
+      "top": 7423,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1599,7 +1596,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.9,
-      "top": 8227,
+      "top": 8156,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1624,7 +1621,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.25,
-      "top": 8458,
+      "top": 8387,
       "tag": "a",
       "kind": "heading"
      },
@@ -1645,7 +1642,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.8,
-      "top": 8835,
+      "top": 8764,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1670,7 +1667,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.41,
-      "top": 9693,
+      "top": 9622,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -1686,7 +1683,7 @@
      "statements": 2,
      "centered": 1,
      "medianWords": 3,
-     "mixedFontHeadings": 15
+     "mixedFontHeadings": 14
     },
     "type": {
      "families": [
@@ -1720,13 +1717,13 @@
       34,
       38,
       42,
-      44,
+      45,
       46,
+      47,
       48,
       50,
       61,
-      74,
-      88,
+      65,
       100
      ],
      "sizeCount": 25,
@@ -1766,7 +1763,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 3398
+      "top": 3326
      },
      {
       "text": "Agendar no AppBarber",
@@ -1776,7 +1773,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4000
+      "top": 3929
      },
      {
       "text": "Agendar no AppBarber",
@@ -1786,7 +1783,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4201
+      "top": 4130
      },
      {
       "text": "Agendar no AppBarber",
@@ -1796,7 +1793,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4302
+      "top": 4230
      },
      {
       "text": "15 min",
@@ -1806,7 +1803,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4396
+      "top": 4325
      },
      {
       "text": "Procedimento com cera",
@@ -1816,7 +1813,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 4438
+      "top": 4366
      },
      {
       "text": "Agendar no AppBarber",
@@ -1826,7 +1823,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4476
+      "top": 4405
      },
      {
       "text": "Agendar no AppBarber",
@@ -1836,7 +1833,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4778
+      "top": 4706
      },
      {
       "text": "30 min",
@@ -1846,7 +1843,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 5099
+      "top": 5028
      },
      {
       "text": "45 min",
@@ -1856,7 +1853,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 5300
+      "top": 5229
      },
      {
       "text": "Agendar no AppBarber",
@@ -1866,7 +1863,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5306
+      "top": 5235
      },
      {
       "text": "A partir de",
@@ -1876,7 +1873,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 5369
+      "top": 5297
      },
      {
       "text": "Fragrância",
@@ -1886,7 +1883,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 6069
+      "top": 5997
      },
      {
       "text": "Finalização",
@@ -1896,7 +1893,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 7116
+      "top": 7044
      },
      {
       "text": "R$ 50,00",
@@ -1906,7 +1903,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 7441
+      "top": 7369
      },
      {
       "text": "Consultar",
@@ -1916,7 +1913,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 8165
+      "top": 8093
      }
     ],
     "numbered": [],
@@ -1930,17 +1927,8 @@
      "dark": true,
      "sectionBgs": [
       {
-       "color": "#f3f0eb",
-       "top": 1976,
-       "hsl": {
-        "h": 38,
-        "s": 0.25,
-        "l": 0.94
-       }
-      },
-      {
        "color": "#141414",
-       "top": 4024,
+       "top": 82,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -1948,8 +1936,17 @@
        }
       },
       {
+       "color": "#f3f0eb",
+       "top": 1905,
+       "hsl": {
+        "h": 38,
+        "s": 0.25,
+        "l": 0.94
+       }
+      },
+      {
        "color": "#202020",
-       "top": 7403,
+       "top": 7332,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -1958,7 +1955,7 @@
       },
       {
        "color": "#e7e2da",
-       "top": 8754,
+       "top": 8682,
        "hsl": {
         "h": 37,
         "s": 0.21,
@@ -2000,8 +1997,8 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 20,
-     "inHero": 2,
+     "count": 21,
+     "inHero": 3,
      "radius": 0,
      "height": 44,
      "withShadow": 0,
@@ -2010,6 +2007,7 @@
      "upper": 0,
      "heroLabels": [
       "Pular para o conteúdo",
+      "Agendar meu horário",
       "Agendar meu horário"
      ]
     },
@@ -2034,7 +2032,7 @@
      "blurred": 0,
      "roundedBoxes": 0,
      "boxRadius": 0,
-     "squareMedia": 14,
+     "squareMedia": 15,
      "roundedMedia": 0,
      "mediaRadius": 0,
      "textShadow": 0,
@@ -2043,24 +2041,28 @@
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 7671
+       "top": 7599
       },
       {
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 7671
+       "top": 7599
       }
      ]
     },
     "heroMedia": [
      {
       "type": "svg",
-      "ratio": 0.18
+      "ratio": 0.19
      },
      {
       "type": "img",
-      "ratio": 0.16
+      "ratio": 0.17
+     },
+     {
+      "type": "img",
+      "ratio": 0.17
      }
     ],
     "nav": {
@@ -2083,24 +2085,24 @@
    "load": "load",
    "screens": 12,
    "filled": [
-    0.63,
-    0.56,
-    0.83,
-    0.96,
-    0.84,
+    0.7,
+    0.52,
+    0.86,
+    0.93,
     0.92,
-    0.98,
-    0.89,
-    0.69,
-    0.96,
+    0.88,
     0.95,
-    0.7
+    0.9,
+    0.71,
+    0.85,
+    0.96,
+    0.74
    ],
    "motion": {
-    "elements": 17,
+    "elements": 22,
     "css": 0,
     "transitions": 0,
-    "scripted": 17,
+    "scripted": 22,
     "videos": 0,
     "playingVideos": 0
    },
@@ -2110,30 +2112,30 @@
      "h": 844
     },
     "page": {
-     "height": 10654,
-     "screens": 12.6,
-     "words": 675,
-     "img": 21,
+     "height": 10720,
+     "screens": 12.7,
+     "words": 674,
+     "img": 20,
      "video": 0,
      "canvas": 0,
-     "svg": 128,
+     "svg": 130,
      "sections": 9,
      "horizontalOverflow": 0,
      "overflowCulprits": [],
      "uiFragments": 0,
      "uiAbuse": false,
-     "realPictures": 12,
+     "realPictures": 13,
      "videoCount": 0,
      "uiPictures": 0,
      "pictureSamples": [
-      "damiao-400.webp",
+      "fachada-480.webp",
+      "interior-480.webp",
       "damiao-640.webp",
       "eduardo-640.webp",
       "kaua-640.webp",
       "rafael-640.webp",
       "yan-640.webp",
-      "pomada-orange-640.webp",
-      "servico-comb-cort-barb-simples-640.webp"
+      "pomada-orange-640.webp"
      ],
      "blendText": 0,
      "sideScrollers": 2,
@@ -2147,19 +2149,19 @@
      "words": 4,
      "chars": 26,
      "lines": 2,
-     "size": 54.6,
-     "vw": 14,
+     "size": 51.5,
+     "vw": 13.2,
      "font": "Manrope",
      "weight": 500,
-     "tracking": -0.055,
-     "leading": 1.08,
+     "tracking": -0.045,
+     "leading": 1.06,
      "upper": false,
      "italic": false,
      "mono": false,
-     "align": "left",
+     "align": "center",
      "position": "center",
      "widthRatio": 0.89,
-     "top": 138,
+     "top": 144,
      "mixedFonts": [
       "Manrope",
       "Young"
@@ -2171,7 +2173,7 @@
      "text": "Seu corte. Sua identidade.",
      "words": 4,
      "lines": 2,
-     "size": 54.6,
+     "size": 51.5,
      "font": "Manrope"
     },
     "headings": [
@@ -2180,19 +2182,19 @@
       "words": 4,
       "chars": 26,
       "lines": 2,
-      "size": 54.6,
-      "vw": 14,
+      "size": 51.5,
+      "vw": 13.2,
       "font": "Manrope",
       "weight": 500,
-      "tracking": -0.055,
-      "leading": 1.08,
+      "tracking": -0.045,
+      "leading": 1.06,
       "upper": false,
       "italic": false,
       "mono": false,
-      "align": "left",
+      "align": "center",
       "position": "center",
       "widthRatio": 0.89,
-      "top": 138,
+      "top": 144,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2201,23 +2203,23 @@
       "kind": "heading"
      },
      {
-      "text": "Sinta-se da casa.",
-      "words": 3,
-      "chars": 17,
+      "text": "Entre. Sinta-se da casa.",
+      "words": 4,
+      "chars": 24,
       "lines": 2,
       "size": 40,
       "vw": 10.3,
       "font": "Manrope",
       "weight": 500,
       "tracking": -0.04,
-      "leading": 1.07,
+      "leading": 1.1,
       "upper": false,
       "italic": false,
       "mono": false,
       "align": "left",
       "position": "center",
       "widthRatio": 0.89,
-      "top": 431,
+      "top": 480,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2242,7 +2244,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.89,
-      "top": 1664,
+      "top": 1730,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2267,7 +2269,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.51,
-      "top": 1896,
+      "top": 1962,
       "tag": "p",
       "kind": "statement"
      },
@@ -2288,7 +2290,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2271,
+      "top": 2337,
       "tag": "span",
       "kind": "heading"
      },
@@ -2309,7 +2311,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2371,
+      "top": 2437,
       "tag": "span",
       "kind": "heading"
      },
@@ -2330,7 +2332,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2472,
+      "top": 2538,
       "tag": "span",
       "kind": "heading"
      },
@@ -2351,7 +2353,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2572,
+      "top": 2638,
       "tag": "span",
       "kind": "heading"
      },
@@ -2372,7 +2374,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2754,
+      "top": 2820,
       "tag": "span",
       "kind": "heading"
      },
@@ -2393,7 +2395,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2855,
+      "top": 2921,
       "tag": "span",
       "kind": "heading"
      },
@@ -2414,7 +2416,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.89,
-      "top": 2903,
+      "top": 2969,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2439,7 +2441,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 2955,
+      "top": 3021,
       "tag": "span",
       "kind": "heading"
      },
@@ -2460,7 +2462,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.32,
-      "top": 3034,
+      "top": 3100,
       "tag": "strong",
       "kind": "heading"
      },
@@ -2481,7 +2483,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3055,
+      "top": 3121,
       "tag": "span",
       "kind": "heading"
      },
@@ -2502,7 +2504,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.32,
-      "top": 3114,
+      "top": 3180,
       "tag": "strong",
       "kind": "heading"
      },
@@ -2523,7 +2525,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3156,
+      "top": 3222,
       "tag": "span",
       "kind": "heading"
      },
@@ -2544,7 +2546,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.35,
-      "top": 3194,
+      "top": 3260,
       "tag": "strong",
       "kind": "heading"
      },
@@ -2565,7 +2567,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3256,
+      "top": 3322,
       "tag": "span",
       "kind": "heading"
      },
@@ -2586,7 +2588,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3357,
+      "top": 3423,
       "tag": "span",
       "kind": "heading"
      },
@@ -2607,7 +2609,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 3393,
+      "top": 3459,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2632,7 +2634,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3457,
+      "top": 3523,
       "tag": "span",
       "kind": "heading"
      },
@@ -2653,7 +2655,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3558,
+      "top": 3624,
       "tag": "span",
       "kind": "heading"
      },
@@ -2674,7 +2676,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3658,
+      "top": 3724,
       "tag": "span",
       "kind": "heading"
      },
@@ -2695,7 +2697,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3759,
+      "top": 3824,
       "tag": "span",
       "kind": "heading"
      },
@@ -2716,7 +2718,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3859,
+      "top": 3925,
       "tag": "span",
       "kind": "heading"
      },
@@ -2737,7 +2739,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 0.89,
-      "top": 3874,
+      "top": 3940,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -2762,7 +2764,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 3959,
+      "top": 4025,
       "tag": "span",
       "kind": "heading"
      },
@@ -2783,7 +2785,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4060,
+      "top": 4126,
       "tag": "span",
       "kind": "heading"
      },
@@ -2804,7 +2806,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 4106,
+      "top": 4172,
       "tag": "button",
       "kind": "heading"
      },
@@ -2825,7 +2827,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 4160,
+      "top": 4226,
       "tag": "button",
       "kind": "heading"
      },
@@ -2846,7 +2848,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4160,
+      "top": 4226,
       "tag": "span",
       "kind": "heading"
      },
@@ -2867,7 +2869,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 4214,
+      "top": 4280,
       "tag": "button",
       "kind": "heading"
      },
@@ -2888,7 +2890,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4261,
+      "top": 4327,
       "tag": "span",
       "kind": "heading"
      },
@@ -2909,7 +2911,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 4268,
+      "top": 4334,
       "tag": "button",
       "kind": "heading"
      },
@@ -2930,7 +2932,7 @@
       "align": "left",
       "position": "left",
       "widthRatio": 0.39,
-      "top": 4322,
+      "top": 4388,
       "tag": "button",
       "kind": "heading"
      },
@@ -2951,7 +2953,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4361,
+      "top": 4427,
       "tag": "span",
       "kind": "heading"
      },
@@ -2972,7 +2974,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4462,
+      "top": 4528,
       "tag": "span",
       "kind": "heading"
      },
@@ -2993,7 +2995,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4562,
+      "top": 4628,
       "tag": "span",
       "kind": "heading"
      },
@@ -3014,7 +3016,7 @@
       "align": "left",
       "position": "center",
       "widthRatio": 1,
-      "top": 4621,
+      "top": 4686,
       "mixedFonts": [
        "Manrope",
        "Young"
@@ -3039,7 +3041,7 @@
       "align": "left",
       "position": "right",
       "widthRatio": 0.04,
-      "top": 4662,
+      "top": 4728,
       "tag": "span",
       "kind": "heading"
      }
@@ -3049,7 +3051,7 @@
      "maxLines": 3,
      "over2Lines": 1,
      "statements": 3,
-     "centered": 3,
+     "centered": 4,
      "medianWords": 1,
      "mixedFontHeadings": 15
     },
@@ -3083,6 +3085,7 @@
       26,
       27,
       30,
+      34,
       35,
       38,
       39,
@@ -3091,11 +3094,11 @@
       43,
       44,
       47,
-      55,
+      52,
       78,
       105
      ],
-     "sizeCount": 26,
+     "sizeCount": 27,
      "notLoaded": [],
      "body": {
       "font": "Manrope",
@@ -3120,7 +3123,7 @@
      "microLabelShare": 0,
      "microSamples": [],
      "upperShare": 0,
-     "centerShare": 0.04,
+     "centerShare": 0.06,
      "smallText": 0
     },
     "eyebrows": [
@@ -3132,7 +3135,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 2882
+      "top": 2948
      },
      {
       "text": "R$ 40,00",
@@ -3142,7 +3145,7 @@
       "mono": false,
       "pill": false,
       "size": 16,
-      "top": 3363
+      "top": 3428
      },
      {
       "text": "A partir de",
@@ -3152,7 +3155,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 3854
+      "top": 3920
      },
      {
       "text": "45 min",
@@ -3162,7 +3165,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4087
+      "top": 4153
      },
      {
       "text": "45 min",
@@ -3172,7 +3175,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4087
+      "top": 4153
      },
      {
       "text": "30 min",
@@ -3182,7 +3185,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4188
+      "top": 4253
      },
      {
       "text": "15 min",
@@ -3192,7 +3195,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 4288
+      "top": 4354
      },
      {
       "text": "Agendar no AppBarber",
@@ -3202,7 +3205,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4569
+      "top": 4635
      },
      {
       "text": "Agendar no AppBarber",
@@ -3212,7 +3215,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4770
+      "top": 4835
      },
      {
       "text": "Agendar no AppBarber",
@@ -3222,7 +3225,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 4997
+      "top": 5063
      },
      {
       "text": "Agendar no AppBarber",
@@ -3232,7 +3235,7 @@
       "mono": false,
       "pill": false,
       "size": 14,
-      "top": 5425
+      "top": 5491
      },
      {
       "text": "15 min",
@@ -3242,7 +3245,7 @@
       "mono": false,
       "pill": false,
       "size": 13,
-      "top": 5493
+      "top": 5559
      },
      {
       "text": "Balm para barba",
@@ -3252,7 +3255,7 @@
       "mono": false,
       "pill": false,
       "size": 17,
-      "top": 6118
+      "top": 6184
      },
      {
       "text": "Óleo para barba",
@@ -3262,7 +3265,7 @@
       "mono": false,
       "pill": false,
       "size": 17,
-      "top": 6876
+      "top": 6942
      },
      {
       "text": "Pomada pó",
@@ -3272,7 +3275,7 @@
       "mono": false,
       "pill": false,
       "size": 17,
-      "top": 7330
+      "top": 7396
      },
      {
       "text": "Pomada coffee",
@@ -3282,7 +3285,7 @@
       "mono": false,
       "pill": false,
       "size": 17,
-      "top": 8087
+      "top": 8153
      },
      {
       "text": "R$ 55,00",
@@ -3292,7 +3295,7 @@
       "mono": false,
       "pill": false,
       "size": 15,
-      "top": 8695
+      "top": 8761
      }
     ],
     "numbered": [],
@@ -3306,17 +3309,8 @@
      "dark": true,
      "sectionBgs": [
       {
-       "color": "#f3f0eb",
-       "top": 1588,
-       "hsl": {
-        "h": 38,
-        "s": 0.25,
-        "l": 0.94
-       }
-      },
-      {
        "color": "#141414",
-       "top": 3798,
+       "top": 76,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -3325,7 +3319,7 @@
       },
       {
        "color": "#202020",
-       "top": 7176,
+       "top": 285,
        "hsl": {
         "h": 0,
         "s": 0,
@@ -3333,8 +3327,17 @@
        }
       },
       {
+       "color": "#f3f0eb",
+       "top": 1654,
+       "hsl": {
+        "h": 38,
+        "s": 0.25,
+        "l": 0.94
+       }
+      },
+      {
        "color": "#e7e2da",
-       "top": 8721,
+       "top": 8787,
        "hsl": {
         "h": 37,
         "s": 0.21,
@@ -3345,7 +3348,7 @@
      "textColors": [
       {
        "color": "#141414",
-       "share": 0.69
+       "share": 0.7
       },
       {
        "color": "#f3f0eb",
@@ -3357,7 +3360,7 @@
       },
       {
        "color": "#c7c2ba",
-       "share": 0.04
+       "share": 0.03
       },
       {
        "color": "#ad8b73",
@@ -3376,8 +3379,8 @@
      "lowContrast": []
     },
     "buttons": {
-     "count": 15,
-     "inHero": 2,
+     "count": 16,
+     "inHero": 3,
      "radius": 0,
      "height": 44,
      "withShadow": 0,
@@ -3386,6 +3389,7 @@
      "upper": 0,
      "heroLabels": [
       "Pular para o conteúdo",
+      "Agendar meu horário",
       "Agendar meu horário"
      ]
     },
@@ -3410,7 +3414,7 @@
      "blurred": 0,
      "roundedBoxes": 0,
      "boxRadius": 0,
-     "squareMedia": 8,
+     "squareMedia": 9,
      "roundedMedia": 0,
      "mediaRadius": 0,
      "textShadow": 0,
@@ -3419,24 +3423,28 @@
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 7541
+       "top": 7607
       },
       {
        "count": 4,
        "iconTopped": true,
        "rounded": false,
-       "top": 7541
+       "top": 7607
       }
      ]
     },
     "heroMedia": [
      {
       "type": "svg",
-      "ratio": 0.28
+      "ratio": 0.41
      },
      {
       "type": "img",
-      "ratio": 0.25
+      "ratio": 0.37
+     },
+     {
+      "type": "img",
+      "ratio": 0.37
      }
     ],
     "nav": {
@@ -3525,7 +3533,7 @@
    "level": "WARN",
    "id": "size-count",
    "width": 1440,
-   "message": "27 different font sizes (13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25, 26, 27, 30, 34, 45, 58, 68, 72, 76, 86, 88, 94, 115, 117, 140, 158).",
+   "message": "27 different font sizes (13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 30, 34, 45, 58, 68, 72, 77, 86, 88, 94, 106, 115, 158).",
    "fix": "A page needs about five: display, heading, lead, body, small.",
    "alsoAt": [
     768,
@@ -3551,25 +3559,22 @@
    ]
   },
   {
-   "level": "WARN",
-   "id": "pinned-over-picture",
+   "level": "FAIL",
+   "id": "covered-text",
    "width": 1440,
-   "message": "Pinned large text slides across pictures while the page scrolls: \"Sinta-se da casa.\" (screen 1, 100% over a picture)",
-   "fix": "Jurors read a pinned title crossing drawings or photographs as a collision. Keep the pictures in the column the title does not occupy, or unpin it.",
+   "message": "Large text lies under another element at some scroll position: \"Seu corte.\" (screen 2, 100% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
    "alsoAt": [
     768,
     390
    ]
   },
   {
-   "level": "FAIL",
-   "id": "covered-text",
-   "width": 768,
-   "message": "Large text lies under another element at some scroll position: \"Serviços\" (screen 11, 100% hidden); \"Equipe\" (screen 10, 100% hidden); \"Produtos\" (screen 10, 100% hidden); \"Visite\" (screen 11, 50% hidden)",
-   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
-   "alsoAt": [
-    390
-   ]
+   "level": "WARN",
+   "id": "pinned-over-picture",
+   "width": 390,
+   "message": "Pinned large text slides across pictures while the page scrolls: \"Entre. Sinta-se da casa.\" (screen 2, 100% over a picture)",
+   "fix": "Jurors read a pinned title crossing drawings or photographs as a collision. Keep the pictures in the column the title does not occupy, or unpin it."
   }
  ],
  "images": [

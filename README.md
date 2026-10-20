@@ -9,7 +9,7 @@ No VS Code, abra `index.html` com **Open with Live Server**. Alternativa: `pytho
 ## V9
 
 - Abertura curta com logo original, filete e dois painéis coordenados à revelação do hero.
-- Hero com retrato oficial em moldura de espelho, título monumental e progresso reversível de scroll.
+- Hero com fachada real em moldura arquitetônica, título equilibrado e progresso reversível da entrada ao salão.
 - Apresentação da casa integrada à transformação do hero em desktop e mobile.
 - Passagens próprias entre serviços/equipe, equipe/produtos, portfólio/avaliações e encerramento.
 - 42 serviços, preços e durações; 5 profissionais reais; 22 produtos; assinaturas e contatos preservados.
@@ -28,6 +28,7 @@ O site não depende de CDN, GSAP ou Lenis. AppBarber, Google Maps, WhatsApp e In
 
 ## Pesquisa e testes
 
+- [Reconstrução do hero e origem da fachada](docs/HERO_REDESIGN.md)
 - [Pesquisa Salomé](docs/REFERENCIA_SALOME_V9.md)
 - [Direção artística](docs/ART_DIRECTION_V9.md)
 - [Sistema de movimento](docs/MOTION_V9.md)

@@ -1,0 +1,33 @@
+{
+  "visited": "2026-10-19",
+  "instagram": {
+    "url": "https://www.instagram.com/barbeariasrnavalha01/",
+    "publicFeedPosts": 12,
+    "publicReels": 12,
+    "identity": "Prado, Gravatá, Agamenon Magalhães 349; telefone 81 99572-2396",
+    "highlights": "Localização exigiu cadastro; acesso encerrado"
+  },
+  "workReel": {
+    "url": "https://www.instagram.com/reel/DdhNWzMyWNQ/",
+    "result": "Publicação acessível de setembro, descreve obra; não usada como fachada final"
+  },
+  "chosen": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+  "kidsReel": {
+    "url": "https://www.instagram.com/barbeariasrnavalha01/reel/DeZ0TYLS2eP/",
+    "result": "Área Kids publicada em 12/10; não usada no hero"
+  },
+  "maps": {
+    "url": "https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA",
+    "result": "Identidade/endereço confirmados; foto disponível de atendimento individual; não usada"
+  },
+  "appbarber": {
+    "url": "https://sites.appbarber.com.br/srnavala-pqjj",
+    "result": "Identidade e endereço; galeria do espaço com imagem padrão, não usada"
+  },
+  "salome": {
+    "url": "https://salome-bistro-a5cj-theta.vercel.app/",
+    "result": "Hero e início do scroll revisitados, capturas de três posições"
+  },
+  "firecrawl": "Pesquisa sem resultados para handle e scrape Instagram não suportado; pesquisa continuou em navegador público",
+  "historical": "Inventários V8/V9 e backup de 15/10; interior antigo 246×148 descartado para ampliação"
+}

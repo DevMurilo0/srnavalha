@@ -1,0 +1,822 @@
+[
+  {
+    "name": "320px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 18,
+        "right": 302,
+        "bottom": 245.796875
+      },
+      "photo": {
+        "x": 32.1875,
+        "y": 268,
+        "right": 287.78125
+      },
+      "cta": {
+        "x": 40,
+        "y": 687,
+        "bottom": 743
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "320px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.15045592705167174,
+        "transform": "translate3d(0px, -12.9185px, 0px) scale(1.00239)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 445,
+        "photoBottom": 601.1121394161438,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3495440729483283,
+        "transform": "translate3d(0px, -68.9605px, 0px) scale(1.01277)",
+        "clip": "inset(0px 99.1654% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 445,
+        "photoBottom": 483.66771194189454,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5501519756838906,
+        "transform": "translate3d(0px, -124.118px, 0px) scale(1.02298)",
+        "clip": "inset(0px 62.1228% 0px 0px)",
+        "storyOpacity": 0.207306,
+        "storyY": 440.024658203125,
+        "photoBottom": 366.80404075561523,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7507598784194529,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 12.0627% 0px 0px)",
+        "storyOpacity": 0.878497,
+        "storyY": 423.91607666015625,
+        "photoBottom": 343.6000018310547,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 421,
+        "photoBottom": 343.6000018310547,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5,
+        "transform": "translate3d(0px, -113.3px, 0px) scale(1.02098)",
+        "clip": "inset(0px 74.8784% 0px 0px)",
+        "storyOpacity": 0.0774945,
+        "storyY": 443.14013671875,
+        "photoBottom": 389.8237966882324,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 445,
+        "photoBottom": 628,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "320px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "375px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 22,
+        "right": 353,
+        "bottom": 253.15625
+      },
+      "photo": {
+        "x": 48.46875,
+        "y": 285,
+        "right": 326.5
+      },
+      "cta": {
+        "x": 62.5,
+        "y": 772,
+        "bottom": 828
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "375px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.15045592705167174,
+        "transform": "translate3d(0px, -12.9185px, 0px) scale(1.00239)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 679.6286792149963,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3495440729483283,
+        "transform": "translate3d(0px, -68.9605px, 0px) scale(1.01277)",
+        "clip": "inset(0px 99.1654% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 551.268264873047,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5501519756838906,
+        "transform": "translate3d(0px, -124.118px, 0px) scale(1.02298)",
+        "clip": "inset(0px 62.1228% 0px 0px)",
+        "storyOpacity": 0.207306,
+        "storyY": 475.024658203125,
+        "photoBottom": 423.4347093399047,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7507598784194529,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 12.0627% 0px 0px)",
+        "storyOpacity": 0.878497,
+        "storyY": 458.91607666015625,
+        "photoBottom": 398.0399859619141,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 456,
+        "photoBottom": 398.0399859619141,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5,
+        "transform": "translate3d(0px, -113.3px, 0px) scale(1.02098)",
+        "clip": "inset(0px 74.8784% 0px 0px)",
+        "storyOpacity": 0.0774945,
+        "storyY": 478.14013671875,
+        "photoBottom": 448.62365101379396,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 709,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "375px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "390px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 22,
+        "right": 368,
+        "bottom": 257.40625
+      },
+      "photo": {
+        "x": 49.671875,
+        "y": 285,
+        "right": 340.296875
+      },
+      "cta": {
+        "x": 70,
+        "y": 772,
+        "bottom": 828
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "390px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.15045592705167174,
+        "transform": "translate3d(0px, -12.9185px, 0px) scale(1.00239)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 679.6286792149963,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3495440729483283,
+        "transform": "translate3d(0px, -68.9605px, 0px) scale(1.01277)",
+        "clip": "inset(0px 99.1654% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 551.268264873047,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5501519756838906,
+        "transform": "translate3d(0px, -124.118px, 0px) scale(1.02298)",
+        "clip": "inset(0px 62.1228% 0px 0px)",
+        "storyOpacity": 0.207306,
+        "storyY": 475.024658203125,
+        "photoBottom": 423.4347093399047,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7507598784194529,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 12.0627% 0px 0px)",
+        "storyOpacity": 0.878497,
+        "storyY": 458.91607666015625,
+        "photoBottom": 398.0399859619141,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(0px, -135px, 0px) scale(1.025)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 456,
+        "photoBottom": 398.0399859619141,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5,
+        "transform": "translate3d(0px, -113.3px, 0px) scale(1.02098)",
+        "clip": "inset(0px 74.8784% 0px 0px)",
+        "storyOpacity": 0.0774945,
+        "storyY": 478.14013671875,
+        "photoBottom": 448.62365101379396,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 480,
+        "photoBottom": 709,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "390px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "768px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 38.40625,
+        "right": 432.375,
+        "bottom": 426
+      },
+      "photo": {
+        "x": 446.21875,
+        "y": 202,
+        "right": 729.59375
+      },
+      "cta": {
+        "x": 38.40625,
+        "y": 583.546875,
+        "bottom": 641.546875
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "768px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.14987405541561713,
+        "transform": "translate3d(-1.5174px, -1.13805px, 0px) scale(1.00616)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 294.125,
+        "photoBottom": 672.1657104492188,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3501259445843829,
+        "transform": "translate3d(-8.19526px, -6.14644px, 0px) scale(1.03329)",
+        "clip": "inset(0px 99.1328% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 294.125,
+        "photoBottom": 672.8950958251953,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5503778337531486,
+        "transform": "translate3d(-14.7153px, -11.0365px, 0px) scale(1.05978)",
+        "clip": "inset(0px 62.0629% 0px 0px)",
+        "storyOpacity": 0.207991,
+        "storyY": 289.1332092285156,
+        "photoBottom": 673.607177734375,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7506297229219143,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 12.0868% 0px 0px)",
+        "storyOpacity": 0.878173,
+        "storyY": 273.0488586425781,
+        "photoBottom": 673.7474975585938,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 270.125,
+        "photoBottom": 673.7474975585938,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5,
+        "transform": "translate3d(-13.4282px, -10.0711px, 0px) scale(1.05455)",
+        "clip": "inset(0px 74.8784% 0px 0px)",
+        "storyOpacity": 0.0774945,
+        "storyY": 292.26513671875,
+        "photoBottom": 673.4665985107422,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 294.125,
+        "photoBottom": 672,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "768px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "1024px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 51.203125,
+        "right": 576.5,
+        "bottom": 460.609375
+      },
+      "photo": {
+        "x": 594.953125,
+        "y": 193,
+        "right": 972.796875
+      },
+      "cta": {
+        "x": 51.203125,
+        "y": 619.890625,
+        "bottom": 677.890625
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1024px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.14947856315179606,
+        "transform": "translate3d(-1.50812px, -1.13109px, 0px) scale(1.00613)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 774.4706726074219,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3499420625724218,
+        "transform": "translate3d(-8.18825px, -6.14119px, 0px) scale(1.03326)",
+        "clip": "inset(0px 99.1432% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 776.5559387207031,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5504055619930475,
+        "transform": "translate3d(-14.7159px, -11.0369px, 0px) scale(1.05978)",
+        "clip": "inset(0px 62.0555% 0px 0px)",
+        "storyOpacity": 0.208075,
+        "storyY": 298.3811950683594,
+        "photoBottom": 778.5934448242188,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7497103128621089,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 12.2577% 0px 0px)",
+        "storyOpacity": 0.875871,
+        "storyY": 282.3541259765625,
+        "photoBottom": 778.9942321777344,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 279.375,
+        "photoBottom": 778.9942321777344,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5005793742757821,
+        "transform": "translate3d(-13.4449px, -10.0837px, 0px) scale(1.05462)",
+        "clip": "inset(0px 74.7392% 0px 0px)",
+        "storyOpacity": 0.0786989,
+        "storyY": 301.4862060546875,
+        "photoBottom": 778.1967163085938,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 774,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "1024px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "1366px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 123,
+        "right": 761.390625,
+        "bottom": 504.9375
+      },
+      "photo": {
+        "x": 806.203125,
+        "y": 193,
+        "right": 1243
+      },
+      "cta": {
+        "x": 123,
+        "y": 636,
+        "bottom": 694
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1366px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.14947856315179606,
+        "transform": "translate3d(-1.50812px, -1.13109px, 0px) scale(1.00613)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 794.52587890625,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3499420625724218,
+        "transform": "translate3d(-8.18825px, -6.14119px, 0px) scale(1.03326)",
+        "clip": "inset(0px 99.1432% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 796.8551940917969,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5504055619930475,
+        "transform": "translate3d(-14.7159px, -11.0369px, 0px) scale(1.05978)",
+        "clip": "inset(0px 62.0555% 0px 0px)",
+        "storyOpacity": 0.208075,
+        "storyY": 298.3811950683594,
+        "photoBottom": 799.1315002441406,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7497103128621089,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 12.2577% 0px 0px)",
+        "storyOpacity": 0.875871,
+        "storyY": 282.3541259765625,
+        "photoBottom": 799.5792846679688,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 279.375,
+        "photoBottom": 799.5792846679688,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5005793742757821,
+        "transform": "translate3d(-13.4449px, -10.0837px, 0px) scale(1.05462)",
+        "clip": "inset(0px 74.7392% 0px 0px)",
+        "storyOpacity": 0.0786989,
+        "storyY": 301.4862060546875,
+        "photoBottom": 798.6882629394531,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 794,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "1366px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "1440px estado inicial",
+    "pass": true,
+    "detail": {
+      "overflow": 0,
+      "title": {
+        "x": 160,
+        "right": 798.390625,
+        "bottom": 515.515625
+      },
+      "photo": {
+        "x": 843.203125,
+        "y": 193,
+        "right": 1280
+      },
+      "cta": {
+        "x": 160,
+        "y": 636,
+        "bottom": 694
+      },
+      "ctaUrl": "https://sites.appbarber.com.br/srnavala-pqjj",
+      "individual": false,
+      "loaded": true,
+      "curtain": false
+    }
+  },
+  {
+    "name": "1440px scroll reversível sem colisão",
+    "pass": true,
+    "detail": [
+      {
+        "p": 0.14947856315179606,
+        "transform": "translate3d(-1.50812px, -1.13109px, 0px) scale(1.00613)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 794.52587890625,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      },
+      {
+        "p": 0.3499420625724218,
+        "transform": "translate3d(-8.18825px, -6.14119px, 0px) scale(1.03326)",
+        "clip": "inset(0px 99.1432% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 796.8551940917969,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5504055619930475,
+        "transform": "translate3d(-14.7159px, -11.0369px, 0px) scale(1.05978)",
+        "clip": "inset(0px 62.0555% 0px 0px)",
+        "storyOpacity": 0.208075,
+        "storyY": 298.3811950683594,
+        "photoBottom": 799.1315002441406,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.7497103128621089,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 12.2577% 0px 0px)",
+        "storyOpacity": 0.875871,
+        "storyY": 282.3541259765625,
+        "photoBottom": 799.5792846679688,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 1,
+        "transform": "translate3d(-16px, -12px, 0px) scale(1.065)",
+        "clip": "inset(0px 0% 0px 0px)",
+        "storyOpacity": 1,
+        "storyY": 279.375,
+        "photoBottom": 799.5792846679688,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0.5005793742757821,
+        "transform": "translate3d(-13.4449px, -10.0837px, 0px) scale(1.05462)",
+        "clip": "inset(0px 74.7392% 0px 0px)",
+        "storyOpacity": 0.0786989,
+        "storyY": 301.4862060546875,
+        "photoBottom": 798.6882629394531,
+        "overlap": false,
+        "controlsInert": true,
+        "overflow": 0
+      },
+      {
+        "p": 0,
+        "transform": "translate3d(0px, 0px, 0px) scale(1)",
+        "clip": "inset(0px 100% 0px 0px)",
+        "storyOpacity": 0,
+        "storyY": 303.375,
+        "photoBottom": 794,
+        "overlap": false,
+        "controlsInert": false,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "name": "1440px retorno rápido",
+    "pass": true
+  },
+  {
+    "name": "Redução inicial: cena em fluxo e sem abertura",
+    "pass": true
+  },
+  {
+    "name": "Redução dinâmica limpa transformações",
+    "pass": true
+  },
+  {
+    "name": "Sem JS: hero e apresentação em fluxo",
+    "pass": true
+  },
+  {
+    "name": "Âncora revela a apresentação",
+    "pass": true
+  },
+  {
+    "name": "Falhas de imagens não prendem abertura",
+    "pass": true
+  },
+  {
+    "name": "Conteúdo preservado",
+    "pass": true
+  },
+  {
+    "name": "Console sem exceções",
+    "pass": true,
+    "detail": []
+  }
+]

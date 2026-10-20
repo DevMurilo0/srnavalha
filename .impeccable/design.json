@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T22:22:46.510732+00:00",
+  "generatedAt": "2026-10-19T23:51:43.836650+00:00",
   "title": "Design System: Sr. Navalha V9",
   "extensions": {
     "colorMeta": {
@@ -236,7 +236,8 @@
       "progress": "Um único progresso 0–1 do hero, calculado no módulo hero.js sobre scroll nativo.",
       "entrance": "Filhos de hero-photo-travel e hero-title-travel recebem entrada; wrappers recebem scroll.",
       "scheduler": "Um requestAnimationFrame coordena leitura, escrita e esteira visível.",
-      "reducedMotion": "Abertura omitida; jornada estática; controles restaurados; avaliações sem clones."
+      "reducedMotion": "Abertura omitida; jornada estática; controles restaurados; avaliações sem clones.",
+      "arrival": "Fachada cresce no máximo 6.5% no desktop e 2.5% no mobile; portal e camada de interior têm máscaras próprias no mesmo progresso."
     }
   },
   "components": [
@@ -296,8 +297,8 @@
     }
   ],
   "narrative": {
-    "northStar": "O cuidado em enquadramento",
-    "overview": "A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O enquadramento remete ao espelho da barbearia: retrato dominante, cantos recortados e tipografia editorial em duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.\n\nO movimento é uma camada progressiva da composição. Abertura por painéis, fotografia e título compartilham uma sequência; a rolagem nativa transforma o enquadramento até a apresentação da casa. Passagens breves alternam corte fotográfico, superfície e tipografia, sem tornar todas as seções sticky. O HTML preserva conteúdo e destinos reais sem depender dessas cenas.",
+    "northStar": "A experiência começa na porta",
+    "overview": "A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O hero apresenta a fachada real e revela o salão por máscara editorial. Retratos individuais permanecem na equipe; a tipografia editorial conserva duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.\n\nO movimento é uma camada progressiva da composição. Abertura por painéis, fotografia e título compartilham uma sequência; a rolagem nativa transforma o enquadramento até a apresentação da casa. Passagens breves alternam corte fotográfico, superfície e tipografia, sem tornar todas as seções sticky. O HTML preserva conteúdo e destinos reais sem depender dessas cenas.",
     "keyCharacteristics": [
       "Retratos oficiais em molduras de espelho e composições fotográficas assimétricas.",
       "Carvão e marfim estruturam capítulos; cobre e tabaco pontuam estados e acabamentos.",

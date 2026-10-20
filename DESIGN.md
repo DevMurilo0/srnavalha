@@ -14,10 +14,10 @@ colors:
 typography:
   display:
     fontFamily: "Manrope, Arial, sans-serif"
-    fontSize: "clamp(88px,9.7vw,154px)"
+    fontSize: "clamp(65px,7.4vw,106px)"
     fontWeight: 500
     lineHeight: 1.08
-    letterSpacing: "-0.055em"
+    letterSpacing: "-0.045em"
   headline:
     fontFamily: "Manrope, Arial, sans-serif"
     fontSize: "clamp(44px,6.2vw,88px)"
@@ -84,9 +84,9 @@ components:
 
 ## Overview
 
-**Creative North Star: "O cuidado em enquadramento"**
+**Creative North Star: "A experiência começa na porta"**
 
-A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O enquadramento remete ao espelho da barbearia: retrato dominante, cantos recortados e tipografia editorial em duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.
+A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O hero apresenta a fachada real como enquadramento arquitetônico, com passagem por máscara para o salão. Retratos individuais permanecem na equipe; a tipografia editorial preserva suas duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.
 
 O movimento é uma camada progressiva da composição. Abertura por painéis, fotografia e título compartilham uma sequência; a rolagem nativa transforma o enquadramento até a apresentação da casa. Passagens breves alternam corte fotográfico, superfície e tipografia, sem tornar todas as seções sticky. O HTML preserva conteúdo e destinos reais sem depender dessas cenas.
 
@@ -115,7 +115,7 @@ Carvão é a superfície principal; preto secundário diferencia avaliações e 
 
 Manrope variável local (`manrope-v6-latin.woff2`, pesos 200–800) sustenta estrutura e leitura. Young Serif local (`young-serif.ttf`, registrada como `Young`, peso 400) compõe ênfases e nomes de produtos; não usa itálico sintético.
 
-O display do hero segue o frontmatter. A segunda linha usa Young a 0.84em; a entrelinha do hero é 1.08. As adaptações atuais são 11vw até 1100px, 11.5vw até 850px, `clamp(51px,14vw,82px)` até 600px e 14vw até 350px; acima de 1600px o display é 160px. No mobile a segunda linha usa 0.86em, ou 0.85em até 350px. O tracking observado do hero é -0.055em, específico desta composição, sem propagá-lo ao corpo.
+O display do hero segue o frontmatter. A segunda linha usa Young a 0.73em e entrelinha 1.25, abaixo da primeira sem atravessar o letreiro. Até 1100px usa 8vw, até 850px 8.5vw, até 600px `clamp(47px,13.2vw,69px)` e até 350px 47px. O tracking do hero é -0.045em; legenda e controles têm mínimo de 13px.
 
 Títulos de seção usam o papel headline, entrelinha 1.07 e tracking -0.04em; nos cabeçalhos de seção passam a 48px até 850px e `clamp(36px,10vw,52px)` até 600px. O título da apresentação usa `clamp(44px,5.4vw,76px)` e 40px no mobile com cena ativa. Produtos usam Young em `clamp(35px,4vw,58px)`, com adaptações para 34px no tablet e 38px no mobile. Texto base permanece em 16px/1.65; medidas de leitura são locais, como 33ch na apresentação e 38ch nos produtos. Preços e indicadores usam algarismos tabulares quando definidos no componente.
 
@@ -125,19 +125,19 @@ Contêiner máximo de 1440px, margens e espaçamento de seção fluidos conforme
 
 O cabeçalho sticky tem alturas de 94px, 82px até 850px e 76px até 600px. A navegação horizontal cede a `details` móvel até 850px. A ação de agendamento permanece no cabeçalho.
 
-O hero desktop combina retrato principal, detalhe fotográfico menor, convite e título em duas linhas. A fotografia ocupa 31.5% da largura, limitada a 460px, com altura `clamp(400px,48vh,500px)`; a segunda linha fica separada pela composição, com intervalo `clamp(340px,38vh,430px)`. A cena tem altura `calc(100svh - 94px)`, mínimo de 820px e máximo de 1000px. Com JavaScript e movimento permitido, a jornada ocupa 185svh e sua cena é sticky; no mobile a cena mede 795px e a jornada `calc(795px + 85svh)`. A foto mobile usa largura de 69%, altura de 300px e posição própria. Esses valores descrevem a cena existente; não são um modelo universal para novas páginas.
+O hero tem composição própria limitada a 1120px, centralizada no campo da página. Título/convite à esquerda e uma única fotografia arquitetônica à direita; a foto ocupa 39% do contêiner, crescendo apenas 6.5% com scroll. A cena mede `calc(100svh - 94px)`, mínimo de 790px. A jornada ativa ocupa `calc(175svh + 94px)`. No mobile, título, fotografia e CTA se alinham ao centro; cena de 920px (850px até 350px), com percurso adicional de 78svh. A fotografia móvel usa 84% do contêiner (90% até 350px). Sem JS e com movimento reduzido a apresentação permanece em fluxo após a composição.
 
 Catálogos usam colunas assimétricas; no mobile os serviços preservam fotografia de apoio de 125px junto da legenda. Equipe mantém nomes e retrato lado a lado, com ação abaixo. Produtos e localização empilham no mobile. Portfólio é grid editorial no desktop e faixa horizontal nativa com snap até 600px. Movimento reduzido transforma a jornada em leitura estática e avaliações em grade; sem JavaScript o HTML mantém conteúdo e links.
 
 ## Elevation & Depth
 
-Profundidade nasce da sobreposição fotográfica, recorte, diferença de superfícies e diálogo nativo. Não há sistema recorrente de sombras de elevação. O pequeno text-shadow da legenda desktop serve somente ao contraste fotográfico.
+Profundidade nasce da sobreposição fotográfica, recorte, diferença de superfícies e diálogo nativo. Não há sistema recorrente de sombras de elevação. Legendas do hero permanecem sobre carvão, sem sombra de texto.
 
 **The Single Motion Owner Rule.** Entrada e scroll usam camadas distintas; uma única fonte de progresso controla os wrappers do hero.
 
 ## Shapes
 
-Botões e catálogos têm cantos retos. A moldura de espelho recorta os cantos superiores do retrato e recebe acabamentos SVG próprios. Setas diagonais indicam destinos; sinais de mais giram nos detalhes nativos. Filetes organizam catálogos e acompanham a precisão do enquadramento; não são uma decoração universal para novas superfícies.
+Botões e catálogos têm cantos retos. No hero, a moldura arquitetônica retangular recebe cantos de precisão em SVG. Na equipe, a moldura de retrato mantém seu tratamento anterior. Setas diagonais indicam destinos; sinais de mais giram nos detalhes nativos. Filetes organizam catálogos e acompanham a precisão do enquadramento; não são uma decoração universal para novas superfícies.
 
 **The Real Photograph Rule.** Usar imagens oficiais com escala compatível com a resolução; ausência de fotografia específica recebe apresentação tipográfica explícita.
 
@@ -155,9 +155,9 @@ Logo original, links desktop de 14px e indicador cobre sob a seção ativa. Menu
 
 Abertura injetada por JavaScript, com identidade central, filete e dois painéis. O movimento principal dos painéis dura 930ms, após atraso de 430ms; a cortina é removida em 1400ms, com timeout JS de segurança de 2200ms e fallback CSS de 2400ms. O orçamento de espera pelos recursos essenciais é de 180ms. Rolagem, movimento reduzido e falhas de execução encerram a abertura.
 
-Máscara da fotografia (1050ms), escala do seu filho (1250ms), linhas tipográficas (900ms, intervalo de 95ms) e elementos de apoio (550ms) se coordenam com os painéis. A entrada pertence aos filhos; o scroll pertence aos wrappers `hero-photo-travel` e `hero-title-travel`, nunca aos mesmos transforms.
+Máscara da fotografia (1050ms), escala do seu filho (1050ms), linhas tipográficas (900ms, intervalo de 95ms) e elementos de apoio (550ms) se coordenam com os painéis. A entrada pertence aos filhos; o scroll pertence aos wrappers `hero-photo-travel` e `hero-title-travel`, nunca aos mesmos transforms.
 
-O módulo do hero calcula um único progresso limitado de 0 a 1. Foto reduz e desloca entre 0.05 e 0.72; título e apoios recuam antes da apresentação aparecer entre 0.58 e 0.94. Controles dos apoios ficam inert quando sua opacidade cai abaixo de 0.05; a apresentação conserva texto disponível a leitores de tela e retira o link da ordem de Tab enquanto não está legível. Movimento reduzido restaura controles e leitura estática.
+O módulo do hero calcula um único progresso limitado de 0 a 1. A foto se aproxima discretamente entre 0.03 e 0.66; a máscara editorial revela o interior entre 0.32 e 0.87. A apresentação entra entre 0.43 e 0.84. Controles que desapareceram ficam inert e os links da apresentação entram no Tab quando legíveis. A abertura anima filhos, enquanto transformações e máscaras de scroll têm wrappers próprios. Movimento reduzido remove pinagem e mantém o conteúdo em fluxo. Origem das imagens e limitações: `docs/HERO_REDESIGN.md`.
 
 ### Section passages
 

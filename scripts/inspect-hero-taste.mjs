@@ -1,0 +1,1 @@
+import{serve}from'./hero-test-server.mjs';import{spawn}from'node:child_process';const s=await serve();const child=spawn(process.execPath,['plugins/taste-frontend-design/skills/design-taste-frontend/scripts/inspect.mjs',s.base],{stdio:'inherit'});child.on('exit',code=>{s.close();process.exitCode=code});

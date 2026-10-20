@@ -1,0 +1,8 @@
+TASTESKILL · LINT   3 file(s)
+
+WARN
+  [outlined-box] A 1px outlined box. Prefer a filled surface or no box.  (1×)
+      css/hero.css:30  border:1px solid
+
+RESULT: 0 FAIL, 1 WARN
+Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore.

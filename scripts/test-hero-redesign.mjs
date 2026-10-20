@@ -1,0 +1,34 @@
+import{Browser,sleep}from'../plugins/taste-frontend-design/skills/design-taste-frontend/scripts/lib/cdp.mjs';
+import{writeFileSync,readFileSync}from'node:fs';
+const b=await Browser.launch(),p=await b.newPage(),out=[];
+const check=(name,pass,detail)=>{out.push({name,pass:!!pass,detail});console.log(name,!!pass)};
+const server=await(await import('./hero-test-server.mjs')).serve(),base=server.base;
+async function fraction(value){await p.eval(f=>{const j=document.querySelector('.hero-journey'),s=document.querySelector('.hero-scene');scrollTo({top:(j.offsetHeight-s.offsetHeight)*f,behavior:'instant'})},value);await sleep(90)}
+try{
+for(const width of[320,375,390,768,1024,1366,1440]){
+ await p.setViewport({width,height:width<=600?844:900,mobile:width<=600});
+ await p.goto(base,{settleMs:1800});
+ await p.eval(async()=>{document.querySelectorAll('.hero-arrival img').forEach(i=>i.loading='eager');await Promise.all([...document.querySelectorAll('.hero-arrival img')].map(i=>i.decode().catch(()=>{})));await document.fonts.ready});
+ const start=await p.eval(()=>{const hero=document.querySelector('.hero-arrival'),h=document.querySelector('h1').getBoundingClientRect(),photo=document.querySelector('.hero-photo-travel').getBoundingClientRect(),cta=document.querySelector('.hero-invitation .button').getBoundingClientRect();return{overflow:document.documentElement.scrollWidth-innerWidth,title:{x:h.x,right:h.right,bottom:h.bottom},photo:{x:photo.x,y:photo.y,right:photo.right},cta:{x:cta.x,y:cta.y,bottom:cta.bottom},ctaUrl:document.querySelector('.hero-invitation .button').href,individual:/Damião|damiao/.test(hero.innerHTML),loaded:[...hero.querySelectorAll('img')].every(i=>i.naturalWidth),curtain:!!document.querySelector('.opening-curtain')}});
+ check(width+'px estado inicial',start.overflow<=0&&start.title.x>=0&&start.title.right<=width+1&&start.cta.bottom<= (width<=600?844:900)&&start.loaded&&!start.individual&&!start.curtain&&start.ctaUrl==='https://sites.appbarber.com.br/srnavala-pqjj',start);
+ await p.screenshot({path:`capturas/hero-redesign/final-${width}.jpg`});
+ const states=[];
+ for(const f of[.15,.35,.55,.75,1,.5,0]){
+  await fraction(f);
+  const state=await p.eval(()=>{const story=document.querySelector('.hero-story'),r=story.getBoundingClientRect(),photo=document.querySelector('.hero-photo-travel'),pr=photo.getBoundingClientRect(),portal=document.querySelector('.hero-portal'),clip=getComputedStyle(portal).clipPath,cp=parseFloat(clip.match(/inset\(0px 0px ([\d.]+)%/)?.[1]||0),photoBottom=pr.top+pr.height*(1-cp/100);return{p:SrNavalhaMotion.heroProgress,transform:photo.style.transform,clip:getComputedStyle(document.querySelector('.hero-interior-layer')).clipPath,storyOpacity:+getComputedStyle(story).opacity,storyY:r.y,photoBottom,overlap:innerWidth<=600&&+getComputedStyle(story).opacity>.15&&photoBottom>r.y,controlsInert:document.querySelector('.hero-invitation').inert,overflow:document.documentElement.scrollWidth-innerWidth}});
+  states.push(state);
+  if([320,390,1440].includes(width)&&[.15,.55,.75,1].includes(f))await p.screenshot({path:`capturas/hero-redesign/scroll-${width}-${f}.jpg`});
+ }
+ check(width+'px scroll reversível sem colisão',states[0].p>0&&states[4].p>.99&&states.at(-1).p===0&&!states.some(s=>s.overlap||s.overflow>0),states);
+ await p.eval(()=>scrollTo({top:9000,behavior:'instant'}));await fraction(0);check(width+'px retorno rápido',await p.eval(()=>SrNavalhaMotion.heroProgress===0));
+ if([320,390,1440].includes(width)){
+  await p.eval(()=>document.querySelector('[data-replay]').click());await p.screenshot({path:`capturas/hero-redesign/abertura-${width}-inicio.jpg`});await sleep(230);await p.screenshot({path:`capturas/hero-redesign/abertura-${width}-logo.jpg`});await sleep(350);await p.screenshot({path:`capturas/hero-redesign/abertura-${width}-meio.jpg`});await sleep(700);await p.screenshot({path:`capturas/hero-redesign/abertura-${width}-final.jpg`});await sleep(400);
+ }
+ await p.eval(()=>document.querySelector('#servicos').scrollIntoView({behavior:'instant'}));await sleep(750);if([320,390,1440].includes(width))await p.screenshot({path:`capturas/hero-redesign/apos-hero-${width}.jpg`});
+}
+await p.setViewport({width:390,height:844});await p.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await p.goto(base);check('Redução inicial: cena em fluxo e sem abertura',await p.eval(()=>!document.querySelector('.opening-curtain')&&getComputedStyle(document.querySelector('.hero-scene')).position==='relative'&&+getComputedStyle(document.querySelector('.hero-story')).opacity===1));await p.screenshot({path:'capturas/hero-redesign/movimento-reduzido.jpg'});await p.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});await fraction(.75);await p.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await sleep(100);check('Redução dinâmica limpa transformações',await p.eval(()=>!document.querySelector('.hero-photo-travel').style.transform&&!document.querySelector('.hero-invitation').inert));
+await p.send('Emulation.setScriptExecutionDisabled',{value:true});await p.goto(base);check('Sem JS: hero e apresentação em fluxo',await p.eval(()=>!document.querySelector('.opening-curtain')&&document.querySelector('.hero-story').getBoundingClientRect().top>=document.querySelector('.hero-composition').getBoundingClientRect().bottom-1&&getComputedStyle(document.querySelector('.hero-story')).opacity==='1'));await p.eval(()=>document.querySelector('#espaco').scrollIntoView({behavior:'instant'}));await p.screenshot({path:'capturas/hero-redesign/sem-js-espaco.jpg'});await p.send('Emulation.setScriptExecutionDisabled',{value:false});
+await p.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});await p.goto(base);await p.eval(()=>document.querySelector('.hero-bottom>a').click());await sleep(900);check('Âncora revela a apresentação',await p.eval(()=>SrNavalhaMotion.heroProgress>.9&&document.querySelector('.hero-story').classList.contains('is-readable')));
+await p.send('Network.enable');await p.send('Network.setBlockedURLs',{urls:['*assets/images/hero-redesign/*']});await p.goto(base);check('Falhas de imagens não prendem abertura',await p.eval(()=>!document.querySelector('.opening-curtain')&&!!document.querySelector('.hero-invitation .button').href));await p.send('Network.setBlockedURLs',{urls:[]});
+check('Conteúdo preservado',await p.eval(()=>document.querySelectorAll('.service-row').length===42&&document.querySelectorAll('[data-professional]').length===5&&document.querySelectorAll('[data-product]').length===22));check('Console sem exceções',!p.consoleErrors.length,p.consoleErrors);
+}catch(e){check('Execução sem falha de ferramenta',false,e.message)}finally{writeFileSync('docs/HERO_TESTES_CHROMIUM.json',JSON.stringify(out,null,2));await b.close();server.close()}
