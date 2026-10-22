@@ -16,3 +16,21 @@ html:not(.enhanced) .review-viewport{overflow:visible}html:not(.enhanced) .revie
 @media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}}
 html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{animation-play-state:paused!important;transition:none!important}
 html.motion-paused .menu[open] nav{animation:none!important}
+
+/* V12 animated compositional language. All content visible by default. */
+html{scroll-behavior:smooth;scroll-padding-top:102px}
+:root{--scene-progress:0}
+.scroll-thread{position:fixed;z-index:70;left:0;top:0;width:100%;height:3px;transform:scaleX(var(--scene-progress));transform-origin:left;background:linear-gradient(90deg,var(--wood),var(--copper),var(--ink));pointer-events:none}
+.hero-centerpiece .title-mask>span{will-change:transform}
+.hero.is-arriving .hero-wordmark{animation:signature-arrives 1150ms cubic-bezier(.16,1,.3,1) both}
+@keyframes signature-arrives{from{opacity:.15;transform:translateY(30px) scale(.83);clip-path:inset(28% 0 28% 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@media(hover:hover) and (pointer:fine){
+ .site-header .brand,.hero .photo-window,.work-print,.mirror-choice,.product-select,.site-footer a{cursor:pointer}
+ .button,.text-link,.mirror-choice,.service-entry summary,.product-select,.faq summary,.team-choice{transition:transform .34s var(--ease),background-color .35s,color .35s,border-color .35s,letter-spacing .35s}
+ .button:hover,.text-link:hover{transform:translateY(-3px)}
+ .mirror-choice:hover,.service-entry summary:hover{transform:translateX(10px);letter-spacing:.018em}
+ .product-select:hover,.team-choice:hover{transform:translateX(7px)}
+ .work-print img{transition:transform 1.05s cubic-bezier(.19,1,.22,1),filter .7s}.work-print:hover img{transform:scale(1.065);filter:saturate(1.13)}
+}
+.motion-word{display:inline-block;white-space:pre;transform-origin:50% 100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.scroll-thread{display:none}.hero.is-arriving .hero-wordmark{animation:none!important}.motion-word{transform:none!important}}

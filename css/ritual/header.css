@@ -2,3 +2,13 @@
 @media(max-width:1000px){.desktop-nav{display:none}.menu{display:block}.header-inner{gap:12px}.header-actions{gap:25px}}
 @media(max-width:700px){.site-header{height:84px}.brand .logo{width:108px;height:61px}.header-actions{gap:14px}.header-book{font-size:13px;gap:8px}.header-book .icon{width:16px;height:16px}.menu summary{width:34px}.header-inner{width:calc(100% - 40px)}}
 @media(max-width:350px){.header-actions{gap:8px}.brand .logo{width:91px;height:55px}.header-inner{width:calc(100% - 32px)}.header-book{gap:5px}}
+
+/* Visually isolate white official lettering from original dark bitmap without replacing the brand. */
+.brand .logo{background:transparent;object-fit:contain;object-position:center;filter:invert(1) grayscale(1) contrast(2);mix-blend-mode:multiply;clip-path:inset(4% 2% 5% 2%);transition:transform .6s var(--ease),opacity .3s}
+.brand:hover .logo{transform:scale(1.07) rotate(-1deg)}
+.desktop-nav a{transition:color .25s var(--ease),letter-spacing .4s var(--ease)}
+.desktop-nav a:hover{color:var(--wood);letter-spacing:.045em}
+.desktop-nav a::after{height:2px;transform-origin:center}
+.header-book{transition:color .3s,background .3s,padding .35s var(--ease)}
+.header-book:hover{color:var(--ivory);background:var(--ink);padding-inline:16px}
+@media(min-width:1001px){.brand .logo{width:165px;height:82px}.site-header{height:106px}}

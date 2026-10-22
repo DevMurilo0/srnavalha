@@ -7,3 +7,25 @@
 
 .house-word::before{content:attr(data-lettering)}.hero-detail .photo-window{position:relative}.detail-film{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 63%}.enhanced .detail-film{display:block}
 @media(prefers-reduced-motion:reduce){.enhanced .detail-film{display:none}}
+
+/* V12 — original center-stage barber identity; changes scoped to hero. */
+.hero{background:radial-gradient(ellipse 55% 24% at 50% 34%,#fff9f3 0%,transparent 100%),var(--ivory);overflow:clip}
+.hero-inner{max-width:1380px}.hero-top{margin:14px 0 14px;justify-content:center}.hero-top p{letter-spacing:.16em;text-transform:uppercase;font-size:10px;display:flex;gap:18px;align-items:center}.hero-top p span{color:var(--wood);font-size:21px}
+.hero-centerpiece{position:relative;text-align:center;z-index:4;padding-top:17px}.hero-upperline{font:600 12px/1.2 var(--body);letter-spacing:.25em;text-transform:uppercase;color:var(--wood)}
+.hero-wordmark{width:min(475px,68vw);margin:10px auto -6px;position:relative}.hero-wordmark img{display:block;width:100%;height:clamp(108px,14vw,193px);object-fit:contain;filter:invert(1) grayscale(1) contrast(2);mix-blend-mode:multiply;transform:scale(1.02)}.hero-wordmark>span{position:absolute;right:-18px;top:45%;font:650 9px var(--body);letter-spacing:.15em;writing-mode:vertical-rl;color:var(--wood)}
+.hero h1{font-family:var(--body);font-weight:800;font-size:clamp(44px,6.7vw,99px);line-height:.98;letter-spacing:-.074em;text-wrap:balance;max-width:1160px;margin:10px auto 0}
+.hero h1 em{font-family:var(--body);font-weight:500;font-style:normal;letter-spacing:-.077em;color:var(--wood)}
+.hero-intro{font-size:clamp(14px,1.25vw,18px);margin:17px auto 0;color:var(--muted);max-width:46ch}
+.hero-composition{margin-top:31px;max-width:1060px;grid-template-columns:.9fr 1.05fr .85fr;gap:clamp(22px,4vw,58px);align-items:center}
+.hero-facade{margin-top:24px;transform:rotate(-3deg);transform-origin:center 15%;transition:transform .9s var(--ease)}.hero-room{margin-top:0;transform:rotate(1.5deg);transition:transform .9s var(--ease)}.hero-room::before{inset:-15px 12px 18px -12px;border-color:var(--wood)}
+.hero-invitation{padding-top:0}.hero-invitation>p{font-size:clamp(16px,1.45vw,20px);line-height:1.55}
+.hero-detail{margin-top:28px;transform:rotate(5deg);transition:transform .9s var(--ease)}
+.hero-facade:hover{transform:rotate(0deg) translateY(-12px)}.hero-room:hover{transform:rotate(0deg) translateY(-12px)}.hero-detail:hover{transform:rotate(0deg) translateY(-8px)}
+.hero .photo-window{position:relative;overflow:hidden;isolation:isolate;transition:box-shadow .55s var(--ease)}.hero .photo-window::after{content:'';position:absolute;inset:8px;border:1px solid rgba(241,234,224,.5);pointer-events:none;opacity:0;transition:opacity .4s}.hero figure:hover .photo-window::after{opacity:1}.hero figure:hover .photo-window{box-shadow:0 35px 60px -35px #30262088}
+.hero .photo-window img{transition:transform 1.1s cubic-bezier(.19,1,.22,1),filter .7s}.hero figure:hover .photo-window img{transform:scale(1.075) rotate(.4deg);filter:saturate(1.12)}
+.hero-bottom{margin-top:24px}
+@media(min-width:1001px){.hero{min-height:960px}.hero-centerpiece{padding-top:12px}.hero-composition{align-items:center}}
+@media(max-width:1000px){.hero h1{font-size:clamp(43px,7vw,77px)}.hero-wordmark{width:min(380px,65vw)}.hero-composition{margin-top:28px}}
+@media(max-width:700px){.hero-top{display:flex;justify-content:center}.hero-top p{font-size:9px;gap:9px;letter-spacing:.08em}.hero-centerpiece{padding-top:6px}.hero-wordmark{width:min(310px,80vw);margin:5px auto -2px}.hero-wordmark img{height:115px}.hero-wordmark>span{right:0;font-size:7px}.hero h1{font-size:clamp(40px,10vw,66px);text-align:center;line-height:1.04;letter-spacing:-.065em}.hero h1 .title-mask>span{white-space:normal}.hero-intro{font-size:14px;max-width:29ch;line-height:1.5}.hero-composition{margin-top:29px;gap:17px}.hero-facade{margin-top:25px;transform:rotate(-2deg)}.hero-room{transform:rotate(2deg)}.hero-invitation>p{line-height:1.6}.hero{min-height:0}}
+@media(max-width:350px){.hero h1{font-size:36px}.hero-wordmark{width:78vw}.hero-top p{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.hero-facade,.hero-room,.hero-detail{transform:none!important}.hero .photo-window img{transition:none!important}}

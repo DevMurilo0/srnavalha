@@ -38,6 +38,7 @@ export async function openRitual(){
  const close=()=>{clearTimeout(fail);overlay.remove()};
  document.addEventListener('motionchange',()=>{if(!canMove())close()});
  // The actual masthead mark travels from the opening to its resting place.
+ hero.classList.add('is-arriving');
  const logoFrom=mark.getBoundingClientRect(),logoTo=brand.getBoundingClientRect();
  animate(mark,[{transform:'none'},{transform:`translate(${logoTo.x-logoFrom.x}px,${logoTo.y-logoFrom.y}px) scale(${logoTo.width/logoFrom.width},${logoTo.height/logoFrom.height})`}],{duration:850,delay:120,easing:ease,fill:'forwards',persist:true});
  const open=animate(overlay,[{clipPath:'inset(0)'},{clipPath:'inset(0 0 100% 0)'}],{duration:900,delay:280,fill:'forwards'});
