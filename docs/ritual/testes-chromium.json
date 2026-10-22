@@ -1,0 +1,1003 @@
+{
+  "browser": "Chromium",
+  "date": "2026-10-22T19:52:50.507Z",
+  "checks": [
+    {
+      "name": "320: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 20,
+          "y": 200.625,
+          "width": 280,
+          "height": 54,
+          "top": 200.625,
+          "right": 300,
+          "bottom": 254.625,
+          "left": 20
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "320: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "375: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 20,
+          "y": 214.96875,
+          "width": 334.984375,
+          "height": 54,
+          "top": 214.96875,
+          "right": 354.984375,
+          "bottom": 268.96875,
+          "left": 20
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "375: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "390: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 20,
+          "y": 216.96875,
+          "width": 350,
+          "height": 54,
+          "top": 216.96875,
+          "right": 370,
+          "bottom": 270.96875,
+          "left": 20
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "390: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "768: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 521.921875,
+          "y": 378.75,
+          "width": 207.671875,
+          "height": 56,
+          "top": 378.75,
+          "right": 729.59375,
+          "bottom": 434.75,
+          "left": 521.921875
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "768: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1024: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 720.0625,
+          "y": 417.390625,
+          "width": 251.921875,
+          "height": 56,
+          "top": 417.390625,
+          "right": 971.984375,
+          "bottom": 473.390625,
+          "left": 720.0625
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "1024: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1366: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 900.171875,
+          "y": 447.265625,
+          "width": 242.796875,
+          "height": 56,
+          "top": 447.265625,
+          "right": 1142.96875,
+          "bottom": 503.265625,
+          "left": 900.171875
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "1366: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440: hero, CTA e abertura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "cta": {
+          "x": 939.171875,
+          "y": 453.375,
+          "width": 240.828125,
+          "height": 56,
+          "top": 453.375,
+          "right": 1180,
+          "bottom": 509.375,
+          "left": 939.171875
+        },
+        "opening": false,
+        "photos": true,
+        "titleClipped": false
+      }
+    },
+    {
+      "name": "1440: página sem overflow",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Abertura coreografada instrumentada",
+      "pass": true
+    },
+    {
+      "name": "O Corte: máscara varia e retorna",
+      "pass": true,
+      "detail": [
+        "inset(0px 100% 0px 0px)",
+        "inset(0px 60.79% 0px 0px)",
+        "inset(0px 0% 0px 0px)",
+        "inset(0px 60.79% 0px 0px)"
+      ]
+    },
+    {
+      "name": "Espelho Vivo: serviço, preço e imagem",
+      "pass": true
+    },
+    {
+      "name": "Espelho: seleção rápida termina na última opção",
+      "pass": true
+    },
+    {
+      "name": "Filtro de serviços abre lista correspondente",
+      "pass": true
+    },
+    {
+      "name": "42 serviços preservados no HTML",
+      "pass": true
+    },
+    {
+      "name": "Condições e link de serviço",
+      "pass": true
+    },
+    {
+      "name": "Equipe: Rafael",
+      "pass": true
+    },
+    {
+      "name": "Equipe: foco troca sem deslocamento animado",
+      "pass": true
+    },
+    {
+      "name": "Produto selecionado e consulta real",
+      "pass": true
+    },
+    {
+      "name": "Produto sem foto não recebe embalagem fictícia",
+      "pass": true
+    },
+    {
+      "name": "Filtro de produtos",
+      "pass": true
+    },
+    {
+      "name": "Lightbox abre e contém controles",
+      "pass": true
+    },
+    {
+      "name": "Lightbox teclado",
+      "pass": true
+    },
+    {
+      "name": "Lightbox Escape devolve foco",
+      "pass": true
+    },
+    {
+      "name": "Esteira move da direita para esquerda",
+      "pass": true,
+      "detail": {
+        "first": "matrix(1, 0, 0, 1, -3.97429, 0)",
+        "second": "matrix(1, 0, 0, 1, -15.4497, 0)"
+      }
+    },
+    {
+      "name": "Esteira: pausa explícita",
+      "pass": true
+    },
+    {
+      "name": "Esteira pausa no foco",
+      "pass": true
+    },
+    {
+      "name": "Pausa global cancela WAAPI e scroll",
+      "pass": true,
+      "detail": {
+        "root": "enhanced motion-paused",
+        "animations": [
+          {
+            "target": "review-track is-moving is-paused",
+            "state": "paused",
+            "time": 649.9429999992117
+          }
+        ]
+      }
+    },
+    {
+      "name": "Reduced motion dinâmico: esteira estática e revelação completa",
+      "pass": true
+    },
+    {
+      "name": "Rolagem rápida e reversa preserva agendamento",
+      "pass": true
+    },
+    {
+      "name": "Axe WCAG A/AA 1440",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Axe WCAG A/AA 390",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Sem JS: 42 serviços, 22 produtos, cinco retratos e agenda",
+      "pass": true
+    },
+    {
+      "name": "Sem JS: catálogo nativo expande",
+      "pass": true
+    },
+    {
+      "name": "Sem JS: menu nativo",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion inicial sem abertura",
+      "pass": true
+    },
+    {
+      "name": "Menu por toque",
+      "pass": true
+    },
+    {
+      "name": "Swipe real em emulação touch Chromium",
+      "pass": true
+    },
+    {
+      "name": "Console sem exceções",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Recursos locais sem 404",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "samples": [
+    {
+      "name": "abertura-190ms",
+      "y": 0,
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "opening-mark",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 10,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "logo",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 850,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "opening-mark",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 900,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 950,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 137.981)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1000,
+          "clip": "inset(100% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.07, 0, 0, 1.07, 0, 9.09433)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1000,
+          "clip": "inset(100% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.07, 0, 0, 1.07, 0, 13.641)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1000,
+          "clip": "inset(100% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.07, 0, 0, 1.07, 0, 4.31595)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 116.69900000007183,
+          "duration": 600,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 15)"
+        }
+      ],
+      "house": "0.000",
+      "clip": "inset(0px 100% 0px 0px)"
+    },
+    {
+      "name": "abertura-intermediaria",
+      "y": 0,
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "opening-mark",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 10,
+          "clip": "inset(0px 0px 88.5955%)",
+          "transform": "none"
+        },
+        {
+          "target": "logo",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 850,
+          "clip": "none",
+          "transform": "matrix(0.799061, 0, 0, 0.662917, -545.467, -371.465)"
+        },
+        {
+          "target": "opening-mark",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 900,
+          "clip": "inset(0px 0px 88.5955%)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 950,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 48.1243)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1000,
+          "clip": "inset(23.519% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.02419, 0, 0, 1.02419, 0, 3.00839)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1000,
+          "clip": "inset(47.3966% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.04413, 0, 0, 1.04413, 0, 8.392)"
+        },
+        {
+          "target": "photo-window",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1000,
+          "clip": "inset(86.8011% 0px 0px)",
+          "transform": "none"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 1100,
+          "clip": "none",
+          "transform": "matrix(1.07, 0, 0, 1.07, 0, 4.31595)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 599.9650000000718,
+          "duration": 600,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 15)"
+        }
+      ],
+      "house": "0.000",
+      "clip": "inset(0px 100% 0px 0px)"
+    },
+    {
+      "name": "abertura-final",
+      "y": 0,
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        }
+      ],
+      "house": "0.000",
+      "clip": "inset(0px 100% 0px 0px)"
+    },
+    {
+      "name": "corte-inicio",
+      "y": 43,
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        }
+      ],
+      "house": "0.000",
+      "clip": "inset(0px 100% 0px 0px)"
+    },
+    {
+      "name": "corte-meio",
+      "y": 493,
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 33.40900000004865,
+          "duration": 850,
+          "clip": "inset(0px 0px 82.8741%)",
+          "transform": "matrix(1, 0, 0, 1, 0, 26.5197)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 33.40900000004865,
+          "duration": 500,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 18)"
+        },
+        {
+          "target": "house-portal",
+          "state": "running",
+          "currentTime": 33.40900000004865,
+          "duration": 950,
+          "clip": "inset(12% 9%)",
+          "transform": "matrix(0.96, 0, 0, 0.96, 0, 30)"
+        },
+        {
+          "target": "portal-front",
+          "state": "running",
+          "currentTime": 33.40900000004865,
+          "duration": 1070,
+          "clip": "none",
+          "transform": "matrix(1.08, 0, 0, 1.08, 0, 20)"
+        }
+      ],
+      "house": "0.374",
+      "clip": "inset(0px 60.79% 0px 0px)"
+    },
+    {
+      "name": "corte-final",
+      "y": 1073,
+      "animations": [
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 50.0249999999034,
+          "duration": 200,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 433.3430000000482,
+          "duration": 850,
+          "clip": "inset(0px 0px 3.56726%)",
+          "transform": "matrix(1, 0, 0, 1, 0, 1.14152)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 433.3430000000482,
+          "duration": 500,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0.0666765)"
+        },
+        {
+          "target": "house-portal",
+          "state": "running",
+          "currentTime": 433.3430000000482,
+          "duration": 950,
+          "clip": "inset(1.76311% 1.32233%)",
+          "transform": "matrix(0.994123, 0, 0, 0.994123, 0, 4.40778)"
+        },
+        {
+          "target": "portal-front",
+          "state": "running",
+          "currentTime": 433.3430000000482,
+          "duration": 1070,
+          "clip": "none",
+          "transform": "matrix(1.01991, 0, 0, 1.01991, 0, 4.97722)"
+        },
+        {
+          "target": "house-quote",
+          "state": "running",
+          "currentTime": 50.0249999999034,
+          "duration": 500,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 10.7772)"
+        }
+      ],
+      "house": "1.000",
+      "clip": "inset(0px 0% 0px 0px)"
+    },
+    {
+      "name": "corte-retorno",
+      "y": 493,
+      "animations": [
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 66.63900000017308,
+          "duration": 200,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "",
+          "state": "running",
+          "currentTime": 783.2770000000484,
+          "duration": 850,
+          "clip": "inset(0px 0px 0.00754532%)",
+          "transform": "matrix(1, 0, 0, 1, 0, 0.0024145)"
+        },
+        {
+          "target": "house-portal",
+          "state": "running",
+          "currentTime": 783.2770000000484,
+          "duration": 950,
+          "clip": "inset(0.0802238% 0.0601679%)",
+          "transform": "matrix(0.999733, 0, 0, 0.999733, 0, 0.20056)"
+        },
+        {
+          "target": "portal-front",
+          "state": "running",
+          "currentTime": 783.2770000000484,
+          "duration": 1070,
+          "clip": "none",
+          "transform": "matrix(1.00174, 0, 0, 1.00174, 0, 0.434361)"
+        },
+        {
+          "target": "house-quote",
+          "state": "running",
+          "currentTime": 399.9589999999036,
+          "duration": 500,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0.0265963)"
+        }
+      ],
+      "house": "0.374",
+      "clip": "inset(0px 60.79% 0px 0px)"
+    },
+    {
+      "name": "reflexo-meio",
+      "y": 2018,
+      "animations": [
+        {
+          "target": "mirror-choice",
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 180,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "mirror-choice",
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 240,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 200,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -4.60963, 0)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 200,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -4.60963, 0)"
+        },
+        {
+          "target": "mirror-choice",
+          "state": "running",
+          "currentTime": 100.06599999999999,
+          "duration": 180,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": "mirror-choice",
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 240,
+          "clip": "none",
+          "transform": "none"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 200,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -3.39037, 0)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 200,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -3.39037, 0)"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "is-current",
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 650,
+          "clip": "inset(0px 0px 0px 59.004%)",
+          "transform": "matrix(1.0354, 0, 0, 1.0354, -18.2204, 0)"
+        },
+        {
+          "target": "mirror-info",
+          "state": "running",
+          "currentTime": 66.70500000016943,
+          "duration": 260,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 2.25086, 0)"
+        }
+      ],
+      "house": "1.000",
+      "clip": "inset(0px 0% 0px 0px)"
+    },
+    {
+      "name": "equipe-troca",
+      "y": 6604,
+      "animations": [
+        {
+          "target": "team-name",
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 1.93088, 0)"
+        },
+        {
+          "target": "team-name",
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 240,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 1.93088, 0)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -6.10713, 6.10713)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -6.10713, 6.10713)"
+        },
+        {
+          "target": "team-name",
+          "state": "running",
+          "currentTime": 133.36600000000055,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 14.0691, 0)"
+        },
+        {
+          "target": "team-name",
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 240,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 14.0691, 0)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -1.89287, 1.89287)"
+        },
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, -1.89287, 1.89287)"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "is-current",
+          "state": "running",
+          "currentTime": 83.40099999935191,
+          "duration": 650,
+          "clip": "inset(0px 0px 0px 50.8165%)",
+          "transform": "matrix(1.03049, 0, 0, 1.03049, -18.9355, 0)"
+        }
+      ],
+      "house": "1.000",
+      "clip": "inset(0px 0% 0px 0px)"
+    },
+    {
+      "name": "produto-meio",
+      "y": 10698,
+      "animations": [
+        {
+          "target": {},
+          "state": "running",
+          "currentTime": 66.70700000015728,
+          "duration": 180,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 1.80788, 0)"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "is-current",
+          "state": "running",
+          "currentTime": 66.70700000015728,
+          "duration": 420,
+          "clip": "none",
+          "transform": "matrix(0.9831, 0, 0, 0.9831, 11.8297, 0)"
+        },
+        {
+          "target": "product-info",
+          "state": "running",
+          "currentTime": 66.70700000015728,
+          "duration": 240,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 2.33959)"
+        }
+      ],
+      "house": "1.000",
+      "clip": "inset(0px 0% 0px 0px)"
+    },
+    {
+      "name": "continuidade-meio",
+      "y": 7710,
+      "animations": [
+        {
+          "target": "photo-open",
+          "state": "running",
+          "currentTime": 150.07099999955818,
+          "duration": 220,
+          "clip": "none",
+          "transform": "matrix(0.999938, 0.0111683, -0.0111683, 0.999938, 0, 0)"
+        },
+        {
+          "target": "review-track is-moving is-paused",
+          "state": "paused",
+          "currentTime": 0,
+          "duration": 58000,
+          "clip": "none",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "target": "lightbox-image",
+          "state": "running",
+          "currentTime": 150.07099999955818,
+          "duration": 650,
+          "clip": "inset(0px)",
+          "transform": "matrix(1, 0, 0, 1, -423.787, 119.534)"
+        }
+      ],
+      "house": "1.000",
+      "clip": "inset(0px 0% 0px 0px)"
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "performance": {
+    "rafMedian": 16.699999999999818,
+    "rafMax": 16.800000000000182,
+    "layoutShift": 0.0005529706790123457,
+    "metrics": []
+  }
+}

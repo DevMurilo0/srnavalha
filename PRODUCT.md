@@ -1,19 +1,25 @@
 # Sr. Navalha
 
-Barbearia no bairro Prado, em Gravatá–PE. O site apresenta profissionais, serviços, produtos, trabalhos reais, avaliações e informações para a visita. A ação principal é abrir o agendamento oficial: https://sites.appbarber.com.br/srnavala-pqjj. WhatsApp é canal de conversa e consulta de produtos; o site não confirma reservas.
+## Platform
+Web estática: HTML5, CSS3 e módulos JavaScript, sem build ou servidor de aplicação obrigatório. Abrir `index.html` com Live Server. Node/Python são somente ferramentas opcionais de desenvolvimento.
 
-A V9 foi autorizada como reconstrução visual: carvão, marfim e cobre substituem a paleta anterior, com o logo original, fontes locais Manrope e Young Serif, fotografias oficiais e hero com fachada real, composição arquitetônica e narrativa da entrada ao salão. A especificação atual está em `DESIGN.md` e `.impeccable/design.json`; registros V6 são históricos.
+## Users
+Pessoas que desejam conhecer a barbearia do Prado, em Gravatá–PE, escolher um cuidado, reconhecer a equipe e agendar no sistema oficial.
 
-## Conteúdo e confiança
+## Product Purpose
+Apresentar uma barbearia real com experiência editorial e fotográfica; tornar o agendamento muito fácil de encontrar. Destino oficial: https://sites.appbarber.com.br/srnavala-pqjj. WhatsApp: https://wa.me/5581995722396.
 
-O catálogo estático reúne 42 serviços, assinaturas e 22 produtos, com nomes, valores e durações do AppBarber consultados em 17/10/2026. A equipe reúne Damião, Eduardo, Kauã, Rafael e Yan. A consulta não representa disponibilidade de horários, estoque ou condições contratuais em tempo real. Procedimentos com valor variável preservam “a partir de” ou “sob consulta”. Itens sem foto oficial usam apresentação tipográfica explícita.
+## Capabilities and Constraints
+Catálogo de 42 serviços com preço, duração, descrição, condições e valores variáveis; três planos mensais separados; cinco profissionais; 22 produtos; seis fotografias de catálogo na galeria; quatro depoimentos reais; mapa verdadeiro e contatos. Nenhum backend, checkout, simulação de horários ou antes/depois fictício. Conteúdo comercial confirmado no AppBarber em 22/10/2026. Nota e total de avaliações mantêm datas de coleta próprias.
 
-Fotografias do catálogo AppBarber e do acervo local devem manter sua proveniência. A antiga fotografia do interior tem apenas 246×148px e permanece como apoio pequeno; não autoriza ampliações, invenção do ambiente ou geração de clientes e profissionais. Logo, contato, endereço, links de origem das avaliações e crédito do site devem ser preservados.
+## Brand Commitments
+A arte do ritual: enquadramentos retangulares, fotografias oficiais, marca original, matérias claras e escuras, carvão, marfim, tabaco e cobre. Bodoni Moda e Manrope locais com licenças OFL. Protagonismo do estabelecimento; nenhuma biografia inventada. Desenvolvido por Murilo Gabriel, com link para https://murilogabriel.com.br.
 
-Nota e total de avaliações são um retrato datado em 17/10/2026; os textos de depoimentos são do acervo de 15/10/2026 e têm links individuais. Horários publicados e facilidades informadas devem manter atribuição e convite à confirmação quando necessário. Não inventar prêmios, métricas, depoimentos ou promessas comerciais.
+## Evidence on Hand
+`js/data/` preserva os registros comerciais; `docs/ritual/appbarber-confirmacao.json` contém a consulta pública atual e `conteudo-verificado.json` registra 69 comparações. Fachada, ambiente e instrumentos vêm do Reel colaborativo de 08/10/2026, vídeo original preservado. A grade pública e os destaques do Instagram têm acesso parcial. Nenhum material restrito foi obtido. A ficha específica do Google confirmou endereço, telefone e nota 5,0. Uma consulta posterior ao mapa incorporado exibiu 474 avaliações, registradas com data 22/10/2026; a captura e o diagnóstico da ficha estão em docs/ritual/mapa-diagnostico.*.
 
-## Implementação e acesso
+## Accessibility & Inclusion
+Navegação e conteúdo essenciais funcionam sem JavaScript. Detalhes nativos para catálogo/FAQ, links de fotografia e destinos externos reais. Seletores com estados acessíveis; lightbox com Escape, setas, swipe e retorno do foco. Movimento reduzido inicial e dinâmico, pausa global, pausa da esteira por botão/foco/ponteiro e vídeo pausado fora de vista. Nenhum conteúdo fica permanentemente escondido por animação.
 
-HTML, CSS e JavaScript nativos, compatíveis com servidor estático/Live Server, sem backend e sem build obrigatório. Tokens e estilos atuais: `css/tokens.css`, `css/site.css`, `css/motion.css`; interações: `js/site.js` e módulos `js/motion/`. Dados e conteúdo essenciais permanecem no HTML, com detalhes nativos e links diretos.
-
-Filtros, retratos, produtos, visualizador, esteira e mapa são melhorias progressivas. Preservar navegação por teclado, foco visível, nomes acessíveis, retorno do foco e suporte inicial/dinâmico a `prefers-reduced-motion`. A passagem da fotografia do hero até a apresentação tem composições próprias desktop e mobile; não pode impedir leitura, consulta ou agendamento.
+## Implementation
+Fonte canônica: `scripts/render-site.mjs`, dados `js/data/`; geração opcional produz `templates/ritual/` e `index.html`, já entregues prontos. Estilos ativos exclusivamente em `css/ritual.css` e `css/ritual/`; interações exclusivamente em `js/ritual/`. Os registros antigos e alterações locais são preservados em seus arquivos ou backups. Branch `reconstruction/arte-do-ritual`; sem merge, commit ou push.

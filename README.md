@@ -1,79 +1,71 @@
-# Sr. Navalha — Hero conforme a referência aprovada
+# Sr. Navalha — A arte do ritual
 
-O hero atual reproduz em HTML/CSS/SVG a composição de `assets/herosrnavalha.png`, com fotografia limpa separada, fontes locais e abertura coordenada. Abra `index.html` pelo Live Server; nenhum build é obrigatório.
+Site estático reconstruído para a Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias oficiais, marca original e conteúdo comercial preservado.
 
-- Fonte do HTML: `scripts/v11-templates/`; regeneração opcional com `node scripts/build-v9.mjs`.
-- Estilos e entrada: `css/hero-v11.css` e `js/hero-v11.js`.
-- [Documentação, testes e limitações](docs/HERO_REFERENCE.md).
-- [Captura desktop](capturas/hero-reference/final-1672.png) e [mobile](capturas/hero-reference/final-mobile-390.png).
+## Abrir
 
-Validado em Chromium nas larguras 1672, 1440, 768, 390 e 320. O fundo limpo disponível difere em detalhes e nitidez da referência; a documentação descreve essa limitação. As seções a partir de Serviços permanecem idênticas ao backup.
+Abra esta pasta no VS Code e use **Open with Live Server** em `index.html`. Não precisa executar npm, instalar dependências ou gerar o site. Módulos JavaScript exigem HTTP; abrir por `file://` não equivale ao Live Server.
 
----
+Alternativas opcionais de desenvolvimento, na raiz:
 
-## Registro histórico do pacote anterior
-
-As instruções e observações abaixo registram a entrega anterior. Para a implementação, fontes e validação atuais, prevalece `docs/HERO_REFERENCE.md` acima.
-
-# Sr. Navalha — Hero V11 (atualização conservadora)
-
-Este ZIP **não substitui o restante da Sr. Navalha**. Ele instala somente:
-
-- O cabeçalho na composição aprovada: navegação lateral, logo oficial central e botão de agendamento;
-- O hero com a fotografia do interior, títulos e informações da captura aprovada;
-- Uma entrada cinematográfica curta (cortina + logo), seguida por revelação dos textos;
-- Um movimento fotográfico discreto ligado ao scroll, respeitando movimento reduzido;
-- Imagens responsivas em WebP: 3840 × 2160 (saída 4K), 1920 × 1080 e versão mobile.
-
-Os serviços, equipe, produtos, galeria, avaliações, mapa e rodapé são **preservados**, assim como os dados e links existentes. O instalador também atualiza o gerador HTML opcional para que ele não reverta o hero numa geração futura.
-
-## Instalação no Linux com fish (sem npm)
-
-1. Extraia o ZIP com o gerenciador de arquivos.
-2. Abra o terminal **dentro da pasta extraída**, onde está `APLICAR_HERO_V11.py`.
-3. Primeiro faça a verificação (não modifica nada):
-
-```fish
-python3 APLICAR_HERO_V11.py ~/Dev/andamento/srnavalha --dry-run
+```sh
+python3 -m http.server 8033
 ```
 
-4. Se aparecer `OK`, aplique:
+ou:
 
-```fish
-python3 APLICAR_HERO_V11.py ~/Dev/andamento/srnavalha
+```sh
+node scripts/serve.mjs
 ```
 
-5. Volte à pasta `~/Dev/andamento/srnavalha`, abra `index.html` no Live Server e use **Ctrl+Shift+R** para limpar o cache da página.
+Acesse `http://127.0.0.1:8033/`. O ZIP em `entrega/sr-navalha-arte-do-ritual.zip` contém uma pasta pronta para extrair e abrir com Live Server, incluindo fontes locais e licenças, originais usados, documentação e capturas.
 
-O instalador cria uma pasta de backup ao lado do projeto (`srnavalha-backup-hero-v11-*`), nunca dá `git reset`, não apaga arquivos antigos e gera um ZIP **completo** da versão local atualizada: `srnavalha-Hero-V11-completo.zip`. Pode executar novamente, sem duplicar o hero.
+## Editar
 
-**Aviso importante:** a pasta do projeto precisa conter `index.html`, `js/site.js` e `scripts/build-v9.mjs`. Se algum desses arquivos estiver ausente, o instalador informa o caminho e não modifica nada. Não restaure todo o repositório com `git reset --hard`.
+- `scripts/render-site.mjs`: fonte canônica da estrutura. A geração **opcional** `node scripts/render-site.mjs` escreve `templates/ritual/*.html` e o `index.html` pronto.
+- `js/data/`: serviços, profissionais, produtos e avaliações com suas origens.
+- `css/ritual/tokens.css`: paleta, fontes, medidas e curvas. Os outros cinco módulos separam base, cabeçalho, hero, seções e movimento.
+- `js/ritual/`: núcleo WAAPI, orquestração, serviços, equipe, produtos, galeria e mapa.
+- `DESIGN.md`, `PRODUCT.md` e `docs/ritual/`: direção, arquitetura, pesquisa, motion, inventário e evidências.
 
-## Fotografia em 4K
+O HTML já inclui todo o catálogo. Sem JavaScript, menu e detalhes nativos funcionam, fotografias têm links diretos, produtos abrem consulta e o agendamento segue para o AppBarber. O script acrescenta filtros, seleção fotográfica, lightbox e coreografia.
 
-O arquivo `assets/images/hero-ambiente-3840.webp` possui **3840 × 2160 pixels**, exportado com reamostragem Lanczos e leve correção de nitidez/cor a partir da fotografia já usada na V10. É uma versão de saída 4K, **não uma nova fotografia capturada originalmente em 4K**. O detalhe que não existia na fotografia de origem não pode ser recuperado por simples reamostragem. A imagem mantém o enquadramento e a identidade visual já aprovados.
+## Interações
 
-O navegador carrega uma versão apropriada à largura/tela via `picture` e `srcset`; celulares não precisam baixar a versão 4K.
+Espelho Vivo com quatro cuidados e imagens correspondentes; catálogo filtrável com 42 serviços e três planos mensais distintos; cinco profissionais com retratos por foco/ponteiro/toque; 22 produtos com consulta pelo WhatsApp; seis fotos com expansão espacial, setas, Escape, swipe e retorno de foco; esteira contínua com pausa; mapa Google verdadeiro e alternativa de rota.
 
-## Arquivos incluídos
+Movimento reduzido funciona desde a abertura e ao mudar a preferência. Há pausa global, pausa da esteira por botão/foco/hover e pausa de efeitos/vídeo fora de vista ou com aba oculta. Não há scroll-jacking ou backend fictício.
 
-- `APLICAR_HERO_V11.py` — instalador seguro com `--dry-run`, backup e ZIP completo;
-- `templates/header.html`, `templates/hero.html` — HTML do cabeçalho e hero;
-- `css/hero-v11.css`, `js/hero-v11.js` — CSS e animação do hero somente;
-- `scripts/hero-v11-patch.mjs`, `scripts/v11-templates/` — persistência no gerador existente;
-- `assets/images/` — imagens WebP do fundo;
-- `preview/` — screenshots da prévia de layout.
+## Conteúdo e imagens
 
-## Verificações realizadas
+Serviços, produtos e equipe conferidos no AppBarber em 22/10/2026: 69 comparações em `docs/ritual/conteudo-verificado.json`. A ficha Google Maps exibiu nota 5,0 e 474 avaliações em 22/10/2026; a captura do cartão real está em `docs/ritual/mapa-diagnostico.png`. Os depoimentos mantêm seus links individuais. Horários mantêm a data da coleta anterior e convite à confirmação.
 
-- Integridade e sintaxe Python/JavaScript;
-- Aplicação em teste contra a estrutura V10 e preservação literal do conteúdo a partir da seção `Serviços`;
-- Teste de idempotência do instalador para não duplicar scripts;
-- Prévia HTML/CSS/JS carregada diretamente no Chromium em 320, 390, 768, 1440 e 1672 px: sem overflow horizontal e sem erro JS observado;
-- O servidor HTTP local foi bloqueado pelo ambiente de teste; **a navegação real via Live Server ainda deve ser conferida no seu computador**.
+A fachada, o salão e os instrumentos vêm do Reel colaborativo oficial de 08/10/2026. O acesso público atual ao Instagram foi parcial; não se certifica a ausência de reformas posteriores. Fotos respeitam a definição original, inclusive as de 290, 358 e 410px. Produtos sem foto oficial são identificados por texto. Não houve geração ou reconstrução de rostos, produtos ou espaços.
 
-### Fonte e licenciamento
+`docs/ritual/IMAGENS.md` e `inventario-imagens.json` registram resolução real, bytes, origem, uso e variantes. Os originais permanecem em `assets/originals/`. A proveniência foi embutida em 98 WebPs sem alterar pixels decodificados.
 
-Os arquivos do fundo são variantes do material aprovado nas etapas anteriores, não fotos documentais originais 4K. Nenhuma fonte do sistema foi incluída no ZIP. O CSS utiliza `Noto Serif Display` via Google Fonts e um fallback serifado; a marca original é reutilizada da pasta existente do repositório (`assets/images/v9/logo.webp`).
+## Verificação de desenvolvimento
 
-Nenhuma alteração foi enviada ao GitHub nesta entrega.
+O relatório real está em `docs/ritual/TESTES.md`; evidências brutas e capturas estão ao lado e em `capturas/ritual/`. Não há promessa de teste em telefone físico, Safari/iOS ou leitor de tela manual.
+
+Para repetir a validação comercial:
+
+```sh
+node scripts/validate-content.mjs
+```
+
+Testes Chromium usam Node22+, Playwright Core e Axe somente como ferramentas externas de desenvolvimento. A variável `PLAYWRIGHT_PACKAGE` aponta para um `package.json` no qual `playwright-core` está instalado; `CHROME_PATH` aponta para o Chromium. A suíte procura Axe em `/tmp/peralta-a11y/node_modules/axe-core/axe.min.js`. Ajuste esse caminho no script se a instalação for diferente.
+
+```sh
+node scripts/test-ritual.mjs
+```
+
+Firefox usa WebDriver BiDi nativo e o helper em `scripts/lib/firefox-bidi.mjs`; iniciar um perfil de teste separado em porta9227 antes de `node scripts/test-ritual-firefox.mjs`. Essas ferramentas não são requisitos para visitar ou publicar a página estática.
+
+## Preservação
+
+Branch: `reconstruction/arte-do-ritual`. Nenhum commit, merge, push ou deploy foi realizado. As modificações locais anteriores em `preview/` e nas imagens hero-ambiente permanecem preservadas. Geradores antigos estão em `backup/legacy-tools/`, runtime antigo em `backup/legacy-runtime/` e o estado anterior à reconstrução em `backup/ritual-preflight/`. Apenas a arquitetura nova é carregada pelo HTML entregue.
+
+Os plugins originais Taste Frontend, Impeccable UI e Emil Design Engineering foram lidos e aplicados. O Firecrawl estava sem créditos; a pesquisa pública continuou no navegador. Direção, exceções dos detectores, fontes e limitações estão documentadas. O ZIP exclui Git, plugins e versões históricas para manter apenas a entrega utilizável; esses arquivos seguem no repositório.
+
+Desenvolvido por [Murilo Gabriel](https://murilogabriel.com.br).

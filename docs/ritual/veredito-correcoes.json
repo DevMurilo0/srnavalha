@@ -1,0 +1,55 @@
+[
+  {
+    "width": 320,
+    "title": "A arte do ritual.",
+    "titleClipped": false,
+    "heroCopy": "Um corte. Uma conversa. Um tempo só seu.",
+    "categoryAfterName": true,
+    "productCategoryAfterName": true
+  },
+  {
+    "width": 390,
+    "title": "A arte do ritual.",
+    "titleClipped": false,
+    "heroCopy": "Um corte. Uma conversa. Um tempo só seu.",
+    "categoryAfterName": true,
+    "productCategoryAfterName": true
+  },
+  {
+    "width": 390,
+    "mapReady": "map-frame is-ready"
+  },
+  {
+    "width": 1440,
+    "title": "A arte do ritual.",
+    "titleClipped": false,
+    "heroCopy": "Um corte. Uma conversa. Um tempo só seu.",
+    "categoryAfterName": true,
+    "productCategoryAfterName": true
+  },
+  {
+    "width": 1440,
+    "mapReady": "map-frame is-ready"
+  },
+  {
+    "name": "Pausa preserva layout e posição de leitura",
+    "pass": true,
+    "before": {
+      "height": 1125,
+      "y": 3894,
+      "team": 0.015625
+    },
+    "after": {
+      "height": 1125,
+      "y": 3894,
+      "team": 0.015625
+    }
+  },
+  {
+    "name": "Mapa indisponível: rota e alternativa explícita",
+    "class": "map-frame is-ready",
+    "manualRecovery": true,
+    "pass": true,
+    "text": "Abrir mapa e traçar rota\nNão consigo ver o mapa\n\nAbra a localização no Google Maps para traçar sua rota.\n\nAbrir localização"
+  }
+]

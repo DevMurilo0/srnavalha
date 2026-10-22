@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-22T20:00:09.808Z",
+  "checks": [
+    {
+      "name": "Imagens bloqueadas: abertura termina e agenda permanece",
+      "pass": true
+    },
+    {
+      "name": "Falha da foto não mantém imagem de outro serviço",
+      "pass": true
+    },
+    {
+      "name": "Módulo bloqueado: HTML e catálogo permanecem",
+      "pass": true
+    },
+    {
+      "name": "Trocas repetidas mantêm um retrato no palco",
+      "pass": true,
+      "detail": {
+        "heapBefore": 855032,
+        "heapAfter": 2279220,
+        "nodesBefore": 2317,
+        "nodesAfter": 2345
+      }
+    },
+    {
+      "name": "Vídeo pausa fora da viewport",
+      "pass": true
+    },
+    {
+      "name": "Pausa global também pausa vídeo",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-22T20:01:23.199Z",
+  "checks": [
+    {
+      "name": "ZIP extraído abre via servidor estático",
+      "pass": true
+    },
+    {
+      "name": "Fontes e fotografias locais carregadas",
+      "pass": true
+    },
+    {
+      "name": "Dados comerciais incluídos",
+      "pass": true
+    },
+    {
+      "name": "Módulos interativos independentes do repositório",
+      "pass": true
+    },
+    {
+      "name": "Agenda real e crédito preservados",
+      "pass": true
+    },
+    {
+      "name": "Console e recursos locais",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "missing": []
+      }
+    }
+  ]
+}

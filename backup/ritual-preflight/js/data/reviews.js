@@ -1,0 +1,33 @@
+export default {
+  "checkedOn": "2026-10-15",
+  "placeUrl": "https://www.google.com/maps/place/?q=place_id:ChIJU15canBJqgcRARZqMshC8cA&hl=pt-BR",
+  "items": [
+    {
+      "author": "Fernanda Santos",
+      "text": "Excelente! Todos os funcionários são muito profissionais e capacitados desde a recepção ao serviço prestado com excelência…",
+      "period": "Trecho · 6 meses atrás",
+      "url": "https://www.google.com/maps/contrib/114895505051989083139/reviews?hl=pt-BR"
+    },
+    {
+      "author": "João Neto",
+      "text": "Atendimento excepcional! A equipe é super atenciosa e prestativa. O atendimento faz toda a diferença aqui. Superaram as expectativas!",
+      "period": "Editado 5 meses atrás",
+      "url": "https://www.google.com/maps/contrib/118341742729193053160/reviews?hl=pt-BR"
+    },
+    {
+      "author": "Luís Gustavo Coelho",
+      "text": "Servico de qualidade e bom atendimento.",
+      "period": "4 meses atrás",
+      "url": "https://www.google.com/maps/contrib/111783008765039420465/reviews?hl=pt-BR"
+    },
+    {
+      "author": "Lucas Gabriel",
+      "text": "O atendimento foi top de linha e os cabeleireiros são muito profissionais",
+      "period": "3 meses atrás",
+      "url": "https://www.google.com/maps/contrib/108814860750749521795/reviews?hl=pt-BR"
+    }
+  ],
+  "rating": 5,
+  "count": 467,
+  "ratingCheckedOn": "2026-10-17"
+};

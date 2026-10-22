@@ -1,0 +1,7 @@
+{
+  "zipIntegrity": true,
+  "extractedOutsideRepository": true,
+  "browserExit": 0,
+  "output": "[\n  {\n    \"name\": \"ZIP extraído abre via servidor estático\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"Fontes e fotografias locais carregadas\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"Dados comerciais incluídos\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"Módulos interativos independentes do repositório\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"Agenda real e crédito preservados\",\n    \"pass\": true\n  },\n  {\n    \"name\": \"Console e recursos locais\",\n    \"pass\": true,\n    \"detail\": {\n      \"errors\": [],\n      \"missing\": []\n    }\n  }\n]\n",
+  "error": ""
+}

@@ -1,0 +1,346 @@
+{
+  "services": [
+    {
+      "name": "ACABAMENTO COM NAVALHA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "ADICIONAL BARBA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "ALISAMENTO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "ASSINATURA BARBA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "ASSINATURA CORTE",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "ASSINATURA CORTE&BARBA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "BARBA PIGMENTADA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "BARBA PREMIUM",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "BARBA SIMPLES",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "BARBOTERAPIA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CAMUFLAGEM BARBA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CAMUFLAGEM CAPILAR",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "COMB. CORTE+BARBOTERAPIA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "COMB.CORT+BARB.SIMPLES",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CORTE ATIPICO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CORTE EXCLUSIVO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CORTE INFANTIL",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CORTEE",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "CRISTALISAÇÃO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "DEPILACAO NARIS",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "DEPILACAO ORELHA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "HIDRATACAO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "LAVAGEM CAPILAR",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "LIMPEZA DE PELE",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "LUZES",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "Mascara Black",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "MASSAGEM DESPORTIVA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "MASSAGEM RELAXANTE",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "PIGMENTACAO CAPILAR",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "PLATINADO",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "PRIMEIRO CORTE",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "Remoção de Cravos",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SELAGEM (G)",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SELAGEM (GG)",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SELAGEM (M)",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SELAGEM (P)",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SELGEM (M)",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SOBRANCELHA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "SOBRANCELHA CERA",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "sobrancelha+lavagem",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "sobranselha+hidratação",
+      "found": true,
+      "priceFound": true
+    },
+    {
+      "name": "VENTOSATERAPIA 1HR",
+      "found": true,
+      "priceFound": true
+    }
+  ],
+  "products": [
+    {
+      "name": "Balm para barba",
+      "price": "R$ 40,00"
+    },
+    {
+      "name": "Body splash",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Condicionador icefresh",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Leave-in",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Loção pos barba",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Óleo para barba",
+      "price": "R$ 40,00"
+    },
+    {
+      "name": "Pomada fox premium",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada orange",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada pó",
+      "price": "R$ 40,00"
+    },
+    {
+      "name": "Pomada queratina",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada teia",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada toq seco",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada uv",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Pomada coffee",
+      "price": "R$ 35,00"
+    },
+    {
+      "name": "Serum pos barba",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Shampoo 4em1",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Shampoo anticaspa",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Shampoo escurecedor dom pelo",
+      "price": "R$ 55,00"
+    },
+    {
+      "name": "Shampoo ice",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Shampoo matizador",
+      "price": "R$ 50,00"
+    },
+    {
+      "name": "Shampoo para barba",
+      "price": "R$ 40,00"
+    },
+    {
+      "name": "Tônico de crescimento",
+      "price": "R$ 90,00"
+    }
+  ],
+  "team": [
+    {
+      "name": "Damião",
+      "confirmed": true,
+      "photo": {
+        "alt": "DAMIÃO",
+        "src": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png"
+      }
+    },
+    {
+      "name": "Eduardo",
+      "confirmed": true,
+      "photo": {
+        "alt": "EDUARDO",
+        "src": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png"
+      }
+    },
+    {
+      "name": "Kauã",
+      "confirmed": true,
+      "photo": {
+        "alt": "KAUÃ",
+        "src": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png"
+      }
+    },
+    {
+      "name": "Rafael",
+      "confirmed": true,
+      "photo": {
+        "alt": "RAFAEL",
+        "src": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png"
+      }
+    },
+    {
+      "name": "Yan",
+      "confirmed": true,
+      "photo": {
+        "alt": "YAN",
+        "src": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png"
+      }
+    }
+  ]
+}

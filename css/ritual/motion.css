@@ -1,0 +1,18 @@
+/* Motion never owns persistent visibility. WAAPI cancels back to these natural states. */
+.menu[open] nav{animation:menu-open 240ms var(--ease)}
+@keyframes menu-open{from{opacity:.2;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+.review-track.is-moving{animation:reputation-travel 58s linear infinite}
+@keyframes reputation-travel{to{transform:translateX(-50%)}}
+.review-track.is-paused,.review-viewport:hover .review-track,.review-viewport:focus-within .review-track{animation-play-state:paused}
+.motion-paused .review-track{animation-play-state:paused!important}
+.opening-mark{position:fixed;inset:0;z-index:80;display:grid;place-content:center;background:var(--ivory);pointer-events:none;animation:opening-failsafe .01s 2.8s forwards}
+.opening-mark img{width:180px;height:116px;object-fit:contain;background:#231f20}
+.opening-frame{position:absolute;inset:14% 30%;border:1px solid var(--copper);pointer-events:none}
+@keyframes opening-failsafe{to{visibility:hidden;opacity:0}}
+.continuity-photo{position:fixed;z-index:100;object-fit:cover;pointer-events:none;transform-origin:top left}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.opening-mark{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}.hero-room,.hero-facade,.house-word{transform:none!important}.review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.review{width:auto;min-height:260px}.review-group[aria-hidden=true]{display:none}.continuity-photo{display:none}}
+@media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}.review{min-height:0}.review blockquote{margin-bottom:20px}}
+html:not(.enhanced) .review-viewport{overflow:visible}html:not(.enhanced) .review-track{display:block;width:auto}html:not(.enhanced) .review-group{display:grid;grid-template-columns:repeat(2,1fr);width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0}html:not(.enhanced) .review{width:auto}html:not(.enhanced) .mirror-choice{cursor:default}html:not(.enhanced) .mirror-choice:not([aria-pressed=true]){display:none}
+@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}}
+html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{animation-play-state:paused!important;transition:none!important}
+html.motion-paused .menu[open] nav{animation:none!important}

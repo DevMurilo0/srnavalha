@@ -1,0 +1,350 @@
+{
+  "date": "2026-10-22",
+  "checks": [
+    {
+      "kind": "service",
+      "id": "acabamento-com-navalha",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "adicional-barba",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "alisamento",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "assinatura-barba",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "assinatura-corte",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "assinatura-corte-barba",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "barba-pigmentada",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "barba-premium",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "barba-simples",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "barboterapia",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "camuflagem-barba",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "camuflagem-capilar",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "comb-corte-barboterapia",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "comb-cort-barb-simples",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "corte-atipico",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "corte-exclusivo",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "corte-infantil",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "cortee",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "cristalisacao",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "depilacao-naris",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "depilacao-orelha",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "hidratacao",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "lavagem-capilar",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "limpeza-de-pele",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "luzes",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "mascara-black",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "massagem-desportiva",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "massagem-relaxante",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "pigmentacao-capilar",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "platinado",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "primeiro-corte",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "remocao-de-cravos",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "selagem-g",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "selagem-gg",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "selagem-m",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "selagem-p",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "selgem-m",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "sobrancelha",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "sobrancelha-cera",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "sobrancelha-lavagem",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "sobranselha-hidratacao",
+      "pass": true
+    },
+    {
+      "kind": "service",
+      "id": "ventosaterapia-1hr",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "balm-para-barba",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "body-splash",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "condicionador-icefresh",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "leave-in",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "locao-pos-barba",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "oleo-para-barba",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-fox-premium",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-orange",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-po",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-queratina",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-teia",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-toq-seco",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomada-uv",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "pomda-coffee",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "serum-pos-barba",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-4em1",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-anticaspa",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-escurecedor-dom-pelo",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-ice",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-matizador",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "shampoo-para-barba",
+      "pass": true
+    },
+    {
+      "kind": "product",
+      "id": "tonico-de-crescimento",
+      "pass": true
+    },
+    {
+      "kind": "professional",
+      "id": "damiao",
+      "pass": true
+    },
+    {
+      "kind": "professional",
+      "id": "eduardo",
+      "pass": true
+    },
+    {
+      "kind": "professional",
+      "id": "kaua",
+      "pass": true
+    },
+    {
+      "kind": "professional",
+      "id": "rafael",
+      "pass": true
+    },
+    {
+      "kind": "professional",
+      "id": "yan",
+      "pass": true
+    }
+  ]
+}
