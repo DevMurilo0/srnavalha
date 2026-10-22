@@ -1,4 +1,4 @@
-import {$,$,startMotion,isPaused,setPaused} from './core.js';
+import {$,$$,startMotion,isPaused,setPaused} from './core.js';
 import {initAtelier} from './atelier.js';
 import {initMotion,openRitual} from './motion.js';import {initServices} from './services.js';import {initTeam} from './team.js';import {initProducts} from './products.js';import {initGallery} from './gallery.js';import {initMap} from './map.js';
 // Enhance independently: one unavailable component must not block the booking links.
