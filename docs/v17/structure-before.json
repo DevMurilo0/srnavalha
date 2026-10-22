@@ -1,0 +1,68 @@
+{
+  "bodyChildren": [
+    [
+      "A",
+      "skip",
+      ""
+    ],
+    [
+      "HEADER",
+      "site-header",
+      ""
+    ],
+    [
+      "MAIN",
+      "",
+      "conteudo"
+    ],
+    [
+      "FOOTER",
+      "footer",
+      "contato"
+    ],
+    [
+      "DIALOG",
+      "lightbox",
+      ""
+    ],
+    [
+      "NOSCRIPT",
+      "",
+      ""
+    ]
+  ],
+  "sections": [
+    {
+      "id": "inicio",
+      "chars": 3680
+    },
+    {
+      "id": "casa",
+      "chars": 2739
+    },
+    {
+      "id": "servicos",
+      "chars": 41194
+    },
+    {
+      "id": "equipe",
+      "chars": 3759
+    },
+    {
+      "id": "trabalhos",
+      "chars": 6525
+    },
+    {
+      "id": "produtos",
+      "chars": 19452
+    },
+    {
+      "id": "avaliacoes",
+      "chars": 6290
+    },
+    {
+      "id": "localizacao",
+      "chars": 6014
+    }
+  ]
+}

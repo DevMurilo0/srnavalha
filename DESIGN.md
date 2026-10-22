@@ -1,6 +1,6 @@
 ---
 name: Sr. Navalha — A arte do ritual
-description: Fotografias reais, espelhos retangulares e consulta editorial em marfim, carvão quente e cobre
+description: Fotografia documental, gravura e enquadramentos em marfim, carvão quente e cobre
 colors:
   ivory: "#f1eae0"
   ink: "#171615"
@@ -12,22 +12,19 @@ colors:
   light-muted: "#c7b9ab"
 typography:
   display:
-    fontFamily: "Bodoni, Georgia, serif"
-    fontSize: "clamp(76px,7.8vw,112px)"
-    fontWeight: 500
-    lineHeight: 1.12
-    letterSpacing: "-0.045em"
+    fontFamily: "Sora, Manrope, Arial, sans-serif"
+    fontSize: "clamp(42px,4.85vw,77px)"
+    fontWeight: 650
+    lineHeight: 1.08
+    letterSpacing: "-0.063em"
   headline:
-    fontFamily: "Bodoni, Georgia, serif"
+    fontFamily: "Sora, Manrope, Arial, sans-serif"
     fontSize: "clamp(42px,5.6vw,80px)"
     fontWeight: 500
     lineHeight: 1.03
     letterSpacing: "-0.04em"
-  emphasis:
-    fontFamily: "Bodoni, Georgia, serif"
-    fontWeight: 500
   title:
-    fontFamily: "Bodoni, Georgia, serif"
+    fontFamily: "Sora, Manrope, Arial, sans-serif"
     fontSize: "clamp(28px,3.3vw,44px)"
     fontWeight: 500
     lineHeight: 1.15
@@ -57,7 +54,7 @@ components:
     backgroundColor: "{colors.ivory}"
     textColor: "{colors.ink}"
     rounded: "{rounded.square}"
-    padding: "17px 24px"
+    height: "80px"
   button-footer-hover:
     backgroundColor: "{colors.copper}"
   filter:
@@ -68,11 +65,15 @@ components:
   filter-selected:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.ivory}"
+  album-mode:
+    textColor: "{colors.ink}"
+    rounded: "{rounded.square}"
+    padding: "10px 17px"
   review:
     backgroundColor: "{colors.tobacco}"
     textColor: "{colors.ivory}"
     padding: "32px"
-    width: "360px"
+    width: "clamp(270px,30vw,365px)"
 ---
 
 # Design System: Sr. Navalha — A arte do ritual
@@ -81,122 +82,147 @@ components:
 
 **Creative North Star: "A arte do ritual"**
 
-A arte do ritual toma os espelhos retangulares, as perspectivas do salão e a luz linear da Sr. Navalha como matéria visual. Fotografias documentais em tamanhos desiguais, molduras finas e alternância de superfícies claras e escuras dão presença ao estabelecimento. A marca original permanece uma imagem própria; a assinatura tipográfica do rodapé é um elemento complementar.
+Uma oficina de enquadramentos: gravura, fotografia e nomes participam da composição, do primeiro traço à assinatura final. Os espelhos, o acabamento de madeira e os instrumentos da Sr. Navalha dão origem a esquadrias, filetes, lombadas e estudos vetoriais próprios. Fotografias documentais em tamanhos desiguais apresentam o estabelecimento e seus trabalhos.
 
-Bodoni Moda desenha os títulos e Manrope sustenta a consulta. A assimetria deixa espaço para legenda, preço, duração e convite. O movimento acrescenta reenquadramento e continuidade ao conteúdo já visível; o fluxo de leitura e os destinos oficiais existem no HTML estático.
+Sora dá presença aos títulos e Manrope sustenta a consulta. Superfícies minerais claras alternam com carvão e tabaco; cobre e madeira completam a materialidade. Movimento acrescenta reenquadramento, construção de traços e continuidade espacial ao conteúdo que permanece acessível em seu estado natural.
 
 **Key Characteristics:**
 
-- Fotografias reais em enquadramentos retangulares desiguais.
-- Marfim e carvão quente como superfícies; tabaco, madeira e cobre como matéria e acabamento.
-- Bodoni Moda normal e itálica no peso 500; Manrope local variável para consulta.
-- Rolagem nativa, melhoria progressiva, pausa explícita e movimento reduzido.
+- Fotografias oficiais, marca original e enquadramentos de proporções desiguais.
+- Marfim e carvão quente como superfícies; madeira e cobre como acabamento contextual.
+- Sora e Manrope locais, com composição tipográfica compacta e títulos expressivos.
+- Gravuras originais integradas a molduras, lombada e sinalização.
+- Rolagem nativa, transições canceláveis e melhoria progressiva.
 
-Sistema extraído dos arquivos ativos `css/ritual/`, `index.html` e `js/ritual/`. A fonte canônica de geração é `scripts/render-site.mjs`, com dados em `js/data/`; `templates/ritual/` e `index.html` são entregas prontas. Este documento registra o mundo reconstruído e substitui a descrição V9. A revisão final dos cinco ajustes recebeu disposition `ship`, todos `resolved`, em `docs/ritual/REVISAO.md`; esse veredito é limitado ao lote revisado. As evidências de verificação estão em `docs/ritual/testes-chromium.json` e `docs/ritual/testes-firefox.json`; não são tokens nem regras visuais. Direção e seeds: `docs/ritual/DIRECAO.md` e `docs/ritual/SEED.txt`; Taste uneven-photographs (613466186), Impeccable seed:7e0b8d6a3efff99d. As seeds registram a exploração; os valores normativos acima vêm do código.
+Extraído do código ativo V17 em `css/ritual/`, `js/ritual/` e `index.html`; amostragem de estilos computados em Chromium a 1440px. A direção de superfície está em `.impeccable/surfaces/index.md`. A fonte canônica do HTML é `templates/v17/`, montada opcionalmente por `scripts/render-site.mjs`. O HTML entregue funciona diretamente em Live Server. Resultados de testes e vereditos pertencem aos relatórios em `docs/v17/`, sem herdar a aprovação de versões anteriores.
 
 ## Colors
 
-A paleta combina papel mineral quente, profundidade de tabaco e acabamentos de madeira e cobre.
+A paleta preserva os tons quentes observados no acervo real. Os valores normativos estão no frontmatter e em `css/ritual/tokens.css`.
 
 ### Primary
 
-- **Madeira — wood:** ênfase itálica em superfícies claras, foco e resposta do botão principal.
-- **Cobre — copper:** molduras, acabamento, estrelas e ênfase sobre superfícies escuras.
+- **Madeira — wood:** ênfase de títulos sobre superfícies claras, foco e resposta das ações.
+- **Cobre — copper:** gravuras, filetes, indicadores e ênfase em superfícies escuras.
 
 ### Neutral
 
-- **Marfim — ivory:** fundo principal e texto sobre capítulos escuros.
-- **Carvão quente — ink:** texto, ações principais, casa, avaliações e visualizador.
+- **Marfim — ivory:** fundo principal e texto em capítulos escuros.
+- **Carvão quente — ink:** texto, ações principais, casa, reputação e visualizador.
 - **Tabaco — tobacco:** equipe, rodapé, moldura do espelho e depoimentos.
-- **Pedra — stone:** seção de produtos, planos e fundo de imagens durante carregamento.
-- **Texto suave — muted:** legendas e informação secundária sobre fundos claros.
-- **Texto claro suave — light-muted:** informação secundária sobre fundos escuros.
+- **Pedra — stone:** capítulo de produtos e fundo de imagens durante carregamento.
+- **Texto suave — muted:** informação secundária em superfícies claras.
+- **Texto claro suave — light-muted:** informação secundária em superfícies escuras.
 
-**The Surface Contrast Rule.** Texto principal usa carvão sobre marfim ou marfim sobre carvão/tabaco; madeira e cobre acompanham o contexto de superfície.
+**The Surface Contrast Rule.** Texto principal usa carvão sobre marfim ou marfim sobre carvão/tabaco; madeira e cobre acompanham o contexto da superfície.
 
 ## Typography
 
-**Display Font:** Bodoni Moda, declarada no CSS como `Bodoni`, com Georgia e serif como fallback. Arquivos locais normal e itálico no peso 500.
+**Display Font:** Sora local variável (100–800), seguida de Manrope, Arial e sans-serif. A versão anterior da documentação citava Bodoni; essa família não participa do CSS ativo V17.
 
-**Body Font:** Manrope local variável (200–800), com Arial e sans-serif como fallback. O corpo usa peso normal; ações usam 600 e nomes selecionáveis 500.
+**Body Font:** Manrope local variável (200–800), seguida de Arial e sans-serif. Ambas mantêm suas licenças OFL em `assets/fonts/`.
 
-O contraste vem dos traços editoriais da Bodoni e da leitura direta da Manrope. O itálico continua na mesma família do título.
+A hierarquia combina títulos geométricos de espaçamento compacto com textos funcionais regulares. Ênfase no hero e no rodapé usa variação de peso da Sora. A marca original continua como imagem própria.
 
 ### Hierarchy
 
-- **Display:** título do hero; escala desktop no frontmatter. Em até 1000px usa `clamp(72px,10vw,100px)`; em até 700px usa `clamp(38px,12.4vw,88px)`, entrelinha 1.08 e alinhamento à esquerda; até 350px usa 40px.
-- **Headline:** títulos de seção. Em até 700px usa `clamp(40px,10.4vw,64px)`; casa e visita têm ajustes próprios no CSS.
-- **Title:** títulos do catálogo e FAQ; títulos do espelho e produto têm escalas próprias, respectivamente `clamp(27px,3vw,43px)` e `clamp(36px,5vw,70px)` no desktop.
-- **Body:** parágrafos na escala do frontmatter; textos auxiliares e descrições variam entre 13–17px conforme o componente.
-- **Label:** legendas, fonte da informação e navegação usam 13px. Preços e durações usam algarismos tabulares quando declarado pelo componente.
+- **Display:** título central do hero na escala do frontmatter. Até 1000px usa `clamp(38px,5.6vw,61px)`; até 700px, `clamp(35px,9.65vw,55px)`, entrelinha 1.12; até 350px, 34px.
+- **Headline:** títulos gerais na escala do frontmatter. A casa usa `clamp(50px,6vw,86px)`; o convite do rodapé usa `clamp(48px,5.8vw,92px)`, peso 600 e entrelinha 1.03. As composições têm ajustes próprios no celular.
+- **Title:** títulos de catálogo e FAQ na escala do frontmatter; serviços e produtos têm escalas específicas conforme a extensão dos nomes.
+- **Body:** parágrafos na escala do frontmatter. Descrições e textos auxiliares usam variações de 13–18px conforme função.
+- **Label:** navegação, legendas e fontes usam a escala do frontmatter. Preços e durações usam algarismos tabulares quando declarado.
+
+Títulos animados preservam nome acessível; as palavras visuais ficam ocultas às tecnologias assistivas. As variantes de entrada alternam recorte, deslocamento lateral e perspectiva conforme o capítulo.
 
 ## Layout
 
-O contêiner comum tem largura máxima de 1400px e desconta duas calhas; o cabeçalho chega a 1560px e o hero a 1260px. O espaçamento de seção e a calha são fluidos, com valores normativos no frontmatter. Até 700px as seções usam 78px e cabeçalhos de seção deixam a composição horizontal.
+O contêiner comum tem largura máxima de 1400px e desconta duas calhas; cabeçalho chega a 1560px e hero a 1320px. Calha e espaçamento de seção são fluidos. Até 700px, seções comuns usam 78px entre capítulos e os cabeçalhos passam ao fluxo vertical.
 
-O hero combina três colunas desiguais; no celular, título, texto e agenda precedem duas fotos. A galeria usa 12 colunas no desktop e seis até 600px, mantendo larguras e deslocamentos distintos. Equipe e Espelho Vivo articulam lista, foto e informação em vez de repetirem cartões iguais. Produtos usam uma seleção editorial e catálogo em linhas; a lista passa a uma coluna até 800px.
+O hero tem centro tipográfico e três fotografias desiguais: fachada, ambiente e detalhe. No telefone, fachada e salão precedem o convite com detalhe lateral. Espelho Vivo combina seleção, fotografia e informação. O Painel de Profissionais usa nomes, retrato e convite em três colunas; abaixo de 1100px o convite ocupa outra linha. Produtos usam imagem e informação, seguidas de catálogo em linhas; a lista passa a uma coluna até 800px.
 
-A navegação móvel substitui a navegação horizontal até 1000px. O cabeçalho passa de 100px para 84px até 700px. Os pontos de adaptação observados são 1600, 1100, 1000, 800, 700, 600 e 350px; 1001px também delimita a cena desktop da casa. A casa usa uma curta cena sticky desktop com altura estável quando o movimento é pausado; no celular segue o fluxo normal.
+O Álbum de Estilos alterna uma superfície de folhas sobrepostas com a parede editorial de 12 colunas (seis no celular). Mudanças de composição usam FLIP; o estado sem JavaScript preserva a parede com links nativos. Fotografias pequenas mantêm limites particulares de tamanho. A casa tem cena sticky apenas no desktop com movimento permitido; o fluxo móvel permanece natural.
+
+A navegação móvel aparece até 1000px. O cabeçalho usa 106px no desktop e 84px até 700px. Outros pontos de adaptação observados são 1600, 1200, 1100, 900, 800, 700, 600, 500, 375 e 350px, conforme o componente.
 
 ## Elevation & Depth
 
-A profundidade vem principalmente de superfícies alternadas, enquadramentos e molduras finas. Não há sombra nos cartões de depoimento nem nas fotos. O menu móvel usa a sombra observada `0 15px 40px #17161526` para separar a navegação do conteúdo.
+A profundidade vem de planos cromáticos, recortes, sobreposições e filetes. Fotografias do hero têm elevação difusa no hover; folhas do álbum usam sombra suave que reforça sua sobreposição física. Depoimentos permanecem superfícies planas. Não há sombra dura deslocada.
 
-Movimento usa easing de entrada `cubic-bezier(.22,1,.36,1)` e espacial `cubic-bezier(.76,0,.24,1)`. O Reflexo troca imagens decodificadas por máscara lateral (650ms); produto usa translação e escala moderadas (420ms). O Corte acompanha o progresso de rolagem nativa da casa. A Continuidade usa FLIP na galeria (650ms na entrada, 280ms na saída por clique). Entrada e scroll afetam camadas distintas.
+### Shadow Vocabulary
 
-**The Natural State Rule.** O CSS natural mantém conteúdo visível; cancelar animações retorna a ele. Movimento reduzido e pausa cancelam WAAPI, removem abertura e preservam acesso ao conteúdo. A esteira torna-se grade com movimento reduzido ou sem JavaScript.
+- **Menu móvel** (`0 15px 40px #17161526`): separa o painel da página.
+- **Folha fotográfica** (`0 12px 25px -18px #30262066`): distingue as folhas sobrepostas.
+- **Fotografia em hover** (`0 24px 50px -33px #171615b0`): resposta localizada no hero.
+
+Movimento usa easing de entrada `cubic-bezier(.22,1,.36,1)` e espacial `cubic-bezier(.76,0,.24,1)`. O núcleo WAAPI registra animações e cancela efeitos de componentes ao interromper estados. Trocas fotográficas aguardam decodificação; a imagem anterior permanece sob a máscara e o último pedido vence. Um agendador de quadro coordena scroll e ponteiro, acionado por eventos.
+
+**The Natural State Rule.** O CSS natural mantém conteúdo visível. Cancelamento, movimento reduzido e falhas de dependência preservam leitura e destinos reais; a apresentação não depende de uma classe de entrada oculta.
 
 ## Shapes
 
-Botões, filtros, fotografias e superfícies são retangulares, sem arredondamento decorativo. Molduras finas e bordas de uma linha acompanham os espelhos reais. Fotografias preservam proporções e usam recorte `object-fit:cover`; o visualizador usa `contain` para apresentar a imagem inteira. Ícones são SVGs de traço fino.
+Ações, filtros, imagens e superfícies são predominantemente retangulares. Cantos chanfrados, filetes duplos e estudos de ferramentas são vetores originais em `assets/decor/v17/`. A exceção circular pertence aos controles anterior/próximo do álbum e à geometria dos instrumentos. Molduras e bordas são parte da direção pedida pelo proprietário; não aplicar proibições genéricas que eliminem essa materialidade.
 
-**The Real Photograph Rule.** Usar o acervo documental correspondente ao conteúdo; ausência ou falha de imagem recebe informação textual explícita. A proveniência dos rasters está registrada em `docs/ritual/proveniencia-embutida.json` e no inventário, sem alteração dos pixels ao incorporar metadados.
+Gravuras não interceptam ponteiro nem escondem conteúdo essencial. Traços mantêm espessura consistente ao escalar. A construção animada de parte dos caminhos usa `pathLength`, sem exigir que a animação aconteça para revelar o desenho.
+
+**The Real Photograph Rule.** Usar o acervo oficial correspondente ao conteúdo, respeitando sua resolução. Ausência ou falha de imagem recebe informação explícita; ornamentos vetoriais não substituem logo, ambiente, profissionais ou embalagens.
 
 ## Components
 
 ### Buttons
 
-Ação retangular, texto Manrope (14px, peso 600), seta diagonal e distribuição entre extremidades. O botão comum tem altura mínima de 56px e escala de pressão .975; até 700px usa altura mínima de 54px e padding `16px 20px`. Hover de ponteiro fino usa madeira; no rodapé, o botão claro muda para cobre. O link de agenda do cabeçalho usa fundo transparente e borda inferior.
+Ação retangular, texto Manrope (14px, peso 600), seta SVG e distribuição entre extremidades. O botão comum tem altura mínima de 56px; até 700px, 54px. Ação principal usa carvão/marfim e resposta madeira. Fundo direcional e magnetismo moderado complementam o hover em ponteiro fino; foco recebe resposta equivalente. O CTA especial do rodapé usa superfície clara, altura mínima de 80px no desktop e seta em área própria.
 
-Foco global: contorno de madeira (2px), afastado 6px; contextos escuros específicos usam cobre. Links textuais têm sublinhado e alvo mínimo de 44px. Ícones acompanham hover com deslocamento curto quando aplicável.
+Foco global usa contorno de madeira (2px), afastado 6px; contextos escuros usam cobre. Pressão tem escala curta. Movimento reduzido retira o deslocamento. O agendamento permanece um link externo oficial.
 
 ### Chips
 
-Filtros retangulares com borda translúcida de madeira, seleção carvão/marfim e `aria-pressed`. O grupo se reorganiza em linhas; no celular cada filtro usa altura mínima de 40px. A seleção é explícita e o resultado possui texto de status.
+Filtros e seletores de modo são retangulares com filete contextual. Seleção usa carvão/marfim e `aria-pressed`. O grupo quebra linhas conforme espaço disponível. O catálogo informa o resultado em texto. O modo do álbum altera a composição completa.
 
 ### Cards / Containers
 
-Depoimentos usam tabaco sobre a seção carvão, largura e padding do frontmatter, altura mínima de 295px e citação Bodoni (25px, entrelinha 1.4). Até 600px usam largura de 295px, padding de 26px e citação de 24px. A esteira tem ciclo linear de 58s e pausa por controle, foco, hover, saída da viewport e aba oculta; o clone é oculto à tecnologia assistiva.
+Depoimentos são superfícies tabaco com citação Sora e fonte individual. O módulo ativo usa largura do frontmatter e citação `clamp(17px,1.65vw,22px)`; no telefone, 18px. A esteira desliza da direita para a esquerda em ciclo linear de 44s e pausa por botão, foco, hover, saída da viewport ou aba oculta. Sem JavaScript ou com movimento reduzido, os depoimentos ficam estáticos; o clone é inerte e oculto à tecnologia assistiva.
 
 ### Inputs / Fields
 
-A categoria de produtos usa `select` nativo transparente, borda inferior de texto suave, padding `12px 26px 12px 8px` e largura máxima de 220px. Rótulo permanece visível. Não existe formulário de reserva local.
+Categoria de produtos usa `select` nativo transparente, borda inferior, rótulo persistente e largura máxima de 220px. Não há formulário local de reserva nem checkout.
 
 ### Navigation
 
-Cabeçalho claro com marca original; links Manrope e linha inferior revelada no hover. Menu móvel usa `details` nativo, painel tabaco e links Bodoni; abre em 240ms, fecha ao escolher destino, clicar fora ou pressionar Escape, devolvendo foco ao acionador nesse último caso.
+Cabeçalho claro, marca original e links com linha revelada. O menu móvel usa `details` nativo e painel tabaco com Sora. Fecha ao escolher destino, clicar fora ou pressionar Escape; nesse último caso, devolve foco ao acionador. O rodapé reúne navegação, contatos, endereço e convite fotográfico; não repete o bloco de horários removido anteriormente.
 
-### Espelho Vivo, equipe e catálogo
+### Espelho Vivo e Painel de Profissionais
 
-O Espelho Vivo combina seletores tipográficos, moldura tabaco/cobre, fotografia e informações do serviço; categorias vêm depois do título. A equipe combina cinco nomes e um retrato persistente. Seleções mantêm estado acessível e aceitam teclado/toque; trocas aguardam decodificação e o último pedido vence. Linhas de serviço usam `details` nativo com preço, duração e condições; assinaturas ficam em agrupamento separado. Os números do catálogo são dados comerciais, não tokens visuais.
+O espelho coordena seleção, fotografia e dados reais do serviço. O painel da equipe coordena nome selecionado, índice, marcador vertical, retrato, moldura e destino de agenda. Hover em ponteiro fino, foco, clique e toque têm equivalentes funcionais; setas, Home e End percorrem profissionais. A legenda confirma a imagem carregada. Nenhuma biografia é inferida.
 
-### Galeria e mapa
+### Álbum de Estilos e visualizador
 
-Links nativos de fotografia abrem imagens sem JavaScript. Com melhoria progressiva, o diálogo ocupa a viewport, permite setas, Escape e swipe, e devolve foco ao link de origem. O mapa é um iframe externo real, com endereço e rota em texto; timer e tentativa de recarga tratam falhas detectáveis. O `details` “Não consigo ver o mapa” esconde a viewport e oferece rota mesmo diante de bloqueio silencioso de origem externa.
+Folhas sobrepostas e parede são dois estados do mesmo conjunto de fotografias. Seis miniaturas, anterior/próximo e ampliação permitem exploração; a navegação por teclado e swipe tem suporte. No modo de folhas, o primeiro toque seleciona a fotografia e a selecionada abre o visualizador. Este usa diálogo nativo com setas, Escape, swipe e devolução do foco. Sem JavaScript, os links abrem o arquivo real.
+
+### Abertura e encerramento
+
+Uma matriz escura gravada abre uma janela sobre a fotografia do salão e se expande para revelar o hero. Abertura é breve, sem porcentagem falsa nem espera de recurso; executa uma vez por sessão, possui timeout e aborta com interação, preferência reduzida ou aba oculta. Âncoras profundas entram diretamente no destino. O rodapé combina fotografia, chamada e grande assinatura tipográfica com resposta ao progresso da rolagem. Movimentos ambientais pausam fora de vista.
+
+### Localização
+
+Mapa externo real, endereço e rota em texto, com gravura de placa fora do iframe. Assistência nativa “Não consigo ver o mapa” oferece alternativa também diante de bloqueio silencioso. A decoração não intercepta a interação do mapa.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- Do preservar a marca original e fotografias reais, incluindo o fundo fotografado dos produtos.
-- Do manter texto, preços, durações, destinos e detalhes essenciais disponíveis sem JavaScript.
-- Do conservar foco perceptível e estados de seleção acessíveis.
-- Do respeitar prefers-reduced-motion inicial e dinâmico e a pausa global.
-- Do distinguir catálogo datado de disponibilidade e confirmação na plataforma oficial.
+- Do preservar a marca original, o acervo oficial e os limites das imagens pequenas.
+- Do integrar gravuras à moldura, lombada ou sinalização do componente.
+- Do manter texto, preços, durações, fontes e destinos essenciais no HTML estático.
+- Do conservar foco perceptível, seleção acessível e equivalentes de teclado e toque.
+- Do respeitar movimento reduzido inicial e dinâmico e a pausa específica dos depoimentos.
+- Do distinguir catálogo datado de disponibilidade no AppBarber ou no atendimento.
 
 ### Don't:
 
-- Don't fabricar fotografias, biografias ou resultados de tratamentos.
-- Don't substituir o logo original por uma composição tipográfica.
-- Don't depender da animação para tornar o conteúdo legível.
-- Don't transformar catálogos ou o mapa externo em promessa de estoque, agenda ou carregamento garantidos.
+- Don't fabricar fotografias, profissionais, biografias ou resultados de tratamentos.
+- Don't substituir o logo original pela assinatura tipográfica complementar.
+- Don't depender de uma animação concluída para tornar o conteúdo legível.
+- Don't repetir o mesmo movimento em todos os capítulos nem acumular loops de quadros independentes.
+- Don't transformar mapa, estoque ou catálogo em promessa de carregamento ou disponibilidade garantida.
+
+Inscrições ornamentais pequenas e eventual linguagem auxiliar redundante não constituem uma nova escala normativa. Este registro não canoniza defeitos de legibilidade ou de revisão e não atribui à V17 os resultados de testes da versão anterior.

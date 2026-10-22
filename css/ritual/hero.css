@@ -30,11 +30,11 @@
 .hero-room .photo-window{height:clamp(310px,48svh,470px);aspect-ratio:auto}
 .hero .photo-window{overflow:hidden;position:relative;isolation:isolate;background:var(--stone);outline:1px solid #bd946e75;outline-offset:5px;transition:box-shadow .55s var(--ease)}
 .hero .photo-window img{width:100%;height:100%;object-fit:cover;transition:transform .95s cubic-bezier(.19,1,.22,1),filter .85s}
-.hero figure figcaption{color:var(--muted);font:400 12px/1.5 var(--body);margin-top:11px}
+.hero figure figcaption{color:var(--muted);font:400 13px/1.5 var(--body);margin-top:11px}
 .hero-invitation{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:15px;padding:0;min-width:0}
 .hero-detail{width:min(65%,230px);margin:0 auto 1px;transform:rotate(4deg)}
 .hero-detail .photo-window{height:clamp(125px,20svh,190px);aspect-ratio:auto}
-.hero-detail figcaption{text-align:center;font-size:11px}
+.hero-detail figcaption{text-align:center;font-size:13px}
 .hero-invitation>p{font:400 clamp(15px,1.4vw,20px)/1.5 var(--body);margin:1px 0 0;letter-spacing:-.02em}
 .hero-invitation>.button{width:100%;min-height:58px;margin:0;justify-content:space-between}
 .hero-invitation>.text-link{align-self:flex-start;margin:0;font-size:12px}
@@ -76,13 +76,13 @@
  .hero-invitation{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,.48fr);gap:10px 17px;align-items:center;margin:2px 0 0}
  .hero-detail{display:block;grid-column:2;grid-row:1/4;width:100%;max-width:100%;margin:0;transform:rotate(2deg);align-self:center}
  .hero-detail .photo-window{height:clamp(125px,32vw,190px);aspect-ratio:1/1}
- .hero-detail figcaption{font-size:11px;line-height:1.3}
+ .hero-detail figcaption{font-size:13px;line-height:1.3}
  .hero-invitation>p{grid-column:1;grid-row:1;font-size:clamp(13px,3.5vw,16px);line-height:1.55;margin:0}
  .hero-invitation>.button{grid-column:1;grid-row:2;padding:12px 14px;min-height:50px;font-size:13px}
- .hero-invitation>.text-link{grid-column:1;grid-row:3;display:inline-flex;margin:0;font-size:11px;gap:7px}
+ .hero-invitation>.text-link{grid-column:1;grid-row:3;display:inline-flex;margin:0;font-size:13px;gap:7px}
  .hero-bottom{margin-top:14px;padding:12px 0 18px}
  .hero-bottom>a{font-size:12px}
- .hero-facade figcaption,.hero-room figcaption{font-size:11px}
+ .hero-facade figcaption,.hero-room figcaption{font-size:13px}
 }
 @media(max-width:350px){
  .hero-wordmark{width:207px}

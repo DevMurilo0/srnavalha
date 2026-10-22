@@ -1,0 +1,301 @@
+{
+ "files": 22,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "index.html",
+   "line": 54,
+   "match": "class=\"footer-eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 4,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 4,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 5,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 13,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 15,
+   "match": "text-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 28,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 29,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 34,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 38,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/footer-atelier.css",
+   "line": 47,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/header.css",
+   "line": 1,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "h-screen",
+   "file": "css/ritual/hero.css",
+   "line": 2,
+   "match": "height:100vh",
+   "message": "100vh jumps on mobile. Use 100svh / 100dvh."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/hero.css",
+   "line": 17,
+   "match": "drop-shadow(",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/hero.css",
+   "line": 28,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/hero.css",
+   "line": 48,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/motion.css",
+   "line": 18,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/ornaments.css",
+   "line": 14,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/ornaments.css",
+   "line": 32,
+   "match": "height:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/sections.css",
+   "line": 8,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/sections.css",
+   "line": 28,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "css/ritual/sections.css",
+   "line": 35,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/sections.css",
+   "line": 38,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/sections.css",
+   "line": 62,
+   "match": "text-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/style-album.css",
+   "line": 2,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 6,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 12,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 19,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 22,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "css/ritual/style-album.css",
+   "line": 24,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 24,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "css/ritual/style-album.css",
+   "line": 34,
+   "match": "border:1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/team-panel.css",
+   "line": 3,
+   "match": "border-top:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "css/ritual/team-panel.css",
+   "line": 6,
+   "match": "border-bottom:1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "default-font",
+   "file": "css/ritual/tokens.css",
+   "line": 1,
+   "match": "font-family:Sora",
+   "message": "A default typeface. Use the faces named by the drawn direction."
+  },
+  {
+   "level": "WARN",
+   "id": "numbering",
+   "file": "js/ritual/album.js",
+   "line": 11,
+   "match": "padStart(2,'0')",
+   "message": "Zero-padding in script. Fine for a clock, a date or a price; if it builds 01 / 02 / 03 labels, remove it."
+  },
+  {
+   "level": "WARN",
+   "id": "numbering",
+   "file": "js/ritual/team.js",
+   "line": 10,
+   "match": "padStart(2,'0')",
+   "message": "Zero-padding in script. Fine for a clock, a date or a price; if it builds 01 / 02 / 03 labels, remove it."
+  }
+ ]
+}

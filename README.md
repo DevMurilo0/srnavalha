@@ -1,71 +1,65 @@
-# Sr. Navalha — A arte do ritual
+# Sr. Navalha · V17
 
-Site estático reconstruído para a Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias oficiais, marca original e conteúdo comercial preservado.
+Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
 ## Abrir
 
-Abra esta pasta no VS Code e use **Open with Live Server** em `index.html`. Não precisa executar npm, instalar dependências ou gerar o site. Módulos JavaScript exigem HTTP; abrir por `file://` não equivale ao Live Server.
+Use **Open with Live Server** em `index.html`. Não precisa instalar dependências, rodar `npm run dev` ou gerar o site. Os módulos JavaScript precisam de HTTP; `file://` não substitui Live Server.
 
-Alternativas opcionais de desenvolvimento, na raiz:
+Alternativas opcionais:
 
 ```sh
-python3 -m http.server 8033
+python3 -m http.server 8047
 ```
 
 ou:
 
 ```sh
-node scripts/serve.mjs
+PORT=8047 node scripts/serve.mjs
 ```
 
-Acesse `http://127.0.0.1:8033/`. O ZIP em `entrega/sr-navalha-arte-do-ritual.zip` contém uma pasta pronta para extrair e abrir com Live Server, incluindo fontes locais e licenças, originais usados, documentação e capturas.
+Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
+
+## V17
+
+Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e variantes por seção; oito vetores originais; Painel de Profissionais coordenando retrato, nome e régua; Álbum de Estilos que reorganiza as seis fotos entre folhas e parede com FLIP. Espelho e produtos mantêm a fotografia anterior durante a troca. Rolagem nativa, estados interrompíveis e pausa dos efeitos fora de vista.
+
+O agendamento continua no AppBarber. Produtos consultam disponibilidade pelo WhatsApp. Não existem backend, checkout ou horários simulados.
 
 ## Editar
 
-- `scripts/render-site.mjs`: fonte canônica da estrutura. A geração **opcional** `node scripts/render-site.mjs` escreve `templates/ritual/*.html` e o `index.html` pronto.
-- `js/data/`: serviços, profissionais, produtos e avaliações com suas origens.
-- `css/ritual/tokens.css`: paleta, fontes, medidas e curvas. Os outros cinco módulos separam base, cabeçalho, hero, seções e movimento.
-- `js/ritual/`: núcleo WAAPI, orquestração, serviços, equipe, produtos, galeria e mapa.
-- `DESIGN.md`, `PRODUCT.md` e `docs/ritual/`: direção, arquitetura, pesquisa, motion, inventário e evidências.
+- `templates/v17/`: fonte canônica dos parciais HTML. `node scripts/render-site.mjs` monta opcionalmente o `index.html`, já entregue pronto.
+- `css/ritual/`: tokens, base, cabeçalho, hero, seções, rodapé, ornamentos, painel de equipe, álbum e motion; entrada única `css/ritual.css`.
+- `js/ritual/`: núcleo WAAPI, abertura, orquestração de cenas e interações de cada componente.
+- `js/data/`: conteúdo comercial e origens. Alterações de conteúdo devem ser refletidas também nos parciais estáticos correspondentes.
+- `assets/decor/v17/`: vetores originais; `assets/fonts/`: Sora e Manrope locais com licenças; `assets/originals/`: originais preservados.
+- `scripts/history/` e `templates/ritual/`: ferramentas/fontes históricas, sem participação no runtime ativo.
 
-O HTML já inclui todo o catálogo. Sem JavaScript, menu e detalhes nativos funcionam, fotografias têm links diretos, produtos abrem consulta e o agendamento segue para o AppBarber. O script acrescenta filtros, seleção fotográfica, lightbox e coreografia.
+## Acessibilidade e fallback
 
-## Interações
+Menu e expansão do catálogo usam elementos nativos. Sem JavaScript, fotografias e produtos mantêm links reais. O script acrescenta filtros, seleções, lightbox e coreografia. Movimento reduzido elimina a abertura e mantém os componentes funcionais com troca direta. A esteira possui pausa por botão, foco e hover; vídeo e movimentos decorativos pausam fora de vista e com aba oculta.
 
-Espelho Vivo com quatro cuidados e imagens correspondentes; catálogo filtrável com 42 serviços e três planos mensais distintos; cinco profissionais com retratos por foco/ponteiro/toque; 22 produtos com consulta pelo WhatsApp; seis fotos com expansão espacial, setas, Escape, swipe e retorno de foco; esteira contínua com pausa; mapa Google verdadeiro e alternativa de rota.
+## Documentação e testes
 
-Movimento reduzido funciona desde a abertura e ao mudar a preferência. Há pausa global, pausa da esteira por botão/foco/hover e pausa de efeitos/vídeo fora de vista ou com aba oculta. Não há scroll-jacking ou backend fictício.
+[Direção e motion V17](docs/DIRECAO_MOTION_V17.md), [relatório executado](docs/v17/TESTES.md), [antes/depois](capturas/v17/comparacao.html), [sistema visual](DESIGN.md) e [produto](PRODUCT.md).
 
-## Conteúdo e imagens
+Chromium: 46/46 verificações. Firefox: 24/24. Larguras 320, 375, 390, 768, 1024, 1366 e 1440 px. Capturas e dados intermediários em `capturas/v17/motion/` e `docs/v17/motion-evidence.json`. Limitações e alertas das ferramentas constam no relatório, sem equivaler testes automáticos a certificação.
 
-Serviços, produtos e equipe conferidos no AppBarber em 22/10/2026: 69 comparações em `docs/ritual/conteudo-verificado.json`. A ficha Google Maps exibiu nota 5,0 e 474 avaliações em 22/10/2026; a captura do cartão real está em `docs/ritual/mapa-diagnostico.png`. Os depoimentos mantêm seus links individuais. Horários mantêm a data da coleta anterior e convite à confirmação.
-
-A fachada, o salão e os instrumentos vêm do Reel colaborativo oficial de 08/10/2026. O acesso público atual ao Instagram foi parcial; não se certifica a ausência de reformas posteriores. Fotos respeitam a definição original, inclusive as de 290, 358 e 410px. Produtos sem foto oficial são identificados por texto. Não houve geração ou reconstrução de rostos, produtos ou espaços.
-
-`docs/ritual/IMAGENS.md` e `inventario-imagens.json` registram resolução real, bytes, origem, uso e variantes. Os originais permanecem em `assets/originals/`. A proveniência foi embutida em 98 WebPs sem alterar pixels decodificados.
-
-## Verificação de desenvolvimento
-
-O relatório real está em `docs/ritual/TESTES.md`; evidências brutas e capturas estão ao lado e em `capturas/ritual/`. Não há promessa de teste em telefone físico, Safari/iOS ou leitor de tela manual.
-
-Para repetir a validação comercial:
+Ferramentas de desenvolvimento opcionais: Node22+, Playwright Core e Axe. `PLAYWRIGHT_PACKAGE` aponta para um `package.json` onde Playwright Core está instalado; `CHROME_PATH` aponta para o executável Chromium; `AXE_PATH` aponta para `axe.min.js`. Os caminhos padrão dos scripts refletem o ambiente usado nesta entrega.
 
 ```sh
-node scripts/validate-content.mjs
+node scripts/test-v17.mjs
+node scripts/capture-motion-v17.mjs
 ```
 
-Testes Chromium usam Node22+, Playwright Core e Axe somente como ferramentas externas de desenvolvimento. A variável `PLAYWRIGHT_PACKAGE` aponta para um `package.json` no qual `playwright-core` está instalado; `CHROME_PATH` aponta para o Chromium. A suíte procura Axe em `/tmp/peralta-a11y/node_modules/axe-core/axe.min.js`. Ajuste esse caminho no script se a instalação for diferente.
+Firefox usa `scripts/lib/firefox-bidi.mjs`, com Firefox headless em `--remote-debugging-port 9237` e perfil isolado; `FIREFOX_PORT` permite outro porto.
 
 ```sh
-node scripts/test-ritual.mjs
+node scripts/test-v17-firefox.mjs
 ```
 
-Firefox usa WebDriver BiDi nativo e o helper em `scripts/lib/firefox-bidi.mjs`; iniciar um perfil de teste separado em porta9227 antes de `node scripts/test-ritual-firefox.mjs`. Essas ferramentas não são requisitos para visitar ou publicar a página estática.
+## Conteúdo
 
-## Preservação
-
-Branch: `reconstruction/arte-do-ritual`. Nenhum commit, merge, push ou deploy foi realizado. As modificações locais anteriores em `preview/` e nas imagens hero-ambiente permanecem preservadas. Geradores antigos estão em `backup/legacy-tools/`, runtime antigo em `backup/legacy-runtime/` e o estado anterior à reconstrução em `backup/ritual-preflight/`. Apenas a arquitetura nova é carregada pelo HTML entregue.
-
-Os plugins originais Taste Frontend, Impeccable UI e Emil Design Engineering foram lidos e aplicados. O Firecrawl estava sem créditos; a pesquisa pública continuou no navegador. Direção, exceções dos detectores, fontes e limitações estão documentadas. O ZIP exclui Git, plugins e versões históricas para manter apenas a entrega utilizável; esses arquivos seguem no repositório.
+A integridade foi comparada ao commit `554e5e2`: 42 serviços, planos, 22 produtos, cinco profissionais, quatro depoimentos, mapa, agendamento e 35 imagens do conteúdo principal. Os preços e números de avaliações continuam snapshots datados dos documentos de origem, não disponibilidade em tempo real. Inventário e fontes comerciais: `docs/ritual/IMAGENS.md`, `inventario-imagens.json` e documentos de coleta nessa pasta.
 
 Desenvolvido por [Murilo Gabriel](https://murilogabriel.com.br).

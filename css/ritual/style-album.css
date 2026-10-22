@@ -1,0 +1,40 @@
+/* Without JS, the existing asymmetric photographic wall remains the album. */
+.album-toolbar{display:none;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid #80583c55;padding-top:18px;margin-bottom:28px}
+.enhanced .album-toolbar{display:flex}
+.album-toolbar>p{font-size:13px;color:var(--muted)}
+.album-modes{display:flex;gap:8px;flex-wrap:wrap}
+.album-modes button{min-height:44px;padding:10px 17px;border:1px solid #80583c55;font-size:13px;position:relative;transition:background .2s,color .2s}
+.album-modes button[aria-pressed=true]{background:var(--ink);color:var(--ivory)}
+.album-sheets{position:relative}
+.album-navigation,.album-dock{display:none}
+.enhanced .album-navigation{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:20px}
+.enhanced .album-dock{display:flex;justify-content:center;gap:12px;margin-top:24px}
+.album-dock button{width:58px;height:64px;border:1px solid transparent;padding:4px;transition:border-color .2s,translate .3s var(--ease);position:relative}
+.album-dock button[aria-pressed=true]{border-color:var(--wood);translate:0 -5px}
+.album-dock img{width:100%;height:100%;object-fit:cover;filter:saturate(.8)}
+.album-caption{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:240px;text-align:center}
+.album-caption>span{font:500 13px var(--body);letter-spacing:.16em;color:var(--muted)}
+.album-caption>strong{font:500 20px/1.3 var(--display);letter-spacing:-.025em}
+.album-enlarge{margin-left:auto;font-size:13px}
+.album-navigation .icon-button{border:1px solid #80583c55;border-radius:50%;width:46px;height:46px;flex-shrink:0}
+.album-navigation .icon-button svg{width:20px;height:20px}
+.album-sheets.is-folio{height:580px;display:block;isolation:isolate;overflow:visible}
+.album-sheets.is-folio::before{content:'';position:absolute;inset:30px 7% 60px 9%;border:1px solid #80583c55;transform:rotate(-2deg);z-index:-1}
+.album-sheets.is-folio::after{content:'ÁLBUM DE ESTILOS';position:absolute;right:10px;top:9px;writing-mode:vertical-rl;font:500 12px var(--body);letter-spacing:.2em;color:var(--wood)}
+.is-folio .work-print{position:absolute;grid-column:auto;margin:0;left:calc(57% + var(--slot)*5.5%);top:calc(36px + var(--slot)*55px);width:clamp(100px,12vw,170px);max-width:none;transform:rotate(calc(-10deg + var(--slot)*5deg));z-index:calc(6 - var(--slot));padding:8px 8px 12px;background:var(--ivory);border:1px solid #80583c55;box-shadow:0 12px 25px -18px #30262066;transform-origin:center;cursor:pointer}
+.is-folio .work-print.is-selected{left:15%;top:25px;width:min(38%,var(--original-width,410px));transform:rotate(-3deg);z-index:10;padding:13px 13px 18px;cursor:zoom-in}
+.is-folio .work-print .photo-window{aspect-ratio:1;overflow:hidden}
+.is-folio .work-print .photo-window img{width:100%;height:100%;object-fit:cover}
+.is-folio .work-print:not(.is-selected) .photo-open{display:none}
+.is-folio .work-print figcaption{font-size:12px;display:block;margin-top:12px}
+.is-folio .work-print figcaption>span+span{display:none}
+.is-folio .work-print:not(.is-selected) figcaption{display:none}
+.is-folio .work-print.is-selected figcaption{font-size:15px}
+.is-folio .work-print .photo-open{bottom:10px;right:10px;width:34px;height:34px}
+.album-sheets.is-wall .work-print{padding:10px 10px 14px;border:1px solid #80583c55;box-sizing:border-box;background:var(--ivory)}
+.album-sheets.is-wall .work-print:nth-child(even){rotate:2deg}
+.album-sheets.is-wall .work-print:nth-child(odd){rotate:-2deg}
+.album-dock button:hover{translate:0 -5px}
+@media(max-width:1000px){.album-sheets.is-folio{height:500px}.is-folio .work-print.is-selected{left:10%;top:35px;width:43%}.is-folio .work-print{left:calc(58% + var(--slot)*4.5%);top:calc(25px + var(--slot)*58px);width:clamp(100px,15vw,150px)}.album-toolbar>p{max-width:180px}.album-caption{min-width:200px}}
+@media(max-width:600px){.album-toolbar{align-items:start;gap:10px;margin-bottom:20px;padding-top:15px}.album-toolbar>p{display:none}.album-modes button{padding:10px 14px;font-size:12px}.album-sheets.is-folio{height:485px}.album-sheets.is-folio::before{inset:10px 4% 32px 6%}.album-sheets.is-folio::after{font-size:9px;right:-8px;top:10px}.is-folio .work-print.is-selected{left:9%;top:16px;width:min(72%,var(--original-width,410px));padding:9px 9px 14px;transform:rotate(-3deg)}.is-folio .work-print{left:calc(2% + var(--slot)*16.3%);top:340px;width:23%;padding:5px 5px 8px;transform:rotate(calc(-9deg + var(--slot)*4deg));z-index:calc(6 - var(--slot))}.is-folio .work-print:not(.is-selected) figcaption{display:none}.is-folio .work-print.is-selected figcaption{font-size:13px;margin-top:10px}.enhanced .album-navigation{gap:10px;flex-wrap:wrap;margin-top:0;justify-content:space-between}.album-caption{min-width:0;flex:1}.album-caption>strong{font-size:14px}.album-navigation .icon-button{width:42px;height:44px}.album-enlarge{flex-basis:100%;margin:8px 0 0;justify-content:center}.enhanced .album-dock{gap:5px;margin-top:17px}.album-dock button{width:42px;height:48px;padding:3px}.is-wall .work-print{padding:6px}.album-binding{top:300px}.is-wall~.album-navigation{margin-top:35px}}
+@media(max-width:375px){.album-sheets.is-folio{height:420px}.is-folio .work-print{top:290px}.album-caption>strong{font-size:13px}.album-dock button{width:38px;height:44px}}

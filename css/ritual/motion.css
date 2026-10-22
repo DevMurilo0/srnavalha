@@ -1,57 +1,54 @@
-/* Motion never owns persistent visibility. WAAPI cancels back to these natural states. */
-.menu[open] nav{animation:menu-open 240ms var(--ease)}
-@keyframes menu-open{from{opacity:.2;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
-.review-track.is-moving{animation:reputation-travel 39s linear infinite}
+/* Motion enhances natural visibility. No persistent hidden entrance classes. */
+html{scroll-behavior:smooth;scroll-padding-top:102px}
+.word-mask{display:inline-block;overflow:clip;vertical-align:bottom;padding:.12em .06em .15em;margin:-.12em -.06em -.15em;perspective:650px}
+.motion-word{display:inline-block;transform-origin:50% 100%}
+.scroll-thread{position:fixed;z-index:70;left:0;top:0;width:100%;height:2px;transform:scaleX(0);transform-origin:left;background:var(--wood);pointer-events:none}
+.menu[open] nav{animation:menu-open .25s var(--ease)}
+@keyframes menu-open{from{opacity:0;transform:translateY(-10px) scale(.97)}to{opacity:1;transform:none}}
+.review-track.is-moving{animation:reputation-travel 44s linear infinite}
 @keyframes reputation-travel{to{transform:translateX(-50%)}}
 .review-track.is-paused,.review-viewport:hover .review-track,.review-viewport:focus-within .review-track{animation-play-state:paused}
-.motion-paused .review-track{animation-play-state:paused!important}
-.opening-mark{position:fixed;inset:0;z-index:80;display:grid;place-content:center;background:var(--ivory);pointer-events:none;animation:opening-failsafe .01s 2.8s forwards}
-.opening-mark img{width:180px;height:116px;object-fit:contain;background:#231f20}
-.opening-frame{position:absolute;inset:14% 30%;border:1px solid var(--copper);pointer-events:none}
+.opening-mark{position:fixed;inset:0;z-index:80;pointer-events:none;animation:opening-failsafe .01s 2.1s forwards;overflow:hidden}
+.opening-plate{position:absolute;inset:0;width:100%;height:100%}
+.opening-inscription{position:absolute;left:50%;top:42%;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;color:var(--copper);gap:14px}
+.opening-crest{width:200px;height:150px;margin-bottom:-30px}
+.opening-crest svg{width:100%;height:100%}
+.opening-logo{width:220px;height:114px}.opening-logo svg{width:100%;height:100%}
+.opening-inscription>span{font:500 10px var(--body);letter-spacing:.25em;white-space:nowrap}
+.opening-inscription>i{display:block;width:140px;height:1px;background:var(--copper);transform-origin:left;margin-top:10px}
 @keyframes opening-failsafe{to{visibility:hidden;opacity:0}}
-.continuity-photo{position:fixed;z-index:100;object-fit:cover;pointer-events:none;transform-origin:top left}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.opening-mark{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}.hero-room,.hero-facade,.house-word{transform:none!important}.review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.review{width:auto;min-height:260px}.review-group[aria-hidden=true]{display:none}.continuity-photo{display:none}}
-@media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}.review{min-height:0}.review blockquote{margin-bottom:20px}}
-html:not(.enhanced) .review-viewport{overflow:visible}html:not(.enhanced) .review-track{display:block;width:auto}html:not(.enhanced) .review-group{display:grid;grid-template-columns:repeat(2,1fr);width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0}html:not(.enhanced) .review{width:auto}html:not(.enhanced) .mirror-choice{cursor:default}html:not(.enhanced) .mirror-choice:not([aria-pressed=true]){display:none}
-@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}}
+.button,.footer-feature-cta{position:relative;isolation:isolate;overflow:hidden;translate:var(--mx,0px) var(--my,0px);transition:translate .3s var(--ease),background .2s,color .2s}
+.button::before{content:'';position:absolute;inset:0;background:var(--wood);z-index:-1;transform:translateX(-101%);transition:transform .45s var(--ease)}
+.button:hover::before,.button:focus-visible::before{transform:translateX(0)}
+.button:active{scale:.975}
+.team-portrait{translate:var(--mx,0px) var(--my,0px);transition:translate .45s var(--ease)}
+.text-link .icon,.team-name .icon{transition:transform .35s var(--ease)}
+.text-link:hover .icon,.text-link:focus-visible .icon{transform:translate(3px,-3px) rotate(4deg)}
+.filter-row button,.album-modes button{transition:background .2s,color .2s,scale .2s}
+.filter-row button:active,.album-modes button:active{scale:.96}
+.product-option{transition:background .2s,translate .35s var(--ease)}
+.product-option:hover,.product-option:focus-visible{translate:6px 0}
+.faq details[open] p,.service-entry[open] .service-detail{animation:detail-arrive .35s var(--ease)}
+@keyframes detail-arrive{from{opacity:.2;transform:translateY(-8px)}to{opacity:1;transform:none}}
+/* Ambient decorative movement only runs while its scene is visible. */
+.footer .footer-rail-track{animation-play-state:paused}
+.enhanced .footer.is-in-view .footer-rail-track{animation-play-state:running}
+.footer .footer-rail:hover .footer-rail-track,.footer:focus-within .footer-rail-track{animation-play-state:paused}
+.footer-story::before{content:none}
+html:not(.enhanced) .review-viewport{overflow:visible}
+html:not(.enhanced) .review-track{display:block;width:auto}
+html:not(.enhanced) .review-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;margin:auto;padding:0}
+html:not(.enhanced) .review{width:auto}
+html:not(.enhanced) .mirror-choice:not([aria-pressed=true]){display:none}
+html:not(.enhanced) .review-gallery{display:block}
+html:not(.enhanced) .review-visual{max-width:390px;margin-bottom:28px}
+html:not(.enhanced) .review-gallery .review-viewport{mask-image:none;overflow:visible}
 html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{animation-play-state:paused!important;transition:none!important}
-html.motion-paused .menu[open] nav{animation:none!important}
-
-/* V12 animated compositional language. All content visible by default. */
-html{scroll-behavior:smooth;scroll-padding-top:102px}
-:root{--scene-progress:0}
-.scroll-thread{position:fixed;z-index:70;left:0;top:0;width:100%;height:3px;transform:scaleX(var(--scene-progress));transform-origin:left;background:linear-gradient(90deg,var(--wood),var(--copper),var(--ink));pointer-events:none}
-.hero-centerpiece .title-mask>span{will-change:transform}
-.hero.is-arriving .hero-wordmark{animation:signature-arrives 1150ms cubic-bezier(.16,1,.3,1) both}
-@keyframes signature-arrives{from{opacity:.15;transform:translateY(30px) scale(.83);clip-path:inset(28% 0 28% 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
-@media(hover:hover) and (pointer:fine){
- .site-header .brand,.hero .photo-window,.work-print,.mirror-choice,.product-select,.site-footer a{cursor:pointer}
- .button,.text-link,.mirror-choice,.service-entry summary,.product-select,.faq summary,.team-choice{transition:transform .34s var(--ease),background-color .35s,color .35s,border-color .35s,letter-spacing .35s}
- .button:hover,.text-link:hover{transform:translateY(-3px)}
- .mirror-choice:hover,.service-entry summary:hover{transform:translateX(10px);letter-spacing:.018em}
- .product-select:hover,.team-choice:hover{transform:translateX(7px)}
- .work-print img{transition:transform 1.05s cubic-bezier(.19,1,.22,1),filter .7s}.work-print:hover img{transform:scale(1.065);filter:saturate(1.13)}
-}
-.motion-word{display:inline-block;white-space:pre;transform-origin:50% 100%}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.scroll-thread{display:none}.hero.is-arriving .hero-wordmark{animation:none!important}.motion-word{transform:none!important}}
-
-/* V13: permanent one-direction carousel in enhanced mode; never a two-column grid. */
-.enhanced .review-gallery .review-viewport .review-track.is-moving{display:flex;animation:reputation-travel 39s linear infinite}
-.enhanced .review-gallery .review-viewport .review-track.is-paused{animation-play-state:paused}
-.enhanced .review-gallery .review-viewport .review-track .review-group{display:flex;width:max-content}
+@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}.opening-crest{width:155px;height:116px}.opening-inscription{top:40%}.opening-logo{width:190px;height:98px}}
 @media(prefers-reduced-motion:reduce){
- .enhanced .review-gallery .review-viewport .review-track.is-moving{animation:none;display:block;transform:none}
- .enhanced .review-gallery .review-viewport .review-track .review-group{display:grid;width:100%}
+ html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .opening-mark,.scroll-thread{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}
+ .hero-room,.hero-facade,.house-word,.footer-oversize>span,.footer-visual,.team-portrait{translate:none!important;clip-path:none!important}
+ .review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:100%;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.review{width:auto;min-height:0}.review-group[aria-hidden=true]{display:none}
 }
-
-/* V14 — precision-cut split curtain. Does not persist when JavaScript is disabled. */
-.opening-mark--shutters{display:block;background:transparent;overflow:hidden;pointer-events:none;animation:opening-failsafe .01s 2.2s forwards}
-.opening-shutter{position:absolute;left:0;right:0;height:50.15%;background:var(--ink);will-change:transform}
-.opening-shutter--top{top:0}.opening-shutter--bottom{bottom:0}
-.opening-center{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;color:var(--ivory);pointer-events:none}
-.opening-eyebrow{font:600 11px/1 var(--body);letter-spacing:.28em;color:var(--copper)}
-.opening-logo{width:min(325px,68vw);max-width:100%}
-.opening-mark--shutters .opening-logo img{display:block;width:100%;height:auto;object-fit:contain;background:transparent;filter:none;mix-blend-mode:screen}
-.opening-subline{font:500 10px/1 var(--body);letter-spacing:.24em;color:var(--light-muted)}
-.opening-line{width:min(290px,55vw);height:1px;background:var(--copper);transform-origin:left}
-@media(prefers-reduced-motion:reduce){.opening-mark--shutters{display:none}.opening-shutter,.opening-center{animation:none!important}}
+@media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}}

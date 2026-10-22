@@ -1,0 +1,32 @@
+[
+  {
+    "js": false,
+    "team": {
+      "role": null,
+      "pressed": null
+    },
+    "products": {
+      "role": null,
+      "pressed": null
+    },
+    "overflow": 0
+  },
+  {
+    "js": true,
+    "team": {
+      "role": "button",
+      "pressed": "true"
+    },
+    "products": {
+      "role": "button",
+      "pressed": "true"
+    },
+    "overflow": 0
+  },
+  {
+    "selection": "Rafael"
+  },
+  {
+    "product": "Óleo para barba"
+  }
+]

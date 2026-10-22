@@ -1,74 +1,55 @@
-import {$,$$,animate,canMove,preference,isPaused,ease} from './core.js';
+import {$,$$,animate,canMove,preference,cancelWithin} from './core.js';
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+function splitTitle(title){
+ if(title.querySelector('.motion-word'))return;
+ const label=title.innerText.replace(/\s+/g,' ').trim();title.setAttribute('aria-label',label);
+ const walker=document.createTreeWalker(title,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+ for(const node of nodes){const fragment=document.createDocumentFragment();node.textContent.split(/(\s+)/).forEach(word=>{if(!word)return;if(/^\s+$/.test(word)){fragment.append(document.createTextNode(' '));return}const mask=document.createElement('span');mask.className='word-mask';mask.setAttribute('aria-hidden','true');const inner=document.createElement('span');inner.className='motion-word';inner.textContent=word;mask.append(inner);fragment.append(mask)});node.replaceWith(fragment)}
+}
 export function initMotion(){
- const film=$('.detail-film');let filmVisible=false;function syncFilm(){if(!film)return;if(filmVisible&&canMove()){if(!film.src)film.src=film.dataset.src;film.play().catch(()=>{})}else film.pause()}if(film){new IntersectionObserver(([entry])=>{filmVisible=entry.isIntersecting;syncFilm()}).observe(film);document.addEventListener('motionchange',syncFilm)}
-
- // Three-frame editorial loop: native images, no GIF download and no continuous JS animation.
- const reviewVisual=$('.review-visual-frame');
- if(reviewVisual){
-   let onScreen=false;
-   const sync=()=>reviewVisual.classList.toggle('is-playing',onScreen&&canMove());
-   new IntersectionObserver(([entry])=>{onScreen=entry.isIntersecting;sync()},{rootMargin:'60px',threshold:.08}).observe(reviewVisual);
-   document.addEventListener('motionchange',sync);
- }
- const seen=new WeakSet();
+ $$('h1,main h2,footer h2').forEach(splitTitle);
+ const entered=new WeakSet(),visible=new Set();
  const variants={
- type:[{clipPath:'inset(0 0 100% 0)',transform:'translateY(32px)'},{clipPath:'inset(0)',transform:'none'}],
- copy:[{opacity:.2,transform:'translateY(18px)'},{opacity:1,transform:'none'}],
- frame:[{clipPath:'inset(12% 9% 12% 9%)',transform:'translateY(30px) scale(.96)'},{clipPath:'inset(0)',transform:'none'}],
- side:[{clipPath:'inset(0 100% 0 0)',transform:'translateX(-24px)'},{clipPath:'inset(0)',transform:'none'}],
- shutter:[{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0)'}],
- signature:[{clipPath:'inset(0 100% 0 0)',transform:'translateY(24px)'},{clipPath:'inset(0)',transform:'none'}]
+ copy:[{opacity:.15,translate:'0 22px'},{opacity:1,translate:'0 0'}],
+ side:[{clipPath:'polygon(0 0,0 0,-10% 100%,0 100%)',translate:'-25px 0'},{clipPath:'polygon(0 0,110% 0,100% 100%,0 100%)',translate:'0 0'}],
+ frame:[{clipPath:'inset(12% 7% 12% 7%)',transform:'perspective(1000px) rotateY(-9deg) scale(.92)'},{clipPath:'inset(0)',transform:'none'}],
+ shutter:[{clipPath:'inset(100% 0 0 0)',translate:'0 24px'},{clipPath:'inset(0)',translate:'0 0'}]
  };
- const observer=new IntersectionObserver(entries=>{let order=0;for(const entry of entries){if(!entry.isIntersecting||seen.has(entry.target))continue;seen.add(entry.target);observer.unobserve(entry.target);const el=entry.target,kind=el.dataset.reveal;const duration=kind==='type'?850:kind==='copy'?500:950;const delay=(order++%3)*65;animate(el,variants[kind]||variants.copy,{duration,delay});if(!['type','copy','signature'].includes(kind)){animate($('img',el),[{transform:kind==='side'?'translateX(4%) scale(1.08)':'translateY(4%) scale(1.08)'},{transform:'none'}],{duration:duration+120,delay:delay+45})}}},{threshold:.1,rootMargin:'0px 0px -28px'});
- $$('[data-reveal]').forEach(e=>observer.observe(e));
- // One event-scheduled frame, no perpetual scroll or cursor loops.
- let frame=0;const house=$('.house'),hero=$('.hero'),inside=$('.portal-inside'),blade=$('.cut-blade');
- const candidates=$$('.hero-room,.hero-facade,.house-word,.work-print');const visible=new Set();
- const sceneObserver=new IntersectionObserver(entries=>{for(const e of entries)e.isIntersecting?visible.add(e.target):visible.delete(e.target);schedule()},{rootMargin:'100px'});candidates.forEach(e=>sceneObserver.observe(e));sceneObserver.observe(house);
- function update(){frame=0;const moving=canMove();if(!moving){inside.style.clipPath='';blade.style.opacity='0';for(const e of candidates)e.style.translate='';return}
- const h=house.getBoundingClientRect();if(visible.has(house)){const progress=Math.max(0,Math.min(1,(innerHeight*.8-h.top)/(innerHeight*.95)));const cut=Math.max(0,Math.min(1,(progress-.1)/.7));inside.style.clipPath=`inset(0 ${((1-cut)*100).toFixed(2)}% 0 0)`;blade.style.left=`${cut*100}%`;blade.style.opacity=cut>0&&cut<1?'1':'0';house.dataset.progress=progress.toFixed(3)}
- for(const e of visible){if(e===house)continue;const r=e.getBoundingClientRect();const k=e.classList.contains('house-word')?-.05:e.classList.contains('hero-facade')?.035:e.classList.contains('hero-room')?-.025:0;if(k)e.style.translate=`0 ${Math.max(-24,Math.min(24,(innerHeight*.5-r.top-r.height*.5)*k))}px`}
+ function enter(el){
+  if(entered.has(el))return;entered.add(el);el.dataset.motionState='entered';
+  const title=el.matches('h2');
+  if(title){const id=el.closest('section,footer')?.id;const words=$$('.motion-word',el),frames=id==='equipe'?[{transform:'perspective(600px) rotateX(-65deg) translateY(100%)',opacity:.2},{transform:'none',opacity:1}]:id==='trabalhos'?[{transform:'translate(-30px,105%) rotate(-7deg)'},{transform:'none'}]:id==='localizacao'?[{transform:'translateX(-110%)'},{transform:'none'}]:[{transform:'translateY(110%) rotate(3deg)'},{transform:'none'}];words.forEach((word,i)=>animate(word,frames,{duration:id==='trabalhos'?900:780,delay:i*65}));return}
+  if(el.classList.contains('engraving')){const isSeal=el.classList.contains('hero-engraving');if(isSeal)animate(el,[{rotate:'-15deg',scale:'.8',opacity:.1},{rotate:'8deg',scale:'1',opacity:.8}],{duration:900});$$('[pathLength]',el).slice(0,12).forEach((path,i)=>animate(path,[{strokeDasharray:1,strokeDashoffset:1},{strokeDasharray:1,strokeDashoffset:0}],{duration:900,delay:i*35}));return}
+  const kind=el.dataset.reveal||'copy';animate(el,variants[kind]||variants.copy,{duration:kind==='copy'?600:1050});
+  if(kind!=='copy')animate($('img',el),[{transform:kind==='side'?'translateX(6%) scale(1.12)':'translateY(6%) scale(1.12)'},{transform:'none'}],{duration:1250,delay:80});
+ }
+ // One observer owns entrance choreography; visible state remains the unanimated default.
+ const entrance=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){enter(e.target);entrance.unobserve(e.target)}},{threshold:.08,rootMargin:'0px 0px -35px'});
+ const targets=new Set([...$$('[data-reveal]:not(h1)'),...$$('main h2,footer h2'),...$$('.engraving')]);targets.forEach(el=>entrance.observe(el));
+ const house=$('.house'),inside=$('.portal-inside'),blade=$('.cut-blade'),footer=$('.footer'),film=$('.detail-film'),reviewFrame=$('.review-visual-frame');
+ const scenes=[house,footer,$('.hero'),reviewFrame,film].filter(Boolean);
+ const progress=document.createElement('div');progress.className='scroll-thread';progress.setAttribute('aria-hidden','true');document.body.append(progress);
+ let frame=0,pointer=null;const fine=matchMedia('(hover:hover) and (pointer:fine)');
+ const fieldObserver=new IntersectionObserver(entries=>{for(const e of entries)e.isIntersecting?visible.add(e.target):visible.delete(e.target);syncAmbient();schedule()},{rootMargin:'40px'});scenes.forEach(e=>fieldObserver.observe(e));
+ function syncAmbient(){
+  const play=canMove();reviewFrame?.classList.toggle('is-playing',play&&visible.has(reviewFrame));footer?.classList.toggle('is-in-view',play&&visible.has(footer));
+  if(film){if(play&&visible.has(film)){if(!film.src)film.src=film.dataset.src;film.play().catch(()=>{})}else film.pause()}
+ }
+ function update(){
+  frame=0;const moving=canMove();progress.style.transform=`scaleX(${moving?clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)):0})`;
+  if(visible.has(house)||!moving){const r=house.getBoundingClientRect(),p=clamp((innerHeight*.75-r.top)/(innerHeight*.9)),cut=clamp((p-.08)/.8);house.dataset.progress=p.toFixed(3);inside.style.clipPath=moving?`polygon(0 0,${cut*112}% 0,${cut*112-12}% 100%,0 100%)`:'';blade.style.translate=`${cut*100}% 0`;blade.style.left=`${cut*100}%`;blade.style.opacity=moving&&cut>0&&cut<1?'1':'0';$('.portal-architecture').style.translate=moving?`0 ${(p-.5)*32}px`:'';$('.house-word').style.translate=moving?`${(p-.5)*-42}px 0`:''}
+  if(visible.has(footer)||!moving){const r=$('.footer-oversize').getBoundingClientRect(),p=clamp((innerHeight-r.top)/Math.max(160,innerHeight*.65));$$('.footer-oversize>span').forEach((el,i)=>{el.style.translate=moving?`0 ${(1-p)*(i===1?-35:-20)}px`:'';el.style.clipPath=''});$('.footer-visual').style.translate=moving?`0 ${clamp((innerHeight-footer.getBoundingClientRect().top)*-.025,-24,0)}px`:''}
+  if(pointer){const{element,x,y}=pointer;element.style.setProperty('--mx',moving?`${x}px`:'0px');element.style.setProperty('--my',moving?`${y}px`:'0px')}
  }
  function schedule(){if(!frame)frame=requestAnimationFrame(update)}
- addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});document.addEventListener('motionchange',schedule);schedule();
- // CSS marquee, cloned without focusable or duplicate accessible content.
- const group=$('.review-group'),track=$('.review-track'),clone=group.cloneNode(true);clone.setAttribute('aria-hidden','true');clone.inert=true;$$('a',clone).forEach(a=>a.tabIndex=-1);track.append(clone);
- let reviewPaused=false,offscreen=true;
+ addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});document.addEventListener('motionchange',()=>{syncAmbient();schedule()});schedule();
+ // Pointer responses share the scroll scheduler. No independent perpetual loops.
+ $$('.button,.footer-feature-cta,.team-portrait').forEach(element=>{element.addEventListener('pointermove',e=>{if(!fine.matches||!canMove())return;const r=element.getBoundingClientRect();pointer={element,x:clamp((e.clientX-r.left-r.width/2)*.06,-7,7),y:clamp((e.clientY-r.top-r.height/2)*.06,-5,5)};schedule()});element.addEventListener('pointerleave',()=>{element.style.setProperty('--mx','0px');element.style.setProperty('--my','0px');if(pointer?.element===element)pointer=null})});
+ document.addEventListener('photochange',e=>{const section=e.target.closest('section'),art=$('.mirror-engraving,.product-engraving',section);if(art){cancelWithin(art);animate(art,[{rotate:'-5deg',translate:'-8px 0'},{rotate:'0deg',translate:'0 0'}],{duration:650})}});
+ // Real testimonials: continuous right-to-left, pauseable and static with reduced motion.
+ const group=$('.review-group'),track=$('.review-track'),clone=group.cloneNode(true);clone.setAttribute('aria-hidden','true');clone.inert=true;$$('a',clone).forEach(a=>a.tabIndex=-1);track.append(clone);let reviewPaused=false,offscreen=true;
  function syncReviews(){track.classList.toggle('is-moving',!preference.matches);track.classList.toggle('is-paused',reviewPaused||!canMove()||offscreen);clone.hidden=preference.matches}
- new IntersectionObserver(([entry])=>{offscreen=!entry.isIntersecting;syncReviews()}).observe($('.review-viewport'));
+ new IntersectionObserver(([e])=>{offscreen=!e.isIntersecting;syncReviews()}).observe($('.review-viewport'));
  $('#review-pause').addEventListener('click',()=>{reviewPaused=!reviewPaused;$('#review-pause').setAttribute('aria-pressed',String(reviewPaused));$('#review-pause span').textContent=reviewPaused?'Retomar depoimentos':'Pausar depoimentos';syncReviews()});document.addEventListener('motionchange',syncReviews);syncReviews();
- // Set semantic location on the primary links, without moving focus.
- const navObserver=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){$$('.desktop-nav a').forEach(a=>{if(a.hash===`#${e.target.id}`)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}},{rootMargin:'-10% 0px -65%'});$$('main section[id]').forEach(e=>navObserver.observe(e));
-}
-export async function openRitual(){
- // Opening in two synchronized shutters. The hero remains naturally visible without JS.
- if(!canMove())return;
- const hero=$('.hero'),brand=$('.site-header .brand img');
- const overlay=document.createElement('div');
- overlay.className='opening-mark opening-mark--shutters';
- overlay.setAttribute('aria-hidden','true');
- overlay.innerHTML=`<div class="opening-shutter opening-shutter--top"></div><div class="opening-shutter opening-shutter--bottom"></div><div class="opening-center"><span class="opening-eyebrow">SR. NAVALHA</span><div class="opening-logo"><img src="assets/images/v8/logo-320.webp" width="320" height="206" alt=""></div><span class="opening-subline">BARBEARIA · GRAVATÁ</span><span class="opening-line"></span></div>`;
- document.body.append(overlay);
- let removed=false;
- const remove=()=>{if(removed)return;removed=true;clearTimeout(failsafe);overlay.remove();hero.classList.remove('is-arriving')};
- const failsafe=setTimeout(remove,2150);
- const onMotion=()=>{if(!canMove())remove()};
- document.addEventListener('motionchange',onMotion,{once:true});
- hero.classList.add('is-arriving');
- const top=$('.opening-shutter--top',overlay),bottom=$('.opening-shutter--bottom',overlay),center=$('.opening-center',overlay),line=$('.opening-line',overlay);
- animate(center,[{opacity:0,transform:'translateY(16px) scale(.96)'},{opacity:1,transform:'none'}],{duration:450,delay:50,easing:ease});
- animate(line,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:630,delay:90,easing:ease,fill:'forwards'});
- animate(center,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-18px) scale(.98)'}],{duration:320,delay:610,easing:ease,fill:'forwards'});
- const shutters=[top,bottom].map((panel,i)=>animate(panel,[{transform:'translateY(0)'},{transform:`translateY(${i===0?'-101%':'101%'})`}],{duration:850,delay:620,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}));
- animate($('.hero-wordmark'),[{opacity:.3,transform:'translateY(28px) scale(.92)'},{opacity:1,transform:'none'}],{duration:1000,delay:620,easing:ease});
- animate($('.title-mask>span'),[{opacity:.45,transform:'translateY(80%)'},{opacity:1,transform:'none'}],{duration:930,delay:740,easing:ease});
- $$('.hero-facade .photo-window,.hero-room .photo-window,.hero-detail .photo-window').forEach((el,i)=>{
-   animate(el,[{clipPath:i%2===0?'inset(0 100% 0 0)':'inset(100% 0 0 0)'},{clipPath:'inset(0)'}],{duration:950,delay:750+i*105,easing:ease});
-   animate($('img',el),[{transform:'scale(1.07) translateY(2%)'},{transform:'none'}],{duration:1090,delay:780+i*105,easing:ease});
- });
- $$('.hero-intro,.hero-invitation>p,.hero-invitation>.button,.hero-bottom').forEach((el,i)=>{
-   animate(el,[{opacity:.2,transform:'translateY(24px)'},{opacity:1,transform:'none'}],{duration:620,delay:790+i*90,easing:ease});
- });
- await Promise.all(shutters.map(a=>a?.finished.catch(()=>{})));
- remove();
+ const navObserver=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting)$$('.desktop-nav a').forEach(a=>a.hash===`#${e.target.id}`?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'))},{rootMargin:'-10% 0px -65%'});$$('main section[id]').forEach(e=>navObserver.observe(e));
 }
