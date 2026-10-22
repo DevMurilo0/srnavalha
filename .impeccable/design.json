@@ -1,187 +1,173 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T23:51:43.836650+00:00",
-  "title": "Design System: Sr. Navalha V9",
+  "generatedAt": "2026-10-22T19:56:04.278555+00:00",
+  "title": "Design System: Sr. Navalha — A arte do ritual",
   "extensions": {
     "colorMeta": {
-      "charcoal": {
-        "role": "neutral",
-        "displayName": "Charcoal",
-        "tonalRamp": [
-          "oklch(15% 0.0000 0.00)",
-          "oklch(26% 0.0000 0.00)",
-          "oklch(38% 0.0000 0.00)",
-          "oklch(49% 0.0000 0.00)",
-          "oklch(61% 0.0000 0.00)",
-          "oklch(72% 0.0000 0.00)",
-          "oklch(84% 0.0000 0.00)",
-          "oklch(95% 0.0000 0.00)"
-        ]
-      },
-      "soft-black": {
-        "role": "neutral",
-        "displayName": "Soft Black",
-        "tonalRamp": [
-          "oklch(15% 0.0000 0.00)",
-          "oklch(26% 0.0000 0.00)",
-          "oklch(38% 0.0000 0.00)",
-          "oklch(49% 0.0000 0.00)",
-          "oklch(61% 0.0000 0.00)",
-          "oklch(72% 0.0000 0.00)",
-          "oklch(84% 0.0000 0.00)",
-          "oklch(95% 0.0000 0.00)"
-        ]
-      },
       "ivory": {
         "role": "neutral",
-        "displayName": "Ivory",
+        "displayName": "Marfim",
         "tonalRamp": [
-          "oklch(15% 0.0074 80.72)",
-          "oklch(26% 0.0074 80.72)",
-          "oklch(38% 0.0074 80.72)",
-          "oklch(49% 0.0074 80.72)",
-          "oklch(61% 0.0074 80.72)",
-          "oklch(72% 0.0074 80.72)",
-          "oklch(84% 0.0074 80.72)",
-          "oklch(95% 0.0074 80.72)"
+          "oklch(15.00% 0.01536 77.07)",
+          "oklch(26.43% 0.01536 77.07)",
+          "oklch(37.86% 0.01536 77.07)",
+          "oklch(49.29% 0.01536 77.07)",
+          "oklch(60.71% 0.01536 77.07)",
+          "oklch(72.14% 0.01536 77.07)",
+          "oklch(83.57% 0.01536 77.07)",
+          "oklch(95.00% 0.01536 77.07)"
         ]
       },
-      "mineral": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Mineral",
+        "displayName": "Carvão quente",
         "tonalRamp": [
-          "oklch(15% 0.0102 78.25)",
-          "oklch(26% 0.0102 78.25)",
-          "oklch(38% 0.0102 78.25)",
-          "oklch(49% 0.0102 78.25)",
-          "oklch(61% 0.0102 78.25)",
-          "oklch(72% 0.0102 78.25)",
-          "oklch(84% 0.0102 78.25)",
-          "oklch(95% 0.0102 78.25)"
+          "oklch(15.00% 0.00254 67.68)",
+          "oklch(26.43% 0.00254 67.68)",
+          "oklch(37.86% 0.00254 67.68)",
+          "oklch(49.29% 0.00254 67.68)",
+          "oklch(60.71% 0.00254 67.68)",
+          "oklch(72.14% 0.00254 67.68)",
+          "oklch(83.57% 0.00254 67.68)",
+          "oklch(95.00% 0.00254 67.68)"
+        ]
+      },
+      "tobacco": {
+        "role": "neutral",
+        "displayName": "Tabaco",
+        "tonalRamp": [
+          "oklch(15.00% 0.01857 52.67)",
+          "oklch(26.43% 0.01857 52.67)",
+          "oklch(37.86% 0.01857 52.67)",
+          "oklch(49.29% 0.01857 52.67)",
+          "oklch(60.71% 0.01857 52.67)",
+          "oklch(72.14% 0.01857 52.67)",
+          "oklch(83.57% 0.01857 52.67)",
+          "oklch(95.00% 0.01857 52.67)"
+        ]
+      },
+      "wood": {
+        "role": "primary",
+        "displayName": "Madeira",
+        "tonalRamp": [
+          "oklch(15.00% 0.06720 55.50)",
+          "oklch(26.43% 0.06720 55.50)",
+          "oklch(37.86% 0.06720 55.50)",
+          "oklch(49.29% 0.06720 55.50)",
+          "oklch(60.71% 0.06720 55.50)",
+          "oklch(72.14% 0.06720 55.50)",
+          "oklch(83.57% 0.06720 55.50)",
+          "oklch(95.00% 0.06720 55.50)"
         ]
       },
       "copper": {
         "role": "primary",
-        "displayName": "Copper",
+        "displayName": "Cobre",
         "tonalRamp": [
-          "oklch(15% 0.0538 56.84)",
-          "oklch(26% 0.0538 56.84)",
-          "oklch(38% 0.0538 56.84)",
-          "oklch(49% 0.0538 56.84)",
-          "oklch(61% 0.0538 56.84)",
-          "oklch(72% 0.0538 56.84)",
-          "oklch(84% 0.0538 56.84)",
-          "oklch(95% 0.0538 56.84)"
+          "oklch(15.00% 0.07176 64.04)",
+          "oklch(26.43% 0.07176 64.04)",
+          "oklch(37.86% 0.07176 64.04)",
+          "oklch(49.29% 0.07176 64.04)",
+          "oklch(60.71% 0.07176 64.04)",
+          "oklch(72.14% 0.07176 64.04)",
+          "oklch(83.57% 0.07176 64.04)",
+          "oklch(95.00% 0.07176 64.04)"
         ]
       },
-      "tobacco": {
-        "role": "primary",
-        "displayName": "Tobacco",
-        "tonalRamp": [
-          "oklch(15% 0.0337 56.85)",
-          "oklch(26% 0.0337 56.85)",
-          "oklch(38% 0.0337 56.85)",
-          "oklch(49% 0.0337 56.85)",
-          "oklch(61% 0.0337 56.85)",
-          "oklch(72% 0.0337 56.85)",
-          "oklch(84% 0.0337 56.85)",
-          "oklch(95% 0.0337 56.85)"
-        ]
-      },
-      "light-text": {
+      "stone": {
         "role": "neutral",
-        "displayName": "Light Text",
+        "displayName": "Pedra",
         "tonalRamp": [
-          "oklch(15% 0.0124 79.78)",
-          "oklch(26% 0.0124 79.78)",
-          "oklch(38% 0.0124 79.78)",
-          "oklch(49% 0.0124 79.78)",
-          "oklch(61% 0.0124 79.78)",
-          "oklch(72% 0.0124 79.78)",
-          "oklch(84% 0.0124 79.78)",
-          "oklch(95% 0.0124 79.78)"
+          "oklch(15.00% 0.01905 75.31)",
+          "oklch(26.43% 0.01905 75.31)",
+          "oklch(37.86% 0.01905 75.31)",
+          "oklch(49.29% 0.01905 75.31)",
+          "oklch(60.71% 0.01905 75.31)",
+          "oklch(72.14% 0.01905 75.31)",
+          "oklch(83.57% 0.01905 75.31)",
+          "oklch(95.00% 0.01905 75.31)"
         ]
       },
-      "dark-text": {
+      "muted": {
         "role": "neutral",
-        "displayName": "Dark Text",
+        "displayName": "Texto suave",
         "tonalRamp": [
-          "oklch(15% 0.0134 71.75)",
-          "oklch(26% 0.0134 71.75)",
-          "oklch(38% 0.0134 71.75)",
-          "oklch(49% 0.0134 71.75)",
-          "oklch(61% 0.0134 71.75)",
-          "oklch(72% 0.0134 71.75)",
-          "oklch(84% 0.0134 71.75)",
-          "oklch(95% 0.0134 71.75)"
+          "oklch(15.00% 0.02428 57.63)",
+          "oklch(26.43% 0.02428 57.63)",
+          "oklch(37.86% 0.02428 57.63)",
+          "oklch(49.29% 0.02428 57.63)",
+          "oklch(60.71% 0.02428 57.63)",
+          "oklch(72.14% 0.02428 57.63)",
+          "oklch(83.57% 0.02428 57.63)",
+          "oklch(95.00% 0.02428 57.63)"
         ]
       },
-      "paper-shade": {
+      "light-muted": {
         "role": "neutral",
-        "displayName": "Paper Shade",
+        "displayName": "Texto claro suave",
         "tonalRamp": [
-          "oklch(15% 0.0121 79.78)",
-          "oklch(26% 0.0121 79.78)",
-          "oklch(38% 0.0121 79.78)",
-          "oklch(49% 0.0121 79.78)",
-          "oklch(61% 0.0121 79.78)",
-          "oklch(72% 0.0121 79.78)",
-          "oklch(84% 0.0121 79.78)",
-          "oklch(95% 0.0121 79.78)"
+          "oklch(15.00% 0.02514 67.45)",
+          "oklch(26.43% 0.02514 67.45)",
+          "oklch(37.86% 0.02514 67.45)",
+          "oklch(49.29% 0.02514 67.45)",
+          "oklch(60.71% 0.02514 67.45)",
+          "oklch(72.14% 0.02514 67.45)",
+          "oklch(83.57% 0.02514 67.45)",
+          "oklch(95.00% 0.02514 67.45)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
-        "displayName": "Display Manrope",
-        "purpose": "Hero em duas linhas com escala desktop e mobile próprias; valores normativos no frontmatter e adaptações em Layout."
+        "displayName": "Bodoni Moda 500",
+        "purpose": "Hero editorial; arquivo local declarado Bodoni."
       },
       "emphasis": {
-        "displayName": "Young Serif",
-        "purpose": "Ênfase herdando o tamanho do título e títulos editoriais de produto."
+        "displayName": "Bodoni Moda itálica 500",
+        "purpose": "Ênfase no mesmo desenho do título."
+      },
+      "body": {
+        "displayName": "Manrope variável",
+        "purpose": "Consulta, ações, legendas e navegação."
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "mobile-menu",
+        "value": "0 15px 40px #17161526",
+        "purpose": "Separação do painel móvel."
+      }
+    ],
     "motion": [
       {
-        "name": "ease-css",
+        "name": "ease",
         "value": "cubic-bezier(.22,1,.36,1)",
-        "purpose": "Microinterações CSS e componentes."
+        "purpose": "Entradas e estados."
       },
       {
-        "name": "ease-waapi",
-        "value": "cubic-bezier(.16,1,.3,1)",
-        "purpose": "Entradas e transições WAAPI."
-      },
-      {
-        "name": "cut",
+        "name": "spatial",
         "value": "cubic-bezier(.76,0,.24,1)",
-        "purpose": "Painéis e máscaras fotográficas."
+        "purpose": "Continuidade espacial da galeria."
       },
       {
-        "name": "opening-panels",
-        "value": "930ms / delay 430ms",
-        "purpose": "Afastamento dos dois painéis; remoção da cortina em 1400ms."
+        "name": "reflection",
+        "value": "650ms",
+        "purpose": "Troca de serviço e profissional."
       },
       {
-        "name": "title-cut",
-        "value": "900ms / stagger 95ms",
-        "purpose": "Linhas do título coordenadas com a abertura."
+        "name": "product",
+        "value": "420ms",
+        "purpose": "Troca de produto."
       },
       {
-        "name": "image-switch",
-        "value": "520–560ms",
-        "purpose": "Produtos, serviços e retratos; pedidos interrompíveis."
-      },
-      {
-        "name": "photo-entry",
-        "value": "850ms / threshold .12",
-        "purpose": "Máscara apenas ao entrar na viewport."
+        "name": "gallery-entry-exit",
+        "value": "650ms / 280ms",
+        "purpose": "FLIP de entrada e saída por clique."
       },
       {
         "name": "reviews",
-        "value": "22px/s",
-        "purpose": "Esteira visível e pausável; estática com movimento reduzido."
+        "value": "58s linear infinite",
+        "purpose": "Esteira pausável; grade no modo reduzido."
       }
     ],
     "breakpoints": [
@@ -190,15 +176,23 @@
         "value": "1600px"
       },
       {
-        "name": "compact-desktop",
+        "name": "compact",
         "value": "1100px"
       },
       {
-        "name": "mobile-navigation",
-        "value": "850px"
+        "name": "navigation",
+        "value": "1000px"
       },
       {
-        "name": "mobile",
+        "name": "editorial",
+        "value": "800px"
+      },
+      {
+        "name": "mobile-header-hero",
+        "value": "700px"
+      },
+      {
+        "name": "mobile-sections",
         "value": "600px"
       },
       {
@@ -207,134 +201,141 @@
       }
     ],
     "focus": {
-      "width": "2px",
+      "value": "2px solid var(--wood)",
       "offset": "6px",
-      "darkSurface": "var(--copper)",
-      "paperSurface": "var(--tobacco)"
+      "darkSurface": "var(--copper)"
     },
     "sources": [
-      "css/tokens.css",
-      "css/site.css",
-      "css/motion.css",
+      "css/ritual/tokens.css",
+      "css/ritual/base.css",
+      "css/ritual/hero.css",
+      "css/ritual/sections.css",
+      "css/ritual/header.css",
+      "css/ritual/motion.css",
       "index.html",
-      "js/site.js",
-      "js/motion/core.js",
-      "js/motion/hero.js",
-      "js/motion/opening.js",
-      "js/motion/passages.js",
-      "js/motion/services.js",
-      "js/motion/reviews.js"
+      "js/ritual/",
+      "PRODUCT.md",
+      "docs/ritual/DIRECAO.md",
+      "docs/ritual/MOTION.md"
     ],
-    "tonalRampNote": "Ramps are synthesized preview metadata, not additional implemented color tokens.",
+    "tonalRampNote": "Rampas OKLCH sintetizadas apenas para prévia; não são novos tokens implementados.",
     "limitations": [
-      "Acervo antigo do interior (246×148px) permanece em escala pequena; o retrato oficial do hero não é fotografia de ação.",
-      "Catálogo e avaliações são registros datados; agenda e estoque não são dados em tempo real.",
-      "Previews abaixo documentam componentes nativos; a coreografia precisa de js/motion e do DOM completo.",
-      "Ramps de cor são metadados sintetizados de preview, não novos tokens implementados."
+      "Extração do código ativo. O veredito ship cobre os cinco ajustes revisados; não constitui nova auditoria integral.",
+      "Previews não reproduzem a coreografia completa nem os módulos de seleção.",
+      "Catálogo e reputação são registros datados; estoque e agenda dependem das plataformas oficiais.",
+      "O iframe externo pode ser bloqueado silenciosamente; a assistência textual permanece acessível."
     ],
-    "motionOwnership": {
-      "progress": "Um único progresso 0–1 do hero, calculado no módulo hero.js sobre scroll nativo.",
-      "entrance": "Filhos de hero-photo-travel e hero-title-travel recebem entrada; wrappers recebem scroll.",
-      "scheduler": "Um requestAnimationFrame coordena leitura, escrita e esteira visível.",
-      "reducedMotion": "Abertura omitida; jornada estática; controles restaurados; avaliações sem clones.",
-      "arrival": "Fachada cresce no máximo 6.5% no desktop e 2.5% no mobile; portal e camada de interior têm máscaras próprias no mesmo progresso."
+    "verification": {
+      "sources": [
+        "docs/ritual/testes-chromium.json",
+        "docs/ritual/testes-firefox.json",
+        "docs/ritual/veredito-correcoes.json"
+      ],
+      "reportedResults": {
+        "chromium": "45/45",
+        "firefox": "26/26",
+        "commercialComparisons": 69,
+        "localReferencesWithoutMissing": 136,
+        "generator": "determinístico",
+        "axe": "0 violações no escopo WCAG A/AA em 1440px e 390px",
+        "resilience": "6/6",
+        "verdict": "ship; cinco ajustes resolved; revisão limitada a esse lote"
+      }
     }
   },
   "components": [
     {
-      "name": "Primary Button",
+      "name": "Botão principal",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Ação retangular com seta diagonal e foco visível.",
-      "html": "<a class=\"ds-button\" href=\"https://sites.appbarber.com.br/srnavala-pqjj\">Agendar horário <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
-      "css": ".ds-button{background:var(--ivory);color:var(--charcoal)}.ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:35px;padding:16px 25px;min-height:58px;font:650 15px var(--body);border:0;border-radius:0;text-decoration:none;transition:transform 180ms var(--ease),background-color 180ms,color 180ms}.ds-button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4}.ds-button:hover{background:var(--copper);color:var(--charcoal)}.ds-button:active{transform:scale(.98)}.ds-button:focus-visible{outline:2px solid var(--copper);outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}"
+      "description": "Agenda externa com seta SVG e foco visível.",
+      "html": "<a class=\"ds-button\" href=\"https://sites.appbarber.com.br/srnavala-pqjj\">Agendar horário<svg aria-hidden=\"true\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:56px;padding:17px 24px;background:var(--ink);color:var(--ivory);font:600 14px/1.4 var(--body);text-decoration:none;border:0;border-radius:0;transition:background 180ms,color 180ms,transform 160ms var(--ease)}.ds-button:active{transform:scale(.975)}.ds-button:focus-visible{outline:2px solid var(--wood);outline-offset:6px}@media(hover:hover) and (pointer:fine){.ds-button:hover{background:var(--wood)}}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}"
     },
     {
-      "name": "Button on Paper",
+      "name": "Botão no rodapé",
       "kind": "button",
-      "refersTo": "button-on-paper",
-      "description": "Ação retangular com seta diagonal e foco visível.",
-      "html": "<a class=\"ds-button\" href=\"https://sites.appbarber.com.br/srnavala-pqjj\">Agendar horário <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
-      "css": ".ds-button{background:var(--charcoal);color:var(--ivory)}.ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:35px;padding:16px 25px;min-height:58px;font:650 15px var(--body);border:0;border-radius:0;text-decoration:none;transition:transform 180ms var(--ease),background-color 180ms,color 180ms}.ds-button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4}.ds-button:hover{background:var(--copper);color:var(--charcoal)}.ds-button:active{transform:scale(.98)}.ds-button:focus-visible{outline:2px solid var(--copper);outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}.ds-button:focus-visible{outline-color:var(--tobacco)}"
+      "refersTo": "button-footer",
+      "description": "Agenda externa com seta SVG e foco visível.",
+      "html": "<a class=\"ds-footer-button\" href=\"https://sites.appbarber.com.br/srnavala-pqjj\">Agendar horário<svg aria-hidden=\"true\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+      "css": ".ds-footer-button{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:56px;padding:17px 24px;background:var(--ivory);color:var(--ink);font:600 14px/1.4 var(--body);text-decoration:none;border:0;border-radius:0;transition:background 180ms,color 180ms,transform 160ms var(--ease)}.ds-footer-button:active{transform:scale(.975)}.ds-footer-button:focus-visible{outline:2px solid var(--wood);outline-offset:6px}@media(hover:hover) and (pointer:fine){.ds-footer-button:hover{background:var(--copper)}}@media(prefers-reduced-motion:reduce){.ds-footer-button{transition:none}.ds-footer-button:active{transform:none}}"
     },
     {
-      "name": "Outline Button",
-      "kind": "button",
-      "refersTo": "button-outline",
-      "description": "Ação retangular com seta diagonal e foco visível.",
-      "html": "<a class=\"ds-button\" href=\"https://sites.appbarber.com.br/srnavala-pqjj\">Agendar horário <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
-      "css": ".ds-button{background:transparent;color:var(--ivory);border:1px solid var(--copper)}.ds-button{display:inline-flex;align-items:center;justify-content:space-between;gap:35px;padding:16px 25px;min-height:58px;font:650 15px var(--body);border:0;border-radius:0;text-decoration:none;transition:transform 180ms var(--ease),background-color 180ms,color 180ms}.ds-button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4}.ds-button:hover{background:var(--copper);color:var(--charcoal)}.ds-button:active{transform:scale(.98)}.ds-button:focus-visible{outline:2px solid var(--copper);outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}.ds-button:active{transform:none}}.ds-button{border:1px solid var(--copper)}"
-    },
-    {
-      "name": "Catalog Filters",
+      "name": "Filtro de catálogo",
       "kind": "chip",
       "refersTo": "filter",
-      "description": "Seleção explícita para filtrar o catálogo.",
+      "description": "Seleção explícita do catálogo; o snippet apresenta o estado nativo.",
       "html": "<div class=\"ds-filters\" role=\"group\" aria-label=\"Categorias\"><button aria-pressed=\"true\">Todos</button><button aria-pressed=\"false\">Corte</button></div>",
-      "css": ".ds-filters{display:flex;gap:8px;flex-wrap:wrap}.ds-filters button{font:400 13px var(--body);padding:8px 14px;min-height:44px;border:1px solid #14141435;border-radius:0;background:transparent;color:var(--charcoal)}.ds-filters button[aria-pressed=true]{background:var(--charcoal);color:var(--ivory)}.ds-filters button:hover{background:var(--tobacco);color:var(--ivory)}.ds-filters button:focus-visible{outline:2px solid var(--tobacco);outline-offset:6px}"
+      "css": ".ds-filters{display:flex;gap:8px;flex-wrap:wrap}.ds-filters button{font:400 13px var(--body);min-height:42px;padding:9px 14px;border:1px solid #80583c55;border-radius:0;background:transparent;color:var(--ink);cursor:pointer;transition:background 180ms,color 180ms}.ds-filters button[aria-pressed=true]{background:var(--ink);color:var(--ivory);border-color:var(--ink)}.ds-filters button:focus-visible{outline:2px solid var(--wood);outline-offset:6px}.ds-filters button:active{transform:scale(.975)}@media(prefers-reduced-motion:reduce){.ds-filters button{transition:none}.ds-filters button:active{transform:none}}"
     },
     {
-      "name": "Service Detail",
-      "kind": "custom",
-      "description": "Linha de catálogo com preço e detalhe nativo.",
-      "html": "<details class=\"ds-service\"><summary><span>Barboterapia</span><span>R$ 30,00</span><small>45 min</small><span aria-hidden=\"true\">+</span></summary><p>Consulte os horários no AppBarber.</p></details>",
-      "css": ".ds-service{color:var(--charcoal);font:400 16px/1.65 var(--body);border-bottom:1px solid #14141429}.ds-service summary{display:grid;grid-template-columns:1fr auto 60px 18px;gap:22px;align-items:center;list-style:none;cursor:pointer;min-height:92px;padding-block:20px}.ds-service summary::-webkit-details-marker{display:none}.ds-service summary>span:first-child{font-size:22px;line-height:1.3}.ds-service small{font-size:13px;color:var(--dark-text)}.ds-service p{padding-bottom:25px}.ds-service summary:focus-visible{outline:2px solid var(--tobacco);outline-offset:6px}"
-    },
-    {
-      "name": "Section Navigation",
+      "name": "Navegação de seção",
       "kind": "nav",
-      "description": "Navegação horizontal em Manrope com acento cobre.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Navegação\"><a href=\"#servicos\" aria-current=\"location\">Serviços</a><a href=\"#equipe\">Equipe</a><a href=\"#produtos\">Produtos</a></nav>",
-      "css": ".ds-nav{display:flex;gap:30px;background:var(--charcoal);color:var(--ivory);font:400 14px var(--body)}.ds-nav a{padding-block:18px;color:inherit;text-decoration:none;border-bottom:2px solid transparent}.ds-nav a[aria-current]{border-color:var(--copper)}.ds-nav a:hover{color:var(--copper)}.ds-nav a:focus-visible{outline:2px solid var(--copper);outline-offset:6px}"
+      "description": "Links de seção com sublinhado revelado.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Principal\"><a href=\"#casa\">A casa</a><a href=\"#servicos\">Rituais</a><a href=\"#equipe\">Nossa equipe</a></nav>",
+      "css": ".ds-nav{display:flex;gap:clamp(18px,2.5vw,40px);font:400 13px var(--body);color:var(--ink);background:var(--ivory)}.ds-nav a{position:relative;padding-block:15px;text-decoration:none;color:inherit}.ds-nav a::after{content:\"\";position:absolute;left:0;right:0;bottom:7px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease)}.ds-nav a:hover::after,.ds-nav a[aria-current]::after{transform:scaleX(1)}.ds-nav a:focus-visible{outline:2px solid var(--wood);outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-nav a::after{transition:none}}"
     },
     {
-      "name": "Review",
+      "name": "Categoria de produtos",
+      "kind": "input",
+      "description": "Select nativo com rótulo persistente.",
+      "html": "<label class=\"ds-category\">Categoria <select><option>Todos os produtos</option><option>Cabelo</option><option>Barba</option></select></label>",
+      "css": ".ds-category{display:flex;gap:12px;align-items:center;font:400 13px var(--body);color:var(--ink)}.ds-category select{font:inherit;max-width:220px;border:0;border-radius:0;border-bottom:1px solid var(--muted);padding:12px 26px 12px 8px;background:transparent;color:var(--ink);cursor:pointer}.ds-category select:focus-visible{outline:2px solid var(--wood);outline-offset:6px}"
+    },
+    {
+      "name": "Depoimento",
       "kind": "card",
       "refersTo": "review",
-      "description": "Depoimento em superfície plana com link de origem.",
-      "html": "<article class=\"ds-review\"><span class=\"ds-stars\" aria-label=\"5 estrelas\">★★★★★</span><blockquote>“Servico de qualidade e bom atendimento.”</blockquote><a href=\"https://www.google.com/maps/contrib/111783008765039420465/reviews?hl=pt-BR\">Luís Gustavo Coelho ↗</a></article>",
-      "css": ".ds-review{background:var(--charcoal);color:var(--ivory);width:360px;max-width:100%;padding:32px;min-height:310px;font:400 18px/1.65 var(--body);display:flex;flex-direction:column;align-items:flex-start}.ds-stars{color:var(--copper);letter-spacing:.15em;font-size:20px}.ds-review blockquote{margin:22px 0;max-width:30ch}.ds-review a{font-size:14px;color:inherit;min-height:44px;display:flex;align-items:center;text-decoration:none;margin-top:auto}.ds-review a:hover{color:var(--copper)}.ds-review a:focus-visible{outline:2px solid var(--copper);outline-offset:6px}"
+      "description": "Superfície tabaco plana com citação Bodoni e origem acessível.",
+      "html": "<article class=\"ds-review\"><blockquote>“Servico de qualidade e bom atendimento.”</blockquote><a href=\"https://www.google.com/maps/contrib/111783008765039420465/reviews?hl=pt-BR\">Luís Gustavo Coelho<svg aria-hidden=\"true\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a><p>Google · depoimento do acervo</p></article>",
+      "css": ".ds-review{width:360px;max-width:100%;background:var(--tobacco);color:var(--ivory);padding:32px;display:flex;flex-direction:column;min-height:295px;font-family:var(--body)}.ds-review blockquote{font:500 25px/1.4 var(--display);margin:0 0 35px}.ds-review a{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:13px;margin-top:auto;min-height:44px;color:inherit;text-decoration:none}.ds-review a svg{width:17px}.ds-review p{font-size:13px;color:var(--light-muted);line-height:1.75;margin:0}.ds-review a:focus-visible{outline:2px solid var(--copper);outline-offset:6px}"
+    },
+    {
+      "name": "Detalhe de serviço",
+      "kind": "custom",
+      "description": "Disclosure nativo em linha; sem runtime adicional.",
+      "html": "<details class=\"ds-service\"><summary><span>Barboterapia</span><span>R$ 30,00</span><small>45 min</small><svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M12 4v16M4 12h16\"/></svg></summary><p>Consulte condições e horários no catálogo oficial.</p></details>",
+      "css": ".ds-service{border-bottom:1px solid #80583c33;color:var(--ink);font:400 15px var(--body)}.ds-service summary{display:grid;grid-template-columns:minmax(0,1fr) 160px 90px 22px;align-items:center;gap:20px;padding-block:19px;min-height:66px;list-style:none;cursor:pointer}.ds-service summary::-webkit-details-marker{display:none}.ds-service summary>span:first-child{font-weight:500}.ds-service summary>span:nth-child(2){font-size:14px;font-variant-numeric:tabular-nums}.ds-service small{font-size:13px;color:var(--muted)}.ds-service svg{transition:transform 220ms var(--ease)}.ds-service[open] svg{transform:rotate(45deg)}.ds-service p{font-size:14px;line-height:1.75;padding:2px 40px 26px 0;margin:0;max-width:670px}.ds-service summary:focus-visible{outline:2px solid var(--wood);outline-offset:6px}@media(max-width:600px){.ds-service summary{grid-template-columns:minmax(0,1fr) 98px 14px;gap:12px}.ds-service small{grid-column:1;grid-row:2}.ds-service svg{grid-column:3;grid-row:1}}@media(prefers-reduced-motion:reduce){.ds-service svg{transition:none}}"
     }
   ],
   "narrative": {
-    "northStar": "A experiência começa na porta",
-    "overview": "A V9 preserva carvão, marfim e cobre, o logo original e as fotografias reais da Sr. Navalha. O hero apresenta a fachada real e revela o salão por máscara editorial. Retratos individuais permanecem na equipe; a tipografia editorial conserva duas vozes. A referência Salomé orienta ritmo, coordenação e continuidade espacial; a identidade permanece ligada às pessoas e ao cuidado da casa.\n\nO movimento é uma camada progressiva da composição. Abertura por painéis, fotografia e título compartilham uma sequência; a rolagem nativa transforma o enquadramento até a apresentação da casa. Passagens breves alternam corte fotográfico, superfície e tipografia, sem tornar todas as seções sticky. O HTML preserva conteúdo e destinos reais sem depender dessas cenas.",
+    "northStar": "A arte do ritual",
+    "overview": "A arte do ritual toma os espelhos retangulares, as perspectivas do salão e a luz linear da Sr. Navalha como matéria visual. Fotografias documentais em tamanhos desiguais, molduras finas e alternância de superfícies claras e escuras dão presença ao estabelecimento. A marca original permanece uma imagem própria; a assinatura tipográfica do rodapé é um elemento complementar.\n\nBodoni Moda desenha os títulos e Manrope sustenta a consulta. A assimetria deixa espaço para legenda, preço, duração e convite. O movimento acrescenta reenquadramento e continuidade ao conteúdo já visível; o fluxo de leitura e os destinos oficiais existem no HTML estático.",
     "keyCharacteristics": [
-      "Retratos oficiais em molduras de espelho e composições fotográficas assimétricas.",
-      "Carvão e marfim estruturam capítulos; cobre e tabaco pontuam estados e acabamentos.",
-      "Manrope local organiza leitura e escala; Young Serif local dá contraste editorial.",
-      "Scroll nativo, controles explícitos e responsáveis distintos para entrada e progresso."
+      "Fotografias reais em enquadramentos retangulares desiguais.",
+      "Marfim e carvão quente como superfícies; tabaco, madeira e cobre como matéria e acabamento.",
+      "Bodoni Moda normal e itálica no peso 500; Manrope local variável para consulta.",
+      "Rolagem nativa, melhoria progressiva, pausa explícita e movimento reduzido."
     ],
     "rules": [
       {
         "name": "The Surface Contrast Rule",
-        "body": "Texto principal alterna entre marfim sobre carvão e carvão sobre marfim; cobre marca foco, estado e pequenos acentos.",
+        "body": "Texto principal usa carvão sobre marfim ou marfim sobre carvão/tabaco; madeira e cobre acompanham o contexto de superfície.",
         "section": "colors"
       },
       {
-        "name": "The Single Motion Owner Rule",
-        "body": "Entrada e scroll usam camadas distintas; uma única fonte de progresso controla os wrappers do hero.",
+        "name": "The Natural State Rule",
+        "body": "O CSS natural mantém conteúdo visível; cancelar animações retorna a ele. Movimento reduzido e pausa cancelam WAAPI, removem abertura e preservam acesso ao conteúdo. A esteira torna-se grade com movimento reduzido ou sem JavaScript.",
         "section": "elevation"
       },
       {
         "name": "The Real Photograph Rule",
-        "body": "Usar imagens oficiais com escala compatível com a resolução; ausência de fotografia específica recebe apresentação tipográfica explícita.",
+        "body": "Usar o acervo documental correspondente ao conteúdo; ausência ou falha de imagem recebe informação textual explícita. A proveniência dos rasters está registrada em `docs/ritual/proveniencia-embutida.json` e no inventário, sem alteração dos pixels ao incorporar metadados.",
         "section": "shapes"
       }
     ],
     "dos": [
-      "Do preservar o logo original e usar fotografias oficiais na escala permitida pela resolução.",
-      "Do manter um único responsável por transformação; separar wrappers de entrada, scroll e imagem.",
-      "Do manter conteúdo padrão visível, foco perceptível e controles ocultos fora da navegação por teclado.",
-      "Do respeitar prefers-reduced-motion inicialmente e em mudanças durante a visita.",
-      "Do identificar ausência de fotografia e manter datas, preços e disponibilidade sob consulta."
+      "Do preservar a marca original e fotografias reais, incluindo o fundo fotografado dos produtos.",
+      "Do manter texto, preços, durações, destinos e detalhes essenciais disponíveis sem JavaScript.",
+      "Do conservar foco perceptível e estados de seleção acessíveis.",
+      "Do respeitar prefers-reduced-motion inicial e dinâmico e a pausa global.",
+      "Do distinguir catálogo datado de disponibilidade e confirmação na plataforma oficial."
     ],
     "donts": [
-      "Don't transferir cores, símbolos gastronômicos ou recursos proprietários do Salomé para a marca.",
-      "Don't fabricar fotografias de profissionais, cortes ou ambiente, nem ampliar indiscriminadamente o acervo pequeno.",
-      "Don't substituir a marca original por texto estilizado.",
-      "Don't apresentar catálogo estático como estoque ou confirmação de reserva em tempo real.",
-      "Don't acumular soluções de suavização, timelines concorrentes ou efeitos sticky em todas as seções."
+      "Don't fabricar fotografias, biografias ou resultados de tratamentos.",
+      "Don't substituir o logo original por uma composição tipográfica.",
+      "Don't depender da animação para tornar o conteúdo legível.",
+      "Don't transformar catálogos ou o mapa externo em promessa de estoque, agenda ou carregamento garantidos."
     ]
   }
 }

@@ -1,12 +1,13 @@
-SR. NAVALHA V9
+SR. NAVALHA — A ARTE DO RITUAL
 
-Abra index.html pelo Live Server no VS Code.
-Alternativa: python3 -m http.server 8019 e http://localhost:8019
-Não precisa de npm, React, Vite ou comando de build para visualizar.
-Módulos JS precisam de servidor HTTP; não use duplo clique/file:// para avaliar animações.
+1. Extraia o ZIP inteiro, preservando as pastas.
+2. Abra a pasta sr-navalha no Visual Studio Code.
+3. Clique com o botão direito em index.html e escolha Open with Live Server.
 
-Para regenerar o HTML após editar js/data/:
-node scripts/build-v9.mjs
+Não é necessário npm run dev, instalação de dependências ou build.
+Não use file:// para testar módulos JavaScript.
+Agendamentos acontecem no AppBarber oficial; o site não simula reservas.
 
-A agenda oficial é o AppBarber. Não há reserva fictícia ou estoque em tempo real.
-Documentação: README.md e docs/TESTES_V9.md.
+Fonte canônica para futuras alterações: scripts/render-site.mjs e js/data/.
+HTML pronto, CSS e JS também estão incluídos.
+Leia README.md e docs/ritual/TESTES.md para detalhes e limites.

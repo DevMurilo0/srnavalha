@@ -1,0 +1,2380 @@
+[
+  {
+    "file": "assets/decor/favicon-v8.png",
+    "width": 64,
+    "height": 41,
+    "bytes": 4054,
+    "source": null,
+    "active": true,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "125f856729c0fada16b3e5f84cda487a3b4231081e2b71fe34576a64beaa3018"
+  },
+  {
+    "file": "assets/herosrnavalha.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 1837130,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "9b0fc5f6c2fd4ca3dc8600d88d3f954f0f890a47b86c76d32b05670707b7c167"
+  },
+  {
+    "file": "assets/images/brand-logo.webp",
+    "width": 119,
+    "height": 53,
+    "bytes": 2974,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "cf7cbe37151abc1a185331b2a60fe0c99ebe2a03e9730e50cc0f94d278a1e54b"
+  },
+  {
+    "file": "assets/images/hero-ambiente-1920.webp",
+    "width": 1920,
+    "height": 1080,
+    "bytes": 106764,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "9b885ca5f9957f16a7cbd94e2f0961b530b08e43da9ddd5c77520a1a4ede7cdc"
+  },
+  {
+    "file": "assets/images/hero-ambiente-3840.webp",
+    "width": 3840,
+    "height": 2160,
+    "bytes": 279440,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "ebc5c6a8379ab42e6e9b552451557b371918d003e47702bcb72e963d325a3836"
+  },
+  {
+    "file": "assets/images/hero-ambiente-mobile-960.webp",
+    "width": 960,
+    "height": 900,
+    "bytes": 45662,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "c83f7ee6adca193d919cbeda755376fb216f57c5a22ae2326a00c04ae7fa1383"
+  },
+  {
+    "file": "assets/images/hero-redesign/fachada-320.webp",
+    "width": 320,
+    "height": 471,
+    "bytes": 32448,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/fachada-720.webp",
+      "assets/images/hero-redesign/fachada-320.webp",
+      "assets/images/hero-redesign/fachada-480.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "6ed6c9a121934ce7bbffe0269d5e70ff525d21692c164311f19cb455d9b05e24"
+  },
+  {
+    "file": "assets/images/hero-redesign/fachada-480.webp",
+    "width": 480,
+    "height": 707,
+    "bytes": 52406,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/fachada-720.webp",
+      "assets/images/hero-redesign/fachada-320.webp",
+      "assets/images/hero-redesign/fachada-480.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "1f3f8a2bf51b602fda98389c0843cfc779b24e48ab2b64b2971bd3599f99b579"
+  },
+  {
+    "file": "assets/images/hero-redesign/fachada-720.webp",
+    "width": 720,
+    "height": 1060,
+    "bytes": 95810,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/fachada-720.webp",
+      "assets/images/hero-redesign/fachada-320.webp",
+      "assets/images/hero-redesign/fachada-480.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "bdd38bf7a31da280ecdeca768c86644de3c68bd410f610ffe153ec96348c2258"
+  },
+  {
+    "file": "assets/images/hero-redesign/interior-320.webp",
+    "width": 320,
+    "height": 471,
+    "bytes": 19204,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/interior-480.webp",
+      "assets/images/hero-redesign/interior-720.webp",
+      "assets/images/hero-redesign/interior-320.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "16ce5409a196a70fced7f3f151c61ac89cb1ba77263f93770d1eb260d348a8a0"
+  },
+  {
+    "file": "assets/images/hero-redesign/interior-480.webp",
+    "width": 480,
+    "height": 707,
+    "bytes": 30720,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/interior-480.webp",
+      "assets/images/hero-redesign/interior-720.webp",
+      "assets/images/hero-redesign/interior-320.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "8819df10062a923b55521eeae29db82dfb71f375c0070f791bc03cea77f767a7"
+  },
+  {
+    "file": "assets/images/hero-redesign/interior-720.webp",
+    "width": 720,
+    "height": 1060,
+    "bytes": 56344,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/hero-redesign/interior-480.webp",
+      "assets/images/hero-redesign/interior-720.webp",
+      "assets/images/hero-redesign/interior-320.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "3bb5e476186a8cd9de8c31940b741c50c9d6d4ff98672da5aace77bbc8453b3b"
+  },
+  {
+    "file": "assets/images/hero-ref-mobile-v10.webp",
+    "width": 960,
+    "height": 879,
+    "bytes": 68238,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "0fdc4dde4640851ddd3a8444f2c33bad5d657fec11ed702672cf3fb38bb8bb88"
+  },
+  {
+    "file": "assets/images/hero-ref-v10.webp",
+    "width": 2048,
+    "height": 1017,
+    "bytes": 190104,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "e857e6f61af87d4f413b12ab8ca6ce64dc4b2b3dfe026e60b831cc4f156c72f9"
+  },
+  {
+    "file": "assets/images/ritual/instrumentos-480.webp",
+    "width": 480,
+    "height": 853,
+    "bytes": 34118,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": true,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/ritual/instrumentos-720.webp",
+      "assets/images/ritual/instrumentos-480.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "a4891f947bbfbdf14dfbe5bbe867c83b9999de1e46db542a1e539c2e8e8c6215"
+  },
+  {
+    "file": "assets/images/ritual/instrumentos-720.webp",
+    "width": 720,
+    "height": 1280,
+    "bytes": 58046,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": false,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [
+      "assets/images/ritual/instrumentos-720.webp",
+      "assets/images/ritual/instrumentos-480.webp"
+    ],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "55e7b1bd6afa009569e11c9b244ec046d20099e7ebaf68d15601854913499198"
+  },
+  {
+    "file": "assets/images/v8/body-splash-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 18410,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/body-splash-320.webp",
+      "assets/images/v8/body-splash-640.webp",
+      "assets/images/v8/body-splash-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6cf0a29665e5a0e12ec0f6998f2e2019d45311b258a8cf8dc3203edfde0766e5"
+  },
+  {
+    "file": "assets/images/v8/body-splash-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 47038,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/body-splash-320.webp",
+      "assets/images/v8/body-splash-640.webp",
+      "assets/images/v8/body-splash-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "145084ae2295a17fba50ca3183f239101bd357462736853e17fb1c576421810d"
+  },
+  {
+    "file": "assets/images/v8/body-splash-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 64520,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/body-splash-320.webp",
+      "assets/images/v8/body-splash-640.webp",
+      "assets/images/v8/body-splash-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "a6edd58bfd381c622f7e5ae70aaa14ba363dab6d127d6237b36b5b09b951512c"
+  },
+  {
+    "file": "assets/images/v8/damiao-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 11096,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/damiao-960.webp",
+      "assets/images/v8/damiao-320.webp",
+      "assets/images/v8/damiao-640.webp"
+    ],
+    "originalWidth": 725,
+    "originalHeight": 725,
+    "sha256": "9a8b2e22677500f85c1a332628b7ed507be0abbeb6106663498392f23939ef60"
+  },
+  {
+    "file": "assets/images/v8/damiao-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 29390,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/damiao-960.webp",
+      "assets/images/v8/damiao-320.webp",
+      "assets/images/v8/damiao-640.webp"
+    ],
+    "originalWidth": 725,
+    "originalHeight": 725,
+    "sha256": "104d3415980f2cc4e23f69154b220e9be48979acff633dd79ffb2223eaa52d3b"
+  },
+  {
+    "file": "assets/images/v8/damiao-960.webp",
+    "width": 725,
+    "height": 725,
+    "bytes": 35828,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/damiao-960.webp",
+      "assets/images/v8/damiao-320.webp",
+      "assets/images/v8/damiao-640.webp"
+    ],
+    "originalWidth": 725,
+    "originalHeight": 725,
+    "sha256": "e6789cc2597c9a37848c17c981b324e6362d2e4d6a305bff763ae92d280a6b2d"
+  },
+  {
+    "file": "assets/images/v8/eduardo-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 12350,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/eduardo-320.webp",
+      "assets/images/v8/eduardo-960.webp",
+      "assets/images/v8/eduardo-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "a7ad71e7af06f0236b38150e60ba6cb440460283292f5922a9177e80f1c9d6ac"
+  },
+  {
+    "file": "assets/images/v8/eduardo-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 36242,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/eduardo-320.webp",
+      "assets/images/v8/eduardo-960.webp",
+      "assets/images/v8/eduardo-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "dcfafef2bed69b7049190b85958d91f74563b6b34776dab6561964773c8bd2d2"
+  },
+  {
+    "file": "assets/images/v8/eduardo-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 55238,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/eduardo-320.webp",
+      "assets/images/v8/eduardo-960.webp",
+      "assets/images/v8/eduardo-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "3baebb02722f8a8737d8cae32e95fa4e9496b7effc658521e53fb536d55c85aa"
+  },
+  {
+    "file": "assets/images/v8/kaua-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 12610,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/kaua-640.webp",
+      "assets/images/v8/kaua-320.webp",
+      "assets/images/v8/kaua-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "5e73dfda356c3387241cba97aae084738e44ebe9eb0a6f473972dcdfde75a6d4"
+  },
+  {
+    "file": "assets/images/v8/kaua-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 32292,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/kaua-640.webp",
+      "assets/images/v8/kaua-320.webp",
+      "assets/images/v8/kaua-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "75363858284a55594b3ca9166765f9479e7d7a258892962ad852634454fd8dfc"
+  },
+  {
+    "file": "assets/images/v8/kaua-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 45306,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/kaua-640.webp",
+      "assets/images/v8/kaua-320.webp",
+      "assets/images/v8/kaua-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "90e5187dfd472040e002f0928d9296e84ea820c53ecf2b5282657972594109e0"
+  },
+  {
+    "file": "assets/images/v8/leave-in-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 16908,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e912f567393.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/leave-in-640.webp",
+      "assets/images/v8/leave-in-320.webp",
+      "assets/images/v8/leave-in-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "178e118c7d9e8dfd205cb382dcaba31c9e31bd5972e566b4ef301e905e44ef91"
+  },
+  {
+    "file": "assets/images/v8/leave-in-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 42596,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e912f567393.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/leave-in-640.webp",
+      "assets/images/v8/leave-in-320.webp",
+      "assets/images/v8/leave-in-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "9010b1960ab4a58f48dba6aee971a3ff2ef0a6a254c310f5fecf2fb755868da6"
+  },
+  {
+    "file": "assets/images/v8/leave-in-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 57648,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e912f567393.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/leave-in-640.webp",
+      "assets/images/v8/leave-in-320.webp",
+      "assets/images/v8/leave-in-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f52c66b0535bb72c414a4019f21232833ba83aae818400e8b50dd48c79810b9e"
+  },
+  {
+    "file": "assets/images/v8/locao-pos-barba-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 12654,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28c7665987.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/locao-pos-barba-960.webp",
+      "assets/images/v8/locao-pos-barba-320.webp",
+      "assets/images/v8/locao-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "5f2c0dab39693af80a9341668ca0d3e0bef80248884b6112228075e2228dd490"
+  },
+  {
+    "file": "assets/images/v8/locao-pos-barba-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 31504,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28c7665987.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/locao-pos-barba-960.webp",
+      "assets/images/v8/locao-pos-barba-320.webp",
+      "assets/images/v8/locao-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "e0646e2f5eef17e01c45630acc27975b30e64af44992fb49749f52cd5d809d89"
+  },
+  {
+    "file": "assets/images/v8/locao-pos-barba-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 44166,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28c7665987.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/locao-pos-barba-960.webp",
+      "assets/images/v8/locao-pos-barba-320.webp",
+      "assets/images/v8/locao-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "d351f37103a3ccca04044cae59c9e5c9ffd9ef44444e7491c0d94417d80d5d5c"
+  },
+  {
+    "file": "assets/images/v8/logo-320.webp",
+    "width": 320,
+    "height": 206,
+    "bytes": 8524,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/logo-320.webp",
+      "assets/images/v8/logo-960.webp",
+      "assets/images/v8/logo-640.webp"
+    ],
+    "originalWidth": 791,
+    "originalHeight": 509,
+    "sha256": "3530bee6018074f878b62bce392b37234b0bba2f960d78b94fa0ce167c3fbbaa"
+  },
+  {
+    "file": "assets/images/v8/logo-640.webp",
+    "width": 640,
+    "height": 412,
+    "bytes": 19770,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/logo-320.webp",
+      "assets/images/v8/logo-960.webp",
+      "assets/images/v8/logo-640.webp"
+    ],
+    "originalWidth": 791,
+    "originalHeight": 509,
+    "sha256": "356dc40c32c6a0f4d8d4af9937d4cdbcefdf2e2bdd75670ccee1b955fded8533"
+  },
+  {
+    "file": "assets/images/v8/logo-960.webp",
+    "width": 791,
+    "height": 509,
+    "bytes": 27068,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/logo-320.webp",
+      "assets/images/v8/logo-960.webp",
+      "assets/images/v8/logo-640.webp"
+    ],
+    "originalWidth": 791,
+    "originalHeight": 509,
+    "sha256": "55835ddcec1f3093f24166793efb3f7f0798d5670533a5ffe939ab14107471d8"
+  },
+  {
+    "file": "assets/images/v8/oleo-para-barba-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 20890,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9144f5c3ef.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/oleo-para-barba-640.webp",
+      "assets/images/v8/oleo-para-barba-320.webp",
+      "assets/images/v8/oleo-para-barba-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "e7847862d9b019a8124771488130ad3b4d46c209bd4dee9a79bac3b8fc4b2953"
+  },
+  {
+    "file": "assets/images/v8/oleo-para-barba-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 50266,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9144f5c3ef.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/oleo-para-barba-640.webp",
+      "assets/images/v8/oleo-para-barba-320.webp",
+      "assets/images/v8/oleo-para-barba-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6d0731d5e4561ff06ed2280ce985904510580e6d822aacae02ea61cf8c582bba"
+  },
+  {
+    "file": "assets/images/v8/oleo-para-barba-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 65146,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9144f5c3ef.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/oleo-para-barba-640.webp",
+      "assets/images/v8/oleo-para-barba-320.webp",
+      "assets/images/v8/oleo-para-barba-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "fccb8ba49b2b3609eb49e57484cc95b8d30c7c929d79ae714f2c754e39561b67"
+  },
+  {
+    "file": "assets/images/v8/pomada-fox-premium-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 18872,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a109f1bf15ea.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-fox-premium-640.webp",
+      "assets/images/v8/pomada-fox-premium-960.webp",
+      "assets/images/v8/pomada-fox-premium-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "76722a21c0fbc6376596f722732b4e1227886c1d85994556f59faa18d7add271"
+  },
+  {
+    "file": "assets/images/v8/pomada-fox-premium-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 40804,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a109f1bf15ea.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-fox-premium-640.webp",
+      "assets/images/v8/pomada-fox-premium-960.webp",
+      "assets/images/v8/pomada-fox-premium-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "28e2111bdf3286beb6da11320b1a8d34e427027ac7c030e92eb8765ebe247e9d"
+  },
+  {
+    "file": "assets/images/v8/pomada-fox-premium-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 52952,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a109f1bf15ea.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-fox-premium-640.webp",
+      "assets/images/v8/pomada-fox-premium-960.webp",
+      "assets/images/v8/pomada-fox-premium-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "16170a3b950a95ce13f0e214846c01d1d0c318d1cc0d83d8ae667cc59199533b"
+  },
+  {
+    "file": "assets/images/v8/pomada-orange-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 25466,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-orange-640.webp",
+      "assets/images/v8/pomada-orange-960.webp",
+      "assets/images/v8/pomada-orange-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "70c347a2fa5947c24572fcb10f8e5f43d6bb488ad38c31a45d8d2ef4ee09d4cd"
+  },
+  {
+    "file": "assets/images/v8/pomada-orange-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 60964,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-orange-640.webp",
+      "assets/images/v8/pomada-orange-960.webp",
+      "assets/images/v8/pomada-orange-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "733a3f7b066992b06325224652dfa3b8f7268977bf4e6439af0d6d46ab42dedc"
+  },
+  {
+    "file": "assets/images/v8/pomada-orange-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 79072,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-orange-640.webp",
+      "assets/images/v8/pomada-orange-960.webp",
+      "assets/images/v8/pomada-orange-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "480f738c065f0ccd1c899181d27c10e1836fa8bf7cd37c02ee05a8c59841e97d"
+  },
+  {
+    "file": "assets/images/v8/pomada-queratina-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 25426,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deced3628a8.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-queratina-640.webp",
+      "assets/images/v8/pomada-queratina-320.webp",
+      "assets/images/v8/pomada-queratina-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "8c4a241ad0ee9ddbf124d81fc5cb39e43773141e57642c86815e83183f885850"
+  },
+  {
+    "file": "assets/images/v8/pomada-queratina-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 62616,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deced3628a8.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-queratina-640.webp",
+      "assets/images/v8/pomada-queratina-320.webp",
+      "assets/images/v8/pomada-queratina-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "3ab6e9052c879770d3fd7110126f09655c01af85e8186083068c19a4bbc0b8fd"
+  },
+  {
+    "file": "assets/images/v8/pomada-queratina-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 81304,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deced3628a8.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-queratina-640.webp",
+      "assets/images/v8/pomada-queratina-320.webp",
+      "assets/images/v8/pomada-queratina-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "666edfbe7b694820066e4332c4a97f208284bd1b2dedf80ac4c9ba35813ccf98"
+  },
+  {
+    "file": "assets/images/v8/pomada-teia-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 24952,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68decffccdb62.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-teia-640.webp",
+      "assets/images/v8/pomada-teia-320.webp",
+      "assets/images/v8/pomada-teia-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "fe5c0b147e6d95287fdfcdae44932c93e5b64d552bcce107b773d7b9a53dc0e5"
+  },
+  {
+    "file": "assets/images/v8/pomada-teia-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 59414,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68decffccdb62.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-teia-640.webp",
+      "assets/images/v8/pomada-teia-320.webp",
+      "assets/images/v8/pomada-teia-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "79b198aea7a435fd6ec7ae1032a7f0c8e96461894359bd8473ce772b35bff8e1"
+  },
+  {
+    "file": "assets/images/v8/pomada-teia-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 78684,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68decffccdb62.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-teia-640.webp",
+      "assets/images/v8/pomada-teia-320.webp",
+      "assets/images/v8/pomada-teia-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "1257a0d8849e88f16aa4b887aa91257e0d3e4c174244df0cdbfcbc69a2a8b792"
+  },
+  {
+    "file": "assets/images/v8/pomada-toq-seco-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 25934,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deca1fa902c.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-toq-seco-640.webp",
+      "assets/images/v8/pomada-toq-seco-320.webp",
+      "assets/images/v8/pomada-toq-seco-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "5747f5e005a2c92e777b61ea74ed0e1165713194dcc81bb8d5c9470a42580ca7"
+  },
+  {
+    "file": "assets/images/v8/pomada-toq-seco-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 61910,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deca1fa902c.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-toq-seco-640.webp",
+      "assets/images/v8/pomada-toq-seco-320.webp",
+      "assets/images/v8/pomada-toq-seco-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f30ec681aab23ba3018866c8b5dd52b830c6162030caccb16e110cc09c2127d5"
+  },
+  {
+    "file": "assets/images/v8/pomada-toq-seco-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 80252,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deca1fa902c.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-toq-seco-640.webp",
+      "assets/images/v8/pomada-toq-seco-320.webp",
+      "assets/images/v8/pomada-toq-seco-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "5aa283733bf89fc8f08a8868ac8d9ddbf33e6d02f00a03bd24c40de3423fe7cb"
+  },
+  {
+    "file": "assets/images/v8/pomada-uv-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 24462,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dece2a79ced.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-uv-640.webp",
+      "assets/images/v8/pomada-uv-320.webp",
+      "assets/images/v8/pomada-uv-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "00728d5cc1c280efe4b719ff0359ca732473156f558b7ab1c2b82f358569f00e"
+  },
+  {
+    "file": "assets/images/v8/pomada-uv-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 58042,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dece2a79ced.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-uv-640.webp",
+      "assets/images/v8/pomada-uv-320.webp",
+      "assets/images/v8/pomada-uv-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "4dfe94fdc24b3bc00c1968b47c9a60f862797314a0d2e6836d6f344c4c0b4500"
+  },
+  {
+    "file": "assets/images/v8/pomada-uv-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 75812,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dece2a79ced.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomada-uv-640.webp",
+      "assets/images/v8/pomada-uv-320.webp",
+      "assets/images/v8/pomada-uv-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "a357ade462397ca5f9ef473869736523c7544b2d88bcb62a6b2fa2c4aa173e08"
+  },
+  {
+    "file": "assets/images/v8/pomda-coffee-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 26576,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9179b5ffe4.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomda-coffee-640.webp",
+      "assets/images/v8/pomda-coffee-960.webp",
+      "assets/images/v8/pomda-coffee-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "cb42e9cee424d0cea14f2da0acbd1460b5fc8115a852c5f0050adfb8390e2850"
+  },
+  {
+    "file": "assets/images/v8/pomda-coffee-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 64132,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9179b5ffe4.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomda-coffee-640.webp",
+      "assets/images/v8/pomda-coffee-960.webp",
+      "assets/images/v8/pomda-coffee-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "d8e150241a1d0dab8c6c714c7bcf91a23757ac0d68b7b41b83f765283acef236"
+  },
+  {
+    "file": "assets/images/v8/pomda-coffee-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 83690,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9179b5ffe4.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/pomda-coffee-640.webp",
+      "assets/images/v8/pomda-coffee-960.webp",
+      "assets/images/v8/pomda-coffee-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "c1c60a4bf36570c990bf7f38d880ee2d6b2c6222bdc6ad76b1c57a9fc1dc964c"
+  },
+  {
+    "file": "assets/images/v8/rafael-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 8508,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/rafael-320.webp",
+      "assets/images/v8/rafael-640.webp",
+      "assets/images/v8/rafael-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "030f0fb955a2247113a0d92add213fc1b66e60d58b2c4088f1f7fc26e8800ee1"
+  },
+  {
+    "file": "assets/images/v8/rafael-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 20788,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/rafael-320.webp",
+      "assets/images/v8/rafael-640.webp",
+      "assets/images/v8/rafael-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "028cdae67e1f7fb5057b0a39b602e350270ade60bef374903f4b76566fb165c8"
+  },
+  {
+    "file": "assets/images/v8/rafael-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 29540,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/rafael-320.webp",
+      "assets/images/v8/rafael-640.webp",
+      "assets/images/v8/rafael-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "020be4af70335c44c2aefcf922d6ed5e21404d5f8725bca443295b666a71d595"
+  },
+  {
+    "file": "assets/images/v8/serum-pos-barba-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 19762,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877dc933d85.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/serum-pos-barba-960.webp",
+      "assets/images/v8/serum-pos-barba-320.webp",
+      "assets/images/v8/serum-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6d7de873e61b6dac95378a940de8edbe66466961d6ab49ea5b0316999c6a4141"
+  },
+  {
+    "file": "assets/images/v8/serum-pos-barba-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 50898,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877dc933d85.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/serum-pos-barba-960.webp",
+      "assets/images/v8/serum-pos-barba-320.webp",
+      "assets/images/v8/serum-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "8875e95374e27be049540594c0601effee1ed1cdc83cda246d00066b8c8ab3c6"
+  },
+  {
+    "file": "assets/images/v8/serum-pos-barba-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 69676,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877dc933d85.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/serum-pos-barba-960.webp",
+      "assets/images/v8/serum-pos-barba-320.webp",
+      "assets/images/v8/serum-pos-barba-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "05339a8c8dca182857ab0732da5b4449e3d427d18000524e54184beb6d9210cb"
+  },
+  {
+    "file": "assets/images/v8/servico-barba-simples-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 12622,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea85370f10.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barba-simples-960.webp",
+      "assets/images/v8/servico-barba-simples-320.webp",
+      "assets/images/v8/servico-barba-simples-640.webp"
+    ],
+    "originalWidth": 358,
+    "originalHeight": 358,
+    "sha256": "2bd686fcec809913163df17efe5a63694325baf2160d34b83b0cb6f357f1b769"
+  },
+  {
+    "file": "assets/images/v8/servico-barba-simples-640.webp",
+    "width": 358,
+    "height": 358,
+    "bytes": 14978,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea85370f10.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barba-simples-960.webp",
+      "assets/images/v8/servico-barba-simples-320.webp",
+      "assets/images/v8/servico-barba-simples-640.webp"
+    ],
+    "originalWidth": 358,
+    "originalHeight": 358,
+    "sha256": "2a90bb9f2cb86ebb59d7faf6e1b02a04a78a388849f9f3728fe4f37e2c8d1372"
+  },
+  {
+    "file": "assets/images/v8/servico-barba-simples-960.webp",
+    "width": 358,
+    "height": 358,
+    "bytes": 14978,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea85370f10.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barba-simples-960.webp",
+      "assets/images/v8/servico-barba-simples-320.webp",
+      "assets/images/v8/servico-barba-simples-640.webp"
+    ],
+    "originalWidth": 358,
+    "originalHeight": 358,
+    "sha256": "2a90bb9f2cb86ebb59d7faf6e1b02a04a78a388849f9f3728fe4f37e2c8d1372"
+  },
+  {
+    "file": "assets/images/v8/servico-barboterapia-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 21376,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea8a7cd8ee.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barboterapia-960.webp",
+      "assets/images/v8/servico-barboterapia-640.webp",
+      "assets/images/v8/servico-barboterapia-320.webp"
+    ],
+    "originalWidth": 698,
+    "originalHeight": 698,
+    "sha256": "90039e0a46270cb6a44d3444d4d53bb01e269666167eec04162706306b8baad3"
+  },
+  {
+    "file": "assets/images/v8/servico-barboterapia-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 67432,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea8a7cd8ee.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barboterapia-960.webp",
+      "assets/images/v8/servico-barboterapia-640.webp",
+      "assets/images/v8/servico-barboterapia-320.webp"
+    ],
+    "originalWidth": 698,
+    "originalHeight": 698,
+    "sha256": "61b2161ea427882d42fd592e8d2ba238930278d32868d987ed1d3f13fc132177"
+  },
+  {
+    "file": "assets/images/v8/servico-barboterapia-960.webp",
+    "width": 698,
+    "height": 698,
+    "bytes": 76606,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea8a7cd8ee.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-barboterapia-960.webp",
+      "assets/images/v8/servico-barboterapia-640.webp",
+      "assets/images/v8/servico-barboterapia-320.webp"
+    ],
+    "originalWidth": 698,
+    "originalHeight": 698,
+    "sha256": "54e0247dcd0effd27144794d11719695475c4de225cd496f10d066e7e167b88f"
+  },
+  {
+    "file": "assets/images/v8/servico-comb-cort-barb-simples-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 14688,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb074b2ad5.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-comb-cort-barb-simples-960.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-320.webp"
+    ],
+    "originalWidth": 410,
+    "originalHeight": 410,
+    "sha256": "37deb067c13a108b8bd3760811d7b7acc9b363c6113ae3ba4080f74b3631124c"
+  },
+  {
+    "file": "assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+    "width": 410,
+    "height": 410,
+    "bytes": 22132,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb074b2ad5.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-comb-cort-barb-simples-960.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-320.webp"
+    ],
+    "originalWidth": 410,
+    "originalHeight": 410,
+    "sha256": "d174963a4540e584fb4daf827bf8088a0abde9efe805fd930465c30543fdac5a"
+  },
+  {
+    "file": "assets/images/v8/servico-comb-cort-barb-simples-960.webp",
+    "width": 410,
+    "height": 410,
+    "bytes": 22132,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb074b2ad5.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-comb-cort-barb-simples-960.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+      "assets/images/v8/servico-comb-cort-barb-simples-320.webp"
+    ],
+    "originalWidth": 410,
+    "originalHeight": 410,
+    "sha256": "d174963a4540e584fb4daf827bf8088a0abde9efe805fd930465c30543fdac5a"
+  },
+  {
+    "file": "assets/images/v8/servico-corte-infantil-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 20062,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeafb152350.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-corte-infantil-320.webp",
+      "assets/images/v8/servico-corte-infantil-960.webp",
+      "assets/images/v8/servico-corte-infantil-640.webp"
+    ],
+    "originalWidth": 647,
+    "originalHeight": 647,
+    "sha256": "6b9760e0c636703b178c094cd7f2e3ac078fcb29adbc0667ccde4727e93b37e7"
+  },
+  {
+    "file": "assets/images/v8/servico-corte-infantil-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 64466,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeafb152350.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-corte-infantil-320.webp",
+      "assets/images/v8/servico-corte-infantil-960.webp",
+      "assets/images/v8/servico-corte-infantil-640.webp"
+    ],
+    "originalWidth": 647,
+    "originalHeight": 647,
+    "sha256": "7ed75187b5fb5656a43a0993de78327dbc33a54323cfd049ea9a1474c886e634"
+  },
+  {
+    "file": "assets/images/v8/servico-corte-infantil-960.webp",
+    "width": 647,
+    "height": 647,
+    "bytes": 65554,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeafb152350.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-corte-infantil-320.webp",
+      "assets/images/v8/servico-corte-infantil-960.webp",
+      "assets/images/v8/servico-corte-infantil-640.webp"
+    ],
+    "originalWidth": 647,
+    "originalHeight": 647,
+    "sha256": "1b264a4bad3a72c276f9f38e854bcf8fc3b399ead50ca2acb4fbee987bdcd13f"
+  },
+  {
+    "file": "assets/images/v8/servico-luzes-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 16582,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb0f543b19.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-luzes-640.webp",
+      "assets/images/v8/servico-luzes-960.webp",
+      "assets/images/v8/servico-luzes-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f6e7067f079ae05e0e611d502c7663c0a8541f55aec03ba4181ab9c8999f8650"
+  },
+  {
+    "file": "assets/images/v8/servico-luzes-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 49246,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb0f543b19.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-luzes-640.webp",
+      "assets/images/v8/servico-luzes-960.webp",
+      "assets/images/v8/servico-luzes-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "4089aed3fb157109be83061befddaae5e6bfa25b13513514a59df41089b2153a"
+  },
+  {
+    "file": "assets/images/v8/servico-luzes-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 71054,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb0f543b19.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-luzes-640.webp",
+      "assets/images/v8/servico-luzes-960.webp",
+      "assets/images/v8/servico-luzes-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "cae5f295deb8e298a8fd2cb43df23a953c8feaaec5dbbe733c1110f03345274f"
+  },
+  {
+    "file": "assets/images/v8/servico-platinado-320.webp",
+    "width": 290,
+    "height": 290,
+    "bytes": 10430,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb129440e1.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-platinado-640.webp",
+      "assets/images/v8/servico-platinado-320.webp",
+      "assets/images/v8/servico-platinado-960.webp"
+    ],
+    "originalWidth": 290,
+    "originalHeight": 290,
+    "sha256": "8767977c8d7290ab3151ef3d5a33ad94a9e28cc1cd73cedbe286d69615f5d711"
+  },
+  {
+    "file": "assets/images/v8/servico-platinado-640.webp",
+    "width": 290,
+    "height": 290,
+    "bytes": 10430,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb129440e1.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-platinado-640.webp",
+      "assets/images/v8/servico-platinado-320.webp",
+      "assets/images/v8/servico-platinado-960.webp"
+    ],
+    "originalWidth": 290,
+    "originalHeight": 290,
+    "sha256": "8767977c8d7290ab3151ef3d5a33ad94a9e28cc1cd73cedbe286d69615f5d711"
+  },
+  {
+    "file": "assets/images/v8/servico-platinado-960.webp",
+    "width": 290,
+    "height": 290,
+    "bytes": 10430,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb129440e1.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/servico-platinado-640.webp",
+      "assets/images/v8/servico-platinado-320.webp",
+      "assets/images/v8/servico-platinado-960.webp"
+    ],
+    "originalWidth": 290,
+    "originalHeight": 290,
+    "sha256": "8767977c8d7290ab3151ef3d5a33ad94a9e28cc1cd73cedbe286d69615f5d711"
+  },
+  {
+    "file": "assets/images/v8/shampoo-4em1-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 15828,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7b268017.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-4em1-640.webp",
+      "assets/images/v8/shampoo-4em1-960.webp",
+      "assets/images/v8/shampoo-4em1-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "c94ad6592cad400582f86573f0e814f498528727165cc2a82c12fcf5a2589a61"
+  },
+  {
+    "file": "assets/images/v8/shampoo-4em1-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 41466,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7b268017.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-4em1-640.webp",
+      "assets/images/v8/shampoo-4em1-960.webp",
+      "assets/images/v8/shampoo-4em1-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "438c15d833240b3d70e0634cf557adf8da807c409b2bb775c3bc422e6cebbc29"
+  },
+  {
+    "file": "assets/images/v8/shampoo-4em1-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 57110,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7b268017.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-4em1-640.webp",
+      "assets/images/v8/shampoo-4em1-960.webp",
+      "assets/images/v8/shampoo-4em1-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "d6734462ab8cde5f90458c280bbd5e216b2eb3d79abd05f17a4870952fad98c7"
+  },
+  {
+    "file": "assets/images/v8/shampoo-anticaspa-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 16518,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7e7f17b6.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-anticaspa-320.webp",
+      "assets/images/v8/shampoo-anticaspa-960.webp",
+      "assets/images/v8/shampoo-anticaspa-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6a8cd9eec305ffbcdca26fff9a6b8c5b61a858b1f76f682f59a67f28696a9823"
+  },
+  {
+    "file": "assets/images/v8/shampoo-anticaspa-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 43546,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7e7f17b6.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-anticaspa-320.webp",
+      "assets/images/v8/shampoo-anticaspa-960.webp",
+      "assets/images/v8/shampoo-anticaspa-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "962bdd0fb6e8c543e97313fde577c50810a88160c4fd07d6bb8d1beff2474ce4"
+  },
+  {
+    "file": "assets/images/v8/shampoo-anticaspa-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 59816,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7e7f17b6.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-anticaspa-320.webp",
+      "assets/images/v8/shampoo-anticaspa-960.webp",
+      "assets/images/v8/shampoo-anticaspa-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "628e303e4bd8c8ef3ec877ec09beea3c50c9b53390f0b6f6c230017acce920a7"
+  },
+  {
+    "file": "assets/images/v8/shampoo-escurecedor-dom-pelo-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 12178,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28b3c069a2.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-960.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-640.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "959d24263b5985e7cae3ea66ff4747f356e736ce1b79683f2e0c713a1eec4861"
+  },
+  {
+    "file": "assets/images/v8/shampoo-escurecedor-dom-pelo-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 32938,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28b3c069a2.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-960.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-640.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "eea03452af6f71a3cac5c0ae9d8750bae2d7709c8d99e76fabdc7d61294e016c"
+  },
+  {
+    "file": "assets/images/v8/shampoo-escurecedor-dom-pelo-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 45480,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28b3c069a2.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-960.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-640.webp",
+      "assets/images/v8/shampoo-escurecedor-dom-pelo-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "1adccf3e2bbc1d129b10365e8c1add4a1d42824f5f608ffb439281e718559e4b"
+  },
+  {
+    "file": "assets/images/v8/shampoo-ice-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 20128,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fc405df74.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-ice-960.webp",
+      "assets/images/v8/shampoo-ice-640.webp",
+      "assets/images/v8/shampoo-ice-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "905171f1ce8787a780de4edb776c744b2164f7b96650298e1f3cf1324eddc730"
+  },
+  {
+    "file": "assets/images/v8/shampoo-ice-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 54912,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fc405df74.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-ice-960.webp",
+      "assets/images/v8/shampoo-ice-640.webp",
+      "assets/images/v8/shampoo-ice-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "460d761e33b3dda2699f28cb23ffe0ee6400e37087c17868c490e0f8fea47dee"
+  },
+  {
+    "file": "assets/images/v8/shampoo-ice-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 75928,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fc405df74.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-ice-960.webp",
+      "assets/images/v8/shampoo-ice-640.webp",
+      "assets/images/v8/shampoo-ice-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "0a6c8af163cd9893a8240a103a424e4198950afc0910cfb5f6887a68ad4e9aca"
+  },
+  {
+    "file": "assets/images/v8/shampoo-matizador-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 23214,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-matizador-320.webp",
+      "assets/images/v8/shampoo-matizador-640.webp",
+      "assets/images/v8/shampoo-matizador-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "3745f24da127f524d88a027933b968b8caf315391fab358afec295c901ffec3c"
+  },
+  {
+    "file": "assets/images/v8/shampoo-matizador-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 64244,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-matizador-320.webp",
+      "assets/images/v8/shampoo-matizador-640.webp",
+      "assets/images/v8/shampoo-matizador-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "9c3913c77c17eee833314ed23ee2a238e8d2cf8c731a4408440a87c4433f9bea"
+  },
+  {
+    "file": "assets/images/v8/shampoo-matizador-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 90272,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/shampoo-matizador-320.webp",
+      "assets/images/v8/shampoo-matizador-640.webp",
+      "assets/images/v8/shampoo-matizador-960.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "069ccf50dd939ae2afe5b9e648cd22f50fbeacb18dfa95a87e7fe4a8417d0f96"
+  },
+  {
+    "file": "assets/images/v8/tonico-de-crescimento-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 17588,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec85639618.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/tonico-de-crescimento-960.webp",
+      "assets/images/v8/tonico-de-crescimento-640.webp",
+      "assets/images/v8/tonico-de-crescimento-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "d9eb248328493c3d31145afacd0ec295f45024dea85920ebfe734d4b038f61ac"
+  },
+  {
+    "file": "assets/images/v8/tonico-de-crescimento-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 44896,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec85639618.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/tonico-de-crescimento-960.webp",
+      "assets/images/v8/tonico-de-crescimento-640.webp",
+      "assets/images/v8/tonico-de-crescimento-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "e0ca0bffb08ee6458f9c987293179e9de308875ded2fe4c50a0857cc6e36b363"
+  },
+  {
+    "file": "assets/images/v8/tonico-de-crescimento-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 60386,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec85639618.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/tonico-de-crescimento-960.webp",
+      "assets/images/v8/tonico-de-crescimento-640.webp",
+      "assets/images/v8/tonico-de-crescimento-320.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "4930f1b4ff8fbea1c89fe2cbc0bb90167e2e2c49e411b387561b142593554b75"
+  },
+  {
+    "file": "assets/images/v8/yan-320.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 7944,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/yan-320.webp",
+      "assets/images/v8/yan-960.webp",
+      "assets/images/v8/yan-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f23b0b242fb9cf10bf08e6e3d052a7c4cb42d7c34f87fbc0f93c996e43cfbc3e"
+  },
+  {
+    "file": "assets/images/v8/yan-640.webp",
+    "width": 640,
+    "height": 640,
+    "bytes": 19714,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png",
+    "active": true,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/yan-320.webp",
+      "assets/images/v8/yan-960.webp",
+      "assets/images/v8/yan-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "39871f89ff200c024b372e2bf20b5f1a0281de22f51ed4f7b8332421843553c6"
+  },
+  {
+    "file": "assets/images/v8/yan-960.webp",
+    "width": 800,
+    "height": 800,
+    "bytes": 27978,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [
+      "assets/images/v8/yan-320.webp",
+      "assets/images/v8/yan-960.webp",
+      "assets/images/v8/yan-640.webp"
+    ],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "9c247ea3d0528a10ef1ca743e2f3f271e2afe1798112e4b093285a8aba87bcb6"
+  },
+  {
+    "file": "assets/images/v9/damiao-400.webp",
+    "width": 400,
+    "height": 400,
+    "bytes": 17986,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "6b57693d4caaf262b784cc12f37743165241feeacb131037a0173e38b56361ca"
+  },
+  {
+    "file": "assets/images/v9/damiao-725.webp",
+    "width": 725,
+    "height": 725,
+    "bytes": 49558,
+    "source": null,
+    "active": false,
+    "quality": "Acervo local preservado; não utilizado sem proveniência confirmada.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "1c5245b50d7224f8c8016972a83079d54027acf331f74c7617a21ff33dd24b0e"
+  },
+  {
+    "file": "assets/images/v9/logo.webp",
+    "width": 791,
+    "height": 269,
+    "bytes": 40610,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "Preservado",
+    "variants": [],
+    "originalWidth": 791,
+    "originalHeight": 509,
+    "sha256": "a4322a646429efafedac8d2b56475d600506a53020ed0f35d60e2b105701bfa2"
+  },
+  {
+    "file": "assets/originals/hero-redesign/fachada-58-32.png",
+    "width": 720,
+    "height": 1280,
+    "bytes": 828460,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": false,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "53e926a59302e57e80eb4a163e8a721b0e26170ec34c22db6e60f1bc42876652"
+  },
+  {
+    "file": "assets/originals/hero-redesign/interior-06-50.png",
+    "width": 720,
+    "height": 1280,
+    "bytes": 499011,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": false,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "01341af90e2da528d5a39d71578c6689ddd801e394c4ca0cc4ddbb6bcdea15c0"
+  },
+  {
+    "file": "assets/originals/ritual/instrumentos-26s.png",
+    "width": 720,
+    "height": 1280,
+    "bytes": 570517,
+    "source": "https://www.instagram.com/bocadedidi/reel/DePNevYxDML/",
+    "active": false,
+    "quality": "Frame de vídeo documental 720×1280; compressão e movimento de origem.",
+    "treatment": "Recorte ou redução; sem geração de detalhes",
+    "variants": [],
+    "originalWidth": null,
+    "originalHeight": null,
+    "sha256": "4a8c6dfed3dcbcac835692b6038d36a84cda4a87d8021611c310923ca32ca972"
+  },
+  {
+    "file": "assets/originals/v8/body-splash.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 86762,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "0fb52123259dfa4afda97f5088ddefa4edec924f5b92dcadde72eb73c7a74133"
+  },
+  {
+    "file": "assets/originals/v8/damiao.png",
+    "width": 725,
+    "height": 725,
+    "bytes": 52176,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921750eefa.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 725,
+    "originalHeight": 725,
+    "sha256": "8b062ac7705b8593d285bc5a16cc2e38dc37a7173ae30515153c4117468fa942"
+  },
+  {
+    "file": "assets/originals/v8/eduardo.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 73985,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e91f2c0f97f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "0edd2b5dff3db55ad6326d4a2e61e2d53e5b38803d24f36875977dac8454bcce"
+  },
+  {
+    "file": "assets/originals/v8/kaua.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 68140,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6ac7f81622785.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "b55e92d730411f0f428d6fece724a0171eda7a3d0b8632b543791c8976cdfd78"
+  },
+  {
+    "file": "assets/originals/v8/leave-in.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 78854,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e912f567393.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "3c957cf8ff8bb77c7a50c1e3d26b2ab80b2f1942020ecca8ec00a3a96f754bd1"
+  },
+  {
+    "file": "assets/originals/v8/locao-pos-barba.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 69240,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28c7665987.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "ed7d7f54f4efc152d8b9749b3fccda8d82b8fea5175fd0bcf5e3e403d6d3e55d"
+  },
+  {
+    "file": "assets/originals/v8/logo.png",
+    "width": 791,
+    "height": 509,
+    "bytes": 44365,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/srnavala-pqjj_68de7f84e7dd4.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 791,
+    "originalHeight": 509,
+    "sha256": "96d9223312c5759b9479bc0fde1afa84316696d186d9ac615544d7d43ad4f54d"
+  },
+  {
+    "file": "assets/originals/v8/oleo-para-barba.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 87881,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9144f5c3ef.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "187a31c8b2f840c001d7b51da2ef7a2ea89d6ed8ef041facbcf67eb003ef543d"
+  },
+  {
+    "file": "assets/originals/v8/pomada-fox-premium.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 76338,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a109f1bf15ea.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "dbaced7c8658d45f8725081fde3896cc92d3394e1cb907bffda05db10c0ea417"
+  },
+  {
+    "file": "assets/originals/v8/pomada-orange.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 99515,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f4cd89657f8db5b468b8804fadc6efdf64d731d251bdd447ce93bc49ca272d6e"
+  },
+  {
+    "file": "assets/originals/v8/pomada-queratina.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 101740,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deced3628a8.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "0420bd1eb8725dfa281e1494c1bb0f7b9d00c4afcbc511589788f8e71ee914bd"
+  },
+  {
+    "file": "assets/originals/v8/pomada-teia.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 98702,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68decffccdb62.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "c00217b669e0374a855dc4d94d85222279228256d4aa1e72d7273738e133e622"
+  },
+  {
+    "file": "assets/originals/v8/pomada-toq-seco.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 102418,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68deca1fa902c.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "2f96a8e3c2d31b7df81c000271f4527f5ab99cf01c77b021cfaade750d543e2c"
+  },
+  {
+    "file": "assets/originals/v8/pomada-uv.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 97214,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dece2a79ced.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "a40a60ff3011625f8bf996c6c96af96572cb4b6589b07dd3fb72939752da5a97"
+  },
+  {
+    "file": "assets/originals/v8/pomda-coffee.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 105500,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9179b5ffe4.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "e4613fcd1327b53df92dc69870667ba7be94750185ab7262353f43e4dc7ac29f"
+  },
+  {
+    "file": "assets/originals/v8/rafael.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 48264,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e921c825d9f.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "ab4684091b272ed01fbdf33e3a18aff3d3f7be2252f50081ce52a295b6025383"
+  },
+  {
+    "file": "assets/originals/v8/serum-pos-barba.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 88489,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877dc933d85.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f4aa584b9e449e6b7ad76d1a67052c0d05ce115295adf7640e17e8dc90f1fb00"
+  },
+  {
+    "file": "assets/originals/v8/servico-barba-simples.png",
+    "width": 358,
+    "height": 358,
+    "bytes": 18978,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea85370f10.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 358,
+    "originalHeight": 358,
+    "sha256": "55b57a08f304937971d41f7b2b2ac56390c18dc85e90cff9d5b6e158d6eb08e0"
+  },
+  {
+    "file": "assets/originals/v8/servico-barboterapia.png",
+    "width": 698,
+    "height": 698,
+    "bytes": 83421,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eea8a7cd8ee.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 698,
+    "originalHeight": 698,
+    "sha256": "e00075a30b5714e554cc51a29d88a607e3fd676161e9d2f05acfa7ef0f91bfb0"
+  },
+  {
+    "file": "assets/originals/v8/servico-comb-cort-barb-simples.png",
+    "width": 410,
+    "height": 410,
+    "bytes": 26212,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb074b2ad5.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 410,
+    "originalHeight": 410,
+    "sha256": "b84a00994bb1743854199d49e775f226012c23907116c21c43bb9c1cd80e6c9a"
+  },
+  {
+    "file": "assets/originals/v8/servico-corte-infantil.png",
+    "width": 647,
+    "height": 647,
+    "bytes": 73424,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeafb152350.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 647,
+    "originalHeight": 647,
+    "sha256": "46f011e9b84b5d86b963ee661f16971aacd3693c2581607366dbb90f385ed99f"
+  },
+  {
+    "file": "assets/originals/v8/servico-luzes.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 84494,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb0f543b19.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "d5d23c17f1b570bdf63f9d2a8ab596a30770487730b73dd26932119026b4b7d2"
+  },
+  {
+    "file": "assets/originals/v8/servico-platinado.png",
+    "width": 290,
+    "height": 290,
+    "bytes": 13015,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68eeb129440e1.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 290,
+    "originalHeight": 290,
+    "sha256": "7435ce3d5226c59698529bfb226eb122992b994ebc7e83d29be7f8810417a4aa"
+  },
+  {
+    "file": "assets/originals/v8/shampoo-4em1.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 77333,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7b268017.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f4cf408e376877bb142185fe2088b46eabec3f511b92ee6b4d768a3bbf75b06b"
+  },
+  {
+    "file": "assets/originals/v8/shampoo-anticaspa.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 80813,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec7e7f17b6.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6a74297787f1a2a3e01d03722ee0b6175e483e16b954341434fa0934e7bd9807"
+  },
+  {
+    "file": "assets/originals/v8/shampoo-escurecedor-dom-pelo.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 70701,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/69e28b3c069a2.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "6c3f9f42fe903e3c9a4357c8b18e5aac088b1998d105eb0b05bcf5e7d960f33f"
+  },
+  {
+    "file": "assets/originals/v8/shampoo-ice.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 95065,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fc405df74.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "f14b2574d2b300e75f48803aee136a03398ea44376819ebb957a6ff5a426b030"
+  },
+  {
+    "file": "assets/originals/v8/shampoo-matizador.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 109883,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "c781982d0d60cc6d55ced0dccb0d3ded7078a82988baf27177dbe64ef61e28a4"
+  },
+  {
+    "file": "assets/originals/v8/tonico-de-crescimento.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 81177,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68dec85639618.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "4ba3f679818365d4eaaaaa18b2e03219ea547619cc9884c8b13a93b1eca8ae64"
+  },
+  {
+    "file": "assets/originals/v8/yan.png",
+    "width": 800,
+    "height": 800,
+    "bytes": 46955,
+    "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e8fe27d80fa.png",
+    "active": false,
+    "quality": "Original oficial; derivado sem ampliação.",
+    "treatment": "WebP pré-existente, sem alteração de características",
+    "variants": [],
+    "originalWidth": 800,
+    "originalHeight": 800,
+    "sha256": "1f0f50b3f9f1e410cafeeaa567fe0df8b581720bab6d5bbd315c48cfe8143a28"
+  }
+]

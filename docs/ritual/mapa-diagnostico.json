@@ -1,0 +1,31 @@
+{
+  "frames": [
+    {
+      "url": "http://127.0.0.1:8033/",
+      "text": "Pular para o conteúdo\nA casa\nRituais\nNossa equipe\nO trabalho\nVisite\nAgendar horário\n\nBarbearia em Gravatá, PE\n\nSeu tempo. Seu estilo.\n\nA arte do ritual.\nO encontro começa aqui.\nSr. Navalha · Prado, Gravatá\n\nUm corte. Uma conversa.\nUm tempo só seu.\n\nAgendar horário\nEntre. Sinta-se da casa.\nPrecisão em cada detalhe.\nEncontre o seu ritual\nPausar movimento\nChegue.\nFique à vontade.\n\nCuidar do visual também é sobre se sentir em casa. No Prado, um lugar para o corte, a conversa e as boas histórias.\n\n“Onde o corte vira identidade.”\n\nConheça nossos serviços\nDa porta ao espelho. O cuidado continua.\nNo seu tempo.\nDo seu jeito.\n\nEscolha um cuidado.\nO espelho revela os detalhes.\n\nCorte + barba\nBarboterapia\nCorte infantil\nLuzes\nVer todos os serviços\nSR. NAVALHA\nESPELHO VIVO\n\nCombos\n\nCorte + barba simples\nR$ 50,00\n45 min\n\nEscolha o profissional e encontre seu horário na agenda oficial.\n\nEscolher meu ho"
+    },
+    {
+      "url": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sSr.+Navalha+Barbearia+Av.+Gov.+Agamenon+Magalhaes+349+Gravata",
+      "text": "Keyboard shortcuts\nMap data ©2026 Google\nTerms\nReport a map error"
+    },
+    {
+      "url": "about:blank",
+      "text": ""
+    },
+    {
+      "url": "about:blank",
+      "text": ""
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://www.google.com/maps?q=Sr.%20Navalha%20Barbearia%20Av.%20Gov.%20Agamenon%20Magalhaes%20349%20Gravata&output=embed",
+      "status": 301
+    },
+    {
+      "url": "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sSr.+Navalha+Barbearia+Av.+Gov.+Agamenon+Magalhaes+349+Gravata",
+      "status": 200
+    }
+  ],
+  "fails": []
+}

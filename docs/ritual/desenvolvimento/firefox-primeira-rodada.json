@@ -1,0 +1,195 @@
+{
+  "browser": "Firefox",
+  "date": "2026-10-22T19:39:08.062Z",
+  "checks": [
+    {
+      "name": "320: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 303.96665954589844,
+        "photos": true
+      }
+    },
+    {
+      "name": "320: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "375: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 318.66668701171875,
+        "photos": true
+      }
+    },
+    {
+      "name": "375: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "390: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 318.66668701171875,
+        "photos": true
+      }
+    },
+    {
+      "name": "390: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "768: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 452.7166748046875,
+        "photos": true
+      }
+    },
+    {
+      "name": "768: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1024: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 491.41668701171875,
+        "photos": true
+      }
+    },
+    {
+      "name": "1024: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1366: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 521.2333374023438,
+        "photos": true
+      }
+    },
+    {
+      "name": "1366: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1440: hero, abertura, fotos e CTA",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "opening": false,
+        "cta": 527.3833312988281,
+        "photos": true
+      }
+    },
+    {
+      "name": "1440: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "Espelho Vivo",
+      "pass": true
+    },
+    {
+      "name": "Filtro de serviços",
+      "pass": true
+    },
+    {
+      "name": "Equipe Kauã",
+      "pass": true
+    },
+    {
+      "name": "Produto óleo para barba",
+      "pass": true
+    },
+    {
+      "name": "Galeria expandida",
+      "pass": false
+    },
+    {
+      "name": "Galeria teclado",
+      "pass": false
+    },
+    {
+      "name": "Galeria Escape e foco",
+      "pass": true
+    },
+    {
+      "name": "Esteira desliza",
+      "pass": true,
+      "detail": {
+        "a": "matrix(1, 0, 0, 1, -2.18242, 0)",
+        "c": "matrix(1, 0, 0, 1, -10.578, 0)"
+      }
+    },
+    {
+      "name": "Esteira pausa",
+      "pass": true
+    },
+    {
+      "name": "Corte reversível",
+      "pass": true,
+      "detail": [
+        "inset(0px 100% 0px 0px)",
+        "inset(0px 76.66% 0px 0px)",
+        "inset(0px 8.99% 0px 0px)",
+        "inset(0px 76.66% 0px 0px)"
+      ]
+    },
+    {
+      "name": "Pausa global",
+      "pass": false
+    },
+    {
+      "name": "Console sem erros JS",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "samples": [
+    {
+      "name": "reflexo",
+      "animations": [
+        {
+          "target": "review-track is-moving is-paused",
+          "time": 0,
+          "clip": "none"
+        },
+        {
+          "target": "",
+          "time": 316.56,
+          "clip": "inset(0px 0px 10.1105%)"
+        },
+        {
+          "target": "mirror-frame",
+          "time": 316.56,
+          "clip": "inset(21.2982% 0px 0px)"
+        },
+        {
+          "target": "is-current",
+          "time": 249.62,
+          "clip": "inset(0px 0px 0px 9.30229%)"
+        },
+        {
+          "target": "mirror-info",
+          "time": 249.62,
+          "clip": "none"
+        }
+      ]
+    }
+  ]
+}

@@ -28,6 +28,6 @@ export default {
     }
   ],
   "rating": 5,
-  "count": 467,
-  "ratingCheckedOn": "2026-10-17"
+  "count": 474,
+  "ratingCheckedOn": "2026-10-22"
 };

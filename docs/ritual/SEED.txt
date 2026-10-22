@@ -1,0 +1,3 @@
+SEED REFERENCE: seed:7e0b8d6a3efff99d
+Comando executado: impeccable concept-seed --scope direction --mode experience
+Decisão: mundo fixado pelo briefing A arte do ritual; sem reabrir aprovação estética.

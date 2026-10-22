@@ -1,0 +1,121 @@
+{
+  "out": [
+    {
+      "width": 1440,
+      "overflow": 0,
+      "errors": [
+        ""
+      ],
+      "hero": {
+        "x": 0,
+        "y": 100,
+        "width": 1440,
+        "height": 992.78125,
+        "top": 100,
+        "right": 1440,
+        "bottom": 1092.78125,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "x": 970.609375,
+          "y": 495.03125,
+          "width": 289.375,
+          "height": 56,
+          "top": 495.03125,
+          "right": 1259.984375,
+          "bottom": 551.03125,
+          "left": 970.609375
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "errors": [
+        ""
+      ],
+      "hero": {
+        "x": 0,
+        "y": 84,
+        "width": 390,
+        "height": 668.984375,
+        "top": 84,
+        "right": 390,
+        "bottom": 752.984375,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "x": 20,
+          "y": 262.90625,
+          "width": 350,
+          "height": 54,
+          "top": 262.90625,
+          "right": 370,
+          "bottom": 316.90625,
+          "left": 20
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "overflow": 0,
+      "errors": [
+        ""
+      ],
+      "hero": {
+        "x": 0,
+        "y": 84,
+        "width": 320,
+        "height": 590.9375,
+        "top": 84,
+        "right": 320,
+        "bottom": 674.9375,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "x": 20,
+          "y": 248.1875,
+          "width": 280,
+          "height": 54,
+          "top": 248.1875,
+          "right": 300,
+          "bottom": 302.1875,
+          "left": 20
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "overflow": 0,
+      "errors": [
+        ""
+      ],
+      "hero": {
+        "x": 0,
+        "y": 100,
+        "width": 768,
+        "height": 754.1875,
+        "top": 100,
+        "right": 768,
+        "bottom": 854.1875,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "x": 521.921875,
+          "y": 408.75,
+          "width": 207.671875,
+          "height": 56,
+          "top": 408.75,
+          "right": 729.59375,
+          "bottom": 464.75,
+          "left": 521.921875
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
