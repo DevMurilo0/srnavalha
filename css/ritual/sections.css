@@ -20,3 +20,35 @@
 @media(max-width:600px){.map-viewport{height:350px}.map-status{padding:25px}.map-status>p:first-child{font-size:28px}.map-frame.is-unavailable .map-viewport{height:300px}}
 
 .map-assistance{background:var(--tobacco);color:var(--ivory);padding:0 24px 12px}.map-assistance>summary{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:44px;font-size:13px}.map-assistance>summary .icon{width:16px;height:16px}.map-assistance p{font-size:14px;max-width:36ch;margin-top:16px}.map-assistance>a{margin-block:10px}.map-frame:has(.map-assistance[open]) .map-viewport{display:none}
+
+/* V13 — photo-film and the moving voice of the customers. */
+.reviews .review-heading h2{font-weight:650;letter-spacing:-.055em}
+.review-gallery{display:grid;grid-template-columns:minmax(230px,29%) minmax(0,1fr);gap:clamp(26px,3.4vw,56px);align-items:center;width:min(1540px,calc(100% - var(--gutter)*2));margin:0 auto}
+.review-visual{min-width:0;position:relative}
+.review-visual-frame{height:clamp(330px,36vw,470px);overflow:hidden;position:relative;background:#241d18;isolation:isolate;border:1px solid rgba(189,148,110,.48);clip-path:polygon(0 0,95% 0,100% 5%,100% 100%,5% 100%,0 95%)}
+.review-visual-frame>img,.review-loop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.review-visual-frame>img{filter:saturate(.9)}
+.review-loop{opacity:0;transition:opacity .75s ease;pointer-events:none}
+.review-loop.is-ready{opacity:1}
+.review-visual-mark{position:absolute;right:14px;bottom:5px;font:700 clamp(66px,8vw,115px)/1 var(--display);letter-spacing:-.07em;color:rgba(255,255,255,.25);pointer-events:none}
+.review-visual figcaption{margin-top:15px;color:var(--light-muted);letter-spacing:.02em}
+.review-gallery .review-viewport{min-width:0;overflow:hidden;isolation:isolate;mask-image:linear-gradient(to right,transparent 0%,#000 7%,#000 93%,transparent 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 7%,#000 93%,transparent 100%)}
+.review-gallery .review-track{display:flex;width:max-content;align-items:stretch}
+.review-gallery .review-group{display:flex;flex:none;gap:24px;padding-right:24px;width:max-content}
+.review-gallery .review{flex:none;width:clamp(270px,30vw,365px);min-height:300px;border:1px solid rgba(189,148,110,.18);transition:border-color .3s,background .3s,transform .5s var(--ease)}
+.review-gallery .review:hover{border-color:rgba(189,148,110,.7);background:#392b24;transform:translateY(-5px)}
+.review-gallery .review blockquote{font:500 clamp(17px,1.65vw,22px)/1.5 var(--display);letter-spacing:-.035em}
+.review-gallery .review-group[aria-hidden="true"]{pointer-events:none}
+@media(max-width:900px){.review-gallery{grid-template-columns:minmax(195px,35%) minmax(0,1fr);gap:24px}.review-gallery .review{width:285px}}
+@media(max-width:700px){.review-gallery{display:flex;flex-direction:column;gap:22px;align-items:stretch}.review-visual{width:min(100%,490px);margin:0 auto}.review-visual-frame{height:215px}.review-gallery .review-viewport{width:100%;max-width:100%;min-height:255px}.review-gallery .review{width:min(300px,83vw);min-height:265px}.review-gallery .review blockquote{font-size:18px}.reviews .review-heading{margin-bottom:32px}}
+@media(prefers-reduced-motion:reduce){
+ .review-gallery{display:block}
+ .review-visual{width:min(100%,390px);margin-bottom:28px}
+ .review-gallery .review-viewport{mask-image:none;-webkit-mask-image:none;overflow:visible}
+ .review-gallery .review-track{display:block;width:auto}
+ .review-gallery .review-group{display:grid;width:100%;grid-template-columns:repeat(2,minmax(0,1fr));padding:0}
+ .review-gallery .review-group[aria-hidden="true"]{display:none}
+ .review-gallery .review{width:auto;min-height:0;transform:none}
+ .review-loop{display:none}
+}
+@media(prefers-reduced-motion:reduce) and (max-width:700px){.review-gallery .review-group{grid-template-columns:1fr}}

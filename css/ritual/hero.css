@@ -29,3 +29,34 @@
 @media(max-width:700px){.hero-top{display:flex;justify-content:center}.hero-top p{font-size:9px;gap:9px;letter-spacing:.08em}.hero-centerpiece{padding-top:6px}.hero-wordmark{width:min(310px,80vw);margin:5px auto -2px}.hero-wordmark img{height:115px}.hero-wordmark>span{right:0;font-size:7px}.hero h1{font-size:clamp(40px,10vw,66px);text-align:center;line-height:1.04;letter-spacing:-.065em}.hero h1 .title-mask>span{white-space:normal}.hero-intro{font-size:14px;max-width:29ch;line-height:1.5}.hero-composition{margin-top:29px;gap:17px}.hero-facade{margin-top:25px;transform:rotate(-2deg)}.hero-room{transform:rotate(2deg)}.hero-invitation>p{line-height:1.6}.hero{min-height:0}}
 @media(max-width:350px){.hero h1{font-size:36px}.hero-wordmark{width:78vw}.hero-top p{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.hero-facade,.hero-room,.hero-detail{transform:none!important}.hero .photo-window img{transition:none!important}}
+
+/* V13 — balanced center stage, genuine original wordmark without its rectangular background. */
+.hero-centerpiece{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:12px}
+.hero-upperline{font-weight:650;font-size:11px;letter-spacing:.21em}
+.hero-wordmark{width:min(370px,68vw);max-width:100%;margin:6px auto 0;isolation:isolate}
+.hero-wordmark .hero-logo-transparent{display:block;width:100%;height:auto;overflow:visible}
+.hero-wordmark>span{right:-7px;top:39%;font-size:8px}
+.hero h1{font-family:var(--display);font-weight:650;font-size:clamp(42px,5.35vw,78px);line-height:1.13;letter-spacing:-.055em;max-width:1090px;margin:11px auto 0;text-align:center}
+.hero h1 em{font-family:var(--display);font-weight:400;letter-spacing:-.058em;font-style:normal;color:var(--wood)}
+.hero-intro{font-size:clamp(15px,1.16vw,18px);max-width:51ch;line-height:1.6;margin:8px auto 0}
+.hero-composition{max-width:1100px;grid-template-columns:.84fr 1.17fr .92fr;align-items:center;gap:clamp(20px,3vw,46px);margin:24px auto 0}
+.hero-facade{margin-top:16px}.hero-room{margin-top:0}.hero-invitation{padding-top:0}
+.hero-detail{width:65%;margin-top:28px}
+.hero .photo-window{outline:1px solid rgba(128,88,60,.25);outline-offset:4px}
+.hero-bottom{margin-top:18px}
+.hero-logo-transparent{filter:drop-shadow(0 8px 14px rgba(23,22,21,.045))}
+@media(max-width:1000px){
+ .hero h1{font-size:clamp(42px,6.7vw,68px)}
+ .hero-wordmark{width:min(330px,63vw)}
+ .hero-composition{gap:24px}
+}
+@media(max-width:700px){
+ .hero-top{margin-top:3px}.hero-centerpiece{padding-top:5px}
+ .hero-wordmark{width:min(270px,75vw);margin-top:4px}
+ .hero-wordmark>span{right:-8px}
+ .hero h1{font-size:clamp(35px,10vw,56px);line-height:1.12;max-width:100%;letter-spacing:-.052em;margin:7px auto 0}
+ .hero h1 .title-mask>span{white-space:normal}
+ .hero-intro{font-size:14px;max-width:30ch;margin-top:10px}
+ .hero-composition{margin-top:22px}.hero-invitation>p{font-size:14px}.hero-bottom{margin-top:12px}
+}
+@media(max-width:350px){.hero h1{font-size:34px}.hero-wordmark{width:225px}}

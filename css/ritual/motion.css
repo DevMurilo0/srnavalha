@@ -1,7 +1,7 @@
 /* Motion never owns persistent visibility. WAAPI cancels back to these natural states. */
 .menu[open] nav{animation:menu-open 240ms var(--ease)}
 @keyframes menu-open{from{opacity:.2;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
-.review-track.is-moving{animation:reputation-travel 58s linear infinite}
+.review-track.is-moving{animation:reputation-travel 39s linear infinite}
 @keyframes reputation-travel{to{transform:translateX(-50%)}}
 .review-track.is-paused,.review-viewport:hover .review-track,.review-viewport:focus-within .review-track{animation-play-state:paused}
 .motion-paused .review-track{animation-play-state:paused!important}
@@ -34,3 +34,12 @@ html{scroll-behavior:smooth;scroll-padding-top:102px}
 }
 .motion-word{display:inline-block;white-space:pre;transform-origin:50% 100%}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.scroll-thread{display:none}.hero.is-arriving .hero-wordmark{animation:none!important}.motion-word{transform:none!important}}
+
+/* V13: permanent one-direction carousel in enhanced mode; never a two-column grid. */
+.enhanced .review-gallery .review-viewport .review-track.is-moving{display:flex;animation:reputation-travel 39s linear infinite}
+.enhanced .review-gallery .review-viewport .review-track.is-paused{animation-play-state:paused}
+.enhanced .review-gallery .review-viewport .review-track .review-group{display:flex;width:max-content}
+@media(prefers-reduced-motion:reduce){
+ .enhanced .review-gallery .review-viewport .review-track.is-moving{animation:none;display:block;transform:none}
+ .enhanced .review-gallery .review-viewport .review-track .review-group{display:grid;width:100%}
+}

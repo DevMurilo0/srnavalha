@@ -1,6 +1,20 @@
 import {$,$$,animate,canMove,preference,isPaused,ease} from './core.js';
 export function initMotion(){
  const film=$('.detail-film');let filmVisible=false;function syncFilm(){if(!film)return;if(filmVisible&&canMove()){if(!film.src)film.src=film.dataset.src;film.play().catch(()=>{})}else film.pause()}if(film){new IntersectionObserver(([entry])=>{filmVisible=entry.isIntersecting;syncFilm()}).observe(film);document.addEventListener('motionchange',syncFilm)}
+
+ // Real product video: lazy load, looping silently, paused outside the viewport.
+ const reviewFilm=$('.review-loop');
+ if(reviewFilm){
+   let inView=false;
+   const sync=()=>{
+     if(!inView||!canMove()){reviewFilm.pause();return}
+     if(!reviewFilm.src)reviewFilm.src=reviewFilm.dataset.src;
+     reviewFilm.play().then(()=>reviewFilm.classList.add('is-ready')).catch(()=>{});
+   };
+   new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;sync()},{threshold:.08}).observe(reviewFilm);
+   reviewFilm.addEventListener('loadeddata',()=>reviewFilm.classList.add('is-ready'),{once:true});
+   document.addEventListener('motionchange',sync);
+ }
  const seen=new WeakSet();
  const variants={
  type:[{clipPath:'inset(0 0 100% 0)',transform:'translateY(32px)'},{clipPath:'inset(0)',transform:'none'}],
