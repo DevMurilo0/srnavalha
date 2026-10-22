@@ -43,3 +43,15 @@ html{scroll-behavior:smooth;scroll-padding-top:102px}
  .enhanced .review-gallery .review-viewport .review-track.is-moving{animation:none;display:block;transform:none}
  .enhanced .review-gallery .review-viewport .review-track .review-group{display:grid;width:100%}
 }
+
+/* V14 — precision-cut split curtain. Does not persist when JavaScript is disabled. */
+.opening-mark--shutters{display:block;background:transparent;overflow:hidden;pointer-events:none;animation:opening-failsafe .01s 2.2s forwards}
+.opening-shutter{position:absolute;left:0;right:0;height:50.15%;background:var(--ink);will-change:transform}
+.opening-shutter--top{top:0}.opening-shutter--bottom{bottom:0}
+.opening-center{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;color:var(--ivory);pointer-events:none}
+.opening-eyebrow{font:600 11px/1 var(--body);letter-spacing:.28em;color:var(--copper)}
+.opening-logo{width:min(325px,68vw);max-width:100%}
+.opening-mark--shutters .opening-logo img{display:block;width:100%;height:auto;object-fit:contain;background:transparent;filter:none;mix-blend-mode:screen}
+.opening-subline{font:500 10px/1 var(--body);letter-spacing:.24em;color:var(--light-muted)}
+.opening-line{width:min(290px,55vw);height:1px;background:var(--copper);transform-origin:left}
+@media(prefers-reduced-motion:reduce){.opening-mark--shutters{display:none}.opening-shutter,.opening-center{animation:none!important}}

@@ -60,3 +60,42 @@
  .hero-composition{margin-top:22px}.hero-invitation>p{font-size:14px}.hero-bottom{margin-top:12px}
 }
 @media(max-width:350px){.hero h1{font-size:34px}.hero-wordmark{width:225px}}
+
+/* V14 — pull photography into the opening viewport without altering the editorial three-part composition. */
+.hero{padding-top:5px}
+.hero-centerpiece{padding-top:0}
+.hero-wordmark{width:min(298px,60vw);margin:-4px auto -2px}
+.hero h1{font-size:clamp(40px,4.8vw,70px);line-height:1.06;margin:0 auto}
+.hero-intro{margin:7px auto 0;line-height:1.5}
+.hero-composition{max-width:1160px;grid-template-columns:.83fr 1.13fr .92fr;align-items:start;gap:clamp(20px,3.2vw,45px);margin:9px auto 0}
+.hero-facade{margin-top:20px}
+.hero-room{margin-top:0}
+.hero-room .photo-window{aspect-ratio:auto;height:clamp(310px,50vh,470px)}
+.hero-facade .photo-window{aspect-ratio:auto;height:clamp(265px,41vh,385px)}
+.hero-invitation{padding-top:22px}
+.hero-detail{margin-top:19px}
+.hero-bottom{margin-top:5px;padding-top:20px}
+@media(min-width:1600px){
+ .hero{padding-top:6px}
+ .hero-composition{margin-top:11px}
+ .hero-bottom{margin-top:9px}
+}
+@media(max-width:1000px){
+ .hero-wordmark{width:min(280px,61vw)}
+ .hero-composition{margin-top:10px;gap:22px}
+ .hero h1{font-size:clamp(39px,5.7vw,65px)}
+ .hero-invitation{padding-top:9px}
+}
+@media(max-width:700px){
+ .hero{padding-top:5px}
+ .hero-centerpiece{padding-top:0}
+ .hero-wordmark{width:min(235px,66vw);margin:-9px auto -4px}
+ .hero h1{font-size:clamp(35px,10vw,53px);line-height:1.08;margin:0 auto}
+ .hero-intro{margin:6px auto 0;line-height:1.5}
+ .hero-composition{margin-top:15px;gap:17px}
+ .hero-facade{margin-top:17px}
+ .hero-facade .photo-window{aspect-ratio:720/1060;height:auto}
+ .hero-room .photo-window{aspect-ratio:720/1060;height:auto}
+ .hero-bottom{margin-top:6px}
+}
+@media(max-width:350px){.hero-wordmark{width:208px}.hero h1{font-size:34px}}

@@ -8,7 +8,7 @@ export function initAtelier(){
  // Word animation follows the hero entrance; DOM text and semantics remain intact.
  if(title&&canMove()){
    const walker=document.createTreeWalker(title,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
-   let i=0;for(const node of nodes){const fragment=document.createDocumentFragment();const parts=node.textContent.match(/\S+|\s+/g)||[];for(const part of parts){if(!part.trim()){fragment.append(document.createTextNode(part));continue}const span=document.createElement('span');span.className='motion-word';span.textContent=part;fragment.append(span);const order=i++;setTimeout(()=>{if(!canMove())return;span.animate([{opacity:.12,transform:'translateY(65%) rotate(7deg)',filter:'blur(7px)'},{opacity:1,transform:'none',filter:'blur(0px)'}],{duration:880,delay:order*65,easing:'cubic-bezier(.16,1,.3,1)'})},300)}node.replaceWith(fragment)}
+   let i=0;for(const node of nodes){const fragment=document.createDocumentFragment();const parts=node.textContent.match(/\S+|\s+/g)||[];for(const part of parts){if(!part.trim()){fragment.append(document.createTextNode(part));continue}const span=document.createElement('span');span.className='motion-word';span.textContent=part;fragment.append(span);const order=i++;setTimeout(()=>{if(!canMove())return;span.animate([{opacity:.12,transform:'translateY(65%) rotate(7deg)',filter:'blur(7px)'},{opacity:1,transform:'none',filter:'blur(0px)'}],{duration:880,delay:order*65,easing:'cubic-bezier(.16,1,.3,1)'})},780)}node.replaceWith(fragment)}
    
  }
  const targets=$$('main section h2,main section h3,.section-heading p,.hero-intro,.hero figcaption,.house-copy>p,.catalog-heading p');

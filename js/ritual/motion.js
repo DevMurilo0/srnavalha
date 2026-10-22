@@ -2,17 +2,12 @@ import {$,$$,animate,canMove,preference,isPaused,ease} from './core.js';
 export function initMotion(){
  const film=$('.detail-film');let filmVisible=false;function syncFilm(){if(!film)return;if(filmVisible&&canMove()){if(!film.src)film.src=film.dataset.src;film.play().catch(()=>{})}else film.pause()}if(film){new IntersectionObserver(([entry])=>{filmVisible=entry.isIntersecting;syncFilm()}).observe(film);document.addEventListener('motionchange',syncFilm)}
 
- // Real product video: lazy load, looping silently, paused outside the viewport.
- const reviewFilm=$('.review-loop');
- if(reviewFilm){
-   let inView=false;
-   const sync=()=>{
-     if(!inView||!canMove()){reviewFilm.pause();return}
-     if(!reviewFilm.src)reviewFilm.src=reviewFilm.dataset.src;
-     reviewFilm.play().then(()=>reviewFilm.classList.add('is-ready')).catch(()=>{});
-   };
-   new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;sync()},{threshold:.08}).observe(reviewFilm);
-   reviewFilm.addEventListener('loadeddata',()=>reviewFilm.classList.add('is-ready'),{once:true});
+ // Three-frame editorial loop: native images, no GIF download and no continuous JS animation.
+ const reviewVisual=$('.review-visual-frame');
+ if(reviewVisual){
+   let onScreen=false;
+   const sync=()=>reviewVisual.classList.toggle('is-playing',onScreen&&canMove());
+   new IntersectionObserver(([entry])=>{onScreen=entry.isIntersecting;sync()},{rootMargin:'60px',threshold:.08}).observe(reviewVisual);
    document.addEventListener('motionchange',sync);
  }
  const seen=new WeakSet();
@@ -46,18 +41,34 @@ export function initMotion(){
  const navObserver=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){$$('.desktop-nav a').forEach(a=>{if(a.hash===`#${e.target.id}`)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}},{rootMargin:'-10% 0px -65%'});$$('main section[id]').forEach(e=>navObserver.observe(e));
 }
 export async function openRitual(){
+ // Opening in two synchronized shutters. The hero remains naturally visible without JS.
  if(!canMove())return;
- const hero=$('.hero'),brand=$('.site-header .brand img'),overlay=document.createElement('div');overlay.className='opening-mark';overlay.setAttribute('aria-hidden','true');overlay.innerHTML='<div class="opening-frame"></div>';const mark=brand.cloneNode();mark.alt='';overlay.append(mark);document.body.append(overlay);
- const fail=setTimeout(()=>overlay.remove(),2400);
- const close=()=>{clearTimeout(fail);overlay.remove()};
- document.addEventListener('motionchange',()=>{if(!canMove())close()});
- // The actual masthead mark travels from the opening to its resting place.
+ const hero=$('.hero'),brand=$('.site-header .brand img');
+ const overlay=document.createElement('div');
+ overlay.className='opening-mark opening-mark--shutters';
+ overlay.setAttribute('aria-hidden','true');
+ overlay.innerHTML=`<div class="opening-shutter opening-shutter--top"></div><div class="opening-shutter opening-shutter--bottom"></div><div class="opening-center"><span class="opening-eyebrow">SR. NAVALHA</span><div class="opening-logo"><img src="assets/images/v8/logo-320.webp" width="320" height="206" alt=""></div><span class="opening-subline">BARBEARIA · GRAVATÁ</span><span class="opening-line"></span></div>`;
+ document.body.append(overlay);
+ let removed=false;
+ const remove=()=>{if(removed)return;removed=true;clearTimeout(failsafe);overlay.remove();hero.classList.remove('is-arriving')};
+ const failsafe=setTimeout(remove,2150);
+ const onMotion=()=>{if(!canMove())remove()};
+ document.addEventListener('motionchange',onMotion,{once:true});
  hero.classList.add('is-arriving');
- const logoFrom=mark.getBoundingClientRect(),logoTo=brand.getBoundingClientRect();
- animate(mark,[{transform:'none'},{transform:`translate(${logoTo.x-logoFrom.x}px,${logoTo.y-logoFrom.y}px) scale(${logoTo.width/logoFrom.width},${logoTo.height/logoFrom.height})`}],{duration:850,delay:120,easing:ease,fill:'forwards',persist:true});
- const open=animate(overlay,[{clipPath:'inset(0)'},{clipPath:'inset(0 0 100% 0)'}],{duration:900,delay:280,fill:'forwards'});
- animate($('.title-mask>span'),[{transform:'translateY(110%)'},{transform:'none'}],{duration:950,delay:420});
- $$('.hero-facade .photo-window,.hero-room .photo-window,.hero-detail .photo-window').forEach((e,i)=>{animate(e,[{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0)'}],{duration:1000,delay:350+i*110});animate($('img',e),[{transform:'scale(1.07) translateY(3%)'},{transform:'none'}],{duration:1100,delay:390+i*110})});
- animate($('.hero-invitation>p'),[{opacity:.1,transform:'translateY(15px)'},{opacity:1,transform:'none'}],{duration:600,delay:600});
- if(open)await open.finished.catch(()=>{});close();
+ const top=$('.opening-shutter--top',overlay),bottom=$('.opening-shutter--bottom',overlay),center=$('.opening-center',overlay),line=$('.opening-line',overlay);
+ animate(center,[{opacity:0,transform:'translateY(16px) scale(.96)'},{opacity:1,transform:'none'}],{duration:450,delay:50,easing:ease});
+ animate(line,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:630,delay:90,easing:ease,fill:'forwards'});
+ animate(center,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-18px) scale(.98)'}],{duration:320,delay:610,easing:ease,fill:'forwards'});
+ const shutters=[top,bottom].map((panel,i)=>animate(panel,[{transform:'translateY(0)'},{transform:`translateY(${i===0?'-101%':'101%'})`}],{duration:850,delay:620,easing:'cubic-bezier(.76,0,.24,1)',fill:'forwards'}));
+ animate($('.hero-wordmark'),[{opacity:.3,transform:'translateY(28px) scale(.92)'},{opacity:1,transform:'none'}],{duration:1000,delay:620,easing:ease});
+ animate($('.title-mask>span'),[{opacity:.45,transform:'translateY(80%)'},{opacity:1,transform:'none'}],{duration:930,delay:740,easing:ease});
+ $$('.hero-facade .photo-window,.hero-room .photo-window,.hero-detail .photo-window').forEach((el,i)=>{
+   animate(el,[{clipPath:i%2===0?'inset(0 100% 0 0)':'inset(100% 0 0 0)'},{clipPath:'inset(0)'}],{duration:950,delay:750+i*105,easing:ease});
+   animate($('img',el),[{transform:'scale(1.07) translateY(2%)'},{transform:'none'}],{duration:1090,delay:780+i*105,easing:ease});
+ });
+ $$('.hero-intro,.hero-invitation>p,.hero-invitation>.button,.hero-bottom').forEach((el,i)=>{
+   animate(el,[{opacity:.2,transform:'translateY(24px)'},{opacity:1,transform:'none'}],{duration:620,delay:790+i*90,easing:ease});
+ });
+ await Promise.all(shutters.map(a=>a?.finished.catch(()=>{})));
+ remove();
 }
