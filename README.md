@@ -32,7 +32,7 @@ A animação inicial foi simplificada a partir de referências de transições e
 
 Arquivos ativos: `js/ritual/opening.js`, `css/ritual/loader-harmony-v22.css`, `css/ritual.css`, `templates/v17/head.html`, `templates/v17/loader.html` e `index.html`. O CSS V22 vem por último na cascata e substitui apenas o comportamento da abertura, preservando os demais capítulos e recursos do site.
 
-A abertura reinicia após F5, aceita interrupção por interação, é omitida para âncoras internas e com `prefers-reduced-motion: reduce`, e tem salvaguarda para liberar conteúdo se o JavaScript falhar. Verificação manual recomendada em 320, 375, 390, 768, 1024, 1366 e 1440 px; testar F5, Ctrl+Shift+R, retorno pelo navegador, scroll durante a abertura e redução de movimento.
+A abertura reinicia após F5, aceita interrupção por interação, é omitida para âncoras internas e com `prefers-reduced-motion: reduce`, e tem salvaguarda para liberar conteúdo se o JavaScript falhar. O `js/ritual/app.js` inicializa primeiro somente a coreografia e os elementos visuais necessários; catálogo, equipe, álbum, galeria, produtos e mapa entram após o término da cortina para reduzir trabalho inicial na thread principal. Verificação manual recomendada em 320, 375, 390, 768, 1024, 1366 e 1440 px; testar F5, Ctrl+Shift+R, retorno pelo navegador, scroll durante a abertura e redução de movimento.
 
 ## Agendamento próprio — protótipo frontend local (23/10/2026)
 
