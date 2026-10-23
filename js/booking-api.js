@@ -5,6 +5,8 @@ const publicKey = BOOKING_BACKEND.publishableKey.trim();
 export const bookingEnabled = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(rawURL) &&
   publicKey.length >= 15 && !/service_role|sb_secret_/i.test(publicKey);
 
+export const bookingReady = bookingEnabled && BOOKING_BACKEND.turnstileSiteKey.trim().length >= 10;
+
 export class BookingAPIError extends Error {
   constructor(code, detail = '') {
     super(code);
@@ -58,16 +60,31 @@ export function availableSlots(serviceId, day, professionalId, signal) {
   }, { signal });
 }
 
-export function requestBooking({ requestId, serviceId, professionalId, slotAt, name, phone }) {
-  return rpc('sr_request_booking', {
-    p_request_id: requestId,
-    p_service_id: serviceId,
-    p_professional_id: professionalId,
-    p_slot_at: slotAt,
-    p_customer_name: name,
-    p_customer_phone: phone,
-    p_consent: true
-  });
+export async function requestBooking({ requestId, serviceId, professionalId, slotAt, name, phone, captchaToken }) {
+  if (!bookingReady) throw new BookingAPIError('NAO_CONFIGURADO');
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  try {
+    const res = await fetch(rawURL + '/functions/v1/request-booking', {
+      method: 'POST',
+      cache: 'no-store',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json', apikey: publicKey },
+      body: JSON.stringify({
+        requestId, serviceId, professionalId, slotAt,
+        name, phone, captchaToken, consent: true
+      }),
+      signal: controller.signal
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new BookingAPIError(data.code || 'ERRO_SERVIDOR');
+    return data;
+  } catch (error) {
+    if (error instanceof BookingAPIError) throw error;
+    throw new BookingAPIError(error.name === 'AbortError' ? 'TEMPO_ESGOTADO' : 'SEM_CONEXAO');
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export const bookingErrorMessage = code => ({
@@ -81,5 +98,8 @@ export const bookingErrorMessage = code => ({
   LIMITE_ATINGIDO: 'Já existem três agendamentos futuros para este telefone. Entre em contato com a barbearia.',
   REQUISICAO_DUPLICADA: 'Esse pedido já foi recebido com outros dados. Atualize e tente novamente.',
   REQUISICAO_EM_PROCESSAMENTO: 'Seu pedido está em processamento. Espere alguns instantes antes de tentar novamente.',
+  VERIFICACAO_FALHOU: 'A verificação de segurança não foi concluída. Tente novamente.',
+  VERIFICACAO_INDISPONIVEL: 'A verificação está temporariamente indisponível. Tente novamente.',
+  ORIGEM_NAO_AUTORIZADA: 'Este endereço ainda não foi autorizado a receber agendamentos.',
   ERRO_SERVIDOR: 'Não foi possível concluir o pedido. Tente novamente mais tarde.'
 })[code] || 'Não foi possível completar a solicitação. Tente novamente.';
