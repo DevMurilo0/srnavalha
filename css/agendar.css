@@ -66,3 +66,9 @@ button.bk-ticket-primary:not(:disabled):active{transform:scale(.99)}
 @media(max-width:760px){.bk-days{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.bk-day{min-height:61px}.bk-day strong{font-size:19px}.bk-day span{font-size:8px}.bk-slots{grid-template-columns:repeat(3,minmax(0,1fr))}.bk-slot strong{font-size:16px}.bk-slot-head span{font-size:8px}.bk-summary{margin-top:15px}.bk-success-box{box-shadow:9px 11px 0 #b7a084}}
 @media(max-width:380px){.bk-days{display:flex;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}.bk-day{min-width:42px;flex:1}.bk-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){button.bk-ticket-primary:active{transform:none}}
+
+.bk-verification{margin-top:21px;padding:18px;border:1px solid #cbb7a2;background:#ede1d3;max-width:100%}
+.bk-verification>p{font-size:11px;font-weight:750;margin:0 0 12px}
+#bk-challenge{min-height:32px;max-width:100%}
+#bk-challenge small{display:block;color:#6c5848;line-height:1.6;font-size:11px}
+.bk-verification iframe{max-width:100%}
