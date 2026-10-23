@@ -24,22 +24,15 @@ Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip`
 
 Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e variantes por seção; oito vetores originais; Painel de Profissionais coordenando retrato, nome e régua; Álbum de Estilos que reorganiza as seis fotos entre folhas e parede com FLIP. Espelho e produtos mantêm a fotografia anterior durante a troca. Rolagem nativa, estados interrompíveis e pausa dos efeitos fora de vista.
 
-O agendamento público foi reconstruído com sistema próprio (código da agenda + backend preparado em Supabase). Produtos consultam disponibilidade pelo WhatsApp. Não existe checkout ou horários simulados. A ativação do backend ainda é necessária.
+O agendamento está em uma versão frontend de demonstração com horários fictícios e salvamento local no navegador. Nenhuma reserva é enviada à barbearia. Produtos continuam consultando disponibilidade pelo WhatsApp.
 
-## Agendamento próprio · infraestrutura preparada (23/10/2026)
+## Agendamento próprio — protótipo frontend local (23/10/2026)
 
-A experiência em `agendar.html` agora é totalmente própria, sem links de agendamento no AppBarber: catálogo com 42 serviços, cinco profissionais, seleção de data, disponibilidade real consultada via RPC, dados do cliente, verificação anti-spam, envio protegido e comprovante com protocolo. Os serviços de assinantes exigem validação e não podem ser reservados publicamente.
+O cliente pode testar o fluxo em `agendar.html`: selecionar serviço (42 itens do catálogo), profissional (cinco nomes reais), dia, horário ilustrativo e preencher dados de exemplo. A simulação gera um código e pode ser visualizada ou excluída na lista de registros do mesmo navegador.
 
-**Estado:** o código foi entregue no GitHub, mas **as reservas reais permanecem desativadas** até que sejam conectados Supabase, Cloudflare Turnstile, domínio autorizado e expedientes reais. Sem essa configuração, nenhum horário é inventado e nenhuma solicitação é apresentada como registrada.
+**Tudo funciona sem Supabase, sem backend e sem dependências externas de agendamento.** Os dados são mantidos em `localStorage`, com chave `srnavalha:agendamentos-demo:v1`, apenas para experimentar a interface. Os horários configurados são **fictícios** (segunda a sábado, 9h–12h e 14h–19h) e não indicam vagas reais. **Não há confirmação, envio ou recebimento pela barbearia.**
 
-- `js/booking-config.js`: URL/chave publicável do projeto + site key do Turnstile.
-- `js/booking-api.js`: consulta pública de disponibilidade + chamada à função protegida.
-- `js/agendar.js` / `css/agendar.css`: interface e estados de carregamento, erro e sucesso.
-- `supabase/migrations/`: estrutura de dados, restrições transacionais e RLS.
-- `supabase/functions/request-booking/`: criação segura com Turnstile no servidor.
-- `docs/AGENDAMENTO_PROPRIO.md`: **guia de ativação completo** e requisitos para produção.
-
-O registro é salvo como `requested` (solicitação, ainda dependente de confirmação da equipe), bloqueando o horário para não receber outra solicitação simultânea. O futuro admin cuidará da fila, da confirmação e dos expedientes. Nunca colocar chaves secretas no navegador.
+Arquivos: `agendar.html`, `css/agendar.css`, `js/agendar.js`, `js/booking-local.js`. Instruções de teste e limites: `docs/AGENDAMENTO_PROPRIO.md`. O painel admin ficará para outra fase.
 
 ## Editar
 
