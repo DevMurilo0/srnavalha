@@ -66,12 +66,12 @@ export async function openRitual() {
     animate(brand, [
       { opacity: 1, transform: 'translate3d(-50%, -50%, 0) scale(1)' },
       { opacity: 0, transform: 'translate3d(-50%, -54%, 0) scale(.96)' }
-    ], { duration: 430, delay: 120, easing: flow, persist: true });
+    ], { duration: 430, delay: 120, easing: flow, fill: 'both', persist: true });
 
     animate(baseline, [
       { opacity: 1, transform: 'translate3d(-50%, 0, 0)' },
       { opacity: 0, transform: 'translate3d(-50%, 13px, 0)' }
-    ], { duration: 320, delay: 140, easing: flow, persist: true });
+    ], { duration: 320, delay: 140, easing: flow, fill: 'both', persist: true });
 
     // Uma única animação grande, em vez de vários clip-paths, filtros e
     // fotografias animados ao mesmo tempo.
@@ -82,6 +82,7 @@ export async function openRitual() {
       duration: 1050,
       delay: 200,
       easing: 'cubic-bezier(.27, 1, .39, 1)',
+      fill: 'both',
       persist: true
     });
     if (reveal) await reveal.finished.catch(() => {});
