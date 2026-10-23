@@ -1,0 +1,305 @@
+{
+  "browser": "Chromium",
+  "checks": [
+    {
+      "name": "320: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "320: loader termina",
+      "pass": true
+    },
+    {
+      "name": "320: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "375: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "375: loader termina",
+      "pass": true
+    },
+    {
+      "name": "375: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "390: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "390: loader termina",
+      "pass": true
+    },
+    {
+      "name": "390: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "Loader reaparece no refresh",
+      "pass": true
+    },
+    {
+      "name": "Teclado dispensa abertura",
+      "pass": true
+    },
+    {
+      "name": "Toque muda serviço e imagem",
+      "pass": true
+    },
+    {
+      "name": "Equipe: toque seleciona último profissional",
+      "pass": true
+    },
+    {
+      "name": "Equipe: teclado continua funcionando",
+      "pass": true
+    },
+    {
+      "name": "Álbum: seleção por toque",
+      "pass": true
+    },
+    {
+      "name": "Álbum: swipe horizontal",
+      "pass": true
+    },
+    {
+      "name": "Galeria abre",
+      "pass": true
+    },
+    {
+      "name": "Galeria fecha com Escape",
+      "pass": true
+    },
+    {
+      "name": "Álbum alterna para mural",
+      "pass": true
+    },
+    {
+      "name": "Produto atualiza consulta real",
+      "pass": true
+    },
+    {
+      "name": "Menu mobile abre",
+      "pass": true
+    },
+    {
+      "name": "Menu mobile fecha ao navegar",
+      "pass": true
+    },
+    {
+      "name": "Esteira em movimento no toque",
+      "pass": true
+    },
+    {
+      "name": "Pausa acessível das avaliações",
+      "pass": true
+    },
+    {
+      "name": "Mudança dinâmica para movimento reduzido libera conteúdo",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido mantém textos e página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "600: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "600: loader termina",
+      "pass": true
+    },
+    {
+      "name": "600: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "768: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "768: loader termina",
+      "pass": true
+    },
+    {
+      "name": "768: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "1024: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "1024: loader termina",
+      "pass": true
+    },
+    {
+      "name": "1024: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "1366: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "1366: loader termina",
+      "pass": true
+    },
+    {
+      "name": "1366: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "1440: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "1440: loader termina",
+      "pass": true
+    },
+    {
+      "name": "1440: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "Sem JS: catálogo, links e largura",
+      "pass": true
+    },
+    {
+      "name": "Falha do módulo libera loader e textos",
+      "pass": true
+    },
+    {
+      "name": "Console sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "viewports": [
+    {
+      "width": 320,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 375,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 600,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 768,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 1024,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 1366,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    },
+    {
+      "width": 1440,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    }
+  ]
+}

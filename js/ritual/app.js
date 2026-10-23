@@ -9,4 +9,4 @@ startMotion();
 for(const init of [initServices,initTeam,initProducts,initAlbum,initGallery,initMotion,initMap,initAtmosphere,initSceneCuts]){try{init()}catch(error){console.error('Componente Sr. Navalha:',error)}}
 const menu=$('.menu');$$('.menu nav a').forEach(a=>a.addEventListener('click',()=>menu.open=false));document.addEventListener('click',e=>{if(menu.open&&!menu.contains(e.target))menu.open=false});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;$('summary',menu).focus()}});matchMedia('(min-width:1001px)').addEventListener('change',()=>menu.open=false);
 $$('img').forEach(img=>{img.addEventListener('error',()=>{img.classList.add('image-unavailable');img.alt='Fotografia indisponível: '+img.alt})});
-openRitual().catch(()=>$('.opening-mark')?.remove());
+openRitual().catch(error=>{console.error('Abertura:',error);document.documentElement.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove()});

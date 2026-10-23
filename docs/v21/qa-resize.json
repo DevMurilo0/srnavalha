@@ -1,0 +1,52 @@
+{
+  "browser": "Chromium",
+  "checks": [
+    {
+      "name": "1366: loader presente ao abrir",
+      "pass": true
+    },
+    {
+      "name": "1366: loader termina",
+      "pass": true
+    },
+    {
+      "name": "Resize desktop → celular libera todos os profissionais",
+      "pass": true
+    },
+    {
+      "name": "1366: sem overflow, conteúdo liberado e imagens válidas",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "initialized": true,
+        "queued": [],
+        "headings": [],
+        "missing": []
+      }
+    },
+    {
+      "name": "Sem JS: catálogo, links e largura",
+      "pass": true
+    },
+    {
+      "name": "Falha do módulo libera loader e textos",
+      "pass": true
+    },
+    {
+      "name": "Console sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "viewports": [
+    {
+      "width": 1366,
+      "overflow": 0,
+      "initialized": true,
+      "queued": [],
+      "headings": [],
+      "missing": []
+    }
+  ]
+}

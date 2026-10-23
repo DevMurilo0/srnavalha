@@ -18,23 +18,23 @@ function revealHero(short=false){
  $$('.hero-intro,.hero-invitation>p,.hero-invitation>.button,.hero-invitation>.text-link,.hero-bottom').forEach((el,i)=>animate(el,[{opacity:.1,transform:'translateY(28px)'},{opacity:1,transform:'none'}],{duration:short?570:890,delay:lead+160+i*100,easing:flow}));
 }
 export async function openRitual(){
- if(!canMove() || (location.hash && location.hash!=='#inicio') || scrollY>20)return;
- try{
-  if(sessionStorage.getItem('sr-brand-prelude-v19')==='seen' && !new URLSearchParams(location.search).has('intro')){revealHero(true);return;}
-  sessionStorage.setItem('sr-brand-prelude-v19','seen');
- }catch{}
+ // Every document load runs this transition, including refreshes and repeat visits.
+ // Deep links keep their scroll position and receive a shorter non-hero fade.
+ const root=document.documentElement;
+ if(!canMove()){root.classList.remove('sr-loader-boot');document.getElementById('sr-loader-stage')?.remove();return;}
+ const toHero=(!location.hash||location.hash==='#inicio')&&scrollY<20;
  const heroMark=$('.hero-wordmark .hero-logo-transparent');
- if(!heroMark){revealHero(true);return;}
+ if(!heroMark){root.classList.remove('sr-loader-boot');document.getElementById('sr-loader-stage')?.remove();return;}
  // The logo is the real mark from the page, not a generated substitute.
  const logo=heroMark.outerHTML.replaceAll('sr-logo-ink','sr-v19-prelude-ink');
- const overlay=document.createElement('div');
+ const overlay=document.getElementById('sr-loader-stage')||document.createElement('div');
  overlay.className='sr-prelude';overlay.setAttribute('aria-hidden','true');
  overlay.innerHTML=`<div class="sr-prelude__backdrop"></div><div class="sr-prelude__grid"></div><i class="sr-prelude__slash"></i><i class="sr-prelude__slash"></i><div class="sr-prelude__brand">${logo}</div><div class="sr-prelude__baseline"><i></i><span>BARBEARIA · GRAVATÁ</span><i></i></div><i class="sr-prelude__cut"></i><span class="sr-prelude__bottom">SEU ESTILO, NOSSA ASSINATURA</span>`;
- document.body.append(overlay);
+ if(!overlay.isConnected){document.body.append(overlay);root.classList.add('sr-loader-boot');}
  let removed=false;
  const events=new AbortController();
  const clear=()=>{
-  if(removed)return;removed=true;clearTimeout(failsafe);events.abort();cancelWithin(overlay);overlay.remove();
+  if(removed)return;removed=true;clearTimeout(failsafe);events.abort();cancelWithin(overlay);root.classList.remove('sr-loader-boot');overlay.remove();
   document.dispatchEvent(new CustomEvent('openingend'));
  };
  const skip=()=>clear();
@@ -43,6 +43,12 @@ export async function openRitual(){
  ['wheel','pointerdown','keydown'].forEach(type=>window.addEventListener(type,skip,{once:true,passive:true,signal:events.signal}));
  try{
   const brand=$('.sr-prelude__brand',overlay),mark=$('.hero-wordmark',document);
+  if(!toHero){
+   animate(brand,[{opacity:1,transform:'translate(-50%,-50%) scale(1)'},{opacity:0,transform:'translate(-50%,-50%) scale(.89)'}],{duration:560,delay:160,easing:flow,persist:true});
+   animate($('.sr-prelude__backdrop',overlay),[{clipPath:'inset(0% 0% 0% 0%)'},{clipPath:'inset(0% 0% 100% 0%)'}],{duration:700,delay:170,easing:flow,persist:true});
+   await new Promise(resolve=>setTimeout(resolve,910));
+   return;
+  }
   const from=brand.getBoundingClientRect(),to=mark.getBoundingClientRect();
   const dx=to.left+to.width/2-from.left-from.width/2;
   const dy=to.top+to.height/2-from.top-from.height/2;
