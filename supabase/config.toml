@@ -1,0 +1,5 @@
+# Projeto Supabase próprio da Sr. Navalha — vincular via supabase link.
+project_id = "srnavalha"
+
+[functions.request-booking]
+verify_jwt = false
