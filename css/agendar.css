@@ -67,8 +67,26 @@ button.bk-ticket-primary:not(:disabled):active{transform:scale(.99)}
 @media(max-width:380px){.bk-days{display:flex;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}.bk-day{min-width:42px;flex:1}.bk-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){button.bk-ticket-primary:active{transform:none}}
 
-.bk-verification{margin-top:21px;padding:18px;border:1px solid #cbb7a2;background:#ede1d3;max-width:100%}
-.bk-verification>p{font-size:11px;font-weight:750;margin:0 0 12px}
-#bk-challenge{min-height:32px;max-width:100%}
-#bk-challenge small{display:block;color:#6c5848;line-height:1.6;font-size:11px}
-.bk-verification iframe{max-width:100%}
+
+/* Protótipo local: sinalização inequívoca, lista dos testes e controle de exclusão. */
+.bk-demo-flag{display:inline-flex;align-items:center;gap:10px;background:#35251b;color:#f7ddbd;padding:10px 14px;font:800 10px/1.5 var(--body);letter-spacing:.115em;margin-bottom:24px}
+.bk-demo-flag span{font-size:9px;color:#e2af78}
+.bk-reality{color:#604734}
+.bk-form-local-note{font-size:11px;color:#655143;line-height:1.75;margin:4px 0 10px}
+.bk-form-local-note strong{font-weight:800}
+.bk-saved{padding:clamp(60px,7vw,110px) clamp(20px,5vw,85px);background:#e7d9c8}
+.bk-saved-inner{max-width:1320px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(24px,6vw,95px);align-items:start}
+.bk-saved-eyebrow{font:800 10px var(--body);letter-spacing:.18em;color:#8b6c50}
+.bk-saved h2{font:580 clamp(30px,3.4vw,46px)/1.17 var(--display);letter-spacing:-.055em;margin:14px 0 21px}
+.bk-saved h2 em{font:italic 400 1.08em Georgia,serif}
+.bk-saved-inner>div:first-child>p:last-child{max-width:520px;font-size:13px;line-height:1.85;color:#67564a}
+.bk-saved-list{border-top:1px solid #bfa995}
+.bk-saved-list>p{font-size:13px;color:#6c5846;margin:22px 0}
+.bk-saved-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:19px 0;border-bottom:1px solid #bfa995}
+.bk-saved-row>div{display:flex;flex-direction:column;gap:9px;min-width:0}
+.bk-saved-row strong{font:600 15px/1.35 var(--display);letter-spacing:-.02em}
+.bk-saved-row small{font-size:11px;color:#6c5744;line-height:1.5}
+.bk-saved-row button{background:none;border:1px solid #a99177;padding:10px 12px;font-size:11px;white-space:nowrap;color:#493224}
+.bk-saved-row button:hover{background:#34251b;color:#f7e8d7;border-color:#34251b}
+.bk-success-note{font-size:12px}
+@media(max-width:760px){.bk-saved-inner{grid-template-columns:1fr;row-gap:30px}.bk-demo-flag{font-size:9px;padding:9px 12px}.bk-saved-row{gap:8px}.bk-saved-row button{font-size:10px;padding:9px}}
