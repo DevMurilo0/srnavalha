@@ -28,7 +28,6 @@ async function rpc(method, body, { signal } = {}) {
       headers: {
         'Content-Type': 'application/json',
         apikey: publicKey,
-        Authorization: 'Bearer ' + publicKey,
         Prefer: 'return=representation'
       },
       body: JSON.stringify(body),
