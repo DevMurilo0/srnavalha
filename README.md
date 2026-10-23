@@ -26,6 +26,14 @@ Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e va
 
 O agendamento está em uma versão frontend de demonstração com horários fictícios e salvamento local no navegador. Nenhuma reserva é enviada à barbearia. Produtos continuam consultando disponibilidade pelo WhatsApp.
 
+## Abertura harmoniosa · V22 (23/10/2026)
+
+A animação inicial foi simplificada a partir de referências de transições editoriais (Codrops) e das recomendações de performance do web.dev. Mantém a marca real no centro e revela a homepage com **uma cortina que sobe por `transform`**, seguida por uma entrada discreta do hero (`opacity` + `transform`), em vez de animar várias máscaras `clip-path` e fotografias simultaneamente.
+
+Arquivos ativos: `js/ritual/opening.js`, `css/ritual/loader-harmony-v22.css`, `css/ritual.css`, `templates/v17/head.html`, `templates/v17/loader.html` e `index.html`. O CSS V22 vem por último na cascata e substitui apenas o comportamento da abertura, preservando os demais capítulos e recursos do site.
+
+A abertura reinicia após F5, aceita interrupção por interação, é omitida para âncoras internas e com `prefers-reduced-motion: reduce`, e tem salvaguarda para liberar conteúdo se o JavaScript falhar. Verificação manual recomendada em 320, 375, 390, 768, 1024, 1366 e 1440 px; testar F5, Ctrl+Shift+R, retorno pelo navegador, scroll durante a abertura e redução de movimento.
+
 ## Agendamento próprio — protótipo frontend local (23/10/2026)
 
 O cliente pode testar o fluxo em `agendar.html`: selecionar serviço (42 itens do catálogo), profissional (cinco nomes reais), dia, horário ilustrativo e preencher dados de exemplo. A simulação gera um código e pode ser visualizada ou excluída na lista de registros do mesmo navegador.
