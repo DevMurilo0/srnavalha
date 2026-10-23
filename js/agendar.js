@@ -1,6 +1,7 @@
 import services from './data/services.js';
 import professionals from './data/professionals.js';
-import { bookingEnabled, availableSlots, requestBooking, bookingErrorMessage } from './booking-api.js';
+import { bookingEnabled, bookingReady, availableSlots, requestBooking, bookingErrorMessage } from './booking-api.js';
+import { BOOKING_BACKEND } from './booking-config.js';
 
 const $ = selector => document.querySelector(selector);
 const state = { service: null, professional: null, slot: null, filter: 'Destaques', slots: [], busy: false };
@@ -12,6 +13,8 @@ let requestSequence = 0;
 let pendingRequestId = null;
 let pendingFingerprint = '';
 let requestInFlight = false;
+let captchaToken = null;
+let captchaWidget = null;
 
 function dateAtRecife(value = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(value);
@@ -56,7 +59,7 @@ function updateSummary() {
     ? readableDate($('#bk-date').value) + ' às ' + formatHour(state.slot.slot_at)
     : readableDate($('#bk-date').value) + ' · horário a escolher';
 
-  const canBook = bookingEnabled && state.service && state.slot && !requestInFlight;
+  const canBook = bookingReady && captchaToken && state.service && state.slot && !requestInFlight;
   const submit = $('#bk-submit');
   submit.disabled = !canBook;
   submit.querySelector('.bk-submit-label').textContent = requestInFlight ? 'Registrando pedido…' : 'Solicitar agendamento';
@@ -65,7 +68,7 @@ function formatHour(iso) {
   return new Intl.DateTimeFormat('pt-BR', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso));
 }
 function setSelectionFeedback() {
-  if (!bookingEnabled) {
+  if (!bookingReady) {
     showStatus(bookingErrorMessage('NAO_CONFIGURADO'), 'warning');
   } else if (!state.service) {
     showStatus('Escolha um serviço para consultar os horários.', 'neutral');
@@ -186,7 +189,39 @@ function renderProfessionals() {
 }
 function renderDays() {
   const wrapper = $('#bk-days');
-  const today = dateAtRecife();
+  function loadCaptcha() {
+  const container = $('#bk-challenge');
+  if (!bookingReady) {
+    container.textContent = 'A verificação ficará disponível quando o sistema de agendamento for ativado.';
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  script.async = true;
+  script.defer = true;
+  script.addEventListener('load', () => {
+    if (!window.turnstile) return;
+    container.replaceChildren();
+    captchaWidget = window.turnstile.render(container, {
+      sitekey: BOOKING_BACKEND.turnstileSiteKey.trim(),
+      theme: 'light',
+      callback: token => { captchaToken = token; updateSummary(); },
+      'expired-callback': () => { captchaToken = null; updateSummary(); },
+      'error-callback': () => {
+        captchaToken = null;
+        updateSummary();
+        showStatus('Não foi possível validar a segurança. Tente atualizar a página.', 'warning');
+      }
+    });
+  });
+  script.addEventListener('error', () => {
+    container.textContent = 'Não foi possível carregar a verificação. Verifique a conexão e atualize a página.';
+    showStatus('A verificação de segurança não carregou.', 'warning');
+  });
+  document.head.append(script);
+}
+
+const today = dateAtRecife();
   const chosen = $('#bk-date').value;
   wrapper.replaceChildren(...Array.from({ length: 7 }, (_, index) => {
     const date = addDays(today, index);
@@ -304,8 +339,8 @@ async function submitBooking(event) {
   }
   if ($('#bk-trap').value) return;
   $('#bk-form-error').textContent = '';
-  if (!bookingEnabled) {
-    showStatus(bookingErrorMessage('NAO_CONFIGURADO'), 'warning');
+  if (!bookingReady || !captchaToken) {
+    showStatus('Conclua a verificação de segurança para solicitar seu horário.', 'warning');
     return;
   }
   requestInFlight = true;
@@ -323,7 +358,8 @@ async function submitBooking(event) {
       professionalId: state.slot.professional_id,
       slotAt: state.slot.slot_at,
       name: $('#bk-name').value.trim(),
-      phone: normalizedPhone($('#bk-phone').value)
+      phone: normalizedPhone($('#bk-phone').value),
+      captchaToken
     });
     if (response?.status !== 'requested' && response?.status !== 'confirmed') throw new Error('INVALID_RESPONSE');
     const ref = String(response.reference || '').replace(/[^a-z0-9]/gi, '').slice(0, 8).toUpperCase();
@@ -350,6 +386,8 @@ async function submitBooking(event) {
     }
   } finally {
     requestInFlight = false;
+    captchaToken = null;
+    if (captchaWidget !== null && window.turnstile) window.turnstile.reset(captchaWidget);
     updateSummary();
   }
 }
@@ -369,6 +407,7 @@ renderFilters();
 renderServices();
 renderProfessionals();
 renderDays();
+loadCaptcha();
 refreshSlots();
 
 $('#bk-search').addEventListener('input', () => {
