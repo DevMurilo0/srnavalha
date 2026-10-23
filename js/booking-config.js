@@ -3,5 +3,6 @@
 // e substitua os valores abaixo. Não coloque service_role, senhas ou chaves secretas aqui.
 export const BOOKING_BACKEND = {
   url: '',
-  publishableKey: ''
+  publishableKey: '',
+  turnstileSiteKey: ''
 };
