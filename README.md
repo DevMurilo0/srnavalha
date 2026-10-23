@@ -24,21 +24,22 @@ Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip`
 
 Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e variantes por seção; oito vetores originais; Painel de Profissionais coordenando retrato, nome e régua; Álbum de Estilos que reorganiza as seis fotos entre folhas e parede com FLIP. Espelho e produtos mantêm a fotografia anterior durante a troca. Rolagem nativa, estados interrompíveis e pausa dos efeitos fora de vista.
 
-O agendamento continua no AppBarber. Produtos consultam disponibilidade pelo WhatsApp. Não existem backend, checkout ou horários simulados.
+O agendamento público foi reconstruído com sistema próprio (código da agenda + backend preparado em Supabase). Produtos consultam disponibilidade pelo WhatsApp. Não existe checkout ou horários simulados. A ativação do backend ainda é necessária.
 
-## Agendamento autoral (2026-10-23)
+## Agendamento próprio · infraestrutura preparada (23/10/2026)
 
-A página `agendar.html` funciona em Live Server e oferece uma experiência própria da Sr. Navalha sem backend fictício:
+A experiência em `agendar.html` agora é totalmente própria, sem links de agendamento no AppBarber: catálogo com 42 serviços, cinco profissionais, seleção de data, disponibilidade real consultada via RPC, dados do cliente, verificação anti-spam, envio protegido e comprovante com protocolo. Os serviços de assinantes exigem validação e não podem ser reservados publicamente.
 
-- Catálogo navegável com todos os serviços de `js/data/services.js`, preços de referência, categorias e busca.
-- Profissionais reais de `js/data/professionals.js`, com seleção opcional.
-- Preferência opcional de data e horário **sem insinuar disponibilidade confirmada**.
-- Resumo acessível e solicitação pelo WhatsApp com texto pré-preenchido (a equipe precisa confirmar).
-- Botões permanentes para a **agenda oficial do AppBarber**, que informa disponibilidade real e confirma o agendamento.
-- Links diretos `agendar.html?servico=<id>` e `?profissional=<id>` a partir dos componentes do site principal.
-- Estilos em `css/agendar.css` e lógica em `js/agendar.js`, sem bibliotecas ou build.
+**Estado:** o código foi entregue no GitHub, mas **as reservas reais permanecem desativadas** até que sejam conectados Supabase, Cloudflare Turnstile, domínio autorizado e expedientes reais. Sem essa configuração, nenhum horário é inventado e nenhuma solicitação é apresentada como registrada.
 
-**Importante:** escolhas feitas na página própria **não são transferidas automaticamente** ao AppBarber. O cliente revisa serviço e profissional na plataforma oficial antes de concluir. Para integração transacional nativa são necessárias credenciais/API/autorização de integração do fornecedor. Não usar o WhatsApp como falsa confirmação.
+- `js/booking-config.js`: URL/chave publicável do projeto + site key do Turnstile.
+- `js/booking-api.js`: consulta pública de disponibilidade + chamada à função protegida.
+- `js/agendar.js` / `css/agendar.css`: interface e estados de carregamento, erro e sucesso.
+- `supabase/migrations/`: estrutura de dados, restrições transacionais e RLS.
+- `supabase/functions/request-booking/`: criação segura com Turnstile no servidor.
+- `docs/AGENDAMENTO_PROPRIO.md`: **guia de ativação completo** e requisitos para produção.
+
+O registro é salvo como `requested` (solicitação, ainda dependente de confirmação da equipe), bloqueando o horário para não receber outra solicitação simultânea. O futuro admin cuidará da fila, da confirmação e dos expedientes. Nunca colocar chaves secretas no navegador.
 
 ## Editar
 
