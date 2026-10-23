@@ -7,7 +7,7 @@ const supabaseURL = Deno.env.get('SUPABASE_URL') || '';
 const privateKey = Deno.env.get('SUPABASE_SECRET_KEY') || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
 
 function respond(status: number, value: Record<string, unknown>, origin: string | null) {
-  return new Response(JSON.stringify(value), {
+  return new Response(status === 204 ? null : JSON.stringify(value), {
     status,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
