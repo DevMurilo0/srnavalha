@@ -1,4 +1,4 @@
-/* V17 · engraved geometry belongs to the frame, the binding and the sign. */
+/* Engraving, photographic detail and quiet material fields share the incumbent grid. */
 .engraving{color:var(--wood);pointer-events:none;user-select:none;position:relative}
 .engraving svg{display:block;width:100%;height:100%;overflow:visible}
 .engraving svg *{vector-effect:non-scaling-stroke}
@@ -10,7 +10,10 @@
 .house-scene{isolation:isolate}
 .portal-architecture{position:absolute;width:43%;height:calc(100% - 150px);right:-3%;top:65px;color:var(--copper);opacity:.52;z-index:-1}
 .portal-architecture svg{height:100%;width:100%}
-.house-comb{width:min(280px,70%);margin:46px 0 0;color:var(--copper);opacity:.7}
+.atelier-detail{width:min(270px,72%);margin:38px 0 0 3px;padding:7px;background:#342a23;border:1px solid #bd946e66;rotate:-3deg;box-shadow:5px 12px 24px -19px #0009}
+.atelier-detail .photo-window{aspect-ratio:2.65;background:var(--tobacco)}
+.atelier-detail img{object-position:center 60%;transition:transform .7s var(--ease-soft)}
+.atelier-detail figcaption{font-size:13px;line-height:1.5;color:var(--light-muted);padding:8px 3px 2px}
 .house-portal{padding:12px;border:1px solid #bd946e80;background:var(--ink)}
 .house-portal figcaption{margin:16px 0 3px}
 .mirror-frame{isolation:isolate;padding:16px 16px 0}
@@ -31,7 +34,25 @@
 .footer .footer-rail-track b{font:inherit}
 .footer .footer-rail-track b::before{content:'';display:inline-block;width:38px;height:1px;background:currentColor;vertical-align:middle}
 @media(max-width:1000px){.hero-engraving{top:12px;width:115px;right:-8px}.portal-architecture{right:-4%;width:48%}.album-binding{width:65px;left:-14px}.reputation-flourish{width:150px}}
-@media(max-width:700px){.hero-engraving{width:62px;right:4px;top:auto;bottom:18px;opacity:.65}.portal-architecture{top:auto;bottom:85px;height:420px;right:8%;width:62%}.house-comb{width:190px;margin-top:25px}.house-portal{padding:8px}.house-scene{gap:26px}.album-binding{width:48px;height:300px;left:-8px;top:335px}.product-engraving{width:125px;height:73px;right:-18px}.product-engraving::after{font-size:10px}.reputation-flourish{width:130px;bottom:-20px}.visit-sign{width:250px;margin-top:22px}.visit-sign::after{font-size:11px}.footer-flourish{margin:25px auto;width:88%}}
+@media(max-width:700px){.hero-engraving{width:62px;right:4px;top:auto;bottom:18px;opacity:.65}.portal-architecture{top:auto;bottom:85px;height:420px;right:8%;width:62%}.atelier-detail{width:190px;margin-top:26px}.house-portal{padding:8px}.house-scene{gap:26px}.album-binding{width:48px;height:300px;left:-8px;top:335px}.product-engraving{width:125px;height:73px;right:-18px}.product-engraving::after{font-size:10px}.reputation-flourish{width:130px;bottom:-20px}.visit-sign{width:250px;margin-top:22px}.visit-sign::after{font-size:11px}.footer-flourish{margin:25px auto;width:88%}}
 @media(max-width:350px){.hero-engraving{width:54px;top:auto;bottom:16px;right:2px}.album-binding{top:375px}}
 
 @media(max-width:700px){.hero-detail .photo-window{width:100%;height:auto;min-width:0;aspect-ratio:1/1}}
+
+/* Restrained pigment and paper: static layers, never animated filters. */
+.hero,.house,.rituals,.team,.portfolio,.products,.reviews,.visit,.footer{isolation:isolate}
+.rituals,.team,.portfolio,.products,.reviews,.visit{position:relative}
+.hero{background-color:var(--ivory);background-image:linear-gradient(180deg,var(--ivory),transparent 120px),radial-gradient(ellipse at 8% 0%,#ffffff65,transparent 58%),linear-gradient(118deg,#f6f1e9,var(--ivory) 68%,#ebe1d5)}
+.house{background-color:var(--ink);background-image:radial-gradient(ellipse at 85% 40%,#46322844,transparent 65%),linear-gradient(180deg,#171615,#1e1915)}
+.rituals{background-color:var(--ivory);background-image:radial-gradient(ellipse at 54% 12%,#ffffff60,transparent 53%),linear-gradient(145deg,#f4eee5,var(--ivory) 58%,#ece3d7)}
+.team{background-color:var(--tobacco);background-image:radial-gradient(ellipse at 58% 45%,#694a343d,transparent 62%),linear-gradient(112deg,#302620,#2a231e)}
+.portfolio{background-color:var(--ivory);background-image:linear-gradient(165deg,#f6f1e9,var(--ivory) 65%,#eae0d3)}
+.products{background-color:var(--stone);background-image:radial-gradient(ellipse at 20% 33%,#f6f0e466,transparent 56%),linear-gradient(140deg,#e5dbcd,#dfd6ca 72%,#d8ccbd)}
+.reviews{background-color:var(--tobacco);background-image:radial-gradient(ellipse at 13% 20%,#5d402c33,transparent 65%),linear-gradient(130deg,#302620,#241e1a)}
+.visit{background-color:var(--ivory);background-image:radial-gradient(ellipse at 84% 20%,#fff8,transparent 65%),linear-gradient(135deg,#f1eae0,#eee5d8)}
+.footer{background-color:#1d1916;background-image:radial-gradient(ellipse at 6% 20%,#67452e22,transparent 65%)}
+.hero::before,.rituals::before,.portfolio::before,.products::before,.visit::before{content:'';position:absolute;inset:0;background:url('../../assets/decor/polimento/trama-papel.svg') repeat;background-size:192px 192px;opacity:.24;pointer-events:none;z-index:-1}
+.hero .photo-window,.house-portal,.mirror-frame{box-shadow:3px 12px 24px -22px #30262088}
+.product-engraving{background:#e6dccf}
+@media(hover:hover) and (pointer:fine){.atelier-detail:hover img{transform:scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.atelier-detail img{transition:none}}

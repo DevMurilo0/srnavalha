@@ -1,0 +1,181 @@
+[
+  {
+    "name": "abertura-inicio",
+    "clip": "none",
+    "transform": "matrix(0.324797, 0, 0, 0.451322, 494.261, 390.894)",
+    "animations": [
+      {
+        "time": 383.3650000021862,
+        "duration": 1080,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-corte",
+    "clip": "none",
+    "transform": "matrix(0.334182, 0, 0, 0.498239, 487.396, 366.603)",
+    "animations": [
+      {
+        "time": 633.2590000021864,
+        "duration": 1080,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-meio",
+    "clip": "none",
+    "transform": "matrix(0.913237, 0, 0, 0.934616, 63.5126, 47.7721)",
+    "animations": [
+      {
+        "time": 899.9610000021864,
+        "duration": 1080,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-fim",
+    "clip": "none",
+    "transform": "matrix(0.999701, 0.0244322, -0.0244322, 0.999701, 0, 0)",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "espelho-inicio",
+    "clip": "polygon(0px 0px, 0% 0px, -12% 100%, 0px 100%)",
+    "transform": "matrix(1.05, 0, 0, 1.05, 18.9, 0)",
+    "animations": [
+      {
+        "time": 0,
+        "duration": 620,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "espelho-meio",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "espelho-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "equipe-inicio",
+    "clip": "polygon(0px 0px, 0% 0px, -12% 100%, 0px 100%)",
+    "transform": "matrix(1.05, 0, 0, 1.05, 21.0594, 0)",
+    "animations": [
+      {
+        "time": 0,
+        "duration": 620,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "equipe-meio",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "equipe-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "album-inicio",
+    "clip": "none",
+    "transform": "matrix(0.99863, -0.052336, 0.052336, 0.99863, 0, 0)",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "album-meio",
+    "clip": "none",
+    "transform": "matrix(1.01757, 0, 0, 1.01669, 188.466, 21.354)",
+    "animations": [
+      {
+        "time": 100.02099999902114,
+        "duration": 780,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "album-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "produtos-inicio",
+    "clip": "none",
+    "transform": "matrix(0.961586, 0.0379478, -0.0379478, 0.961586, 24.106, 0)",
+    "animations": [
+      {
+        "time": 33.377000002253965,
+        "duration": 440,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "produtos-meio",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "produtos-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "lightbox-meio",
+    "clip": "inset(0px)",
+    "transform": "matrix(0.979192, 0, 0, 0.979192, -245.377, -74.1917)",
+    "animations": [
+      {
+        "time": 0,
+        "duration": 650,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "lightbox-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "limite-foto-original",
+    "width": 410,
+    "attribute": 410
+  }
+]

@@ -2,6 +2,7 @@ export const $=(selector,root=document)=>root.querySelector(selector);
 export const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
 export const preference=matchMedia('(prefers-reduced-motion: reduce)');
 export const ease='cubic-bezier(.22,1,.36,1)';
+export const flow='cubic-bezier(.22,.68,.2,1)';
 export const spatial='cubic-bezier(.76,0,.24,1)';
 const active=new Set();let paused=false;
 export const canMove=()=>!preference.matches&&!paused&&!document.hidden;
@@ -29,7 +30,7 @@ export async function changePhoto(stage,src,alt,{mode='reflection',keyboard=fals
  // Retain the last photograph beneath the incoming mask: rapid selections never flash.
  const old=stage.querySelector('img.is-current')||stage.querySelector('img');
  stage.replaceChildren(...(old?[old]:[]),next);next.className='is-current swap-image';if(old)old.className='previous-image';
- const motion=!keyboard?animate(next,mode==='product'?[{opacity:0,transform:'translateX(32px) rotate(3deg) scale(.95)'},{opacity:1,transform:'none'}]:[{clipPath:'polygon(0 0,0 0,-12% 100%,0 100%)',transform:'translateX(5%) scale(1.05)'},{clipPath:'polygon(0 0,112% 0,100% 100%,0 100%)',transform:'none'}],{duration:mode==='product'?460:680}):null;
+ const motion=!keyboard?animate(next,mode==='product'?[{opacity:0,transform:'translateX(32px) rotate(3deg) scale(.95)'},{opacity:1,transform:'none'}]:[{clipPath:'polygon(0 0,0 0,-12% 100%,0 100%)',transform:'translateX(5%) scale(1.05)'},{clipPath:'polygon(0 0,112% 0,100% 100%,0 100%)',transform:'none'}],{duration:mode==='product'?440:620,easing:flow}):null;
  const clean=()=>{if(sequence.get(stage)===token){stage.replaceChildren(next);next.className='is-current'}};
  if(motion)motion.finished.then(clean).catch(clean);else clean();
  stage.dispatchEvent(new CustomEvent('photochange',{bubbles:true,detail:{mode}}));
