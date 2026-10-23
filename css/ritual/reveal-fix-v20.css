@@ -1,0 +1,11 @@
+/* V20: prepaint gate. JavaScript adds sr-motion-boot synchronously in head;
+   disabled JS => natural visibility. The observer then claims each target before
+   dropping the gate. Delayed animations retain their first frame (WAAPI). */
+@media(prefers-reduced-motion:no-preference){
+html.sr-motion-boot main h2,html.sr-motion-boot footer h2,html.sr-motion-boot [data-reveal]:not(h1),html.sr-motion-boot .section-heading>p,html.sr-motion-boot .section-heading>div>p,html.sr-motion-boot .house-copy>p,html.sr-motion-boot .section-heading .text-link,html.sr-motion-boot .house-copy>.text-link,html.sr-motion-boot .mirror-frame,html.sr-motion-boot .team-portrait,html.sr-motion-boot .atelier-detail,html.sr-motion-boot .footer-visual,html.sr-motion-boot #mirror-info,html.sr-motion-boot .product-info,html.sr-motion-boot .mirror-choice,html.sr-motion-boot .catalog-heading,html.sr-motion-boot .product-catalog-head,html.sr-motion-boot .team-name,html.sr-motion-boot .team-invite>p,html.sr-motion-boot .team-invite>.text-link,html.sr-motion-boot .album-toolbar,html.sr-motion-boot .album-navigation,html.sr-motion-boot .album-dock,html.sr-motion-boot .album-sheets .work-print,html.sr-motion-boot .rating,html.sr-motion-boot .review-visual,html.sr-motion-boot .visit-info>address,html.sr-motion-boot .visit-phone,html.sr-motion-boot .visit-info>p,html.sr-motion-boot .visit-info>.text-link,html.sr-motion-boot .map-frame,html.sr-motion-boot .practical>*,html.sr-motion-boot .footer-story-copy,html.sr-motion-boot .footer-feature-cta,html.sr-motion-boot .footer-small-note,html.sr-motion-boot .footer-brand-col,html.sr-motion-boot .footer-link-col,html.sr-motion-boot [data-material-reveal],html.sr-motion-boot .sr-scene-join__rail,html.sr-motion-boot .sr-scene-join__medallion{opacity:0}
+html.sr-motion-active .sr-enter-queued,html.sr-motion-active .sr-art-queued{opacity:0}
+}
+#sr-loader-stage{display:none}
+html.sr-loader-boot #sr-loader-stage{display:grid}
+#sr-loader-stage .sr-prelude__brand>img{display:block;width:100%;height:auto;filter:brightness(0) invert(.91)}
+@media(prefers-reduced-motion:reduce){html.sr-motion-active .sr-enter-queued,html.sr-motion-active .sr-art-queued{opacity:1!important}}

@@ -4,7 +4,8 @@
 import {$$,animate,canMove,flow} from './core.js';
 export function initAtmosphere(){
  const items=$$('[data-material-reveal]');
- if(!items.length||!('IntersectionObserver' in window))return;
+ if(!items.length||!('IntersectionObserver' in window)||!canMove())return;
+ items.forEach(el=>el.classList.add('sr-art-queued'));
  const seen=new WeakSet();
  const observer=new IntersectionObserver(entries=>{
   for(const entry of entries){
@@ -23,7 +24,8 @@ export function initAtmosphere(){
      {opacity:.15,transform:`translate(${horizontal},34px) scale(.94) rotate(-3deg)`,clipPath:'inset(16% 3% 16% 3%)'},
      {opacity:1,transform:'none',clipPath:'inset(0% 0% 0% 0%)'}
    ];
-   animate(element,frames,{duration:1150,delay,easing:'cubic-bezier(.16,1,.3,1)'});
+   animate(element,[{...frames[0],opacity:0},frames[1]],{duration:1150,delay,easing:'cubic-bezier(.16,1,.3,1)'});
+   element.classList.remove('sr-art-queued');
    const photo=element.querySelector('img');
    if(photo && element.matches('.team-mood-photo,.house-atmosphere-photo,.album-editorial-print,.visit-storefront')){
      animate(photo,[{transform:'translateY(11px) scale(1.08)'},{transform:'none'}],{duration:1360,delay:delay+110,easing:flow});

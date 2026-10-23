@@ -2,7 +2,8 @@
 import {$$,animate,canMove} from './core.js';
 export function initSceneCuts(){
  const seams=$$('.sr-scene-join');
- if(!seams.length || !('IntersectionObserver' in window))return;
+ if(!seams.length || !('IntersectionObserver' in window)||!canMove())return;
+ seams.forEach(el=>el.querySelectorAll('.sr-scene-join__rail,.sr-scene-join__medallion').forEach(child=>child.classList.add('sr-art-queued')));
  const observer=new IntersectionObserver(entries=>{
   for(const {target,isIntersecting} of entries){
    if(!isIntersecting)continue;observer.unobserve(target);
@@ -10,8 +11,9 @@ export function initSceneCuts(){
    const rail=target.querySelector('.sr-scene-join__rail');
    const medallion=target.querySelector('.sr-scene-join__medallion');
    // The decorative rails are pseudo-elements; no DOM queries are needed.
-   if(rail)animate(rail,[{opacity:.25,transform:'scaleX(.28)'},{opacity:1,transform:'none'}],{duration:970,delay:100,easing:'cubic-bezier(.16,1,.3,1)'});
-   if(medallion){const settled=getComputedStyle(medallion).transform;animate(medallion,[{opacity:.18,transform:'translateY(32px) rotate(-45deg) scale(.72)'},{opacity:1,transform:settled==='none'?'none':settled}],{duration:1150,delay:210,easing:'cubic-bezier(.16,1,.3,1)'});}
+   if(rail)animate(rail,[{opacity:0,transform:'scaleX(.28)'},{opacity:1,transform:'none'}],{duration:970,delay:100,easing:'cubic-bezier(.16,1,.3,1)'});
+   if(medallion){const settled=getComputedStyle(medallion).transform;animate(medallion,[{opacity:0,transform:'translateY(32px) rotate(-45deg) scale(.72)'},{opacity:1,transform:settled==='none'?'none':settled}],{duration:1150,delay:210,easing:'cubic-bezier(.16,1,.3,1)'});}
+   rail?.classList.remove('sr-art-queued');medallion?.classList.remove('sr-art-queued');
   }
  },{threshold:.24,rootMargin:'0px 0px -12% 0px'});
  seams.forEach(s=>observer.observe(s));
