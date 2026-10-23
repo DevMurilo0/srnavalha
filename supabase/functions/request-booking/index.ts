@@ -4,7 +4,7 @@ const allowedOrigins = (Deno.env.get('BOOKING_ALLOWED_ORIGINS') || '')
   .split(',').map(origin => origin.trim()).filter(Boolean);
 const secret = Deno.env.get('TURNSTILE_SECRET_KEY') || '';
 const supabaseURL = Deno.env.get('SUPABASE_URL') || '';
-const privateKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+const privateKey = Deno.env.get('SUPABASE_SECRET_KEY') || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
 
 function respond(status: number, value: Record<string, unknown>, origin: string | null) {
   return new Response(JSON.stringify(value), {
@@ -75,7 +75,7 @@ Deno.serve(async request => {
       headers: {
         'Content-Type': 'application/json',
         apikey: privateKey,
-        Authorization: 'Bearer ' + privateKey
+        ...(privateKey.startsWith('sb_secret_') ? {} : { Authorization: 'Bearer ' + privateKey })
       },
       body: JSON.stringify({
         p_request_id: requestId,
