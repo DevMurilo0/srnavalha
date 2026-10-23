@@ -19,21 +19,21 @@ export function initMotion(){
  };
  const register=(selector,kind,delay=0,step=0)=>{
   const siblings=new Map();
-  $$(selector).forEach(el=>{const group=el.parentElement,index=siblings.get(group)||0;siblings.set(group,index+1);if(!entrances.has(el))entrances.set(el,{kind:kind||el.dataset.reveal||'copy',delay:Math.min(260,delay+index*step)})});
+  $$(selector).forEach(el=>{const group=el.parentElement,index=siblings.get(group)||0;siblings.set(group,index+1);if(!entrances.has(el))entrances.set(el,{kind:kind||el.dataset.reveal||'copy',delay:Math.min(450,delay+100+index*step)})});
  };
  register('main h2,footer h2','type');
- register('[data-reveal]:not(h1)',null,100);
- register('.engraving','engraving',140);
- register('.section-heading>p,.section-heading>div>p,.house-copy>p','copy',110,45);
+ register('[data-reveal]:not(h1)',null,185);
+ register('.engraving','engraving',190);
+ register('.section-heading>p,.section-heading>div>p,.house-copy>p','copy',180,85);
  register('.section-heading>div>.text-link,.house-copy>.text-link','inline',190);
- register('.mirror-frame,.team-portrait,.atelier-detail,.footer-visual','frame',160);
+ register('.mirror-frame,.team-portrait,.atelier-detail,.footer-visual','frame',240);
  register('#mirror-info,.product-info','copy',200);
  register('.mirror-choice','inline',80,40);
  register('.catalog-heading,.product-catalog-head','copy',100);
  register('.team-name','inline',95,38);
  register('.team-invite>p,.team-invite>.text-link','copy',150,40);
  register('.album-toolbar,.album-navigation,.album-dock','copy',90,45);
- register('.album-sheets .work-print','leaf',110,45);
+ register('.album-sheets .work-print','leaf',190,90);
  register('.rating,.review-visual','copy',170);
  register('.visit-info>address,.visit-phone,.visit-info>p,.visit-info>.text-link','copy',110,35);
  register('.map-frame','copy',140);
@@ -46,20 +46,20 @@ export function initMotion(){
   if(kind==='type'){
    const id=el.closest('section,footer')?.id;
    const frames=id==='equipe'?[{transform:'perspective(650px) rotateX(-24deg) translateY(95%)',opacity:.2},{transform:'none',opacity:1}]:id==='trabalhos'?[{transform:'translate(-14px,100%) rotate(-3deg)'},{transform:'none'}]:id==='localizacao'?[{transform:'translate(-28px,70%)',opacity:.2},{transform:'none',opacity:1}]:[{transform:'translateY(105%) rotate(1.5deg)'},{transform:'none'}];
-   $$('.motion-word',el).forEach((word,i)=>animate(word,frames,{duration:820,delay:delay+Math.min(i*52,260),easing:flow}));return;
+   $$('.motion-word',el).forEach((word,i)=>animate(word,frames,{duration:1100,delay:delay+Math.min(i*80,430),easing:flow}));return;
   }
   if(kind==='engraving'){
    // Trace the drawing in small groups instead of bringing every line in at once.
    $$('[pathLength]',el).slice(0,12).forEach((path,i)=>animate(path,[{strokeDasharray:1,strokeDashoffset:1,opacity:.15},{strokeDasharray:1,strokeDashoffset:0,opacity:1}],{duration:820,delay:delay+Math.min(i*30,200),easing:flow}));return;
   }
-  const duration=kind==='leaf'?820:['frame','side','shutter'].includes(kind)?920:620;
+  const duration=kind==='leaf'?1040:['frame','side','shutter'].includes(kind)?1140:800;
   animate(el,variants[kind]||variants.copy,{duration,delay,easing:flow});
   // Shared photo stages and the map keep their own internal state; only frame the container.
   const img=!el.matches('.team-portrait,.mirror-frame,.map-frame')?$('img',el):null;
-  if(img&&['frame','side','shutter'].includes(kind))animate(img,[{transform:kind==='side'?'translateX(3%) scale(1.065)':'translateY(3%) scale(1.065)'},{transform:'none'}],{duration:1060,delay:delay+70,easing:flow});
+  if(img&&['frame','side','shutter'].includes(kind))animate(img,[{transform:kind==='side'?'translateX(3%) scale(1.065)':'translateY(3%) scale(1.065)'},{transform:'none'}],{duration:1270,delay:delay+120,easing:flow});
  }
  // One observer, bounded sibling stagger, and naturally visible fallback states.
- const entrance=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){enter(e.target);entrance.unobserve(e.target)}},{threshold:.01,rootMargin:'0px 0px 48px'});
+ const entrance=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){enter(e.target);entrance.unobserve(e.target)}},{threshold:.13,rootMargin:'0px 0px -10% 0px'});
  entrances.forEach((_,el)=>entrance.observe(el));
  const house=$('.house'),inside=$('.portal-inside'),blade=$('.cut-blade'),footer=$('.footer'),film=$('.detail-film'),reviewFrame=$('.review-visual-frame');
  const scenes=[house,footer,$('.hero'),reviewFrame,film].filter(Boolean);
