@@ -1,0 +1,392 @@
+{
+  "browser": "Chromium",
+  "date": "2026-10-22T23:44:14.873Z",
+  "checks": [
+    {
+      "name": "Abertura termina e remove placa",
+      "pass": true
+    },
+    {
+      "name": "Abertura possui estados distintos",
+      "pass": true
+    },
+    {
+      "name": "Interação interrompe abertura",
+      "pass": true
+    },
+    {
+      "name": "Abertura não se repete na sessão",
+      "pass": true
+    },
+    {
+      "name": "320: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 705.640625,
+        "photos": true
+      }
+    },
+    {
+      "name": "320: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "375: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 760.671875,
+        "photos": true
+      }
+    },
+    {
+      "name": "375: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "390: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 777.03125,
+        "photos": true
+      }
+    },
+    {
+      "name": "390: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "768: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 740.609375,
+        "photos": true
+      }
+    },
+    {
+      "name": "768: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "1024: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 757.046875,
+        "photos": true
+      }
+    },
+    {
+      "name": "1024: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "1366: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 773.984375,
+        "photos": true
+      }
+    },
+    {
+      "name": "1366: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "1440: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "titleOverflow": 0,
+        "cta": 777.6875,
+        "photos": true
+      }
+    },
+    {
+      "name": "1440: página completa sem overflow e imagens",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "missing": []
+      }
+    },
+    {
+      "name": "Espelho sincroniza foto e informação",
+      "pass": true
+    },
+    {
+      "name": "Filtro preserva categoria real",
+      "pass": true
+    },
+    {
+      "name": "Equipe muda retrato, nome e índice",
+      "pass": true
+    },
+    {
+      "name": "Equipe aceita setas de teclado",
+      "pass": true
+    },
+    {
+      "name": "Equipe: última seleção vence",
+      "pass": true
+    },
+    {
+      "name": "Álbum reorganiza fotografias com FLIP",
+      "pass": true
+    },
+    {
+      "name": "Álbum seleciona folha e legenda",
+      "pass": true
+    },
+    {
+      "name": "Álbum navega por teclado",
+      "pass": true
+    },
+    {
+      "name": "Galeria abre diálogo",
+      "pass": true
+    },
+    {
+      "name": "Galeria setas",
+      "pass": true
+    },
+    {
+      "name": "Galeria Escape e retorno de foco",
+      "pass": true
+    },
+    {
+      "name": "Produtos mantêm consulta real",
+      "pass": true
+    },
+    {
+      "name": "Esteira contínua se move",
+      "pass": true,
+      "detail": {
+        "t1": "matrix(1, 0, 0, 1, -27.113, 0)",
+        "t2": "matrix(1, 0, 0, 1, -36.5399, 0)"
+      }
+    },
+    {
+      "name": "Pausa acessível da esteira",
+      "pass": true
+    },
+    {
+      "name": "Corte de scroll é reversível",
+      "pass": true,
+      "detail": [
+        "polygon(0px 0px, 0% 0px, -12% 100%, 0px 100%)",
+        "polygon(0px 0px, 44.8648% 0px, 32.8648% 100%, 0px 100%)",
+        "polygon(0px 0px, 93.8% 0px, 81.8% 100%, 0px 100%)",
+        "polygon(0px 0px, 44.8648% 0px, 32.8648% 100%, 0px 100%)"
+      ]
+    },
+    {
+      "name": "Âncora profunda dispensa abertura e mantém equipe",
+      "pass": true
+    },
+    {
+      "name": "Rolagem rápida não prende placa ou foto",
+      "pass": true
+    },
+    {
+      "name": "Axe WCAG A/AA",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Movimento reduzido estático e conteúdo visível",
+      "pass": true
+    },
+    {
+      "name": "Componentes funcionam com movimento reduzido",
+      "pass": true
+    },
+    {
+      "name": "Sem JS: conteúdo, galeria, serviços e agendamento",
+      "pass": true
+    },
+    {
+      "name": "Sem JS: expansão nativa",
+      "pass": true
+    },
+    {
+      "name": "Sem JS: sem overflow",
+      "pass": true
+    },
+    {
+      "name": "Módulo bloqueado deixa site legível",
+      "pass": true
+    },
+    {
+      "name": "Toque seleciona fotografia",
+      "pass": true
+    },
+    {
+      "name": "Gesto de swipe no álbum",
+      "pass": true
+    },
+    {
+      "name": "Toque abre lightbox",
+      "pass": true
+    },
+    {
+      "name": "Console JavaScript sem erros",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "motion": [
+    {
+      "name": "abertura-inicio",
+      "transform": "matrix(0.001, 0, 0, 0.001, 728.096, 608.2)",
+      "animations": [
+        {
+          "currentTime": 0,
+          "duration": 1330
+        }
+      ]
+    },
+    {
+      "name": "abertura-meio",
+      "transform": "matrix(0.131889, 0, 0, 0.00141031, 633.561, 608.2)",
+      "animations": [
+        {
+          "currentTime": 449.97200000000004,
+          "duration": 1330
+        }
+      ]
+    },
+    {
+      "name": "espelho-inicio",
+      "transform": "matrix(1.00523, 0, 0, 1.00523, 1.9766, 0)",
+      "clip": "polygon(0px 0px, 100.287% 0px, 88.2868% 100%, 0px 100%)",
+      "opacity": "1",
+      "rect": {
+        "x": 535.84765625,
+        "y": 473.1396179199219,
+        "width": 379.97662353515625
+      },
+      "animations": [
+        {
+          "currentTime": 250.04400000101867,
+          "duration": 680,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "name": "espelho-meio",
+      "transform": "none",
+      "clip": "none",
+      "opacity": "1",
+      "rect": {
+        "x": 534.859375,
+        "y": 474.375,
+        "width": 378
+      },
+      "animations": []
+    },
+    {
+      "name": "equipe-inicio",
+      "transform": "matrix(1.05, 0, 0, 1.05, 21.0594, 0)",
+      "clip": "polygon(0px 0px, 0% 0px, -12% 100%, 0px 100%)",
+      "opacity": "1",
+      "rect": {
+        "x": 593.0296630859375,
+        "y": 467.962890625,
+        "width": 442.2469482421875
+      },
+      "animations": [
+        {
+          "currentTime": 0,
+          "duration": 680,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "name": "equipe-meio",
+      "transform": "none",
+      "clip": "none",
+      "opacity": "1",
+      "rect": {
+        "x": 582.5,
+        "y": 481.125,
+        "width": 421.1875
+      },
+      "animations": []
+    },
+    {
+      "name": "album-meio",
+      "transform": "matrix(1.01654, 0, 0, 1.01571, 177.431, 20.1036)",
+      "clip": "none",
+      "opacity": "1",
+      "rect": {
+        "x": 238.81077575683594,
+        "y": 552.3203125,
+        "width": 432.4273681640625
+      },
+      "animations": [
+        {
+          "currentTime": 216.68999999981153,
+          "duration": 780,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "name": "lightbox-meio",
+      "transform": "matrix(0.768388, 0, 0, 0.768387, -129.314, -46.5906)",
+      "clip": "inset(0px)",
+      "opacity": "1",
+      "rect": {
+        "x": 270.685546875,
+        "y": 101.40937805175781,
+        "width": 491.76800537109375
+      },
+      "animations": [
+        {
+          "currentTime": 116.62399999839934,
+          "duration": 650,
+          "state": "running"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "externalFailures": []
+}

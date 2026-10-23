@@ -1,18 +1,62 @@
-/* Motion never owns persistent visibility. WAAPI cancels back to these natural states. */
-.menu[open] nav{animation:menu-open 240ms var(--ease)}
-@keyframes menu-open{from{opacity:.2;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
-.review-track.is-moving{animation:reputation-travel 58s linear infinite}
+/* Motion enhances natural visibility. No persistent hidden entrance classes. */
+html{scroll-behavior:smooth;scroll-padding-top:102px}
+.word-mask{display:inline-block;overflow:clip;vertical-align:bottom;padding:.12em .06em .15em;margin:-.12em -.06em -.15em;perspective:650px}
+.motion-word{display:inline-block;transform-origin:50% 100%}
+.scroll-thread{position:fixed;z-index:70;left:0;top:0;width:100%;height:2px;transform:scaleX(0);transform-origin:left;background:var(--wood);pointer-events:none}
+.menu[open] nav{animation:menu-open .25s var(--ease)}
+@keyframes menu-open{from{opacity:0;transform:translateY(-10px) scale(.97)}to{opacity:1;transform:none}}
+.review-track.is-moving{animation:reputation-travel 44s linear infinite}
 @keyframes reputation-travel{to{transform:translateX(-50%)}}
 .review-track.is-paused,.review-viewport:hover .review-track,.review-viewport:focus-within .review-track{animation-play-state:paused}
-.motion-paused .review-track{animation-play-state:paused!important}
-.opening-mark{position:fixed;inset:0;z-index:80;display:grid;place-content:center;background:var(--ivory);pointer-events:none;animation:opening-failsafe .01s 2.8s forwards}
-.opening-mark img{width:180px;height:116px;object-fit:contain;background:#231f20}
-.opening-frame{position:absolute;inset:14% 30%;border:1px solid var(--copper);pointer-events:none}
+.opening-mark{position:fixed;inset:0;z-index:80;pointer-events:none;animation:opening-failsafe .01s 1.8s forwards;overflow:hidden}
+.opening-plate{position:absolute;inset:0;width:100%;height:100%}
+.opening-inscription{position:absolute;left:50%;top:42%;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;color:var(--copper);gap:14px}
+.opening-crest{width:200px;height:150px;margin-bottom:-30px}
+.opening-crest svg{width:100%;height:100%}
+.opening-logo{width:220px;height:114px}.opening-logo svg{width:100%;height:100%}
+.opening-inscription>span{font:500 10px var(--body);letter-spacing:.25em;white-space:nowrap}
+.opening-inscription>i{display:block;width:140px;height:1px;background:var(--copper);transform-origin:left;margin-top:10px}
 @keyframes opening-failsafe{to{visibility:hidden;opacity:0}}
-.continuity-photo{position:fixed;z-index:100;object-fit:cover;pointer-events:none;transform-origin:top left}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.opening-mark{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}.hero-room,.hero-facade,.house-word{transform:none!important}.review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}.review{width:auto;min-height:260px}.review-group[aria-hidden=true]{display:none}.continuity-photo{display:none}}
-@media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}.review{min-height:0}.review blockquote{margin-bottom:20px}}
-html:not(.enhanced) .review-viewport{overflow:visible}html:not(.enhanced) .review-track{display:block;width:auto}html:not(.enhanced) .review-group{display:grid;grid-template-columns:repeat(2,1fr);width:min(1400px,calc(100% - var(--gutter)*2));margin:auto;padding:0}html:not(.enhanced) .review{width:auto}html:not(.enhanced) .mirror-choice{cursor:default}html:not(.enhanced) .mirror-choice:not([aria-pressed=true]){display:none}
-@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}}
+.button,.footer-feature-cta{position:relative;isolation:isolate;overflow:hidden;translate:var(--mx,0px) var(--my,0px);transition:translate .3s var(--ease-soft),transform .18s var(--ease-soft),background .2s,color .2s}
+.button::before{content:'';position:absolute;inset:0;background:var(--wood);z-index:-1;transform:translateX(-101%);transition:transform .46s var(--ease-soft)}
+.button:hover::before,.button:focus-visible::before{transform:translateX(0)}
+.button:hover,.button:focus-visible{background:var(--ink);color:var(--ivory)}
+.button:active{scale:1;transform:scale(.975)}
+.footer-feature-cta:active{transform:scale(.985)}
+.button:focus-visible,.album-modes button:focus-visible,.album-dock button:focus-visible{outline-offset:5px}
+.product-thumb{transition:transform .42s var(--ease-soft)}
+.product-option:hover .product-thumb,.product-option:focus-visible .product-thumb{transform:rotate(-2deg) scale(.96)}
+.team-portrait{translate:var(--mx,0px) var(--my,0px);transition:translate .45s var(--ease)}
+.text-link .icon,.team-name .icon{transition:transform .32s var(--ease-soft)}
+.text-link{transition:text-underline-offset .3s var(--ease-soft),color .2s}
+.text-link:hover,.text-link:focus-visible{text-underline-offset:4px}
+.text-link:hover .icon,.text-link:focus-visible .icon{transform:translate(3px,-3px) rotate(4deg)}
+.album-navigation .icon-button:hover,.album-navigation .icon-button:focus-visible{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.filter-row button,.album-modes button{transition:background .2s,color .2s,scale .2s}
+.filter-row button:active,.album-modes button:active{scale:1;transform:scale(.975)}
+.product-option{transition:background .2s,translate .35s var(--ease)}
+.product-option:hover,.product-option:focus-visible{translate:6px 0}
+.faq details[open] p,.service-entry[open] .service-detail{animation:detail-arrive .35s var(--ease)}
+@keyframes detail-arrive{from{opacity:.2;transform:translateY(-8px)}to{opacity:1;transform:none}}
+/* Ambient decorative movement only runs while its scene is visible. */
+.footer .footer-rail-track{animation-play-state:paused}
+.enhanced .footer.is-in-view .footer-rail-track{animation-play-state:running}
+.footer .footer-rail:hover .footer-rail-track,.footer:focus-within .footer-rail-track{animation-play-state:paused}
+.footer-story::before{content:none}
+html:not(.enhanced) .review-viewport{overflow:visible}
+html:not(.enhanced) .review-track{display:block;width:auto}
+html:not(.enhanced) .review-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;margin:auto;padding:0}
+html:not(.enhanced) .review{width:auto}
+html:not(.enhanced) .mirror-choice:not([aria-pressed=true]){display:none}
+html:not(.enhanced) .review-gallery{display:block}
+html:not(.enhanced) .review-visual{max-width:390px;margin-bottom:28px}
+html:not(.enhanced) .review-gallery .review-viewport{mask-image:none;overflow:visible}
 html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{animation-play-state:paused!important;transition:none!important}
-html.motion-paused .menu[open] nav{animation:none!important}
+@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}.opening-crest{width:155px;height:116px}.opening-inscription{top:40%}.opening-logo{width:190px;height:98px}}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .opening-mark,.scroll-thread{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}
+ .hero-room,.hero-facade,.house-word,.footer-oversize>span,.footer-visual,.team-portrait{translate:none!important;clip-path:none!important}
+ .review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:100%;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.review{width:auto;min-height:0}.review-group[aria-hidden=true]{display:none}
+}
+@media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}}

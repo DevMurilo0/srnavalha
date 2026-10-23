@@ -1,0 +1,199 @@
+[
+  {
+    "name": "abertura-inicio",
+    "clip": "none",
+    "transform": "matrix(0.0220581, 0, 0, 0.00106601, 712.887, 608.2)",
+    "animations": [
+      {
+        "time": 216.56599999999992,
+        "duration": 1330,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-corte",
+    "clip": "none",
+    "transform": "matrix(0.1468, 0, 0, 0.00145705, 622.791, 608.2)",
+    "animations": [
+      {
+        "time": 466.59800000000007,
+        "duration": 1330,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-meio",
+    "clip": "none",
+    "transform": "matrix(0.896035, 0, 0, 0.921652, 76.1024, 57.3594)",
+    "animations": [
+      {
+        "time": 966.5299999999999,
+        "duration": 1330,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "abertura-fim",
+    "clip": "none",
+    "transform": "matrix(0.999701, 0.0244322, -0.0244322, 0.999701, 0, 0)",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "espelho-inicio",
+    "clip": "polygon(0px 0px, 34.3226% 0px, 22.3226% 100%, 0px 100%)",
+    "transform": "matrix(1.03468, 0, 0, 1.03468, 13.1081, 0)",
+    "animations": [
+      {
+        "time": 49.98200000115283,
+        "duration": 680,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "espelho-meio",
+    "clip": "polygon(0px 0px, 111.788% 0px, 99.7878% 100%, 0px 100%)",
+    "transform": "matrix(1.00009, 0, 0, 1.00009, 0.0358103, 0)",
+    "animations": [
+      {
+        "time": 533.3140000011535,
+        "duration": 680,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "espelho-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "equipe-inicio",
+    "clip": "polygon(0px 0px, 0% 0px, -12% 100%, 0px 100%)",
+    "transform": "matrix(1.05, 0, 0, 1.05, 21.0594, 0)",
+    "animations": [
+      {
+        "time": 0,
+        "duration": 680,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "equipe-meio",
+    "clip": "polygon(0px 0px, 111.008% 0px, 99.0078% 100%, 0px 100%)",
+    "transform": "matrix(1.00044, 0, 0, 1.00044, 0.186561, 0)",
+    "animations": [
+      {
+        "time": 450.0279999986603,
+        "duration": 680,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "equipe-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "album-inicio",
+    "clip": "none",
+    "transform": "matrix(0.99863, -0.052336, 0.052336, 0.99863, 0, 0)",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "album-meio",
+    "clip": "none",
+    "transform": "matrix(1.01628, 0, 0, 1.01546, 174.575, 19.78)",
+    "animations": [
+      {
+        "time": 233.28200000131892,
+        "duration": 780,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "album-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "produtos-inicio",
+    "clip": "none",
+    "transform": "matrix(0.964507, 0.0352159, -0.0352159, 0.964507, 22.3045, 0)",
+    "animations": [
+      {
+        "time": 33.38599999954717,
+        "duration": 460,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "produtos-meio",
+    "clip": "none",
+    "transform": "matrix(0.999999, 1.54019e-06, -1.54019e-06, 0.999999, 0.000941294, 0)",
+    "animations": [
+      {
+        "time": 433.3859999995475,
+        "duration": 460,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "produtos-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "lightbox-meio",
+    "clip": "inset(0px)",
+    "transform": "matrix(0.979226, 0, 0, 0.979226, -244.98, -74.0716)",
+    "animations": [
+      {
+        "time": 33.35200000177352,
+        "duration": 650,
+        "state": "running"
+      }
+    ],
+    "connected": true
+  },
+  {
+    "name": "lightbox-fim",
+    "clip": "none",
+    "transform": "none",
+    "animations": [],
+    "connected": true
+  },
+  {
+    "name": "limite-foto-original",
+    "width": 410,
+    "attribute": 410
+  }
+]

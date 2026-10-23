@@ -1,0 +1,151 @@
+# DIRECTION SHEET — Photographs at uneven sizes
+seed 1139092228 · drawn 2026-10-22 · sector architecture · tone editorial
+Brief: V17 Sr. Navalha: estampa metálica e álbum de estilos reais tornam os espelhos uma experiência editorial interativa
+
+| | |
+| --- | --- |
+| Direction | Photographs at uneven sizes |
+| Hero | Statement beside specimen mosaic |
+| Type | kept from the brand |
+| Colour | kept from the brand |
+| Sections | intro (Pinned sentence, photographs pass) → showcase (Band of unequal panels) → work (Staggered tiles, empty cells) → gallery (Staggered pairs in empty ground) → testimonial (Quotation over a photograph) → contact (Sentence, portrait, two links) → footer (Columns above, wordmark below) |
+| Motion | Shutter image |
+| Photographs | the "Architecture" set, as atmosphere |
+
+This is the direction for this build. Adopt it. Do not blend it with the layout you would have made anyway,
+and do not redraw because it is unfamiliar: unfamiliar is the point. Redraw a slot only when it conflicts
+with a stated brand constraint or needs an asset that does not exist, and say why in your report.
+
+The parts of this sheet were written separately and will disagree in small ways. Settle every disagreement in this order:
+**house rules** (including type no smaller than 13px and body text of 16px or more) → **the direction** (the idea, the composition habits, where the
+one accent goes) → **the type system and the palette** (which face does which job, the five size steps, which colour is the ground and where the
+accent goes) → **the hero blueprint** → **the section blueprints**. Under each blueprint below, "Adjusted for this page" lists where it disagrees.
+In practice: take geometry from blueprints (columns, proportions, what sits where) and take everything else from above them. Map every size a
+blueprint names onto one of your five type steps instead of adding a sixth. Use one button shape, one corner radius and one pair of page margins on
+the whole page, whatever individual blueprints say. If a blueprint names a kind of typeface (a light serif, a heavy grotesk), use the dealt face.
+
+## 1. The idea
+A calm page where the pictures are placed like prints on a gallery wall: each at its own size and position, with text set small and light between them. Nothing lines up in the obvious way, yet everything sits on a grid you can feel. The unevenness is what makes it read as art-directed by a person: a small portrait far left, a wide landscape running off the right edge, a square that overlaps the next section. It lets photographs lead without ever becoming a slideshow.
+
+Before anything else, write one sentence in your notes: "On this page, <the subject's own material> becomes <the device>."
+Fill the first blank from your inventory of what only this client has (its name and what it means, its street, its numbers, its
+constraint), then put the nearest competitor in the sentence: if it still works, the idea is the category's, not the client's.
+Then name the one live thing the visitor can do on the page (SKILL.md step 4).
+
+## 2. Composition
+A 12-column grid with wide margins (5–7vw). The hero is a single line of large light type (6–9vw) across the top third, and below it one photograph placed off-centre (columns 6–12, 16:10), its top edge overlapping the baseline zone of the headline by a few pixels of deliberate tension. Each following section places two or three photographs with different spans and vertical offsets: for example a 3:4 portrait in columns 2–5 starting 120px lower than a 16:10 landscape in columns 7–12; then a single small 1:1 in columns 9–11 beside a paragraph in columns 2–6. Paragraphs are short (max 40ch) and sit in the gaps. No two consecutive sections use the same arrangement. Vertical spacing is large and irregular on purpose (120–260px).
+
+## 3. Type
+Kept from the brand. A light or regular weight at large size for the few headings; small, quiet text. Serif or a slender sans. Everything left-aligned to grid lines.
+
+## 4. Colour
+Kept from the brand. A pale neutral ground with one deep ink taken from the photographs. No accent beyond a quiet link colour.
+
+## 5. Imagery
+**Use the images that belong to the project in every picture slot.** For slots they cannot fill, real pictures of the subject's world from the open collections come next (start with `node /home/murilo/Dev/andamento/srnavalha/plugins/taste-frontend-design/skills/design-taste-frontend/scripts/assets.mjs "architecture"`, then queries from your inventory (its street, its materials, its trade's tools and history); credit them on the page), then the dealt photographs.
+
+Six to nine photographs from one set, in a deliberate mix of ratios (3:4, 4:5, 1:1, 16:10, 21:9). Square corners. Captions, if any, are one short line under an image in the soft ink.
+
+**Floor (the inspector checks it):** at least four real pictures on the page, usually six to twelve; SVG drawings do not count. One moving picture where an honest clip exists: `node <skill>/scripts/assets.mjs --video "<query>"`, used as a muted loop with a poster frame. Whatever this direction says about pictures, it is carried out with real ones.
+
+Photographs dealt for this build, from the "Architecture" set (structure, lines, bridges, facades and building interiors)
+Order of preference for imagery: (1) the project's own photographs and product shots; (2) images you generate, if an image tool is
+available; (3) real pictures of the subject's world found in the open collections (assets.mjs, downloaded and credited on the page);
+(4) drawings of the subject in code; (5) these. They are real photographs (Unsplash licence, served by picsum.photos) of places, light and
+texture. They are atmosphere, never a stand-in for a specific product, dish, person or interface. List the ones you use in your report so
+they can be replaced.
+- `https://picsum.photos/id/620/1600/1000` — White arched bridge spanning grey water under a pale sky · light tone · white, pale grey, charcoal · black-and-white · calm area: bottom · native landscape · photo: Matthew Wiebe
+- `https://picsum.photos/id/1081/1600/1000` — Stepped white modern building corner rising into a pale blue sky · light tone · white, pale blue, soft grey · calm area: top · native landscape · photo: Julien Moreau
+- `https://picsum.photos/id/855/1600/1000` — Small figure walking past a huge bright yellow wall · light tone · bright yellow, black · calm area: left · native landscape · photo: Rodion Kutsaev
+- `https://picsum.photos/id/618/1600/1000` — Curving glass and steel lattice roof in black and white · light tone · white, grey, black · black-and-white · native landscape · photo: Mika Ruusunen
+- `https://picsum.photos/id/508/1600/1000` — Tall pointed vaults and pale columns of a church interior · light tone · cream, warm grey, soft orange · native portrait · photo: Jeff Sheldon
+- `https://picsum.photos/id/693/1600/1000` — Red suspension bridge tower rising from fog above rugged cliffs · mid tone · rust red, grey, dark teal · calm area: left · native landscape · photo: Rob Bye
+- `https://picsum.photos/id/942/1600/1000` — White angular concrete building against a black sky · dark tone · black, white, pale grey · black-and-white · calm area: top · native landscape · photo: Carl Nenzen Loven
+- `https://picsum.photos/id/887/1600/1000` — White apartment block facade with repeating balconies and windows · light tone · white, pale grey, soft red · native landscape · photo: Roman Kraft
+The last two path numbers are width and height: request the exact crop you render (`/1200/1500` for a 4:5 portrait, `/2400/1350` for a hero) and
+add `?grayscale` to desaturate. Use three to six of them, not all eight. Always set `width`, `height`, `alt` and `loading="lazy"` (not on the hero image).
+Other sets that fit this brief: fog-and-quiet, texture, animals — `node draw.mjs --photos <set>` prints one in full; `--photos list` shows all sets. Taking photographs from another set is your call and is not a redraw; keep them to one light and one treatment.
+
+## 6. Hero — Statement beside specimen mosaic
+The viewport is split 50/50 by tone alone: the left half is the page ground, the right half a field one step darker, meeting at a clean vertical edge with no line. Left half: the wordmark at 22px sits top-left on a 32px margin; under it the statement at clamp(44px, 4.4vw, 68px), bold, tracking -0.04em, leading 1.0, top-left aligned and filling the upper 40% of the half. The lower part of this side stays empty except for one supporting sentence at 18px pinned bottom-left and the single action as a solid rectangle beside it. Right half: a loose mosaic of seven specimen tiles on a 4-column, 3-row grid with 14px gaps. Each tile is a flat palette colour at 3:4 holding one cut-out item, centred, object-fit: contain, mix-blend-mode: multiply. Five cells are left empty so the tiles stagger; one tile spans two columns and two rows; the rightmost column is cropped by the viewport edge. Two text links sit top-right over the darker field. The right half may be position: sticky while the left scrolls.
+
+On a phone: The split becomes a stack. The statement comes first at 10.5vw on two lines inside 20px margins, the supporting sentence under it at 16px, then the action. Below, the darker field runs full width and the mosaic becomes two columns of tiles, the right column started 48px lower than the left; five tiles show and the last row is cropped by the bottom of the screen. Navigation is the wordmark and one link.
+Headline: A 3-5 word statement of what is on offer, at most 28 characters so it holds two lines at 10.5vw on a phone.
+
+Adjusted for this page:
+- It sets a sentence large over several lines: jurors read that as a long headline. Either cut it to a two-line headline at display size, or keep it a statement at 36px or less on three lines (24px, four lines on a phone).
+
+## 7. Sections, in order
+Each is a composition to rebuild with this project's content. Keep the geometry; change the subject. Re-order or drop a
+section when the argument of the page needs it (see references/copy.md), never to fall back to a card grid.
+
+### 1. intro — Pinned sentence, photographs pass (pinned)
+A wrapper 300svh tall. Inside it a `position: sticky; top: 0` layer of 100svh holds one sentence of 8–14 words, centred, three lines at clamp(36px, 4.6vw, 68px), leading 1.1, in a block 62% of the viewport wide. The sentence is a paragraph, not a heading; it is white with `mix-blend-mode: difference` (or a solid ink that reads over every photograph) and has a higher `z-index` than the images. Behind it, three photographs sit in normal flow at different sizes and sides and scroll past the fixed sentence: a 4:5 portrait 24vw wide with its left edge at 6vw; 70svh lower a 16:10 landscape 38vw wide touching the right margin; 70svh lower a 1:1 frame 18vw wide starting at 30vw. Each crosses the sentence once. When the wrapper ends, the sentence releases and scrolls away with the last photograph. No scroll hijacking.
+On a phone: Wrapper 260svh. The sentence pins at 40% of the screen height at 8.4vw, four or five lines, with 20px margins. Photographs alternate: 64% wide on the left margin, 78% wide on the right margin, then 52% on the left, with 50svh between them.
+
+Adjusted for this page:
+- It names colours (white): map them onto this palette's roles (ground `--bg`, panels `--surface` and the fields, text `--ink`/`--muted`, the accent `--accent` on the primary action only).
+- It sets a sentence large over several lines: jurors read that as a long headline. Either cut it to a two-line headline at display size, or keep it a statement at 36px or less on three lines (24px, four lines on a phone).
+- It pins something for three screens or more: hold a pin for two or three screens at most, give every screen under it its own content, and let nothing pass over the pinned words (the inspector checks all three).
+- It blends text with `difference`: over anything but black, white or grey that gives random hues. Use a solid ink chosen for each ground instead.
+
+### 2. showcase — Band of unequal panels (strip)
+A modest heading, then one wide band of pictures. The heading, two to four words at 36–44px, starts at column 3, left of centre, with 64px beneath it. The band spans the full viewport width edge to edge and is 68svh tall: four photographs standing side by side with no gaps and deliberately unequal widths, a flex row with flex-grow values of 5, 2, 3 and 2. Each panel is cropped with object-fit: cover to a tall slice, so the band reads as one folded view. The first panel carries a two-line title at 28px in paper colour at its top-left, 24px in, over a neutral scrim that covers only that corner. Hovering a panel raises its flex-grow to 6 over 500ms while the others give way; without hover the widths simply stay. One caption line at 16px sits under the band at the left margin.
+On a phone: The heading sits on the margin at 28px. The band becomes a two-by-two block with no gaps, 84svh tall in total: the first row split 64/36 and the second 36/64, so the slices stay unequal. The title stays on the first panel. No hover behaviour.
+
+### 3. work — Staggered tiles, empty cells (grid)
+A four-column grid with 16px gutters and 5vw margins in which tiles snap to columns but vary in span and height, and some cells are deliberately left empty. Pattern for eight projects: row one, a wide tile spanning columns 1–2 at 3:2 and a single tile in column 4 at 4:5, column 3 empty; row two, single tiles in columns 2 and 3, columns 1 and 4 empty; row three, a wide tile in columns 3–4 and a single in column 1. Each tile is a photograph, or a project image centred with 12% padding on a flat pastel or dark ground from the palette. Square corners, or one consistent shape detail such as a large radius on the bottom-right corner only. Under each tile one caption row at 14px: project name left, year and category right. The heading, two words stacked at clamp(40px, 4.5vw, 68px), occupies the empty cell of row one.
+On a phone: Two columns with 10px gutters. Wide tiles span both columns; single tiles alternate left and right with the other cell left empty beside every second one, so the stagger survives. The heading sits above at 10vw. Captions stack the name over the year.
+
+### 4. gallery — Staggered pairs in empty ground (stack)
+No heading. Photographs are placed one or two per screen so that more than half of every screen stays empty ground. Screen one: a 3:4 portrait in columns 1–4 against the left margin, and a near-square 5:4 image in columns 7–12 against the right margin whose top edge starts 30vh lower than the portrait's. Screen two: a 3:2 landscape in columns 6–11 and, 24vh lower, a small 4:5 image in columns 2–4. Repeat the two arrangements, mirrored on the second pass, for six to ten photographs. Under each image's left corner, a one-line caption at 13px in the soft ink, 10px below the image. Vertical gaps between pairs are 22–28vh. Every edge sits on a column line and offsets come from only two values. Square corners. If motion is used, images enter with a short `clip-path` wipe from the bottom edge.
+On a phone: A single column in which widths and sides alternate: 70% against the left margin, 84% against the right, 56% left, then 100% full-bleed, with 64px between images. Captions sit under each image's left corner at 13px. Portrait crops are preferred so each image fills most of the screen height.
+
+### 5. testimonial — Quotation over a photograph (full-bleed)
+One photograph fills the section edge to edge at 100vw by 90svh with `object-fit: cover`; choose a frame with a calm lower half. The quotation is set directly on it in the paper colour: two or three lines at clamp(36px, 5vw, 80px), leading 1.0, flush left in columns 1–9, its last baseline 64px above the bottom edge. The speaker's name and role sit at 16px on that same baseline, right-aligned in columns 10–12. For legibility, darken the whole image evenly with `filter: brightness(0.7)` instead of placing a panel behind the words; the photograph must still read as a photograph. There is no heading, no frame and no oversized quotation-mark ornament, only plain curly quotes in the text. The section butts directly against its neighbours with no margin, so the image edge is the section edge.
+On a phone: The photograph becomes 100vw by 80svh, cropped to its strongest vertical slice. The quotation sits in the lower half at 9vw over four lines at most, flush left with 20px margins; the name and role follow under it on one line at 15px.
+
+Adjusted for this page:
+- It sets a sentence large over several lines: jurors read that as a long headline. Either cut it to a two-line headline at display size, or keep it a statement at 36px or less on three lines (24px, four lines on a phone).
+
+### 6. contact — Sentence, portrait, two links (band)
+One closing row of three elements hanging from the same top line, with open ground between them, on a 12-column grid. Columns 1–5: a sentence of 12–18 words at clamp(26px, 3vw, 44px), four lines, leading 1.1, saying what kind of enquiries are welcome; it is set as a paragraph and there is no separate heading. Columns 8–9: one small square portrait or photograph of the place, 150–170px, with square corners. Columns 10–12: a short question at 18px in medium weight, then 20px below it two underlined links stacked at 18px (the email address and one booking or social link), and beneath them a line at 14px in the soft ink with the city and the usual reply time. Columns 6–7 stay empty. The row has 160px of space above and 120px below. No form. On a dark ground the photograph is the only bright thing in the row.
+On a phone: The sentence comes first at 7.4vw. Below it the portrait at 96px square sits at the left margin with the question and the two links to its right, top-aligned, in the remaining width. The city and reply-time line spans the full width beneath.
+
+Adjusted for this page:
+- It sets a sentence large over several lines: jurors read that as a long headline. Either cut it to a two-line headline at display size, or keep it a statement at 36px or less on three lines (24px, four lines on a phone).
+
+### 7. footer — Columns above, wordmark below (stack)
+The footer inverts ground and ink and fills a whole viewport (min-height 100svh), arranged as three rows in a grid (auto 1fr auto). Top row, 40px from the edge: four small columns on the 12-column grid (address, navigation, social, hours or contact), each a plain list at 15–16px with its first line in the full ink and the rest in the softer ink. Middle row: empty. Bottom row: the wordmark alone, sized to run from the left margin to the right margin on one line. Set it as inline SVG text with a `viewBox` fitted to the word and `width: 100%`, or tune `font-size` in `vw` to the letter count, so it never wraps; its baseline sits 20px above a single line of legal text at 13px. With `position: sticky; bottom: 0` and a lower `z-index` than the page, the last section slides away to uncover it.
+On a phone: Columns become two by two at 15px with 32px between rows, at the top. A gap of about 20svh follows. The wordmark spans the full width at the bottom; a name longer than ten letters stacks on two lines, each fitted to the width. Legal line beneath at 12px.
+
+Adjusted for this page:
+- It sets text at 12px: use your small step (13px or more) instead.
+
+## 8. Motion — Shutter image
+The one hero or showcase image opens from an edge with a clip-path over about 1.1 seconds while the picture inside settles from 1.12 scale to rest. Use it once, on the image that matters most; later images simply are there. Recipe: 'Image shutter' in references/motion.md.
+This is the signature move, the one loud moment. Around it the page still needs the rest of the motion layer (SKILL.md step 9): an entrance for the parts of every section, feedback on every control, and one moving picture. The inspector fails a page that barely moves. Recipes: references/motion.md.
+
+## 9. Where the richness comes from
+Placement. The differing sizes and offsets create movement on a still page.
+
+## 10. How this direction goes wrong
+Uneven is not random: every image edge lands on a column line, and offsets come from a small set of values. On a phone, keep the unevenness with alternating widths (100%, 72% left, 60% right) rather than stacking everything full width.
+
+## 11. Real references
+Studied sites that work this way. Take the principle, never the specifics: no names, copy, images or signature assets of theirs.
+- **Sobha Privy Collection** (Awwwards Site of the Day, studied score 7.1) `aww-sobha-privy-collection`
+  Idea: Luxury homes sold by restraint: a black sculptural render and a script-over-capitals title, then white pages where interior images grow and overlap huge serif capitals as you scroll.
+  Hero: Full-bleed near-black video of a glossy black sculptural form, wide curved bands catching thin highlights, filling the frame at very low contrast. A centred two-line title about 46% of the width: a formal script phrase at about 6.9vw, then a line of light roman serif capitals at about 6vw directly beneath, wider than the script. Nothing else in the middle. Corners only: a two-line hamburger with a menu label top-left, a small serif wordmark with a micro subtitle top-centre, a text link top-right, a circled down-arrow bottom-left, and bottom-right a greyscale 3D-map thumbnail about 17% wide with a numeral and a two-line label.
+  Worth taking: Pair one short phrase in formal script with a line of light serif capitals beneath it, letting the script overlap the capitals or run into an adjacent image.
+- **Kononenko Architectural Bureau** (Awwwards Site of the Day, studied score 7.4) `aww-kononenko-architectural-bureau`
+  Idea: Let the renders do the talking: one full-bleed visualisation, a name set half in grotesk and half in serif, then alternating oversized sans and serif statements on white.
+  Hero: A single architectural render fills the viewport edge to edge: a low grey metal-clad building under a large overcast sky, wild grass across the bottom third. Type is white and tiny except for the name. Top-left at a 24px margin, the bureau name is stacked on three lines at 13px. Top-right, four links run inline separated by commas, the current one underlined. Bottom-left, the name repeats at 60px (4.2vw) on two tight lines, the first two words in grotesk and the last word in a serif at the same size. No button, no scrim, no tagline; the sky takes the upper 45% untouched.
+  Worth taking: Set the last word of a sans headline in an upright serif of the same size to give a plain name a signature without any graphic device.
+Full notes on any of them: `node draw.mjs --site <id>`.
+
+## Always
+Headlines two lines or fewer at every width. No eyebrow labels, no monospace, no 01/02/03, no thin rules, no gradients, no shadows at rest,
+no cream-and-terracotta, no violet. `inspect.mjs` measures all of it.
+
+Saved to /home/murilo/Dev/andamento/srnavalha/.taste-skill/direction.json · reprint with `node draw.mjs --show`

@@ -1,0 +1,20 @@
+{
+  "artifact": "sr-navalha-v17-live-server.zip",
+  "bytes": 53139348,
+  "sha256": "728cd8b39dac965fa58c3fee149d134690b7fe4a62594b26224b24cc155ee10a",
+  "files": 462,
+  "entry": "srnavalha-v17/index.html",
+  "runtime": "HTML + CSS + local ES modules; Live Server; no build",
+  "source": "templates/v17 + scripts/render-site.mjs",
+  "fonts": true,
+  "tested": "2026-10-22T23:55:09.202Z",
+  "http": true,
+  "errors": [],
+  "services": 42,
+  "products": 22,
+  "person": "Eduardo",
+  "album": true,
+  "overflow": 0,
+  "booking": "https://sites.appbarber.com.br/srnavala-pqjj",
+  "pass": true
+}

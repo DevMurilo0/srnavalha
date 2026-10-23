@@ -1,0 +1,284 @@
+{
+  "cls": 0.00015518540009059042,
+  "longTasks": [
+    277,
+    55,
+    54
+  ],
+  "resources": [
+    {
+      "name": "/assets/fonts/manrope-v6-latin.woff2",
+      "bytes": 24836
+    },
+    {
+      "name": "/assets/fonts/sora-variable.ttf",
+      "bytes": 111400
+    },
+    {
+      "name": "/css/ritual.css",
+      "bytes": 378
+    },
+    {
+      "name": "/js/ritual/app.js",
+      "bytes": 1274
+    },
+    {
+      "name": "/assets/images/v8/logo-320.webp",
+      "bytes": 8524
+    },
+    {
+      "name": "/assets/images/hero-redesign/fachada-480.webp",
+      "bytes": 52406
+    },
+    {
+      "name": "/assets/images/hero-redesign/interior-480.webp",
+      "bytes": 30720
+    },
+    {
+      "name": "/assets/images/ritual/instrumentos-480.webp",
+      "bytes": 34118
+    },
+    {
+      "name": "/assets/images/v8/servico-comb-cort-barb-simples-640.webp",
+      "bytes": 22132
+    },
+    {
+      "name": "/assets/images/v8/logo-640.webp",
+      "bytes": 19770
+    },
+    {
+      "name": "/css/ritual/tokens.css",
+      "bytes": 849
+    },
+    {
+      "name": "/css/ritual/base.css",
+      "bytes": 4031
+    },
+    {
+      "name": "/css/ritual/header.css",
+      "bytes": 3013
+    },
+    {
+      "name": "/css/ritual/hero.css",
+      "bytes": 12465
+    },
+    {
+      "name": "/css/ritual/sections.css",
+      "bytes": 30034
+    },
+    {
+      "name": "/css/ritual/footer-atelier.css",
+      "bytes": 10768
+    },
+    {
+      "name": "/css/ritual/ornaments.css",
+      "bytes": 3274
+    },
+    {
+      "name": "/css/ritual/team-panel.css",
+      "bytes": 4015
+    },
+    {
+      "name": "/css/ritual/style-album.css",
+      "bytes": 5341
+    },
+    {
+      "name": "/css/ritual/motion.css",
+      "bytes": 5087
+    },
+    {
+      "name": "/js/ritual/core.js",
+      "bytes": 3587
+    },
+    {
+      "name": "/js/ritual/album.js",
+      "bytes": 4192
+    },
+    {
+      "name": "/js/ritual/motion.js",
+      "bytes": 7916
+    },
+    {
+      "name": "/js/ritual/opening.js",
+      "bytes": 3925
+    },
+    {
+      "name": "/js/ritual/services.js",
+      "bytes": 2006
+    },
+    {
+      "name": "/js/ritual/team.js",
+      "bytes": 2296
+    },
+    {
+      "name": "/js/ritual/products.js",
+      "bytes": 1528
+    },
+    {
+      "name": "/js/ritual/gallery.js",
+      "bytes": 3449
+    },
+    {
+      "name": "/js/ritual/map.js",
+      "bytes": 1200
+    },
+    {
+      "name": "/js/data/services.js",
+      "bytes": 14654
+    },
+    {
+      "name": "/js/data/products.js",
+      "bytes": 5840
+    },
+    {
+      "name": "/js/data/professionals.js",
+      "bytes": 1044
+    },
+    {
+      "name": "/assets/images/v8/servico-barba-simples-640.webp",
+      "bytes": 14978
+    },
+    {
+      "name": "/assets/images/v8/servico-luzes-640.webp",
+      "bytes": 49246
+    },
+    {
+      "name": "/assets/images/v8/servico-barboterapia-640.webp",
+      "bytes": 67432
+    },
+    {
+      "name": "/assets/images/v8/servico-corte-infantil-640.webp",
+      "bytes": 64466
+    },
+    {
+      "name": "/assets/images/v8/servico-platinado-640.webp",
+      "bytes": 10430
+    },
+    {
+      "name": "/assets/video/instrumentos.mp4",
+      "bytes": 87980
+    },
+    {
+      "name": "/assets/decor/favicon-v8.png",
+      "bytes": 4054
+    },
+    {
+      "name": "/assets/images/v8/damiao-640.webp",
+      "bytes": 29390
+    },
+    {
+      "name": "/assets/images/v8/pomada-orange-640.webp",
+      "bytes": 60964
+    },
+    {
+      "name": "/assets/images/v8/body-splash-320.webp",
+      "bytes": 18410
+    },
+    {
+      "name": "/assets/images/v8/leave-in-320.webp",
+      "bytes": 16908
+    },
+    {
+      "name": "/assets/images/v8/locao-pos-barba-320.webp",
+      "bytes": 12654
+    },
+    {
+      "name": "/assets/images/v8/oleo-para-barba-320.webp",
+      "bytes": 20890
+    },
+    {
+      "name": "/assets/images/v8/pomada-fox-premium-320.webp",
+      "bytes": 18872
+    },
+    {
+      "name": "/assets/images/v8/pomada-orange-320.webp",
+      "bytes": 25466
+    },
+    {
+      "name": "/assets/images/v8/pomada-queratina-320.webp",
+      "bytes": 25426
+    },
+    {
+      "name": "/assets/images/v8/pomada-teia-320.webp",
+      "bytes": 24952
+    },
+    {
+      "name": "/assets/images/v8/pomada-toq-seco-320.webp",
+      "bytes": 25934
+    },
+    {
+      "name": "/assets/images/v8/pomada-uv-320.webp",
+      "bytes": 24462
+    },
+    {
+      "name": "/assets/images/v8/pomda-coffee-320.webp",
+      "bytes": 26576
+    },
+    {
+      "name": "/assets/images/v8/serum-pos-barba-320.webp",
+      "bytes": 19762
+    },
+    {
+      "name": "/assets/images/v8/shampoo-4em1-320.webp",
+      "bytes": 15828
+    },
+    {
+      "name": "/assets/images/v8/shampoo-anticaspa-320.webp",
+      "bytes": 16518
+    },
+    {
+      "name": "/assets/images/v8/shampoo-escurecedor-dom-pelo-320.webp",
+      "bytes": 12178
+    },
+    {
+      "name": "/assets/images/v8/shampoo-ice-320.webp",
+      "bytes": 20128
+    },
+    {
+      "name": "/assets/images/v8/shampoo-matizador-320.webp",
+      "bytes": 23214
+    },
+    {
+      "name": "/assets/images/v8/tonico-de-crescimento-320.webp",
+      "bytes": 17588
+    },
+    {
+      "name": "/assets/images/hero-redesign/fachada-720.webp",
+      "bytes": 95810
+    },
+    {
+      "name": "/assets/images/hero-redesign/interior-720.webp",
+      "bytes": 56344
+    }
+  ],
+  "memory": {
+    "usedJSHeapSize": 2617251
+  },
+  "imagesInStages": [
+    1,
+    1,
+    1
+  ],
+  "running": [
+    "footer-rail-track"
+  ],
+  "scrollSample": {
+    "frames": 110,
+    "medianMs": 25.199999999254942,
+    "p95Ms": 68,
+    "maxMs": 122.30000000074506,
+    "over33ms": 31,
+    "method": "110 native scroll steps / rAF, headless desktop; not a mobile hardware benchmark"
+  },
+  "domBefore": {
+    "documents": 2,
+    "nodes": 2740,
+    "jsEventListeners": 197
+  },
+  "domAfter": {
+    "documents": 2,
+    "nodes": 2746,
+    "jsEventListeners": 223
+  },
+  "localBytes": 1342932
+}

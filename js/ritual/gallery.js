@@ -4,7 +4,7 @@ export function initGallery(){
  const bodyOverflow=()=>document.documentElement.classList.toggle('viewing-photo',dialog.open);
  const data=i=>({source:$('img',shots[i]),title:shots[i].closest('figure').querySelector('figcaption span').textContent});
  async function show(next,{opening=false,keyboard=false}={}){const token=++sequence;index=(next+shots.length)%shots.length;const d=data(index),loader=new Image();loader.src=d.source.currentSrc||d.source.src;try{await loader.decode()}catch{return}if(token!==sequence)return;
- cancelWithin(dialog);image.width=loader.naturalWidth;image.height=loader.naturalHeight;image.src=loader.src;image.alt=d.source.alt;$('#lightbox-title').textContent=d.title;$('#photo-position').textContent=`Fotografia ${index+1} / ${shots.length}`;
+ cancelWithin(dialog);const sourceLimit=Number.parseFloat(d.source.closest('figure').style.getPropertyValue('--original-width'))||loader.naturalWidth;image.width=Math.min(loader.naturalWidth,sourceLimit);image.height=Math.round(image.width*loader.naturalHeight/loader.naturalWidth);image.src=loader.src;image.alt=d.source.alt;$('#lightbox-title').textContent=d.title;$('#photo-position').textContent=`Fotografia ${index+1} / ${shots.length}`;
  if(!dialog.open){dialog.showModal();bodyOverflow()}
  if(opening){const from=d.source.getBoundingClientRect(),to=image.getBoundingClientRect();animate(image,[{transform:`translate(${from.x-to.x}px,${from.y-to.y}px) scale(${from.width/to.width},${from.height/to.height})`,clipPath:'inset(0)'},{transform:'none',clipPath:'inset(0)'}],{duration:650,easing:spatial})}
  else if(!keyboard)animate(image,[{opacity:.2,transform:'translateX(24px)'},{opacity:1,transform:'none'}],{duration:260});}

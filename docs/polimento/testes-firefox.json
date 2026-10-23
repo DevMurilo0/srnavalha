@@ -1,0 +1,158 @@
+{
+  "browser": "Firefox",
+  "date": "2026-10-23T00:46:10.230Z",
+  "checks": [
+    {
+      "name": "320: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "320: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "375: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "375: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "390: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "390: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "768: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "768: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "1024: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "1024: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "1366: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "1366: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "1440: hero e largura",
+      "pass": true,
+      "detail": {
+        "overflow": -6,
+        "photos": true,
+        "opening": false
+      }
+    },
+    {
+      "name": "1440: sem overflow na página",
+      "pass": true
+    },
+    {
+      "name": "Equipe sincronizada",
+      "pass": true
+    },
+    {
+      "name": "Álbum muda para parede",
+      "pass": true
+    },
+    {
+      "name": "Lightbox abre",
+      "pass": true
+    },
+    {
+      "name": "Lightbox navega por teclado",
+      "pass": true
+    },
+    {
+      "name": "Escape fecha",
+      "pass": true
+    },
+    {
+      "name": "Espelho Vivo",
+      "pass": true
+    },
+    {
+      "name": "Esteira contínua",
+      "pass": true
+    },
+    {
+      "name": "Esteira pausa",
+      "pass": true
+    },
+    {
+      "name": "Âncora direta sem abertura",
+      "pass": true
+    },
+    {
+      "name": "Sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "motion": [
+    {
+      "name": "equipe",
+      "clip": "none",
+      "animations": [
+        {
+          "time": 199.62,
+          "duration": 560
+        },
+        {
+          "time": 199.62,
+          "duration": 600
+        }
+      ]
+    },
+    {
+      "name": "album",
+      "transform": "matrix(1.01699, 0, 0, 1.01614, 181.177, 20.6278)"
+    }
+  ]
+}

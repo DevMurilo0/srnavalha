@@ -1,0 +1,42 @@
+{
+  "before": "554e5e2",
+  "checks": [
+    {
+      "key": "services",
+      "equal": true,
+      "count": 42
+    },
+    {
+      "key": "plans",
+      "equal": true
+    },
+    {
+      "key": "products",
+      "equal": true,
+      "count": 22
+    },
+    {
+      "key": "team",
+      "equal": true,
+      "count": 5
+    },
+    {
+      "key": "reviews",
+      "equal": true,
+      "count": 4
+    },
+    {
+      "key": "map",
+      "equal": true
+    },
+    {
+      "key": "booking",
+      "equal": true
+    },
+    {
+      "key": "images",
+      "equal": true,
+      "count": 35
+    }
+  ]
+}

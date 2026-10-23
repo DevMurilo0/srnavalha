@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 375,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 390,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 768,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 1024,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 1366,
+      "overflow": 0,
+      "grain": "192px 192px"
+    },
+    {
+      "width": 1440,
+      "overflow": 0,
+      "grain": "192px 192px"
+    }
+  ],
+  "errors": [],
+  "albumInterrupted": {
+    "folio": true,
+    "images": 6,
+    "hidden": false,
+    "animations": 0
+  },
+  "axe": [],
+  "content": [
+    {
+      "key": "services",
+      "equal": true
+    },
+    {
+      "key": "plans",
+      "equal": true
+    },
+    {
+      "key": "products",
+      "equal": true
+    },
+    {
+      "key": "team",
+      "equal": true
+    },
+    {
+      "key": "reviews",
+      "equal": true
+    },
+    {
+      "key": "map",
+      "equal": true
+    },
+    {
+      "key": "booking",
+      "equal": true
+    },
+    {
+      "key": "images",
+      "equal": true
+    }
+  ]
+}

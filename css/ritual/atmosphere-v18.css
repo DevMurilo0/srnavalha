@@ -1,0 +1,53 @@
+/* V18 | Sr. Navalha: fotografia, materiais e profundidade.
+   Scenes adapted from client photographs; public MIT barber vectors.
+   The layout remains fully readable with effects disabled. */
+:root{--v18-metal:#a77b55;--v18-ink:#201915;--v18-paper:#efe5d6}
+.hero,.house,.rituals,.team,.portfolio,.products,.reviews,.visit,.footer{position:relative;isolation:isolate}
+.hero>.wrap,.house>.wrap,.rituals>.wrap,.team>.wrap,.portfolio>.wrap,.products>.wrap,.reviews>.wrap,.visit>.wrap,.footer>.wrap{position:relative;z-index:1}
+.hero{background:radial-gradient(ellipse 54% 65% at 80% 33%,#d6b89d40,transparent 74%),radial-gradient(ellipse at 10% 4%,#fff9f4,transparent 58%),linear-gradient(130deg,#f2e9de,#f9f4ed 55%,#eadcc9)}
+.hero::before{opacity:.13}
+.house{background:radial-gradient(ellipse 65% 50% at 85% 33%,#9f603849,transparent 70%),linear-gradient(128deg,#171412,#2b211c 64%,#171412)}
+.house::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#181411ee 2%,#18141191 54%,#181411bf 100%),url('../../assets/images/hero-redesign/interior-720.webp') 80% 40%/cover no-repeat;opacity:.31;pointer-events:none;z-index:-1;filter:grayscale(.5);mask-image:linear-gradient(90deg,transparent,#000 40%,#000)}
+.rituals{background:radial-gradient(ellipse 78% 80% at 12% 25%,#c0986731,transparent 65%),radial-gradient(ellipse 45% 65% at 90% 76%,#ffffffc4,transparent 85%),linear-gradient(155deg,#f6efe5,#e8dbc9 67%,#f7eee5)}
+.rituals::before{opacity:.16}
+.team{background:radial-gradient(ellipse 70% 60% at 30% 50%,#ad774143,transparent 70%),linear-gradient(140deg,#1c1815,#422e24 60%,#1c1816)}
+.team::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#211915 0%,transparent 53%,#211915 100%),url('../../assets/images/v8/servico-barba-simples-640.webp') 88% 44%/min(48vw,660px) auto no-repeat;opacity:.13;filter:grayscale(1);pointer-events:none}
+.portfolio{background:radial-gradient(ellipse 65% 58% at 85% 10%,#b88c6445,transparent 80%),linear-gradient(145deg,#fbf5ec 2%,#f0e2d1 60%,#e8dac8)}
+.portfolio::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,#f2e6d6,transparent 85%,#e8d9c7),url('../../assets/images/v8/servico-platinado-640.webp') 100% 30%/min(44vw,610px) auto no-repeat;opacity:.15;mask-image:linear-gradient(to right,transparent 22%,#000 100%);pointer-events:none}
+.portfolio::before{opacity:.13}
+.products{background:radial-gradient(ellipse 65% 65% at 15% 24%,#fffafa77,transparent 70%),linear-gradient(122deg,#e8d4be,#f2e9de 50%,#d9c4ab)}
+.products::after{content:'';position:absolute;inset:0;z-index:-1;background:url('../../assets/images/v8/body-splash-640.webp') 100% 48%/min(31vw,490px) auto no-repeat;opacity:.07;mask-image:linear-gradient(to right,transparent 30%,#000 100%);pointer-events:none}
+.reviews{background:radial-gradient(ellipse 63% 62% at 72% 22%,#be86583b,transparent 70%),linear-gradient(160deg,#1b1715,#3b291f 62%,#1c1816)}
+.reviews::after{content:'';position:absolute;inset:0;z-index:-1;background:url('../../assets/images/hero-redesign/fachada-720.webp') 100% 25%/min(48vw,760px) auto no-repeat;opacity:.095;mask-image:linear-gradient(to right,transparent 20%,#000 100%);filter:grayscale(.8);pointer-events:none}
+.visit{background:radial-gradient(ellipse 65% 58% at 80% 16%,#ba916a40,transparent 72%),linear-gradient(110deg,#f8f0e6,#ead9c5 58%,#f6ede1)}
+.visit::before{opacity:.13}
+.footer{background:radial-gradient(ellipse 76% 65% at 85% 29%,#a3774830,transparent 72%),linear-gradient(155deg,#181412,#34251e)}
+/* Hero / an engraved paper card with an actual sourced SVG tool. */
+.hero-atelier-emblem{position:absolute;right:1.5%;top:8px;width:125px;height:138px;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transform:rotate(7deg);color:#69472e;background:linear-gradient(140deg,#f7efdf,#e0c7a8);border:1px solid #a07957;clip-path:polygon(0 0,87% 0,100% 12%,100% 100%,0 100%);box-shadow:8px 9px 0 #a47b5420}
+.hero-atelier-emblem::before{content:'';position:absolute;inset:8px;border:1px solid #80583c65;pointer-events:none}
+.hero-atelier-emblem img{width:50px;height:50px;object-fit:contain;transform:rotate(-25deg)}.hero-atelier-emblem strong{font:800 35px/1 var(--display);letter-spacing:-.08em}.hero-atelier-emblem span{font:700 8px/1.4 var(--body);letter-spacing:.2em}
+.house-scene{isolation:isolate}.house-atmosphere-photo{position:absolute;top:7%;right:-3%;height:74%;width:31%;pointer-events:none;z-index:0;opacity:.32;overflow:hidden;clip-path:polygon(12% 0,100% 0,100% 93%,89% 100%,0 100%,0 12%);mask-image:linear-gradient(to right,transparent,#000 46%,#000)}
+.house-atmosphere-photo>img{width:100%;height:100%;object-fit:cover;object-position:center 36%;filter:sepia(.3) contrast(1.1) brightness(.72)}
+.house-atmosphere-photo>span{position:absolute;bottom:16px;right:14px;color:#fff7;font:600 9px var(--body);letter-spacing:.12em;writing-mode:vertical-rl}
+.house-copy,.house-portal{position:relative;z-index:1}
+.team-invite{position:relative}.team-mood-photo{position:relative;width:min(220px,93%);aspect-ratio:4/3;margin:9px auto 28px;rotate:4deg;border:7px solid #dbc2a3;outline:1px solid #b8906d;outline-offset:4px;box-shadow:18px 20px 35px -24px #0007}
+.team-mood-photo>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;filter:saturate(.87)}
+.team-mood-stamp{position:absolute;bottom:-17px;left:-16px;padding:7px 12px;display:flex;gap:6px;align-items:center;background:#e7d6c0;color:#433025;font:700 9px var(--body);letter-spacing:.06em;box-shadow:5px 6px #a37c5330;white-space:nowrap}
+.team-mood-stamp img{width:23px;height:23px}
+.portfolio>.wrap{position:relative}.album-editorial-print{position:absolute;z-index:1;top:37%;left:-4%;width:167px;padding:8px 8px 15px;background:#f7f0e6;border:1px solid #ab8669;rotate:-8deg;box-shadow:12px 19px 29px -19px #694a3288}
+.album-editorial-print>img{width:100%;aspect-ratio:1/1.13;object-fit:cover;display:block}.album-editorial-print>span{display:block;margin-top:9px;text-align:center;font:650 9px/1.4 var(--body);letter-spacing:.09em;color:var(--wood)}
+.product-hero{position:relative}.product-photo-detail{position:absolute;right:-5%;bottom:-8%;width:clamp(110px,19%,175px);padding:8px;background:#f6eadb;border:1px solid #ae8765;box-shadow:9px 14px 29px -16px #30262088;rotate:-8deg;z-index:4}
+.product-photo-detail .material-decor__photo{aspect-ratio:1;overflow:hidden}.product-photo-detail img{display:block;width:100%;height:100%;object-fit:cover}.product-photo-detail .material-caption{font:650 9px/1.5 var(--body);letter-spacing:.09em;text-align:center;color:var(--wood);margin-top:8px}
+.review-heading{position:relative}.reviews-photo-sign{position:absolute;right:0;bottom:-52px;width:min(235px,33%);display:flex;align-items:center;justify-content:center;gap:11px;padding:10px;border-top:1px solid #d6ae896e;border-bottom:1px solid #d6ae896e;color:#d6ae89;font:600 9px/1.5 var(--body);letter-spacing:.09em}
+.reviews-photo-sign img{width:38px;height:38px;filter:brightness(0) invert(.8) sepia(.3)}.reviews-photo-sign b{font-weight:400;font-size:13px}
+.visit-storefront{width:min(235px,70%);aspect-ratio:2.35;overflow:hidden;position:relative;margin:20px 0 0;border:1px solid #987050;box-shadow:4px 12px 20px -13px #57402b60}
+.visit-storefront .material-decor__photo,.visit-storefront img{width:100%;height:100%}.visit-storefront img{object-fit:cover;object-position:center 39%;filter:saturate(.82)}
+.visit-storefront .material-caption{position:absolute;bottom:0;right:0;padding:7px 9px;color:#f4e9db;background:#2b221edb;font:650 9px var(--body);letter-spacing:.12em}
+.footer-photo-reel{width:min(560px,88%);margin:33px auto;padding:11px;display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:center;gap:16px;border-block:1px solid #c69a705c;color:#e0c0a0}
+.footer-photo-reel>img{width:100%;height:110px;object-fit:cover;filter:saturate(.55) sepia(.25)}
+.footer-photo-reel>span{text-align:center;font:700 10px/1.6 var(--body);letter-spacing:.13em}
+.material-decor,.team-mood-photo,.hero-atelier-emblem,.reviews-photo-sign,.house-atmosphere-photo,.footer-photo-reel{pointer-events:none}
+@media(hover:hover) and (pointer:fine){.photo-window img,.team-mood-photo>img,.album-editorial-print>img,.visit-storefront img{transition:transform .95s cubic-bezier(.16,1,.3,1),filter .7s}.team-mood-photo:hover>img,.album-editorial-print:hover>img,.visit-storefront:hover img{transform:scale(1.065);filter:saturate(1.12)}.mirror-choice:hover,.team-name:hover{translate:5px 0}.button:not(:disabled):hover,.footer-feature-cta:hover{box-shadow:0 11px 30px -18px #171310a0}}
+@media(max-width:1100px){.hero-atelier-emblem{width:86px;height:102px;top:4px}.hero-atelier-emblem img{width:32px;height:32px}.hero-atelier-emblem strong{font-size:25px}.hero-atelier-emblem span{font-size:7px}.team-mood-photo{width:175px}.album-editorial-print{left:-2%;width:130px}}
+@media(max-width:700px){.hero-atelier-emblem{display:none}.house-atmosphere-photo{width:55%;height:46%;top:24%;opacity:.16}.team-mood-photo{width:min(205px,90%);margin:16px auto 26px}.album-editorial-print{position:relative;top:auto;left:auto;width:140px;margin:4px auto 20px;rotate:-5deg;grid-column:1/-1;justify-self:center}.product-photo-detail{right:-4%;bottom:-7px;width:104px;padding:5px}.product-photo-detail figcaption{font-size:7px}.reviews-photo-sign{position:relative;right:auto;bottom:auto;margin:20px 0 0;width:230px;padding:8px}.visit-storefront{width:min(210px,77%)}.footer-photo-reel{width:100%;gap:8px;padding:8px 0}.footer-photo-reel>img{height:68px}.footer-photo-reel>span{font-size:8px;letter-spacing:.06em}}
+@media(prefers-reduced-motion:reduce){.material-decor,.hero-atelier-emblem,.team-mood-photo{animation:none!important;transition:none!important}}

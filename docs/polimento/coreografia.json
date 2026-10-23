@@ -1,0 +1,343 @@
+[
+  {
+    "name": "servicos-inicio",
+    "animations": [
+      {
+        "target": "motion-word",
+        "delay": 0,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 52,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 104,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 156,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 208,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 260,
+        "duration": 820,
+        "time": 0,
+        "opacity": "1",
+        "transform": "matrix(0.999657, 0.0261769, -0.0261769, 0.999657, 0, 86.5102)"
+      },
+      {
+        "target": "mirror-frame",
+        "delay": 100,
+        "duration": 920,
+        "time": 0,
+        "opacity": "1",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 140,
+        "duration": 820,
+        "time": 0,
+        "opacity": "0.15",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 170,
+        "duration": 820,
+        "time": 0,
+        "opacity": "0.15",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 200,
+        "duration": 820,
+        "time": 0,
+        "opacity": "0.15",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 230,
+        "duration": 820,
+        "time": 0,
+        "opacity": "0.15",
+        "transform": "none"
+      },
+      {
+        "target": "P",
+        "delay": 110,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "matrix(1, 0, 0, 1, 0, 19)"
+      },
+      {
+        "target": "mirror-info",
+        "delay": 200,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "matrix(1, 0, 0, 1, 0, 19)"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 80,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 120,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 160,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 200,
+        "duration": 620,
+        "time": 0,
+        "opacity": "0.12",
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "name": "servicos-meio",
+    "animations": [
+      {
+        "target": "motion-word",
+        "delay": 0,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(1, 0.000282584, -0.000282584, 1, 0, 0.933784)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 52,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(1, 0.000496946, -0.000496946, 1, 0, 1.64213)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 104,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(1, 0.000797982, -0.000797982, 1, 0, 2.63689)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 156,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(0.999999, 0.00120989, -0.00120989, 0.999999, 0, 3.99803)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 208,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(0.999998, 0.00176737, -0.00176737, 0.999998, 0, 5.84019)"
+      },
+      {
+        "target": "motion-word",
+        "delay": 260,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "matrix(0.999997, 0.0025221, -0.0025221, 0.999997, 0, 8.33416)"
+      },
+      {
+        "target": "mirror-frame",
+        "delay": 100,
+        "duration": 920,
+        "time": 633.3309999986834,
+        "opacity": "1",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 140,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "0.965275",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 170,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "0.956367",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 200,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "0.945769",
+        "transform": "none"
+      },
+      {
+        "target": {},
+        "delay": 230,
+        "duration": 820,
+        "time": 633.3309999986834,
+        "opacity": "0.933156",
+        "transform": "none"
+      },
+      {
+        "target": "P",
+        "delay": 110,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.995871",
+        "transform": "matrix(1, 0, 0, 1, 0, 0.0891522)"
+      },
+      {
+        "target": "mirror-info",
+        "delay": 200,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.981909",
+        "transform": "matrix(1, 0, 0, 1, 0, 0.390609)"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 80,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.998128",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 120,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.994888",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 160,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.98964",
+        "transform": "none"
+      },
+      {
+        "target": "mirror-choice",
+        "delay": 200,
+        "duration": 620,
+        "time": 633.3309999986834,
+        "opacity": "0.981909",
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "name": "servicos-fim",
+    "animations": []
+  },
+  {
+    "name": "menu",
+    "animations": [
+      {
+        "target": "NAV",
+        "delay": 0,
+        "time": 66.69300000173538,
+        "duration": 250
+      },
+      {
+        "target": "A",
+        "delay": 25,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 59,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 93,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 127,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 161,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 195,
+        "time": 50.027000002203614,
+        "duration": 360
+      },
+      {
+        "target": "A",
+        "delay": 229,
+        "time": 50.027000002203614,
+        "duration": 360
+      }
+    ],
+    "closed": true,
+    "focus": true
+  }
+]

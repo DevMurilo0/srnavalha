@@ -5,6 +5,6 @@ export function initProducts(){let latest=0;const stage=$('.product-hero .image-
  if(token!==latest||!ok)return;
  options.forEach(o=>o.setAttribute('aria-pressed',String(o===link)));$('.product-category',info).textContent=p.category;$('h3',info).textContent=p.name;$('.product-price',info).textContent=p.price;$('a',info).href=`https://wa.me/5581995722396?text=${encodeURIComponent('Olá! Gostaria de consultar a disponibilidade de '+p.name+'.')}`;
  if(!keyboard)animate(info,[{opacity:.4,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:240});}
- options.forEach(o=>activateButtonLink(o,e=>select(o,e.detail===0)));
+ options.forEach((o,i)=>{o.setAttribute('aria-pressed',String(i===0));activateButtonLink(o,e=>select(o,e.detail===0))});
  $('#product-category').addEventListener('change',e=>{const category=e.target.value;options.forEach(o=>o.hidden=category!=='Todos'&&o.dataset.category!==category)});
 }
