@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211b18">
+  <meta name="description" content="Agende seu próximo corte na Sr. Navalha em Gravatá. Conheça serviços, escolha seu profissional e consulte horários reais na agenda oficial.">
+  <title>Agendar horário · Sr. Navalha Barbearia</title>
+  <link rel="icon" href="assets/decor/favicon-v8.png">
+  <link rel="preload" href="assets/fonts/manrope-v6-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sora-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="css/agendar.css">
+  <script type="module" src="js/agendar.js"></script>
+</head>
+<body>
+  <a href="#agendamento" class="bk-skip">Ir para o agendamento</a>
+  <header class="bk-header">
+    <a class="bk-brand" href="index.html" aria-label="Sr. Navalha — voltar ao site"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="112" height="73"><span>BARBEARIA · GRAVATÁ</span></a>
+    <a class="bk-return" href="index.html"><span aria-hidden="true">←</span> Voltar ao site</a>
+    <a class="bk-header-action" href="https://sites.appbarber.com.br/srnavala-pqjj" target="_blank" rel="noopener noreferrer">Abrir agenda oficial <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="agendamento">
+    <section class="bk-hero" aria-labelledby="bk-title">
+      <div class="bk-hero-copy">
+        <p class="bk-eyebrow"><span class="bk-line" aria-hidden="true"></span> SR. NAVALHA / AGENDAMENTO</p>
+        <h1 id="bk-title">A cadeira<br>já está <em>à sua espera.</em></h1>
+        <p>Um bom corte começa com uma boa escolha. Encontre o seu estilo, conheça a equipe e siga para os horários reais.</p>
+        <div class="bk-hero-actions">
+          <a class="bk-primary" href="https://sites.appbarber.com.br/srnavala-pqjj" target="_blank" rel="noopener noreferrer">Ver horários e agendar <span aria-hidden="true">↗</span></a>
+          <a class="bk-link" href="#escolhas">Explorar serviços <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="bk-reality"><span aria-hidden="true">●</span> Horários e confirmação pelo AppBarber, o sistema oficial da barbearia.</p>
+      </div>
+      <div class="bk-hero-image">
+        <img src="assets/images/hero-redesign/interior-720.webp" srcset="assets/images/hero-redesign/interior-480.webp 480w, assets/images/hero-redesign/interior-720.webp 720w" sizes="(max-width: 800px) 100vw, 48vw" width="720" height="1060" alt="Interior real da Sr. Navalha, com cadeiras e espelhos" fetchpriority="high">
+        <div class="bk-photo-stamp"><span>SEU LUGAR</span><strong>349</strong><small>PRADO · GRAVATÁ — PE</small></div>
+        <span class="bk-image-credit">01 / O SEU PRÓXIMO CORTE</span>
+      </div>
+    </section>
+    <div class="bk-strip" aria-hidden="true"><span>ESCOLHA BEM</span><span>·</span><span>SINTA-SE EM CASA</span><span>·</span><span>SAIA NA SUA MELHOR VERSÃO</span></div>
+    <section class="bk-workshop" id="escolhas" aria-labelledby="bk-choose-title">
+      <div class="bk-workshop-intro"><p class="bk-kicker">PERSONALIZE SUA VISITA <span>01 — 03</span></p><h2 id="bk-choose-title">Do seu jeito.<br><em>Sem enrolação.</em></h2><p>Você pode ir direto para a agenda ou montar uma preferência para consultar a equipe pelo WhatsApp.</p></div>
+      <div class="bk-workshop-grid">
+        <div class="bk-steps">
+          <section class="bk-step" aria-labelledby="bk-service-title">
+            <div class="bk-step-heading"><span class="bk-step-number">01</span><div><h3 id="bk-service-title">Qual serviço combina com você?</h3><p>Escolha um dos serviços do catálogo.</p></div></div>
+            <label class="bk-search-label" for="bk-search">Buscar serviço</label>
+            <div class="bk-search-shell"><span aria-hidden="true">⌕</span><input type="search" id="bk-search" autocomplete="off" placeholder="Ex.: corte, barba, hidratação"></div>
+            <div class="bk-filters" id="bk-filters" role="group" aria-label="Filtrar tipos de serviço"><button type="button" data-filter="Destaques" aria-pressed="true">Destaques</button><button type="button" data-filter="Todos" aria-pressed="false">Todos os serviços</button></div>
+            <div class="bk-services" id="bk-services" aria-label="Serviços disponíveis no catálogo"><p>Carregando serviços...</p></div>
+            <p class="bk-empty" id="bk-empty" hidden>Nenhum serviço encontrado. Tente outro termo ou escolha “Todos os serviços”.</p>
+          </section>
+          <section class="bk-step" aria-labelledby="bk-prof-title">
+            <div class="bk-step-heading"><span class="bk-step-number">02</span><div><h3 id="bk-prof-title">Com quem você quer cortar?</h3><p>Escolha alguém da equipe ou deixe em aberto.</p></div></div>
+            <div class="bk-professionals" id="bk-professionals" role="group" aria-label="Selecionar profissional"><button class="bk-prof bk-prof-any" type="button" aria-pressed="true" data-pro="any"><span class="bk-prof-symbol" aria-hidden="true">✳</span><span>Sem preferência</span></button></div>
+          </section>
+          <section class="bk-step bk-step-last" aria-labelledby="bk-when-title">
+            <div class="bk-step-heading"><span class="bk-step-number">03</span><div><h3 id="bk-when-title">Quando fica melhor?</h3><p>Opcional, apenas para consultar pelo WhatsApp. Não representa horário livre.</p></div></div>
+            <div class="bk-preferences"><label>Dia de preferência<input type="date" id="bk-date" aria-describedby="bk-date-help"></label><label>Horário de preferência<input type="time" id="bk-time" aria-describedby="bk-date-help"></label></div>
+            <p class="bk-help" id="bk-date-help">A disponibilidade real só é exibida na agenda oficial.</p>
+            <label class="bk-name-label" for="bk-name">Seu nome <span>(opcional, para a mensagem)</span></label>
+            <input class="bk-name" id="bk-name" type="text" maxlength="70" autocomplete="name" placeholder="Como podemos chamar você?">
+          </section>
+        </div>
+        <aside class="bk-summary" aria-labelledby="bk-summary-title">
+          <div class="bk-ticket-top"><span>SR. NAVALHA <span aria-hidden="true">✳</span></span><span>GRAVATÁ / PE</span></div>
+          <div class="bk-ticket-content">
+            <p class="bk-ticket-kicker">SEU PRÓXIMO RITUAL</p>
+            <h2 id="bk-summary-title">Tudo pronto<br><em>para começar.</em></h2>
+            <div class="bk-ticket-divider" aria-hidden="true"><span>✳</span></div>
+            <dl class="bk-recap"><div><dt>SERVIÇO</dt><dd id="bk-recap-service">A escolher</dd></div><div><dt>VALOR DE REFERÊNCIA</dt><dd id="bk-recap-price">Conforme o catálogo</dd></div><div><dt>PROFISSIONAL</dt><dd id="bk-recap-prof">Sem preferência</dd></div><div><dt>PREFERÊNCIA DE DATA</dt><dd id="bk-recap-date">A combinar</dd></div></dl>
+            <p class="bk-booking-status" id="bk-status" role="status" aria-live="polite">Para confirmar um horário, abra a agenda oficial.</p>
+            <a class="bk-ticket-primary" href="https://sites.appbarber.com.br/srnavala-pqjj" target="_blank" rel="noopener noreferrer">Consultar horários reais <span aria-hidden="true">↗</span></a>
+            <a class="bk-ticket-secondary" id="bk-whatsapp" href="https://wa.me/5581995722396" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp <span aria-hidden="true">↗</span></a>
+            <p class="bk-ticket-footnote">A seleção desta página não é enviada automaticamente ao AppBarber. Confira suas escolhas na agenda antes de concluir. Pelo WhatsApp, a solicitação depende da resposta da equipe.</p>
+          </div>
+          <div class="bk-ticket-bottom"><span>AV. AGAMENON MAGALHÃES, 349</span><span>SEU ESTILO. NOSSA ASSINATURA.</span></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="bk-footer"><div><strong>SR. NAVALHA</strong><p>Av. Governador Agamenon Magalhães, 349<br>Prado · Gravatá, PE</p></div><div><a href="index.html">Voltar ao site ↗</a><a href="https://www.instagram.com/barbeariasrnavalha01/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://wa.me/5581995722396" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div><p class="bk-made">Design &amp; desenvolvimento <a href="https://murilogabriel.com.br" target="_blank" rel="noopener noreferrer">Murilo Gabriel</a></p></footer>
+  <a class="bk-mobile-direct" href="https://sites.appbarber.com.br/srnavala-pqjj" target="_blank" rel="noopener noreferrer">Ver horários disponíveis <span aria-hidden="true">↗</span></a>
+  <noscript><p class="bk-noscript">Para selecionar serviço e profissional, ative o JavaScript. O <a href="https://sites.appbarber.com.br/srnavala-pqjj">agendamento oficial</a> continua disponível.</p></noscript>
+</body>
+</html>
