@@ -87,7 +87,12 @@ function renderServices() {
     button.addEventListener('click', () => {
       state.service = service;
       updateSummary();
-      renderServices();
+      for (const option of container.querySelectorAll('.bk-service')) {
+        const active = option.dataset.id === service.id;
+        option.setAttribute('aria-pressed', String(active));
+        option.classList.toggle('is-selected', active);
+        option.querySelector('.bk-service-check').textContent = active ? '✓' : '+';
+      }
     });
     fragment.append(button);
   });
@@ -124,7 +129,9 @@ function renderProfessionals() {
     button.append(name);
     button.addEventListener('click', () => {
       state.professional = pro;
-      renderProfessionals();
+      for (const option of container.querySelectorAll('.bk-prof')) {
+        option.setAttribute('aria-pressed', String(option === button));
+      }
       updateSummary();
     });
     fragment.append(button);
@@ -145,7 +152,7 @@ renderServices();
 renderProfessionals();
 updateSummary();
 $('#bk-search').addEventListener('input', () => {
-  if ($('#bk-search').value.trim() && state.filter === 'Destaques') {
+  if ($('#bk-search').value.trim() && state.filter !== 'Todos') {
     state.filter = 'Todos';
     renderFilters();
   }
