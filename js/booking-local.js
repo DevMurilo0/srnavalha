@@ -52,9 +52,11 @@ export function clearDemoBookings() {
   store([]);
 }
 function localeDay(date = new Date()) {
-  return new Intl.DateTimeFormat('en-CA', {
+  const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Recife', year: 'numeric', month: '2-digit', day: '2-digit'
-  }).format(date);
+  }).formatToParts(date);
+  const get = kind => parts.find(part => part.type === kind)?.value;
+  return [get('year'), get('month'), get('day')].join('-');
 }
 function addDays(day, n) {
   const d = new Date(day + 'T12:00:00Z');
@@ -108,9 +110,7 @@ export function saveDemoBooking({ serviceId, professionalId, slotAt, name, phone
     throw new LocalBookingError('INVALID_CUSTOMER');
   }
   // Recalcular no momento do salvamento para impedir horário obsoleto neste navegador.
-  const day = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/Recife', year: 'numeric', month: '2-digit', day: '2-digit'
-  }).format(new Date(slotAt));
+  const day = localeDay(new Date(slotAt));
   const available = availableSlots(serviceId, day, professionalId);
   if (!available.some(slot => slot.slot_at === slotAt && slot.professional_id === professionalId)) {
     throw new LocalBookingError('SLOT_TAKEN');
