@@ -18,6 +18,7 @@ export function initSceneCuts(){
     if(!canMove()){chapter.querySelector('.sr-in-anim')?.classList.remove('sr-art-queued');continue;}
     const art=chapter.querySelector('.sr-in-anim'),index=chapters.indexOf(chapter);
     if(!art)continue;
+    const composed=getComputedStyle(art).transform;
     const type=chapter.className.match(/sr-interlude--([a-z]+)/)?.[1];
     const entryFrames={
      threshold:[{opacity:0,transform:'perspective(900px) translateY(64px) rotateX(-15deg) scale(.88)'},{opacity:1,transform:'none'}],
@@ -29,7 +30,9 @@ export function initSceneCuts(){
      route:[{opacity:0,clipPath:'inset(0% 100% 0% 0%)'},{opacity:1,clipPath:'inset(0% 0% 0% 0%)'}],
      signature:[{opacity:0,transform:'translateY(66px) rotate(5deg) scale(.93)'},{opacity:1,transform:'rotate(-1deg)'}]
     };
-    animate(art,entryFrames[type]||entryFrames.threshold,{duration:1050+Math.min(index*30,210),delay:120,easing:ease});
+    const frames=entryFrames[type]||entryFrames.threshold;
+    frames[1]={...frames[1],transform:composed};
+    animate(art,frames,{duration:760+Math.min(index*15,90),delay:40,easing:ease});
     art.classList.remove('sr-art-queued');
     const pictures=$$('.sr-in-photo',art);
     pictures.forEach((p,i)=>{
@@ -46,8 +49,9 @@ export function initSceneCuts(){
      if(s)animate(s,[{opacity:.1,letterSpacing:'.95em',transform:'translateY(13px)'},{opacity:1,letterSpacing:'.38em',transform:'none'}],{duration:890,delay:250,easing:flow});
     }
    }
-  },{threshold:.13,rootMargin:'0px 0px -11% 0px'});
+  },{threshold:0,rootMargin:'0px 0px 36px 0px'});
   chapters.forEach(el=>observer.observe(el));
+  document.addEventListener('motionchange',()=>{if(!canMove()){observer.disconnect();chapters.forEach(el=>{const art=el.querySelector('.sr-in-anim');art?.classList.remove('sr-art-queued');if(art)art.style.translate=''})}});
   // At most one animation frame per scroll event, only for currently visible scenes.
   const visible=new Set();const visibility=new IntersectionObserver(entries=>{for(const e of entries)e.isIntersecting?visible.add(e.target):visible.delete(e.target)},{rootMargin:'70px'});
   chapters.forEach(el=>visibility.observe(el));

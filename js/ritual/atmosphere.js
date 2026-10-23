@@ -14,23 +14,25 @@ export function initAtmosphere(){
    observer.unobserve(element);
    if(seen.has(element))continue;
    seen.add(element);
-   if(!canMove()){element.classList.remove('sr-art-queued');continue;}
+   if(!canMove()||!element.classList.contains('sr-art-queued')){element.classList.remove('sr-art-queued');continue;}
    const section=element.closest('section,footer');
    const sections=$$('main section');
    const index=Math.max(0,sections.indexOf(section));
-   const delay=Math.min(435,170+index%5*65);
+   const delay=40+index%3*35;
+   element.classList.remove('sr-art-queued');
+   const base=getComputedStyle(element),endOpacity=base.opacity,endTransform=base.transform;
    const horizontal=element.matches('.team-mood-photo,.album-editorial-print')?'-50px':element.matches('.hero-atelier-emblem,.product-photo-detail')?'48px':'0px';
    const frames=[
-     {opacity:.15,transform:`translate(${horizontal},34px) scale(.94) rotate(-3deg)`,clipPath:'inset(16% 3% 16% 3%)'},
-     {opacity:1,transform:'none',clipPath:'inset(0% 0% 0% 0%)'}
+     {opacity:.15,transform:`translate(${horizontal},20px) scale(.97) ${endTransform==='none'?'':endTransform}`},
+     {opacity:endOpacity,transform:endTransform}
    ];
-   animate(element,[{...frames[0],opacity:0},frames[1]],{duration:1150,delay,easing:'cubic-bezier(.16,1,.3,1)'});
-   element.classList.remove('sr-art-queued');
+   animate(element,[{...frames[0],opacity:0},frames[1]],{duration:780,delay,easing:'cubic-bezier(.16,1,.3,1)'});
    const photo=element.querySelector('img');
    if(photo && element.matches('.team-mood-photo,.house-atmosphere-photo,.album-editorial-print,.visit-storefront')){
-     animate(photo,[{transform:'translateY(11px) scale(1.08)'},{transform:'none'}],{duration:1360,delay:delay+110,easing:flow});
+     animate(photo,[{transform:'translateY(11px) scale(1.08)'},{transform:'none'}],{duration:880,delay:delay+50,easing:flow});
    }
   }
- },{threshold:.13,rootMargin:'0px 0px -9% 0px'});
+ },{threshold:0,rootMargin:'0px 0px 36px 0px'});
  items.forEach(item=>observer.observe(item));
+ document.addEventListener('motionchange',()=>{if(!canMove()){observer.disconnect();items.forEach(el=>el.classList.remove('sr-art-queued'))}});
 }
