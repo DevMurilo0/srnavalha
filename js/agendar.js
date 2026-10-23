@@ -313,9 +313,7 @@ function renderSavedBookings() {
     const strong = document.createElement('strong');
     strong.textContent = entry.service_name || 'Serviço';
     const small = document.createElement('small');
-    const day = new Intl.DateTimeFormat('en-CA', {
-      timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit'
-    }).format(new Date(entry.starts_at));
+    const day = dateAtRecife(new Date(entry.starts_at));
     small.textContent = (entry.professional_name || 'Profissional') + ' · ' +
       formatHour(entry.starts_at) + ' · ' + readableDate(day);
     info.append(strong, small);
