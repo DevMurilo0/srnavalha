@@ -42,7 +42,7 @@ export function initMotion(){
  register('.footer-story-copy,.footer-feature-cta,.footer-small-note','copy',130,55);
  register('.footer-brand-col,.footer-link-col','copy',80,60);
  if(motionOn){entrances.forEach((_,el)=>el.classList.add('sr-enter-queued'));root.classList.add('sr-motion-active');}
- root.classList.remove('sr-motion-boot');
+ root.classList.add('sr-motion-initialized');root.classList.remove('sr-motion-boot');
  function enter(el){
   if(entered.has(el))return;entered.add(el);el.dataset.motionState='entered';
   if(!canMove()){el.classList.remove('sr-enter-queued');return}
