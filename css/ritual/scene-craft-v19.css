@@ -24,7 +24,7 @@
 .footer-rail,.footer-shell{position:relative;z-index:1}
 /* Cut-paper scene hinges: half of each section occupies the transition zone.
    Tones swap by seam, forming a real architectural connection. */
-.sr-scene-join{--seam-from:#eee6db;--seam-to:#241c18;--seam-ink:#aa825f;position:relative;height:clamp(76px,8vw,136px);margin-block:-19px;z-index:8;display:grid;place-items:center;pointer-events:none;isolation:isolate;overflow:hidden}
+.sr-scene-join{--seam-from:#eee6db;--seam-to:#241c18;--seam-ink:#aa825f;position:relative;height:clamp(76px,8vw,136px);margin-block:-19px;background:linear-gradient(180deg,var(--seam-from) 0%,var(--seam-from) 42%,var(--seam-to) 59%,var(--seam-to) 100%);z-index:8;display:grid;place-items:center;pointer-events:none;isolation:isolate;overflow:hidden}
 .sr-scene-join::before{content:'';position:absolute;inset:0;background:var(--seam-from);clip-path:polygon(0 0,100% 0,100% 43%,55% 50%,49% 38%,44% 50%,0 43%);box-shadow:inset 0 -12px 20px #0001;z-index:-1}
 .sr-scene-join::after{content:'';position:absolute;inset:0;background:var(--seam-to);clip-path:polygon(0 58%,44% 58%,50% 46%,55% 58%,100% 58%,100% 100%,0 100%);z-index:-2}
 .sr-scene-join__rail{position:absolute;left:clamp(20px,5.5vw,100px);right:clamp(20px,5.5vw,100px);top:50%;display:flex;align-items:center;gap:14px;color:var(--seam-ink)}
