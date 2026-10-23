@@ -26,6 +26,20 @@ Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e va
 
 O agendamento continua no AppBarber. Produtos consultam disponibilidade pelo WhatsApp. Não existem backend, checkout ou horários simulados.
 
+## Agendamento autoral (2026-10-23)
+
+A página `agendar.html` funciona em Live Server e oferece uma experiência própria da Sr. Navalha sem backend fictício:
+
+- Catálogo navegável com todos os serviços de `js/data/services.js`, preços de referência, categorias e busca.
+- Profissionais reais de `js/data/professionals.js`, com seleção opcional.
+- Preferência opcional de data e horário **sem insinuar disponibilidade confirmada**.
+- Resumo acessível e solicitação pelo WhatsApp com texto pré-preenchido (a equipe precisa confirmar).
+- Botões permanentes para a **agenda oficial do AppBarber**, que informa disponibilidade real e confirma o agendamento.
+- Links diretos `agendar.html?servico=<id>` e `?profissional=<id>` a partir dos componentes do site principal.
+- Estilos em `css/agendar.css` e lógica em `js/agendar.js`, sem bibliotecas ou build.
+
+**Importante:** escolhas feitas na página própria **não são transferidas automaticamente** ao AppBarber. O cliente revisa serviço e profissional na plataforma oficial antes de concluir. Para integração transacional nativa são necessárias credenciais/API/autorização de integração do fornecedor. Não usar o WhatsApp como falsa confirmação.
+
 ## Editar
 
 - `templates/v17/`: fonte canônica dos parciais HTML. `node scripts/render-site.mjs` monta opcionalmente o `index.html`, já entregue pronto.
