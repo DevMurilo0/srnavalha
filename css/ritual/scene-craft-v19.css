@@ -1,0 +1,63 @@
+/* SR. NAVALHA / V19 — material surfaces, in-between scenes, brand opening.
+   No external runtime: progressive enhancement, accessible reduced motion. */
+:root{--sr-v19-brass:#c4a17c;--sr-v19-graphite:#211b18;--sr-v19-parchment:#f0e6d8}
+/* The texture fields are part of the section surfaces, below all text. */
+.sr-surface{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:1}
+.sr-surface::before,.sr-surface::after{content:'';position:absolute;inset:0;pointer-events:none}
+.sr-surface::after{box-shadow:inset 0 32px 45px -22px #2419111c,inset 0 -44px 65px -30px #26160b32}
+.rituals .sr-surface{background-image:linear-gradient(#805c3d19 1px,transparent 1px),linear-gradient(90deg,#805c3d19 1px,transparent 1px);background-size:59px 59px;mask-image:linear-gradient(95deg,#000 12%,#0008 69%,transparent)}
+.rituals .sr-surface::before{background:radial-gradient(ellipse 48% 55% at 63% 47%,transparent,#4f2d1221 100%);box-shadow:inset 0 22px 40px -20px #80573d3f}
+.house .sr-surface{background:repeating-linear-gradient(90deg,transparent 0,transparent 57px,#d0a57c1c 58px,#2e1f151c 59px,transparent 62px);opacity:.52;mask-image:linear-gradient(90deg,transparent 16%,#000 70%)}
+.house .sr-surface::before{background:linear-gradient(180deg,#d8a06912 1px,transparent 1px);background-size:100% 98px;box-shadow:inset 0 0 90px #0705048a}
+.portfolio .sr-surface{background-image:linear-gradient(90deg,#81573d20 1px,transparent 1px),linear-gradient(#81573d20 1px,transparent 1px);background-size:120px 120px;mask-image:radial-gradient(ellipse 90% 90% at 40% 30%,#000,transparent 94%)}
+.portfolio .sr-surface::before{background:repeating-linear-gradient(135deg,#a67c5311 0 1px,transparent 1px 18px);mask-image:linear-gradient(110deg,transparent,#000 80%);opacity:.65}
+.team .sr-surface{background:repeating-linear-gradient(117deg,transparent 0 33px,#d7b89515 34px,#24140b28 35px,transparent 37px);opacity:.42}
+.team .sr-surface::after{box-shadow:inset 0 70px 90px -40px #080604cc,inset 0 -56px 88px -30px #090707b3}
+.products .sr-surface{background-image:repeating-linear-gradient(0deg,#77513615 0 1px,transparent 1px 47px),repeating-linear-gradient(90deg,#77513612 0 1px,transparent 1px 47px);mask-image:linear-gradient(90deg,#0008,#000 50%,#0005)}
+.products .sr-surface::before{background:radial-gradient(ellipse at 85% 50%,#eed2ad88,transparent 56%)}
+.reviews .sr-surface{background:linear-gradient(#e5ae7320 1px,transparent 1px),linear-gradient(90deg,#e5ae7318 1px,transparent 1px);background-size:76px 76px;mask-image:linear-gradient(130deg,transparent 10%,#0008 42%,#000 100%);opacity:.44}
+.reviews .sr-surface::after{box-shadow:inset 0 0 130px #090605bb}
+.visit .sr-surface{background:repeating-linear-gradient(32deg,transparent 0 47px,#93683c17 48px,#5a402c10 49px,transparent 50px),repeating-linear-gradient(146deg,transparent 0 79px,#926a4614 80px,transparent 81px);mask-image:linear-gradient(100deg,transparent,#0009 48%,#0005)}
+.visit .sr-surface::after{box-shadow:inset 0 25px 60px -25px #5e43292c,inset 0 -35px 60px -25px #5036192c}
+.footer .sr-surface{background:linear-gradient(#b88b5515 1px,transparent 1px),linear-gradient(90deg,#b88b5512 1px,transparent 1px);background-size:84px 84px;mask-image:linear-gradient(90deg,transparent 9%,#0007 48%,#000)}
+.footer .sr-surface::after{box-shadow:inset 0 48px 100px #05040491,inset 0 -60px 90px #0907068b}
+.footer-rail,.footer-shell{position:relative;z-index:1}
+/* Cut-paper scene hinges: half of each section occupies the transition zone.
+   Tones swap by seam, forming a real architectural connection. */
+.sr-scene-join{--seam-from:#eee6db;--seam-to:#241c18;--seam-ink:#aa825f;position:relative;height:clamp(76px,8vw,136px);margin-block:-19px;z-index:8;display:grid;place-items:center;pointer-events:none;isolation:isolate;overflow:hidden}
+.sr-scene-join::before{content:'';position:absolute;inset:0;background:var(--seam-from);clip-path:polygon(0 0,100% 0,100% 43%,55% 50%,49% 38%,44% 50%,0 43%);box-shadow:inset 0 -12px 20px #0001;z-index:-1}
+.sr-scene-join::after{content:'';position:absolute;inset:0;background:var(--seam-to);clip-path:polygon(0 58%,44% 58%,50% 46%,55% 58%,100% 58%,100% 100%,0 100%);z-index:-2}
+.sr-scene-join__rail{position:absolute;left:clamp(20px,5.5vw,100px);right:clamp(20px,5.5vw,100px);top:50%;display:flex;align-items:center;gap:14px;color:var(--seam-ink)}
+.sr-scene-join__rail::before,.sr-scene-join__rail::after{content:'';height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--seam-ink));opacity:.68;box-shadow:0 2px 3px #0002}
+.sr-scene-join__rail::after{background:linear-gradient(90deg,var(--seam-ink),transparent)}
+.sr-scene-join__medallion{position:relative;display:grid;place-items:center;width:clamp(52px,6vw,82px);height:clamp(52px,6vw,82px);border-radius:50%;background:var(--sr-v19-parchment);border:1px solid var(--seam-ink);outline:1px solid #b18a6a80;outline-offset:5px;box-shadow:0 6px 19px #21171120,inset 0 0 0 8px #f4eadd;color:#714f36}
+.sr-scene-join__medallion svg{width:44%;height:44%;stroke:currentColor;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sr-scene-join__note{position:absolute;right:clamp(20px,5.5vw,100px);bottom:10px;font:650 9px/1.3 var(--body);letter-spacing:.22em;color:var(--seam-ink);white-space:nowrap;opacity:.76}
+.sr-scene-join[data-style="slope"]::before{clip-path:polygon(0 0,100% 0,100% 30%,60% 54%,47% 45%,0 64%)}
+.sr-scene-join[data-style="slope"]::after{clip-path:polygon(0 66%,48% 47%,60% 57%,100% 32%,100% 100%,0 100%)}
+.sr-scene-join[data-style="stitch"]::before{clip-path:polygon(0 0,100% 0,100% 47%,75% 47%,74% 39%,53% 39%,52% 47%,0 47%)}
+.sr-scene-join[data-style="stitch"]::after{clip-path:polygon(0 58%,52% 58%,53% 50%,74% 50%,75% 58%,100% 58%,100% 100%,0 100%)}
+.sr-scene-join[data-style="lens"]::before{clip-path:ellipse(90% 74% at 50% -24%)}
+.sr-scene-join[data-style="lens"]::after{clip-path:ellipse(92% 82% at 50% 123%)}
+.sr-scene-join[data-style="lens"] .sr-scene-join__medallion{border-radius:16px;transform:rotate(45deg)}
+.sr-scene-join[data-style="lens"] .sr-scene-join__medallion svg{transform:rotate(-45deg)}
+.sr-scene-join[data-scheme="light-dark"]{--seam-from:#f0e6d8;--seam-to:#251e1a}
+.sr-scene-join[data-scheme="dark-light"]{--seam-from:#251e1a;--seam-to:#f1e7da}
+.sr-scene-join[data-scheme="light-light"]{--seam-from:#e9dcca;--seam-to:#f4ebdc}
+.sr-scene-join[data-scheme="dark-dark"]{--seam-from:#241e1b;--seam-to:#30231e}
+.sr-scene-join__rail,.sr-scene-join__medallion{transform-origin:center}
+/* Brand first impression. It is dynamically mounted only for first eligible entry. */
+.sr-prelude{position:fixed;inset:0;z-index:100;overflow:hidden;isolation:isolate;pointer-events:none;display:grid;place-items:center;background:transparent;color:#e9d3b6}
+.sr-prelude__backdrop{position:absolute;inset:-2%;background:radial-gradient(ellipse 58% 48% at 51% 49%,#463226,#161311 76%);z-index:-1}
+.sr-prelude__grid{position:absolute;inset:0;background:linear-gradient(90deg,#c3a07515 1px,transparent 1px),linear-gradient(#c3a07515 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse,#000 20%,transparent 75%);opacity:.6}
+.sr-prelude__slash{position:absolute;top:-30%;height:160%;width:1px;background:linear-gradient(transparent,#d9b28a,#d9b28a,transparent);box-shadow:0 0 18px #d6a77c8c;transform:rotate(15deg)}
+.sr-prelude__slash:nth-child(3){left:20%}.sr-prelude__slash:nth-child(4){left:80%}
+.sr-prelude__brand{position:absolute;left:50%;top:47%;width:clamp(250px,33vw,440px);aspect-ratio:640/330;display:grid;place-items:center;transform:translate(-50%,-50%);filter:drop-shadow(0 12px 33px #000a)}
+.sr-prelude__brand svg{width:100%;height:auto;display:block;filter:brightness(0) invert(.92)}
+.sr-prelude__baseline{position:absolute;left:50%;top:calc(47% + clamp(110px,14vw,166px));transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:21px;width:min(75vw,520px);white-space:nowrap}
+.sr-prelude__baseline span{font:650 10px/1.3 var(--body);letter-spacing:.3em}.sr-prelude__baseline i{height:1px;flex:1;background:#c4a17ca8}
+.sr-prelude__cut{position:absolute;left:50%;top:61%;width:52px;height:1px;background:var(--sr-v19-brass);transform:rotate(-20deg);box-shadow:0 0 20px #bd946e9a}
+.sr-prelude__bottom{position:absolute;bottom:clamp(22px,5vw,60px);left:50%;transform:translateX(-50%);font:650 9px/1.3 var(--body);letter-spacing:.24em;white-space:nowrap;color:#f2d5b3a1}
+@media(max-width:800px){.sr-scene-join{height:87px;margin-block:-12px}.sr-scene-join__note{font-size:8px;bottom:5px}.sr-prelude__baseline{top:calc(47% + 108px)}}
+@media(max-width:600px){.sr-scene-join{height:65px;margin-block:-8px}.sr-scene-join__medallion{width:43px;height:43px;outline-offset:3px}.sr-scene-join__rail{left:19px;right:19px}.sr-scene-join__note{display:none}.sr-surface::after{box-shadow:inset 0 15px 26px -14px #2a170d32,inset 0 -20px 33px -17px #2419112c}.sr-prelude__baseline{width:82vw;gap:12px;top:calc(47% + 94px)}.sr-prelude__baseline span{letter-spacing:.17em;font-size:8px}.sr-prelude__brand{width:73vw}}
+@media(prefers-reduced-motion:reduce){.sr-prelude{display:none!important}.sr-scene-join__rail,.sr-scene-join__medallion{animation:none!important}}
