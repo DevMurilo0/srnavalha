@@ -310,7 +310,7 @@ async function submitBooking(event) {
   }
   requestInFlight = true;
   const fingerprint = bookingFingerprint();
-  if (fingerprint !== pendingFingerprint) {
+  if (!pendingRequestId || fingerprint !== pendingFingerprint) {
     pendingFingerprint = fingerprint;
     pendingRequestId = crypto.randomUUID();
   }
@@ -336,7 +336,8 @@ async function submitBooking(event) {
       : 'Sua solicitação foi registrada e o horário foi reservado, aguardando confirmação da barbearia.';
     $('#escolhas').hidden = true;
     $('#bk-success').hidden = false;
-    $('#bk-success').scrollIntoView({ behavior: 'instant', block: 'start' });
+    $('#bk-success').scrollIntoView({ behavior: 'auto', block: 'start' });
+    document.body.classList.add('bk-booked');
     $('#bk-success-title').focus();
     pendingRequestId = null;
   } catch (error) {
