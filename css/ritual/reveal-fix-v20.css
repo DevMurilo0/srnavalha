@@ -9,3 +9,6 @@ html.sr-motion-active .sr-enter-queued,html.sr-motion-active .sr-art-queued{opac
 html.sr-loader-boot #sr-loader-stage{display:grid}
 #sr-loader-stage .sr-prelude__brand>img{display:block;width:100%;height:auto;filter:brightness(0) invert(.91)}
 @media(prefers-reduced-motion:reduce){html.sr-motion-active .sr-enter-queued,html.sr-motion-active .sr-art-queued{opacity:1!important}}
+
+/* Bootstrap concealment also covers the new eight interlude artworks. */
+@media(prefers-reduced-motion:no-preference){html.sr-motion-boot .sr-in-anim{opacity:0}}

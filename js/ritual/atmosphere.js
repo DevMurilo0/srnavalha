@@ -14,7 +14,7 @@ export function initAtmosphere(){
    observer.unobserve(element);
    if(seen.has(element))continue;
    seen.add(element);
-   if(!canMove())continue;
+   if(!canMove()){element.classList.remove('sr-art-queued');continue;}
    const section=element.closest('section,footer');
    const sections=$$('main section');
    const index=Math.max(0,sections.indexOf(section));
