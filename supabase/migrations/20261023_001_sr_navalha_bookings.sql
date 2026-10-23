@@ -151,7 +151,7 @@ begin
     cross join lateral generate_series(0, floor(extract(epoch from (h.closes_at - h.opens_at)) / 900)::int) as g(step)
     where h.weekday = extract(dow from p_day)::int
       and (p_professional_id is null or p.id = p_professional_id)
-      and h.opens_at + g.step * interval '15 minute' + s.duration_minutes * interval '1 minute' <= h.closes_at
+      and g.step * 15 + s.duration_minutes <= extract(epoch from (h.closes_at - h.opens_at)) / 60
   )
   select distinct c.start_time, c.staff_id, c.staff_name
   from candidate c
