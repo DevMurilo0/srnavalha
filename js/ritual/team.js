@@ -10,7 +10,7 @@ export function initTeam(){
   $('.portrait-index').textContent=`${String(i+1).padStart(2,'0')} / 05`;
   const frame=$('.portrait-engraving');cancelWithin(frame);animate(frame,[{transform:'translateX(-8px) rotate(-2deg)'},{transform:'none'}],{duration:600});
   const ok=await changePhoto(stage,p.image,`${p.name}, profissional da Sr. Navalha`,{keyboard});if(seq!==token)return;
-  $('#person-name').textContent=ok?p.name:`${p.name} · foto indisponível`;$('#team-booking').setAttribute('aria-label',`Agendar com ${p.name} no AppBarber`);
+  $('#person-name').textContent=ok?p.name:`${p.name} · foto indisponível`;$('#team-booking').href='agendar.html?profissional='+encodeURIComponent(p.id);$('#team-booking').setAttribute('aria-label',`Escolher ${p.name} na página de agendamento`);
  }
  links.forEach((link,i)=>{link.setAttribute('aria-pressed',String(i===0));activateButtonLink(link,e=>select(link,e.detail===0));link.addEventListener('pointerenter',()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches)select(link)});link.addEventListener('focus',()=>select(link,true));link.addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?links.length-1:(i+(e.key==='ArrowDown'?1:-1)+links.length)%links.length;links[next].focus()})});
  selected=0;alignMarker(links[0],false);new ResizeObserver(()=>alignMarker(links[selected],false)).observe(names);
