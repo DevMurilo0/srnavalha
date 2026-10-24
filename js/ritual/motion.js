@@ -10,13 +10,14 @@ export function initMotion(){
  $$('h1,main h2,footer h2').forEach(splitTitle);
  const entered=new WeakSet(),visible=new Set(),entrances=new Map();
  const root=document.documentElement;const motionOn=canMove()&&'IntersectionObserver' in window;
+ // Entrada por camadas: títulos, cópia e material sem máscaras que repintam.
  const variants={
-  copy:[{opacity:.12,transform:'translateY(19px)'},{opacity:1,transform:'none'}],
-  side:[{clipPath:'inset(0 100% 0 0)',translate:'-20px 0'},{clipPath:'inset(0)',translate:'0 0'}],
-  frame:[{clipPath:'inset(6% 4% 6% 4%)',transform:'perspective(1000px) rotateY(-4deg) scale(.97)'},{clipPath:'inset(0)',transform:'none'}],
-  shutter:[{clipPath:'inset(100% 0 0 0)',translate:'0 18px'},{clipPath:'inset(0)',translate:'0 0'}],
-  inline:[{opacity:.12,translate:'-12px 0'},{opacity:1,translate:'0 0'}],
-  leaf:[{opacity:.12,translate:'0 28px'},{opacity:1,translate:'0 0'}]
+  copy:[{opacity:0,transform:'translate3d(0,23px,0)'},{opacity:1,transform:'none'}],
+  side:[{opacity:0,transform:'translate3d(-27px,0,0)'},{opacity:1,transform:'none'}],
+  frame:[{opacity:0,transform:'translate3d(0,26px,0) scale(.975)'},{opacity:1,transform:'none'}],
+  shutter:[{opacity:0,transform:'translate3d(0,32px,0)'},{opacity:1,transform:'none'}],
+  inline:[{opacity:0,transform:'translate3d(-18px,0,0)'},{opacity:1,transform:'none'}],
+  leaf:[{opacity:0,transform:'translate3d(0,24px,0) scale(.985)'},{opacity:1,transform:'none'}]
  };
  const register=(selector,kind,delay=0,step=0)=>{
   const siblings=new Map();
@@ -51,24 +52,30 @@ export function initMotion(){
   const reveal=()=>el.classList.remove('sr-enter-queued');
   const {kind,delay}=entrances.get(el);
   if(kind==='type'){
+   // Cada capítulo recebe uma direção própria, mas as palavras assentam
+   // sem perspectiva extrema nem saltos de uma linha inteira.
    const id=el.closest('section,footer')?.id;
-   const frames=id==='equipe'?[{transform:'perspective(650px) rotateX(-24deg) translateY(95%)',opacity:.2},{transform:'none',opacity:1}]:id==='trabalhos'?[{transform:'translate(-14px,100%) rotate(-3deg)'},{transform:'none'}]:id==='localizacao'?[{transform:'translate(-28px,70%)',opacity:.2},{transform:'none',opacity:1}]:[{transform:'translateY(105%) rotate(1.5deg)'},{transform:'none'}];
-   animate(el,[{opacity:0},{opacity:1}],{duration:350,delay,easing:flow});
-   $$('.motion-word',el).forEach((word,i)=>animate(word,frames,{duration:700,delay:delay+Math.min(i*50,200),easing:flow}));
+   const from=id==='equipe'?'-28px,0':id==='localizacao'?'24px,0':id==='trabalhos'?'0,28px':'0,24px';
+   const [x,y]=from.split(',');
+   const frames=[{opacity:0,transform:`translate3d(${x},${y},0)`},{opacity:1,transform:'none'}];
+   animate(el,[{opacity:0},{opacity:1}],{duration:470,delay,easing:'cubic-bezier(.22,1,.36,1)'});
+   $$('.motion-word',el).forEach((word,i)=>animate(word,frames,{
+    duration:820,delay:delay+Math.min(i*48,280),
+    easing:'cubic-bezier(.22,1,.36,1)'
+   }));
    reveal();return;
   }
   if(kind==='engraving'){
-   // Trace the drawing in small groups instead of bringing every line in at once.
-   animate(el,[{opacity:0},{opacity:1}],{duration:780,delay,easing:flow});
-   $$('[pathLength]',el).slice(0,12).forEach((path,i)=>animate(path,[{strokeDasharray:1,strokeDashoffset:1,opacity:.15},{strokeDasharray:1,strokeDashoffset:0,opacity:1}],{duration:820,delay:delay+Math.min(i*30,200),easing:flow}));
+   animate(el,[{opacity:0,transform:'translate3d(0,16px,0)'},{opacity:1,transform:'none'}],
+     {duration:730,delay,easing:flow});
    reveal();return;
   }
-  const duration=kind==='leaf'?660:['frame','side','shutter'].includes(kind)?780:560;
+  const duration=kind==='leaf'?820:['frame','side','shutter'].includes(kind)?890:650;
   // End at the composed CSS state: cancelling WAAPI must not snap a tilted card.
   el.classList.remove('sr-enter-queued');
   const base=getComputedStyle(el),transform=base.transform,opacity=base.opacity;
   const frames=(variants[kind]||variants.copy).map((f,i)=>i===0?{...f,opacity:0,...(f.transform?{transform:`${f.transform} ${transform==='none'?'':transform}`}:{})}:{...f,opacity,transform});
-  animate(el,frames,{duration,delay,easing:flow});reveal();
+  animate(el,frames,{duration,delay,easing:'cubic-bezier(.22,1,.36,1)'});reveal();
   // Shared photo stages and the map keep their own internal state; only frame the container.
   const img=!el.matches('.team-portrait,.mirror-frame,.map-frame')?$('img',el):null;
   if(img&&['frame','side','shutter'].includes(kind))animate(img,[{transform:kind==='side'?'translateX(3%) scale(1.065)':'translateY(3%) scale(1.065)'},{transform:'none'}],{duration:850,delay:delay+60,easing:flow});
