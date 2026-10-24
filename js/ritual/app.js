@@ -61,7 +61,7 @@ lateFallback = setTimeout(initializeExtras, 3400);
 
 openRitual().catch(error => {
   console.error('Abertura:', error);
-  root.classList.remove('sr-loader-boot', 'sr-loader-revealing');
+  root.classList.remove('sr-loader-boot', 'sr-opening-reveal');
   $('#sr-loader-stage')?.remove();
   initializeExtras();
 });
