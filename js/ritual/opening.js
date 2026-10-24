@@ -1,95 +1,113 @@
-/* Sr. Navalha · Abertura harmoniosa.
-   Uma única superfície desliza enquanto o hero entra em sequência por CSS.
-   As animações usam apenas transform e opacity para evitar repinturas caras. */
-import { $, animate, canMove, cancelWithin, flow } from './core.js';
+/* O PRIMEIRO TRAÇO · Sr. Navalha V23
+   Complete rework: two atelier leaves part around a copper hairline.
+   Only compositor-friendly transforms / opacity; no clip-path paints,
+   DOM cloning, fake progress timers or hero asset swaps. */
+import { $, animate, canMove, cancelWithin } from './core.js';
+
+const revealEase = 'cubic-bezier(.76,0,.22,1)';
+const arriveEase = 'cubic-bezier(.22,1,.36,1)';
 
 export async function openRitual() {
   const root = document.documentElement;
-  const overlay = document.getElementById('sr-loader-stage');
-  let finished = false;
-  let watchdog;
-  const controller = new AbortController();
+  const stage = document.getElementById('sr-loader-stage');
+  const abort = new AbortController();
+  let settled = false;
+  let failsafe = 0;
+  let revealTimer = 0;
 
   function finish() {
-    if (finished) return;
-    finished = true;
-    clearTimeout(watchdog);
-    controller.abort();
-    if (overlay) cancelWithin(overlay);
-    root.classList.remove('sr-loader-boot', 'sr-loader-revealing');
-    overlay?.remove();
+    if (settled) return;
+    settled = true;
+    clearTimeout(failsafe);
+    clearTimeout(revealTimer);
+    abort.abort();
+    if (stage) cancelWithin(stage);
+    root.classList.remove('sr-loader-boot', 'sr-opening-reveal', 'sr-loader-revealing');
+    stage?.remove();
     document.dispatchEvent(new CustomEvent('openingend'));
   }
 
-  if (!overlay || !root.classList.contains('sr-loader-boot') || !canMove()) {
+  if (!stage || !root.classList.contains('sr-loader-boot') || !canMove()) {
+    finish();
+    return;
+  }
+  // Do not drag a branded intro across an anchor/deep link.
+  const topOfPage = (!location.hash || location.hash === '#inicio') &&
+    window.scrollY < 20;
+  if (!topOfPage) {
     finish();
     return;
   }
 
-  // Abertura sempre existe em F5, Ctrl+Shift+R e novas visitas. Não bloqueia
-  // âncoras internas ou quem prefere movimento reduzido.
-  const atTop = (!location.hash || location.hash === '#inicio') && scrollY < 20;
-  if (!atTop) {
+  const left = $('.sr-opening__door--left', stage);
+  const right = $('.sr-opening__door--right', stage);
+  const cut = $('.sr-opening__cut', stage);
+  const mark = $('.sr-opening__identity', stage);
+  const folio = $('.sr-opening__folio', stage);
+  if (!left || !right || !cut || !mark) {
     finish();
     return;
   }
 
-  const background = $('.sr-prelude__backdrop', overlay);
-  const brand = $('.sr-prelude__brand', overlay);
-  const baseline = $('.sr-prelude__baseline', overlay);
-  if (!background || !brand || !baseline || !('animate' in background)) {
-    finish();
-    return;
-  }
-
-  // Um clique ou rolagem interrompe sem deixar o site congelado.
-  for (const type of ['wheel', 'pointerdown', 'keydown', 'touchstart']) {
-    window.addEventListener(type, finish, {
-      once: true, passive: true, signal: controller.signal
-    });
+  // Always release content; even a blocked image or interrupted animation
+  // must not trap the viewer behind a loading screen.
+  failsafe = window.setTimeout(finish, 2600);
+  $('#sr-opening-skip', stage)?.addEventListener('click', finish,
+    { once: true, signal: abort.signal });
+  for (const type of ['wheel', 'pointerdown', 'touchstart', 'keydown']) {
+    window.addEventListener(type, finish,
+      { once: true, passive: true, signal: abort.signal });
   }
   document.addEventListener('motionchange', () => {
     if (!canMove()) finish();
-  }, { signal: controller.signal });
-  watchdog = window.setTimeout(finish, 2200);
+  }, { signal: abort.signal });
 
   try {
-    // Permite ao navegador compor pelo menos um quadro estável da marca antes
-    // de iniciar a saída; nenhum swap de innerHTML, SVG ou fotografia aqui.
+    // Give the compositor one real rendered frame to place the logo.
     await new Promise(resolve => requestAnimationFrame(resolve));
-    if (finished) return;
+    if (settled) return;
+    const common = { easing: arriveEase, persist: true, fill: 'both' };
+    animate(cut, [
+      { transform: 'scaleY(.025)', opacity: 0, offset: 0 },
+      { transform: 'scaleY(1)', opacity: 1, offset: .52 },
+      { transform: 'scaleY(1)', opacity: 0, offset: 1 }
+    ], { ...common, duration: 1120, delay: 110 });
 
-    // O hero permanece coberto até entrar nessa fase; os grupos recebem
-    // pequenos atrasos via CSS. O fundo sai como uma folha de papel.
-    root.classList.add('sr-loader-revealing');
+    animate(mark, [
+      { transform: 'translate3d(-50%,-50%,0) scale(1)', opacity: 1 },
+      { transform: 'translate3d(-50%,-53%,0) scale(.97)', opacity: 0 }
+    ], { ...common, duration: 530, delay: 460 });
 
-    animate(brand, [
-      { opacity: 1, transform: 'translate3d(-50%, -50%, 0) scale(1)' },
-      { opacity: 0, transform: 'translate3d(-50%, -54%, 0) scale(.96)' }
-    ], { duration: 430, delay: 120, easing: flow, fill: 'both', persist: true });
+    if (folio) animate(folio,
+      [{ opacity: 1, transform: 'translate3d(0,0,0)' },
+       { opacity: 0, transform: 'translate3d(0,10px,0)' }],
+      { ...common, duration: 400, delay: 510 });
 
-    animate(baseline, [
-      { opacity: 1, transform: 'translate3d(-50%, 0, 0)' },
-      { opacity: 0, transform: 'translate3d(-50%, 13px, 0)' }
-    ], { duration: 320, delay: 140, easing: flow, fill: 'both', persist: true });
+    // Animate hero while doors move, so text and photography are already
+    // settled as the newly opened gap crosses them.
+    revealTimer = window.setTimeout(() => {
+      if (!settled) root.classList.add('sr-opening-reveal');
+    }, 490);
 
-    // Uma única animação grande, em vez de vários clip-paths, filtros e
-    // fotografias animados ao mesmo tempo.
-    const reveal = animate(background, [
-      { transform: 'translate3d(0, 0, 0)' },
-      { transform: 'translate3d(0, -102%, 0)' }
-    ], {
-      duration: 1050,
-      delay: 200,
-      easing: 'cubic-bezier(.27, 1, .39, 1)',
-      fill: 'both',
-      persist: true
-    });
-    if (reveal) await reveal.finished.catch(() => {});
-    // O final do hero é ligeiramente posterior à saída da cortina.
-    if (!finished) await new Promise(resolve => setTimeout(resolve, 130));
+    const options = {
+      easing: revealEase, duration: 980, delay: 590,
+      fill: 'both', persist: true
+    };
+    const doorL = animate(left, [
+      { transform: 'translate3d(0,0,0)' },
+      { transform: 'translate3d(-103%,0,0)' }
+    ], options);
+    const doorR = animate(right, [
+      { transform: 'translate3d(0,0,0)' },
+      { transform: 'translate3d(103%,0,0)' }
+    ], options);
+
+    // A completion signal, not a manufactured loading-percentage delay.
+    await Promise.allSettled(
+      [doorL?.finished, doorR?.finished].filter(Boolean)
+    );
   } catch (error) {
-    console.warn('Abertura: usando visualização direta', error);
+    console.warn('Prólogo Sr. Navalha: recuperação visual aplicada', error);
   } finally {
     finish();
   }
