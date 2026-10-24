@@ -226,3 +226,10 @@ Mapa externo real, endereço e rota em texto, com gravura de placa fora do ifram
 - Don't transformar mapa, estoque ou catálogo em promessa de carregamento ou disponibilidade garantida.
 
 Inscrições ornamentais pequenas e eventual linguagem auxiliar redundante não constituem uma nova escala normativa. Este registro não canoniza defeitos de legibilidade ou de revisão e não atribui à V17 os resultados de testes da versão anterior.
+
+
+## Adendo V23 · Movimento “O Primeiro Traço” (24/10/2026)
+
+**World preserved:** carvão, cobre e marfim; Sora/Manrope e fotografias reais. **Motion language changed:** uma incisura vertical de cobre divide duas folhas opacas como uma navalha; em seguida, textos e fotografias reais surgem em curtos deslocamentos e opacidade. A direção é editorial e material, não uma tela genérica de loading.
+
+Oito passagens próprias (threshold, blade, film, stitch, shelf, stars, route, signature) articulam os capítulos sem esconder conteúdo funcional. Elas repetem a precisão do filete de cobre mas variam alinhamento, composição, ritmo e emblemas. Os detalhes de marca pertencem ao espaço existente da barbearia; nenhuma foto ou depoimento fictício foi criado. Animações dependem de `transform`/`opacity` e respeito a `prefers-reduced-motion`. O ritmo deixa de depender de rolagem artificial ou máscaras grandes.
