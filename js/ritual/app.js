@@ -14,6 +14,9 @@ const root=document.documentElement;
 // Guard against an accidental second entry point; listeners have one owner.
 if(!root.classList.contains('enhanced')){
  root.classList.add('enhanced');startMotion();
+ // A linha do tempo da abertura começa antes de inicializar catálogos e mapa.
+ // Isso mantém a porcentagem sincronizada com anel/trilhos mesmo no mobile.
+ openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove();$('#sr-loader-shock')?.remove()});
  const initialize=init=>{try{init()}catch(error){console.error('Componente Sr. Navalha:',error)}};
  const menu=$('.menu');
  const closeMenu=()=>{menu.open=false};
@@ -38,5 +41,5 @@ if(!root.classList.contains('enhanced')){
   observer.observe(albumRoot);
  }else album();
  initialize(initMap);
- openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove()});
+
 }
