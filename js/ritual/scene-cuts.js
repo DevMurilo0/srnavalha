@@ -1,48 +1,19 @@
-/* V23 — A nova costura dos capítulos.
-   Eight designed editorial joints have one lightweight, observable timeline.
-   No per-scroll parallax writes, clip-path interpolation or invisible forever. */
+/* Chapters are static type with one bounded rule at selected thresholds. */
 import { $$, canMove } from './core.js';
-
-export function initSceneCuts() {
-  const chapters = $$('.sr-chapter');
-  const root = document.documentElement;
-
-  if (chapters.length && 'IntersectionObserver' in window && canMove()) {
-    const observe = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        // Keep the last composed values in CSS; never animate the whole section.
-        entry.target.classList.remove('sr-chapter--queued');
-        entry.target.classList.add('sr-chapter--played');
-        observe.unobserve(entry.target);
-      }
-    }, {
-      rootMargin: '100px 0px 100px 0px',
-      threshold: 0
-    });
-
-    chapters.forEach(chapter => {
-      chapter.classList.add('sr-chapter--queued');
-      observe.observe(chapter);
-    });
-    root.classList.add('sr-chapters-active');
-
-    document.addEventListener('motionchange', () => {
-      if (!canMove()) {
-        observe.disconnect();
-        chapters.forEach(chapter => {
-          chapter.classList.remove('sr-chapter--queued');
-          chapter.classList.add('sr-chapter--played');
-        });
-        root.classList.remove('sr-chapters-active');
-      }
-    });
-  } else {
-    chapters.forEach(chapter => chapter.classList.add('sr-chapter--played'));
-  }
-
-  // Preserve existing original team-hover behavior, independent of chapters.
-  initMemberHover();
+export function initSceneCuts(){
+ const chapters=$$('.sr-chapter');
+ if('IntersectionObserver' in window&&canMove()){
+  let remaining=chapters.length;
+  const observer=new IntersectionObserver(entries=>{
+   for(const e of entries)if(e.isIntersecting){
+    e.target.classList.add('sr-chapter--played');observer.unobserve(e.target);
+    if(!--remaining)observer.disconnect();
+   }
+  },{rootMargin:'60px'});
+  chapters.forEach(el=>observer.observe(el));
+  document.addEventListener('motionchange',()=>{if(!canMove())observer.disconnect()});
+ }
+ initMemberHover();
 }
 
 function initMemberHover(){
@@ -82,6 +53,6 @@ function initMemberHover(){
   link.addEventListener('pointerleave',close);
  });
  addEventListener('scroll',close,{passive:true});
- addEventListener('blur',close);
+ addEventListener('blur',close);addEventListener('resize',close,{passive:true});fine.addEventListener('change',close);
  document.addEventListener('motionchange',()=>{if(!canMove())close()});
 }

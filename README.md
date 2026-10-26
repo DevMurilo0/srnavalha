@@ -1,4 +1,4 @@
-# Sr. Navalha · V17
+# Sr. Navalha · O Reflexo do Ritual
 
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
@@ -20,7 +20,27 @@ PORT=8047 node scripts/serve.mjs
 
 Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
 
-## V17
+## Reconstrução de motion · 26/10/2026
+
+A fotografia e a marca reais se acomodam no hero; rolagem nativa sem cálculos de geometria por frame; entradas com concorrência limitada; oito passagens simplificadas. Sem dependências de runtime. Agendamento local e registros de teste preservados.
+
+[Relatório, referências e comparação medida](docs/reflexo/RELATORIO.md). A fonte continua em `templates/v17/`; `node scripts/render-site.mjs` produz o mesmo `index.html`.
+
+Verificações atuais:
+
+```sh
+node scripts/test-reflexo-static.mjs
+node --experimental-default-type=module scripts/test-booking-local.mjs
+PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/test-reflexo.mjs
+PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/test-reflexo-resilience.mjs
+PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/profile-ritual.mjs after
+```
+
+`CHROME_PATH` e `PLAYWRIGHT_PACKAGE` permitem outros executáveis/instalações. Os testes Chromium usam `playwright-core` e `@axe-core/playwright` como ferramentas externas, sem alterar a entrega Live Server. Firefox: servidor BiDi com perfil isolado e `FIREFOX_PORT=9241 node scripts/test-reflexo-firefox.mjs`.
+
+## Histórico V17
+
+
 
 Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e variantes por seção; oito vetores originais; Painel de Profissionais coordenando retrato, nome e régua; Álbum de Estilos que reorganiza as seis fotos entre folhas e parede com FLIP. Espelho e produtos mantêm a fotografia anterior durante a troca. Rolagem nativa, estados interrompíveis e pausa dos efeitos fora de vista.
 

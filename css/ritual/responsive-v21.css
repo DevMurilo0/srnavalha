@@ -9,11 +9,7 @@
  .filter-row button{min-height:44px}
  .product-option{min-width:0}
  .product-option>span,.product-option strong{min-width:0;overflow-wrap:anywhere}
- .sr-in-cut{min-width:0;max-width:90%}
- .sr-in-cut strong{white-space:normal;text-align:center}
- .sr-in-cut__rule{min-width:0}
- .sr-in-signature strong{min-width:0;font-size:clamp(16px,4.8vw,24px)}
- .sr-in-signature__mark{white-space:normal;text-align:right}
+
 }
 @media(max-width:600px){
  .living-mirror{grid-template-columns:minmax(0,1fr);gap:28px}
@@ -61,3 +57,8 @@
 }
 
 .enhanced .album-sheets{touch-action:pan-y pinch-zoom}
+
+/* Keep the real location headline together without cropping at narrow widths. */
+.visit-top h2{max-width:none}
+@media(min-width:601px) and (max-width:800px){.visit-top h2{font-size:48px}}
+@media(max-width:600px){.visit-top{display:block}.visit-top h2{font-size:clamp(28px,8.4vw,36px)}.visit-top .address-number{display:none}}

@@ -1,22 +1,11 @@
 /* Motion enhances natural visibility. No persistent hidden entrance classes. */
-html{scroll-behavior:smooth;scroll-padding-top:102px}
-.word-mask{display:inline-block;overflow:clip;vertical-align:bottom;padding:.12em .06em .15em;margin:-.12em -.06em -.15em;perspective:650px}
-.motion-word{display:inline-block;transform-origin:50% 100%}
+html{scroll-behavior:auto;scroll-padding-top:102px}
 .scroll-thread{position:fixed;z-index:70;left:0;top:0;width:100%;height:2px;transform:scaleX(0);transform-origin:left;background:var(--wood);pointer-events:none}
 .menu[open] nav{animation:menu-open .25s var(--ease)}
 @keyframes menu-open{from{opacity:0;transform:translateY(-10px) scale(.97)}to{opacity:1;transform:none}}
 .review-track.is-moving{animation:reputation-travel 44s linear infinite}
 @keyframes reputation-travel{to{transform:translateX(-50%)}}
 .review-track.is-paused,.review-viewport:focus-within .review-track{animation-play-state:paused}
-.opening-mark{position:fixed;inset:0;z-index:80;pointer-events:none;animation:opening-failsafe .01s 1.8s forwards;overflow:hidden}
-.opening-plate{position:absolute;inset:0;width:100%;height:100%}
-.opening-inscription{position:absolute;left:50%;top:42%;translate:-50% -50%;display:flex;flex-direction:column;align-items:center;color:var(--copper);gap:14px}
-.opening-crest{width:200px;height:150px;margin-bottom:-30px}
-.opening-crest svg{width:100%;height:100%}
-.opening-logo{width:220px;height:114px}.opening-logo svg{width:100%;height:100%}
-.opening-inscription>span{font:500 10px var(--body);letter-spacing:.25em;white-space:nowrap}
-.opening-inscription>i{display:block;width:140px;height:1px;background:var(--copper);transform-origin:left;margin-top:10px}
-@keyframes opening-failsafe{to{visibility:hidden;opacity:0}}
 .button,.footer-feature-cta{position:relative;isolation:isolate;overflow:hidden;translate:var(--mx,0px) var(--my,0px);transition:translate .3s var(--ease-soft),transform .18s var(--ease-soft),background .2s,color .2s}
 .button::before{content:'';position:absolute;inset:0;background:var(--wood);z-index:-1;transform:translateX(-101%);transition:transform .46s var(--ease-soft)}
 .button:hover::before,.button:focus-visible::before{transform:translateX(0)}
@@ -52,10 +41,10 @@ html:not(.enhanced) .review-gallery{display:block}
 html:not(.enhanced) .review-visual{max-width:390px;margin-bottom:28px}
 html:not(.enhanced) .review-gallery .review-viewport{mask-image:none;overflow:visible}
 html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{animation-play-state:paused!important;transition:none!important}
-@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}.opening-crest{width:155px;height:116px}.opening-inscription{top:40%}.opening-logo{width:190px;height:98px}}
+@media(max-width:600px){html:not(.enhanced) .review-group{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
- .opening-mark,.scroll-thread{display:none}.portal-inside{clip-path:none!important}.cut-blade{display:none}
+ .scroll-thread{display:none}.portal-inside{clip-path:none!important}
  .hero-room,.hero-facade,.house-word,.footer-oversize>span,.footer-visual,.team-portrait{translate:none!important;clip-path:none!important}
  .review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:100%;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.review{width:auto;min-height:0}.review-group[aria-hidden=true]{display:none}
 }

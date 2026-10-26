@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+const read=p=>readFileSync(p,'utf8'),html=read('index.html');
+for(const name of ['head','loader','inicio','casa','servicos','equipe','trabalhos','produtos','avaliacoes','localizacao','footer'])assert.ok(html.includes(read(`templates/v17/${name}.html`).trim()),`template ${name} sincronizado`);
+execFileSync(process.execPath,['scripts/render-site.mjs']);assert.equal(read('index.html'),html,'geração idempotente');
+assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8);
+assert.equal((html.match(/class="service-entry"/g)||[]).length,42);
+assert.ok(!html.includes('sr-opening__door')&&!html.includes('sr-opening__cut'));
+assert.ok(read('css/ritual.css').includes('reflexo.css'));
+for(const path of ['motion','scene-cuts','opening','app','core','atmosphere','album','team','gallery','products','services'])execFileSync(process.execPath,['--experimental-default-type=module','--check',`js/ritual/${path}.js`]);
+assert.ok(!read('js/ritual/motion.js').includes('getBoundingClientRect'));
+assert.ok(!read('js/ritual/motion.js').includes("addEventListener('scroll'"));
+assert.ok(!read('js/ritual/core.js').includes('clipPath'));
+assert.ok(read('js/ritual/opening.js').includes('img.decode()'));
+assert.ok(html.includes('href="agendar.html"')&&html.includes('application/ld+json'));
+console.log('Reflexo: templates, render, conteúdo, motion, sintaxe e fallback OK.');
