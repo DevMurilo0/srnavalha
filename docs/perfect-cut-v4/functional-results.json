@@ -1,0 +1,76 @@
+[
+  {
+    "name": "Interrupção click",
+    "pass": true
+  },
+  {
+    "name": "Interrupção keyboard",
+    "pass": true
+  },
+  {
+    "name": "Interrupção wheel",
+    "pass": true
+  },
+  {
+    "name": "Interrupção touch",
+    "pass": true
+  },
+  {
+    "name": "Interrupção rotation",
+    "pass": true
+  },
+  {
+    "name": "Interrupção reduce",
+    "pass": true
+  },
+  {
+    "name": "Logo: chegada proporcional e cancelamento no handoff",
+    "pass": true,
+    "detail": {
+      "error": 0.006256103515625,
+      "effects": 0,
+      "visible": "visible"
+    }
+  },
+  {
+    "name": "F5 reinicia",
+    "pass": true
+  },
+  {
+    "name": "Refresh sem cache reinicia",
+    "pass": true
+  },
+  {
+    "name": "Agendamento local abre",
+    "pass": true
+  },
+  {
+    "name": "Histórico libera homepage",
+    "pass": true
+  },
+  {
+    "name": "Âncora #servicos",
+    "pass": true
+  },
+  {
+    "name": "Âncora #equipe",
+    "pass": true
+  },
+  {
+    "name": "Falha **/assets/images/v8/logo-640.webp",
+    "pass": true
+  },
+  {
+    "name": "Falha **/js/ritual/opening.js",
+    "pass": true
+  },
+  {
+    "name": "Reduced motion inicial",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

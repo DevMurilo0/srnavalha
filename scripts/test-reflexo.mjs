@@ -33,12 +33,12 @@ try{
   await intro.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});
   await intro.waitForSelector('.snv2-badge',{state:'attached'});
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
-  await intro.waitForSelector('.snv2-cut-flight',{state:'attached',timeout:6500});
+  await intro.waitForSelector('.snv2-cut-ready',{state:'attached',timeout:6500});
   // Snapshot halfway through the actual cut, not just when the SVG appears.
-  await intro.waitForTimeout(width<=700?1150:1260);
+  await intro.waitForTimeout(420);
   const cut=await intro.evaluate(()=>{
     const seam=document.querySelector('.snv2-seam');
-    const panels=[...document.querySelectorAll('.snv2-panel-slice')];
+    const panels=[...document.querySelectorAll('.snv2-panel')];
     const scale=seam?new DOMMatrix(getComputedStyle(seam).transform).d:0;
     return {strips:panels.length,tip:!!document.querySelector('.snv2-cut-flight'),
       seam:!!seam,logo:!!document.querySelector('.snv2-cutout-logo'),scale};
@@ -56,7 +56,7 @@ try{
  }
  for(const input of ['click','keyboard','wheel','touch','resize','hidden']){
   const p=await fresh({hasTouch:true,isMobile:true});await p.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await p.waitForSelector('.snv2-badge',{state:'attached'});
-  if(input==='click')await p.locator('#sr-opening-skip').dispatchEvent('click');
+  if(input==='click')await p.mouse.click(12,300);
   if(input==='keyboard')await p.keyboard.press('Tab');
   if(input==='wheel')await p.mouse.wheel(0,200);
   if(input==='touch')await p.dispatchEvent('body','touchstart');

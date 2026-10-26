@@ -1,0 +1,54 @@
+{
+  "baseline": "702b8fdd6bf3452edacc7930808bdf065d337a94",
+  "results": [
+    {
+      "version": "before",
+      "width": 390,
+      "cpu": 4,
+      "cutDurationMs": 3171.199999988079,
+      "frames": 177,
+      "p95FrameMs": 33.30000000000018,
+      "framesOver34ms": 2,
+      "longTasks": 0,
+      "maxLongTaskMs": 0,
+      "geometryReadsDuringCut": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "cpu": 4,
+      "cutDurationMs": 2276.4000000059605,
+      "frames": 130,
+      "p95FrameMs": 16.800000000000182,
+      "framesOver34ms": 2,
+      "longTasks": 0,
+      "maxLongTaskMs": 0,
+      "geometryReadsDuringCut": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "cpu": 4,
+      "cutDurationMs": 3406.4000000059605,
+      "frames": 115,
+      "p95FrameMs": 66.60000000000036,
+      "framesOver34ms": 20,
+      "longTasks": 6,
+      "maxLongTaskMs": 105,
+      "geometryReadsDuringCut": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "cpu": 4,
+      "cutDurationMs": 2429.7000000178814,
+      "frames": 79,
+      "p95FrameMs": 66.70000000000073,
+      "framesOver34ms": 15,
+      "longTasks": 5,
+      "maxLongTaskMs": 83,
+      "geometryReadsDuringCut": 0
+    }
+  ],
+  "method": "Chromium headless, viewport height 844, CPU 4x enabled 1s after snv2-run; closing phase only; one sample per viewport/version; external hosts blocked. Shared Linux desktop, not physical mobile."
+}

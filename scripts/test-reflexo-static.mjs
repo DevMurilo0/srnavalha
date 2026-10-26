@@ -19,7 +19,7 @@ assert.equal((html.match(/href="agendar.html/g)||[]).length,51,'agendamento pres
 assert.ok(html.includes('application/ld+json'),'SEO preservado');
 
 for(const id of ['id="sr-loader-stage"','id="snv2-panels"','id="sr-loader-plate"',
-                 'id="sr-loader-percent"','id="sr-opening-skip"']) {
+                 'id="sr-loader-percent"']) {
   assert.ok(html.includes(id),'loader: '+id);
 }
 for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
@@ -35,24 +35,23 @@ assert.ok(imports.indexOf('loader-v2.css')<imports.indexOf('perfect-cut-v3.css')
   'customização da transição vem por último');
 assert.ok(!imports.includes('negative-349-v24.css'));
 const perfect=file('css/ritual/perfect-cut-v3.css');
-for(const snippet of ['snv2-panel-slice','snv2-cut-flight','snv2-logo-flight',
+for(const snippet of ['snv2-panel','snv2-cut-flight','snv2-logo-flight',
                       'snv2-seam','sr-cut-reveal','prefers-reduced-motion:reduce'])
   assert.ok(perfect.includes(snippet),'estilo do corte: '+snippet);
-assert.ok(perfect.includes('mask-image:none'),'revela o hero por cortes, não pela íris antiga');
+assert.ok(!file('css/ritual/loader-v2.css').includes('snv2-iris'),'íris obsoleta removida');
+assert.ok(!html.includes('id="sr-opening-skip"'),'skip removido do DOM');
+assert.equal((file('templates/v17/loader.html').match(/class="snv2-scissors"/g)||[]).length,2,'duas tesouras independentes');
 
 const code=file('js/ritual/opening.js');
-for(const snippet of ['snv2-panels','snv2-panel-slice','snv2-cut-flight',
+for(const snippet of ['snv2-panels','snv2-panel','snv2-cut-flight',
                       'snv2-logo-flight','sr-cut-reveal','getBoundingClientRect',
                       'translate3d','scale(','CustomEvent','window.__finishRitual'])
   assert.ok(code.includes(snippet),'coreografia: '+snippet);
 assert.ok(!code.includes('const N = mobile'),'não usar faixas móveis fragmentadas');
 assert.ok(code.includes("['left','right']"),'exatamente duas superfícies inteiras');
-assert.ok(code.includes('tOpen = tEnd + 90'),'abertura somente após o corte completo');
-assert.ok(code.includes("duration:CUT,delay:tCut,easing:'cubic-bezier(.42,0,.58,1)'"),'tesoura e linha sincronizadas');
 assert.ok(!code.includes('stripHeight')&&!code.includes('pendingStrips'),'sem degraus e retângulos por linha');
 assert.ok(code.includes("stage.classList.add('snv2-run')"),'contador e barra iniciam juntos');
 assert.ok(code.includes('sample(t,.65,.35)'),'curva da porcentagem é a mesma do CSS');
-assert.ok(code.includes('sourceBox.width*scale*.5')&&code.includes('sourceBox.height*scale*.5'),'marca escala sem distorcer nem ultrapassar o centro');
 assert.ok(!file('templates/v17/loader.html').includes('snv2-loader snv2-run'),'CSS não pode iniciar antes do JS');
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
@@ -69,4 +68,4 @@ for(const name of [
 ]) execFileSync(process.execPath,[
   '--experimental-default-type=module','--check','js/ritual/'+name+'.js'
 ]);
-console.log('Perfect Cut V3.1: 2 painéis, linha contínua, FLIP, reload, conteúdo e JS OK.');
+console.log('Perfect Cut V4: 2 painéis, linha contínua, FLIP, reload, conteúdo e JS OK.');

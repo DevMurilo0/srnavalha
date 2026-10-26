@@ -1,64 +1,54 @@
-/* Sr. Navalha — Perfect Cut V3.1 / continuous cut.
-   Two solid surfaces replace the 14/24 horizontal slices that generated
-   staircase rectangles in the user's mobile recording.
-   Only transform and opacity animate on viewport-sized surfaces. */
-#sr-loader-stage.snv2-loader{
-  background:transparent;
-  -webkit-mask-image:none;mask-image:none;
-}
-#sr-loader-shock{display:none!important}
+/* Perfect Cut V4: two continuous sheets; sheared edges meet at the blade.
+   No strips, moving layout properties or per-frame JavaScript geometry. */
+#sr-loader-stage.snv2-loader{background:transparent}
 #sr-loader-stage .snv2-panels{
-  position:absolute;inset:0;z-index:0;
-  background:var(--snv2-bg);
+  position:absolute;inset:0;z-index:0;background:var(--snv2-bg);
   pointer-events:none;overflow:hidden;
 }
 #sr-loader-stage.snv2-cut-ready .snv2-panels{background:transparent}
-#sr-loader-stage .snv2-panel-slice{
-  position:absolute;top:0;bottom:0;width:calc(50% + 1px);
-  background:var(--snv2-bg);pointer-events:none;
-  transform:translate3d(0,0,0);backface-visibility:hidden;
+#sr-loader-stage .snv2-panel{
+  position:absolute;top:0;height:100%;width:100%;background:var(--snv2-bg);pointer-events:none;
 }
-#sr-loader-stage .snv2-panel-slice--left{left:0}
-#sr-loader-stage .snv2-panel-slice--right{right:0}
+#sr-loader-stage .snv2-panel--left{left:-50%;transform-origin:100% 0}
+#sr-loader-stage .snv2-panel--right{right:-50%;transform-origin:0 0}
 #sr-loader-stage .snv2-center{z-index:3;pointer-events:none}
 #sr-loader-stage .snv2-rail{z-index:2}
 #sr-loader-stage .snv2-track{z-index:4}
-#sr-loader-stage .snv2-skip{z-index:6}
-
-/* A single stable path from blade to cut. The growing seam shares
-   the identical tCut/CUT time range with the scissors' tip. */
 #sr-loader-stage .snv2-seam{
-  position:absolute;top:0;left:calc(50% - .75px);
-  height:100%;width:1.5px;z-index:7;opacity:0;
-  pointer-events:none;transform-origin:50% 0;
-  background:linear-gradient(to bottom,#a67c3d90,#a67c3d 88%,#f0cd96);
-  box-shadow:0 0 6px #a67c3d22;
+  position:absolute;top:0;left:calc(50% - .5px);height:100%;width:1px;
+  z-index:7;pointer-events:none;transform:scaleY(0);transform-origin:50% 0;
+  background:var(--snv2-gold);
 }
 #sr-loader-stage .snv2-cut-flight{
-  position:absolute;left:0;top:0;width:0;height:0;z-index:8;
-  transform-origin:0 0;pointer-events:none;
+  position:absolute;left:0;top:0;width:0;height:0;z-index:8;opacity:0;
+  transform:translateY(-100px);transform-origin:0 0;pointer-events:none;
 }
 #sr-loader-stage .snv2-cut-flight .snv2-scissors{
-  position:absolute;top:-14px;left:-33px;right:auto;
-  width:34px;height:28px;transform:none!important;animation:none!important;
+  position:absolute;top:-14px;left:-33px;right:auto;width:34px;height:28px;
+  transform:none!important;animation:none!important;
 }
-#sr-loader-stage .snv2-cut-flight.snv2-wind .snv2-blade-a{
-  animation:none!important;transform:rotate(15deg)
-}
-#sr-loader-stage .snv2-cut-flight.snv2-wind .snv2-blade-b{
-  animation:none!important;transform:rotate(-15deg)
-}
-#sr-loader-stage .snv2-cut-flight.snv2-is-cutting .snv2-blade-a,
-#sr-loader-stage .snv2-cut-flight.snv2-is-cutting .snv2-blade-b{
-  animation-duration:165ms;
-}
+/* Shearing the blades changes their lateral spread after the 90deg rotation,
+   but never their longitudinal tip coordinate (x=33 in the local SVG). */
+#sr-loader-stage .snv2-cut-flight .snv2-blade-a{animation:snv4-snip-a 210ms ease-in-out infinite alternate}
+#sr-loader-stage .snv2-cut-flight .snv2-blade-b{animation:snv4-snip-b 210ms ease-in-out infinite alternate}
+@keyframes snv4-snip-a{from{transform:skewY(-2deg)}to{transform:skewY(13deg)}}
+@keyframes snv4-snip-b{from{transform:skewY(2deg)}to{transform:skewY(-13deg)}}
+#sr-loader-stage:not(.snv2-cut-ready) .snv2-cut-flight g,
+#sr-loader-stage.snv2-cut-ready .snv2-track g{animation-play-state:paused}
 #sr-loader-stage .snv2-logo-flight{
-  position:absolute;left:0;top:0;z-index:9;pointer-events:none;
-  transform-origin:0 0;opacity:0;overflow:visible;
+  position:absolute;z-index:9;pointer-events:none;transform-origin:0 0;
+  opacity:0;overflow:visible;
 }
-#sr-loader-stage .snv2-logo-flight svg{
-  display:block;width:100%;height:100%;overflow:visible;
+#sr-loader-stage .snv2-logo-flight svg{display:block;width:100%;height:100%;overflow:visible}
+.snv2-tag{font-size:11px;letter-spacing:.16em;max-width:100%;text-wrap:balance}
+.snv2-signature{
+  position:absolute;top:calc(24px + env(safe-area-inset-top,0px));
+  left:50%;width:max-content;max-width:calc(100% - 64px);text-align:center;
+  font:500 clamp(8px,1.1vw,10px)/1.7 var(--body);letter-spacing:.12em;
+  color:var(--snv2-muted);opacity:0;transform:translate(-50%,5px);
 }
+.snv2-run .snv2-signature{animation:snv4-signature 650ms cubic-bezier(.22,1,.36,1) 900ms both}
+@keyframes snv4-signature{to{opacity:1;transform:translate(-50%,0)}}
 
 /* The hero stays geometrically unchanged: no full-section zoom that makes
    its photos and title jitter. Only shallow component-level entrances. */
@@ -109,7 +99,7 @@ html.sr-loader-boot .hero-bottom{transition-delay:280ms}
   }
 }
 @media(prefers-reduced-motion:reduce){
-  #sr-loader-stage,#sr-loader-shock{display:none!important}
+  #sr-loader-stage{display:none!important}
   html.sr-loader-boot .hero-wordmark,
   html.sr-loader-boot .hero h1,
   html.sr-loader-boot .hero-intro,
@@ -118,3 +108,6 @@ html.sr-loader-boot .hero-bottom{transition-delay:280ms}
     transition:none!important;transform:none!important;opacity:1!important;
   }
 }
+
+/* Keep the shared logo anchor still for the entire handoff, also on mobile. */
+html.sr-loader-boot .hero-wordmark{transform:none!important}
