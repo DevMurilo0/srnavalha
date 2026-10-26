@@ -80,7 +80,12 @@ export function openRitual() {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
-    addEventListener('resize',finish,{once:true,passive:true,signal:signal.signal});
+    // Browser address bars change viewport HEIGHT on phones, which should
+    // not abort the choreography midway. Only width changes/rotation do.
+    const initialWidth=innerWidth;
+    addEventListener('resize',()=>{
+      if (Math.abs(innerWidth-initialWidth)>2) finish();
+    },{passive:true,signal:signal.signal});
     document.addEventListener('motionchange',()=>{
       if (!canMove()) finish();
     },{signal:signal.signal});
@@ -240,16 +245,22 @@ export function openRitual() {
         run(flight,[
           {transform:'translate3d(0,0,0) scale(1)',opacity:0,offset:0},
           {transform:'translate3d(0,0,0) scale(1)',opacity:1,offset:.10},
-          {transform:move,opacity:1,offset:.88},
+          {transform:move,opacity:1,offset:.84},
           {transform:move,opacity:0,offset:1}
         ],{duration:logoTime,delay:tMark,easing:'cubic-bezier(.65,0,.2,1)'});
-        // Na metade do corte a marca sai da abertura. Pouso já alinhado
-        // exatamente à caixa final do SVG do hero (FLIP).
+        // The source fades INVERSELY to the flight's first 10%:
+        // never show two opaque copies of the same logo.
         run(logoPlate,[{opacity:1},{opacity:0}],{
-          duration:150,delay:tMark,easing:'ease-out'
+          duration:logoTime*.10,delay:tMark,easing:'linear'
+        });
+        // The destination crossfades INVERSELY to the flight's last 16%.
+        // It becomes visible at opacity zero, not as a suddenly opaque SVG.
+        const landingStart=tMark+logoTime*.84;
+        run(target,[{opacity:0},{opacity:1}],{
+          duration:logoTime*.16,delay:landingStart,easing:'linear'
         });
         delay(()=>{if (!completed) target.style.visibility=previous},
-          tMark+logoTime*.90);
+          landingStart);
       } else {
         // Offline/sem imagem: mantém o monograma SN até o corte avançar.
         run(logoPlate,[{opacity:1},{opacity:0}],{
