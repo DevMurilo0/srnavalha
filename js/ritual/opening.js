@@ -102,13 +102,14 @@ export function openRitual() {
       if (!canMove() || !trackScissors.animate) { finish(); return; }
 
       const mobile = W <= 700;
-      const N = mobile ? 7 : 12;
-      const ANT = 210, FLY = mobile ? 560 : 650;
-      const CUT = mobile ? 920 : 1090;
-      const OPEN = mobile ? 720 : 840;
+      // Every device uses TWO continuous panels, never horizontal strips.
+      const ANT = 210, FLY = mobile ? 540 : 620;
+      const CUT = mobile ? 810 : 940;
+      const OPEN = mobile ? 800 : 880;
       const tCut = ANT + FLY, tEnd = tCut + CUT;
-      const tMark = tCut + CUT * .48;
-      const logoTime = mobile ? 820 : 950;
+      const tOpen = tEnd + 90;
+      const tMark = tOpen + 100;
+      const logoTime = mobile ? 760 : 850;
 
       // Snapshot FINAL: remove temporariamente transforms dos ancestrais.
       // São leituras concentradas em um único ponto, nunca durante o scroll.
@@ -127,32 +128,25 @@ export function openRitual() {
         node.style.transition=transition; node.style.transform=transform;
       }
 
-      // Criar painéis ANTES de remover o fundo sólido: não existe um
-      // frame intermediário transparente que exponha o hero prematuramente.
-      const fragment = document.createDocumentFragment();
-      const pendingStrips = [];
-      const stripHeight = H / N;
-      for (let i=0; i<N; i++) {
-        for (const side of ['left','right']) {
-          const pane=document.createElement('div');
-          pane.className='snv2-panel-slice snv2-panel-slice--'+side;
-          pane.style.top=(i * stripHeight)+'px';
-          pane.style.height=(stripHeight + 1.5)+'px';
-          fragment.append(pane);
-          const direction=side==='left'?-1:1;
-          const start=tCut+((i+.56)/N)*CUT;
-          pendingStrips.push({pane,direction,start});
-        }
+      // The user's video showed rectangular holes: old code released 14/24
+      // separate strips at different times. Prepare only two full-height,
+      // perfectly flat panels. The blade draws the seam FIRST; afterwards
+      // the two panels open as a single continuous, compositor-led movement.
+      const halves=[];
+      for (const side of ['left','right']) {
+        const pane=document.createElement('div');
+        pane.className='snv2-panel-slice snv2-panel-slice--'+side;
+        panels.append(pane);
+        halves.push(pane);
       }
-      panels.append(fragment);
-      // Elementos conectados antes do início da timeline; evita diferenças
-      // entre browsers no início de WAAPI sobre nós ainda desconectados.
-      for (const {pane,direction,start} of pendingStrips) {
-        run(pane,[
+      for (let i=0;i<halves.length;i++) {
+        const direction=i===0?-1:1;
+        run(halves[i],[
           {transform:'translate3d(0,0,0)'},
-          {transform:'translate3d('+(direction*(W*.55+12))+'px,0,0)'}
-        ],{duration:OPEN,delay:start,easing:'cubic-bezier(.62,0,.2,1)'});
+          {transform:'translate3d('+(direction*(W*.55+24))+'px,0,0)'}
+        ],{duration:OPEN,delay:tOpen,easing:'cubic-bezier(.7,0,.18,1)'});
       }
+      // The opaque container disappears only after both panels are present.
       stage.classList.add('snv2-cut-ready');
 
       // A ponta da tesoura é o pivot real (x=33, y=14 no SVG).
@@ -171,35 +165,35 @@ export function openRitual() {
       restorers.push(()=>{ trackScissors.style.visibility=originalVisibility });
       const position=(x,y,deg,s)=>
         'translate3d('+x+'px,'+y+'px,0) rotate('+deg+'deg) scale('+s+')';
-      const total=tEnd+200;
+      const total=tEnd+180;
       run(carrier,[
         {transform:position(x0,y0,0,1),offset:0,easing:'linear'},
         {transform:position(x0,y0,0,1),offset:ANT/total,
           easing:'cubic-bezier(.45,0,.3,1)'},
         {transform:position(cx+Math.min(W*.2,125),H*.46,46,1.4),
           offset:(ANT+FLY*.56)/total,easing:'cubic-bezier(.25,0,.15,1)'},
-        {transform:position(cx,-24,90,mobile?1.7:2),
+        {transform:position(cx,0,90,mobile?1.65:1.9),
           offset:tCut/total,easing:'linear'},
-        {transform:position(cx,H+34,90,mobile?1.7:2),
+        {transform:position(cx,H,90,mobile?1.65:1.9),
           offset:tEnd/total,easing:'cubic-bezier(.4,0,1,1)'},
-        {transform:position(cx,H+110,90,1.9),offset:1}
+        {transform:position(cx,H+100,90,1.7),offset:1}
       ],{duration:total,easing:'linear'});
       delay(()=>carrier.classList.remove('snv2-wind'),ANT);
       delay(()=>carrier.classList.add('snv2-is-cutting'),tCut);
 
-      // A trilha fica ATRÁS da ponta da lâmina e acompanha o mesmo percurso.
-      const tail=document.createElement('div');
-      tail.className='snv2-cut-tail';
-      const tailHeight=H*.21;
-      tail.style.height=tailHeight+'px';
-      stage.append(tail);
-      temporary.push(tail);
-      run(tail,[
-        {transform:'translate3d(0,'+(-24-tailHeight)+'px,0)',opacity:0,offset:0},
-        {transform:'translate3d(0,'+(-24-tailHeight)+'px,0)',opacity:1,offset:.08},
-        {transform:'translate3d(0,'+(H+34-tailHeight)+'px,0)',opacity:1,offset:.9},
-        {transform:'translate3d(0,'+(H+34-tailHeight)+'px,0)',opacity:0,offset:1}
+      // One continuous incision follows the exact same LINEAR cut interval
+      // as the scissor tip: y=0 at tCut, y=H at tEnd. No row-by-row flicker.
+      const seam=document.createElement('div');
+      seam.className='snv2-seam';
+      stage.append(seam);
+      temporary.push(seam);
+      run(seam,[
+        {transform:'scaleY(0)',opacity:0},
+        {transform:'scaleY(1)',opacity:1}
       ],{duration:CUT,delay:tCut,easing:'linear'});
+      run(seam,[
+        {opacity:1},{opacity:0}
+      ],{duration:260,delay:tOpen+220,easing:'ease-out'});
 
       const fade=(selector,when,duration,dy=0)=>{
         $$(selector,stage).forEach(node=>run(node,[
@@ -215,7 +209,7 @@ export function openRitual() {
       run($('.snv2-ring',stage),[
         {opacity:1,transform:'scale(1)'},
         {opacity:0,transform:'scale(1.17)'}
-      ],{duration:460,delay:tMark-120});
+      ],{duration:580,delay:tCut+CUT*.5});
 
       // Transferência real, sem mover/recriar o hero.
       if (source && target && sourceBox?.width && targetBox?.width &&
@@ -246,7 +240,7 @@ export function openRitual() {
         run(flight,[
           {transform:'translate3d(0,0,0) scale(1)',opacity:0,offset:0},
           {transform:'translate3d(0,0,0) scale(1)',opacity:1,offset:.10},
-          {transform:move,opacity:1,offset:.84},
+          {transform:move,opacity:1,offset:.88},
           {transform:move,opacity:0,offset:1}
         ],{duration:logoTime,delay:tMark,easing:'cubic-bezier(.65,0,.2,1)'});
         // Na metade do corte a marca sai da abertura. Pouso já alinhado
@@ -255,7 +249,7 @@ export function openRitual() {
           duration:150,delay:tMark,easing:'ease-out'
         });
         delay(()=>{if (!completed) target.style.visibility=previous},
-          tMark+logoTime*.88);
+          tMark+logoTime*.90);
       } else {
         // Offline/sem imagem: mantém o monograma SN até o corte avançar.
         run(logoPlate,[{opacity:1},{opacity:0}],{
@@ -265,10 +259,11 @@ export function openRitual() {
 
       // Mostra as fotografias e textos REAIS enquanto a tesoura abre o caminho.
       // O hero nunca é duplicado; só recebe transform/opacity por tempo finito.
-      delay(()=>{if (!completed) root.classList.add('sr-cut-reveal')},tCut+85);
+      delay(()=>{if (!completed) root.classList.add('sr-cut-reveal')},tOpen+45);
 
-      // Espera a última faixa sair e a marca alcançar o destino.
-      delay(finish,Math.max(tEnd+OPEN+160,tMark+logoTime+220));
+      // Wait for the panel exit AND the complete hero stagger before changing
+      // root classes. Otherwise the original video showed a final snap.
+      delay(finish,Math.max(tOpen+OPEN+480,tOpen+1510,tMark+logoTime+250));
     }
 
     // Mantém o início do protótipo: 0–100%, anel, letras e tesoura na régua.
