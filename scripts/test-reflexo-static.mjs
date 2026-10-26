@@ -36,7 +36,7 @@ assert.ok(imports.indexOf('loader-v2.css')<imports.indexOf('perfect-cut-v3.css')
 assert.ok(!imports.includes('negative-349-v24.css'));
 const perfect=file('css/ritual/perfect-cut-v3.css');
 for(const snippet of ['snv2-panel-slice','snv2-cut-flight','snv2-logo-flight',
-                      'snv2-cut-tail','sr-cut-reveal','prefers-reduced-motion:reduce'])
+                      'snv2-seam','sr-cut-reveal','prefers-reduced-motion:reduce'])
   assert.ok(perfect.includes(snippet),'estilo do corte: '+snippet);
 assert.ok(perfect.includes('mask-image:none'),'revela o hero por cortes, não pela íris antiga');
 
@@ -45,7 +45,11 @@ for(const snippet of ['snv2-panels','snv2-panel-slice','snv2-cut-flight',
                       'snv2-logo-flight','sr-cut-reveal','getBoundingClientRect',
                       'translate3d','scale(','CustomEvent','window.__finishRitual'])
   assert.ok(code.includes(snippet),'coreografia: '+snippet);
-assert.ok(code.includes('mobile ? 7 : 12'),'versão mobile leve');
+assert.ok(!code.includes('mobile ? 7 : 12'),'não usar faixas móveis fragmentadas');
+assert.ok(code.includes("['left','right']"),'exatamente duas superfícies inteiras');
+assert.ok(code.includes('tOpen = tEnd + 90'),'abertura somente após o corte completo');
+assert.ok(code.includes("duration:CUT,delay:tCut,easing:'linear'"),'tesoura e linha sincronizadas');
+assert.ok(!code.includes('stripHeight')&&!code.includes('pendingStrips'),'sem degraus e retângulos por linha');
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
 assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));
@@ -61,4 +65,4 @@ for(const name of [
 ]) execFileSync(process.execPath,[
   '--experimental-default-type=module','--check','js/ritual/'+name+'.js'
 ]);
-console.log('Perfect Cut: templates, corte, FLIP, reload, conteúdo, paleta e JS OK.');
+console.log('Perfect Cut V3.1: 2 painéis, linha contínua, FLIP, reload, conteúdo e JS OK.');
