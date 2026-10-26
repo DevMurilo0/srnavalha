@@ -93,10 +93,11 @@ export function openRitual() {
       // textos e fotografias. Seu DOM, conteúdo e estilos originais ficam intactos.
       delay(() => {
         if (!complete) root.classList.add('sr-iris-reveal');
-      }, 340);
-      // Também cobre navegadores sem animação tipada de @property: a remoção
-      // é determinística mesmo se a máscara for ignorada.
-      delay(finish, 1460);
+      }, 125);
+      // Aguarda a entrada escalonada do hero terminar antes de remover as
+      // classes de transição. Isso evita o salto de opacity/transform no final
+      // da máscara e mantém o conteúdo livre mesmo sem suporte a @property.
+      delay(finish, 1810);
     }
 
     const DURATION = 2250;
