@@ -14,7 +14,17 @@
           <path d="M24 66h52l-6 8H30z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"></path>
           <circle cx="62" cy="70" r="1.6"></circle>
         </svg>
-        <img src="assets/images/v8/logo-640.webp" width="640" height="412" alt="" decoding="async" fetchpriority="high">
+        <!-- Logo oficial: o fundo escuro da WebP vira alfa zero via filtro.
+             A tinta resultante permanece sobre qualquer cor sem formar placa. -->
+        <svg class="snv2-cutout-logo" viewBox="0 0 640 412" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="snv2-logo-matte" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values="0 0 0 0 .14  0 0 0 0 .115  0 0 0 0 .098  .466 .466 .466 0 -.34"></feColorMatrix>
+            </filter>
+          </defs>
+          <image href="assets/images/v8/logo-640.webp" width="640" height="412" filter="url(#snv2-logo-matte)"></image>
+        </svg>
+        <img class="snv2-logo-probe" src="assets/images/v8/logo-640.webp" width="640" height="412" alt="" decoding="async" fetchpriority="high">
         <span class="snv2-shine"></span>
       </div>
     </div>
