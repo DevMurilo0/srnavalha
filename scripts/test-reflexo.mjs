@@ -33,9 +33,13 @@ try{
   await intro.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});
   await intro.waitForSelector('.snv2-badge',{state:'attached'});
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
+  await intro.waitForSelector('.snv2-cut-flight',{state:'attached',timeout:6500});
+  const cut=await intro.evaluate(()=>({strips:document.querySelectorAll('.snv2-panel-slice').length,tip:!!document.querySelector('.snv2-cut-flight'),logo:!!document.querySelector('.snv2-cutout-logo')}));
+  check(`${width}px: tesoura central e painéis responsivos`,cut.strips===(width<=700?14:24)&&cut.tip&&cut.logo,cut);
+  await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
   await settle(intro);await intro.screenshot({path:`${dir}/opening-end-${width}.png`});
-  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.snv2-badge').length}));
-  check(`${width}px: Loader v2: anel, tesoura, iris e hero real`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights,samples);
+  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.snv2-badge,.snv2-cut-flight,.snv2-logo-flight').length,logoVisible:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility!=='hidden'}));
+  check(`${width}px: The Perfect Cut: tesoura, divisões e hero real`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights&&samples.logoVisible,samples);
   await intro.context().close();
  }
  for(const input of ['click','keyboard','wheel','touch','resize','hidden']){
