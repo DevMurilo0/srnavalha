@@ -76,7 +76,7 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
 .snv2-center{
   position:absolute;inset:0;
   display:grid;place-items:center;align-content:center;gap:0;
-  padding:14px 35px 60px;
+  padding:0 35px;
 }
 .snv2-badge{
   position:relative;width:clamp(150px,34vw,190px);aspect-ratio:1;
@@ -264,7 +264,7 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
   html.sr-loader-boot .hero-bottom{transition-delay:340ms}
 }
 @media(max-width:600px){
-  .snv2-center{padding:6px 35px 48px}
+  .snv2-center{padding:0 35px}
   .snv2-badge{margin-bottom:22px}
   .snv2-track{bottom:calc(9svh + env(safe-area-inset-bottom,0px))}
   .snv2-skip{right:16px;font-size:11px}
