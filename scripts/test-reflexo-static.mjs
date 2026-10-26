@@ -1,67 +1,64 @@
-// Loader v2 regression checks. Kept under original filename for compatibility.
+// Regression tests: "The Perfect Cut" integrated with the real Sr. Navalha.
 // Run: node scripts/test-reflexo-static.mjs
 import assert from 'node:assert/strict';
 import { readFileSync as read } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 const file = path => read(path,'utf8');
 const html = file('index.html');
-const templates = ['head','loader','inicio','casa','servicos','equipe','trabalhos',
-                   'produtos','avaliacoes','localizacao','footer'];
-for (const name of templates) {
-  assert.ok(html.includes(file('templates/v17/' + name + '.html').trim()),
-    name + ': HTML sincronizado');
-}
+for (const name of [
+  'head','loader','inicio','casa','servicos','equipe','trabalhos',
+  'produtos','avaliacoes','localizacao','footer'
+]) assert.ok(html.includes(file('templates/v17/'+name+'.html').trim()),
+  name+': template sincronizado');
+
 execFileSync(process.execPath,['scripts/render-site.mjs']);
-assert.equal(file('index.html'),html,'build idempotente');
-assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'8 passagens preservadas');
-assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'42 serviços preservados');
-assert.ok(html.includes('id="sr-loader-stage"') &&
-          html.includes('id="sr-loader-shock"'),'círculo/iris integrados');
-assert.ok(html.includes('id="snv2-logo-matte"') &&
-          html.includes('class="snv2-cutout-logo"'),'logo oficial com matte para alfa');
-assert.ok(html.includes('class="snv2-logo-probe"'),'verificação de carregamento do logo');
+assert.equal(file('index.html'),html,'render do HTML idempotente');
+assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'oito divisores mantidos');
+assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'serviços mantidos');
+assert.equal((html.match(/href="agendar.html/g)||[]).length,51,'agendamento preservado');
+assert.ok(html.includes('application/ld+json'),'SEO preservado');
 
-for (const item of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
-                    'snv2-scissors','snv2-count','sr-loader-percent','sr-opening-skip']) {
-  assert.ok(html.includes(item),item + ' no loader');
+for(const id of ['id="sr-loader-stage"','id="snv2-panels"','id="sr-loader-plate"',
+                 'id="sr-loader-percent"','id="sr-opening-skip"']) {
+  assert.ok(html.includes(id),'loader: '+id);
 }
-assert.ok(html.includes('href="agendar.html"'),'agendamento preservado');
-assert.ok(html.includes('application/ld+json'),'dados estruturados preservados');
+for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
+                  'snv2-scissors','snv2-count','snv2-cutout-logo']) {
+  assert.ok(html.includes(cls),'elemento do protótipo preservado: '+cls);
+}
+assert.ok(html.includes('snv2-logo-matte'),'logo em alfa transparente');
+assert.ok(html.includes('hero-logo-transparent'),'hero oficial intacto');
+const imports=file('css/ritual.css');
+assert.ok(imports.includes('loader-v2.css')&&imports.includes('perfect-cut-v3.css'));
+assert.ok(imports.includes('first-cut-v23.css'),'capítulos mantidos');
+assert.ok(imports.indexOf('loader-v2.css')<imports.indexOf('perfect-cut-v3.css'),
+  'customização da transição vem por último');
+assert.ok(!imports.includes('negative-349-v24.css'));
+const perfect=file('css/ritual/perfect-cut-v3.css');
+for(const snippet of ['snv2-panel-slice','snv2-cut-flight','snv2-logo-flight',
+                      'snv2-cut-tail','sr-cut-reveal','prefers-reduced-motion:reduce'])
+  assert.ok(perfect.includes(snippet),'estilo do corte: '+snippet);
+assert.ok(perfect.includes('mask-image:none'),'revela o hero por cortes, não pela íris antiga');
 
-const css = file('css/ritual.css');
-assert.ok(css.includes('loader-v2.css') && css.includes('first-cut-v23.css'));
-assert.ok(!css.includes('negative-349-v24.css') && !css.includes('reflexo.css'));
-const design = file('css/ritual/loader-v2.css');
-assert.ok(design.includes('@property --snv2-r'),'iris radial registrada');
-assert.ok(design.includes('mask-image:radial-gradient'),'máscara radial');
-assert.ok(design.includes('prefers-reduced-motion:reduce'),'movimento reduzido');
-assert.ok(design.includes('background:transparent'),'sem placa opaca no selo');
-assert.ok(design.includes('.snv2-cutout-logo'),'logo vetorizada com alfa no loader');
-assert.ok(design.includes('snv2-mark-handoff') &&
-          design.includes('snv2-ring-handoff'),'selo e anel se dissolvem no hero');
-
-
+const code=file('js/ritual/opening.js');
+for(const snippet of ['snv2-panels','snv2-panel-slice','snv2-cut-flight',
+                      'snv2-logo-flight','sr-cut-reveal','getBoundingClientRect',
+                      'translate3d','scale(','CustomEvent','window.__finishRitual'])
+  assert.ok(code.includes(snippet),'coreografia: '+snippet);
+assert.ok(code.includes('mobile ? 7 : 12'),'versão mobile leve');
+assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
+const head=file('templates/v17/head.html');
+assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));
+assert.ok(head.includes('sr-cut-reveal'),'watchdog libera estado');
 const colors=file('css/ritual/tokens.css');
 for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
                     '--wood:#80583c','--copper:#bd946e'])
-  assert.ok(colors.includes(token),'identidade original: '+token);
-
-const boot=file('templates/v17/head.html');
-assert.ok(boot.includes('sr-loader-boot'),'abertura pré-pintura');
-assert.ok(boot.includes('sr-iris-reveal'),'hero revela pelo iris');
-assert.ok(!boot.includes('sessionStorage'),'repetir a cada F5');
-const open=file('js/ritual/opening.js');
-assert.ok(open.includes('sr-iris-reveal') && open.includes('openingend'));
-assert.ok(open.includes('requestAnimationFrame') && open.includes('cancelAnimationFrame'));
-assert.ok(open.includes('window.__finishRitual'),'fallback de interrupção');
-assert.ok(open.includes('delay(finish, 1810)'),'hero conclui entrada antes do teardown');
-assert.ok(open.includes("}, 125)"),'revelação do hero sincronizada ao iris');
-
-assert.ok(!open.includes('sessionStorage'));
-assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"),
-    'otimização de scroll preservada');
-for (const module of ['motion','scene-cuts','opening','app','core','atmosphere',
-                      'album','team','gallery','products','services'])
-  execFileSync(process.execPath,
-    ['--experimental-default-type=module','--check','js/ritual/'+module+'.js']);
-console.log('Loader v2: build, paleta, iris, ring, skip, reload, serviços e JS OK.');
+  assert.ok(colors.includes(token),'identidade original '+token);
+assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"));
+for(const name of [
+  'motion','scene-cuts','opening','app','core','atmosphere','album','team',
+  'gallery','products','services'
+]) execFileSync(process.execPath,[
+  '--experimental-default-type=module','--check','js/ritual/'+name+'.js'
+]);
+console.log('Perfect Cut: templates, corte, FLIP, reload, conteúdo, paleta e JS OK.');
