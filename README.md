@@ -20,6 +20,12 @@ PORT=8047 node scripts/serve.mjs
 
 Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
 
+### Refinamento: logo transparente e passagem ao hero
+
+A WebP oficial de `assets/images/v8/logo-640.webp` contém um fundo escuro incorporado. O loader usa essa mesma arte dentro de um SVG com `feColorMatrix`: os pixels escuros se tornam alfa zero, enquanto o lettering claro é renderizado em tinta carvão. O círculo por trás da marca passou a ser totalmente transparente; a imagem original em disco **não foi modificada** nem recriada por inteligência artificial. Fallback "SN" aparece se a marca não carregar.
+
+A revelação radial e o anel exterior agora partem da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
+
 ## Loader v2 · referência fornecida (26/10/2026)
 
 A entrada da homepage agora reproduz a **sequência visual do protótipo `Sr. Navalha · Loader v2.html` enviado pelo proprietário**: postes listrados nas laterais, círculo de cobre desenhado, ponteiros/ticks do emblema, marca oficial com fallback SN, letras de SR. NAVALHA em cascata, brilho sobre a marca, régua de progresso com tesoura e porcentagem, e por fim uma **abertura radial (iris)** acompanhada por um anel expansivo, revelando o **hero real** com entrada leve de seus elementos. O HTML fictício e a fotografia-placeholder do protótipo NÃO substituem a homepage.
