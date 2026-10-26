@@ -26,6 +26,12 @@ A WebP oficial de `assets/images/v8/logo-640.webp` contém um fundo escuro incor
 
 [Histórico da versão V2, substituída pelo The Perfect Cut] A revelação radial e o anel exterior partiam da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
 
+### Correções após análise do vídeo (V3.1)
+
+A gravação mobile de 26/10/2026 revelou aberturas em retângulos descontínuos, deslocamentos bruscos nas fotografias e um handoff de marca impreciso. A transição foi reestruturada com dois painéis de altura completa que se afastam depois do corte da lâmina. Uma única costura com `scaleY` compartilha a mesma curva de deslocamento do eixo da tesoura. O zoom global do hero foi removido, evitando mudanças aparentes no tamanho das fotos e da tipografia. A transferência da logo passa a usar escala uniforme, centro compensado pelo tamanho final e dissolução cruzada, sem duas logos opacas juntas.
+
+A barra e a tesoura da contagem agora começam junto com o contador: a classe `snv2-run` só é ativada pelo módulo JavaScript, e a porcentagem usa a mesma curva `cubic-bezier(.65,0,.35,1)` do CSS. Resize causado apenas pela altura da barra do navegador móvel não encerra a abertura; rotação real continua encerrando com segurança. Continua sendo necessário validar a execução completa no navegador mobile e desktop para atestar a sensação visual e o FPS.
+
 ## The Perfect Cut · 26/10/2026
 
 A abertura segue o protótipo **`Sr. Navalha · The Perfect Cut.html` enviado pelo proprietário**, integrado ao site verdadeiro. A sequência inicial V2 (anel, logo recortada com transparência, marca letra a letra, postes laterais e progresso com tesoura) permanece igual. Ao atingir 100%, a tesoura deixa a régua, antecipa o corte, encontra o eixo central, gira para apontar para baixo e corta verticalmente. A superfície opaca é dividida em faixas esquerda/direita que se afastam logo depois que a lâmina passa, revelando o hero por trás.
