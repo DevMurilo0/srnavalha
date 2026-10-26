@@ -1,0 +1,617 @@
+{
+  "date": "2026-10-26T04:18:03.804Z",
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "name": "320px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "320px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "360px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "360px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "375px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "375px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "390px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "390px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "412px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "412px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "430px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "430px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "768px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "768px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1024px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1024px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1366px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1366px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1440px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1440px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "390px: FLIP real e restauração",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "time": 1077.7999999970198,
+            "x": 124.80000305175781,
+            "y": 324,
+            "width": 140.40000915527344,
+            "images": 5
+          },
+          {
+            "time": 1119.2000000029802,
+            "x": 124.80000305175781,
+            "y": 324,
+            "width": 140.40000915527344,
+            "images": 5
+          },
+          {
+            "time": 1134.2000000029802,
+            "x": 124.80000305175781,
+            "y": 324,
+            "width": 140.40000915527344,
+            "images": 5
+          },
+          {
+            "time": 1155.5999999940395,
+            "x": 124.80000305175781,
+            "y": 324,
+            "width": 140.40000915527344,
+            "images": 5
+          },
+          {
+            "time": 1165.0999999940395,
+            "x": 124.80245208740234,
+            "y": 324.00091552734375,
+            "width": 140.40176391601562,
+            "images": 5
+          },
+          {
+            "time": 1177.5,
+            "x": 124.83074188232422,
+            "y": 324.0113220214844,
+            "width": 140.42230224609375,
+            "images": 5
+          },
+          {
+            "time": 1207.9000000059605,
+            "x": 124.89225769042969,
+            "y": 324.033935546875,
+            "width": 140.46690368652344,
+            "images": 5
+          },
+          {
+            "time": 1211.7000000029802,
+            "x": 124.99054718017578,
+            "y": 324.0700988769531,
+            "width": 140.53817749023438,
+            "images": 5
+          },
+          {
+            "time": 1227.5,
+            "x": 125.1275863647461,
+            "y": 324.1204833984375,
+            "width": 140.6375732421875,
+            "images": 5
+          },
+          {
+            "time": 1244.2999999970198,
+            "x": 125.30867004394531,
+            "y": 324.1871032714844,
+            "width": 140.76890563964844,
+            "images": 5
+          },
+          {
+            "time": 1260.9000000059605,
+            "x": 125.53726196289062,
+            "y": 324.27117919921875,
+            "width": 140.93466186523438,
+            "images": 5
+          },
+          {
+            "time": 1277.2000000029802,
+            "x": 125.81820678710938,
+            "y": 324.37451171875,
+            "width": 141.13839721679688,
+            "images": 5
+          },
+          {
+            "time": 1294,
+            "x": 126.1549072265625,
+            "y": 324.49835205078125,
+            "width": 141.382568359375,
+            "images": 5
+          },
+          {
+            "time": 1310.5999999940395,
+            "x": 126.55534362792969,
+            "y": 324.6456298828125,
+            "width": 141.67295837402344,
+            "images": 5
+          },
+          {
+            "time": 1327,
+            "x": 127.03022766113281,
+            "y": 324.8203125,
+            "width": 142.01731872558594,
+            "images": 5
+          },
+          {
+            "time": 1343.9000000059605,
+            "x": 127.58658599853516,
+            "y": 325.02496337890625,
+            "width": 142.42083740234375,
+            "images": 5
+          },
+          {
+            "time": 1360.7999999970198,
+            "x": 128.23556518554688,
+            "y": 325.263671875,
+            "width": 142.89144897460938,
+            "images": 5
+          },
+          {
+            "time": 1377.2999999970198,
+            "x": 128.98580932617188,
+            "y": 325.53961181640625,
+            "width": 143.43551635742188,
+            "images": 5
+          },
+          {
+            "time": 1394.2999999970198,
+            "x": 129.8628692626953,
+            "y": 325.8622131347656,
+            "width": 144.07154846191406,
+            "images": 5
+          },
+          {
+            "time": 1411.5,
+            "x": 130.8831787109375,
+            "y": 326.23748779296875,
+            "width": 144.81146240234375,
+            "images": 5
+          }
+        ],
+        "photo": true,
+        "mark": true,
+        "flights": 0
+      }
+    },
+    {
+      "name": "1440px: FLIP real e restauração",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "time": 781.8999999910593,
+            "x": 628,
+            "y": 324,
+            "width": 184,
+            "images": 5
+          },
+          {
+            "time": 821.7999999970198,
+            "x": 628,
+            "y": 324,
+            "width": 184,
+            "images": 5
+          },
+          {
+            "time": 863.3999999910593,
+            "x": 628,
+            "y": 324,
+            "width": 184,
+            "images": 5
+          },
+          {
+            "time": 873,
+            "x": 628,
+            "y": 324,
+            "width": 184,
+            "images": 5
+          },
+          {
+            "time": 879.5999999940395,
+            "x": 627.994873046875,
+            "y": 324.0014953613281,
+            "width": 184.0108642578125,
+            "images": 5
+          },
+          {
+            "time": 894.5999999940395,
+            "x": 627.93505859375,
+            "y": 324.01885986328125,
+            "width": 184.1376953125,
+            "images": 5
+          },
+          {
+            "time": 924.7999999970198,
+            "x": 627.8048095703125,
+            "y": 324.0567321777344,
+            "width": 184.41387939453125,
+            "images": 5
+          },
+          {
+            "time": 942.2000000029802,
+            "x": 627.3040771484375,
+            "y": 324.2022705078125,
+            "width": 185.4754638671875,
+            "images": 5
+          },
+          {
+            "time": 956.2999999970198,
+            "x": 626.9223022460938,
+            "y": 324.313232421875,
+            "width": 186.284912109375,
+            "images": 5
+          },
+          {
+            "time": 978.3999999910593,
+            "x": 626.4376831054688,
+            "y": 324.4541015625,
+            "width": 187.31231689453125,
+            "images": 5
+          },
+          {
+            "time": 989.5999999940395,
+            "x": 625.8421020507812,
+            "y": 324.627197265625,
+            "width": 188.57513427734375,
+            "images": 5
+          },
+          {
+            "time": 1006,
+            "x": 625.1282348632812,
+            "y": 324.8346862792969,
+            "width": 190.08856201171875,
+            "images": 5
+          },
+          {
+            "time": 1022.7000000029802,
+            "x": 624.273681640625,
+            "y": 325.08306884765625,
+            "width": 191.900390625,
+            "images": 5
+          },
+          {
+            "time": 1039.5999999940395,
+            "x": 623.265869140625,
+            "y": 325.3759765625,
+            "width": 194.037109375,
+            "images": 5
+          },
+          {
+            "time": 1056.5999999940395,
+            "x": 622.0927734375,
+            "y": 325.7169494628906,
+            "width": 196.5242919921875,
+            "images": 5
+          },
+          {
+            "time": 1073.2000000029802,
+            "x": 620.7167358398438,
+            "y": 326.11688232421875,
+            "width": 199.44171142578125,
+            "images": 5
+          },
+          {
+            "time": 1089.5999999940395,
+            "x": 619.11572265625,
+            "y": 326.58221435546875,
+            "width": 202.836181640625,
+            "images": 5
+          },
+          {
+            "time": 1106.0999999940395,
+            "x": 617.266357421875,
+            "y": 327.1197509765625,
+            "width": 206.75701904296875,
+            "images": 5
+          },
+          {
+            "time": 1124.3999999910593,
+            "x": 615.10302734375,
+            "y": 327.7485046386719,
+            "width": 211.34368896484375,
+            "images": 5
+          },
+          {
+            "time": 1139.3999999910593,
+            "x": 612.5975341796875,
+            "y": 328.47674560546875,
+            "width": 216.65582275390625,
+            "images": 5
+          }
+        ],
+        "photo": true,
+        "mark": true,
+        "flights": 0
+      }
+    },
+    {
+      "name": "Abertura interrompida: click",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: keyboard",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: wheel",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: touch",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: resize",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: hidden",
+      "pass": true
+    },
+    {
+      "name": "F5 na sessão sem repetir abertura",
+      "pass": true
+    },
+    {
+      "name": "Hard refresh preserva conteúdo",
+      "pass": true
+    },
+    {
+      "name": "Link direto #servicos",
+      "pass": true
+    },
+    {
+      "name": "Link direto #equipe",
+      "pass": true
+    },
+    {
+      "name": "Teclado: foco visível",
+      "pass": true
+    },
+    {
+      "name": "Menu móvel abre",
+      "pass": true
+    },
+    {
+      "name": "Menu: Escape devolve foco",
+      "pass": true
+    },
+    {
+      "name": "Espelho troca serviço",
+      "pass": true
+    },
+    {
+      "name": "Filtro de catálogo",
+      "pass": true
+    },
+    {
+      "name": "Equipe: teclado seleciona e atualiza",
+      "pass": true
+    },
+    {
+      "name": "Álbum muda para parede",
+      "pass": true
+    },
+    {
+      "name": "Lightbox abre",
+      "pass": true
+    },
+    {
+      "name": "Lightbox fecha e devolve foco",
+      "pass": true
+    },
+    {
+      "name": "Álbum seleciona fotografia",
+      "pass": true
+    },
+    {
+      "name": "Produto interativo",
+      "pass": true
+    },
+    {
+      "name": "Filtro produtos",
+      "pass": true
+    },
+    {
+      "name": "Pausa depoimentos",
+      "pass": true
+    },
+    {
+      "name": "Mapa e rota preservados",
+      "pass": true
+    },
+    {
+      "name": "Navegação agendamento local",
+      "pass": true
+    },
+    {
+      "name": "Histórico restaura hero",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: sem abertura",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: controles funcionam",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: sem animações ativas",
+      "pass": true
+    },
+    {
+      "name": "Axe WCAG A/AA",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Sem JS: conteúdo e agendamento",
+      "pass": true
+    },
+    {
+      "name": "Falha: **/js/ritual/app.js",
+      "pass": true
+    },
+    {
+      "name": "Falha: **/assets/images/hero-redesign/interior-*.webp",
+      "pass": true
+    },
+    {
+      "name": "Console sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}
