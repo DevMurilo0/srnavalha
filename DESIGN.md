@@ -2,14 +2,14 @@
 name: Sr. Navalha — A arte do ritual
 description: Fotografia documental, gravura e enquadramentos em marfim, carvão quente e cobre
 colors:
-  ivory: "#f3eee5"
-  ink: "#202a2a"
-  tobacco: "#283131"
-  wood: "#795343"
-  copper: "#ba9a75"
-  stone: "#e3ddd2"
-  muted: "#625b53"
-  light-muted: "#c8c8ba"
+  ivory: "#f1eae0"
+  ink: "#171615"
+  tobacco: "#302620"
+  wood: "#80583c"
+  copper: "#bd946e"
+  stone: "#dfd6ca"
+  muted: "#65574d"
+  light-muted: "#c7b9ab"
 typography:
   display:
     fontFamily: "Sora, Manrope, Arial, sans-serif"
@@ -127,12 +127,12 @@ A hierarquia combina títulos geométricos de espaçamento compacto com textos f
 ### Hierarchy
 
 - **Display:** título central do hero na escala do frontmatter. Até 1000px usa `clamp(38px,5.6vw,61px)`; até 700px, `clamp(35px,9.65vw,55px)`, entrelinha 1.12; até 350px, 34px.
-- **Headline:** títulos gerais na escala do frontmatter. A casa usa `clamp(40px,5.1vw,72px)`; o convite do rodapé usa `clamp(42px,4.6vw,66px)`, peso 600 e entrelinha 1.03. As composições têm ajustes próprios no celular.
+- **Headline:** títulos gerais na escala do frontmatter. A casa usa `clamp(50px,6vw,86px)`; o convite do rodapé usa `clamp(48px,5.8vw,92px)`, peso 600 e entrelinha 1.03. As composições têm ajustes próprios no celular.
 - **Title:** títulos de catálogo e FAQ na escala do frontmatter; serviços e produtos têm escalas específicas conforme a extensão dos nomes.
 - **Body:** parágrafos na escala do frontmatter. Descrições e textos auxiliares usam variações de 13–18px conforme função.
 - **Label:** navegação, legendas e fontes usam a escala do frontmatter. Preços e durações usam algarismos tabulares quando declarado.
 
-Títulos preservam seu HTML sem divisão em palavras. Um observador compartilhado limita entradas concorrentes a três no celular e seis no desktop, sem ocultação em fila.
+Títulos animados preservam nome acessível; as palavras visuais ficam ocultas às tecnologias assistivas. As variantes de entrada alternam recorte, deslocamento lateral e perspectiva conforme o capítulo.
 
 ## Layout
 
@@ -140,7 +140,7 @@ O contêiner comum tem largura máxima de 1400px e desconta duas calhas; cabeça
 
 O hero tem centro tipográfico e três fotografias desiguais: fachada, ambiente e detalhe. No telefone, fachada e salão precedem o convite com detalhe lateral. Espelho Vivo combina seleção, fotografia e informação. O Painel de Profissionais usa nomes, retrato e convite em três colunas; abaixo de 1100px o convite ocupa outra linha. Produtos usam imagem e informação, seguidas de catálogo em linhas; a lista passa a uma coluna até 800px.
 
-O Álbum de Estilos alterna uma superfície de folhas sobrepostas com a parede editorial de 12 colunas (seis no celular). Mudanças de composição usam FLIP; o estado sem JavaScript preserva a parede com links nativos. Fotografias pequenas mantêm limites particulares de tamanho. A casa mantém fluxo natural. A fotografia dissolve por CSS view timeline em desktops compatíveis e por entrada pontual no Firefox; no celular, permanece estável.
+O Álbum de Estilos alterna uma superfície de folhas sobrepostas com a parede editorial de 12 colunas (seis no celular). Mudanças de composição usam FLIP; o estado sem JavaScript preserva a parede com links nativos. Fotografias pequenas mantêm limites particulares de tamanho. A casa tem cena sticky apenas no desktop com movimento permitido; o fluxo móvel permanece natural.
 
 A navegação móvel aparece até 1000px. O cabeçalho usa 106px no desktop e 84px até 700px. Outros pontos de adaptação observados são 1600, 1200, 1100, 900, 800, 700, 600, 500, 375 e 350px, conforme o componente.
 
@@ -150,11 +150,11 @@ A profundidade vem de planos cromáticos, recortes, sobreposições e filetes. F
 
 ### Shadow Vocabulary
 
-- **Menu móvel** (`0 15px 40px #202a2a26`): separa o painel da página.
-- **Folha fotográfica** (`0 12px 25px -18px #28313166`): distingue as folhas sobrepostas.
-- **Fotografia em hover** (`0 24px 50px -33px #202a2ab0`): resposta localizada no hero.
+- **Menu móvel** (`0 15px 40px #17161526`): separa o painel da página.
+- **Folha fotográfica** (`0 12px 25px -18px #30262066`): distingue as folhas sobrepostas.
+- **Fotografia em hover** (`0 24px 50px -33px #171615b0`): resposta localizada no hero.
 
-Movimento usa easing de entrada `cubic-bezier(.22,1,.36,1)` e espacial `cubic-bezier(.76,0,.24,1)`. O núcleo WAAPI registra animações e cancela efeitos de componentes ao interromper estados. Trocas fotográficas aguardam decodificação; a imagem anterior permanece sob a dissolução e o último pedido vence. Não existe agendador JavaScript ligado à rolagem. Progresso usa CSS scroll timeline quando disponível; o fallback mantém a composição estática. O preview da equipe tem somente um RAF finito enquanto o ponteiro se move.
+Movimento usa easing de entrada `cubic-bezier(.22,1,.36,1)` e espacial `cubic-bezier(.76,0,.24,1)`. O núcleo WAAPI registra animações e cancela efeitos de componentes ao interromper estados. Trocas fotográficas aguardam decodificação; a imagem anterior permanece sob a máscara e o último pedido vence. Um agendador de quadro coordena scroll e ponteiro, acionado por eventos.
 
 **The Natural State Rule.** O CSS natural mantém conteúdo visível. Cancelamento, movimento reduzido e falhas de dependência preservam leitura e destinos reais; a apresentação não depende de uma classe de entrada oculta.
 
@@ -170,9 +170,9 @@ Gravuras não interceptam ponteiro nem escondem conteúdo essencial. Traços man
 
 ### Buttons
 
-Ação retangular, texto Manrope (14px, peso 600), seta SVG e distribuição entre extremidades. O botão comum tem altura mínima de 56px; até 700px, 54px. Ação principal usa carvão/marfim e resposta madeira. Fundo direcional e deslocamento curto complementam o hover em ponteiro fino; foco recebe resposta equivalente. O CTA especial do rodapé usa superfície clara, altura mínima de 80px no desktop e seta em área própria.
+Ação retangular, texto Manrope (14px, peso 600), seta SVG e distribuição entre extremidades. O botão comum tem altura mínima de 56px; até 700px, 54px. Ação principal usa carvão/marfim e resposta madeira. Fundo direcional e magnetismo moderado complementam o hover em ponteiro fino; foco recebe resposta equivalente. O CTA especial do rodapé usa superfície clara, altura mínima de 80px no desktop e seta em área própria.
 
-Foco global usa contorno de madeira (2px), afastado 6px; contextos escuros usam cobre. Pressão tem escala curta. Movimento reduzido retira o deslocamento. O agendamento aponta para agendar.html, demonstração local de horários.
+Foco global usa contorno de madeira (2px), afastado 6px; contextos escuros usam cobre. Pressão tem escala curta. Movimento reduzido retira o deslocamento. O agendamento permanece um link externo oficial.
 
 ### Chips
 
@@ -184,7 +184,7 @@ Depoimentos são superfícies tabaco com citação Sora e fonte individual. O m�
 
 ### Inputs / Fields
 
-Categoria de produtos usa `select` nativo transparente, borda inferior, rótulo persistente e largura máxima de 220px. agendar.html mantém o formulário frontend local e o contrato de localStorage; não há backend nem checkout.
+Categoria de produtos usa `select` nativo transparente, borda inferior, rótulo persistente e largura máxima de 220px. Não há formulário local de reserva nem checkout.
 
 ### Navigation
 
@@ -200,7 +200,7 @@ Folhas sobrepostas e parede são dois estados do mesmo conjunto de fotografias. 
 
 ### Abertura e encerramento
 
-O Reflexo do Ritual reposiciona a própria fotografia do salão e a marca oficial desde um quadro sobre fundo mineral até seus espaços no hero. Abertura é breve, sem porcentagem falsa e com prazo curto para decodificar a imagem essencial; executa uma vez por sessão, possui timeout e aborta com interação, preferência reduzida ou aba oculta. Âncoras profundas entram diretamente no destino. O rodapé combina fotografia, chamada e assinatura estática; a faixa ambiente pausa fora da viewport. Movimentos ambientais pausam fora de vista.
+Uma matriz escura gravada abre uma janela sobre a fotografia do salão e se expande para revelar o hero. Abertura é breve, sem porcentagem falsa nem espera de recurso; executa uma vez por sessão, possui timeout e aborta com interação, preferência reduzida ou aba oculta. Âncoras profundas entram diretamente no destino. O rodapé combina fotografia, chamada e grande assinatura tipográfica com resposta ao progresso da rolagem. Movimentos ambientais pausam fora de vista.
 
 ### Localização
 
@@ -228,14 +228,13 @@ Mapa externo real, endereço e rota em texto, com gravura de placa fora do ifram
 Inscrições ornamentais pequenas e eventual linguagem auxiliar redundante não constituem uma nova escala normativa. Este registro não canoniza defeitos de legibilidade ou de revisão e não atribui à V17 os resultados de testes da versão anterior.
 
 
-## Reconstrução · O Reflexo do Ritual (26/10/2026)
+## Adendo V23 · Movimento “O Primeiro Traço” (24/10/2026)
 
-A paleta mineral parte de #202a2a, marfim #f3eee5 e bronze #ba9a75. Terracota #795343 mantém contraste nos títulos claros. Fotografias, marca e fontes locais são preservadas.
+**World preserved:** carvão, cobre e marfim; Sora/Manrope e fotografias reais. **Motion language changed:** uma incisura vertical de cobre divide duas folhas opacas como uma navalha; em seguida, textos e fotografias reais surgem em curtos deslocamentos e opacidade. A direção é editorial e material, não uma tela genérica de loading.
 
-A abertura mede fotografia e logo uma vez, move os nós reais para planos temporários e anima transform/opacity. Conclusão ou interrupção recoloca os nós nos slots originais. Imagem e fontes têm prazo de 450ms; falha libera o hero. O deslocamento dura 940ms; o watchdog independente no head libera tudo em 1800ms. Primeira visita por sessão; ?intro=1 permite revisão. Âncoras profundas, histórico e movimento reduzido entram diretamente. Nenhum gesto é cancelado.
+Oito passagens próprias (threshold, blade, film, stitch, shelf, stars, route, signature) articulam os capítulos sem esconder conteúdo funcional. Elas repetem a precisão do filete de cobre mas variam alinhamento, composição, ritmo e emblemas. Os detalhes de marca pertencem ao espaço existente da barbearia; nenhuma foto ou depoimento fictício foi criado. Animações dependem de `transform`/`opacity` e respeito a `prefers-reduced-motion`. O ritmo deixa de depender de rolagem artificial ou máscaras grandes.
 
-As oito costuras conservam suas frases, com superfícies contíguas e três alinhamentos: entrada, saída e centro. Quatro filetes pequenos se constroem uma vez; textos estáticos. Saem placas inclinadas, carimbos, números duplicados e ocultação global prévia.
 
-Movimento ambiente pausa sem reiniciar a fase. Trocas do espelho/equipe usam dissolução e deslocamento discreto. O álbum agrupa leituras antes de criar animações e responde diretamente ao teclado. No celular o filme decorativo mantém a fotografia real, sem requisição de vídeo competindo com scroll.
+## Motion V24 — Negativo 349 (26/10/2026)
 
-[Medições, capturas, exceções do inspector e limites de validação](docs/reflexo/RELATORIO.md). Resultados de versões anteriores são históricos.
+A paleta global histórica (marfim, carvão quente, tabaco, madeira e cobre) e as superfícies originais foram restauradas. A única identidade cinematográfica nova está confinada ao prólogo `css/ritual/negative-349-v24.css`: fotografia real do salão, selo da marca, linhas irradiantes e aproximação ao hero. Todo recarregamento normal dispara o efeito; movimento reduzido, âncoras e histórico têm saída imediata. A otimização de scroll e dos componentes continua preservada. Os oito capítulos editoriais V23 voltaram com seus ornamentos e composição.
