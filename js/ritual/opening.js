@@ -234,7 +234,7 @@ export function openRitual() {
         const image=copy.querySelector('image');
         if (filter) filter.id='snv2-logo-matte-flight';
         if (image) image.setAttribute('filter','url(#snv2-logo-matte-flight)');
-        copy.removeAttribute('aria-hidden');
+        // A marca de voo é somente decorativa; o hero possui o rótulo acessível.
         flight.append(copy);
         stage.append(flight);
         temporary.push(flight);
