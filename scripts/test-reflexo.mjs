@@ -34,9 +34,21 @@ try{
   await intro.waitForSelector('.snv2-badge',{state:'attached'});
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
   await intro.waitForSelector('.snv2-cut-flight',{state:'attached',timeout:6500});
-  const cut=await intro.evaluate(()=>({strips:document.querySelectorAll('.snv2-panel-slice').length,tip:!!document.querySelector('.snv2-cut-flight'),seam:!!document.querySelector('.snv2-seam'),logo:!!document.querySelector('.snv2-cutout-logo')}));
-  check(`${width}px: tesoura central e painéis responsivos`,cut.strips===2&&cut.tip&&cut.seam&&cut.logo,cut);
+  // Snapshot halfway through the actual cut, not just when the SVG appears.
+  await intro.waitForTimeout(width<=700?1150:1260);
+  const cut=await intro.evaluate(()=>{
+    const seam=document.querySelector('.snv2-seam');
+    const panels=[...document.querySelectorAll('.snv2-panel-slice')];
+    const scale=seam?new DOMMatrix(getComputedStyle(seam).transform).d:0;
+    return {strips:panels.length,tip:!!document.querySelector('.snv2-cut-flight'),
+      seam:!!seam,logo:!!document.querySelector('.snv2-cutout-logo'),scale};
+  });
+  check(`${width}px: corte contínuo (sem degraus)`,
+    cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
   await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
+  // Second proof: panel opening shows a smooth vertical seam.
+  await intro.waitForTimeout(720);
+  await intro.screenshot({path:`${dir}/perfect-cut-opening-${width}.png`});
   await settle(intro);await intro.screenshot({path:`${dir}/opening-end-${width}.png`});
   const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.snv2-badge,.snv2-cut-flight,.snv2-logo-flight').length,logoVisible:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility!=='hidden'}));
   check(`${width}px: The Perfect Cut: tesoura, divisões e hero real`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights&&samples.logoVisible,samples);
