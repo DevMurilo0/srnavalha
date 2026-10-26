@@ -52,6 +52,7 @@ assert.ok(code.includes("duration:CUT,delay:tCut,easing:'cubic-bezier(.42,0,.58,
 assert.ok(!code.includes('stripHeight')&&!code.includes('pendingStrips'),'sem degraus e retângulos por linha');
 assert.ok(code.includes("stage.classList.add('snv2-run')"),'contador e barra iniciam juntos');
 assert.ok(code.includes('sample(t,.65,.35)'),'curva da porcentagem é a mesma do CSS');
+assert.ok(code.includes('sourceBox.width*scale*.5')&&code.includes('sourceBox.height*scale*.5'),'marca escala sem distorcer nem ultrapassar o centro');
 assert.ok(!file('templates/v17/loader.html').includes('snv2-loader snv2-run'),'CSS não pode iniciar antes do JS');
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
