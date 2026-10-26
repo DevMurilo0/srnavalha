@@ -1,4 +1,4 @@
-# Sr. Navalha · Negativo 349
+# Sr. Navalha · Loader v2
 
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
@@ -20,9 +20,19 @@ PORT=8047 node scripts/serve.mjs
 
 Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
 
+## Loader v2 · referência fornecida (26/10/2026)
+
+A entrada da homepage agora reproduz a **sequência visual do protótipo `Sr. Navalha · Loader v2.html` enviado pelo proprietário**: postes listrados nas laterais, círculo de cobre desenhado, ponteiros/ticks do emblema, marca oficial com fallback SN, letras de SR. NAVALHA em cascata, brilho sobre a marca, régua de progresso com tesoura e porcentagem, e por fim uma **abertura radial (iris)** acompanhada por um anel expansivo, revelando o **hero real** com entrada leve de seus elementos. O HTML fictício e a fotografia-placeholder do protótipo NÃO substituem a homepage.
+
+A paleta original da homepage permanece inalterada. O loader usa cores marfim, grafite e bronze somente em `css/ritual/loader-v2.css`, importado por último. A foto da fachada, os títulos, as sessões e os oito capítulos restaurados continuam no mesmo lugar. Não há novas dependências, fontes externas obrigatórias, Supabase ou alteração do agendamento local.
+
+O contador 0–100% e a régua são **progresso visual da animação**, não medição de bytes baixados: a experiência não deve ser confundida com download efetivo. O conteúdo permanece acessível após timeout, mesmo se a logo ou o JavaScript falharem. O progresso e a tesoura usam transformações CSS em vez de escritas de `width` por frame. O recorte radial usa `@property` + `mask-image` apenas durante a saída, com fade/removal como fallback. O efeito respeita movimento reduzido, pode ser pulado, não bloqueia a rolagem e aparece novamente em cada F5/reload da página inicial (links diretos para seções são respeitados sem intro).
+
+Fontes canônicas: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/loader-v2.css`. O `index.html` foi remontado dos templates para preservar o build. Verificação: `node scripts/test-reflexo-static.mjs`; teste real com navegador quando disponível: `scripts/test-reflexo.mjs`.
+
 ## Identidade restaurada e novo prólogo · 26/10/2026
 
-A versão Reflexo modificou indevidamente a paleta global, eliminou texturas de fundo e substituiu os oito separadores originais por passagens genéricas. **Essas alterações visuais foram desfeitas seletivamente**, recuperando as cores originais de `css/ritual/tokens.css`, a atmosfera de `css/ritual/atmosphere-v18.css`, as superfícies de `css/ritual/scene-craft-v19.css` e os capítulos detalhados de `css/ritual/first-cut-v23.css`. Foram mantidas as otimizações de `js/ritual/motion.js`, `js/ritual/scene-cuts.js`, `js/ritual/core.js`, controles e demais ajustes de responsividade, scroll e interrupção das animações.
+[Histórico anterior, substituído pelo Loader v2] A versão Reflexo modificou indevidamente a paleta global, eliminou texturas de fundo e substituiu os oito separadores originais por passagens genéricas. **Essas alterações visuais foram desfeitas seletivamente**, recuperando as cores originais de `css/ritual/tokens.css`, a atmosfera de `css/ritual/atmosphere-v18.css`, as superfícies de `css/ritual/scene-craft-v19.css` e os capítulos detalhados de `css/ritual/first-cut-v23.css`. Foram mantidas as otimizações de `js/ritual/motion.js`, `js/ritual/scene-cuts.js`, `js/ritual/core.js`, controles e demais ajustes de responsividade, scroll e interrupção das animações.
 
 **Negativo 349** é a nova abertura. O logo e a fotografia oficial do salão começam em uma composição escura, recebem uma explosão geométrica de traços de cobre e se deslocam até suas posições correspondentes no hero. Somente a abertura usa direção visual própria; as cores e fundos da página NÃO são alterados. Os movimentos utilizam `transform` e `opacity`, sem mudar o DOM do hero ou bloquear a rolagem.
 
