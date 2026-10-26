@@ -238,3 +238,7 @@ Oito passagens próprias (threshold, blade, film, stitch, shelf, stars, route, s
 ## Motion V24 — Negativo 349 (26/10/2026)
 
 A paleta global histórica (marfim, carvão quente, tabaco, madeira e cobre) e as superfícies originais foram restauradas. A única identidade cinematográfica nova está confinada ao prólogo `css/ritual/negative-349-v24.css`: fotografia real do salão, selo da marca, linhas irradiantes e aproximação ao hero. Todo recarregamento normal dispara o efeito; movimento reduzido, âncoras e histórico têm saída imediata. A otimização de scroll e dos componentes continua preservada. Os oito capítulos editoriais V23 voltaram com seus ornamentos e composição.
+
+## Adendo Loader v2 · 26/10/2026
+
+A primeira impressão passa a seguir o protótipo HTML fornecido pelo cliente (anel desenhado, placa central com marca oficial, letras escalonadas, postes listrados, trilho de progresso com tesoura, abertura radial). Não substituir o hero por uma landing page fictícia e não transportar a paleta do protótipo para outros capítulos. O elemento `#sr-loader-stage` é autossuficiente, com CSS `snv2-` e sem dependências externas. A transição radial acontece por uma máscara de saída única, enquanto a entrada do hero usa apenas transformações e transparência; a estrutura e fotografia reais permanecem no DOM. Cada refresh da homepage repete o ritual, com saída imediata para reduced-motion/skip/deep links.
