@@ -1,4 +1,4 @@
-# Sr. Navalha · O Reflexo do Ritual
+# Sr. Navalha · Negativo 349
 
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
@@ -20,9 +20,21 @@ PORT=8047 node scripts/serve.mjs
 
 Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
 
+## Identidade restaurada e novo prólogo · 26/10/2026
+
+A versão Reflexo modificou indevidamente a paleta global, eliminou texturas de fundo e substituiu os oito separadores originais por passagens genéricas. **Essas alterações visuais foram desfeitas seletivamente**, recuperando as cores originais de `css/ritual/tokens.css`, a atmosfera de `css/ritual/atmosphere-v18.css`, as superfícies de `css/ritual/scene-craft-v19.css` e os capítulos detalhados de `css/ritual/first-cut-v23.css`. Foram mantidas as otimizações de `js/ritual/motion.js`, `js/ritual/scene-cuts.js`, `js/ritual/core.js`, controles e demais ajustes de responsividade, scroll e interrupção das animações.
+
+**Negativo 349** é a nova abertura. O logo e a fotografia oficial do salão começam em uma composição escura, recebem uma explosão geométrica de traços de cobre e se deslocam até suas posições correspondentes no hero. Somente a abertura usa direção visual própria; as cores e fundos da página NÃO são alterados. Os movimentos utilizam `transform` e `opacity`, sem mudar o DOM do hero ou bloquear a rolagem.
+
+A abertura aparece em **toda atualização (F5, Ctrl+F5, recarregamento completo)**. Não usa `sessionStorage` nem cookies para esconder o efeito. Âncoras profundas, preferência por movimento reduzido e histórico de retorno entram diretamente; interação interrompe imediatamente; watchdog libera a interface em caso de erro. O modo local de agendamento permanece sem backend.
+
+Arquivos: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/negative-349-v24.css` e HTML reconstruído de `templates/v17/`. Para teste estrutural, execute `node scripts/test-reflexo-static.mjs` (atualizado para os contratos V24).
+
+**Testes visuais recomendados antes do lançamento:** atualizar várias vezes no desktop e mobile, testar com cache frio, pular, rolar durante a intro, movimento reduzido, orientação landscape, largura de 320px, e verificar se fotografias/títulos entram sem flash ou salto. A validação de fluidez precisa ser confirmada em navegador real.
+
 ## Reconstrução de motion · 26/10/2026
 
-A fotografia e a marca reais se acomodam no hero; rolagem nativa sem cálculos de geometria por frame; entradas com concorrência limitada; oito passagens simplificadas. Sem dependências de runtime. Agendamento local e registros de teste preservados.
+Histórico da otimização Reflexo: rolagem nativa sem cálculos de geometria por frame, entradas com concorrência limitada e correções funcionais preservadas. A antiga abertura e as passagens simplificadas não são mais ativas.
 
 [Relatório, referências e comparação medida](docs/reflexo/RELATORIO.md). A fonte continua em `templates/v17/`; `node scripts/render-site.mjs` produz o mesmo `index.html`.
 
