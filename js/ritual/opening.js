@@ -130,6 +130,7 @@ export function openRitual() {
       // Criar painéis ANTES de remover o fundo sólido: não existe um
       // frame intermediário transparente que exponha o hero prematuramente.
       const fragment = document.createDocumentFragment();
+      const pendingStrips = [];
       const stripHeight = H / N;
       for (let i=0; i<N; i++) {
         for (const side of ['left','right']) {
@@ -140,13 +141,18 @@ export function openRitual() {
           fragment.append(pane);
           const direction=side==='left'?-1:1;
           const start=tCut+((i+.56)/N)*CUT;
-          run(pane,[
-            {transform:'translate3d(0,0,0)'},
-            {transform:'translate3d('+(direction*(W*.55+12))+'px,0,0)'}
-          ],{duration:OPEN,delay:start,easing:'cubic-bezier(.62,0,.2,1)'});
+          pendingStrips.push({pane,direction,start});
         }
       }
       panels.append(fragment);
+      // Elementos conectados antes do início da timeline; evita diferenças
+      // entre browsers no início de WAAPI sobre nós ainda desconectados.
+      for (const {pane,direction,start} of pendingStrips) {
+        run(pane,[
+          {transform:'translate3d(0,0,0)'},
+          {transform:'translate3d('+(direction*(W*.55+12))+'px,0,0)'}
+        ],{duration:OPEN,delay:start,easing:'cubic-bezier(.62,0,.2,1)'});
+      }
       stage.classList.add('snv2-cut-ready');
 
       // A ponta da tesoura é o pivot real (x=33, y=14 no SVG).
