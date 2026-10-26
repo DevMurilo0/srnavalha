@@ -178,7 +178,7 @@ export function openRitual() {
         {transform:position(cx+Math.min(W*.2,125),H*.46,46,1.4),
           offset:(ANT+FLY*.56)/total,easing:'cubic-bezier(.25,0,.15,1)'},
         {transform:position(cx,0,90,mobile?1.65:1.9),
-          offset:tCut/total,easing:'linear'},
+          offset:tCut/total,easing:'cubic-bezier(.42,0,.58,1)'},
         {transform:position(cx,H,90,mobile?1.65:1.9),
           offset:tEnd/total,easing:'cubic-bezier(.4,0,1,1)'},
         {transform:position(cx,H+100,90,1.7),offset:1}
@@ -195,7 +195,7 @@ export function openRitual() {
       run(seam,[
         {transform:'scaleY(0)',opacity:0},
         {transform:'scaleY(1)',opacity:1}
-      ],{duration:CUT,delay:tCut,easing:'linear'});
+      ],{duration:CUT,delay:tCut,easing:'cubic-bezier(.42,0,.58,1)'});
       run(seam,[
         {opacity:1},{opacity:0}
       ],{duration:260,delay:tOpen+220,easing:'ease-out'});
@@ -277,9 +277,27 @@ export function openRitual() {
       delay(finish,Math.max(tOpen+OPEN+480,tOpen+1510,tMark+logoTime+250));
     }
 
-    // Mantém o início do protótipo: 0–100%, anel, letras e tesoura na régua.
-    const DURATION=2250, epoch=performance.now()+180;
-    const eased=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+    // The CSS bar/scissors and JS percentage MUST share the same epoch
+    // and easing. Previously CSS began during parsing but JS much later.
+    // This created the progress drift visible in slower mobile browsers.
+    const DURATION=2250;
+    const epoch=performance.now()+180;
+    // Exact cubic-bezier(.65,0,.35,1), matching loader-v2.css.
+    // Newton solve x(t)=progress, then derive y(t); ~25 calls/sec.
+    const sample=(t,a,b)=>{
+      const u=1-t;
+      return 3*u*u*t*a+3*u*t*t*b+t*t*t;
+    };
+    const eased=p=>{
+      let t=p;
+      for(let i=0;i<5;i++){
+        const u=1-t;
+        const dx=3*u*u*.65+6*u*t*(.35-.65)+3*t*t*(1-.35);
+        t=Math.max(0,Math.min(1,t-(sample(t,.65,.35)-p)/Math.max(.001,dx)));
+      }
+      return sample(t,0,1);
+    };
+    stage.classList.add('snv2-run');
     function tick(now){
       if (completed || phase!=='loading') return;
       const p=Math.max(0,Math.min(1,(now-epoch)/DURATION));
