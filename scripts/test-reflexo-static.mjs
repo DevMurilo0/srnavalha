@@ -17,6 +17,10 @@ assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'8 pas
 assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'42 serviços preservados');
 assert.ok(html.includes('id="sr-loader-stage"') &&
           html.includes('id="sr-loader-shock"'),'círculo/iris integrados');
+assert.ok(html.includes('id="snv2-logo-matte"') &&
+          html.includes('class="snv2-cutout-logo"'),'logo oficial com matte para alfa');
+assert.ok(html.includes('class="snv2-logo-probe"'),'verificação de carregamento do logo');
+
 for (const item of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
                     'snv2-scissors','snv2-count','sr-loader-percent','sr-opening-skip']) {
   assert.ok(html.includes(item),item + ' no loader');
@@ -31,6 +35,11 @@ const design = file('css/ritual/loader-v2.css');
 assert.ok(design.includes('@property --snv2-r'),'iris radial registrada');
 assert.ok(design.includes('mask-image:radial-gradient'),'máscara radial');
 assert.ok(design.includes('prefers-reduced-motion:reduce'),'movimento reduzido');
+assert.ok(design.includes('background:transparent'),'sem placa opaca no selo');
+assert.ok(design.includes('.snv2-cutout-logo'),'logo vetorizada com alfa no loader');
+assert.ok(design.includes('snv2-mark-handoff') &&
+          design.includes('snv2-ring-handoff'),'selo e anel se dissolvem no hero');
+
 
 const colors=file('css/ritual/tokens.css');
 for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
@@ -45,6 +54,9 @@ const open=file('js/ritual/opening.js');
 assert.ok(open.includes('sr-iris-reveal') && open.includes('openingend'));
 assert.ok(open.includes('requestAnimationFrame') && open.includes('cancelAnimationFrame'));
 assert.ok(open.includes('window.__finishRitual'),'fallback de interrupção');
+assert.ok(open.includes('delay(finish, 1810)'),'hero conclui entrada antes do teardown');
+assert.ok(open.includes("}, 125)"),'revelação do hero sincronizada ao iris');
+
 assert.ok(!open.includes('sessionStorage'));
 assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"),
     'otimização de scroll preservada');
