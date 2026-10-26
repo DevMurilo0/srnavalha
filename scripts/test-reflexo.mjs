@@ -26,20 +26,20 @@ try{
  for(const width of [390,1440]){
   const intro=await fresh({viewport:{width,height:900}});
   await intro.addInitScript(()=>{window.introSamples=[];const record=()=>{
-   const flight=document.querySelector('.sr-burst__photo');
+   const flight=document.querySelector('.snv2-badge');
    if(flight&&window.introSamples.length<20){const r=flight.getBoundingClientRect();window.introSamples.push({time:performance.now(),x:r.x,y:r.y,width:r.width,images:document.querySelectorAll('img[src*="interior-"]').length})}
    if(document.documentElement.classList.contains('sr-loader-boot'))requestAnimationFrame(record)
   };document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(record),{once:true})});
   await intro.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});
-  await intro.waitForSelector('.sr-burst__photo',{state:'attached'});
+  await intro.waitForSelector('.snv2-badge',{state:'attached'});
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
   await settle(intro);await intro.screenshot({path:`${dir}/opening-end-${width}.png`});
-  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.sr-burst__photo').length}));
-  check(`${width}px: Negativo 349: fotografia animada e restauração`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights,samples);
+  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.snv2-badge').length}));
+  check(`${width}px: Loader v2: anel, tesoura, iris e hero real`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights,samples);
   await intro.context().close();
  }
  for(const input of ['click','keyboard','wheel','touch','resize','hidden']){
-  const p=await fresh({hasTouch:true,isMobile:true});await p.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await p.waitForSelector('.sr-burst__photo',{state:'attached'});
+  const p=await fresh({hasTouch:true,isMobile:true});await p.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await p.waitForSelector('.snv2-badge',{state:'attached'});
   if(input==='click')await p.locator('#sr-opening-skip').dispatchEvent('click');
   if(input==='keyboard')await p.keyboard.press('Tab');
   if(input==='wheel')await p.mouse.wheel(0,200);
