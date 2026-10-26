@@ -228,7 +228,7 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
 /* Transition to the REAL site hero, leaving its base styles untouched. */
 @media(prefers-reduced-motion:no-preference){
   html.sr-loader-boot .hero{
-    transition:opacity 1050ms var(--ease),transform 1450ms var(--ease)
+    transition:opacity 990ms var(--ease),transform 1080ms var(--ease)
   }
   html.sr-loader-boot:not(.sr-iris-reveal) .hero{
     opacity:.7;transform:translate3d(0,14px,0) scale(1.035)
