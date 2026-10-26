@@ -1,20 +1,36 @@
-<div id="sr-loader-stage" class="sr-burst" aria-label="Introdução Sr. Navalha">
-  <div class="sr-burst__ground" aria-hidden="true"></div>
-  <div class="sr-burst__blueprint" aria-hidden="true"></div>
-  <div class="sr-burst__oversize" aria-hidden="true">SR<span>·</span>349</div>
-  <div class="sr-burst__beam sr-burst__beam--top" aria-hidden="true"></div>
-  <div class="sr-burst__beam sr-burst__beam--right" aria-hidden="true"></div>
-  <div class="sr-burst__beam sr-burst__beam--bottom" aria-hidden="true"></div>
-  <div class="sr-burst__beam sr-burst__beam--left" aria-hidden="true"></div>
-  <div class="sr-burst__photo" aria-hidden="true">
-    <img src="assets/images/hero-redesign/interior-480.webp" width="480" height="707" decoding="async" alt="">
-    <span class="sr-burst__photo-label">A CASA · GRAVATÁ</span>
+<!-- Sr. Navalha · Loader v2 adaptado do protótipo fornecido pelo proprietário. -->
+<div id="sr-loader-stage" class="snv2-loader snv2-run" role="group" aria-label="Abertura Sr. Navalha">
+  <span class="snv2-rail snv2-rail--left" aria-hidden="true"></span>
+  <span class="snv2-rail snv2-rail--right" aria-hidden="true"></span>
+  <div class="snv2-center" aria-hidden="true">
+    <div class="snv2-badge">
+      <svg class="snv2-ring" viewBox="0 0 200 200" aria-hidden="true">
+        <circle class="snv2-ring__ticks" cx="100" cy="100" r="86"></circle>
+        <circle class="snv2-ring__draw" cx="100" cy="100" r="94"></circle>
+      </svg>
+      <div class="snv2-plate" id="sr-loader-plate">
+        <svg class="snv2-fallback" viewBox="0 0 100 100" aria-hidden="true">
+          <text x="50" y="52" text-anchor="middle" font-size="34" letter-spacing="3">SN</text>
+          <path d="M24 66h52l-6 8H30z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"></path>
+          <circle cx="62" cy="70" r="1.6"></circle>
+        </svg>
+        <img src="assets/images/v8/logo-640.webp" width="640" height="412" alt="" decoding="async" fetchpriority="high">
+        <span class="snv2-shine"></span>
+      </div>
+    </div>
+    <div class="snv2-name" aria-hidden="true"><span style="--snv-i:0">S</span><span style="--snv-i:1">R</span><span style="--snv-i:2">.</span><span class="snv2-space" style="--snv-i:3">&nbsp;</span><span style="--snv-i:4">N</span><span style="--snv-i:5">A</span><span style="--snv-i:6">V</span><span style="--snv-i:7">A</span><span style="--snv-i:8">L</span><span style="--snv-i:9">H</span><span style="--snv-i:10">A</span></div>
+    <div class="snv2-tag"><span>O reflexo do ritual</span></div>
   </div>
-  <div class="sr-burst__seal" aria-hidden="true">
-    <span>ESTILO • IDENTIDADE</span>
-    <img src="assets/images/v8/logo-640.webp" width="640" height="412" fetchpriority="high" alt="">
-    <small>SEU ESTILO. NOSSA ASSINATURA.</small>
+  <div class="snv2-track" aria-hidden="true">
+    <div class="snv2-rule">
+      <div class="snv2-fill"></div>
+      <svg class="snv2-scissors" viewBox="0 0 34 28">
+        <g class="snv2-blade-a"><path d="M12 14L33 14M12 14L6 9"></path><circle cx="4" cy="7.5" r="3"></circle></g>
+        <g class="snv2-blade-b"><path d="M12 14L33 14M12 14L6 19"></path><circle cx="4" cy="20.5" r="3"></circle></g>
+      </svg>
+    </div>
+    <div class="snv2-count"><span>Preparando</span><b id="sr-loader-percent">0%</b></div>
   </div>
-  <div class="sr-burst__signature" aria-hidden="true"><span>UM RITUAL ÚNICO</span><span>SR. NAVALHA / 349</span></div>
-  <button type="button" id="sr-opening-skip" class="sr-burst__skip">Pular abertura <span aria-hidden="true">↗</span></button>
+  <button id="sr-opening-skip" class="snv2-skip" type="button">Pular introdução <span aria-hidden="true">↗</span></button>
 </div>
+<div id="sr-loader-shock" class="snv2-shock" aria-hidden="true"></div>
