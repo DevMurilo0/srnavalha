@@ -237,11 +237,15 @@ export function openRitual() {
         flight.append(copy);
         stage.append(flight);
         temporary.push(flight);
-        const dx=targetBox.left-sourceBox.left;
-        const dy=targetBox.top-sourceBox.top;
-        const sx=targetBox.width/sourceBox.width;
-        const sy=targetBox.height/sourceBox.height;
-        const move='translate3d('+dx+'px,'+dy+'px,0) scale('+sx+','+sy+')';
+        // Never stretch the lettering: both SVG viewBoxes crop the same
+        // real artwork differently. Match width, preserve aspect ratio and
+        // align centres; the final transparent crossfade hides the crop swap.
+        const scale=targetBox.width/sourceBox.width;
+        const dx=(targetBox.left+targetBox.width*.5)-
+                 (sourceBox.left+sourceBox.width*.5);
+        const dy=(targetBox.top+targetBox.height*.5)-
+                 (sourceBox.top+sourceBox.height*.5);
+        const move='translate3d('+dx+'px,'+dy+'px,0) scale('+scale+')';
         run(flight,[
           {transform:'translate3d(0,0,0) scale(1)',opacity:0,offset:0},
           {transform:'translate3d(0,0,0) scale(1)',opacity:1,offset:.10},
