@@ -242,3 +242,7 @@ A paleta global histórica (marfim, carvão quente, tabaco, madeira e cobre) e a
 ## Adendo Loader v2 · 26/10/2026
 
 A primeira impressão passa a seguir o protótipo HTML fornecido pelo cliente (anel desenhado, placa central com marca oficial, letras escalonadas, postes listrados, trilho de progresso com tesoura, abertura radial). Não substituir o hero por uma landing page fictícia e não transportar a paleta do protótipo para outros capítulos. O elemento `#sr-loader-stage` é autossuficiente, com CSS `snv2-` e sem dependências externas. A transição radial acontece por uma máscara de saída única, enquanto a entrada do hero usa apenas transformações e transparência; a estrutura e fotografia reais permanecem no DOM. Cada refresh da homepage repete o ritual, com saída imediata para reduced-motion/skip/deep links.
+
+## The Perfect Cut · 26/10/2026
+
+O HTML de referência "Sr. Navalha · The Perfect Cut" define agora a coreografia final. Preservar a introdução V2 até 100%; tesoura parte do trilho, voa ao centro, gira a lâmina, corta de cima para baixo e causa o deslocamento progressivo de faixas à esquerda/direita. Marca oficial faz um handoff FLIP para o logo real do hero, sem reproduzir o hero fictício da referência. Cores, fotos, oito divisores e funcionalidades permanecem intactas. Motion com `transform`/`opacity`, N=7 faixas mobile e N=12 desktop, media reduced-motion, skip, cleanup e F5. CSS separado: `css/ritual/perfect-cut-v3.css` após `loader-v2.css`. O mesmo gesto produz toda a revelação: não reintroduzir uma máscara radial concorrente.
