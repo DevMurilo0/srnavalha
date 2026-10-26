@@ -26,6 +26,7 @@ export function openRitual() {
 
     function finish() {
       if (complete) return;
+      const focusInside = !!stage?.contains(document.activeElement);
       complete = true;
       signal.abort();
       cancelAnimationFrame(raf);
@@ -35,6 +36,7 @@ export function openRitual() {
       root.classList.remove('sr-loader-boot', 'sr-iris-reveal');
       stage?.remove();
       shock?.remove();
+      if (focusInside) $('.hero .button')?.focus({ preventScroll: true });
       if (window.__finishRitual === finish) delete window.__finishRitual;
       document.dispatchEvent(new CustomEvent('openingend'));
       resolve();
