@@ -1,4 +1,4 @@
-# Sr. Navalha · Loader v2
+# Sr. Navalha · The Perfect Cut
 
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
@@ -24,7 +24,17 @@ Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip`
 
 A WebP oficial de `assets/images/v8/logo-640.webp` contém um fundo escuro incorporado. O loader usa essa mesma arte dentro de um SVG com `feColorMatrix`: os pixels escuros se tornam alfa zero, enquanto o lettering claro é renderizado em tinta carvão. O círculo por trás da marca passou a ser totalmente transparente; a imagem original em disco **não foi modificada** nem recriada por inteligência artificial. Fallback "SN" aparece se a marca não carregar.
 
-A revelação radial e o anel exterior agora partem da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
+[Histórico da versão V2, substituída pelo The Perfect Cut] A revelação radial e o anel exterior partiam da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
+
+## The Perfect Cut · 26/10/2026
+
+A abertura segue o protótipo **`Sr. Navalha · The Perfect Cut.html` enviado pelo proprietário**, integrado ao site verdadeiro. A sequência inicial V2 (anel, logo recortada com transparência, marca letra a letra, postes laterais e progresso com tesoura) permanece igual. Ao atingir 100%, a tesoura deixa a régua, antecipa o corte, encontra o eixo central, gira para apontar para baixo e corta verticalmente. A superfície opaca é dividida em faixas esquerda/direita que se afastam logo depois que a lâmina passa, revelando o hero por trás.
+
+A logo oficial do loader é transferida para o `svg.hero-logo-transparent` com uma única medição FLIP e animações somente de `transform`/`opacity`; o SVG do hero é restaurado sem piscar. As faixas são 7 por lado no mobile e 12 por lado no desktop, e não provocam scroll artificial, mudança de layout global ou novas requisições de imagem. A passagem é coordenada em `js/ritual/opening.js`, com estilos isolados em `css/ritual/perfect-cut-v3.css`.
+
+A antiga íris radial deixou de ser a saída ativa; o CSS do loader V2 continua fornecendo os elementos da abertura inicial e o CSS Perfect Cut substitui somente o efeito final. O hero verdadeiro, a paleta quente, os oito capítulos editoriais, agendamento frontend local e as otimizações do scroll não foram redesenhados. O F5 repete a introdução; reduzido movimento, links profundos, interação, resize e falhas liberam o hero. A abertura conta com watchdog e limpeza de WAAPI, temporários, timers e foco.
+
+Regressão estrutural: `node scripts/test-reflexo-static.mjs`. Teste real opcional com Playwright instalado fora do projeto: `scripts/test-reflexo.mjs`. Os screenshots e traces da implementação anterior são históricos, não medições da versão atual.
 
 ## Loader v2 · referência fornecida (26/10/2026)
 
