@@ -1,129 +1,120 @@
-/* NEGATIVO 349 · Sr. Navalha.
-   A logo e uma fotografia irradiam linhas de cobre e encontram seus elementos no hero.
-   Sem DOM teleport, sem máscaras pesadas, sem scroll lock nem bloqueio por sessão. */
-import { $, $$, animate, canMove, cancelWithin } from './core.js';
+/* Sr. Navalha · Loader v2, adaptado do HTML enviado pelo proprietário.
+   Timeline CSS para marca/trilhos/tesoura e iris; o JS só sincroniza o número,
+   a transição com o hero e os mecanismos de interrupção/recuperação. */
+import { $, canMove, cancelWithin } from './core.js';
 
-const smooth = 'cubic-bezier(.22,1,.36,1)';
-const arc = 'cubic-bezier(.55,0,.17,1)';
+export function openRitual() {
+  return new Promise(resolve => {
+    const root = document.documentElement;
+    const stage = $('#sr-loader-stage');
+    const shock = $('#sr-loader-shock');
+    const signal = new AbortController();
+    const percent = $('#sr-loader-percent');
+    let raf = 0;
+    let complete = false;
+    let exiting = false;
+    let lastCounterUpdate = 0;
+    const timers = new Set();
 
-export async function openRitual() {
-  const root = document.documentElement;
-  const stage = $('#sr-loader-stage');
-  const events = new AbortController();
-  let completed = false;
-  let failsafe;
-  let revealTimer;
-  const finish = () => {
-    if (completed) return;
-    completed = true;
-    clearTimeout(failsafe);
-    clearTimeout(revealTimer);
-    events.abort();
-    if (stage) cancelWithin(stage);
-    root.classList.remove('sr-loader-boot', 'sr-burst-reveal');
-    stage?.remove();
-    if (window.__finishRitual === finish) delete window.__finishRitual;
-    document.dispatchEvent(new CustomEvent('openingend'));
-  };
+    function delay(fn, ms) {
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        fn();
+      }, ms);
+      timers.add(timer);
+    }
 
-  window.__finishRitual = finish;
-  if (!stage || !root.classList.contains('sr-loader-boot') || !canMove() ||
-      scrollY > 20 || (location.hash && location.hash !== '#inicio')) {
-    finish();
-    return;
-  }
+    function finish() {
+      if (complete) return;
+      complete = true;
+      signal.abort();
+      cancelAnimationFrame(raf);
+      for (const timer of timers) clearTimeout(timer);
+      timers.clear();
+      if (stage) cancelWithin(stage);
+      root.classList.remove('sr-loader-boot', 'sr-iris-reveal');
+      stage?.remove();
+      shock?.remove();
+      if (window.__finishRitual === finish) delete window.__finishRitual;
+      document.dispatchEvent(new CustomEvent('openingend'));
+      resolve();
+    }
+    window.__finishRitual = finish;
 
-  const photo = $('.sr-burst__photo', stage);
-  const seal = $('.sr-burst__seal', stage);
-  const destinationPhoto = $('.hero-room .photo-window');
-  const destinationSeal = $('.hero-wordmark');
-  const ground = $('.sr-burst__ground', stage);
-  if (!photo || !seal || !destinationPhoto || !destinationSeal || !ground) {
-    finish();
-    return;
-  }
-  failsafe = setTimeout(finish, 2300);
-  $('#sr-opening-skip', stage)?.addEventListener('click', finish, {
-    once: true, signal: events.signal
-  });
-  for (const type of ['wheel', 'touchstart', 'pointerdown', 'keydown', 'pagehide']) {
-    window.addEventListener(type, finish, {
-      once: true, passive: true, signal: events.signal
-    });
-  }
-  window.addEventListener('scroll', finish, {
-    once: true, passive: true, signal: events.signal
-  });
-  window.addEventListener('resize', finish, {
-    once: true, passive: true, signal: events.signal
-  });
-  document.addEventListener('motionchange', () => {
-    if (!canMove()) finish();
-  }, { signal: events.signal });
-
-  try {
-    // Capture geometry once before any animated writes.
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    if (completed) return;
-    const origins = [seal, photo].map(node => node.getBoundingClientRect());
-    const targets = [destinationSeal, destinationPhoto].map(node => node.getBoundingClientRect());
-    if ([...origins, ...targets].some(rect => !rect.width || !rect.height)) {
+    if (!stage || !shock || !root.classList.contains('sr-loader-boot') ||
+        !canMove() || scrollY > 20 ||
+        (location.hash && location.hash !== '#inicio')) {
       finish();
       return;
     }
-    const flight = (from, to) => ({
-      x: to.left + to.width / 2 - from.left - from.width / 2,
-      y: to.top + to.height / 2 - from.top - from.height / 2,
-      scale: Math.max(.22, Math.min(2.8, to.width / from.width))
-    });
-    const transfer = [
-      { node: seal, route: flight(origins[0], targets[0]), delay: 35, rise: -12 },
-      { node: photo, route: flight(origins[1], targets[1]), delay: 95, rise: 22 }
-    ];
-    const animations = [];
-    const run = (node, frames, options) => {
-      if (!node) return null;
-      const entry = animate(node, frames, {
-        fill: 'both', persist: true, easing: smooth, ...options
-      });
-      if (entry) animations.push(entry);
-      return entry;
-    };
 
-    for (const item of transfer) {
-      const at = (x, y, scale) =>
-        'translate(-50%,-50%) translate3d(' + x + 'px,' + y + 'px,0) scale(' + scale + ')';
-      const route = item.route;
-      run(item.node, [
-        { transform: at(0, item.rise, .90), opacity: 0, offset: 0 },
-        { transform: at(0, 0, 1), opacity: 1, offset: .29 },
-        { transform: at(0, 0, 1.025), opacity: 1, offset: .46 },
-        { transform: at(route.x, route.y, route.scale), opacity: 1, offset: .85 },
-        { transform: at(route.x, route.y, route.scale), opacity: 0, offset: 1 }
-      ], { duration: 1540, delay: item.delay, easing: arc });
+    // Primeira visita e TODO refresh iniciam a mesma animação. Nenhuma chave
+    // de sessão, armazenamento ou cookie decide se o loader será exibido.
+    const plate = $('#sr-loader-plate', stage);
+    const image = $('img', plate);
+    const showLogo = () => {
+      if (image?.naturalWidth > 0) plate?.classList.add('snv2-logo-ready');
+    };
+    if (image) {
+      if (image.complete) showLogo();
+      else image.addEventListener('load', showLogo, {
+        once: true, signal: signal.signal
+      });
+      // SVG do protótipo continua como fallback offline ou em falha de rede.
+      image.addEventListener('error', () => {
+        image.style.display = 'none';
+      }, { once: true, signal: signal.signal });
     }
-    $$('.sr-burst__beam', stage).forEach((beam, i) => {
-      const angle = [-90, 0, 90, 180][i];
-      const pos = scale => 'rotate(' + angle + 'deg) scaleX(' + scale + ')';
-      run(beam, [
-        { transform: pos(.03), opacity: 0, offset: 0 },
-        { transform: pos(.65), opacity: .95, offset: .35 },
-        { transform: pos(1.25), opacity: 0, offset: 1 }
-      ], { duration: 850, delay: 330 + i * 32, easing: smooth });
+
+    const abortOptions = { once: true, passive: true, signal: signal.signal };
+    for (const event of ['wheel', 'touchstart', 'pointerdown', 'keydown', 'pagehide']) {
+      window.addEventListener(event, finish, abortOptions);
+    }
+    window.addEventListener('scroll', finish, abortOptions);
+    window.addEventListener('resize', finish, abortOptions);
+    $('#sr-opening-skip', stage)?.addEventListener('click', finish, {
+      once: true, signal: signal.signal
     });
-    for (const selector of ['.sr-burst__oversize', '.sr-burst__blueprint', '.sr-burst__signature']) {
-      run($(selector, stage), [{ opacity: 1 }, { opacity: 0 }],
-        { duration: 520, delay: 650 });
+    document.addEventListener('motionchange', () => {
+      if (!canMove()) finish();
+    }, { signal: signal.signal });
+
+    function exit() {
+      if (complete || exiting) return;
+      exiting = true;
+      cancelAnimationFrame(raf);
+      if (percent) percent.textContent = '100%';
+      stage.classList.add('snv2-out');
+      shock.classList.add('snv2-go');
+
+      // O hero REAL aparece através da expansão radial, com seus próprios
+      // textos e fotografias. Seu DOM, conteúdo e estilos originais ficam intactos.
+      delay(() => {
+        if (!complete) root.classList.add('sr-iris-reveal');
+      }, 340);
+      // Também cobre navegadores sem animação tipada de @property: a remoção
+      // é determinística mesmo se a máscara for ignorada.
+      delay(finish, 1460);
     }
-    run(ground, [{ opacity: 1 }, { opacity: 0 }],
-      { duration: 690, delay: 660, easing: smooth });
-    revealTimer = setTimeout(() => {
-      if (!completed) root.classList.add('sr-burst-reveal');
-    }, 570);
-    await Promise.allSettled(animations.map(item => item.finished));
-  } catch (error) {
-    console.warn('Negativo 349: recuperação visual aplicada', error);
-  } finally {
-    finish();
-  }
+
+    const DURATION = 2250;
+    const start = performance.now() + 180;
+    const ease = x => x < .5
+      ? 2 * x * x
+      : 1 - Math.pow(-2 * x + 2, 2) / 2;
+
+    function tick(now) {
+      if (complete || exiting) return;
+      const fraction = Math.max(0, Math.min(1, (now - start) / DURATION));
+      if (now - lastCounterUpdate > 38 || fraction >= 1) {
+        // Apenas o texto, a ~25 atualizações/s. Barra e tesoura são
+        // animadas por CSS, sem medições/escritas de largura por frame.
+        if (percent) percent.textContent = Math.round(ease(fraction) * 100) + '%';
+        lastCounterUpdate = now;
+      }
+      if (fraction < 1) raf = requestAnimationFrame(tick);
+      else delay(exit, 160);
+    }
+    raf = requestAnimationFrame(tick);
+  });
 }
