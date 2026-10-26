@@ -1,7 +1,7 @@
 <!-- Sr. Navalha · Loader v2 adaptado do protótipo fornecido pelo proprietário. -->
-<div id="sr-loader-stage" class="snv2-loader snv2-run" role="group" aria-label="Abertura Sr. Navalha">
+<div id="sr-loader-stage" class="snv2-loader" role="group" aria-label="Abertura Sr. Navalha">
   <!-- The Perfect Cut: superfície contínua que será separada pela tesoura.
-       Os recortes são criados uma única vez, quando o corte começa. -->
+       As duas superfícies são criadas uma única vez, quando o corte começa. -->
   <div class="snv2-panels" id="snv2-panels" aria-hidden="true"></div>
   <span class="snv2-rail snv2-rail--left" aria-hidden="true"></span>
   <span class="snv2-rail snv2-rail--right" aria-hidden="true"></span>
@@ -32,7 +32,8 @@
       </div>
     </div>
     <div class="snv2-name" aria-hidden="true"><span style="--snv-i:0">S</span><span style="--snv-i:1">R</span><span style="--snv-i:2">.</span><span class="snv2-space" style="--snv-i:3">&nbsp;</span><span style="--snv-i:4">N</span><span style="--snv-i:5">A</span><span style="--snv-i:6">V</span><span style="--snv-i:7">A</span><span style="--snv-i:8">L</span><span style="--snv-i:9">H</span><span style="--snv-i:10">A</span></div>
-    <div class="snv2-tag"><span>O reflexo do ritual</span></div>
+    <div class="snv2-tag"><span>Seu estilo, nossa assinatura</span></div>
+    <div class="snv2-signature">SR. NAVALHA • CORTE • BARBA • ACABAMENTO</div>
   </div>
   <div class="snv2-track" aria-hidden="true">
     <div class="snv2-rule">
@@ -44,6 +45,11 @@
     </div>
     <div class="snv2-count"><span>Preparando</span><b id="sr-loader-percent">0%</b></div>
   </div>
-  <button id="sr-opening-skip" class="snv2-skip" type="button">Pular introdução <span aria-hidden="true">↗</span></button>
+  <div class="snv2-cut-flight" aria-hidden="true">
+    <svg class="snv2-scissors" viewBox="0 0 34 28">
+      <g class="snv2-blade-a"><path d="M12 14L33 14M12 14L6 9"></path><circle cx="4" cy="7.5" r="3"></circle></g>
+      <g class="snv2-blade-b"><path d="M12 14L33 14M12 14L6 19"></path><circle cx="4" cy="20.5" r="3"></circle></g>
+    </svg>
+  </div>
+  <div class="snv2-seam" aria-hidden="true"></div>
 </div>
-<div id="sr-loader-shock" class="snv2-shock" aria-hidden="true"></div>

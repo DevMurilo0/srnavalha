@@ -246,3 +246,13 @@ A primeira impressão passa a seguir o protótipo HTML fornecido pelo cliente (a
 ## The Perfect Cut · 26/10/2026
 
 O HTML de referência "Sr. Navalha · The Perfect Cut" define agora a coreografia final. Preservar a introdução V2 até 100%; tesoura parte do trilho, voa ao centro, gira a lâmina, corta de cima para baixo e causa o deslocamento progressivo de faixas à esquerda/direita. Marca oficial faz um handoff FLIP para o logo real do hero, sem reproduzir o hero fictício da referência. Cores, fotos, oito divisores e funcionalidades permanecem intactas. Motion com `transform`/`opacity`, N=7 faixas mobile e N=12 desktop, media reduced-motion, skip, cleanup e F5. CSS separado: `css/ritual/perfect-cut-v3.css` após `loader-v2.css`. O mesmo gesto produz toda a revelação: não reintroduzir uma máscara radial concorrente.
+
+### Refinamento de suavidade — V3.1 (26/10)
+
+Após análise quadro a quadro do vídeo do usuário, a abertura do Perfect Cut deve usar apenas **duas metades contínuas** (sem linhas de blocos/retângulos) e uma incisão fina que avança no mesmo tempo linear da ponta da tesoura. O corte completa a travessia vertical, então os dois painéis se afastam; logo em seguida o logo realiza FLIP até o hero e textos/fotos ganham opacidade com stagger discreto. Remover zoom global do hero. Preservar scroll nativo, skip, reduced motion, F5, fontes/fotos oficiais e o restante do design system.
+
+### The Perfect Cut V4 — duas tesouras independentes
+
+O encerramento V4 substitui a viagem da tesoura do progresso: ela permanece na barra e desaparece por opacidade. Outro SVG entra acima da viewport, já vertical. Duas superfícies contínuas se inclinam e se deslocam por `transform`; suas bordas encontram-se exatamente na altura da ponta, mantendo sobreposição abaixo do corte. Linha e tesoura usam a mesma origem temporal e curva. Não há faixas nem máscaras animadas. A logo em voo usa o recorte do hero e escala uniforme, com crossfade e cancelamento integral dos efeitos. O hero preserva sua geometria e aparece durante o corte.
+
+Preservar anel, marca, letras, trilhos e progresso iniciais. A frase do loader é “Seu estilo, nossa assinatura”; o letreiro superior discreto é “SR. NAVALHA • CORTE • BARBA • ACABAMENTO”. Não existe botão de pular no DOM: clique, teclado, toque, scroll, rotação, aba oculta e movimento reduzido liberam a abertura; os watchdogs continuam ativos. Esta especificação substitui o encerramento V3.1 acima, sem alterar a identidade nem os capítulos.

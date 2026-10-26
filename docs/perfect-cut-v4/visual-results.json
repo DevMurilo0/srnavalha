@@ -1,0 +1,177 @@
+[
+  {
+    "name": "320: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "320: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "320: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 344.525,
+      "end": 344.5252380371094,
+      "delta": 0.00023803710939773737,
+      "edges": [
+        0.000022657499997080777,
+        0.000022657499997080777
+      ],
+      "panels": [
+        "matrix(1, 0, 0.0834123, 1, -28.7376, 0)",
+        "matrix(1, 0, -0.0834123, 1, 28.7376, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 48,
+      "expectedTrackX": 48,
+      "overflow": 0,
+      "heroOpacity": "0.988447"
+    }
+  },
+  {
+    "name": "320: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "390: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "390: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "390: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 319.932,
+      "end": 319.9322814941406,
+      "delta": 0.0002814941406086291,
+      "edges": [
+        0.00006718800000271585,
+        0.00006718800000271585
+      ],
+      "panels": [
+        "matrix(1, 0, 0.101659, 1, -32.5239, 0)",
+        "matrix(1, 0, -0.101659, 1, 32.5239, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 58.5,
+      "expectedTrackX": 58.5,
+      "overflow": 0,
+      "heroOpacity": "0.981205"
+    }
+  },
+  {
+    "name": "390: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "430: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "430: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "430: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 418.417,
+      "end": 418.4168395996094,
+      "delta": 0.0001604003905981699,
+      "edges": [
+        0.00013055500000547227,
+        0.00013055500000547227
+      ],
+      "panels": [
+        "matrix(1, 0, 0.112085, 1, -46.8984, 0)",
+        "matrix(1, 0, -0.112085, 1, 46.8984, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 64.5,
+      "expectedTrackX": 64.5,
+      "overflow": 0,
+      "heroOpacity": "0.993273"
+    }
+  },
+  {
+    "name": "430: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "768: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "768: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "768: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 323.377,
+      "end": 323.37652587890625,
+      "delta": 0.0004741210937595497,
+      "edges": [
+        0.0002416300000049887,
+        0.0002416300000049887
+      ],
+      "panels": [
+        "matrix(1, 0, 0.20019, 1, -64.7366, 0)",
+        "matrix(1, 0, -0.20019, 1, 64.7366, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 224,
+      "expectedTrackX": 224,
+      "overflow": 0,
+      "heroOpacity": "0.962627"
+    }
+  },
+  {
+    "name": "768: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "1440: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "1440: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "1440: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 556.859,
+      "end": 556.8590087890625,
+      "delta": 0.000008789062462710717,
+      "edges": [
+        0.00019005499999025233,
+        0.00019005499999025233
+      ],
+      "panels": [
+        "matrix(1, 0, 0.375355, 1, -209.02, 0)",
+        "matrix(1, 0, -0.375355, 1, 209.02, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 560,
+      "expectedTrackX": 560,
+      "overflow": 0,
+      "heroOpacity": "0.995843"
+    }
+  },
+  {
+    "name": "1440: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

@@ -1,16 +1,8 @@
 /* SR. NAVALHA — Loader v2
    Adaptação da referência HTML enviada: emblema, tipografia, trilhos, tesoura,
-   progresso e iris radial. Nenhuma regra muda cores ou layouts das seções. */
-@property --snv2-r {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-
-#sr-loader-stage,
-#sr-loader-shock{display:none}
+   progresso. Encerramento em perfect-cut-v3.css. Nenhuma regra muda cores ou layouts das seções. */
+#sr-loader-stage{display:none}
 html.sr-loader-boot #sr-loader-stage.snv2-loader{display:block}
-html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
 
 #sr-loader-stage.snv2-loader{
   --snv2-bg:#f1eae0;
@@ -20,36 +12,11 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
   --snv2-card:#e7dfd1;
   --snv2-out:cubic-bezier(.16,1,.3,1);
   --snv2-ease:cubic-bezier(.76,0,.24,1);
-  --snv2-r:0px;
   position:fixed;inset:0;z-index:100;isolation:isolate;overflow:hidden;
   box-sizing:border-box;pointer-events:none;background:var(--snv2-bg);
   color:var(--snv2-ink);font-family:var(--body);
-  -webkit-mask-image:radial-gradient(circle at 50% 46%,transparent var(--snv2-r),#000 calc(var(--snv2-r) + 1px));
-  mask-image:radial-gradient(circle at 50% 46%,transparent var(--snv2-r),#000 calc(var(--snv2-r) + 1px));
 }
 .snv2-loader *, .snv2-loader *::before, .snv2-loader *::after{box-sizing:border-box}
-.snv2-loader.snv2-out{
-  animation:snv2-iris 1300ms cubic-bezier(.68,0,.19,1) 110ms both,
-            snv2-veil-fade 320ms ease-out 1050ms both;
-}
-@keyframes snv2-iris{to{--snv2-r:150vmax}}
-@keyframes snv2-veil-fade{from{opacity:1}to{opacity:0}}
-
-#sr-loader-shock.snv2-shock{
-  position:fixed;z-index:101;left:50%;top:46%;width:190px;height:190px;
-  border:2px solid #a67c3d;border-radius:50%;
-  transform:translate3d(-50%,-50%,0) scale(.9);opacity:0;
-  pointer-events:none;box-sizing:border-box;
-}
-#sr-loader-shock.snv2-shock.snv2-go{
-  animation:snv2-shock-wave 1300ms cubic-bezier(.68,0,.19,1) 110ms both;
-}
-@keyframes snv2-shock-wave{
-  0%{transform:translate3d(-50%,-50%,0) scale(.9);opacity:1}
-  78%{opacity:.8}
-  100%{transform:translate3d(-50%,-50%,0) scale(19);opacity:0}
-}
-
 /* Postes de barbeiro que se desenham dos extremos opostos. */
 .snv2-rail{
   position:absolute;top:0;bottom:0;left:clamp(14px,4vw,44px);
@@ -211,77 +178,10 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
   font:400 22px/1.2 Georgia,serif;letter-spacing:.02em;
   color:var(--snv2-ink);font-variant-numeric:tabular-nums
 }
-.snv2-skip{
-  position:absolute;right:calc(20px + 2vw);
-  top:calc(18px + env(safe-area-inset-top,0px));z-index:7;
-  min-height:44px;padding:8px;color:var(--snv2-muted);
-  border:0;background:transparent;font:500 12px/1.4 var(--body);
-  letter-spacing:.08em;pointer-events:auto;cursor:pointer
-}
-.snv2-skip:focus-visible{outline:2px solid var(--snv2-gold);outline-offset:5px}
-.snv2-out .snv2-track,.snv2-out .snv2-rail,
-.snv2-out .snv2-name,.snv2-out .snv2-tag,.snv2-out .snv2-skip{
-  animation:snv2-disappear 420ms ease both!important;
-}
-.snv2-out .snv2-plate{animation:snv2-mark-handoff 850ms cubic-bezier(.22,1,.36,1) both!important}
-.snv2-out .snv2-ring{animation:snv2-ring-handoff 750ms cubic-bezier(.22,1,.36,1) both}
-@keyframes snv2-disappear{to{opacity:0}}
-@keyframes snv2-mark-handoff{
-  0%{transform:scale(1);opacity:1}
-  35%{transform:scale(.965);opacity:1}
-  100%{transform:scale(1.085);opacity:0}
-}
-@keyframes snv2-ring-handoff{
-  from{opacity:1;transform:scale(1)}
-  to{opacity:0;transform:scale(1.18)}
-}
-
-/* Transition to the REAL site hero, leaving its base styles untouched. */
-@media(prefers-reduced-motion:no-preference){
-  html.sr-loader-boot .hero{
-    transition:opacity 1030ms cubic-bezier(.22,1,.36,1),transform 1120ms cubic-bezier(.22,1,.36,1)
-  }
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero{
-    opacity:.78;transform:translate3d(0,12px,0) scale(1.018)
-  }
-  html.sr-loader-boot.sr-iris-reveal .hero{
-    opacity:1;transform:none
-  }
-  html.sr-loader-boot .hero-wordmark,
-  html.sr-loader-boot .hero h1,
-  html.sr-loader-boot .hero-intro,
-  html.sr-loader-boot .hero-composition,
-  html.sr-loader-boot .hero-bottom{
-    transition:opacity 860ms cubic-bezier(.22,1,.36,1),transform 1020ms cubic-bezier(.22,1,.36,1)
-  }
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero-wordmark,
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero h1,
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero-intro,
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero-composition,
-  html.sr-loader-boot:not(.sr-iris-reveal) .hero-bottom{
-    opacity:0;transform:translate3d(0,20px,0)
-  }
-  html.sr-loader-boot.sr-iris-reveal .hero-wordmark,
-  html.sr-loader-boot.sr-iris-reveal .hero h1,
-  html.sr-loader-boot.sr-iris-reveal .hero-intro,
-  html.sr-loader-boot.sr-iris-reveal .hero-composition,
-  html.sr-loader-boot.sr-iris-reveal .hero-bottom{
-    opacity:1;transform:none
-  }
-  html.sr-loader-boot .hero-wordmark{transition-delay:110ms}
-  html.sr-loader-boot .hero h1{transition-delay:140ms}
-  html.sr-loader-boot .hero-intro{transition-delay:230ms}
-  html.sr-loader-boot .hero-composition{transition-delay:300ms}
-  html.sr-loader-boot .hero-bottom{transition-delay:340ms}
-}
 @media(max-width:600px){
   .snv2-center{padding:0 35px}
   .snv2-badge{margin-bottom:22px}
   .snv2-track{bottom:calc(9svh + env(safe-area-inset-bottom,0px))}
-  .snv2-skip{right:16px;font-size:11px}
-  html.sr-loader-boot .hero{
-    transition-duration:850ms,1050ms
-  }
 }
 @media(max-height:520px){
   .snv2-badge{width:118px;margin-bottom:9px}
@@ -290,5 +190,5 @@ html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
   .snv2-track{bottom:calc(3svh + env(safe-area-inset-bottom,0px))}
 }
 @media(prefers-reduced-motion:reduce){
-  #sr-loader-stage,#sr-loader-shock{display:none!important}
+  #sr-loader-stage{display:none!important}
 }

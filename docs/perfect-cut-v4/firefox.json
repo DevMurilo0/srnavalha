@@ -1,0 +1,22 @@
+[
+  {
+    "width": 390,
+    "scissors": 2,
+    "panels": 2,
+    "delta": 0.006317138671875
+  },
+  {
+    "clean": true,
+    "visible": true
+  },
+  {
+    "width": 1440,
+    "scissors": 2,
+    "panels": 2,
+    "delta": 0.00213623046875
+  },
+  {
+    "clean": true,
+    "visible": true
+  }
+]
