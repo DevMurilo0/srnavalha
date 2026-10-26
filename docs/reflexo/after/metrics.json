@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-26T04:20:49.124Z",
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "width": 390,
+      "cpuRate": 4,
+      "viewportHeight": 900,
+      "scrollDurationMs": 14006.89999999106,
+      "geometryReads": 0,
+      "peakAnimations": 7,
+      "frameIntervals": {
+        "samples": 768,
+        "p50": 16.699999999999818,
+        "p95": 33.30000000000018,
+        "over33ms": 9,
+        "max": 50
+      },
+      "scrollLongTasks": [],
+      "startupLongTasks": [
+        {
+          "start": 392.80000001192093,
+          "duration": 139
+        },
+        {
+          "start": 1704.300000011921,
+          "duration": 253
+        },
+        {
+          "start": 1957.7000000029802,
+          "duration": 54
+        },
+        {
+          "start": 2101.6000000089407,
+          "duration": 51
+        }
+      ],
+      "cls": 0,
+      "costs": {
+        "UpdateLayoutTree": {
+          "count": 1157,
+          "totalMs": 829.2230000000009,
+          "maxMs": 5.82
+        },
+        "PrePaint": {
+          "count": 818,
+          "totalMs": 411.82600000000014,
+          "maxMs": 6.763
+        },
+        "Paint": {
+          "count": 284,
+          "totalMs": 1915.2400000000002,
+          "maxMs": 26.807
+        },
+        "Layout": {
+          "count": 59,
+          "totalMs": 119.07,
+          "maxMs": 11.227
+        }
+      },
+      "delta": {
+        "LayoutCount": 56,
+        "RecalcStyleCount": 1155,
+        "LayoutDuration": 0.109734,
+        "RecalcStyleDuration": 0.830697,
+        "DevToolsCommandDuration": 0.004085999999999999,
+        "ScriptDuration": 0.9221469999999999,
+        "V8CompileDuration": 0,
+        "TaskDuration": 8.72883,
+        "TaskOtherDuration": 6.862166
+      },
+      "initial": {
+        "documents": 5,
+        "nodes": 2693,
+        "jsEventListeners": 146
+      },
+      "final": {
+        "documents": 4,
+        "nodes": 2716,
+        "jsEventListeners": 146
+      },
+      "peakLayers": 39,
+      "animationsAfter": 10
+    },
+    {
+      "width": 1440,
+      "cpuRate": 4,
+      "viewportHeight": 900,
+      "scrollDurationMs": 14025.199999988079,
+      "geometryReads": 0,
+      "peakAnimations": 9,
+      "frameIntervals": {
+        "samples": 617,
+        "p50": 16.700000000000728,
+        "p95": 50,
+        "over33ms": 54,
+        "max": 83.39999999999964
+      },
+      "scrollLongTasks": [
+        {
+          "start": 6267,
+          "duration": 57
+        },
+        {
+          "start": 11457.29999999702,
+          "duration": 50
+        },
+        {
+          "start": 11727,
+          "duration": 53
+        },
+        {
+          "start": 11925.79999999702,
+          "duration": 51
+        },
+        {
+          "start": 14566,
+          "duration": 51
+        }
+      ],
+      "startupLongTasks": [
+        {
+          "start": 212.5,
+          "duration": 57
+        },
+        {
+          "start": 1012.2999999970198,
+          "duration": 81
+        },
+        {
+          "start": 1597.7999999970198,
+          "duration": 169
+        }
+      ],
+      "cls": 0,
+      "costs": {
+        "UpdateLayoutTree": {
+          "count": 1066,
+          "totalMs": 930.5360000000011,
+          "maxMs": 6.538
+        },
+        "PrePaint": {
+          "count": 682,
+          "totalMs": 459.716,
+          "maxMs": 12.548
+        },
+        "Paint": {
+          "count": 235,
+          "totalMs": 2841.328000000001,
+          "maxMs": 33.441
+        },
+        "Layout": {
+          "count": 54,
+          "totalMs": 127.494,
+          "maxMs": 6.785
+        }
+      },
+      "delta": {
+        "LayoutCount": 52,
+        "RecalcStyleCount": 1063,
+        "LayoutDuration": 0.12947399999999998,
+        "RecalcStyleDuration": 0.9119139999999999,
+        "DevToolsCommandDuration": 0.004468,
+        "ScriptDuration": 0.9837469999999999,
+        "V8CompileDuration": 0,
+        "TaskDuration": 10.495589,
+        "TaskOtherDuration": 8.465986000000001
+      },
+      "initial": {
+        "documents": 5,
+        "nodes": 2711,
+        "jsEventListeners": 166
+      },
+      "final": {
+        "documents": 4,
+        "nodes": 2755,
+        "jsEventListeners": 171
+      },
+      "peakLayers": 41,
+      "animationsAfter": 11
+    }
+  ]
+}

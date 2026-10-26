@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-26T04:25:23.060Z",
+  "checks": [
+    {
+      "name": "320px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "320px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "360px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "360px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "375px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "375px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "390px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "390px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "412px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "412px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "430px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "430px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "768px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "768px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1024px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "1024px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1366px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "1366px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "1440px: hero e abertura",
+      "pass": true
+    },
+    {
+      "name": "1440px: página sem overflow",
+      "pass": true
+    },
+    {
+      "name": "Âncora direta",
+      "pass": true
+    },
+    {
+      "name": "Espelho Vivo",
+      "pass": true
+    },
+    {
+      "name": "Painel da equipe",
+      "pass": true
+    },
+    {
+      "name": "Álbum: parede",
+      "pass": true
+    },
+    {
+      "name": "Lightbox abre",
+      "pass": true
+    },
+    {
+      "name": "Lightbox fecha com Escape",
+      "pass": true
+    },
+    {
+      "name": "Produtos",
+      "pass": true
+    },
+    {
+      "name": "Pausa depoimentos",
+      "pass": true
+    },
+    {
+      "name": "Menu móvel",
+      "pass": true
+    },
+    {
+      "name": "Escape menu",
+      "pass": true
+    },
+    {
+      "name": "Fallback fotográfico",
+      "pass": true
+    },
+    {
+      "name": "Sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

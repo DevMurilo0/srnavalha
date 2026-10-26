@@ -4,24 +4,15 @@
 :root{--v18-metal:#a77b55;--v18-ink:#201915;--v18-paper:#efe5d6}
 .hero,.house,.rituals,.team,.portfolio,.products,.reviews,.visit,.footer{position:relative;isolation:isolate}
 .hero>.wrap,.house>.wrap,.rituals>.wrap,.team>.wrap,.portfolio>.wrap,.products>.wrap,.reviews>.wrap,.visit>.wrap,.footer>.wrap{position:relative;z-index:1}
-.hero{background:radial-gradient(ellipse 54% 65% at 80% 33%,#d6b89d40,transparent 74%),radial-gradient(ellipse at 10% 4%,#fff9f4,transparent 58%),linear-gradient(130deg,#f2e9de,#f9f4ed 55%,#eadcc9)}
-.hero::before{opacity:.13}
-.house{background:radial-gradient(ellipse 65% 50% at 85% 33%,#9f603849,transparent 70%),linear-gradient(128deg,#171412,#2b211c 64%,#171412)}
-.house::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#181411ee 2%,#18141191 54%,#181411bf 100%),url('../../assets/images/hero-redesign/interior-720.webp') 80% 40%/cover no-repeat;opacity:.31;pointer-events:none;z-index:-1;filter:grayscale(.5);mask-image:linear-gradient(90deg,transparent,#000 40%,#000)}
-.rituals{background:radial-gradient(ellipse 78% 80% at 12% 25%,#c0986731,transparent 65%),radial-gradient(ellipse 45% 65% at 90% 76%,#ffffffc4,transparent 85%),linear-gradient(155deg,#f6efe5,#e8dbc9 67%,#f7eee5)}
-.rituals::before{opacity:.16}
-.team{background:radial-gradient(ellipse 70% 60% at 30% 50%,#ad774143,transparent 70%),linear-gradient(140deg,#1c1815,#422e24 60%,#1c1816)}
-.team::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#211915 0%,transparent 53%,#211915 100%),url('../../assets/images/v8/servico-barba-simples-640.webp') 88% 44%/min(48vw,660px) auto no-repeat;opacity:.13;filter:grayscale(1);pointer-events:none}
-.portfolio{background:radial-gradient(ellipse 65% 58% at 85% 10%,#b88c6445,transparent 80%),linear-gradient(145deg,#fbf5ec 2%,#f0e2d1 60%,#e8dac8)}
-.portfolio::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,#f2e6d6,transparent 85%,#e8d9c7),url('../../assets/images/v8/servico-platinado-640.webp') 100% 30%/min(44vw,610px) auto no-repeat;opacity:.15;mask-image:linear-gradient(to right,transparent 22%,#000 100%);pointer-events:none}
-.portfolio::before{opacity:.13}
-.products{background:radial-gradient(ellipse 65% 65% at 15% 24%,#fffafa77,transparent 70%),linear-gradient(122deg,#e8d4be,#f2e9de 50%,#d9c4ab)}
-.products::after{content:'';position:absolute;inset:0;z-index:-1;background:url('../../assets/images/v8/body-splash-640.webp') 100% 48%/min(31vw,490px) auto no-repeat;opacity:.07;mask-image:linear-gradient(to right,transparent 30%,#000 100%);pointer-events:none}
-.reviews{background:radial-gradient(ellipse 63% 62% at 72% 22%,#be86583b,transparent 70%),linear-gradient(160deg,#1b1715,#3b291f 62%,#1c1816)}
-.reviews::after{content:'';position:absolute;inset:0;z-index:-1;background:url('../../assets/images/hero-redesign/fachada-720.webp') 100% 25%/min(48vw,760px) auto no-repeat;opacity:.095;mask-image:linear-gradient(to right,transparent 20%,#000 100%);filter:grayscale(.8);pointer-events:none}
-.visit{background:radial-gradient(ellipse 65% 58% at 80% 16%,#ba916a40,transparent 72%),linear-gradient(110deg,#f8f0e6,#ead9c5 58%,#f6ede1)}
-.visit::before{opacity:.13}
-.footer{background:radial-gradient(ellipse 76% 65% at 85% 29%,#a3774830,transparent 72%),linear-gradient(155deg,#181412,#34251e)}
+.hero,.rituals,.portfolio,.visit{background:var(--ivory)}
+.house,.reviews{background:var(--ink)}
+.team,.footer{background:var(--tobacco)}
+.products{background:var(--stone)}
+.hero::before,.rituals::before,.portfolio::before,.products::before,.visit::before{content:none}
+/* Bounded material study: no section-sized mask, photograph or inset shadow. */
+.sr-surface{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.house .sr-surface{background:repeating-linear-gradient(90deg,transparent 0 83px,#ba9a750c 83px 84px)}
+.footer-rail,.footer-shell{position:relative;z-index:1}
 /* Hero / an engraved paper card with an actual sourced SVG tool. */
 .hero-atelier-emblem{position:absolute;right:1.5%;top:8px;width:125px;height:138px;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transform:rotate(7deg);color:#69472e;background:linear-gradient(140deg,#f7efdf,#e0c7a8);border:1px solid #a07957;clip-path:polygon(0 0,87% 0,100% 12%,100% 100%,0 100%);box-shadow:8px 9px 0 #a47b5420}
 .hero-atelier-emblem::before{content:'';position:absolute;inset:8px;border:1px solid #80583c65;pointer-events:none}

@@ -4,7 +4,7 @@ export function initProducts(){let latest=0;const stage=$('.product-hero .image-
  if(p.image)ok=await changePhoto(stage,p.image,p.name,{mode:'product',keyboard});else{invalidatePhoto(stage);const box=document.createElement('div');box.className='no-image';const title=document.createElement('strong');title.textContent=p.name;const note=document.createElement('small');note.textContent='Fotografia oficial não disponível';box.append(title,note);stage.replaceChildren(box)}
  if(token!==latest||!ok)return;
  options.forEach(o=>o.setAttribute('aria-pressed',String(o===link)));$('.product-category',info).textContent=p.category;$('h3',info).textContent=p.name;$('.product-price',info).textContent=p.price;$('a',info).href=`https://wa.me/5581995722396?text=${encodeURIComponent('Olá! Gostaria de consultar a disponibilidade de '+p.name+'.')}`;
- if(!keyboard)animate(info,[{opacity:.4,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:240});}
+ cancelWithin(info);if(!keyboard)animate(info,[{opacity:.4,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:240});}
  options.forEach((o,i)=>{o.setAttribute('aria-pressed',String(i===0));activateButtonLink(o,e=>select(o,e.detail===0))});
  $('#product-category').addEventListener('change',e=>{const category=e.target.value;options.forEach(o=>o.hidden=category!=='Todos'&&o.dataset.category!==category)});
 }

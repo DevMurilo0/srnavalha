@@ -18,8 +18,8 @@
 
 
 
-.footer-story h2{font:600 clamp(48px,5.8vw,92px)/1.03 var(--display);letter-spacing:-.075em;max-width:10.5ch;overflow:visible}
-.footer-story h2 em{display:block;font:450 clamp(48px,5.8vw,92px)/1.06 var(--display);font-style:normal;letter-spacing:-.075em;color:var(--copper)}
+.footer-story h2{font:600 clamp(42px,4.6vw,66px)/1.03 var(--display);letter-spacing:-.075em;max-width:none;overflow:visible}
+.footer-story h2 em{display:block;font:450 clamp(42px,4.6vw,66px)/1.06 var(--display);font-style:normal;letter-spacing:-.075em;color:var(--copper)}
 .footer-story-copy{font:400 clamp(14px,1.25vw,18px)/1.8 var(--body);color:var(--light-muted);max-width:40ch;margin-top:25px}
 .footer-feature-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--ivory);color:var(--ink);font:650 clamp(14px,1.4vw,18px)/1.2 var(--body);padding:8px 9px 8px clamp(21px,2.6vw,35px);width:min(440px,100%);min-height:80px;margin-top:clamp(28px,3.7vw,54px);transition:background .35s,color .35s,transform .45s var(--ease)}
 .footer-cta-arrow{display:grid;place-items:center;height:60px;width:60px;background:var(--copper);color:#241d19;transition:transform .55s cubic-bezier(.22,1,.36,1),background .35s}
@@ -78,7 +78,7 @@
  .footer-feature{grid-template-columns:minmax(0,1fr);gap:38px;padding-bottom:64px}
  .footer-visual{max-width:570px;width:100%;aspect-ratio:1.28;transform:rotate(-1deg)}
  .footer-story{padding:0}
- .footer-story h2,.footer-story h2 em{font-size:clamp(47px,8.2vw,80px)}
+ .footer-story h2,.footer-story h2 em{font-size:clamp(34px,6.4vw,64px)}
  .footer-directory{grid-template-columns:1fr 1fr;gap:44px 35px}
  .footer-brand-col{grid-column:1/-1}
  .footer-link-col:last-child{grid-column:2;display:flex;gap:6px}
@@ -94,7 +94,7 @@
  .footer-visual-edge span:first-child{font-size:13px}
  .footer-feature{gap:38px;padding-bottom:54px}
 
- .footer-story h2,.footer-story h2 em{font-size:clamp(45px,11vw,60px)}
+ .footer-story h2,.footer-story h2 em{font-size:clamp(30px,8.8vw,44px)}
  .footer-story-copy{font-size:14px;line-height:1.75;margin-top:18px}
  .footer-feature-cta{min-height:70px;margin-top:27px}
  .footer-cta-arrow{width:52px;height:52px}
