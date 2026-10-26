@@ -22,9 +22,11 @@ export async function openRitual() {
     if (stage) cancelWithin(stage);
     root.classList.remove('sr-loader-boot', 'sr-burst-reveal');
     stage?.remove();
+    if (window.__finishRitual === finish) delete window.__finishRitual;
     document.dispatchEvent(new CustomEvent('openingend'));
   };
 
+  window.__finishRitual = finish;
   if (!stage || !root.classList.contains('sr-loader-boot') || !canMove() ||
       scrollY > 20 || (location.hash && location.hash !== '#inicio')) {
     finish();
