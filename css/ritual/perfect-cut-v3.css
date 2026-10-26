@@ -1,0 +1,120 @@
+/* SR. NAVALHA / THE PERFECT CUT
+   Adapta a coreografia original enviada pelo cliente ao hero real.
+   As outras seções, as cores globais e o loader ANTES de 100% permanecem intactos.
+   Esta folha deve ser importada depois de loader-v2.css. */
+#sr-loader-stage.snv2-loader{
+  background:transparent;
+  -webkit-mask-image:none;
+  mask-image:none;
+}
+#sr-loader-shock{display:none!important}
+#sr-loader-stage .snv2-panels{
+  position:absolute;inset:0;z-index:0;
+  background:var(--snv2-bg);pointer-events:none;
+}
+#sr-loader-stage.snv2-cut-ready .snv2-panels{background:transparent}
+#sr-loader-stage .snv2-panel-slice{
+  position:absolute;width:50.35%;background:var(--snv2-bg);
+  pointer-events:none;transform:translate3d(0,0,0);backface-visibility:hidden;
+}
+#sr-loader-stage .snv2-panel-slice--left{left:0}
+#sr-loader-stage .snv2-panel-slice--right{right:0}
+#sr-loader-stage .snv2-center{z-index:3;pointer-events:none}
+#sr-loader-stage .snv2-rail{z-index:2}
+#sr-loader-stage .snv2-track{z-index:4}
+#sr-loader-stage .snv2-skip{z-index:6}
+/* Flight coordinates are the scissors' TIP, not the left edge of the icon.
+   Its 90-degree rotation therefore points directly down the central seam. */
+#sr-loader-stage .snv2-cut-flight{
+  position:absolute;left:0;top:0;width:0;height:0;z-index:8;
+  pointer-events:none;transform-origin:0 0;
+}
+#sr-loader-stage .snv2-cut-flight .snv2-scissors{
+  position:absolute;top:-14px;left:-33px;right:auto;
+  width:34px;height:28px;animation:none!important;transform:none!important;
+}
+#sr-loader-stage .snv2-cut-flight.snv2-wind .snv2-blade-a{
+  animation:none!important;transform:rotate(17deg);
+}
+#sr-loader-stage .snv2-cut-flight.snv2-wind .snv2-blade-b{
+  animation:none!important;transform:rotate(-17deg);
+}
+#sr-loader-stage .snv2-cut-flight.snv2-is-cutting .snv2-blade-a,
+#sr-loader-stage .snv2-cut-flight.snv2-is-cutting .snv2-blade-b{
+  animation-duration:155ms;
+}
+#sr-loader-stage .snv2-cut-tail{
+  position:absolute;z-index:7;pointer-events:none;
+  left:calc(50% - .75px);top:0;width:1.5px;
+  background:linear-gradient(to bottom,transparent 0%,#a67c3d 72%,#f5d8a2 100%);
+  transform-origin:center top;opacity:0;
+}
+#sr-loader-stage .snv2-logo-flight{
+  position:absolute;left:0;top:0;z-index:9;pointer-events:none;
+  transform-origin:0 0;overflow:visible;opacity:0;
+}
+#sr-loader-stage .snv2-logo-flight svg{
+  display:block;width:100%;height:100%;overflow:visible;
+}
+/* A marca original é mantida visível até o início do handoff FLIP.
+   Não deslocar os elementos dentro do hero: o layout real não é alterado. */
+html.sr-loader-boot .hero{
+  transition:opacity 940ms cubic-bezier(.22,1,.36,1),
+    transform 1080ms cubic-bezier(.22,1,.36,1);
+}
+html.sr-loader-boot:not(.sr-cut-reveal) .hero{
+  opacity:.78;transform:translate3d(0,12px,0) scale(1.014);
+}
+html.sr-loader-boot.sr-cut-reveal .hero{opacity:1;transform:none}
+html.sr-loader-boot .hero-wordmark,
+html.sr-loader-boot .hero h1,
+html.sr-loader-boot .hero-intro,
+html.sr-loader-boot .hero-composition,
+html.sr-loader-boot .hero-bottom{
+  transition:opacity 830ms cubic-bezier(.22,1,.36,1),
+    transform 950ms cubic-bezier(.22,1,.36,1);
+}
+html.sr-loader-boot:not(.sr-cut-reveal) .hero-wordmark,
+html.sr-loader-boot:not(.sr-cut-reveal) .hero h1,
+html.sr-loader-boot:not(.sr-cut-reveal) .hero-intro,
+html.sr-loader-boot:not(.sr-cut-reveal) .hero-composition,
+html.sr-loader-boot:not(.sr-cut-reveal) .hero-bottom{
+  opacity:0;transform:translate3d(0,22px,0);
+}
+html.sr-loader-boot.sr-cut-reveal .hero-wordmark,
+html.sr-loader-boot.sr-cut-reveal .hero h1,
+html.sr-loader-boot.sr-cut-reveal .hero-intro,
+html.sr-loader-boot.sr-cut-reveal .hero-composition,
+html.sr-loader-boot.sr-cut-reveal .hero-bottom{
+  opacity:1;transform:none;
+}
+html.sr-loader-boot .hero-wordmark{transition-delay:80ms}
+html.sr-loader-boot .hero h1{transition-delay:160ms}
+html.sr-loader-boot .hero-intro{transition-delay:240ms}
+html.sr-loader-boot .hero-composition{transition-delay:260ms}
+html.sr-loader-boot .hero-bottom{transition-delay:320ms}
+@media(max-width:700px){
+  /* Menos camadas e menores movimentos no toque; mesma sequência narrativa. */
+  html.sr-loader-boot .hero{transition-duration:740ms,850ms}
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero{
+    opacity:.88;transform:translate3d(0,8px,0) scale(1.006);
+  }
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero-wordmark,
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero h1,
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero-intro,
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero-composition,
+  html.sr-loader-boot:not(.sr-cut-reveal) .hero-bottom{
+    transform:translate3d(0,14px,0);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #sr-loader-stage,#sr-loader-shock{display:none!important}
+  html.sr-loader-boot .hero,
+  html.sr-loader-boot .hero-wordmark,
+  html.sr-loader-boot .hero h1,
+  html.sr-loader-boot .hero-intro,
+  html.sr-loader-boot .hero-composition,
+  html.sr-loader-boot .hero-bottom{
+    transition:none!important;transform:none!important;opacity:1!important;
+  }
+}

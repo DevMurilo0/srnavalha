@@ -1,3 +1,5 @@
+> **Documento histórico:** as medições abaixo são da implementação "O Reflexo do Ritual" (commit `9f6920d`) e **não são um benchmark da versão atual Negativo 349**. Em 26/10/2026, fundos, paleta e capítulos da versão original foram restaurados, mantendo as principais otimizações de JavaScript. Novas medições no navegador são necessárias antes de afirmar equivalência de FPS ou de Paint.
+
 # Sr. Navalha · O Reflexo do Ritual
 
 Implementação em `reconstruction/arte-do-ritual`, 26/10/2026. HTML, CSS e JavaScript puros; Live Server permanece suficiente. Nenhuma mudança de backend, schema de agendamento, dependência de runtime ou merge na main.

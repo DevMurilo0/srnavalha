@@ -1,0 +1,294 @@
+/* SR. NAVALHA — Loader v2
+   Adaptação da referência HTML enviada: emblema, tipografia, trilhos, tesoura,
+   progresso e iris radial. Nenhuma regra muda cores ou layouts das seções. */
+@property --snv2-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+#sr-loader-stage,
+#sr-loader-shock{display:none}
+html.sr-loader-boot #sr-loader-stage.snv2-loader{display:block}
+html.sr-loader-boot #sr-loader-shock.snv2-shock{display:block}
+
+#sr-loader-stage.snv2-loader{
+  --snv2-bg:#f1eae0;
+  --snv2-ink:#1c1915;
+  --snv2-muted:#6f675b;
+  --snv2-gold:#a67c3d;
+  --snv2-card:#e7dfd1;
+  --snv2-out:cubic-bezier(.16,1,.3,1);
+  --snv2-ease:cubic-bezier(.76,0,.24,1);
+  --snv2-r:0px;
+  position:fixed;inset:0;z-index:100;isolation:isolate;overflow:hidden;
+  box-sizing:border-box;pointer-events:none;background:var(--snv2-bg);
+  color:var(--snv2-ink);font-family:var(--body);
+  -webkit-mask-image:radial-gradient(circle at 50% 46%,transparent var(--snv2-r),#000 calc(var(--snv2-r) + 1px));
+  mask-image:radial-gradient(circle at 50% 46%,transparent var(--snv2-r),#000 calc(var(--snv2-r) + 1px));
+}
+.snv2-loader *, .snv2-loader *::before, .snv2-loader *::after{box-sizing:border-box}
+.snv2-loader.snv2-out{
+  animation:snv2-iris 1300ms cubic-bezier(.68,0,.19,1) 110ms both,
+            snv2-veil-fade 320ms ease-out 1050ms both;
+}
+@keyframes snv2-iris{to{--snv2-r:150vmax}}
+@keyframes snv2-veil-fade{from{opacity:1}to{opacity:0}}
+
+#sr-loader-shock.snv2-shock{
+  position:fixed;z-index:101;left:50%;top:46%;width:190px;height:190px;
+  border:2px solid #a67c3d;border-radius:50%;
+  transform:translate3d(-50%,-50%,0) scale(.9);opacity:0;
+  pointer-events:none;box-sizing:border-box;
+}
+#sr-loader-shock.snv2-shock.snv2-go{
+  animation:snv2-shock-wave 1300ms cubic-bezier(.68,0,.19,1) 110ms both;
+}
+@keyframes snv2-shock-wave{
+  0%{transform:translate3d(-50%,-50%,0) scale(.9);opacity:1}
+  78%{opacity:.8}
+  100%{transform:translate3d(-50%,-50%,0) scale(19);opacity:0}
+}
+
+/* Postes de barbeiro que se desenham dos extremos opostos. */
+.snv2-rail{
+  position:absolute;top:0;bottom:0;left:clamp(14px,4vw,44px);
+  width:8px;overflow:hidden;
+  transform-origin:50% 0%;transform:scaleY(0);
+}
+.snv2-rail--right{
+  left:auto;right:clamp(14px,4vw,44px);
+  transform-origin:50% 100%;
+}
+.snv2-rail::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(-45deg,var(--snv2-ink) 0 6px,
+       var(--snv2-gold) 6px 12px,var(--snv2-bg) 12px 18px);
+  background-size:25px 25px;
+  animation:snv2-rail-stripes 850ms linear infinite;
+}
+.snv2-rail--right::before{animation-direction:reverse}
+.snv2-run .snv2-rail{animation:snv2-rail-in 950ms var(--snv2-ease) 100ms both}
+@keyframes snv2-rail-in{to{transform:scaleY(1)}}
+@keyframes snv2-rail-stripes{to{background-position:0 25px}}
+
+/* Selo gravado no centro do ritual. */
+.snv2-center{
+  position:absolute;inset:0;
+  display:grid;place-items:center;align-content:center;gap:0;
+  padding:0 35px;
+}
+.snv2-badge{
+  position:relative;width:clamp(150px,34vw,190px);aspect-ratio:1;
+  margin-bottom:24px;transform:translateY(-4%);
+}
+.snv2-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.snv2-ring__draw{
+  fill:none;stroke:var(--snv2-gold);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:591;stroke-dashoffset:591;
+  transform:rotate(-90deg);transform-origin:100px 100px;
+}
+.snv2-ring__ticks{
+  fill:none;stroke:var(--snv2-ink);stroke-width:5;
+  stroke-dasharray:1.2 9.3;opacity:0;transform-origin:100px 100px;
+}
+.snv2-run .snv2-ring__draw{animation:snv2-draw 1100ms var(--snv2-ease) 150ms both}
+.snv2-run .snv2-ring__ticks{
+  animation:snv2-ticks-in 500ms ease 900ms both,
+            snv2-spin 9s linear 0s infinite;
+}
+@keyframes snv2-draw{to{stroke-dashoffset:0}}
+@keyframes snv2-ticks-in{to{opacity:.55}}
+@keyframes snv2-spin{to{transform:rotate(360deg)}}
+.snv2-plate{
+  position:absolute;inset:26px;display:grid;place-items:center;
+  border-radius:50%;overflow:visible;background:transparent;
+  opacity:0;transform:scale(.4) rotate(-25deg);
+}
+.snv2-run .snv2-plate{
+  animation:snv2-plate-enter 1000ms cubic-bezier(.34,1.56,.64,1) 450ms both;
+}
+@keyframes snv2-plate-enter{
+  to{transform:scale(1);opacity:1}
+}
+/* A WebP oficial é uma marca branca sobre fundo escuro. O filtro em
+   .snv2-cutout-logo torna essa área escura efetivamente transparente
+   (canal alfa), preservando traços e detalhes da arte original. */
+.snv2-cutout-logo,.snv2-fallback{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain
+}
+.snv2-cutout-logo{z-index:2;overflow:visible;opacity:0}
+.snv2-plate.snv2-logo-ready .snv2-cutout-logo{opacity:1}
+.snv2-plate.snv2-logo-ready .snv2-fallback{visibility:hidden}
+/* A imagem de 1px apenas verifica a disponibilidade do arquivo oficial. */
+.snv2-logo-probe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1}
+.snv2-fallback{width:78%;height:78%;margin:auto;color:var(--snv2-gold)}
+.snv2-fallback text{font-family:Georgia,serif;fill:var(--snv2-ink)}
+.snv2-shine{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.7;
+  background:linear-gradient(115deg,transparent 38%,#ffffffb3 50%,transparent 62%);
+  background-size:260% 100%;background-position:130% 0;mix-blend-mode:soft-light;
+  border-radius:50%;mask-image:radial-gradient(circle,#0005 24%,transparent 72%)
+}
+.snv2-run .snv2-shine{animation:snv2-glint 1100ms ease-in-out 1150ms both}
+@keyframes snv2-glint{to{background-position:-60% 0}}
+
+.snv2-name{
+  display:flex;justify-content:center;white-space:nowrap;
+  font:400 clamp(20px,4.6vw,30px)/1.15 Georgia,"Times New Roman",serif;
+  letter-spacing:.7em;padding-left:.7em;perspective:500px;
+}
+.snv2-run .snv2-name{
+  animation:snv2-tracking 1600ms var(--snv2-out) 800ms both;
+}
+@keyframes snv2-tracking{to{letter-spacing:.3em;padding-left:.3em}}
+.snv2-name>span{
+  display:inline-block;opacity:0;
+  transform:translateY(70%) rotateX(-85deg);
+}
+.snv2-run .snv2-name>span{
+  animation:snv2-letter 800ms var(--snv2-out) calc(800ms + var(--snv-i)*50ms) both;
+}
+@keyframes snv2-letter{to{opacity:1;transform:none}}
+.snv2-tag{
+  margin-top:13px;font:500 11px/1.5 var(--body);letter-spacing:.3em;
+  text-transform:uppercase;color:var(--snv2-muted);overflow:hidden;text-align:center
+}
+.snv2-tag>span{display:block;transform:translateY(110%)}
+.snv2-run .snv2-tag>span{
+  animation:snv2-tag-enter 800ms var(--snv2-out) 1500ms both;
+}
+@keyframes snv2-tag-enter{to{transform:none}}
+
+/* Progress bar & scissors: transform animations, not width writes per frame. */
+.snv2-track{
+  position:absolute;left:50%;bottom:calc(9svh + env(safe-area-inset-bottom,0px));
+  width:min(320px,70vw);transform:translate3d(-50%,0,0);opacity:0;
+}
+.snv2-run .snv2-track{animation:snv2-track-enter 600ms ease 300ms both}
+@keyframes snv2-track-enter{
+  from{opacity:0;transform:translate3d(-50%,10px,0)}
+  to{opacity:1;transform:translate3d(-50%,0,0)}
+}
+.snv2-rule{height:1px;position:relative;background:#1c191535}
+.snv2-fill{
+  position:absolute;left:0;top:0;width:100%;height:1px;
+  background:var(--snv2-gold);transform:scaleX(0);transform-origin:left center;
+}
+.snv2-fill::before{
+  content:"";position:absolute;inset:-1px 0;background:var(--snv2-gold);
+  opacity:.25;transform:scaleY(2);
+}
+.snv2-run .snv2-fill{
+  animation:snv2-progress 2250ms cubic-bezier(.65,0,.35,1) 180ms both;
+}
+@keyframes snv2-progress{to{transform:scaleX(1)}}
+.snv2-scissors{
+  position:absolute;top:-14px;left:-12px;width:34px;height:28px;overflow:visible;
+  transform:translate3d(0,0,0);
+}
+.snv2-scissors g{
+  fill:none;stroke:var(--snv2-ink);stroke-width:1.8;stroke-linecap:round
+}
+.snv2-blade-a,.snv2-blade-b{transform-origin:12px 14px}
+.snv2-blade-a{animation:snv2-blade-a 260ms ease-in-out infinite alternate}
+.snv2-blade-b{animation:snv2-blade-b 260ms ease-in-out infinite alternate}
+@keyframes snv2-blade-a{from{transform:rotate(-3deg)}to{transform:rotate(15deg)}}
+@keyframes snv2-blade-b{from{transform:rotate(3deg)}to{transform:rotate(-15deg)}}
+.snv2-run .snv2-scissors{
+  animation:snv2-scissors-travel 2250ms cubic-bezier(.65,0,.35,1) 180ms both;
+}
+@keyframes snv2-scissors-travel{
+  to{transform:translate3d(min(320px,70vw),0,0)}
+}
+.snv2-count{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-top:18px;gap:15px;
+  font:500 11px/1.5 var(--body);letter-spacing:.2em;color:var(--snv2-muted);
+  text-transform:uppercase
+}
+.snv2-count b{
+  font:400 22px/1.2 Georgia,serif;letter-spacing:.02em;
+  color:var(--snv2-ink);font-variant-numeric:tabular-nums
+}
+.snv2-skip{
+  position:absolute;right:calc(20px + 2vw);
+  top:calc(18px + env(safe-area-inset-top,0px));z-index:7;
+  min-height:44px;padding:8px;color:var(--snv2-muted);
+  border:0;background:transparent;font:500 12px/1.4 var(--body);
+  letter-spacing:.08em;pointer-events:auto;cursor:pointer
+}
+.snv2-skip:focus-visible{outline:2px solid var(--snv2-gold);outline-offset:5px}
+.snv2-out .snv2-track,.snv2-out .snv2-rail,
+.snv2-out .snv2-name,.snv2-out .snv2-tag,.snv2-out .snv2-skip{
+  animation:snv2-disappear 420ms ease both!important;
+}
+.snv2-out .snv2-plate{animation:snv2-mark-handoff 850ms cubic-bezier(.22,1,.36,1) both!important}
+.snv2-out .snv2-ring{animation:snv2-ring-handoff 750ms cubic-bezier(.22,1,.36,1) both}
+@keyframes snv2-disappear{to{opacity:0}}
+@keyframes snv2-mark-handoff{
+  0%{transform:scale(1);opacity:1}
+  35%{transform:scale(.965);opacity:1}
+  100%{transform:scale(1.085);opacity:0}
+}
+@keyframes snv2-ring-handoff{
+  from{opacity:1;transform:scale(1)}
+  to{opacity:0;transform:scale(1.18)}
+}
+
+/* Transition to the REAL site hero, leaving its base styles untouched. */
+@media(prefers-reduced-motion:no-preference){
+  html.sr-loader-boot .hero{
+    transition:opacity 1030ms cubic-bezier(.22,1,.36,1),transform 1120ms cubic-bezier(.22,1,.36,1)
+  }
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero{
+    opacity:.78;transform:translate3d(0,12px,0) scale(1.018)
+  }
+  html.sr-loader-boot.sr-iris-reveal .hero{
+    opacity:1;transform:none
+  }
+  html.sr-loader-boot .hero-wordmark,
+  html.sr-loader-boot .hero h1,
+  html.sr-loader-boot .hero-intro,
+  html.sr-loader-boot .hero-composition,
+  html.sr-loader-boot .hero-bottom{
+    transition:opacity 860ms cubic-bezier(.22,1,.36,1),transform 1020ms cubic-bezier(.22,1,.36,1)
+  }
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero-wordmark,
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero h1,
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero-intro,
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero-composition,
+  html.sr-loader-boot:not(.sr-iris-reveal) .hero-bottom{
+    opacity:0;transform:translate3d(0,20px,0)
+  }
+  html.sr-loader-boot.sr-iris-reveal .hero-wordmark,
+  html.sr-loader-boot.sr-iris-reveal .hero h1,
+  html.sr-loader-boot.sr-iris-reveal .hero-intro,
+  html.sr-loader-boot.sr-iris-reveal .hero-composition,
+  html.sr-loader-boot.sr-iris-reveal .hero-bottom{
+    opacity:1;transform:none
+  }
+  html.sr-loader-boot .hero-wordmark{transition-delay:110ms}
+  html.sr-loader-boot .hero h1{transition-delay:140ms}
+  html.sr-loader-boot .hero-intro{transition-delay:230ms}
+  html.sr-loader-boot .hero-composition{transition-delay:300ms}
+  html.sr-loader-boot .hero-bottom{transition-delay:340ms}
+}
+@media(max-width:600px){
+  .snv2-center{padding:0 35px}
+  .snv2-badge{margin-bottom:22px}
+  .snv2-track{bottom:calc(9svh + env(safe-area-inset-bottom,0px))}
+  .snv2-skip{right:16px;font-size:11px}
+  html.sr-loader-boot .hero{
+    transition-duration:850ms,1050ms
+  }
+}
+@media(max-height:520px){
+  .snv2-badge{width:118px;margin-bottom:9px}
+  .snv2-center{padding-bottom:15px}
+  .snv2-name{font-size:18px}
+  .snv2-track{bottom:calc(3svh + env(safe-area-inset-bottom,0px))}
+}
+@media(prefers-reduced-motion:reduce){
+  #sr-loader-stage,#sr-loader-shock{display:none!important}
+}

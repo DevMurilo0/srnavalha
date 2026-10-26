@@ -26,20 +26,24 @@ try{
  for(const width of [390,1440]){
   const intro=await fresh({viewport:{width,height:900}});
   await intro.addInitScript(()=>{window.introSamples=[];const record=()=>{
-   const flight=document.querySelector('.sr-reflection-flight--photo');
+   const flight=document.querySelector('.snv2-badge');
    if(flight&&window.introSamples.length<20){const r=flight.getBoundingClientRect();window.introSamples.push({time:performance.now(),x:r.x,y:r.y,width:r.width,images:document.querySelectorAll('img[src*="interior-"]').length})}
    if(document.documentElement.classList.contains('sr-loader-boot'))requestAnimationFrame(record)
   };document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(record),{once:true})});
   await intro.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});
-  await intro.waitForSelector('.sr-reflection-flight--photo',{state:'attached'});
+  await intro.waitForSelector('.snv2-badge',{state:'attached'});
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
+  await intro.waitForSelector('.snv2-cut-flight',{state:'attached',timeout:6500});
+  const cut=await intro.evaluate(()=>({strips:document.querySelectorAll('.snv2-panel-slice').length,tip:!!document.querySelector('.snv2-cut-flight'),logo:!!document.querySelector('.snv2-cutout-logo')}));
+  check(`${width}px: tesoura central e painéis responsivos`,cut.strips===(width<=700?14:24)&&cut.tip&&cut.logo,cut);
+  await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
   await settle(intro);await intro.screenshot({path:`${dir}/opening-end-${width}.png`});
-  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.sr-reflection-flight').length}));
-  check(`${width}px: FLIP real e restauração`,samples.samples.length>1&&samples.samples[0].width!==samples.samples.at(-1).width&&samples.photo&&samples.mark&&!samples.flights,samples);
+  const samples=await intro.evaluate(()=>({samples:window.introSamples,photo:!!document.querySelector('.hero-room img'),mark:!!document.querySelector('.hero-wordmark svg'),flights:document.querySelectorAll('.snv2-badge,.snv2-cut-flight,.snv2-logo-flight').length,logoVisible:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility!=='hidden'}));
+  check(`${width}px: The Perfect Cut: tesoura, divisões e hero real`,samples.samples.length>1&&samples.photo&&samples.mark&&!samples.flights&&samples.logoVisible,samples);
   await intro.context().close();
  }
  for(const input of ['click','keyboard','wheel','touch','resize','hidden']){
-  const p=await fresh({hasTouch:true,isMobile:true});await p.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await p.waitForSelector('.sr-reflection-flight--photo',{state:'attached'});
+  const p=await fresh({hasTouch:true,isMobile:true});await p.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await p.waitForSelector('.snv2-badge',{state:'attached'});
   if(input==='click')await p.locator('#sr-opening-skip').dispatchEvent('click');
   if(input==='keyboard')await p.keyboard.press('Tab');
   if(input==='wheel')await p.mouse.wheel(0,200);
@@ -48,10 +52,10 @@ try{
   if(input==='hidden')await p.evaluate(()=>{Object.defineProperty(document,'hidden',{value:true,configurable:true});document.dispatchEvent(new Event('visibilitychange'))});
   await settle(p);check(`Abertura interrompida: ${input}`,await p.evaluate(()=>!!document.querySelector('.hero-room img')&&!!document.querySelector('.hero-wordmark svg')&&!document.querySelector('#sr-loader-stage')));await p.context().close();
  }
- await page.goto(base);await settle(page);await page.reload();check('F5 na sessão sem repetir abertura',await page.locator('#sr-loader-stage').count()===0);
+ await page.goto(base);await settle(page);await page.evaluate(()=>scrollTo(0,0));await page.reload({waitUntil:'domcontentloaded'});check('F5 sempre repete a abertura',await page.locator('#sr-loader-stage').count()===1&&await page.evaluate(()=>document.documentElement.classList.contains('sr-loader-boot')));await settle(page);
  const cdp=await page.context().newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await page.reload();check('Hard refresh preserva conteúdo',await page.locator('.hero-room img').count()===1);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});
  for(const hash of ['#servicos','#equipe']){await page.goto(base+hash);check(`Link direto ${hash}`,await page.locator('#sr-loader-stage').count()===0&&await page.evaluate(()=>scrollY>200))}
- await page.setViewportSize({width:390,height:844});await page.goto(base);await page.keyboard.press('Tab');check('Teclado: foco visível',await page.evaluate(()=>document.activeElement.classList.contains('skip')));
+ await page.setViewportSize({width:390,height:844});await page.goto(base);await settle(page);await page.keyboard.press('Tab');check('Teclado: foco visível',await page.evaluate(()=>document.activeElement.classList.contains('skip')));
  await page.locator('.menu summary').click();check('Menu móvel abre',await page.locator('.menu').evaluate(e=>e.open));await page.keyboard.press('Escape');check('Menu: Escape devolve foco',await page.locator('.menu').evaluate(e=>!e.open&&document.activeElement===e.querySelector('summary')));
  await jump(page,'#servicos');const choice=page.locator('.mirror-choice').nth(1);await choice.click();await page.waitForTimeout(500);check('Espelho troca serviço',await choice.getAttribute('aria-pressed')==='true');
  await page.locator('[data-filter]').nth(1).click();check('Filtro de catálogo',await page.locator('.service-entry[hidden]').count()>0);await page.locator('[data-filter]').first().click();

@@ -1,0 +1,225 @@
+/* SR. NAVALHA — V23 · O PRIMEIRO TRAÇO
+   Original opening + eight typographic chapter joints.
+   The moving surfaces use only opacity and transform. */
+:root{
+  --sr-motion-out:cubic-bezier(.22,1,.36,1);
+  --sr-motion-travel:cubic-bezier(.65,0,.25,1);
+}
+
+/* PRÓLOGO · two precisely cut doors that become the site itself */
+#sr-loader-stage.sr-opening{position:fixed;inset:0;z-index:100;display:none;
+  overflow:hidden;isolation:isolate;background:transparent;color:#f4dfc6;
+  pointer-events:none}
+html.sr-loader-boot #sr-loader-stage.sr-opening{display:block}
+.sr-opening__door{position:absolute;top:-1px;bottom:-1px;width:50.2%;z-index:1;
+  overflow:hidden;background:#211b18;transform:translate3d(0,0,0)}
+.sr-opening__door--left{left:0;background:linear-gradient(94deg,#211b18,#342720)}
+.sr-opening__door--right{right:0;background:linear-gradient(266deg,#211b18,#342720)}
+.sr-opening__grain{position:absolute;inset:0;display:block;opacity:.31;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 50px,#ae865012 51px,transparent 52px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 45px,#e2ac7110 46px,transparent 47px)}
+.sr-opening__door--left::after,.sr-opening__door--right::after{content:"";position:absolute;
+  top:12%;bottom:12%;width:1px;background:linear-gradient(transparent,#b58b6455,transparent)}
+.sr-opening__door--left::after{right:0}.sr-opening__door--right::after{left:0}
+.sr-opening__cut{position:absolute;z-index:4;top:0;left:calc(50% - 1px);width:2px;height:100%;
+  transform-origin:50% 50%;transform:scaleY(0);opacity:0;
+  background:linear-gradient(180deg,transparent 1%,#f1d7b2 30%,#d09d67 50%,#f1d7b2 70%,transparent 99%);
+  box-shadow:0 0 17px 1px #edbe8980;pointer-events:none}
+.sr-opening__cut-glint{position:absolute;top:48%;left:50%;height:65px;width:11px;
+  transform:translate(-50%,-50%);background:radial-gradient(ellipse,#fce2b4b3,transparent 67%)}
+.sr-opening__identity{position:absolute;left:50%;top:46%;width:min(84vw,420px);z-index:3;
+  transform:translate3d(-50%,-50%,0);display:flex;flex-direction:column;align-items:center;
+  gap:clamp(13px,2.3vh,22px);text-align:center;pointer-events:none}
+.sr-opening__edition{display:flex;align-items:center;gap:12px;white-space:nowrap;
+  font:650 10px/1.5 var(--body);letter-spacing:.18em;color:#ccab8b}
+.sr-opening__edition i{width:22px;height:1px;background:#b69371;opacity:.75}
+.sr-opening__identity img{width:min(75%,290px);height:auto;display:block;filter:brightness(0) invert(.9)}
+.sr-opening__motto{font:650 10px/1.65 var(--body);letter-spacing:.19em;color:#d8bba0}
+.sr-opening__folio{position:absolute;z-index:2;left:clamp(20px,5vw,72px);
+  right:clamp(20px,5vw,72px);bottom:clamp(25px,5vw,55px);
+  display:flex;justify-content:space-between;align-items:end;gap:20px;
+  font:650 10px/1.4 var(--body);letter-spacing:.13em;color:#bc9774}
+.sr-opening__folio b{font-size:17px;font-weight:400;padding:0 7px}
+.sr-opening__skip{position:absolute;z-index:5;right:clamp(20px,5vw,72px);
+  top:clamp(20px,4vw,52px);padding:10px 0;
+  border:0;border-bottom:1px solid #bd9975;background:transparent;color:#e5c8a7;
+  pointer-events:auto;font:650 11px var(--body);letter-spacing:.08em;cursor:pointer}
+.sr-opening__skip span{padding-left:12px}
+.sr-opening__skip:focus-visible{outline:2px solid #efd2ac;outline-offset:6px}
+.sr-opening__door,.sr-opening__cut,.sr-opening__identity,.sr-opening__folio{
+  will-change:transform,opacity
+}
+
+/* First paint gate: only when JavaScript proactively activated it in <head>.
+   Natural content remains visible without JavaScript and with reduced motion. */
+@media(prefers-reduced-motion:no-preference){
+  html.sr-loader-boot .hero-wordmark,
+  html.sr-loader-boot .hero h1,
+  html.sr-loader-boot .hero-intro,
+  html.sr-loader-boot .hero-composition,
+  html.sr-loader-boot .hero-bottom{
+    transition:opacity 820ms var(--sr-motion-out),transform 980ms var(--sr-motion-out);
+  }
+  html.sr-loader-boot:not(.sr-opening-reveal) .hero-wordmark,
+  html.sr-loader-boot:not(.sr-opening-reveal) .hero h1,
+  html.sr-loader-boot:not(.sr-opening-reveal) .hero-intro,
+  html.sr-loader-boot:not(.sr-opening-reveal) .hero-composition,
+  html.sr-loader-boot:not(.sr-opening-reveal) .hero-bottom{
+    opacity:0;transform:translate3d(0,22px,0);
+  }
+  html.sr-loader-boot.sr-opening-reveal .hero-wordmark,
+  html.sr-loader-boot.sr-opening-reveal .hero h1,
+  html.sr-loader-boot.sr-opening-reveal .hero-intro,
+  html.sr-loader-boot.sr-opening-reveal .hero-composition,
+  html.sr-loader-boot.sr-opening-reveal .hero-bottom{
+    opacity:1;transform:none;
+  }
+  html.sr-loader-boot .hero-wordmark{transition-delay:70ms}
+  html.sr-loader-boot .hero h1{transition-delay:155ms}
+  html.sr-loader-boot .hero-intro{transition-delay:260ms}
+  html.sr-loader-boot .hero-composition{transition-delay:205ms}
+  html.sr-loader-boot .hero-bottom{transition-delay:320ms}
+}
+
+/* CHAPTER JOINTS · genuine between-section editorial cuts, not overlays
+   on functional content, so all navigation and scrolling stay native. */
+.sr-chapter{--chapter-ink:#f1e5d4;--chapter-paper:#2b221d;--chapter-accent:#cf9d74;
+  --sr-before:#f1eae0;--sr-after:#211b18;
+  position:relative;z-index:6;isolation:isolate;overflow:hidden;
+  height:clamp(140px,14vw,198px);margin-block:-13px;pointer-events:none}
+.sr-chapter__surface{position:absolute;inset:0;z-index:-2;
+  background:linear-gradient(to bottom,var(--sr-before) 0 49.7%,var(--sr-after) 50.3% 100%)}
+.sr-chapter__surface::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;
+  background:linear-gradient(90deg,transparent,#ba8c6688 26%,#ba8c66 74%,transparent)}
+.sr-chapter__inner{position:relative;z-index:1;margin:auto;height:100%;
+  width:min(calc(100% - clamp(36px,9vw,140px)),1200px);
+  display:flex;align-items:center;gap:clamp(16px,3vw,40px)}
+.sr-chapter__index{color:var(--chapter-ink);background:var(--chapter-paper);
+  padding:11px 14px;font:700 10px/1.25 var(--body);letter-spacing:.2em;
+  white-space:nowrap;min-width:84px;text-align:center;border:1px solid #bb977477}
+.sr-chapter__line{height:1px;flex:1;min-width:16px;background:var(--chapter-accent);
+  transform-origin:left center;opacity:.8}
+.sr-chapter__plate{position:relative;display:flex;align-items:center;justify-content:center;
+  gap:clamp(12px,2.2vw,30px);max-width:min(72%,720px);min-height:84px;
+  padding:clamp(14px,2.1vw,28px) clamp(17px,3vw,42px);
+  border:1px solid #bc957355;color:var(--chapter-ink);background:var(--chapter-paper);
+  box-shadow:0 17px 34px -27px #150e0966;
+  transform-origin:center center}
+.sr-chapter__plate::after{content:"";position:absolute;left:13px;right:13px;
+  bottom:7px;height:1px;background:linear-gradient(90deg,transparent,#bd927055,transparent)}
+.sr-chapter__number{font:400 clamp(28px,4vw,58px)/.9 Georgia,serif;font-style:italic;
+  letter-spacing:-.09em;color:var(--chapter-accent)}
+.sr-chapter__copy{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sr-chapter__copy strong{font:610 clamp(14px,2.1vw,25px)/1.2 var(--display);
+  letter-spacing:-.045em;white-space:nowrap}
+.sr-chapter__copy small{font:650 9px/1.45 var(--body);letter-spacing:.18em;
+  color:var(--chapter-accent);white-space:nowrap}
+.sr-chapter__edge{font:650 10px/1.4 var(--body);letter-spacing:.16em;
+  color:var(--chapter-accent);white-space:nowrap}
+.sr-chapter__ornament{width:clamp(22px,4vw,44px);height:44px;flex-shrink:0;
+  display:grid;place-items:center;color:var(--chapter-accent)}
+.sr-chapter__ornament svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.5}
+
+/* Each of the eight cuts has its own placement and physical rhythm. */
+.sr-chapter--threshold .sr-chapter__plate{border-radius:110px 110px 0 0;min-height:117px;padding-top:27px}
+.sr-chapter--threshold .sr-chapter__ornament{transform:translateY(13px)}
+.sr-chapter--blade .sr-chapter__inner{flex-direction:row-reverse}
+.sr-chapter--blade .sr-chapter__plate{transform:skew(-7deg);border-block:2px solid #bd946e}
+.sr-chapter--blade .sr-chapter__plate>*{transform:skew(7deg)}
+.sr-chapter--blade .sr-chapter__line{transform-origin:right center}
+.sr-chapter--film .sr-chapter__plate{border:4px solid #baa184;outline:1px solid #2a2018;outline-offset:4px}
+.sr-chapter--film .sr-chapter__plate::before{content:"";position:absolute;left:8px;right:8px;top:-8px;height:3px;background:repeating-linear-gradient(90deg,#b28b61 0 10px,transparent 10px 20px)}
+.sr-chapter--stitch .sr-chapter__plate{border:2px dashed #b69069;transform:rotate(-2deg)}
+.sr-chapter--stitch .sr-chapter__plate::after{left:0;right:0;bottom:4px;background:repeating-linear-gradient(90deg,transparent 0 13px,#aa825f 13px 17px,transparent 17px 27px)}
+.sr-chapter--shelf{--chapter-ink:#3b291e;--chapter-paper:#ede0ce;--chapter-accent:#8a5b3d}
+.sr-chapter--shelf .sr-chapter__plate{border:1px solid #ad886b;box-shadow:0 9px 0 -5px #a77656}
+.sr-chapter--stars .sr-chapter__ornament{width:75px}
+.sr-chapter--stars .sr-chapter__plate{background:#2d1d18;border-color:#c79861}
+.sr-chapter--route .sr-chapter__plate{border:0;background:#eee1d0;--chapter-ink:#35251b;--chapter-accent:#9c6c48;box-shadow:0 2px 0 #c8a98e}
+.sr-chapter--signature .sr-chapter__plate{transform:rotate(1.5deg);border-block:2px solid #c39b72}
+.sr-chapter--signature .sr-chapter__copy strong{letter-spacing:-.055em}
+
+/* Animate only when observer claimed the object; otherwise it is visible.
+   No sticky scroll hijack, progress math or forced layout on every scroll. */
+html.sr-chapters-active .sr-chapter.sr-chapter--queued .sr-chapter__plate,
+html.sr-chapters-active .sr-chapter.sr-chapter--queued .sr-chapter__index,
+html.sr-chapters-active .sr-chapter.sr-chapter--queued .sr-chapter__edge{
+  opacity:0;translate:0 26px}
+html.sr-chapters-active .sr-chapter.sr-chapter--queued .sr-chapter__line{
+  scale:0 1;opacity:0}
+html.sr-chapters-active .sr-chapter .sr-chapter__plate,
+html.sr-chapters-active .sr-chapter .sr-chapter__index,
+html.sr-chapters-active .sr-chapter .sr-chapter__edge{
+  transition:opacity 760ms var(--sr-motion-out),translate 900ms var(--sr-motion-out)}
+html.sr-chapters-active .sr-chapter .sr-chapter__line{
+  transition:scale 1000ms var(--sr-motion-out),opacity 450ms ease}
+html.sr-chapters-active .sr-chapter--blade.sr-chapter--queued .sr-chapter__plate{translate:50px 0}
+html.sr-chapters-active .sr-chapter--film.sr-chapter--queued .sr-chapter__plate{translate:-40px 0}
+html.sr-chapters-active .sr-chapter--stitch.sr-chapter--queued .sr-chapter__plate{translate:0 36px}
+html.sr-chapters-active .sr-chapter--shelf.sr-chapter--queued .sr-chapter__plate{translate:30px 0}
+html.sr-chapters-active .sr-chapter--stars.sr-chapter--queued .sr-chapter__plate{translate:0 38px}
+html.sr-chapters-active .sr-chapter--route.sr-chapter--queued .sr-chapter__plate{translate:-35px 0}
+html.sr-chapters-active .sr-chapter--signature.sr-chapter--queued .sr-chapter__plate{translate:0 28px}
+html.sr-chapters-active .sr-chapter .sr-chapter__index{transition-delay:65ms}
+html.sr-chapters-active .sr-chapter .sr-chapter__plate{transition-delay:110ms}
+html.sr-chapters-active .sr-chapter .sr-chapter__edge{transition-delay:170ms}
+
+@media(max-width:800px){
+  .sr-chapter{height:clamp(116px,19vw,148px);margin-block:-8px}
+  .sr-chapter__inner{width:calc(100% - 34px);gap:11px}
+  .sr-chapter__index{font-size:8px;padding:9px;min-width:44px;letter-spacing:.12em}
+  .sr-chapter__plate{min-height:70px;padding:12px 14px;max-width:82%;gap:12px}
+  .sr-chapter__copy strong{font-size:clamp(12px,3.6vw,21px)}
+  .sr-chapter__copy small{font-size:8px;letter-spacing:.08em}
+  .sr-chapter__ornament{width:28px;height:30px}
+  .sr-chapter__edge{display:none}
+  .sr-chapter__number{font-size:clamp(25px,7vw,40px)}
+  .sr-chapter--threshold .sr-chapter__plate{min-height:92px}
+  .sr-chapter--stars .sr-chapter__ornament{width:41px}
+}
+@media(max-width:430px){
+  .sr-opening__identity{top:44%;width:95vw}
+  .sr-opening__identity img{width:66%}
+  .sr-opening__edition{font-size:8px;letter-spacing:.09em}
+  .sr-opening__motto{font-size:8px;letter-spacing:.08em}
+  .sr-opening__folio{font-size:8px;letter-spacing:.08em}
+  .sr-opening__folio span:last-child{display:none}
+  .sr-chapter__index,.sr-chapter__line{display:none}
+  .sr-chapter__inner{justify-content:center;gap:9px}
+  .sr-chapter__plate{max-width:100%;width:min(100%,325px);min-width:0}
+  .sr-chapter__ornament{display:none}
+  .sr-chapter__copy strong{font-size:clamp(12px,3.9vw,16px)}
+  .sr-chapter__copy small{white-space:normal}
+}
+@media(prefers-reduced-motion:reduce){
+  #sr-loader-stage{display:none!important}
+  .sr-chapter .sr-chapter__plate,.sr-chapter .sr-chapter__index,.sr-chapter .sr-chapter__edge,.sr-chapter .sr-chapter__line{transition:none!important;translate:none!important;scale:1!important;opacity:1!important}
+  .hero-wordmark,.hero h1,.hero-intro,.hero-composition,.hero-bottom{transition:none!important}
+}
+
+/* Pré-pintura das passagens: evita flash no carregamento e em deep links.
+   Com JS desligado este seletor jamais entra em vigor. */
+@media(prefers-reduced-motion:no-preference){
+  html.sr-motion-boot .sr-chapter__plate,
+  html.sr-motion-boot .sr-chapter__index,
+  html.sr-motion-boot .sr-chapter__edge,
+  html.sr-motion-boot .sr-chapter__line{opacity:0}
+}
+
+/* Preview da equipe preservado, sem dependência da antiga folha V20. */
+/* Skiper-inspired creative hover member preview, original vanilla implementation */
+.sr-member-preview{position:fixed;z-index:75;top:0;left:0;width:172px;pointer-events:none;opacity:0;visibility:hidden;transform:translate3d(-300px,-300px,0);background:#231b17;border:1px solid #b98d67;box-shadow:0 16px 30px #140c0c65,8px 9px 0 #e9d7bd44;transition:opacity .28s cubic-bezier(.16,1,.3,1),visibility .28s}
+.sr-member-preview--active{visibility:visible;opacity:1}
+.sr-member-preview__photo{width:100%;height:169px;overflow:hidden;border:6px solid #eee1d0;border-bottom:0}
+.sr-member-preview__photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.82);transform:scale(1.07);transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.sr-member-preview--active .sr-member-preview__photo img{transform:scale(1)}
+.sr-member-preview__text{padding:11px 12px 13px;display:grid;gap:6px;color:#f5e9d8}
+.sr-member-preview__text b{font:650 18px/1.2 var(--display)}
+.sr-member-preview__text span{font:650 8px/1.3 var(--body);letter-spacing:.1em;color:#c6a384}
+@media(hover:none),(pointer:coarse){.sr-member-preview{display:none}}
+@media(prefers-reduced-motion:reduce){.sr-member-preview{display:none!important}}
+
+/* The intentional shortcut becomes quiet as the doors part. */
+@media(prefers-reduced-motion:no-preference){
+  html.sr-opening-reveal .sr-opening__skip{opacity:0;pointer-events:none;transition:opacity 240ms ease-out}
+}

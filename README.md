@@ -1,4 +1,4 @@
-# Sr. Navalha · O Reflexo do Ritual
+# Sr. Navalha · The Perfect Cut
 
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
@@ -20,9 +20,47 @@ PORT=8047 node scripts/serve.mjs
 
 Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
 
+### Refinamento: logo transparente e passagem ao hero
+
+A WebP oficial de `assets/images/v8/logo-640.webp` contém um fundo escuro incorporado. O loader usa essa mesma arte dentro de um SVG com `feColorMatrix`: os pixels escuros se tornam alfa zero, enquanto o lettering claro é renderizado em tinta carvão. O círculo por trás da marca passou a ser totalmente transparente; a imagem original em disco **não foi modificada** nem recriada por inteligência artificial. Fallback "SN" aparece se a marca não carregar.
+
+[Histórico da versão V2, substituída pelo The Perfect Cut] A revelação radial e o anel exterior partiam da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
+
+## The Perfect Cut · 26/10/2026
+
+A abertura segue o protótipo **`Sr. Navalha · The Perfect Cut.html` enviado pelo proprietário**, integrado ao site verdadeiro. A sequência inicial V2 (anel, logo recortada com transparência, marca letra a letra, postes laterais e progresso com tesoura) permanece igual. Ao atingir 100%, a tesoura deixa a régua, antecipa o corte, encontra o eixo central, gira para apontar para baixo e corta verticalmente. A superfície opaca é dividida em faixas esquerda/direita que se afastam logo depois que a lâmina passa, revelando o hero por trás.
+
+A logo oficial do loader é transferida para o `svg.hero-logo-transparent` com uma única medição FLIP e animações somente de `transform`/`opacity`; o SVG do hero é restaurado sem piscar. As faixas são 7 por lado no mobile e 12 por lado no desktop, e não provocam scroll artificial, mudança de layout global ou novas requisições de imagem. A passagem é coordenada em `js/ritual/opening.js`, com estilos isolados em `css/ritual/perfect-cut-v3.css`.
+
+A antiga íris radial deixou de ser a saída ativa; o CSS do loader V2 continua fornecendo os elementos da abertura inicial e o CSS Perfect Cut substitui somente o efeito final. O hero verdadeiro, a paleta quente, os oito capítulos editoriais, agendamento frontend local e as otimizações do scroll não foram redesenhados. O F5 repete a introdução; reduzido movimento, links profundos, interação, resize e falhas liberam o hero. A abertura conta com watchdog e limpeza de WAAPI, temporários, timers e foco.
+
+Regressão estrutural: `node scripts/test-reflexo-static.mjs`. Teste real opcional com Playwright instalado fora do projeto: `scripts/test-reflexo.mjs`. Os screenshots e traces da implementação anterior são históricos, não medições da versão atual.
+
+## Loader v2 · referência fornecida (26/10/2026)
+
+A entrada da homepage agora reproduz a **sequência visual do protótipo `Sr. Navalha · Loader v2.html` enviado pelo proprietário**: postes listrados nas laterais, círculo de cobre desenhado, ponteiros/ticks do emblema, marca oficial com fallback SN, letras de SR. NAVALHA em cascata, brilho sobre a marca, régua de progresso com tesoura e porcentagem, e por fim uma **abertura radial (iris)** acompanhada por um anel expansivo, revelando o **hero real** com entrada leve de seus elementos. O HTML fictício e a fotografia-placeholder do protótipo NÃO substituem a homepage.
+
+A paleta original da homepage permanece inalterada. O loader usa cores marfim, grafite e bronze somente em `css/ritual/loader-v2.css`, importado por último. A foto da fachada, os títulos, as sessões e os oito capítulos restaurados continuam no mesmo lugar. Não há novas dependências, fontes externas obrigatórias, Supabase ou alteração do agendamento local.
+
+O contador 0–100% e a régua são **progresso visual da animação**, não medição de bytes baixados: a experiência não deve ser confundida com download efetivo. O conteúdo permanece acessível após timeout, mesmo se a logo ou o JavaScript falharem. O progresso e a tesoura usam transformações CSS em vez de escritas de `width` por frame. O recorte radial usa `@property` + `mask-image` apenas durante a saída, com fade/removal como fallback. O efeito respeita movimento reduzido, pode ser pulado, não bloqueia a rolagem e aparece novamente em cada F5/reload da página inicial (links diretos para seções são respeitados sem intro).
+
+Fontes canônicas: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/loader-v2.css`. O `index.html` foi remontado dos templates para preservar o build. Verificação: `node scripts/test-reflexo-static.mjs`; teste real com navegador quando disponível: `scripts/test-reflexo.mjs`.
+
+## Identidade restaurada e novo prólogo · 26/10/2026
+
+[Histórico anterior, substituído pelo Loader v2] A versão Reflexo modificou indevidamente a paleta global, eliminou texturas de fundo e substituiu os oito separadores originais por passagens genéricas. **Essas alterações visuais foram desfeitas seletivamente**, recuperando as cores originais de `css/ritual/tokens.css`, a atmosfera de `css/ritual/atmosphere-v18.css`, as superfícies de `css/ritual/scene-craft-v19.css` e os capítulos detalhados de `css/ritual/first-cut-v23.css`. Foram mantidas as otimizações de `js/ritual/motion.js`, `js/ritual/scene-cuts.js`, `js/ritual/core.js`, controles e demais ajustes de responsividade, scroll e interrupção das animações.
+
+**Negativo 349** é a nova abertura. O logo e a fotografia oficial do salão começam em uma composição escura, recebem uma explosão geométrica de traços de cobre e se deslocam até suas posições correspondentes no hero. Somente a abertura usa direção visual própria; as cores e fundos da página NÃO são alterados. Os movimentos utilizam `transform` e `opacity`, sem mudar o DOM do hero ou bloquear a rolagem.
+
+A abertura aparece em **toda atualização (F5, Ctrl+F5, recarregamento completo)**. Não usa `sessionStorage` nem cookies para esconder o efeito. Âncoras profundas, preferência por movimento reduzido e histórico de retorno entram diretamente; interação interrompe imediatamente; watchdog libera a interface em caso de erro. O modo local de agendamento permanece sem backend.
+
+Arquivos: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/negative-349-v24.css` e HTML reconstruído de `templates/v17/`. Para teste estrutural, execute `node scripts/test-reflexo-static.mjs` (atualizado para os contratos V24).
+
+**Testes visuais recomendados antes do lançamento:** atualizar várias vezes no desktop e mobile, testar com cache frio, pular, rolar durante a intro, movimento reduzido, orientação landscape, largura de 320px, e verificar se fotografias/títulos entram sem flash ou salto. A validação de fluidez precisa ser confirmada em navegador real.
+
 ## Reconstrução de motion · 26/10/2026
 
-A fotografia e a marca reais se acomodam no hero; rolagem nativa sem cálculos de geometria por frame; entradas com concorrência limitada; oito passagens simplificadas. Sem dependências de runtime. Agendamento local e registros de teste preservados.
+Histórico da otimização Reflexo: rolagem nativa sem cálculos de geometria por frame, entradas com concorrência limitada e correções funcionais preservadas. A antiga abertura e as passagens simplificadas não são mais ativas.
 
 [Relatório, referências e comparação medida](docs/reflexo/RELATORIO.md). A fonte continua em `templates/v17/`; `node scripts/render-site.mjs` produz o mesmo `index.html`.
 
