@@ -1,5 +1,14 @@
 # Sr. Navalha · The Perfect Cut
 
+## Hero: queda com dois quiques sincronizada ao Perfect Cut · 27/10/2026
+
+A revelação do hero agora tem uma entrada **física e divertida**: cada elemento cai de um ponto acima de sua posição final, toca o lugar de repouso, comprime-se discretamente no impacto, dá um primeiro rebote e um segundo menor, e se estabiliza. A sequência é gradual do topo para a base — cilindro/assinatura → título → introdução → fachada, salão e detalhe → texto e botões — já **durante** a abertura da tela carregada. As 11 faixas temporais pertencem ao mesmo `document.timeline` que a tesoura, sem timers paralelos ou scripts de scroll.
+
+Foi preservada a geometria final: a transformação original calculada (`getComputedStyle(node).transform`) acompanha cada etapa, mantendo os ângulos das fotos e a escala do cilindro. Apenas `transform` e `opacity` são animados, com dois impactos progressivamente menores. No mobile, a distância de queda e as durações são reduzidas. O handoff FLIP da logo oficial não é substituído por um salto, e o loader continua reaparecendo a cada F5. A classe da introdução é encerrada depois do último repouso, sem cortar a animação no meio. Acessibilidade, movimento reduzido e cancelamento por interação permanecem como antes.
+
+Código: `js/ritual/hero-sign.js`, acionado por `js/ritual/opening.js`. Regressões estruturais: `scripts/test-reflexo-static.mjs`. Teste real de fluidez e composição no navegador ainda é necessário.
+
+
 ## Correção de carregamento e cilindro minimalista · 27/10/2026
 
 O carregamento The Perfect Cut deixou de animar após a edição do hero porque `js/ritual/opening.js` possuía `import { $, $, ... }`, que produz **SyntaxError** e impede o entry point `app.js` de executar. Corrigido para importar `$` e `$$` separadamente e preservar a progressão completa: anel/assinatura/progresso → tesoura exclusiva do corte → duas metades da tela → hero sincronizado. Também corrigido o listener do menu que tentava chamar `.forEach` sobre um único elemento retornado por `$`, agora usando `$$` para todos os links.
