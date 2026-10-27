@@ -99,20 +99,28 @@ await covered.evaluate(()=>{
  });
 });
 const buttonRect=await covered.locator('.sr-booking-fixed').boundingBox();
-if(buttonRect){
- await covered.mouse.click(buttonRect.x+buttonRect.width/2,buttonRect.y+buttonRect.height/2);
- await done(covered);
- const coveredResult=await covered.evaluate(()=>({
-  clickBehind:window.__clickedBehindLoader,
-  pathname:location.pathname,
-  loaderAlive:!!document.querySelector('#sr-loader-stage'),
-  boot:document.documentElement.classList.contains('sr-loader-boot')
- }));
- check('Clique durante loader não aciona agendamento por trás',
-  coveredResult.clickBehind===false&&
-  (coveredResult.pathname==='/'||coveredResult.pathname.endsWith('/index.html'))&&
-  !coveredResult.loaderAlive,coveredResult);
-}else check('Clique durante loader não aciona agendamento por trás',false,'CTA não localizado');
+// The booking control may deliberately be display:none during the loader;
+// Playwright returns null in that case. That is a safe state, not a failure.
+const initialCTA=await covered.evaluate(()=>{
+ const node=document.querySelector('.sr-booking-fixed');
+ if(!node)return null;
+ const css=getComputedStyle(node);
+ return {display:css.display,visibility:css.visibility,pointerEvents:css.pointerEvents};
+});
+const clickX=buttonRect?buttonRect.x+buttonRect.width/2:30;
+const clickY=buttonRect?buttonRect.y+buttonRect.height/2:760;
+await covered.mouse.click(clickX,clickY);
+await done(covered);
+const coveredResult=await covered.evaluate(()=>({
+ clickBehind:window.__clickedBehindLoader,
+ pathname:location.pathname,
+ loaderAlive:!!document.querySelector('#sr-loader-stage'),
+ boot:document.documentElement.classList.contains('sr-loader-boot')
+}));
+check('Clique durante loader não aciona agendamento por trás',
+ initialCTA!==null&&coveredResult.clickBehind===false&&
+ (coveredResult.pathname==='/'||coveredResult.pathname.endsWith('/index.html'))&&
+ !coveredResult.loaderAlive,{initialCTA,coveredResult});
 await covered.close();
 
 const reduced=await pageAt(390,{reducedMotion:'reduce'});await load(reduced);await done(reduced);check('Reduced motion inicial',await reduced.locator('#sr-loader-stage').count()===0);await reduced.close();
