@@ -1,19 +1,18 @@
-/* One settling gesture, owned by the existing reduced-motion/visibility lifecycle. */
+/* Entrance settle for the physical barber pole. The rotating striped rotor
+   lives on a child layer, so it never restarts while the object enters.
+   The shared motion lifecycle pauses its spin in hidden tabs. */
 import { $, animate, canMove } from './core.js';
 
 export function initHeroSign() {
-  const face = $('.hero-sign__face');
-  if (!face) return;
+  const object = $('.hero-pole__object');
+  if (!object) return;
   const reveal = () => {
     if (!canMove() || window.scrollY > 20) return;
-    const rest = getComputedStyle(face).transform;
-    animate(face, [
-      { opacity: 0, transform: 'perspective(700px) translateY(-7px) rotateX(-9deg) rotateY(-8deg) rotateZ(-4deg)' },
-      { opacity: 1, transform: rest }
-    ], { duration: 1050, easing: 'cubic-bezier(.16,1,.3,1)' });
+    animate(object, [
+      { opacity: 0, transform: 'translate3d(0,-11px,0) rotate(-10deg)' },
+      { opacity: 1, transform: 'translate3d(0,0,0) rotate(-5deg)' }
+    ], { duration: 990, easing: 'cubic-bezier(.16,1,.3,1)' });
   };
-  // Registered before openRitual: also handles its synchronous early exits.
-  // Without JS, or if the opening module fails, the CSS default is fully visible.
   if (document.documentElement.classList.contains('sr-loader-boot')) {
     document.addEventListener('openingend', reveal, { once: true });
   }
