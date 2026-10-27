@@ -1,0 +1,18 @@
+[
+  {
+    "name": "320x640 navegação visível após limpeza CSS",
+    "pass": true
+  },
+  {
+    "name": "CTA não cobre ação do hero mobile",
+    "pass": true
+  },
+  {
+    "name": "CTA recolhido durante menu",
+    "pass": true
+  },
+  {
+    "name": "Footer sem sobreposição",
+    "pass": true
+  }
+]

@@ -1,156 +1,96 @@
-/* Sr. Navalha — booking flow, progressive enhancement.
-   The original four-section page remains readable without JavaScript. */
-.bk-flow-progress,.bk-flow-nav{display:none}
-.bk-wizard-ready .bk-hero,.bk-wizard-ready .bk-strip{display:none}
-.bk-wizard-ready .bk-mobile-direct{display:none!important}
-.bk-wizard-ready .bk-workshop{
-  width:min(100%,1420px);max-width:1420px;
-  padding:clamp(20px,3vw,38px) clamp(18px,4vw,65px) 54px;
+/* Four steps, one existing form and one local booking engine. */
+:root{--bk-bg:var(--ivory);--bk-dark:var(--ink);--bk-accent:var(--copper);--bk-muted:var(--muted)}
+html{scroll-behavior:auto}
+[hidden]{display:none!important}
+.bk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bk-header{height:72px;background:var(--tobacco)}
+.bk-header-action{display:none}
+.bk-hero{display:flex;justify-content:space-between;gap:24px;min-height:0;max-width:1240px;margin:0 auto;background:var(--ivory);padding:24px 32px}
+.bk-hero-copy{display:block;padding:0;align-self:center}
+.bk-hero h1{font:550 clamp(28px,3.2vw,42px)/1.15 var(--display);letter-spacing:-.04em;margin:0 0 12px}
+.bk-hero-copy>p:not(.bk-eyebrow,.bk-reality){font-size:13px;line-height:1.6;max-width:600px;margin:0;color:var(--muted)}
+.bk-hero-copy strong{font-weight:500}
+.bk-wizard-photo{width:170px;height:98px;object-fit:cover;object-position:50% 42%}
+.bk-workshop{max-width:1240px;margin:auto;padding:0 32px 40px;scroll-margin-top:12px}
+.bk-progress ol{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;margin:0;padding:0;border-bottom:1px solid var(--stone)}
+.bk-progress button{border:0;border-bottom:2px solid transparent;padding:16px 4px;min-height:52px;width:100%;text-align:left;background:none;color:var(--muted);font-size:13px}
+.bk-progress button span{font-variant-numeric:tabular-nums;color:var(--wood);margin-right:10px}
+.bk-progress button[aria-current]{border-color:var(--wood);color:var(--ink);font-weight:750}
+.bk-progress button.is-complete span{background:var(--tobacco);color:var(--ivory);padding:3px}
+.bk-progress button:disabled{cursor:default;opacity:.65}
+.bk-workshop-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;padding-top:22px;align-items:start}
+.bk-steps{min-width:0}
+.bk-wizard .bk-stage{height:clamp(310px,calc(100svh - 400px),580px);min-height:0}
+.bk-wizard .bk-step{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--wood) var(--stone);scroll-padding:12px;padding:4px 12px 12px 4px;margin:0;border:0}
+.bk-step-heading{margin-bottom:18px;gap:12px}
+.bk-step h3{font:550 clamp(20px,2vw,27px)/1.3 var(--display);letter-spacing:-.035em;margin:0}
+.bk-step-heading p{font-size:12px;line-height:1.6;margin:8px 0 0;color:var(--muted)}
+.bk-step-number{display:none}
+.bk-services,.bk-slots{max-height:none;overflow:visible}
+.bk-services{border-top-color:var(--stone)}
+.bk-service{padding:14px 8px;transition:background 140ms ease;min-height:72px}
+.bk-service:hover,.bk-service[aria-pressed=true]{padding-left:8px;background:var(--stone)}
+.bk-service-info small{color:var(--muted);font-size:10px;letter-spacing:.04em}
+.bk-service-info strong{font-size:15px}
+.bk-search-shell input,.bk-preferences input,.bk-name{font-size:16px}
+.bk-filters{display:flex;flex-wrap:nowrap;overflow:auto;gap:6px;padding:6px 3px 12px;scrollbar-width:thin}
+.bk-filters button{white-space:nowrap;min-height:36px}
+.bk-prof{background:var(--ivory);border:2px solid var(--stone);font-size:12px;min-height:130px}
+.bk-prof[aria-pressed=true]{background:var(--stone);border-color:var(--wood)}
+.bk-prof img{border-radius:0;filter:none;height:85px;width:85px}
+.bk-prof-symbol{background:var(--tobacco);color:var(--copper)}
+.bk-slot-head{margin-top:18px;padding-top:18px}
+.bk-summary{position:static;background:var(--tobacco);box-shadow:none;margin:0;color:var(--ivory)}
+.bk-ticket-content{padding:24px}
+.bk-ticket-content h2{font:500 26px/1.3 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+.bk-ticket-kicker,.bk-ticket-divider,.bk-ticket-bottom{display:none}
+.bk-ticket-top{padding:16px 24px;color:var(--copper)}
+.bk-recap{margin:0}
+.bk-recap>div{grid-template-columns:1fr;gap:6px;padding:13px 0}
+.bk-recap dt{color:var(--light-muted);font-size:10px}
+.bk-recap dd{text-align:left;font-size:13px}
+.bk-ticket-footnote{font-size:11px;color:var(--light-muted);margin-top:15px}
+.bk-booking-status{color:var(--ivory);margin-bottom:0}
+.bk-wizard-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--stone);padding:14px 0 calc(8px + env(safe-area-inset-bottom,0px));background:var(--ivory)}
+#bk-step-error{flex-basis:100%;margin:0;color:#883b29;font-size:12px;line-height:1.5}
+#bk-step-error:empty{display:none}
+.bk-wizard-nav button{min-height:48px;padding:12px 18px;border:1px solid var(--wood);font-weight:650;font-size:13px;background:transparent;color:var(--ink)}
+.bk-wizard-nav #bk-next,.bk-wizard-nav #bk-submit{background:var(--tobacco);color:var(--ivory);border-color:var(--tobacco)}
+.bk-wizard-nav #bk-submit{width:auto;gap:12px;min-height:48px}
+.bk-wizard-nav #bk-submit span{font-size:12px;font-weight:650}
+.bk-wizard-nav button:disabled{opacity:.5;cursor:default}
+.bk-wizard-nav button:active:not(:disabled){transform:scale(.98)}
+.bk-consent,.bk-form-local-note{font-size:12px;line-height:1.6}
+.bk-form input[aria-invalid=true]{outline:2px solid #883b29;outline-offset:2px}
+.bk-summary+form{margin-top:20px}
+.bk-success-box{box-shadow:none;background:var(--tobacco)}
+@media(max-width:760px){
+ .bk-header{height:60px}.bk-brand img{height:46px}
+ .bk-hero{padding:16px;gap:12px}.bk-hero h1{font-size:27px;margin-bottom:7px}
+ .bk-hero-copy>p:not(.bk-eyebrow,.bk-reality){font-size:11px;line-height:1.5}
+ .bk-wizard-photo{width:64px;height:82px;flex-shrink:0}
+ .bk-workshop{padding:0 16px 26px}
+ .bk-progress button{font-size:10px;padding:10px 2px;min-height:52px}
+ .bk-progress button span{display:block;margin:0 0 4px;font-size:11px;width:max-content}
+ .bk-workshop-grid{display:block;padding-top:14px}
+ .bk-wizard .bk-stage{height:clamp(210px,calc(100svh - 370px),570px)}
+ .bk-step h3{font-size:20px}.bk-step-heading{margin-bottom:12px}
+ .bk-professionals{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .bk-preferences{grid-template-columns:1fr}
+ .bk-slots{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .bk-slot-head{display:block}.bk-slot-head span{display:block;margin-top:5px}
+ .bk-wizard-nav{padding-top:10px;gap:6px}
+ .bk-wizard-nav button{padding:10px 13px;font-size:12px}
+ .bk-step .bk-summary{margin:14px 0 20px}
+ .bk-step .bk-ticket-top,.bk-step .bk-ticket-footnote,.bk-step .bk-booking-status{display:none}
+ .bk-step .bk-ticket-content{padding:16px}
+ .bk-step .bk-ticket-content h2{font-size:18px;margin-bottom:5px}
+ .bk-step .bk-recap{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+ .bk-step .bk-recap>div{padding:8px 0}.bk-step .bk-recap dd{font-size:11px}
+ .bk-saved{padding:30px 16px}.bk-saved h2{font-size:28px}
+ .bk-footer{padding-bottom:30px}
 }
-.bk-wizard-ready .bk-workshop-intro{
-  grid-template-columns:145px minmax(0,1fr) minmax(170px,280px);
-  gap:20px;align-items:center;
-  padding-bottom:20px;
-}
-.bk-wizard-ready .bk-workshop-intro h2{
-  font-size:clamp(27px,3vw,43px);line-height:1.11;
-}
-.bk-wizard-ready .bk-workshop-intro h2 br{display:none}
-.bk-wizard-ready .bk-workshop-intro>p{
-  font-size:12px;line-height:1.65;grid-column:auto;
-}
-.bk-wizard-ready .bk-kicker span{color:var(--wood)}
-.bk-wizard-ready .bk-flow-progress{display:block;padding-top:22px}
-.bk-flow-progress ol{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:0;padding:0;margin:0;list-style:none;
-}
-.bk-flow-progress li{
-  display:flex;gap:10px;align-items:center;
-  padding:11px 14px;border-bottom:2px solid #cabbac;
-  color:#827265;min-width:0;
-}
-.bk-flow-progress li>span{
-  font:700 10px/1 var(--display);letter-spacing:.04em;
-  width:26px;height:26px;display:grid;place-items:center;
-  border:1px solid #cabbac;border-radius:50%;flex:none;
-}
-.bk-flow-progress li strong{font:660 11px/1.35 var(--body);letter-spacing:.035em}
-.bk-flow-progress li.is-current{
-  border-bottom-color:var(--wood);color:var(--tobacco);background:#e9ddce;
-}
-.bk-flow-progress li.is-current>span{background:var(--tobacco);color:var(--ivory);border-color:var(--tobacco)}
-.bk-flow-progress li.is-complete{color:var(--wood);border-bottom-color:var(--copper)}
-.bk-flow-progress li.is-complete>span{border-color:var(--copper)}
-.bk-wizard-ready .bk-workshop-grid{
-  padding-top:20px;
-  grid-template-columns:minmax(0,1.45fr) minmax(270px,.75fr);
-  gap:clamp(18px,3vw,48px);
-  align-items:start;
-}
-.bk-wizard-ready .bk-steps{min-width:0}
-.bk-wizard-ready .bk-step[hidden]{display:none!important}
-.bk-wizard-ready .bk-step.is-active{
-  margin:0;padding:clamp(18px,3vw,32px);
-  border:1px solid #d0bdab;
-  background:linear-gradient(145deg,#f5eee4,#eee1d2);
-  max-height:clamp(300px,55svh,550px);
-  min-height:min(390px,44svh);
-  overflow-y:auto;overscroll-behavior:contain;
-  scrollbar-width:thin;scrollbar-color:var(--copper) transparent;
-}
-.bk-wizard-ready .bk-step-heading{margin-bottom:18px}
-.bk-wizard-ready .bk-step h3{font-size:clamp(19px,2.1vw,25px)}
-.bk-wizard-ready .bk-step-heading p{font-size:12px}
-.bk-wizard-ready .bk-service{min-height:63px;padding:12px 8px}
-.bk-wizard-ready .bk-service:hover,.bk-wizard-ready .bk-service[aria-pressed=true]{padding-left:12px}
-.bk-wizard-ready .bk-filters{padding:13px 1px 15px}
-.bk-wizard-ready .bk-services{max-height:none}
-.bk-wizard-ready .bk-search-shell input{min-height:46px;padding-block:11px}
-.bk-wizard-ready .bk-search-shell span{top:6px}
-.bk-wizard-ready .bk-professionals{grid-template-columns:repeat(3,minmax(0,1fr))}
-.bk-wizard-ready .bk-day{min-height:60px;gap:6px}
-.bk-wizard-ready .bk-slot-head{padding-top:19px;margin-top:18px}
-.bk-wizard-ready .bk-slots{max-height:none}
-.bk-wizard-ready .bk-summary{position:sticky;top:16px;box-shadow:9px 11px 0 #d6c2ac}
-.bk-wizard-ready .bk-ticket-content{padding:22px clamp(18px,2vw,32px)}
-.bk-wizard-ready .bk-ticket-content h2{font-size:clamp(27px,2.5vw,38px);margin:11px 0 18px}
-.bk-wizard-ready .bk-recap{margin:10px 0 15px}
-.bk-wizard-ready .bk-recap>div{padding:9px 0;gap:7px}
-.bk-wizard-ready .bk-ticket-footnote{margin-top:12px}
-.bk-wizard-ready .bk-ticket-primary{display:none}
-.bk-wizard-ready #escolhas[data-step="4"] .bk-ticket-primary{display:flex}
-.bk-wizard-ready .bk-flow-nav{
-  display:block;position:sticky;bottom:0;z-index:8;
-  margin-top:0;padding:13px clamp(14px,2vw,24px);
-  background:#211b18;color:var(--ivory);
-  box-shadow:0 -5px 30px #211b181e;
-}
-.bk-flow-selection{
-  font-size:11px;color:#dfc7b0;line-height:1.45;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
-.bk-flow-error{color:#ffe1b9;font-size:12px;margin:9px 0;line-height:1.4}
-.bk-flow-error[hidden]{display:none}
-.bk-flow-actions{display:flex;justify-content:space-between;gap:12px;margin-top:10px}
-.bk-flow-actions button{
-  display:flex;align-items:center;justify-content:space-between;gap:20px;
-  min-height:47px;border:1px solid #896f56;
-  padding:10px 17px;font:700 12px/1.35 var(--body);
-}
-.bk-flow-prev{background:transparent;color:var(--ivory)}
-.bk-flow-next{background:var(--copper);color:#211b18;border-color:var(--copper)!important;min-width:148px}
-.bk-flow-next:hover{background:#d5ae86}
-.bk-flow-prev:disabled{opacity:.3;cursor:default}
-.bk-wizard-ready .bk-flow-nav button:focus-visible{outline-color:#f8e7d3}
-.bk-wizard-ready .bk-form{gap:8px}
-.bk-wizard-ready .bk-form .bk-name{padding:12px 14px;min-height:48px}
-.bk-wizard-ready .bk-consent{margin-top:10px}
-@media(max-width:940px){
-  .bk-wizard-ready .bk-workshop-intro{grid-template-columns:1fr 2fr;gap:12px}
-  .bk-wizard-ready .bk-workshop-intro>p{display:none}
-  .bk-wizard-ready .bk-workshop-grid{grid-template-columns:1fr}
-  .bk-wizard-ready .bk-summary{display:none}
-  .bk-wizard-ready .bk-professionals{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .bk-wizard-ready .bk-workshop{padding:22px 18px 35px}
-  .bk-wizard-ready .bk-step.is-active{max-height:clamp(260px,calc(100svh - 335px),540px);min-height:240px}
-}
-@media(max-width:560px){
-  .bk-wizard-ready .bk-workshop{padding:17px 12px 30px}
-  .bk-wizard-ready .bk-workshop-intro{display:block;padding:0 6px 13px}
-  .bk-wizard-ready .bk-workshop-intro .bk-kicker{font-size:9px;line-height:1.5;margin:0 0 9px}
-  .bk-wizard-ready .bk-workshop-intro .bk-kicker span{display:inline;margin-left:7px}
-  .bk-wizard-ready .bk-workshop-intro h2{font-size:clamp(26px,7vw,33px)}
-  .bk-wizard-ready .bk-flow-progress{padding-top:12px}
-  .bk-flow-progress li{flex-direction:column;justify-content:center;gap:6px;padding:8px 2px}
-  .bk-flow-progress li strong{font-size:10px;white-space:nowrap}
-  .bk-flow-progress li>span{width:25px;height:25px;font-size:9px}
-  .bk-wizard-ready .bk-workshop-grid{padding-top:12px}
-  .bk-wizard-ready .bk-step.is-active{
-    padding:16px 13px;
-    max-height:clamp(240px,calc(100svh - 315px),530px);
-    min-height:225px;
-  }
-  .bk-wizard-ready .bk-step-heading{gap:10px;margin-bottom:12px}
-  .bk-wizard-ready .bk-step-number{width:30px;height:30px}
-  .bk-wizard-ready .bk-step h3{font-size:19px}
-  .bk-wizard-ready .bk-step-heading p{font-size:11px}
-  .bk-wizard-ready .bk-professionals{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .bk-wizard-ready .bk-prof{min-height:105px;padding:9px}
-  .bk-wizard-ready .bk-prof img,.bk-wizard-ready .bk-prof-symbol{width:54px;height:54px}
-  .bk-wizard-ready .bk-days{gap:3px}
-  .bk-wizard-ready .bk-day{min-height:54px}
-  .bk-wizard-ready .bk-day strong{font-size:18px}
-  .bk-wizard-ready .bk-slots{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .bk-wizard-ready .bk-slot{min-height:57px;padding:9px 4px}
-  .bk-wizard-ready .bk-flow-nav{padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))}
-  .bk-flow-actions button{min-height:47px;padding:9px 14px}
-  .bk-flow-next{min-width:144px}
-}
-@media(max-height:650px) and (max-width:940px){
-  .bk-wizard-ready .bk-step.is-active{min-height:200px;max-height:40svh}
-  .bk-wizard-ready .bk-workshop-intro h2{font-size:25px}
-}
-@media(prefers-reduced-motion:reduce){
-  .bk-wizard-ready .bk-step{scroll-behavior:auto}
-}
+@media(prefers-reduced-motion:reduce){.bk-wizard-nav button:active{transform:none}}
+
+.bk-saved-eyebrow{color:var(--muted)}
+.bk-workshop:not(.bk-wizard) .bk-progress,.bk-workshop:not(.bk-wizard) .bk-wizard-nav{display:none}

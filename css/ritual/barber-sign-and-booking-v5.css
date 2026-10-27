@@ -69,43 +69,23 @@
   font:670 7px/1.4 var(--body);letter-spacing:.12em;color:var(--ivory);
 }
 
-/* Global booking invitation: always lower-left and behind loader. */
-.sr-float-book{
-  position:fixed;z-index:38;
-  left:clamp(12px,2.7vw,42px);
-  bottom:calc(clamp(12px,2.7vw,32px) + env(safe-area-inset-bottom,0px));
-  display:inline-flex;align-items:center;gap:16px;
-  min-height:56px;padding:8px 9px 8px 20px;
-  background:var(--tobacco);color:var(--ivory);
-  border:1px solid var(--copper);
-  box-shadow:0 10px 28px #17161535;
-  font:760 12px/1.25 var(--body);
-  letter-spacing:.045em;text-transform:uppercase;
-  transition:background 200ms ease,transform 240ms cubic-bezier(.22,1,.36,1),
-    box-shadow 200ms ease;
+.sr-booking-fixed{
+  position:fixed;z-index:25;left:max(18px,env(safe-area-inset-left));
+  bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:14px;min-height:54px;padding:12px 17px;
+  border:1px solid var(--copper);background:var(--ink);color:var(--ivory);
+  font:600 11px/1.4 var(--body);letter-spacing:.08em;
+  transition:transform 180ms var(--ease),background 180ms ease;
 }
-.sr-float-book__mark{
-  display:grid;place-items:center;
-  width:37px;height:37px;flex:0 0 37px;
-  background:var(--copper);color:var(--ink);
-}
-.sr-float-book__mark svg{width:17px;height:17px}
-.sr-float-book:hover{
-  background:var(--ink);transform:translate3d(0,-3px,0);
-  box-shadow:0 16px 36px #17161550;
-}
-.sr-float-book:focus-visible{outline:3px solid var(--copper);outline-offset:4px}
-@media(max-width:480px){
-  #sr-loader-stage .snv2-signature{gap:8px;min-height:69px;padding:9px 10px;width:calc(100vw - 34px)}
-  #sr-loader-stage .snv2-sign-copy strong{font-size:10px;letter-spacing:.045em}
-  #sr-loader-stage .snv2-sign-copy small{font-size:7px;letter-spacing:.09em}
-  #sr-loader-stage .snv2-sign-seal{width:33px;height:33px;flex-basis:33px;font-size:10px}
-  #sr-loader-stage .snv2-sign-pole{flex-basis:16px;width:16px;height:41px}
-  .sr-float-book{left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));min-height:49px;padding:6px 6px 6px 13px;gap:10px;font-size:11px}
-  .sr-float-book__mark{width:35px;height:35px;flex-basis:35px}
-}
-@media(prefers-reduced-motion:reduce){
-  #sr-loader-stage .snv2-sign-pole__stripe{animation:none!important}
-  #sr-loader-stage .snv2-signature{animation:none!important}
-  .sr-float-book{transition:none!important}
-}
+.sr-booking-fixed__mark{width:5px;height:22px;background:var(--copper);transform:skewY(-30deg)}
+.sr-booking-fixed svg{margin-left:8px;transition:transform 180ms var(--ease)}
+@media(hover:hover){.sr-booking-fixed:hover{background:var(--tobacco);transform:translateY(-2px)}.sr-booking-fixed:hover svg{transform:translate(2px,-2px)}}
+.sr-booking-fixed:active{transform:scale(.98)}
+html.sr-loader-boot .sr-booking-fixed,.sr-booking-fixed[hidden],
+body:has(.menu[open]) .sr-booking-fixed,body:has(dialog[open]) .sr-booking-fixed{display:none}
+@media(max-width:430px){.sr-booking-fixed{left:max(12px,env(safe-area-inset-left));bottom:calc(12px + env(safe-area-inset-bottom,0px));min-height:48px;font-size:10px;gap:10px;padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.snv5-pole i{animation:none}.sr-booking-fixed,.sr-booking-fixed svg{transition:none;transform:none!important}}
+
+body:has(main button:focus-visible) .sr-booking-fixed,body:has(main input:focus-visible) .sr-booking-fixed{display:none}
+
+@media(max-height:540px){#sr-loader-stage .snv2-signature{top:10px;min-height:0;padding-block:7px}#sr-loader-stage .snv2-sign-pole{height:29px}}
