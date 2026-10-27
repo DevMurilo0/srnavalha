@@ -1,0 +1,73 @@
+name: Sr. Navalha V6 — regressão e navegadores
+on:
+  push:
+    branches:
+      - reconstruction/arte-do-ritual
+    paths:
+      - 'js/**'
+      - 'css/**'
+      - 'templates/**'
+      - 'scripts/**'
+      - 'index.html'
+      - 'agendar.html'
+      - '.github/workflows/v6-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser and accessibility test dependencies
+        shell: bash
+        run: |
+          mkdir -p /tmp/srnavalha-validation
+          cd /tmp/srnavalha-validation
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright playwright-core @axe-core/playwright
+          npx playwright install --with-deps chromium
+      - name: Setup test web server
+        shell: bash
+        run: |
+          python3 -m http.server 8047 --bind 127.0.0.1 > /tmp/sr-nav-server.log 2>&1 &
+          for n in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:8047/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/sr-nav-server.log
+          exit 1
+      - name: Static code and build consistency
+        run: |
+          node scripts/test-reflexo-static.mjs
+          node --experimental-default-type=module scripts/test-booking-local.mjs
+      - name: Chromium — V6, Perfect Cut, navigation and resilience
+        env:
+          PLAYWRIGHT_PACKAGE: /tmp/srnavalha-validation/package.json
+          SITE_URL: http://127.0.0.1:8047/
+        shell: bash
+        run: |
+          set -euo pipefail
+          export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
+          node scripts/test-experience-v6.mjs
+          node scripts/test-perfect-cut-v4.mjs
+          node scripts/test-reflexo.mjs
+          node scripts/test-reflexo-resilience.mjs
+          node scripts/test-booking-wizard.mjs
+          node scripts/test-booking-wizard-state.mjs
+      - name: Upload test summaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sr-navalha-v6-qa
+          if-no-files-found: ignore
+          retention-days: 7
+          path: |
+            docs/experience-v6/results.json
+            docs/perfect-cut-v4/*results.json
+            docs/reflexo/validation/*results.json
+            docs/booking-v5/*results.json
