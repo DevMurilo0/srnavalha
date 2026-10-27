@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Reescolher serviço preserva horário válido",
+    "pass": true
+  },
+  {
+    "name": "Voltar por indicador preserva dados",
+    "pass": true
+  },
+  {
+    "name": "Serviço mais longo invalida somente horário",
+    "pass": true
+  },
+  {
+    "name": "Indicador não ignora validação posterior",
+    "pass": true
+  },
+  {
+    "name": "Filtro mantém foco",
+    "pass": true
+  },
+  {
+    "name": "Assinatura não cria agenda fictícia",
+    "pass": true
+  },
+  {
+    "name": "Conflito real entre abas exige novo horário",
+    "pass": true
+  },
+  {
+    "name": "Consentimento obrigatório e foco",
+    "pass": true
+  },
+  {
+    "name": "Armazenamento bloqueado preserva formulário",
+    "pass": true
+  },
+  {
+    "name": "Viewport curta: campo pode receber foco",
+    "pass": true
+  },
+  {
+    "name": "Resize mantém um resumo no desktop",
+    "pass": true
+  },
+  {
+    "name": "Resize devolve resumo à revisão mobile",
+    "pass": true
+  }
+]

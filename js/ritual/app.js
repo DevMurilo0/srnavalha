@@ -4,6 +4,7 @@ import { initMotion } from './motion.js';
 import { initAtmosphere } from './atmosphere.js';
 import { initSceneCuts } from './scene-cuts.js';
 import { openRitual } from './opening.js';
+import { initHeroSign } from './hero-sign.js';
 import { initServices } from './services.js';
 import { initTeam } from './team.js';
 import { initProducts } from './products.js';
@@ -14,6 +15,7 @@ const root=document.documentElement;
 // Guard against an accidental second entry point; listeners have one owner.
 if(!root.classList.contains('enhanced')){
  root.classList.add('enhanced');startMotion();
+ initHeroSign();
  // A linha do tempo da abertura começa antes de inicializar catálogos e mapa.
  // Isso mantém a porcentagem sincronizada com anel/trilhos mesmo no mobile.
  openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove();$('#sr-loader-shock')?.remove()});
@@ -41,5 +43,21 @@ if(!root.classList.contains('enhanced')){
   observer.observe(albumRoot);
  }else album();
  initialize(initMap);
+ // Native observation keeps the fixed action clear of the footer and,
+ // on phones, the hero's existing action when it occupies the same corner.
+ const bookingLink=$('.sr-booking-fixed');
+ const footer=$('footer'), heroBooking=$('.hero .button');
+ if(bookingLink && footer && 'IntersectionObserver' in window){
+  const visible=new Set(), compactBooking=matchMedia('(max-width:760px)');
+  const syncBooking=()=>{bookingLink.hidden=visible.has(footer)||(compactBooking.matches&&visible.has(heroBooking))};
+  const bookingObserver=new IntersectionObserver(entries=>{
+   entries.forEach(entry=>{if(entry.isIntersecting)visible.add(entry.target);else visible.delete(entry.target)});
+   syncBooking();
+  });
+  bookingObserver.observe(footer);
+  if(heroBooking)bookingObserver.observe(heroBooking);
+  compactBooking.addEventListener('change',syncBooking);
+ }
+
 
 }

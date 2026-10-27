@@ -1,0 +1,203 @@
+[
+  {
+    "name": "320: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 880.453125
+    }
+  },
+  {
+    "name": "320: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "320: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "375: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 908.46875
+    }
+  },
+  {
+    "name": "375: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "375: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "390: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 925.640625
+    }
+  },
+  {
+    "name": "390: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "390: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "430: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 974.203125
+    }
+  },
+  {
+    "name": "430: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "430: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "768: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 800
+    }
+  },
+  {
+    "name": "768: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "768: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "1024: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 794
+    }
+  },
+  {
+    "name": "1024: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "1024: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "1440: objeto sem sobreposição, corte ou overflow",
+    "pass": true,
+    "detail": {
+      "overlaps": [],
+      "inside": true,
+      "overflow": false,
+      "textFits": true,
+      "animations": 0,
+      "height": 794
+    }
+  },
+  {
+    "name": "1440: inscrições cabem e movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "1440: uma placa no hero, sem cartão e sem letreiro no loader",
+    "pass": true
+  },
+  {
+    "name": "Axe: sem violações no letreiro",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "Letreiro invisível durante carregamento",
+    "pass": true
+  },
+  {
+    "name": "Letreiro aguarda o término do corte",
+    "pass": true
+  },
+  {
+    "name": "Entrada começa depois da remoção do loader",
+    "pass": true
+  },
+  {
+    "name": "Uma entrada finita com rotação 3D e opacidade",
+    "pass": true,
+    "detail": {
+      "duration": 1050,
+      "iterations": 1,
+      "frames": [
+        {
+          "opacity": "0",
+          "transform": "perspective(700px) translateY(-7px) rotateX(-9deg) rotateY(-8deg) rotateZ(-4deg)"
+        },
+        {
+          "opacity": "1",
+          "transform": "matrix3d(0.995588, 0.0318384, 0.0882676, -0.000126097, -0.0347667, 0.998888, 0.0318384, -4.54834e-05, -0.0871557, -0.0347667, 0.995588, -0.00142227, 0, 0, 0, 1)"
+        }
+      ],
+      "opacity": "0.939756"
+    }
+  },
+  {
+    "name": "Fim estável, sem loop ou efeito retido",
+    "pass": true
+  },
+  {
+    "name": "Preferência reduzida dinâmica cancela a entrada",
+    "pass": true
+  },
+  {
+    "name": "Ciclo de aba oculta cancela sem reiniciar",
+    "pass": true
+  },
+  {
+    "name": "no-js: placa e CTA acessíveis",
+    "pass": true
+  },
+  {
+    "name": "opening-failure: placa e CTA acessíveis",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

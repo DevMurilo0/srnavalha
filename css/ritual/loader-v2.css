@@ -5,11 +5,11 @@
 html.sr-loader-boot #sr-loader-stage.snv2-loader{display:block}
 
 #sr-loader-stage.snv2-loader{
-  --snv2-bg:#f1eae0;
-  --snv2-ink:#1c1915;
-  --snv2-muted:#6f675b;
-  --snv2-gold:#a67c3d;
-  --snv2-card:#e7dfd1;
+  --snv2-bg:var(--ivory);
+  --snv2-ink:var(--ink);
+  --snv2-muted:var(--muted);
+  --snv2-gold:var(--copper);
+  --snv2-card:var(--stone);
   --snv2-out:cubic-bezier(.16,1,.3,1);
   --snv2-ease:cubic-bezier(.76,0,.24,1);
   position:fixed;inset:0;z-index:100;isolation:isolate;overflow:hidden;

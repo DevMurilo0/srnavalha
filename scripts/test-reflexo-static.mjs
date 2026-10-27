@@ -15,7 +15,7 @@ execFileSync(process.execPath,['scripts/render-site.mjs']);
 assert.equal(file('index.html'),html,'render do HTML idempotente');
 assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'oito divisores mantidos');
 assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'serviços mantidos');
-assert.equal((html.match(/href="agendar.html/g)||[]).length,51,'agendamento preservado');
+assert.equal((html.match(/href="agendar.html/g)||[]).length,52,'agendamento preservado e CTA fixo único');
 assert.ok(html.includes('application/ld+json'),'SEO preservado');
 
 for(const id of ['id="sr-loader-stage"','id="snv2-panels"','id="sr-loader-plate"',

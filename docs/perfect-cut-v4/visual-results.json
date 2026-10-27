@@ -11,22 +11,22 @@
     "name": "320: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 344.525,
-      "end": 344.5252380371094,
-      "delta": 0.00023803710939773737,
+      "tip": 466.469,
+      "end": 466.46923828125,
+      "delta": 0.00023828125000591172,
       "edges": [
-        0.000022657499997080777,
-        0.000022657499997080777
+        0.000047831300001632826,
+        0.000047831300001632826
       ],
       "panels": [
-        "matrix(1, 0, 0.0834123, 1, -28.7376, 0)",
-        "matrix(1, 0, -0.0834123, 1, 28.7376, 0)"
+        "matrix(1, 0, 0.0834123, 1, -38.9093, 0)",
+        "matrix(1, 0, -0.0834123, 1, 38.9093, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 48,
       "expectedTrackX": 48,
       "overflow": 0,
-      "heroOpacity": "0.988447"
+      "heroOpacity": "0.976413"
     }
   },
   {
@@ -45,22 +45,22 @@
     "name": "390: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 319.932,
-      "end": 319.9322814941406,
-      "delta": 0.0002814941406086291,
+      "tip": 556.021,
+      "end": 556.0211181640625,
+      "delta": 0.00011816406254183676,
       "edges": [
-        0.00006718800000271585,
-        0.00006718800000271585
+        0.00013883899999456162,
+        0.00013883899999456162
       ],
       "panels": [
-        "matrix(1, 0, 0.101659, 1, -32.5239, 0)",
-        "matrix(1, 0, -0.101659, 1, 32.5239, 0)"
+        "matrix(1, 0, 0.101659, 1, -56.5244, 0)",
+        "matrix(1, 0, -0.101659, 1, 56.5244, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 58.5,
       "expectedTrackX": 58.5,
       "overflow": 0,
-      "heroOpacity": "0.981205"
+      "heroOpacity": "0.998864"
     }
   },
   {
@@ -79,22 +79,22 @@
     "name": "430: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 418.417,
-      "end": 418.4168395996094,
-      "delta": 0.0001604003905981699,
+      "tip": 634.424,
+      "end": 634.4237060546875,
+      "delta": 0.00029394531247817213,
       "edges": [
-        0.00013055500000547227,
-        0.00013055500000547227
+        0.00018595999999604373,
+        0.00018595999999604373
       ],
       "panels": [
-        "matrix(1, 0, 0.112085, 1, -46.8984, 0)",
-        "matrix(1, 0, -0.112085, 1, 46.8984, 0)"
+        "matrix(1, 0, 0.112085, 1, -71.1096, 0)",
+        "matrix(1, 0, -0.112085, 1, 71.1096, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 64.5,
       "expectedTrackX": 64.5,
       "overflow": 0,
-      "heroOpacity": "0.993273"
+      "heroOpacity": "0.99826"
     }
   },
   {
@@ -113,22 +113,22 @@
     "name": "768: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 323.377,
-      "end": 323.37652587890625,
-      "delta": 0.0004741210937595497,
+      "tip": 556.748,
+      "end": 556.7476196289062,
+      "delta": 0.0003803710937972937,
       "edges": [
-        0.0002416300000049887,
-        0.0002416300000049887
+        0.0003821200000118097,
+        0.0003821200000118097
       ],
       "panels": [
-        "matrix(1, 0, 0.20019, 1, -64.7366, 0)",
-        "matrix(1, 0, -0.20019, 1, 64.7366, 0)"
+        "matrix(1, 0, 0.20019, 1, -111.455, 0)",
+        "matrix(1, 0, -0.20019, 1, 111.455, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 224,
       "expectedTrackX": 224,
       "overflow": 0,
-      "heroOpacity": "0.962627"
+      "heroOpacity": "0.989594"
     }
   },
   {
@@ -147,26 +147,95 @@
     "name": "1440: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 556.859,
-      "end": 556.8590087890625,
-      "delta": 0.000008789062462710717,
+      "tip": 195.54,
+      "end": 195.54039001464844,
+      "delta": 0.0003900146484454581,
       "edges": [
-        0.00019005499999025233,
-        0.00019005499999025233
+        0.00018330000000332802,
+        0.00018330000000332802
       ],
       "panels": [
-        "matrix(1, 0, 0.375355, 1, -209.02, 0)",
-        "matrix(1, 0, -0.375355, 1, 209.02, 0)"
+        "matrix(1, 0, 0.375355, 1, -73.3971, 0)",
+        "matrix(1, 0, -0.375355, 1, 73.3971, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 560,
       "expectedTrackX": 560,
       "overflow": 0,
-      "heroOpacity": "0.995843"
+      "heroOpacity": "0.873986"
     }
   },
   {
     "name": "1440: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "Interrupção click",
+    "pass": true
+  },
+  {
+    "name": "Interrupção keyboard",
+    "pass": true
+  },
+  {
+    "name": "Interrupção wheel",
+    "pass": true
+  },
+  {
+    "name": "Interrupção touch",
+    "pass": true
+  },
+  {
+    "name": "Interrupção rotation",
+    "pass": true
+  },
+  {
+    "name": "Interrupção reduce",
+    "pass": true
+  },
+  {
+    "name": "Logo: chegada proporcional e cancelamento no handoff",
+    "pass": true,
+    "detail": {
+      "error": 0.006256103515625,
+      "effects": 0,
+      "visible": "visible"
+    }
+  },
+  {
+    "name": "F5 reinicia",
+    "pass": true
+  },
+  {
+    "name": "Refresh sem cache reinicia",
+    "pass": true
+  },
+  {
+    "name": "Agendamento local abre",
+    "pass": true
+  },
+  {
+    "name": "Histórico libera homepage",
+    "pass": true
+  },
+  {
+    "name": "Âncora #servicos",
+    "pass": true
+  },
+  {
+    "name": "Âncora #equipe",
+    "pass": true
+  },
+  {
+    "name": "Falha **/assets/images/v8/logo-640.webp",
+    "pass": true
+  },
+  {
+    "name": "Falha **/js/ritual/opening.js",
+    "pass": true
+  },
+  {
+    "name": "Reduced motion inicial",
     "pass": true
   },
   {

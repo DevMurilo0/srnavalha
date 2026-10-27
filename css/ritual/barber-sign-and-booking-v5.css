@@ -1,0 +1,19 @@
+/* Fixed booking invitation. Its layout and behavior are unchanged. */
+.sr-booking-fixed{
+  position:fixed;z-index:25;left:max(18px,env(safe-area-inset-left));
+  bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:14px;min-height:54px;padding:12px 17px;
+  border:1px solid var(--copper);background:var(--ink);color:var(--ivory);
+  font:600 11px/1.4 var(--body);letter-spacing:.08em;
+  transition:transform 180ms var(--ease),background 180ms ease;
+}
+.sr-booking-fixed__mark{width:5px;height:22px;background:var(--copper);transform:skewY(-30deg)}
+.sr-booking-fixed svg{margin-left:8px;transition:transform 180ms var(--ease)}
+@media(hover:hover){.sr-booking-fixed:hover{background:var(--tobacco);transform:translateY(-2px)}.sr-booking-fixed:hover svg{transform:translate(2px,-2px)}}
+.sr-booking-fixed:active{transform:scale(.98)}
+html.sr-loader-boot .sr-booking-fixed,.sr-booking-fixed[hidden],
+body:has(.menu[open]) .sr-booking-fixed,body:has(dialog[open]) .sr-booking-fixed{display:none}
+@media(max-width:430px){.sr-booking-fixed{left:max(12px,env(safe-area-inset-left));bottom:calc(12px + env(safe-area-inset-bottom,0px));min-height:48px;font-size:10px;gap:10px;padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.sr-booking-fixed,.sr-booking-fixed svg{transition:none;transform:none!important}}
+
+body:has(main button:focus-visible) .sr-booking-fixed,body:has(main input:focus-visible) .sr-booking-fixed{display:none}

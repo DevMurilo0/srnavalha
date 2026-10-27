@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-26T04:19:42.893Z",
+  "date": "2026-10-27T02:04:40.896Z",
   "checks": [
     {
       "name": "Gesto nativo com impulso move a página",
       "pass": true,
       "detail": {
-        "scrollY": 633
+        "scrollY": 465
       }
     },
     {
@@ -20,31 +20,31 @@
       "name": "Mais de dois minutos de navegação",
       "pass": true,
       "detail": {
-        "durationMs": 149162
+        "durationMs": 160114
       }
     },
     {
       "name": "Listeners sem crescimento após aquecimento",
       "pass": true,
       "detail": [
-        170,
-        170,
-        170,
-        170,
-        170,
-        170
+        171,
+        171,
+        171,
+        171,
+        171,
+        171
       ]
     },
     {
       "name": "DOM estável após aquecimento",
       "pass": true,
       "detail": [
-        2684,
-        2682,
-        2684,
-        2682,
-        2684,
-        2684
+        2921,
+        2919,
+        2921,
+        2919,
+        2921,
+        2921
       ]
     },
     {
@@ -63,7 +63,7 @@
       "name": "Rede móvel: abertura não bloqueia conteúdo",
       "pass": true,
       "detail": {
-        "elapsedMs": 5291
+        "elapsedMs": 8717
       }
     },
     {
@@ -75,73 +75,73 @@
   "samples": [
     {
       "round": 0,
-      "elapsedMs": 5076,
+      "elapsedMs": 5632,
       "documents": 4,
-      "nodes": 2682,
-      "jsEventListeners": 170,
-      "heap": 2427400,
+      "nodes": 2919,
+      "jsEventListeners": 171,
+      "heap": 2516532,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 5,
-      "elapsedMs": 30060,
+      "elapsedMs": 32193,
       "documents": 4,
-      "nodes": 2684,
-      "jsEventListeners": 170,
-      "heap": 2456868,
+      "nodes": 2921,
+      "jsEventListeners": 171,
+      "heap": 2547840,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 10,
-      "elapsedMs": 55217,
+      "elapsedMs": 57615,
       "documents": 4,
-      "nodes": 2682,
-      "jsEventListeners": 170,
-      "heap": 2467932,
+      "nodes": 2919,
+      "jsEventListeners": 171,
+      "heap": 2559016,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 15,
-      "elapsedMs": 79935,
+      "elapsedMs": 83452,
       "documents": 4,
-      "nodes": 2684,
-      "jsEventListeners": 170,
-      "heap": 2491568,
+      "nodes": 2921,
+      "jsEventListeners": 171,
+      "heap": 2580920,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 20,
-      "elapsedMs": 104655,
+      "elapsedMs": 111244,
       "documents": 4,
-      "nodes": 2682,
-      "jsEventListeners": 170,
-      "heap": 2495272,
+      "nodes": 2919,
+      "jsEventListeners": 171,
+      "heap": 2586468,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 25,
-      "elapsedMs": 129378,
+      "elapsedMs": 138634,
       "documents": 4,
-      "nodes": 2684,
-      "jsEventListeners": 170,
-      "heap": 2504836,
+      "nodes": 2921,
+      "jsEventListeners": 171,
+      "heap": 2596000,
       "images": 1,
-      "animations": 1
+      "animations": 0
     },
     {
       "round": 29,
-      "elapsedMs": 149153,
+      "elapsedMs": 160100,
       "documents": 4,
-      "nodes": 2684,
-      "jsEventListeners": 170,
-      "heap": 2505040,
+      "nodes": 2921,
+      "jsEventListeners": 171,
+      "heap": 2596216,
       "images": 1,
-      "animations": 1
+      "animations": 0
     }
   ],
   "errors": []

@@ -1,0 +1,61 @@
+/* A small framed shop sign, replacing the paper SN emblem in the same corner.
+   All material effects are static; only the face's transform/opacity enter. */
+.hero-sign{
+  position:absolute;right:1.5%;top:4px;width:226px;z-index:3;
+  pointer-events:none;
+}
+.hero-sign__face{
+  position:relative;display:flex;align-items:center;gap:13px;
+  min-height:108px;padding:19px 19px 19px 15px;
+  color:var(--copper);background:var(--tobacco);
+  background-image:linear-gradient(155deg,#bd946e0d,transparent 48%,#17161533);
+  border:1px solid var(--copper);border-radius:2px;
+  box-shadow:0 2px 0 var(--wood),0 5px 0 var(--ink),
+    1px 8px 7px -5px #17161566,4px 16px 22px -10px #30262055,
+    inset 0 0 0 4px var(--tobacco),inset 0 0 0 5px #bd946e40;
+  transform:perspective(700px) rotateX(2deg) rotateY(-5deg) rotateZ(2deg);
+  transform-origin:50% 10%;
+}
+.hero-sign__face::before{
+  content:"";position:absolute;inset:7px;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,#c7b9ab04 3px 4px);
+}
+.hero-sign__lettering{position:relative;flex:1;min-width:0;text-align:center}
+.hero-sign__lettering strong{
+  display:block;margin:7px 0 8px;color:var(--ivory);
+  font:600 21px/1.15 var(--display);letter-spacing:-.035em;white-space:nowrap;
+  text-shadow:0 1px 0 var(--ink);
+}
+.hero-sign__place,.hero-sign__services{
+  display:block;white-space:nowrap;font:500 9px/1.5 var(--body);
+  letter-spacing:.075em;color:var(--light-muted);
+}
+.hero-sign__services{font-size:8.5px;letter-spacing:.025em}
+.hero-sign__pole{flex:0 0 19px;width:19px}
+.hero-sign__pole svg{display:block;width:100%;height:auto}
+.hero-sign__fastener{
+  position:absolute;top:9px;width:3px;height:3px;border-radius:50%;
+  background:var(--copper);box-shadow:0 1px 1px var(--ink);
+}
+.hero-sign__fastener--left{left:9px}
+.hero-sign__fastener--right{right:9px}
+html.sr-loader-boot .hero-sign__face{opacity:0}
+@media(min-width:701px) and (max-width:1100px){
+  .hero-sign{width:190px;top:12px}
+  .hero-sign__face{min-height:92px;padding:16px 13px;gap:9px}
+  .hero-sign__lettering strong{font-size:18px}
+  .hero-sign__pole{width:15px;flex-basis:15px}
+  .hero-sign__place{letter-spacing:.025em}
+}
+@media(max-width:700px){
+  /* The old card was hidden here. A compact footprint keeps the official
+     centered wordmark and all photographs at their original sizes. */
+  .hero-sign{position:relative;right:auto;top:auto;align-self:flex-end;width:190px;margin:4px 4px 20px 0}
+  .hero-sign__face{min-height:84px;padding:13px 12px;gap:9px}
+  .hero-sign__lettering strong{font-size:18px;margin:5px 0 6px}
+  .hero-sign__pole{width:15px;flex-basis:15px}
+  .hero-sign__place{letter-spacing:.025em}
+}
+@media(prefers-reduced-motion:reduce){
+  html.sr-loader-boot .hero-sign__face{opacity:1}
+}

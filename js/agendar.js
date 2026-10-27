@@ -3,11 +3,60 @@ import professionals from './data/professionals.js';
 import { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking, BOOKING_STORAGE_KEY } from './booking-local.js';
 
 const $ = selector => document.querySelector(selector);
-const state = { service: null, professional: null, slot: null, filter: 'Destaques', slots: [], busy: false };
+const state = { service: null, professional: null, slot: null, filter: 'Destaques', slots: [], busy: false, step: 0, visited: 0 };
 const featured = ['cortee', 'comb-cort-barb-simples', 'barboterapia', 'barba-simples', 'corte-infantil', 'corte-exclusivo', 'sobrancelha', 'hidratacao'];
 const qs = new URLSearchParams(location.search);
 const tz = 'America/Recife';
 let requestInFlight = false;
+let stepAnimation;
+const steps = [...document.querySelectorAll('.bk-step')];
+const progressButtons = [...document.querySelectorAll('.bk-progress button')];
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function stepProblem(index) {
+  if (index === 0 && !state.service) return 'Escolha um serviço para continuar.';
+  if (index === 0 && state.service?.category === 'Assinantes') return 'Planos de assinatura não estão disponíveis neste teste. Escolha outro serviço.';
+  if (index === 2 && !$('#bk-date').checkValidity()) return 'Escolha uma data válida entre hoje e os próximos 30 dias.';
+  if (index === 2 && !state.slot) return 'Escolha um horário de demonstração para continuar.';
+  return '';
+}
+function showStep(index, {focus = true, motion = false} = {}) {
+  if (index < 0 || index > 3) return;
+  stepAnimation?.cancel();
+  state.step = index;
+  state.visited = Math.max(state.visited,index);
+  steps.forEach((step,i) => {step.hidden = i !== index});
+  progressButtons.forEach((button,i) => {
+    button.disabled = i > state.visited;
+    button.classList.toggle('is-complete',i < index);
+    if(i === index) button.setAttribute('aria-current','step');
+    else button.removeAttribute('aria-current');
+  });
+  $('#bk-back').disabled = index === 0;
+  $('#bk-next').hidden = index === 3;
+  $('#bk-submit').hidden = index !== 3;
+  $('#bk-step-error').textContent = '';
+  document.title = `${index+1} de 4 · ${['Serviço','Profissional','Horário','Seus dados'][index]} · Sr. Navalha`;
+  const heading = steps[index].querySelector('h3');
+  heading.tabIndex = -1;
+  steps[index].scrollTop = 0;
+  if(focus) heading.focus({preventScroll:true});
+  if(motion && !reducedMotion.matches && steps[index].animate) {
+    stepAnimation = steps[index].animate([{opacity:.5,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:180,easing:'cubic-bezier(.22,1,.36,1)'});
+    stepAnimation.finished.catch(()=>{});
+  }
+  updateSummary();
+}
+function navigateStep(index,event) {
+  if(index > state.step){
+    refreshSlots();
+    for(let i=0;i<index;i++){
+      const error=stepProblem(i);
+      if(error){if(state.step!==i)showStep(i);$('#bk-step-error').textContent=error;return}
+    }
+  }
+  showStep(index,{motion:event?.detail>0});
+}
+
 
 function dateAtRecife(value = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(value);
@@ -48,7 +97,7 @@ function updateSummary() {
   const canBook = Boolean(state.service && state.slot && !requestInFlight);
   const submit = $('#bk-submit');
   submit.disabled = !canBook;
-  submit.querySelector('.bk-submit-label').textContent = requestInFlight ? 'Salvando teste…' : 'Salvar agendamento de teste';
+  submit.querySelector('.bk-submit-label').textContent = requestInFlight ? 'Salvando teste…' : 'Salvar teste local';
 }
 function formatHour(iso) {
   return new Intl.DateTimeFormat('pt-BR', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso));
@@ -72,7 +121,7 @@ function renderFilters() {
     button.addEventListener('click', () => {
       state.filter = category;
       $('#bk-search').value = '';
-      renderFilters();
+      container.querySelectorAll('button').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.filter === category)));
       renderServices();
     });
     return button;
@@ -112,7 +161,6 @@ function renderServices() {
     button.addEventListener('click', () => {
       if (requestInFlight) return;
       state.service = service;
-      state.slot = null;
       for (const item of container.querySelectorAll('.bk-service')) {
         const active = item.dataset.id === service.id;
         item.classList.toggle('is-selected', active);
@@ -156,7 +204,6 @@ function renderProfessionals() {
     button.addEventListener('click', () => {
       if (requestInFlight) return;
       state.professional = pro;
-      state.slot = null;
       for (const item of container.querySelectorAll('.bk-prof')) item.setAttribute('aria-pressed', String(item === button));
       refreshSlots();
     });
@@ -168,12 +215,14 @@ function renderDays() {
   const wrapper = $('#bk-days');
   const today = dateAtRecife();
   const chosen = $('#bk-date').value;
+  const focusedDay = wrapper.contains(document.activeElement) ? document.activeElement.dataset.day : null;
   wrapper.replaceChildren(...Array.from({ length: 7 }, (_, index) => {
     const date = addDays(today, index);
     const button = document.createElement('button');
     const weekday = new Intl.DateTimeFormat('pt-BR', { weekday: 'short', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')).replace('.', '');
     button.type = 'button';
     button.className = 'bk-day';
+    button.dataset.day = date;
     button.setAttribute('aria-pressed', String(date === chosen));
     button.setAttribute('aria-label', readableDate(date));
     const heading = document.createElement('span');
@@ -189,6 +238,7 @@ function renderDays() {
     });
     return button;
   }));
+  if(focusedDay) wrapper.querySelector(`[data-day="${focusedDay}"]`)?.focus({preventScroll:true});
 }
 function renderSlots() {
   const wrapper = $('#bk-slots');
@@ -216,6 +266,7 @@ function renderSlots() {
   wrapper.replaceChildren(fragment);
 }
 function refreshSlots() {
+  const previous = state.slot;
   state.slot = null;
   state.slots = [];
   $('#bk-slots').replaceChildren();
@@ -235,7 +286,13 @@ function refreshSlots() {
     return;
   }
   state.slots = availableSlots(state.service.id, day, state.professional?.id || null);
+  state.slot = state.slots.find(slot => slot.slot_at === previous?.slot_at && slot.professional_id === previous?.professional_id) || null;
   renderSlots();
+  setSelectionFeedback();
+  if(previous && !state.slot && state.step === 3){
+    showStep(2);
+    $('#bk-step-error').textContent = 'O horário escolhido deixou de estar disponível neste teste. Escolha outro.';
+  }
   $('#bk-slot-state').textContent = state.slots.length
     ? state.slots.length + ' horário(s) ilustrativo(s) nesta data — não são vagas reais.'
     : 'Nenhum horário de teste disponível. Experimente outro dia ou profissional.';
@@ -243,18 +300,21 @@ function refreshSlots() {
 function validateFields() {
   if (!state.service) return 'Selecione o serviço.';
   if (!state.slot) return 'Selecione um horário disponível.';
-  if (!$('#bk-name').value.trim() || $('#bk-name').value.trim().length < 2) return 'Informe seu nome com pelo menos duas letras.';
+  if (!$('#bk-name').checkValidity() || $('#bk-name').value.trim().length < 2) return 'Informe seu nome com pelo menos duas letras.';
   if (!normalizedPhone($('#bk-phone').value)) return 'Informe um WhatsApp com DDD válido.';
-  if (!$('#bk-consent').checked) return 'Confirme que concorda com o uso dos dados para seu agendamento.';
+  if (!$('#bk-consent').checked) return 'Confirme que entendeu que os dados serão salvos apenas neste navegador.';
   return '';
 }
 function submitBooking(event) {
   event.preventDefault();
-  if (requestInFlight) return;
+  if (requestInFlight || state.step !== 3) return;
   const problem = validateFields();
   if (problem) {
     showStatus(problem, 'warning');
     $('#bk-form-error').textContent = problem;
+    const invalid = !$('#bk-name').checkValidity() || $('#bk-name').value.trim().length<2 ? $('#bk-name') :
+      !normalizedPhone($('#bk-phone').value) ? $('#bk-phone') : !$('#bk-consent').checked ? $('#bk-consent') : null;
+    if(invalid){invalid.setAttribute('aria-invalid','true');invalid.focus()}
     return;
   }
   $('#bk-form-error').textContent = '';
@@ -361,15 +421,11 @@ $('#bk-search').addEventListener('input', () => {
   renderServices();
 });
 $('#bk-date').addEventListener('change', () => {
-  const value = $('#bk-date').value;
-  if (value && (value < dateAtRecife() || value > addDays(dateAtRecife(), 30))) {
-    $('#bk-date').value = dateAtRecife();
-  }
   renderDays();
   refreshSlots();
 });
 $('#bk-slot-retry').addEventListener('click', refreshSlots);
-for (const input of ['#bk-name','#bk-phone','#bk-consent']) $(input).addEventListener('input', invalidateRequest);
+for (const input of ['#bk-name','#bk-phone','#bk-consent']) $(input).addEventListener('input', () => {$(input).removeAttribute('aria-invalid');$('#bk-form-error').textContent='';invalidateRequest()});
 $('#bk-form').addEventListener('submit', submitBooking);
 $('#bk-new-booking').addEventListener('click', () => location.assign('agendar.html'));
 window.addEventListener('storage', e => { if (e.key === BOOKING_STORAGE_KEY) { renderSavedBookings(); if (!$('#escolhas').hidden) refreshSlots(); } });
@@ -378,3 +434,18 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && !$('#bk-success').hidden) return;
   if (document.visibilityState === 'visible' && !requestInFlight) refreshSlots();
 });
+
+// One summary node: persistent desktop aside, review inside step four on mobile.
+const summary = $('.bk-summary');
+const compact = matchMedia('(max-width:760px)');
+function placeSummary(){
+  if(compact.matches) steps[3].insertBefore(summary,$('#bk-form'));
+  else $('.bk-workshop-grid').append(summary);
+}
+compact.addEventListener('change',placeSummary);placeSummary();
+$('#escolhas').classList.add('bk-wizard');
+showStep(0,{focus:false});
+$('#bk-next').addEventListener('click',event=>navigateStep(state.step+1,event));
+$('#bk-back').addEventListener('click',event=>navigateStep(state.step-1,event));
+progressButtons.forEach((button,i)=>button.addEventListener('click',event=>navigateStep(i,event)));
+reducedMotion.addEventListener('change',()=>stepAnimation?.cancel());

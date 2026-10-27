@@ -1,0 +1,96 @@
+/* Four steps, one existing form and one local booking engine. */
+:root{--bk-bg:var(--ivory);--bk-dark:var(--ink);--bk-accent:var(--copper);--bk-muted:var(--muted)}
+html{scroll-behavior:auto}
+[hidden]{display:none!important}
+.bk-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bk-header{height:72px;background:var(--tobacco)}
+.bk-header-action{display:none}
+.bk-hero{display:flex;justify-content:space-between;gap:24px;min-height:0;max-width:1240px;margin:0 auto;background:var(--ivory);padding:24px 32px}
+.bk-hero-copy{display:block;padding:0;align-self:center}
+.bk-hero h1{font:550 clamp(28px,3.2vw,42px)/1.15 var(--display);letter-spacing:-.04em;margin:0 0 12px}
+.bk-hero-copy>p:not(.bk-eyebrow,.bk-reality){font-size:13px;line-height:1.6;max-width:600px;margin:0;color:var(--muted)}
+.bk-hero-copy strong{font-weight:500}
+.bk-wizard-photo{width:170px;height:98px;object-fit:cover;object-position:50% 42%}
+.bk-workshop{max-width:1240px;margin:auto;padding:0 32px 40px;scroll-margin-top:12px}
+.bk-progress ol{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;margin:0;padding:0;border-bottom:1px solid var(--stone)}
+.bk-progress button{border:0;border-bottom:2px solid transparent;padding:16px 4px;min-height:52px;width:100%;text-align:left;background:none;color:var(--muted);font-size:13px}
+.bk-progress button span{font-variant-numeric:tabular-nums;color:var(--wood);margin-right:10px}
+.bk-progress button[aria-current]{border-color:var(--wood);color:var(--ink);font-weight:750}
+.bk-progress button.is-complete span{background:var(--tobacco);color:var(--ivory);padding:3px}
+.bk-progress button:disabled{cursor:default;opacity:.65}
+.bk-workshop-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;padding-top:22px;align-items:start}
+.bk-steps{min-width:0}
+.bk-wizard .bk-stage{height:clamp(310px,calc(100svh - 400px),580px);min-height:0}
+.bk-wizard .bk-step{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-color:var(--wood) var(--stone);scroll-padding:12px;padding:4px 12px 12px 4px;margin:0;border:0}
+.bk-step-heading{margin-bottom:18px;gap:12px}
+.bk-step h3{font:550 clamp(20px,2vw,27px)/1.3 var(--display);letter-spacing:-.035em;margin:0}
+.bk-step-heading p{font-size:12px;line-height:1.6;margin:8px 0 0;color:var(--muted)}
+.bk-step-number{display:none}
+.bk-services,.bk-slots{max-height:none;overflow:visible}
+.bk-services{border-top-color:var(--stone)}
+.bk-service{padding:14px 8px;transition:background 140ms ease;min-height:72px}
+.bk-service:hover,.bk-service[aria-pressed=true]{padding-left:8px;background:var(--stone)}
+.bk-service-info small{color:var(--muted);font-size:10px;letter-spacing:.04em}
+.bk-service-info strong{font-size:15px}
+.bk-search-shell input,.bk-preferences input,.bk-name{font-size:16px}
+.bk-filters{display:flex;flex-wrap:nowrap;overflow:auto;gap:6px;padding:6px 3px 12px;scrollbar-width:thin}
+.bk-filters button{white-space:nowrap;min-height:36px}
+.bk-prof{background:var(--ivory);border:2px solid var(--stone);font-size:12px;min-height:130px}
+.bk-prof[aria-pressed=true]{background:var(--stone);border-color:var(--wood)}
+.bk-prof img{border-radius:0;filter:none;height:85px;width:85px}
+.bk-prof-symbol{background:var(--tobacco);color:var(--copper)}
+.bk-slot-head{margin-top:18px;padding-top:18px}
+.bk-summary{position:static;background:var(--tobacco);box-shadow:none;margin:0;color:var(--ivory)}
+.bk-ticket-content{padding:24px}
+.bk-ticket-content h2{font:500 26px/1.3 var(--display);letter-spacing:-.03em;margin:0 0 12px}
+.bk-ticket-kicker,.bk-ticket-divider,.bk-ticket-bottom{display:none}
+.bk-ticket-top{padding:16px 24px;color:var(--copper)}
+.bk-recap{margin:0}
+.bk-recap>div{grid-template-columns:1fr;gap:6px;padding:13px 0}
+.bk-recap dt{color:var(--light-muted);font-size:10px}
+.bk-recap dd{text-align:left;font-size:13px}
+.bk-ticket-footnote{font-size:11px;color:var(--light-muted);margin-top:15px}
+.bk-booking-status{color:var(--ivory);margin-bottom:0}
+.bk-wizard-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--stone);padding:14px 0 calc(8px + env(safe-area-inset-bottom,0px));background:var(--ivory)}
+#bk-step-error{flex-basis:100%;margin:0;color:#883b29;font-size:12px;line-height:1.5}
+#bk-step-error:empty{display:none}
+.bk-wizard-nav button{min-height:48px;padding:12px 18px;border:1px solid var(--wood);font-weight:650;font-size:13px;background:transparent;color:var(--ink)}
+.bk-wizard-nav #bk-next,.bk-wizard-nav #bk-submit{background:var(--tobacco);color:var(--ivory);border-color:var(--tobacco)}
+.bk-wizard-nav #bk-submit{width:auto;gap:12px;min-height:48px}
+.bk-wizard-nav #bk-submit span{font-size:12px;font-weight:650}
+.bk-wizard-nav button:disabled{opacity:.5;cursor:default}
+.bk-wizard-nav button:active:not(:disabled){transform:scale(.98)}
+.bk-consent,.bk-form-local-note{font-size:12px;line-height:1.6}
+.bk-form input[aria-invalid=true]{outline:2px solid #883b29;outline-offset:2px}
+.bk-summary+form{margin-top:20px}
+.bk-success-box{box-shadow:none;background:var(--tobacco)}
+@media(max-width:760px){
+ .bk-header{height:60px}.bk-brand img{height:46px}
+ .bk-hero{padding:16px;gap:12px}.bk-hero h1{font-size:27px;margin-bottom:7px}
+ .bk-hero-copy>p:not(.bk-eyebrow,.bk-reality){font-size:11px;line-height:1.5}
+ .bk-wizard-photo{width:64px;height:82px;flex-shrink:0}
+ .bk-workshop{padding:0 16px 26px}
+ .bk-progress button{font-size:10px;padding:10px 2px;min-height:52px}
+ .bk-progress button span{display:block;margin:0 0 4px;font-size:11px;width:max-content}
+ .bk-workshop-grid{display:block;padding-top:14px}
+ .bk-wizard .bk-stage{height:clamp(210px,calc(100svh - 370px),570px)}
+ .bk-step h3{font-size:20px}.bk-step-heading{margin-bottom:12px}
+ .bk-professionals{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .bk-preferences{grid-template-columns:1fr}
+ .bk-slots{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .bk-slot-head{display:block}.bk-slot-head span{display:block;margin-top:5px}
+ .bk-wizard-nav{padding-top:10px;gap:6px}
+ .bk-wizard-nav button{padding:10px 13px;font-size:12px}
+ .bk-step .bk-summary{margin:14px 0 20px}
+ .bk-step .bk-ticket-top,.bk-step .bk-ticket-footnote,.bk-step .bk-booking-status{display:none}
+ .bk-step .bk-ticket-content{padding:16px}
+ .bk-step .bk-ticket-content h2{font-size:18px;margin-bottom:5px}
+ .bk-step .bk-recap{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+ .bk-step .bk-recap>div{padding:8px 0}.bk-step .bk-recap dd{font-size:11px}
+ .bk-saved{padding:30px 16px}.bk-saved h2{font-size:28px}
+ .bk-footer{padding-bottom:30px}
+}
+@media(prefers-reduced-motion:reduce){.bk-wizard-nav button:active{transform:none}}
+
+.bk-saved-eyebrow{color:var(--muted)}
+.bk-workshop:not(.bk-wizard) .bk-progress,.bk-workshop:not(.bk-wizard) .bk-wizard-nav{display:none}
