@@ -18,7 +18,16 @@ if(!root.classList.contains('enhanced')){
  initHeroExperience();
  // A linha do tempo da abertura começa antes de inicializar catálogos e mapa.
  // Isso mantém a porcentagem sincronizada com anel/trilhos mesmo no mobile.
- openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove();$('#sr-loader-shock')?.remove()});
+ openRitual().catch(error=>{
+  console.error('Abertura:',error);
+  if(typeof window.__finishRitual==='function') window.__finishRitual('interrupted');
+  else {
+   root.classList.remove('sr-loader-boot','sr-cut-reveal');
+   $('#sr-loader-stage')?.remove();
+   document.dispatchEvent(new CustomEvent('openingend',{detail:{completed:false,reason:'module-error'}}));
+  }
+  $('#sr-loader-shock')?.remove();
+ });
  const initialize=init=>{try{init()}catch(error){console.error('Componente Sr. Navalha:',error)}};
  // Preserve native <details> semantics while letting the menu animate
  // BOTH open and close. The panel stays mounted during the closing transition.
