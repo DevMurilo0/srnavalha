@@ -92,6 +92,20 @@ assert.ok(code.includes("stage.classList.add('snv2-run')"),'contador e barra ini
 assert.ok(code.includes('sample(t,.65,.35)'),'curva da porcentagem é a mesma do CSS');
 assert.ok(!file('templates/v17/loader.html').includes('snv2-loader snv2-run'),'CSS não pode iniciar antes do JS');
 assert.ok(code.includes("finish('complete')"),'sinal de conclusão natural do corte');
+
+assert.ok(code.includes("try { callback(); }")&&code.includes("finish('interrupted');"),
+  'falhas em callbacks assíncronos liberam o loader imediatamente');
+assert.ok(code.includes("target.querySelector('filter') && target.querySelector('image')"),
+  'FLIP incompleto usa fallback sem lançar exceções');
+assert.ok(code.includes("stage.addEventListener('pointerdown'")&&
+          code.includes("event.preventDefault()"),
+  'pointerdown do loader não ativa botões atrás da camada');
+assert.ok(file('css/ritual/loader-v2.css').includes('pointer-events:auto;background:var(--snv2-bg)'),
+  'camada de carregamento bloqueia clique direto no hero');
+assert.ok(head.includes("completed:false,reason:'watchdog'")&&
+          head.includes("if(!root.classList.contains('sr-loader-boot'))return"),
+  'watchdog ignora estados concluídos e informa abertura interrompida');
+
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
 assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));
