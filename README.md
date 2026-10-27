@@ -1,5 +1,14 @@
 # Sr. Navalha · The Perfect Cut
 
+## Correção de carregamento e cilindro minimalista · 27/10/2026
+
+O carregamento The Perfect Cut deixou de animar após a edição do hero porque `js/ritual/opening.js` possuía `import { $, $, ... }`, que produz **SyntaxError** e impede o entry point `app.js` de executar. Corrigido para importar `$` e `$$` separadamente e preservar a progressão completa: anel/assinatura/progresso → tesoura exclusiva do corte → duas metades da tela → hero sincronizado. Também corrigido o listener do menu que tentava chamar `.forEach` sobre um único elemento retornado por `$`, agora usando `$$` para todos os links.
+
+O cilindro do hero continua **preto puro / branco puro**, porém menor e mais limpo: acabamento metálico simplificado, projeção de sombra quase imperceptível, sem halo externo, sem brilho pulsante e sem reflexo artificial atravessando as fotografias. A rotação fluida do rotor e a animação de entrada dos elementos do hero durante o corte permanecem.
+
+O teste estático `scripts/test-reflexo-static.mjs` agora verifica as duas importações e o seletor correto do menu, além das cores e ausência de halo. Fazer teste visual no navegador real para confirmar suavidade; verificações de fonte não são equivalentes a medições de FPS.
+
+
 ## Hero: preto absoluto e revelação sincronizada de cima para baixo · 27/10/2026
 
 O cilindro do hero agora tem listras em **preto puro (`#000`) e branco puro (`#fff`)**, metal cromado neutro, sombreamento mínimo e apenas uma discreta iluminação branca estática no vidro. O grande halo pulsante e o reflexo luminoso que atravessava as fotografias foram completamente removidos.
