@@ -45,6 +45,20 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
+  // During the cut, elements already have animations scheduled on the
+  // shared blade timeline. Higher elements start before photos and CTA.
+  const staged=await intro.evaluate(()=>{
+    const selectors=['.hero-pole__object','.hero .title-mask > span',
+      '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
+    return selectors.map(selector=>{
+      const element=document.querySelector(selector);
+      return {selector,exists:!!element,animations:element?.getAnimations().length||0};
+    });
+  });
+  check(`${width}px: entrada do hero sincronizada durante o corte`,
+    staged.every(item=>item.exists&&item.animations>0),staged);
+  check(`${width}px: sem reflexo tardio nas fotos`,
+    await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
   await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
   // Second proof: panel opening shows a smooth vertical seam.
   await intro.waitForTimeout(720);
