@@ -51,13 +51,15 @@
     #f9f5ed 12px 24px,
     #244f78 24px 36px,
     #faf5ed 36px 48px);
-  transform:translate3d(0,-38px,0);
+  /* The vertical pitch of a 48px repeat at 155deg is 52.962px.
+     Move exactly one pitch per revolution to prevent a visible loop snap. */
+  transform:translate3d(0,-26.481px,0);
   animation:sr-pole-rotation 2.85s linear infinite;
   will-change:transform;
 }
 @keyframes sr-pole-rotation{
-  from{transform:translate3d(0,-38px,0)}
-  to{transform:translate3d(0,38px,0)}
+  from{transform:translate3d(0,-26.481px,0)}
+  to{transform:translate3d(0,26.481px,0)}
 }
 .hero-pole__glass::after{
   content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
