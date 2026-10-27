@@ -16,7 +16,15 @@ export function openRitual() {
     let raf = 0, completed = false, phase = 'loading', lastCounter = 0;
 
     function delay(callback, ms) {
-      const timer = setTimeout(() => { timers.delete(timer); callback(); }, ms);
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        if (completed) return;
+        try { callback(); }
+        catch (error) {
+          console.error('The Perfect Cut: falha na transição; liberando o hero.', error);
+          finish('interrupted');
+        }
+      }, ms);
       timers.add(timer);
     }
     function run(node, frames, options = {}) {
@@ -39,9 +47,17 @@ export function openRitual() {
       timers.clear();
       for (const a of animations) { try { a.cancel(); } catch {} }
       animations.clear();
-      for (const restore of restorers.reverse()) restore();
+      for (const restore of restorers.reverse()) {
+        try { restore(); } catch (error) {
+          console.warn('The Perfect Cut: limpeza da marca', error);
+        }
+      }
       for (const node of temporary) node.remove();
-      if (stage) cancelWithin(stage);
+      if (stage) {
+        try { cancelWithin(stage); } catch (error) {
+          console.warn('The Perfect Cut: limpeza das animações', error);
+        }
+      }
       root.classList.remove('sr-loader-boot', 'sr-cut-reveal');
       stage?.remove();
       if (hadFocus) $('.hero .button')?.focus({ preventScroll:true });
@@ -111,7 +127,7 @@ export function openRitual() {
       const scale = mobile ? 1.65 : 1.9;
       const startY = -80, endY = H + 80;
       const cutEase = 'cubic-bezier(.38,.18,.36,1)';
-      const epoch = document.timeline.currentTime;
+      const epoch = document.timeline.currentTime ?? performance.now();
       // Explicit shared startTime prevents sub-frame drift between the three
       // independently rendered parts, including on a busy main thread.
       const play = (node, frames, options) => {
@@ -169,7 +185,8 @@ export function openRitual() {
       root.classList.add('sr-cut-reveal');
 
       if (source && target && sourceBox?.width && targetBox?.width &&
-          logoPlate?.classList.contains('snv2-logo-ready')) {
+          logoPlate?.classList.contains('snv2-logo-ready') &&
+          target.querySelector('filter') && target.querySelector('image')) {
         const previous = target.style.visibility;
         target.style.visibility = 'hidden';
         restorers.push(()=>{target.style.visibility=previous});
