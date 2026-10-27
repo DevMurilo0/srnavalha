@@ -54,8 +54,19 @@ assert.ok(heroTimeline.includes('scheduleHeroEntrance')&&
           heroTimeline.includes('.hero-invitation > .button'),
   'entrada de cima para baixo para título, fotos e CTA');
 assert.ok(heroTimeline.includes('getComputedStyle(node).transform')&&
-          heroTimeline.includes("duration: mobile ? Math.round(duration*.83) : duration"),
-  'preserva inclinação das fotos e suaviza durações no mobile');
+          heroTimeline.includes('durationMs = mobile ? Math.round(duration * .86) : duration'),
+  'preserva inclinação das fotos e adapta a queda no mobile');
+for(const frame of ['offset: .52','offset: .69','offset: .82','offset: .91']){
+  assert.ok(heroTimeline.includes(frame),'queda com impacto e dois quiques: '+frame);
+}
+assert.ok(heroTimeline.includes('at(-drop')&&
+          heroTimeline.includes('at(-bounce')&&
+          heroTimeline.includes("easing: 'linear'"),
+  'queda partindo de cima com rebotes físicos e quadro final estável');
+assert.ok(heroTimeline.includes('delay: Math.round(tCut + CUT * progress)'),
+  'cada queda sincronizada ao eixo do corte');
+assert.ok(heroTimeline.includes("base === 'none' ? 'none' : base"),
+  'quadros finais respeitam a inclinação e escala originais');
 assert.ok(!heroTimeline.includes("'openingend'")&&
           !file('js/ritual/app.js').includes('initHeroSign()'),
   'não criar uma segunda animação após terminar o loader');
@@ -64,7 +75,7 @@ assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
 assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
   'CTA de agendamento contém ícone de agenda');
 const menuScript=file('js/ritual/app.js');
-assert.ok(menuScript.includes("$('.menu nav a').forEach"),
+assert.ok(menuScript.includes("$$('.menu nav a').forEach"),
   'menu percorre todos os links com querySelectorAll, sem TypeError');
 
 for(const token of ['is-active','is-closing','aria-expanded',
@@ -96,8 +107,8 @@ assert.ok(!html.includes('id="sr-opening-skip"'),'skip removido do DOM');
 assert.equal((file('templates/v17/loader.html').match(/class="snv2-scissors"/g)||[]).length,2,'duas tesouras independentes');
 
 const code=file('js/ritual/opening.js');
-assert.ok(code.includes("import { $, $, canMove, cancelWithin } from './core.js';"),
-  'a importação do loader deve declarar $ e $ uma única vez');
+assert.ok(code.includes("import { $, $$, canMove, cancelWithin } from './core.js';"),
+  'o loader importa $ e $$ corretamente');
 assert.ok(!code.includes("import { $, $, canMove"),
   'regressão: importação duplicada derrubava The Perfect Cut');
 
