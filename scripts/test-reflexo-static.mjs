@@ -36,12 +36,20 @@ assert.ok(html.includes('hero-pole__rotor')&&html.includes('hero-pole__glass'),
 const pole=file('css/ritual/hero-sign.css');
 assert.ok(pole.includes('sr-pole-rotation')&&pole.includes('linear infinite'),
   'rotação contínua das faixas');
-assert.ok(pole.includes('#a83933')&&pole.includes('#244f78')&&pole.includes('#f9f5ed'),
-  'faixas vermelha, azul e branca');
+assert.ok(pole.includes('#0b0c0e')&&pole.includes('#fffefa')&&pole.includes('#27292d'),
+  'faixas pretas, brancas e grafite, sem tricolor');
+assert.ok(!pole.includes('#a83933')&&!pole.includes('#244f78'),
+  'nenhuma faixa vermelha ou azul antiga');
+assert.ok(pole.includes('sr-pole-neon-breathe')&&pole.includes('hero-pole__glass::after'),
+  'luz branca suave sobre vidro e cromado');
+assert.ok(pole.includes('sr-hero-light-pass')&&pole.includes('.hero.sr-hero-sheen'),
+  'reflexo editorial nas fotografias do hero');
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),
   'movimento reduzido interrompe a rotação');
-assert.ok(file('js/ritual/hero-sign.js').includes('.hero-pole__object'),
-  'entrada independente da rotação');
+assert.ok(file('js/ritual/hero-sign.js').includes('.hero-pole__object')&&
+          file('js/ritual/hero-sign.js').includes("hero.classList.add('sr-hero-sheen')")&&
+          file('js/ritual/hero-sign.js').includes("'openingend'"),
+  'entrada e reflexo do hero após a transição da tela de carregamento');
 assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
   'um único CTA fixo');
 assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
