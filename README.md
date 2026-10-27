@@ -1,5 +1,14 @@
 # Sr. Navalha · The Perfect Cut
 
+## Hero: barber pole físico e microinterações · 26/10/2026
+
+A antiga placa retangular do canto superior direito do hero foi removida. Agora há **somente um barber pole cilíndrico**, com corpo de vidro, faixas clássicas vermelha/branca/azul, iluminação nas bordas e tampas metálicas na paleta cobre/madeira. O movimento da faixa foi ajustado para percorrer exatamente o passo de repetição do gradiente (52,962px), reduzindo saltos perceptíveis na volta do loop. A entrada do objeto usa `js/ritual/hero-sign.js` com animação independente; a rotação é interrompida em abas inativas ou sob `prefers-reduced-motion`. O objeto não é link nem botão.
+
+No CTA fixo **FAZER AGENDAMENTO**, o antigo traço foi substituído por um SVG de calendário com confirmação. O destino continua `agendar.html`, sem alterações na lógica de agendamento. O menu mobile continua com `<details>` nativo e acrescenta hover do ícone, interpolação das linhas para X e painel com entrada **e saída** suaves; respeita Escape, clique externo, links, foco, resize e movimento reduzido. `js/ritual/app.js` sincroniza o atributo `open` com o fim da animação de fechamento.
+
+Fontes: `templates/v17/inicio.html`, `css/ritual/hero-sign.css`, `js/ritual/hero-sign.js`, `templates/v17/footer.html`, `css/ritual/barber-sign-and-booking-v5.css`, `css/ritual/header.css`, `js/ritual/app.js`. O HTML final é gerado dos templates por `scripts/render-site.mjs`. Conferir sempre no navegador real antes de afirmar testes visuais.
+
+
 Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
 
 ## Abrir
