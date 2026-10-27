@@ -64,6 +64,9 @@ try{
   return nodes.map((e,i)=>{const r=e.getBoundingClientRect(),old=window.heroAudit.rest[i].rect;return Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-old[k])))})
  });
  check('Geometria final idêntica ao hero revelado',final.every(n=>n<.1),final);
+ // WAAPI currentTime advances only on a rendering tick: a synchronous check
+ // immediately after finish() can read the exact same compositor frame.
+ await m.waitForTimeout(95);
  check('Rotação interna não reinicia ao pousar',await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime)>rotorBefore);
  await m.locator('#casa').evaluate(e=>e.scrollIntoView({behavior:'instant'}));await m.waitForTimeout(120);
  check('Rotores pausam fora da viewport',await m.locator('.hero-pole__rotor').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationPlayState==='paused')));
