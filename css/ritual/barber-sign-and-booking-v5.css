@@ -7,13 +7,22 @@
   font:600 11px/1.4 var(--body);letter-spacing:.08em;
   transition:transform 180ms var(--ease),background 180ms ease;
 }
-.sr-booking-fixed__mark{width:5px;height:22px;background:var(--copper);transform:skewY(-30deg)}
-.sr-booking-fixed svg{margin-left:8px;transition:transform 180ms var(--ease)}
-@media(hover:hover){.sr-booking-fixed:hover{background:var(--tobacco);transform:translateY(-2px)}.sr-booking-fixed:hover svg{transform:translate(2px,-2px)}}
+.sr-booking-fixed__mark{
+  display:grid;place-items:center;flex:0 0 31px;width:31px;height:31px;
+  background:var(--copper);color:var(--ink);border-radius:2px;
+  transition:background 240ms var(--ease),transform 300ms var(--ease);
+}
+.sr-booking-fixed__calendar{width:21px;height:21px;display:block}
+.sr-booking-fixed > svg{margin-left:6px;transition:transform 260ms var(--ease)}
+@media(hover:hover){
+  .sr-booking-fixed:hover{background:var(--tobacco);transform:translateY(-2px)}
+  .sr-booking-fixed:hover > svg{transform:translate(2px,-2px)}
+  .sr-booking-fixed:hover .sr-booking-fixed__mark{background:var(--ivory);transform:translateY(-1px)}
+}
 .sr-booking-fixed:active{transform:scale(.98)}
 html.sr-loader-boot .sr-booking-fixed,.sr-booking-fixed[hidden],
 body:has(.menu[open]) .sr-booking-fixed,body:has(dialog[open]) .sr-booking-fixed{display:none}
 @media(max-width:430px){.sr-booking-fixed{left:max(12px,env(safe-area-inset-left));bottom:calc(12px + env(safe-area-inset-bottom,0px));min-height:48px;font-size:10px;gap:10px;padding:10px 12px}}
-@media(prefers-reduced-motion:reduce){.sr-booking-fixed,.sr-booking-fixed svg{transition:none;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.sr-booking-fixed,.sr-booking-fixed svg,.sr-booking-fixed__mark{transition:none;transform:none!important}}
 
 body:has(main button:focus-visible) .sr-booking-fixed,body:has(main input:focus-visible) .sr-booking-fixed{display:none}
