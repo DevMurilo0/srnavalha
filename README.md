@@ -1,6 +1,15 @@
 # Sr. Navalha · The Perfect Cut
 
-## Hero: queda com dois quiques sincronizada ao Perfect Cut · 27/10/2026
+## Estado atual — Creative Motion & Experience V6 (27/10/2026)
+
+A branch `reconstruction/arte-do-ritual` contém a **V6 integrada**. A ordem atual é **carregamento → tesoura e abertura gradual → saída completa do loader → evento `openingend` (`detail.completed === true`) → queda com dois rebotes decrescentes dos elementos do hero**. O hero utiliza `initHeroExperience()`, que é independente da timeline de `opening.js`; a marca oficial termina seu FLIP antes da queda. Dois barber poles minimalistas pretos e brancos giram em sentidos opostos sem recomeçar a rotação ao pousar.
+
+A V6 inclui animações editoriais de seções, filtros, galeria, produtos, localização e rodapé. O agendamento continua sendo **uma demonstração local** e mantém seu wizard de quatro etapas. Os registros e screenshots históricos de testes estão em `docs/experience-v6`, `docs/perfect-cut-v4` e `docs/booking-v5`; são evidência do momento em que foram gerados, não garantem resultados de builds posteriores.
+
+**Correções de estabilidade posteriores:** `opening.js` recupera erros durante callbacks temporizados e usa fallback quando a estrutura SVG do FLIP está ausente; o overlay de carregamento captura toque sem repassá-lo aos CTAs; o watchdog no `head` atua quando o módulo não chega a iniciar, mas não interrompe uma animação ativa em rede lenta; `app.js` comunica falhas do carregamento como `completed:false`. O teste automático é `.github/workflows/v6-regression.yml`, que valida JavaScript, HTML gerado, Perfect Cut, V6, agendamento e resiliência em Chromium. **A aprovação só vale quando o job da revisão atual estiver verde.**
+
+
+## Histórico V3 — queda durante o corte (substituída pela V6)
 
 A revelação do hero agora tem uma entrada **física e divertida**: cada elemento cai de um ponto acima de sua posição final, toca o lugar de repouso, comprime-se discretamente no impacto, dá um primeiro rebote e um segundo menor, e se estabiliza. A sequência é gradual do topo para a base — cilindro/assinatura → título → introdução → fachada, salão e detalhe → texto e botões — já **durante** a abertura da tela carregada. As 11 faixas temporais pertencem ao mesmo `document.timeline` que a tesoura, sem timers paralelos ou scripts de scroll.
 
