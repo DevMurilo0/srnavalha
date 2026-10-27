@@ -102,8 +102,8 @@ assert.ok(code.includes("stage.addEventListener('pointerdown'")&&
   'pointerdown do loader não ativa botões atrás da camada');
 assert.ok(file('css/ritual/loader-v2.css').includes('pointer-events:auto;background:var(--snv2-bg)'),
   'camada de carregamento bloqueia clique direto no hero');
-assert.ok(head.includes("completed:false,reason:'watchdog'")&&
-          head.includes("if(!root.classList.contains('sr-loader-boot'))return"),
+assert.ok(file('templates/v17/head.html').includes("completed:false,reason:'watchdog'")&&
+          file('templates/v17/head.html').includes("if(!root.classList.contains('sr-loader-boot'))return"),
   'watchdog ignora estados concluídos e informa abertura interrompida');
 
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
