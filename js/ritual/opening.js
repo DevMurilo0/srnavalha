@@ -1,7 +1,7 @@
 /* Perfect Cut V4: independent progress/cutting scissors. Two continuous
    surfaces share a single timeline with the blade and incision; no frame-time
    geometry reads. Every exit restores the real hero and cancels all effects. */
-import { $, $, canMove, cancelWithin } from './core.js';
+import { $, $$, canMove, cancelWithin } from './core.js';
 import { scheduleHeroEntrance } from './hero-sign.js';
 
 export function openRitual() {
