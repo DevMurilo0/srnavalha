@@ -47,6 +47,8 @@
 .menu[open] summary span:first-child{transform:translate3d(0,3.5px,0) rotate(45deg)}
 .menu[open] summary span:last-child{transform:translate3d(0,-3.5px,0) rotate(-45deg)}
 .enhanced .menu nav{
+  /* Disable the legacy one-way menu-open keyframes from motion.css. */
+  animation:none!important;
   opacity:0;visibility:hidden;pointer-events:none;
   transform:translate3d(0,-11px,0) scale(.985);
   transition:opacity 230ms var(--ease),transform 300ms var(--ease),
