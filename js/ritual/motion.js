@@ -7,7 +7,7 @@ export function initMotion(){
  const running=new Map(),seen=new WeakSet();
  // A heading is one composited object, not a layer per word. Controls and
  // nested image stages keep their own animation ownership.
- const targets=$$('main h2,footer h2,.section-heading>p,.house-copy>p,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,[data-material-reveal]');
+ const targets=$$('main h2,footer h2,.section-heading>p,.house-copy>p,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.service-entry,.visit-info>address,.map-frame,.practical>p,.footer-story-copy,.footer-feature-cta,.footer-directory>*,.album-toolbar,.work-print .photo-window,[data-material-reveal]');
  let remaining=targets.length;
  const observer=new IntersectionObserver(entries=>{
   // Read every composed state before starting any animations in this batch.
@@ -20,12 +20,23 @@ export function initMotion(){
    seen.add(target);remaining--;
    const budget=compact.matches?3:6;
    const decorative=target.hasAttribute('data-material-reveal');
-   if(!canMove()||running.size>=budget||(compact.matches&&decorative)){
+   if(!canMove()||running.size>=budget||(compact.matches&&decorative)||target.getAnimations().some(a=>a.id==='sr-filter-result')){
     observer.unobserve(target);continue;
    }
-   const sideways=target.matches('.team-portrait,.house-portal');
-   const start=`translate(${sideways?'12px':'0'},${sideways?'0':'16px'}) ${transform==='none'?'':transform}`;
-   const animation=animate(target,[{opacity:Math.min(.45,Number(opacity)),transform:start},{opacity,transform}],{duration:compact.matches?440:620});
+   const paper=target.matches('.house-portal,.team-portrait,.product-hero,.footer-visual');
+   const row=target.matches('.service-entry');
+   const photograph=target.matches('.work-print .photo-window');
+   const route=target.matches('.visit-info>address,.map-frame');
+   const suffix=transform==='none'?'':` ${transform}`;
+   const start=photograph?`scale(1.035)${suffix}`:paper?`translateY(18px) rotate(${target.matches('.house-portal')?1.2:-.65}deg)${suffix}`:
+     route?`translateX(14px)${suffix}`:row?`translateX(9px)${suffix}`:`translateY(12px)${suffix}`;
+   // Preserve reading order within a local group, with a bounded delay.
+   const siblings=[...target.parentElement.children];
+   const delay=row||target.matches('.house-copy>p,.practical>p,.footer-directory>*')
+     ? Math.min(siblings.indexOf(target),3)*55:0;
+   const animation=animate(target,[{opacity:paper?.72:.4,transform:start},{opacity,transform}],
+     {duration:row?320:paper||photograph?780:480,delay,easing:'cubic-bezier(.22,1,.36,1)'});
+   if(animation)animation.id='sr-section-reveal';
    if(!animation){observer.unobserve(target);continue}
    running.set(target,animation);
    animation.finished.catch(()=>{}).finally(()=>{
@@ -38,7 +49,7 @@ export function initMotion(){
  targets.forEach(el=>observer.observe(el));
  document.addEventListener('motionchange',()=>{
   if(canMove())return;
-  observer.disconnect();for(const animation of running.values())animation.cancel();running.clear();
+  for(const animation of running.values())animation.cancel();running.clear();
  });
  // The photographic doorway now dissolves once, rather than repainting a
  // polygon on every scroll. CSS view timelines enhance supported desktops.

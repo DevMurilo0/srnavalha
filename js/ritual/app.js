@@ -4,6 +4,7 @@ import { initMotion } from './motion.js';
 import { initAtmosphere } from './atmosphere.js';
 import { initSceneCuts } from './scene-cuts.js';
 import { openRitual } from './opening.js';
+import { initHeroExperience } from './hero-sign.js';
 import { initServices } from './services.js';
 import { initTeam } from './team.js';
 import { initProducts } from './products.js';
@@ -14,6 +15,7 @@ const root=document.documentElement;
 // Guard against an accidental second entry point; listeners have one owner.
 if(!root.classList.contains('enhanced')){
  root.classList.add('enhanced');startMotion();
+ initHeroExperience();
  // A linha do tempo da abertura começa antes de inicializar catálogos e mapa.
  // Isso mantém a porcentagem sincronizada com anel/trilhos mesmo no mobile.
  openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove();$('#sr-loader-shock')?.remove()});

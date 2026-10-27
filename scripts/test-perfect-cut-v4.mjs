@@ -18,10 +18,11 @@ for(const width of (process.env.FUNCTIONAL_ONLY?[]:[320,390,430,768,1440])){
  await p.waitForTimeout(1100);await p.screenshot({path:`${dir}/loading-${width}.png`});
  await p.waitForSelector('.snv2-cut-ready');
  check(`${width}: progresso conclui 100%`,await p.locator('#sr-loader-percent').textContent()==='100%');
- await p.waitForTimeout(420);
- const geometry=await p.evaluate(()=>{
+ const sample=await p.waitForFunction(()=>{
   const carrier=document.querySelector('.snv2-cut-flight'),seam=document.querySelector('.snv2-seam'),track=document.querySelector('.snv2-track');
+  if(!carrier||!seam||!track)return false;
   const tip=new DOMMatrix(getComputedStyle(carrier).transform).m42;
+  if(tip<innerHeight*.2||tip>innerHeight*.9||getComputedStyle(track).opacity!=='0')return false;
   const end=seam.getBoundingClientRect().bottom;
   const polygons=[...document.querySelectorAll('.snv2-panel')].map(e=>getComputedStyle(e).transform);
   const edges=polygons.map(t=>{const m=new DOMMatrix(t);return Math.abs(m.e+m.c*tip)});
@@ -29,10 +30,12 @@ for(const width of (process.env.FUNCTIONAL_ONLY?[]:[320,390,430,768,1440])){
    trackX:track.getBoundingClientRect().x,expectedTrackX:(innerWidth-track.offsetWidth)/2,
    overflow:document.documentElement.scrollWidth-innerWidth,heroOpacity:getComputedStyle(document.querySelector('.hero-composition')).opacity};
  });
+ const geometry=await sample.jsonValue();
  check(`${width}: lâmina/linha alinhadas e hero aparece durante corte`,geometry.delta<1&&geometry.edges.every(e=>e<.1)&&geometry.tip>0&&geometry.tip<844&&geometry.panels.length===2&&geometry.trackOpacity==='0'&&Math.abs(geometry.trackX-geometry.expectedTrackX)<1&&geometry.heroOpacity>0,geometry);
  await p.screenshot({path:`${dir}/cut-${width}.png`});
  await p.waitForTimeout(520);await p.screenshot({path:`${dir}/opening-${width}.png`});
  await done(p);
+ await p.waitForFunction(()=>!document.querySelector('.hero.is-arriving'));
  check(`${width}: limpeza, hero e largura`,await p.evaluate(()=>!document.querySelector('.snv2-logo-flight')&&getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'&&document.documentElement.scrollWidth<=innerWidth&&getComputedStyle(document.querySelector('h1')).opacity==='1'));
  await p.screenshot({path:`${dir}/hero-${width}.png`});await p.close();
 }

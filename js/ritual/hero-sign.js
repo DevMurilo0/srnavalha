@@ -1,67 +1,93 @@
-/* Sr. Navalha / Perfect Cut — queda com quique no hero.
-   A tesoura, as cortinas e cada elemento compartilham o mesmo início WAAPI.
-   Sem loops: cada objeto cai do alto, tem impacto, dois rebotes decrescentes
-   e repousa em sua posição REAL, sem mover o layout ou achatar a fotografia. */
-import { $ } from './core.js';
+/* The finished cut releases the hero; the hero owns its own finite effects.
+   No loader timing constants, clones, CSS hiding queues or per-frame reads. */
+import { $, $$, animate, canMove } from './core.js';
 
-export function scheduleHeroEntrance(play, { tCut, CUT, mobile }) {
+export function initHeroExperience() {
   const hero = $('.hero');
   if (!hero) return;
-
-  // Ordem editorial de cima para baixo. A logo oficial é transferida pela
-  // animação FLIP do loader; animamos apenas a assinatura ao lado dela.
-  // O início de cada queda acompanha a abertura vertical produzida pela tesoura.
-  const tracks = [
-    // selector                        avanço corte duração queda rebote
-    ['.hero-pole__object',                .12,       840,   82,  11],
-    ['.hero-wordmark > span',             .19,       800,   88,  11],
-    ['.hero .title-mask > span',          .26,       930,  132,  18],
-    ['.hero-intro',                       .34,       810,   98,  12],
-    ['.hero-facade',                      .39,       940,  124,  14],
-    ['.hero-room',                        .47,       960,  130,  14],
-    ['.hero-detail',                      .54,       885,  112,  12],
-    ['.hero-invitation > p',              .61,       780,   91,  10],
-    ['.hero-invitation > .button',        .68,       790,   96,  10],
-    ['.hero-invitation > .text-link',     .72,       760,   77,   8],
-    ['.hero-bottom',                      .77,       795,   82,   9]
-  ];
-
-  for (const [selector, progress, duration, distance, rebound] of tracks) {
-    const node = $(selector, hero);
-    if (!node || getComputedStyle(node).display === 'none') continue;
-
-    // Preserva as rotações dos cartões fotográficos e a escala do cilindro.
-    // A transformação original é concatenada ao deslocamento em TODAS as
-    // etapas, evitando a mudança brusca de inclinação ao final da animação.
-    const base = getComputedStyle(node).transform;
-    const suffix = base === 'none' ? '' : ' ' + base;
-    const drop = mobile ? Math.round(distance * .69) : distance;
-    const bounce = mobile ? Math.round(rebound * .7) : rebound;
-    const durationMs = mobile ? Math.round(duration * .86) : duration;
-    const at = (y, xScale = 1, yScale = 1) =>
-      `translate3d(0,${y}px,0) scale(${xScale},${yScale})${suffix}`;
-
-    // Mesma física relativa, com impacto em 52%, rebote em 69%, segundo
-    // toque em 82% e micro-rebote em 91%. Todos os keyframes se resolvem
-    // antes da remoção da tela de carregamento; nenhuma animação começa depois.
-    play(node, [
-      { offset: 0,    opacity: 0, transform: at(-drop, .995, 1.005),
-        easing: 'cubic-bezier(.25,.65,.45,1)' },
-      { offset: .15,  opacity: 1, transform: at(-drop * .66),
-        easing: 'cubic-bezier(.35,0,.65,1)' },
-      { offset: .52,  opacity: 1, transform: at(0, 1.014, .978),
-        easing: 'cubic-bezier(.18,.65,.35,1)' },
-      { offset: .69,  opacity: 1, transform: at(-bounce),
-        easing: 'cubic-bezier(.38,0,.7,1)' },
-      { offset: .82,  opacity: 1, transform: at(0, 1.006, .99),
-        easing: 'cubic-bezier(.18,.65,.35,1)' },
-      { offset: .91,  opacity: 1, transform: at(-bounce * .27),
-        easing: 'cubic-bezier(.35,0,.7,1)' },
-      { offset: 1,    opacity: 1, transform: base === 'none' ? 'none' : base }
-    ], {
-      duration: durationMs,
-      delay: Math.round(tCut + CUT * progress),
-      easing: 'linear'
+  const motion = new Set();
+  let frame = 0;
+  const stop = () => {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    for (const animation of motion) animation.cancel();
+    motion.clear();
+    hero.classList.remove('is-arriving');
+  };
+  const controller = new AbortController();
+  function settle() {
+    stop();
+    controller.abort();
+  }
+  document.addEventListener('openingend', event => {
+    if (!event.detail?.completed || !canMove() || scrollY > 20) {
+      controller.abort();return;
+    }
+    hero.classList.add('is-arriving');
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      if (!canMove() || scrollY > 20 || $('#sr-loader-stage')) return settle();
+      const mobile = matchMedia('(max-width:700px)').matches;
+      // A small logo settle follows the completed FLIP, using the real node.
+      // Two impacts with diminishing energy; paper keeps its resting angle.
+      const tracks = [
+        ['.hero-pole__object',                 0,  880, 62, 12, 0],
+        ['.hero-wordmark',                    65,  740, 20,  3, 0],
+        ['h1',                              130,  870, 54,  7, 0],
+        ['.hero-intro',                      210,  790, 38,  5, 0],
+        ['.hero-facade',                     290, 1020, 76, 11, -1.2],
+        ['.hero-room',                       360, 1060, 82, 12, .8],
+        ['.hero-detail',                     420,  950, 60,  9, 1.1],
+        ['.hero-invitation > p',             480,  750, 32,  4, 0],
+        ['.hero-invitation > .button',       540,  670, 24,  3, 0],
+        ['.hero-invitation > .text-link',    580,  670, 22,  3, 0],
+        ['.hero-bottom',                    620,  700, 24,  3, 0]
+      ];
+      // Batch all geometry/computed-style reads before any animation writes.
+      const snapshots = tracks.flatMap(([selector,delay,duration,distance,rebound,angle]) =>
+        $$(selector,hero).filter(node => node.getClientRects().length).map(node => ({
+          node,delay,duration,distance,rebound,angle,base:getComputedStyle(node).transform
+        })));
+      const epoch = document.timeline.currentTime;
+      try {
+        for (const {node,delay,duration,distance,rebound,angle,base} of snapshots) {
+          const drop = distance * (mobile ? .65 : 1), bounce = rebound * (mobile ? .7 : 1);
+          const suffix = base === 'none' ? '' : ` ${base}`;
+          const at = (y,rotation=0) => `translate3d(0,${y}px,0) rotate(${rotation}deg)${suffix}`;
+          const animation = animate(node,[
+            {offset:0, opacity:node.matches('.hero-wordmark')?1:0, transform:at(-drop,angle), easing:'cubic-bezier(.42,0,1,1)'},
+            {offset:.46, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
+            {offset:.64, opacity:1, transform:at(-bounce,-angle*.25), easing:'cubic-bezier(.42,0,1,1)'},
+            {offset:.79, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
+            {offset:.89, opacity:1, transform:at(-bounce*.24,angle*.08), easing:'cubic-bezier(.42,0,1,1)'},
+            {offset:1, opacity:1, transform:base}
+          ], {duration:duration*(mobile?.86:1), delay:delay*(mobile?.8:1), easing:'linear',fill:'backwards'});
+          if (!animation) continue;
+          animation.id='sr-hero-drop';
+          animation.startTime=epoch;
+          motion.add(animation);
+          animation.finished.catch(()=>{}).finally(()=>{
+            motion.delete(animation);
+            if (!motion.size) settle();
+          });
+        }
+        if (!motion.size) settle();
+      } catch { settle(); }
     });
+  }, {once:true,signal:controller.signal});
+  // Any interaction wins immediately. These listeners exist only for the intro.
+  for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
+    addEventListener(type,settle,{passive:true,signal:controller.signal});
+  addEventListener('resize',()=>{if(motion.size||frame)settle()},{passive:true,signal:controller.signal});
+  hero.addEventListener('focusin',settle,{signal:controller.signal});
+  document.addEventListener('motionchange',()=>{if(!canMove())settle()},{signal:controller.signal});
+
+  // Pause, never remove, the two independent rotor animations: preserve phase.
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.some(entry=>entry.isIntersecting);
+      hero.classList.toggle('is-poles-visible',visible);
+    });
+    observer.observe($('.hero-pole',hero));
   }
 }

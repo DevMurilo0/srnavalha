@@ -1,0 +1,393 @@
+[
+  {
+    "name": "320: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "320: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "390: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "390: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "430: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "430: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "768: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "768: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "1024: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "1024: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "1440: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "1440: movimento reduzido estático",
+    "pass": true
+  },
+  {
+    "name": "Nenhuma queda durante o corte",
+    "pass": true
+  },
+  {
+    "name": "Queda só depois da limpeza, com logo única",
+    "pass": true,
+    "detail": {
+      "audit": [
+        {
+          "target": "hero-pole__object",
+          "delay": 0,
+          "duration": 880,
+          "y": [
+            -62,
+            0,
+            -12,
+            0,
+            -2.880000114440918,
+            0
+          ]
+        },
+        {
+          "target": "hero-pole__object",
+          "delay": 0,
+          "duration": 880,
+          "y": [
+            -62,
+            0,
+            -12,
+            0,
+            -2.880000114440918,
+            0
+          ]
+        },
+        {
+          "target": "hero-wordmark",
+          "delay": 65,
+          "duration": 740,
+          "y": [
+            -20,
+            0,
+            -3,
+            0,
+            -0.7200000286102295,
+            0
+          ]
+        },
+        {
+          "target": "",
+          "delay": 130,
+          "duration": 870,
+          "y": [
+            -54,
+            0,
+            -7,
+            0,
+            -1.6799999475479126,
+            0
+          ]
+        },
+        {
+          "target": "hero-intro",
+          "delay": 210,
+          "duration": 790,
+          "y": [
+            -38,
+            0,
+            -5,
+            0,
+            -1.2000000476837158,
+            0
+          ]
+        },
+        {
+          "target": "hero-facade",
+          "delay": 290,
+          "duration": 1020,
+          "y": [
+            -75.99524969684724,
+            0,
+            -11.00084516302647,
+            0,
+            -2.639700718408733,
+            0
+          ]
+        },
+        {
+          "target": "hero-room",
+          "delay": 360,
+          "duration": 1060,
+          "y": [
+            -82,
+            0,
+            -12,
+            0,
+            -2.880000114440918,
+            0
+          ]
+        },
+        {
+          "target": "hero-detail",
+          "delay": 420,
+          "duration": 950,
+          "y": [
+            -60,
+            0,
+            -9,
+            0,
+            -2.1600000858306885,
+            0
+          ]
+        },
+        {
+          "target": "",
+          "delay": 480,
+          "duration": 750,
+          "y": [
+            -32,
+            0,
+            -4,
+            0,
+            -0.9599999785423279,
+            0
+          ]
+        },
+        {
+          "target": "button",
+          "delay": 540,
+          "duration": 670,
+          "y": [
+            -24,
+            0,
+            -3,
+            0,
+            -0.7200000286102295,
+            0
+          ]
+        },
+        {
+          "target": "text-link",
+          "delay": 580,
+          "duration": 670,
+          "y": [
+            -22,
+            0,
+            -3,
+            0,
+            -0.7200000286102295,
+            0
+          ]
+        },
+        {
+          "target": "hero-bottom",
+          "delay": 620,
+          "duration": 700,
+          "y": [
+            -24,
+            0,
+            -3,
+            0,
+            -0.7200000286102295,
+            0
+          ]
+        }
+      ],
+      "events": [
+        {
+          "time": 5971.100000023842,
+          "completed": true,
+          "loader": false
+        }
+      ],
+      "loader": false,
+      "logo": 1
+    }
+  },
+  {
+    "name": "Todas as quedas têm dois rebotes decrescentes",
+    "pass": true
+  },
+  {
+    "name": "Hierarquia escalonada de cilindros até CTA",
+    "pass": true
+  },
+  {
+    "name": "Geometria final idêntica ao hero revelado",
+    "pass": true,
+    "detail": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "name": "Rotação interna não reinicia ao pousar",
+    "pass": true
+  },
+  {
+    "name": "Rotores pausam fora da viewport",
+    "pass": true
+  },
+  {
+    "name": "Rotores retomam na viewport",
+    "pass": true
+  },
+  {
+    "name": "Visibilidade simulada pausa os rotores",
+    "pass": true
+  },
+  {
+    "name": "Preferência dinâmica termina quedas e rotores",
+    "pass": true
+  },
+  {
+    "name": "Interrupção do loader não dispara queda",
+    "pass": true
+  },
+  {
+    "name": "Menu abre",
+    "pass": true
+  },
+  {
+    "name": "Menu fecha e devolve foco",
+    "pass": true
+  },
+  {
+    "name": "house: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "services: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "team: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "gallery: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "products: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "location: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "footer: seção sem overflow",
+    "pass": true
+  },
+  {
+    "name": "Entradas de seções são executadas",
+    "pass": true
+  },
+  {
+    "name": "Filtro mantém categoria e foco",
+    "pass": true
+  },
+  {
+    "name": "Contagem acompanha filtro de produtos",
+    "pass": true
+  },
+  {
+    "name": "Equipe preserva seleção",
+    "pass": true
+  },
+  {
+    "name": "Galeria abre diálogo",
+    "pass": true
+  },
+  {
+    "name": "Copiar endereço escreve conteúdo real",
+    "pass": true
+  },
+  {
+    "name": "Clipboard bloqueado oferece seleção do endereço",
+    "pass": true
+  },
+  {
+    "name": "Axe nas superfícies alteradas",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "no-js: conteúdo e CTA visíveis",
+    "pass": true
+  },
+  {
+    "name": "opening-failure: conteúdo e CTA visíveis",
+    "pass": true
+  },
+  {
+    "name": "drop-failure: conteúdo e CTA visíveis",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

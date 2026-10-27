@@ -2,7 +2,6 @@
    surfaces share a single timeline with the blade and incision; no frame-time
    geometry reads. Every exit restores the real hero and cancels all effects. */
 import { $, $$, canMove, cancelWithin } from './core.js';
-import { scheduleHeroEntrance } from './hero-sign.js';
 
 export function openRitual() {
   return new Promise(resolve => {
@@ -30,7 +29,7 @@ export function openRitual() {
       a.finished.catch(() => {});
       return a;
     }
-    function finish() {
+    function finish(reason = 'interrupted') {
       if (completed) return;
       const hadFocus = !!stage?.contains(document.activeElement);
       completed = true;
@@ -47,7 +46,7 @@ export function openRitual() {
       stage?.remove();
       if (hadFocus) $('.hero .button')?.focus({ preventScroll:true });
       if (window.__finishRitual === finish) delete window.__finishRitual;
-      document.dispatchEvent(new CustomEvent('openingend'));
+      document.dispatchEvent(new CustomEvent('openingend', { detail: { completed: reason === 'complete' } }));
       resolve();
     }
     window.__finishRitual = finish;
@@ -167,11 +166,6 @@ export function openRitual() {
           {transform:sheet(endY,direction*W/2),offset:1}
         ],{duration:CUT+OPEN,delay:tCut,easing:'linear'});
       }
-      // Schedule every hero element on the *same epoch* as the blade and
-      // parting sheets, BEFORE exposing the hero composition. From top to
-      // bottom: barber pole, lettering, photos, invitation and final links.
-      // Filled backwards: no early flashes through the opening.
-      scheduleHeroEntrance(play, { tCut, CUT, mobile });
       root.classList.add('sr-cut-reveal');
 
       if (source && target && sourceBox?.width && targetBox?.width &&
@@ -212,7 +206,7 @@ export function openRitual() {
       } else {
         play(logoPlate,[{opacity:1},{opacity:0}],{duration:240,delay:tMark});
       }
-      delay(finish,Math.max(tEnd+OPEN,tMark+logoTime+100));
+      delay(() => finish('complete'),Math.max(tEnd+OPEN,tMark+logoTime+100));
     }
 
     // The CSS bar/scissors and JS percentage MUST share the same epoch

@@ -28,48 +28,17 @@ for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
 }
 assert.ok(html.includes('snv2-logo-matte'),'logo em alfa transparente');
 assert.ok(html.includes('hero-logo-transparent'),'hero oficial intacto');
-assert.equal((html.match(/class="hero-sign hero-pole"/g)||[]).length,1,
-  'um único barber pole independente no hero');
-assert.ok(!html.includes('hero-sign__face'),'placa retangular removida');
-assert.ok(html.includes('hero-pole__rotor')&&html.includes('hero-pole__glass'),
-  'corpo cilíndrico e rotor preto e branco');
+assert.equal((html.match(/class="hero-pole hero-pole--/g)||[]).length,2,'dois cilindros no hero');
+assert.ok(!html.includes('hero-sign__face'),'sem placa retangular');
 const pole=file('css/ritual/hero-sign.css');
-assert.ok(pole.includes('sr-pole-rotation')&&pole.includes('linear infinite'),
-  'rotação contínua das faixas');
-assert.ok(pole.includes('#000 0 12px')&&pole.includes('#fff 12px 24px')&&
-          pole.includes('#000 24px 36px'),'faixas em preto puro e branco');
-assert.ok(!pole.includes('#a83933')&&!pole.includes('#244f78'),
-  'nenhuma faixa vermelha ou azul antiga');
-assert.ok(!pole.includes('sr-pole-neon-breathe')&&!pole.includes('sr-hero-light-pass')&&
-          !pole.includes('sr-hero-sheen'),'remover halo animado e reflexos nas fotos');
-assert.ok(!pole.includes('.hero-pole::before'),'barber pole minimalista sem halo decorativo');
-assert.ok(pole.includes('filter:drop-shadow(0 2px 1px #0002)'),
-  'sombras mínimas no cilindro');
-assert.ok(pole.includes('prefers-reduced-motion:reduce'),
-  'movimento reduzido interrompe a rotação');
+assert.ok(pole.includes('#000')&&pole.includes('#fff')&&pole.includes('linear infinite'),'rotor monocromático contínuo');
+assert.ok(pole.includes('animation-play-state:paused')&&pole.includes('is-poles-visible'),'pausa fora da viewport');
+assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
 const heroTimeline=file('js/ritual/hero-sign.js');
-assert.ok(heroTimeline.includes('scheduleHeroEntrance')&&
-          heroTimeline.includes('.hero .title-mask > span')&&
-          heroTimeline.includes('.hero-facade')&&heroTimeline.includes('.hero-room')&&
-          heroTimeline.includes('.hero-invitation > .button'),
-  'entrada de cima para baixo para título, fotos e CTA');
-assert.ok(heroTimeline.includes('getComputedStyle(node).transform')&&
-          heroTimeline.includes('durationMs = mobile ? Math.round(duration * .86) : duration'),
-  'preserva inclinação das fotos e adapta a queda no mobile');
-for(const frame of ['offset: .52','offset: .69','offset: .82','offset: .91']){
-  assert.ok(heroTimeline.includes(frame),'queda com impacto e dois quiques: '+frame);
-}
-assert.ok(heroTimeline.includes('at(-drop')&&
-          heroTimeline.includes('at(-bounce')&&
-          heroTimeline.includes("easing: 'linear'"),
-  'queda partindo de cima com rebotes físicos e quadro final estável');
-assert.ok(heroTimeline.includes('delay: Math.round(tCut + CUT * progress)'),
-  'cada queda sincronizada ao eixo do corte');
-assert.ok(heroTimeline.includes("base === 'none' ? 'none' : base"),
-  'quadros finais respeitam a inclinação e escala originais');
-assert.ok(!heroTimeline.includes("'openingend'")&&
-          !file('js/ritual/app.js').includes('initHeroSign()'),
-  'não criar uma segunda animação após terminar o loader');
+assert.ok(heroTimeline.includes("'openingend'")&&heroTimeline.includes('event.detail?.completed'),'entrada após término real');
+assert.ok(heroTimeline.includes('getComputedStyle(node).transform'),'preserva geometria original');
+assert.ok(!file('js/ritual/opening.js').includes('scheduleHeroEntrance'),'loader não possui animações do hero');
+assert.ok(file('js/ritual/app.js').includes('initHeroExperience()'),'controlador próprio inicializado');
 assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
   'um único CTA fixo');
 assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
@@ -122,10 +91,7 @@ assert.ok(!code.includes('stripHeight')&&!code.includes('pendingStrips'),'sem de
 assert.ok(code.includes("stage.classList.add('snv2-run')"),'contador e barra iniciam juntos');
 assert.ok(code.includes('sample(t,.65,.35)'),'curva da porcentagem é a mesma do CSS');
 assert.ok(!file('templates/v17/loader.html').includes('snv2-loader snv2-run'),'CSS não pode iniciar antes do JS');
-assert.ok(code.includes('scheduleHeroEntrance(play, { tCut, CUT, mobile })')&&
-          code.indexOf('scheduleHeroEntrance(play, { tCut, CUT, mobile })')<
-          code.indexOf("root.classList.add('sr-cut-reveal')"),
-  'hero e lâmina compartilham um único relógio, antes da revelação');
+assert.ok(code.includes("finish('complete')"),'sinal de conclusão natural do corte');
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
 assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));

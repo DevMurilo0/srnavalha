@@ -9,7 +9,7 @@ const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/h
 const results=[],errors=[];
 const check=(name,pass,detail)=>{results.push({name,pass:!!pass,detail});console.log(`${pass?'PASS':'FAIL'} ${name}`)};
 async function fresh(options={}){const context=await browser.newContext({viewport:{width:390,height:844},...options});const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));return page}
-const settle=page=>page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot'));
+const settle=page=>page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot')&&!document.querySelector('.hero.is-arriving'));
 const jump=(page,id)=>page.locator(id).evaluate(el=>el.scrollIntoView({behavior:'instant',block:'center'}));
 try{
  const page=await fresh();
@@ -45,18 +45,17 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  // During the cut, elements already have animations scheduled on the
-  // shared blade timeline. Higher elements start before photos and CTA.
+  // During the cut the real layout is static. The independent drop starts after cleanup.
   const staged=await intro.evaluate(()=>{
-    const selectors=['.hero-pole__object','.hero .title-mask > span',
+    const selectors=['.hero-pole__object','.hero h1',
       '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
-      return {selector,exists:!!element,animations:element?.getAnimations().length||0};
+      return {selector,exists:!!element,animations:element?.getAnimations().filter(a=>a.id==='sr-hero-drop').length||0};
     });
   });
-  check(`${width}px: entrada do hero sincronizada durante o corte`,
-    staged.every(item=>item.exists&&item.animations>0),staged);
+  check(`${width}px: nenhuma queda durante o corte`,
+    staged.every(item=>item.exists&&item.animations===0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
   await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
@@ -98,7 +97,7 @@ try{
    fixture:!!document.querySelector('.hero-pole__cap--top'),
    bookingCalendar:!!document.querySelector('.sr-booking-fixed__calendar')
  }));
- check('Barber pole único e agenda fixa',pole.count===1&&pole.fixture&&
+ check('Dois barber poles e agenda fixa',pole.count===2&&pole.fixture&&
    pole.animated.includes('sr-pole-rotation')&&pole.bookingCalendar,pole);
  await jump(page,'#servicos');const choice=page.locator('.mirror-choice').nth(1);await choice.click();await page.waitForTimeout(500);check('Espelho troca serviço',await choice.getAttribute('aria-pressed')==='true');
  await page.locator('[data-filter]').nth(1).click();check('Filtro de catálogo',await page.locator('.service-entry[hidden]').count()>0);await page.locator('[data-filter]').first().click();
