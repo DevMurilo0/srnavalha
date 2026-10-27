@@ -1,5 +1,11 @@
 # Sr. Navalha · The Perfect Cut
 
+## Hero: barber pole noir com néon e reflexo fotográfico · 27/10/2026
+
+O cilindro físico do hero foi refinado conforme a referência: **listras exclusivamente em preto, branco e grafite**, com tampas cromadas e borda de vidro refletiva. A luz de néon branco é simulada por brilho estático nas bordas e um halo muito discreto cuja **opacidade** varia suavemente; a rotação interna conserva seu período contínuo de 52,962px sem salto. Vermelho e azul foram removidos somente desse objeto, sem alterar a paleta marfim/cobre do restante do site.
+
+Além do movimento contínuo do cilindro, a chegada ao hero agora traz um único **reflexo luminoso editorial** sobre as três fotografias, em tempos desencontrados, acionado por `openingend` ao terminar o Perfect Cut. Não desloca nem esconde o título, a marca ou as fotografias reais e é desativado em `prefers-reduced-motion`. Os efeitos pausam com a aba oculta. CSS e JS em `css/ritual/hero-sign.css` e `js/ritual/hero-sign.js`; alt atualizado em `templates/v17/inicio.html`.
+
 ## Hero: barber pole físico e microinterações · 26/10/2026
 
 A antiga placa retangular do canto superior direito do hero foi removida. Agora há **somente um barber pole cilíndrico**, com corpo de vidro, faixas clássicas vermelha/branca/azul, iluminação nas bordas e tampas metálicas na paleta cobre/madeira. O movimento da faixa foi ajustado para percorrer exatamente o passo de repetição do gradiente (52,962px), reduzindo saltos perceptíveis na volta do loop. A entrada do objeto usa `js/ritual/hero-sign.js` com animação independente; a rotação é interrompida em abas inativas ou sob `prefers-reduced-motion`. O objeto não é link nem botão.
