@@ -87,13 +87,22 @@ export function openRitual() {
       });
     }
 
-    // A tela de carregamento recebe o toque, não os botões escondidos atrás.
-    // Suprimir o click sintético impede navegação involuntária durante a saída.
-    stage.addEventListener('pointerdown', event => {
-      if (event.cancelable) event.preventDefault();
-      finish('interrupted');
+    // Segurar a camada até terminar o gesto: remover o stage em pointerdown
+    // deixa o pointerup/click seguinte atingir o CTA escondido no mesmo ponto.
+    // O gesto inteiro pertence ao loader e nunca dispara uma navegação.
+    stage.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    },{capture:true,signal:signal.signal});
+    stage.addEventListener('pointerdown',event=>{
+      if(event.cancelable)event.preventDefault();
+      const release=()=>requestAnimationFrame(()=>finish('interrupted'));
+      stage.addEventListener('pointerup',release,{once:true,signal:signal.signal});
+      stage.addEventListener('pointercancel',release,{once:true,signal:signal.signal});
     },{once:true,signal:signal.signal});
-    for (const type of ['wheel','touchstart','keydown','pagehide']) {
+    // Touch is already represented by pointerdown/up on supported browsers.
+    // Never finish on touchstart: that releases the click-through barrier.
+    for (const type of ['wheel','keydown','pagehide']) {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
