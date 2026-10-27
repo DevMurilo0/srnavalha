@@ -8,6 +8,7 @@ const featured = ['cortee', 'comb-cort-barb-simples', 'barboterapia', 'barba-sim
 const qs = new URLSearchParams(location.search);
 const tz = 'America/Recife';
 let requestInFlight = false;
+let flowStep = 1;
 
 function dateAtRecife(value = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(value);
@@ -47,9 +48,83 @@ function updateSummary() {
 
   const canBook = Boolean(state.service && state.slot && !requestInFlight);
   const submit = $('#bk-submit');
-  submit.disabled = !canBook;
+  submit.disabled = !canBook || flowStep !== 4;
+  updateFlowStatus();
   submit.querySelector('.bk-submit-label').textContent = requestInFlight ? 'Salvando teste…' : 'Salvar agendamento de teste';
 }
+// Progressive enhancement: with JS disabled the complete original form
+// remains accessible. With JS, one stage is visible at a time.
+const stageLabels=['Serviço','Profissional','Data e horário','Seus dados'];
+function updateFlowStatus() {
+  const flow=$('#bk-flow-selection');
+  if (!flow) return;
+  const summary=flowStep===1
+    ? (state.service ? state.service.name : 'Escolha seu serviço para começar.')
+    : flowStep===2
+      ? (state.professional?.name || 'Sem preferência de profissional')
+      : flowStep===3
+        ? (state.slot ? readableDate($('#bk-date').value)+' · '+formatHour(state.slot.slot_at) : 'Escolha uma data e um horário.')
+        : (state.service?.name || 'Serviço')+' · '+(state.slot ? formatHour(state.slot.slot_at) : 'Horário pendente');
+  flow.textContent=summary;
+}
+function flowError(message) {
+  const node=$('#bk-flow-error');
+  node.textContent=message;
+  node.hidden=!message;
+}
+function showStep(next,{focus=true}={}) {
+  flowStep=Math.min(4,Math.max(1,next));
+  const wrapper=$('#escolhas');
+  wrapper.dataset.step=String(flowStep);
+  for (const panel of document.querySelectorAll('.bk-step[data-step]')) {
+    const active=Number(panel.dataset.step)===flowStep;
+    panel.hidden=!active;
+    panel.classList.toggle('is-active',active);
+    if(active) panel.scrollTop=0;
+  }
+  for (const indicator of document.querySelectorAll('[data-progress]')) {
+    const number=Number(indicator.dataset.progress);
+    indicator.classList.toggle('is-current',number===flowStep);
+    indicator.classList.toggle('is-complete',number<flowStep);
+    if(number===flowStep) indicator.setAttribute('aria-current','step');
+    else indicator.removeAttribute('aria-current');
+  }
+  $('#bk-flow-prev').disabled=flowStep===1;
+  const nextButton=$('#bk-flow-next');
+  nextButton.innerHTML=flowStep===4
+    ? 'Salvar teste <span aria-hidden="true">→</span>'
+    : 'Próximo <span aria-hidden="true">→</span>';
+  $('#bk-workflow-step-label').textContent='ETAPA '+String(flowStep).padStart(2,'0')+' / 04 · '+stageLabels[flowStep-1];
+  flowError('');
+  updateSummary();
+  if(focus) {
+    const title=wrapper.querySelector('.bk-step.is-active h3');
+    title?.setAttribute('tabindex','-1');
+    title?.focus({preventScroll:true});
+  }
+}
+function advanceStep() {
+  if(requestInFlight) return;
+  if(flowStep===1 && !state.service) return flowError('Selecione um serviço para continuar.');
+  if(flowStep===1 && state.service.category==='Assinantes') return flowError('Escolha um serviço disponível para demonstração, fora dos planos de assinatura.');
+  if(flowStep===3 && !state.slot) return flowError('Escolha uma data e um horário de demonstração antes de continuar.');
+  if(flowStep===4) {
+    const problem=validateFields();
+    if(problem) {
+      flowError(problem);
+      $('#bk-form-error').textContent=problem;
+      const firstInvalid=[!$('#bk-name').value.trim()||$('#bk-name').value.trim().length<2?'#bk-name':null,
+        !normalizedPhone($('#bk-phone').value)?'#bk-phone':null,
+        !$('#bk-consent').checked?'#bk-consent':null].find(Boolean);
+      if(firstInvalid) $(firstInvalid).focus({preventScroll:true});
+      return;
+    }
+    $('#bk-form').requestSubmit();
+    return;
+  }
+  showStep(flowStep+1);
+}
+
 function formatHour(iso) {
   return new Intl.DateTimeFormat('pt-BR', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso));
 }
@@ -253,8 +328,10 @@ function submitBooking(event) {
   if (requestInFlight) return;
   const problem = validateFields();
   if (problem) {
+    showStep(4);
     showStatus(problem, 'warning');
     $('#bk-form-error').textContent = problem;
+    flowError(problem);
     return;
   }
   $('#bk-form-error').textContent = '';
@@ -273,6 +350,7 @@ function submitBooking(event) {
       ' · ' + readableDate($('#bk-date').value) + ', às ' + formatHour(entry.starts_at);
     $('#bk-confirm-state').textContent = 'Teste salvo apenas neste navegador. Este horário NÃO foi enviado à barbearia.';
     $('#escolhas').hidden = true;
+    document.body.classList.remove('bk-wizard-ready');
     $('#bk-success').hidden = false;
     document.body.classList.add('bk-booked');
     $('#bk-success').scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -352,6 +430,12 @@ renderProfessionals();
 renderDays();
 refreshSlots();
 renderSavedBookings();
+
+// Activate the stepper only after all service, date and professional controls exist.
+document.body.classList.add('bk-wizard-ready');
+showStep(1,{focus:false});
+$('#bk-flow-prev').addEventListener('click',()=>showStep(flowStep-1));
+$('#bk-flow-next').addEventListener('click',advanceStep);
 
 $('#bk-search').addEventListener('input', () => {
   if ($('#bk-search').value.trim() && state.filter !== 'Todos') {
