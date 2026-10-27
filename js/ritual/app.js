@@ -59,7 +59,7 @@ if(!root.classList.contains('enhanced')){
    if(menu.classList.contains('is-active'))closeMenu();
    else openMenu();
   });
-  $('.menu nav a').forEach(link=>link.addEventListener('click',()=>closeMenu()));
+  $$('.menu nav a').forEach(link=>link.addEventListener('click',()=>closeMenu()));
   document.addEventListener('click',event=>{
    if(menu.open&&!menu.contains(event.target))closeMenu();
   });
