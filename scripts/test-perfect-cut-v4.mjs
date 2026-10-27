@@ -64,6 +64,45 @@ const cdp=await p.context().newCDPSession(p);await cdp.send('Network.setCacheDis
 await p.locator('.hero .button').click();await p.waitForURL('**/agendar.html');check('Agendamento local abre',await p.locator('h1').count()===1);await p.goBack({waitUntil:'domcontentloaded'});await done(p);check('Histórico libera homepage',await p.locator('.hero-logo-transparent').isVisible());await p.close();
 for(const hash of ['#servicos','#equipe']){const p=await pageAt();await p.goto(base+hash,{waitUntil:'domcontentloaded'});await done(p);check(`Âncora ${hash}`,await p.locator(hash).count()===1);await p.close()}
 for(const fail of ['**/assets/images/v8/logo-640.webp','**/js/ritual/opening.js']){const p=await pageAt();await p.route(fail,r=>r.abort());await load(p);await done(p);check(`Falha ${fail}`,await p.locator('#sr-loader-stage').count()===0&&await p.locator('h1').isVisible());await p.close()}
+// Fault injection: an exception in a delayed FLIP callback must NOT freeze
+// the full-screen loader until its watchdog fires.
+const brokenFlight=await pageAt();
+await brokenFlight.addInitScript(()=>{
+ const clone=SVGElement.prototype.cloneNode;
+ SVGElement.prototype.cloneNode=function(...args){
+  if(this.classList?.contains('hero-logo-transparent')) throw Error('TEST: voo da marca falhou');
+  return clone.apply(this,args);
+ };
+});
+await load(brokenFlight);
+await brokenFlight.waitForSelector('.snv2-cut-ready');
+await done(brokenFlight);
+check('Falha interna do FLIP libera o hero sem travar',
+ await brokenFlight.evaluate(()=>!document.querySelector('#sr-loader-stage')&&
+  getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'&&
+  !document.querySelector('.hero.is-arriving')));
+await brokenFlight.close();
+
+// A touch/click during the overlay must never activate the booking CTA
+// underneath it in the same gesture.
+const covered=await pageAt(390);
+await load(covered);
+await covered.evaluate(()=>{
+ window.__clickedBehindLoader=false;
+ document.querySelector('.sr-booking-fixed')?.addEventListener('click',()=>{
+   window.__clickedBehindLoader=true;
+ });
+});
+const buttonRect=await covered.locator('.sr-booking-fixed').boundingBox();
+if(buttonRect){
+ await covered.mouse.click(buttonRect.x+buttonRect.width/2,buttonRect.y+buttonRect.height/2);
+ await done(covered);
+ check('Clique durante loader não aciona agendamento por trás',
+  await covered.evaluate(()=>!window.__clickedBehindLoader&&location.pathname.endsWith('/')||
+    !window.__clickedBehindLoader&&location.pathname.endsWith('/index.html')));
+}else check('Clique durante loader não aciona agendamento por trás',false,'CTA não localizado');
+await covered.close();
+
 const reduced=await pageAt(390,{reducedMotion:'reduce'});await load(reduced);await done(reduced);check('Reduced motion inicial',await reduced.locator('#sr-loader-stage').count()===0);await reduced.close();
 }
 check('Sem exceções JavaScript',errors.length===0,errors);
