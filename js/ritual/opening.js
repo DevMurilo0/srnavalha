@@ -127,7 +127,7 @@ export function openRitual() {
       // Fading opacity alone preserves translateX(-50%) on the track: no jump.
       stage.classList.add('snv2-cut-ready');
       fade('.snv2-track',0,FADE);
-      fade('.snv2-name, .snv2-tag, .snv2-signature',80,360);
+      fade('.snv2-name, .snv2-tag',80,360);
       fade('.snv2-rail',0,440);
       fade('.snv2-ring',tCut,420);
 

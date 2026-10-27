@@ -35,7 +35,7 @@ const axe=await new AxeBuilder({page:p}).withTags(['wcag2a','wcag2aa','wcag21aa'
 await p.emulateMedia({reducedMotion:'no-preference'});
 for(const width of [320,390,1440]){
  await p.setViewportSize({width,height:800});await p.goto(base+'/',{waitUntil:'domcontentloaded'});await p.waitForSelector('.snv2-run');
- check(`${width}: botão sob loader e placa única`,!await p.locator('.sr-booking-fixed').isVisible()&&await p.locator('.snv5-sign').count()===1);
+ check(`${width}: botão sob loader e letreiro exclusivo do hero`,!await p.locator('.sr-booking-fixed').isVisible()&&await p.locator('.hero-sign').count()===1&&await p.locator('#sr-loader-stage .snv2-signature').count()===0);
  await p.waitForTimeout(1300);await p.screenshot({path:`docs/booking-v5/sign-${width}.png`});await p.waitForFunction(()=>!document.querySelector('#sr-loader-stage'));
  await p.locator('#casa').evaluate(e=>e.scrollIntoView({behavior:'instant'}));await p.waitForTimeout(250);check(`${width}: CTA fixo único`,await p.locator('.sr-booking-fixed:visible').count()===1);await p.screenshot({path:`docs/booking-v5/cta-${width}.png`});
  await p.locator('footer').evaluate(e=>e.scrollIntoView());await p.waitForTimeout(200);check(`${width}: CTA libera rodapé`,!await p.locator('.sr-booking-fixed').isVisible());
