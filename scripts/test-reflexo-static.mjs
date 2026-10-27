@@ -32,7 +32,7 @@ assert.equal((html.match(/class="hero-sign hero-pole"/g)||[]).length,1,
   'um único barber pole independente no hero');
 assert.ok(!html.includes('hero-sign__face'),'placa retangular removida');
 assert.ok(html.includes('hero-pole__rotor')&&html.includes('hero-pole__glass'),
-  'corpo cilíndrico e rotor tricolor');
+  'corpo cilíndrico e rotor preto e branco');
 const pole=file('css/ritual/hero-sign.css');
 assert.ok(pole.includes('sr-pole-rotation')&&pole.includes('linear infinite'),
   'rotação contínua das faixas');
@@ -42,7 +42,8 @@ assert.ok(!pole.includes('#a83933')&&!pole.includes('#244f78'),
   'nenhuma faixa vermelha ou azul antiga');
 assert.ok(!pole.includes('sr-pole-neon-breathe')&&!pole.includes('sr-hero-light-pass')&&
           !pole.includes('sr-hero-sheen'),'remover halo animado e reflexos nas fotos');
-assert.ok(pole.includes('filter:drop-shadow(1px 3px 2px #0002)'),
+assert.ok(!pole.includes('.hero-pole::before'),'barber pole minimalista sem halo decorativo');
+assert.ok(pole.includes('filter:drop-shadow(0 2px 1px #0002)'),
   'sombras mínimas no cilindro');
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),
   'movimento reduzido interrompe a rotação');
@@ -63,6 +64,9 @@ assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
 assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
   'CTA de agendamento contém ícone de agenda');
 const menuScript=file('js/ritual/app.js');
+assert.ok(menuScript.includes("$('.menu nav a').forEach"),
+  'menu percorre todos os links com querySelectorAll, sem TypeError');
+
 for(const token of ['is-active','is-closing','aria-expanded',
                     'panel.inert=true','menu.open=false','Escape']){
   assert.ok(menuScript.includes(token),'navegação animada: '+token);
@@ -92,6 +96,11 @@ assert.ok(!html.includes('id="sr-opening-skip"'),'skip removido do DOM');
 assert.equal((file('templates/v17/loader.html').match(/class="snv2-scissors"/g)||[]).length,2,'duas tesouras independentes');
 
 const code=file('js/ritual/opening.js');
+assert.ok(code.includes("import { $, $, canMove, cancelWithin } from './core.js';"),
+  'a importação do loader deve declarar $ e $ uma única vez');
+assert.ok(!code.includes("import { $, $, canMove"),
+  'regressão: importação duplicada derrubava The Perfect Cut');
+
 for(const snippet of ['snv2-panels','snv2-panel','snv2-cut-flight',
                       'snv2-logo-flight','sr-cut-reveal','getBoundingClientRect',
                       'translate3d','scale(','CustomEvent','window.__finishRitual'])
