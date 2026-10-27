@@ -45,6 +45,20 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
+  // During the cut, elements already have animations scheduled on the
+  // shared blade timeline. Higher elements start before photos and CTA.
+  const staged=await intro.evaluate(()=>{
+    const selectors=['.hero-pole__object','.hero .title-mask > span',
+      '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
+    return selectors.map(selector=>{
+      const element=document.querySelector(selector);
+      return {selector,exists:!!element,animations:element?.getAnimations().length||0};
+    });
+  });
+  check(`${width}px: entrada do hero sincronizada durante o corte`,
+    staged.every(item=>item.exists&&item.animations>0),staged);
+  check(`${width}px: sem reflexo tardio nas fotos`,
+    await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
   await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
   // Second proof: panel opening shows a smooth vertical seam.
   await intro.waitForTimeout(720);
@@ -68,7 +82,24 @@ try{
  const cdp=await page.context().newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await page.reload();check('Hard refresh preserva conteúdo',await page.locator('.hero-room img').count()===1);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});
  for(const hash of ['#servicos','#equipe']){await page.goto(base+hash);check(`Link direto ${hash}`,await page.locator('#sr-loader-stage').count()===0&&await page.evaluate(()=>scrollY>200))}
  await page.setViewportSize({width:390,height:844});await page.goto(base);await settle(page);await page.keyboard.press('Tab');check('Teclado: foco visível',await page.evaluate(()=>document.activeElement.classList.contains('skip')));
- await page.locator('.menu summary').click();check('Menu móvel abre',await page.locator('.menu').evaluate(e=>e.open));await page.keyboard.press('Escape');check('Menu: Escape devolve foco',await page.locator('.menu').evaluate(e=>!e.open&&document.activeElement===e.querySelector('summary')));
+ await page.locator('.menu summary').click();
+ await page.waitForFunction(()=>document.querySelector('.menu').classList.contains('is-active'));
+ check('Menu móvel abre suavemente',await page.locator('.menu').evaluate(e=>
+   e.open&&e.classList.contains('is-active')&&e.querySelector('nav').inert===false));
+ await page.keyboard.press('Escape');
+ check('Menu inicia fechamento suave',await page.locator('.menu').evaluate(e=>
+   e.open&&e.classList.contains('is-closing')&&e.querySelector('nav').inert===true));
+ await page.waitForFunction(()=>!document.querySelector('.menu').open);
+ check('Menu: Escape fecha e devolve foco',await page.locator('.menu').evaluate(e=>
+   !e.open&&document.activeElement===e.querySelector('summary')));
+ const pole=await page.evaluate(()=>({
+   count:document.querySelectorAll('.hero-pole__glass').length,
+   animated:getComputedStyle(document.querySelector('.hero-pole__rotor')).animationName,
+   fixture:!!document.querySelector('.hero-pole__cap--top'),
+   bookingCalendar:!!document.querySelector('.sr-booking-fixed__calendar')
+ }));
+ check('Barber pole único e agenda fixa',pole.count===1&&pole.fixture&&
+   pole.animated.includes('sr-pole-rotation')&&pole.bookingCalendar,pole);
  await jump(page,'#servicos');const choice=page.locator('.mirror-choice').nth(1);await choice.click();await page.waitForTimeout(500);check('Espelho troca serviço',await choice.getAttribute('aria-pressed')==='true');
  await page.locator('[data-filter]').nth(1).click();check('Filtro de catálogo',await page.locator('.service-entry[hidden]').count()>0);await page.locator('[data-filter]').first().click();
  await jump(page,'#equipe');await page.locator('[data-person]').nth(1).focus();await page.keyboard.press('ArrowDown');await page.waitForTimeout(450);check('Equipe: teclado seleciona e atualiza',await page.locator('[data-person]').nth(2).getAttribute('aria-pressed')==='true');

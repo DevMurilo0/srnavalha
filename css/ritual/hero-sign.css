@@ -1,61 +1,108 @@
-/* A small framed shop sign, replacing the paper SN emblem in the same corner.
-   All material effects are static; only the face's transform/opacity enter. */
-.hero-sign{
-  position:absolute;right:1.5%;top:4px;width:226px;z-index:3;
-  pointer-events:none;
+/* Sr. Navalha / barber pole noir: physical monochrome chrome and cool-white light.
+   Colours stay isolated to the object, never changing the site's warm palette. */
+.hero-pole{
+  position:absolute;top:-7px;right:clamp(19px,4.5%,68px);
+  z-index:4;width:64px;height:157px;pointer-events:none;
+  display:flex;align-items:flex-start;justify-content:center;
+  perspective:720px;isolation:isolate;
+  --pole-black:#000;--pole-white:#fff;
 }
-.hero-sign__face{
-  position:relative;display:flex;align-items:center;gap:13px;
-  min-height:108px;padding:19px 19px 19px 15px;
-  color:var(--copper);background:var(--tobacco);
-  background-image:linear-gradient(155deg,#bd946e0d,transparent 48%,#17161533);
-  border:1px solid var(--copper);border-radius:2px;
-  box-shadow:0 2px 0 var(--wood),0 5px 0 var(--ink),
-    1px 8px 7px -5px #17161566,4px 16px 22px -10px #30262055,
-    inset 0 0 0 4px var(--tobacco),inset 0 0 0 5px #bd946e40;
-  transform:perspective(700px) rotateX(2deg) rotateY(-5deg) rotateZ(2deg);
-  transform-origin:50% 10%;
+.hero-pole__object{
+  width:52px;height:150px;position:relative;z-index:1;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;
+  transform-origin:50% 8%;transform:rotate(-5deg);
+  /* Realistic contact shading, without a large floating shadow. */
+  filter:drop-shadow(1px 3px 2px #0002);
 }
-.hero-sign__face::before{
-  content:"";position:absolute;inset:7px;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent 0 3px,#c7b9ab04 3px 4px);
+.hero-pole__finial{
+  display:block;position:relative;flex:none;z-index:2;
+  width:22px;height:9px;border-radius:48% 48% 20% 20%;
+  background:linear-gradient(90deg,#050505 0%,#555 25%,#fafafa 49%,#666 73%,#050505 100%);
+  box-shadow:inset 0 1px #fffd;
 }
-.hero-sign__lettering{position:relative;flex:1;min-width:0;text-align:center}
-.hero-sign__lettering strong{
-  display:block;margin:7px 0 8px;color:var(--ivory);
-  font:600 21px/1.15 var(--display);letter-spacing:-.035em;white-space:nowrap;
-  text-shadow:0 1px 0 var(--ink);
+.hero-pole__finial--top::before{
+  content:"";position:absolute;top:-5px;left:8px;width:6px;height:6px;
+  border-radius:50%;background:#fafafa;box-shadow:inset 1px 1px #fff;
 }
-.hero-sign__place,.hero-sign__services{
-  display:block;white-space:nowrap;font:500 9px/1.5 var(--body);
-  letter-spacing:.075em;color:var(--light-muted);
+.hero-pole__finial--bottom{
+  transform:rotate(180deg);
 }
-.hero-sign__services{font-size:8.5px;letter-spacing:.025em}
-.hero-sign__pole{flex:0 0 19px;width:19px}
-.hero-sign__pole svg{display:block;width:100%;height:auto}
-.hero-sign__fastener{
-  position:absolute;top:9px;width:3px;height:3px;border-radius:50%;
-  background:var(--copper);box-shadow:0 1px 1px var(--ink);
+.hero-pole__cap{
+  position:relative;display:block;flex:none;z-index:2;
+  width:48px;height:20px;
+  background:linear-gradient(90deg,#000 0%,#171717 12%,#777 33%,
+      #fff 49%,#888 65%,#101010 87%,#000 100%);
+  border:1px solid #111;
+  box-shadow:inset 0 1px #fff8,inset 0 -1px 2px #0008;
 }
-.hero-sign__fastener--left{left:9px}
-.hero-sign__fastener--right{right:9px}
-html.sr-loader-boot .hero-sign__face{opacity:0}
+.hero-pole__cap--top{border-radius:48% 48% 13% 13% / 35% 35% 12% 12%}
+.hero-pole__cap--bottom{border-radius:12% 12% 45% 45% / 12% 12% 38% 38%;transform:rotate(180deg)}
+.hero-pole__glass{
+  position:relative;display:block;width:43px;height:92px;
+  z-index:1;flex:none;overflow:hidden;isolation:isolate;
+  background:#000;border-left:1px solid #111;border-right:1px solid #111;
+  box-shadow:inset 2px 0 3px #0009,inset -2px 0 3px #0009,
+    0 0 5px #ffffff66;
+  border-radius:4px / 3px;
+}
+.hero-pole__rotor{
+  position:absolute;left:0;right:0;top:-63px;bottom:-63px;display:block;
+  background:repeating-linear-gradient(155deg,
+    #000 0 12px,
+    #fff 12px 24px,
+    #000 24px 36px,
+    #fff 36px 48px);
+  /* The vertical pitch of a 48px repeat at 155deg is 52.962px.
+     Move exactly one pitch per revolution to prevent a visible loop snap. */
+  transform:translate3d(0,-26.481px,0);
+  animation:sr-pole-rotation 2.85s linear infinite;
+  will-change:transform;
+}
+@keyframes sr-pole-rotation{
+  from{transform:translate3d(0,-26.481px,0)}
+  to{transform:translate3d(0,26.481px,0)}
+}
+.hero-pole__glass::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,
+    #000c 0%,#0005 11%,
+    #fff2 30%,#ffffff74 42%,
+    #ffffff00 53%,#ffffff76 63%,
+    #0004 88%,#000c 100%);
+  box-shadow:inset 2px 0 2px #fff4,inset -2px 0 2px #0009;
+}
+.hero-pole__reflection{
+  position:absolute;top:3px;bottom:3px;left:8px;width:4px;z-index:3;
+  background:linear-gradient(90deg,#fff0,#fffffff7,#fff0);
+  border-radius:50%;pointer-events:none;opacity:.5;
+}
+/* Only an entrance settle for the actual object. Its rotating centre remains
+   on a separate DOM layer, so opening animation cannot reset the spinning. */
+html.sr-loader-boot .hero-pole__object{opacity:0}
+html.motion-paused .hero-pole__rotor{animation-play-state:paused}
 @media(min-width:701px) and (max-width:1100px){
-  .hero-sign{width:190px;top:12px}
-  .hero-sign__face{min-height:92px;padding:16px 13px;gap:9px}
-  .hero-sign__lettering strong{font-size:18px}
-  .hero-sign__pole{width:15px;flex-basis:15px}
-  .hero-sign__place{letter-spacing:.025em}
+  .hero-pole{right:clamp(12px,3vw,35px);top:0;transform:scale(.86);transform-origin:top center}
 }
 @media(max-width:700px){
-  /* The old card was hidden here. A compact footprint keeps the official
-     centered wordmark and all photographs at their original sizes. */
-  .hero-sign{position:relative;right:auto;top:auto;align-self:flex-end;width:190px;margin:4px 4px 20px 0}
-  .hero-sign__face{min-height:84px;padding:13px 12px;gap:9px}
-  .hero-sign__lettering strong{font-size:18px;margin:5px 0 6px}
-  .hero-sign__pole{width:15px;flex-basis:15px}
-  .hero-sign__place{letter-spacing:.025em}
+  .hero-pole{top:0;right:1%;width:54px;height:122px;
+    transform:scale(.76);transform-origin:top right}
+}
+@media(max-width:400px){
+  .hero-pole{top:-1px;right:0;transform:scale(.68);transform-origin:top right}
 }
 @media(prefers-reduced-motion:reduce){
-  html.sr-loader-boot .hero-sign__face{opacity:1}
+  .hero-pole__rotor{animation:none!important;transform:translate3d(0,0,0)!important;will-change:auto}
+  html.sr-loader-boot .hero-pole__object{opacity:1}
+}
+
+/* A small, static cool-white edge light. No animated halo or large glow. */
+.hero-pole::before{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  top:25px;left:50%;width:52px;height:110px;
+  transform:translate3d(-50%,0,0);
+  background:radial-gradient(ellipse,#fff5,transparent 70%);
+  opacity:.28;
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-pole::before{opacity:.18}
 }

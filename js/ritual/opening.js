@@ -1,7 +1,8 @@
 /* Perfect Cut V4: independent progress/cutting scissors. Two continuous
    surfaces share a single timeline with the blade and incision; no frame-time
    geometry reads. Every exit restores the real hero and cancels all effects. */
-import { $, $$, canMove, cancelWithin } from './core.js';
+import { $, $, canMove, cancelWithin } from './core.js';
+import { scheduleHeroEntrance } from './hero-sign.js';
 
 export function openRitual() {
   return new Promise(resolve => {
@@ -107,7 +108,7 @@ export function openRitual() {
       const mobile = W <= 700;
       const FADE = 240, CUT = mobile ? 1350 : 1500, OPEN = 680;
       const tCut = FADE, tEnd = tCut + CUT;
-      const tMark = tCut + CUT * .38, logoTime = 980;
+      const tMark = tCut + CUT * .16, logoTime = mobile ? 900 : 960;
       const scale = mobile ? 1.65 : 1.9;
       const startY = -80, endY = H + 80;
       const cutEase = 'cubic-bezier(.38,.18,.36,1)';
@@ -166,6 +167,11 @@ export function openRitual() {
           {transform:sheet(endY,direction*W/2),offset:1}
         ],{duration:CUT+OPEN,delay:tCut,easing:'linear'});
       }
+      // Schedule every hero element on the *same epoch* as the blade and
+      // parting sheets, BEFORE exposing the hero composition. From top to
+      // bottom: barber pole, lettering, photos, invitation and final links.
+      // Filled backwards: no early flashes through the opening.
+      scheduleHeroEntrance(play, { tCut, CUT, mobile });
       root.classList.add('sr-cut-reveal');
 
       if (source && target && sourceBox?.width && targetBox?.width &&
