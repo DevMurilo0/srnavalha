@@ -87,7 +87,13 @@ export function openRitual() {
       });
     }
 
-    for (const type of ['wheel','touchstart','pointerdown','keydown','pagehide']) {
+    // A tela de carregamento recebe o toque, não os botões escondidos atrás.
+    // Suprimir o click sintético impede navegação involuntária durante a saída.
+    stage.addEventListener('pointerdown', event => {
+      if (event.cancelable) event.preventDefault();
+      finish('interrupted');
+    },{once:true,signal:signal.signal});
+    for (const type of ['wheel','touchstart','keydown','pagehide']) {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
