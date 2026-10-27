@@ -1,6 +1,14 @@
 # Sr. Navalha · The Perfect Cut
 
-## Hero: barber pole noir com néon e reflexo fotográfico · 27/10/2026
+## Hero: preto absoluto e revelação sincronizada de cima para baixo · 27/10/2026
+
+O cilindro do hero agora tem listras em **preto puro (`#000`) e branco puro (`#fff`)**, metal cromado neutro, sombreamento mínimo e apenas uma discreta iluminação branca estática no vidro. O grande halo pulsante e o reflexo luminoso que atravessava as fotografias foram completamente removidos.
+
+A entrada do hero deixou de acontecer DEPOIS da abertura: `js/ritual/hero-sign.js` oferece `scheduleHeroEntrance(play,{tCut,CUT,mobile})`, invocado por `opening.js` com o **mesmo relógio de animação (`document.timeline`)** que move a tesoura e separa os painéis. A sequência entra **de cima para baixo**, ainda DURANTE o corte: cilindro / assinatura superior → título e subtítulo → fachada e foto principal → foto detalhe / informações → CTA e parte inferior. Cada bloco desce suavemente de um pequeno deslocamento negativo até sua posição original, com opacidade progressiva. Ângulos originais das fotos são preservados usando a matriz de transformação calculada. Não há animação do hero após `openingend`, nem alteração do layout final.
+
+A classe `sr-cut-reveal` apenas expõe a camada do hero atrás dos painéis; a coreografia é comandada por Web Animations API antes da exposição, com preenchimento inicial, cleanup e acessibilidade preservados. Em celulares o deslocamento e a duração são menores; `prefers-reduced-motion` desativa a sequência. Testes de regressão em `scripts/test-reflexo-static.mjs` e verificações no Chromium em `scripts/test-reflexo.mjs` (quando disponível).
+
+### Histórico: barber pole noir com néon e reflexo fotográfico · 27/10/2026 (substituído)
 
 O cilindro físico do hero foi refinado conforme a referência: **listras exclusivamente em preto, branco e grafite**, com tampas cromadas e borda de vidro refletiva. A luz de néon branco é simulada por brilho estático nas bordas e um halo muito discreto cuja **opacidade** varia suavemente; a rotação interna conserva seu período contínuo de 52,962px sem salto. Vermelho e azul foram removidos somente desse objeto, sem alterar a paleta marfim/cobre do restante do site.
 
