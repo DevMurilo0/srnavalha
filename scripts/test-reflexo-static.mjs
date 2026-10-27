@@ -28,6 +28,34 @@ for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
 }
 assert.ok(html.includes('snv2-logo-matte'),'logo em alfa transparente');
 assert.ok(html.includes('hero-logo-transparent'),'hero oficial intacto');
+assert.equal((html.match(/class="hero-sign hero-pole"/g)||[]).length,1,
+  'um único barber pole independente no hero');
+assert.ok(!html.includes('hero-sign__face'),'placa retangular removida');
+assert.ok(html.includes('hero-pole__rotor')&&html.includes('hero-pole__glass'),
+  'corpo cilíndrico e rotor tricolor');
+const pole=file('css/ritual/hero-sign.css');
+assert.ok(pole.includes('sr-pole-rotation')&&pole.includes('linear infinite'),
+  'rotação contínua das faixas');
+assert.ok(pole.includes('#a83933')&&pole.includes('#244f78')&&pole.includes('#f9f5ed'),
+  'faixas vermelha, azul e branca');
+assert.ok(pole.includes('prefers-reduced-motion:reduce'),
+  'movimento reduzido interrompe a rotação');
+assert.ok(file('js/ritual/hero-sign.js').includes('.hero-pole__object'),
+  'entrada independente da rotação');
+assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
+  'um único CTA fixo');
+assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
+  'CTA de agendamento contém ícone de agenda');
+const menuScript=file('js/ritual/app.js');
+for(const token of ['is-active','is-closing','aria-expanded',
+                    'panel.inert=true','menu.open=false','Escape']){
+  assert.ok(menuScript.includes(token),'navegação animada: '+token);
+}
+const menuStyle=file('css/ritual/header.css');
+assert.ok(menuStyle.includes('.enhanced .menu.is-active nav')&&
+          menuStyle.includes('animation:none!important'),
+  'menu tem entrada e saída sem conflito com keyframes legados');
+
 const imports=file('css/ritual.css');
 assert.ok(imports.includes('loader-v2.css')&&imports.includes('perfect-cut-v3.css'));
 assert.ok(imports.includes('first-cut-v23.css'),'capítulos mantidos');
@@ -63,7 +91,7 @@ for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
   assert.ok(colors.includes(token),'identidade original '+token);
 assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"));
 for(const name of [
-  'motion','scene-cuts','opening','app','core','atmosphere','album','team',
+  'motion','scene-cuts','opening','hero-sign','app','core','atmosphere','album','team',
   'gallery','products','services'
 ]) execFileSync(process.execPath,[
   '--experimental-default-type=module','--check','js/ritual/'+name+'.js'
