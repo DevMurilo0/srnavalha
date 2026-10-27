@@ -20,12 +20,60 @@ if(!root.classList.contains('enhanced')){
  // Isso mantém a porcentagem sincronizada com anel/trilhos mesmo no mobile.
  openRitual().catch(error=>{console.error('Abertura:',error);window.__finishRitual?.();root.classList.remove('sr-loader-boot');$('#sr-loader-stage')?.remove();$('#sr-loader-shock')?.remove()});
  const initialize=init=>{try{init()}catch(error){console.error('Componente Sr. Navalha:',error)}};
+ // Preserve native <details> semantics while letting the menu animate
+ // BOTH open and close. The panel stays mounted during the closing transition.
  const menu=$('.menu');
- const closeMenu=()=>{menu.open=false};
- $$('.menu nav a').forEach(a=>a.addEventListener('click',closeMenu));
- document.addEventListener('click',e=>{if(menu.open&&!menu.contains(e.target))closeMenu()});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){closeMenu();$('summary',menu).focus()}});
- matchMedia('(min-width:1001px)').addEventListener('change',closeMenu);
+ if(menu){
+  const trigger=$('summary',menu),panel=$('nav',menu);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  let closeTimer=0,openFrame=0;
+  trigger.setAttribute('aria-controls','site-mobile-nav');
+  trigger.setAttribute('aria-expanded','false');
+  panel.id='site-mobile-nav';
+  panel.inert=true;
+  const finalizeClose=()=>{
+   menu.open=false;menu.classList.remove('is-closing','is-active');
+   closeTimer=0;
+  };
+  const closeMenu=(immediate=false)=>{
+   clearTimeout(closeTimer);cancelAnimationFrame(openFrame);
+   if(!menu.open)return;
+   menu.classList.remove('is-active');
+   menu.classList.add('is-closing');
+   trigger.setAttribute('aria-expanded','false');
+   panel.inert=true;
+   if(immediate||reduced.matches){finalizeClose();return}
+   closeTimer=setTimeout(finalizeClose,310);
+  };
+  const openMenu=()=>{
+   clearTimeout(closeTimer);cancelAnimationFrame(openFrame);
+   menu.open=true;
+   menu.classList.remove('is-closing');
+   trigger.setAttribute('aria-expanded','true');
+   panel.inert=false;
+   openFrame=requestAnimationFrame(()=>{
+    openFrame=0;
+    if(menu.open)menu.classList.add('is-active');
+   });
+  };
+  trigger.addEventListener('click',event=>{
+   event.preventDefault();
+   if(menu.classList.contains('is-active'))closeMenu();
+   else openMenu();
+  });
+  $('.menu nav a').forEach(link=>link.addEventListener('click',()=>closeMenu()));
+  document.addEventListener('click',event=>{
+   if(menu.open&&!menu.contains(event.target))closeMenu();
+  });
+  document.addEventListener('keydown',event=>{
+   if(event.key==='Escape'&&menu.open){
+    closeMenu();
+    trigger.focus({preventScroll:true});
+   }
+  });
+  matchMedia('(min-width:1001px)').addEventListener('change',()=>closeMenu(true));
+  reduced.addEventListener('change',()=>{if(reduced.matches&&!menu.classList.contains('is-active'))closeMenu(true)});
+ }
  // Capture also covers images inserted by the interactive stages.
  document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement&&!e.target.classList.contains('image-unavailable')){
   e.target.classList.add('image-unavailable');if(e.target.alt)e.target.alt='Fotografia indisponível: '+e.target.alt;
