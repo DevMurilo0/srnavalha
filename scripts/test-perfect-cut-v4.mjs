@@ -68,6 +68,8 @@ for(const fail of ['**/assets/images/v8/logo-640.webp','**/js/ritual/opening.js'
 // the full-screen loader until its watchdog fires.
 const brokenFlight=await pageAt();
 await brokenFlight.addInitScript(()=>{
+ window.__openingEvents=[];
+ document.addEventListener('openingend',event=>window.__openingEvents.push(event.detail));
  const clone=SVGElement.prototype.cloneNode;
  SVGElement.prototype.cloneNode=function(...args){
   if(this.classList?.contains('hero-logo-transparent')) throw Error('TEST: voo da marca falhou');
@@ -75,12 +77,15 @@ await brokenFlight.addInitScript(()=>{
  };
 });
 await load(brokenFlight);
-await brokenFlight.waitForSelector('.snv2-cut-ready');
+// The fault occurs in the SAME task as snv2-cut-ready; the class disappears
+// before Playwright can observe it. Wait for the durable completion event.
+await brokenFlight.waitForFunction(()=>window.__openingEvents?.length>0);
 await done(brokenFlight);
 check('Falha interna do FLIP libera o hero sem travar',
  await brokenFlight.evaluate(()=>!document.querySelector('#sr-loader-stage')&&
   getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'&&
-  !document.querySelector('.hero.is-arriving')));
+  !document.querySelector('.hero.is-arriving')&&
+  window.__openingEvents.length===1&&window.__openingEvents[0].completed===false));
 await brokenFlight.close();
 
 // A touch/click during the overlay must never activate the booking CTA
