@@ -102,9 +102,16 @@ const buttonRect=await covered.locator('.sr-booking-fixed').boundingBox();
 if(buttonRect){
  await covered.mouse.click(buttonRect.x+buttonRect.width/2,buttonRect.y+buttonRect.height/2);
  await done(covered);
+ const coveredResult=await covered.evaluate(()=>({
+  clickBehind:window.__clickedBehindLoader,
+  pathname:location.pathname,
+  loaderAlive:!!document.querySelector('#sr-loader-stage'),
+  boot:document.documentElement.classList.contains('sr-loader-boot')
+ }));
  check('Clique durante loader não aciona agendamento por trás',
-  await covered.evaluate(()=>!window.__clickedBehindLoader&&location.pathname.endsWith('/')||
-    !window.__clickedBehindLoader&&location.pathname.endsWith('/index.html')));
+  coveredResult.clickBehind===false&&
+  (coveredResult.pathname==='/'||coveredResult.pathname.endsWith('/index.html'))&&
+  !coveredResult.loaderAlive,coveredResult);
 }else check('Clique durante loader não aciona agendamento por trás',false,'CTA não localizado');
 await covered.close();
 
