@@ -1,5 +1,5 @@
-/* The finished cut releases the hero; the hero owns its own finite effects.
-   No loader timing constants, clones, CSS hiding queues or per-frame reads. */
+/* The blade's visual midpoint releases the hero; its falls run independently.
+   No timer guesses, clone layers, per-frame geometry or loader-owned effects. */
 import { $, $$, animate, canMove } from './core.js';
 
 export function initHeroExperience() {
@@ -30,14 +30,15 @@ export function initHeroExperience() {
     stop();
     controller.abort();
   }
-  document.addEventListener('openingend', event => {
-    if (!event.detail?.completed || !canMove() || scrollY > 20) {
-      settle();return;
-    }
+  let started = false;
+  const beginFalls = () => {
+    if (started || controller.signal.aborted) return;
+    if (!canMove() || scrollY > 20) return settle();
+    started = true;
     hero.classList.add('is-arriving');
     frame = requestAnimationFrame(() => {
       frame = 0;
-      if (!canMove() || scrollY > 20 || $('#sr-loader-stage')) return settle();
+      if (!canMove() || scrollY > 20) return settle();
       const mobile = matchMedia('(max-width:700px)').matches;
       // A small logo settle follows the completed FLIP, using the real node.
       // Two impacts with diminishing energy; paper keeps its resting angle.
@@ -87,6 +88,19 @@ export function initHeroExperience() {
         if (!motion.size) settle();
       } catch { settle(); }
     });
+  };
+  // The midpoint is an actual visual milestone of the blade, not simply
+  // 50% of clock time. The cutting overlay is still present at this event.
+  document.addEventListener('openingcutmidpoint', beginFalls,
+    {once:true,signal:controller.signal});
+  document.addEventListener('openingend', event => {
+    if (!event.detail?.completed) {
+      settle();
+    } else if (!started) {
+      // Defensive fallback if the midpoint event was missed (e.g. browser
+      // suspended a timer). Never start a duplicate entrance.
+      beginFalls();
+    }
   }, {once:true,signal:controller.signal});
   // Any interaction wins immediately. These listeners exist only for the intro.
   for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
