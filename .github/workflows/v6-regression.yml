@@ -69,5 +69,5 @@ jobs:
           path: |
             docs/experience-v6/results.json
             docs/perfect-cut-v4/*results.json
-            docs/reflexo/validation/*results.json
+            docs/reflexo/validation/*.json
             docs/booking-v5/*results.json

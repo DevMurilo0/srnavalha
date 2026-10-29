@@ -9,6 +9,12 @@ A V6 inclui animações editoriais de seções, filtros, galeria, produtos, loca
 **Correções de estabilidade posteriores:** `opening.js` recupera erros durante callbacks temporizados e usa fallback quando a estrutura SVG do FLIP está ausente; o overlay de carregamento captura o gesto inteiro (`pointerdown → pointerup → click`) sem repassar o clique aos CTAs atrás dele; o watchdog no `head` atua quando o módulo não chega a iniciar, mas não interrompe uma animação ativa em rede lenta; `app.js` comunica falhas do carregamento como `completed:false`. O teste automático é `.github/workflows/v6-regression.yml`, que valida JavaScript, HTML gerado, Perfect Cut, V6, agendamento e resiliência em Chromium. **A aprovação só vale quando o job da revisão atual estiver verde.**
 
 
+## Validação final da V6
+
+A matriz específica da experiência cobre 320, 360, 390, 430, 768, 1024 e 1440 px. A suíte geral verifica navegação e capítulos em dez larguras, com o mapa externo isolado para evitar dependência de rede; a presença do iframe e do link de rota continua sendo verificada. Os artefatos do CI incluem os JSON de navegação, acessibilidade e resiliência.
+
+Para reproduzir, sirva o projeto em `http://127.0.0.1:8047/`, instale as dependências de validação fora do site como descrito no workflow e execute as suítes **em sequência**: `test-experience-v6.mjs`, `test-perfect-cut-v4.mjs`, `test-reflexo.mjs`, `test-reflexo-resilience.mjs`, `test-booking-wizard.mjs` e `test-booking-wizard-state.mjs`. `CHROME_PATH` e `PLAYWRIGHT_PACKAGE` permitem usar outro Chromium e outra pasta de ferramentas. Não são dependências de produção.
+
 ## Histórico V3 — queda durante o corte (substituída pela V6)
 
 A revelação do hero agora tem uma entrada **física e divertida**: cada elemento cai de um ponto acima de sua posição final, toca o lugar de repouso, comprime-se discretamente no impacto, dá um primeiro rebote e um segundo menor, e se estabiliza. A sequência é gradual do topo para a base — cilindro/assinatura → título → introdução → fachada, salão e detalhe → texto e botões — já **durante** a abertura da tela carregada. As 11 faixas temporais pertencem ao mesmo `document.timeline` que a tesoura, sem timers paralelos ou scripts de scroll.

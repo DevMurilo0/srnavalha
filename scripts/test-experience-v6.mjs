@@ -9,7 +9,7 @@ async function page(options={}){const c=await b.newContext({viewport:{width:1440
 const ready=p=>p.waitForFunction(()=>!document.querySelector('#sr-loader-stage'));
 try{
  const p=await page({reducedMotion:'reduce'});
- for(const width of [320,390,430,768,1024,1440]){
+ for(const width of [320,360,390,430,768,1024,1440]){
   await p.setViewportSize({width,height:900});await p.goto(base,{waitUntil:'domcontentloaded'});await ready(p);await p.evaluate(()=>document.fonts.ready);
   const fit=await p.evaluate(()=>{
    const poles=[...document.querySelectorAll('.hero-pole')].map(e=>e.getBoundingClientRect());

@@ -8,7 +8,14 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8047/',dir='docs/reflexo/vali
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/home/murilo/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome',headless:true});
 const results=[],errors=[];
 const check=(name,pass,detail)=>{results.push({name,pass:!!pass,detail});console.log(`${pass?'PASS':'FAIL'} ${name}`)};
-async function fresh(options={}){const context=await browser.newContext({viewport:{width:390,height:844},...options});const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));return page}
+async function fresh(options={}){
+ const context=await browser.newContext({viewport:{width:390,height:844},...options});
+ // Map availability is external; its iframe and route remain checked below.
+ await context.route('https://**/*',route=>route.abort());
+ const page=await context.newPage();
+ page.on('pageerror',e=>errors.push(e.message));
+ return page;
+}
 const settle=page=>page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot')&&!document.querySelector('.hero.is-arriving'));
 const jump=(page,id)=>page.locator(id).evaluate(el=>el.scrollIntoView({behavior:'instant',block:'center'}));
 try{
@@ -79,7 +86,13 @@ try{
  }
  await page.goto(base);await settle(page);await page.evaluate(()=>scrollTo(0,0));await page.reload({waitUntil:'domcontentloaded'});check('F5 sempre repete a abertura',await page.locator('#sr-loader-stage').count()===1&&await page.evaluate(()=>document.documentElement.classList.contains('sr-loader-boot')));await settle(page);
  const cdp=await page.context().newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await page.reload();check('Hard refresh preserva conteúdo',await page.locator('.hero-room img').count()===1);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});
- for(const hash of ['#servicos','#equipe']){await page.goto(base+hash);check(`Link direto ${hash}`,await page.locator('#sr-loader-stage').count()===0&&await page.evaluate(()=>scrollY>200))}
+ for(const hash of ['#servicos','#equipe']){
+  await page.goto(base+hash);
+  // Fragment navigation may finish after load, especially after an uncached reload.
+  await page.waitForFunction(()=>scrollY>200&&Math.abs(document.querySelector(location.hash).getBoundingClientRect().top)<160);
+  const anchor=await page.evaluate(()=>({loader:!!document.querySelector('#sr-loader-stage'),scroll:scrollY,top:document.querySelector(location.hash).getBoundingClientRect().top}));
+  check(`Link direto ${hash}`,!anchor.loader&&anchor.scroll>200&&Math.abs(anchor.top)<160,anchor);
+ }
  await page.setViewportSize({width:390,height:844});await page.goto(base);await settle(page);await page.keyboard.press('Tab');check('Teclado: foco visível',await page.evaluate(()=>document.activeElement.classList.contains('skip')));
  await page.locator('.menu summary').click();
  await page.waitForFunction(()=>document.querySelector('.menu').classList.contains('is-active'));

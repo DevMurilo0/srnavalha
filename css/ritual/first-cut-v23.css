@@ -136,6 +136,9 @@ html.sr-loader-boot #sr-loader-stage.sr-opening{display:block}
 .sr-chapter--stars .sr-chapter__ornament{width:75px}
 .sr-chapter--stars .sr-chapter__plate{background:#2d1d18;border-color:#c79861}
 .sr-chapter--route .sr-chapter__plate{border:0;background:#eee1d0;--chapter-ink:#35251b;--chapter-accent:#9c6c48;box-shadow:0 2px 0 #c8a98e}
+/* Small editorial captions need AA contrast on the two light plates. */
+.sr-chapter--shelf .sr-chapter__copy small,
+.sr-chapter--route .sr-chapter__copy small{color:var(--wood)}
 .sr-chapter--signature .sr-chapter__plate{transform:rotate(1.5deg);border-block:2px solid #c39b72}
 .sr-chapter--signature .sr-chapter__copy strong{letter-spacing:-.055em}
 
