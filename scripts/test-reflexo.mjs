@@ -52,7 +52,11 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  // During the cut the real layout is static. The independent drop starts after cleanup.
+  // After the upper part is cut, the hero begins dropping while the
+  // scissors are still running and the loader's sheets are still present.
+  await intro.waitForFunction(()=>
+    !!document.querySelector('#sr-loader-stage') &&
+    document.getAnimations().some(a=>a.id==='sr-hero-drop'));
   const staged=await intro.evaluate(()=>{
     const selectors=['.hero-pole__object','.hero h1',
       '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
@@ -61,8 +65,8 @@ try{
       return {selector,exists:!!element,animations:element?.getAnimations().filter(a=>a.id==='sr-hero-drop').length||0};
     });
   });
-  check(`${width}px: nenhuma queda durante o corte`,
-    staged.every(item=>item.exists&&item.animations===0),staged);
+  check(`${width}px: queda começa durante a passagem central da tesoura`,
+    staged.every(item=>item.exists&&item.animations>0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
   await intro.screenshot({path:`${dir}/perfect-cut-${width}.png`});
