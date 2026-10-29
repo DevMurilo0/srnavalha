@@ -30,7 +30,10 @@ try{
   Element.prototype.animate=function(frames,options){
    if(this.closest('.hero')&&!this.closest('#sr-loader-stage'))window.heroAudit.drops.push({target:this.className,loader:!!document.querySelector('#sr-loader-stage'),time:performance.now(),frames});
    const animation=original.call(this,frames,options);
-   queueMicrotask(()=>{if(animation.id==='sr-section-reveal')window.heroAudit.sections.push(this.className||this.tagName)});
+   if(this.closest('main,footer')&&!this.closest('.hero') &&
+     this.classList.contains('sr-scroll-pending'))
+     window.heroAudit.sections.push(this.className||this.tagName);
+   queueMicrotask(()=>{if(animation.id==='sr-scroll-text'||animation.id==='sr-scroll-photo')window.heroAudit.sections.push(this.className||this.tagName)});
    return animation;
   };
   document.addEventListener('openingcutmidpoint',e=>{
@@ -206,7 +209,18 @@ try{
  for(const [id,name] of [['casa','house'],['servicos','services'],['equipe','team'],['trabalhos','gallery'],['produtos','products'],['localizacao','location'],['contato','footer']]){
   await m.locator('#'+id).evaluate(e=>e.scrollIntoView({behavior:'instant'}));await m.waitForTimeout(850);check(`${name}: seção sem overflow`,await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await m.screenshot({path:`${dir}/${name}-390.png`});
  }
- check('Entradas de seções são executadas',await m.evaluate(()=>window.heroAudit.sections.length>=5));
+ check('Entradas no scroll executadas para imagens e textos',
+  await m.evaluate(()=>window.heroAudit.sections.length>=5));
+ const scrollHealth=await m.evaluate(()=>{
+   const all=[...document.querySelectorAll('.sr-scroll-pending')];
+   return {pending:all.length,aboveViewport:all.filter(x=>x.getBoundingClientRect().top<innerHeight*.45).length,
+     mediaCount:document.querySelectorAll('.sr-scroll-done.sr-scroll-image').length,
+     dark:getComputedStyle(document.querySelector('.team')).backgroundImage,
+     dividers:[...document.querySelectorAll('.sr-chapter')].every(x=>
+       getComputedStyle(x).height==='50px'||parseFloat(getComputedStyle(x).height)<=50)};
+ });
+ check('Scroll não deixa textos ocultos acima da tela',scrollHealth.aboveViewport===0,scrollHealth);
+ check('Divisores antigos substituídos por transições finas',scrollHealth.dividers,scrollHealth);
  await m.locator('#catalogo').evaluate(e=>e.scrollIntoView({behavior:'instant'}));
  await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
  check('Filtro mantém categoria e foco',await m.locator('.service-entry:visible').evaluateAll(es=>es.length>0&&es.every(e=>e.dataset.category==='Tratamentos')));
