@@ -1,4 +1,4 @@
-name: Sr. Navalha V6 — regressão e navegadores
+name: Sr. Navalha — cinematic motion e regressão
 on:
   push:
     branches:
@@ -45,7 +45,7 @@ jobs:
         run: |
           node scripts/test-reflexo-static.mjs
           node --experimental-default-type=module scripts/test-booking-local.mjs
-      - name: Chromium — V6, Perfect Cut, navigation and resilience
+      - name: Chromium — cinematic motion, Perfect Cut, navigation and resilience
         env:
           PLAYWRIGHT_PACKAGE: /tmp/srnavalha-validation/package.json
           SITE_URL: http://127.0.0.1:8047/
@@ -63,11 +63,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sr-navalha-v6-qa
+          name: sr-navalha-cinematic-qa
           if-no-files-found: ignore
           retention-days: 7
           path: |
-            docs/experience-v6/results.json
+            docs/cinematic-motion/*.json
             docs/perfect-cut-v4/*results.json
             docs/reflexo/validation/*.json
             docs/booking-v5/*results.json

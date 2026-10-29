@@ -21,6 +21,7 @@ export function startMotion(){refresh()}
 const sequence=new WeakMap();
 export function invalidatePhoto(stage){sequence.set(stage,(sequence.get(stage)||0)+1);cancelWithin(stage)}
 export async function changePhoto(stage,src,alt,{mode='reflection',keyboard=false,srcset='',sizes=''}={}){
+ stage.dispatchEvent(new CustomEvent('photowillchange',{bubbles:true}));
  const token=(sequence.get(stage)||0)+1;sequence.set(stage,token);
  const next=new Image();next.alt=alt;next.width=800;next.height=800;next.decoding='async';next.src=src;
  if(srcset){next.srcset=srcset;next.sizes=sizes}
@@ -30,7 +31,7 @@ export async function changePhoto(stage,src,alt,{mode='reflection',keyboard=fals
  // Retain the last photograph beneath the incoming image: rapid selections never flash.
  const old=stage.querySelector('img.is-current')||stage.querySelector('img');
  stage.replaceChildren(...(old?[old]:[]),next);next.className='is-current swap-image';if(old)old.className='previous-image';
- const motion=!keyboard?animate(next,mode==='product'?[{opacity:0,transform:'translateX(32px) rotate(3deg) scale(.95)'},{opacity:1,transform:'none'}]:[{opacity:0,transform:'translateX(12px) scale(1.02)'},{opacity:1,transform:'none'}],{duration:mode==='product'?300:360,easing:flow}):null;
+ const motion=!keyboard?animate(next,[{opacity:.5,clipPath:mode==='product'?'inset(12% 48% 12% 48%)':'inset(0 100% 0 0)',scale:1.07},{opacity:1,clipPath:'inset(0 0 0 0)',scale:1}],{duration:620,easing:flow}):null;
  const clean=()=>{if(sequence.get(stage)===token){stage.replaceChildren(next);next.className='is-current'}};
  if(motion)motion.finished.then(clean).catch(clean);else clean();
  stage.dispatchEvent(new CustomEvent('photochange',{bubbles:true,detail:{mode}}));

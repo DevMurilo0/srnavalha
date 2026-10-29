@@ -92,23 +92,6 @@ body{background:var(--ivory)}
   pointer-events:none;
 }
 .sr-scene-join{display:none!important}
-/* Typography and photographs use one scroll-reveal owner: motion.js.
-   These states are assigned only to offscreen elements after JS initializes;
-   no-JS and reduced-motion users see natural content at all times. */
-html:not(.motion-paused) .sr-scroll-pending.sr-scroll-text{
-  opacity:0;
-  translate:0 38px;
-}
-html:not(.motion-paused) .sr-scroll-pending.sr-scroll-image{
-  opacity:0;
-  translate:0 27px;
-  scale:.96;
-  clip-path:inset(9% 0 0 0);
-}
-.sr-scroll-image{transform-origin:center center}
-@media(prefers-reduced-motion:reduce){
-  .sr-scroll-pending{opacity:1!important;translate:none!important;scale:1!important;clip-path:none!important}
-}
 /* Double-layer paper/steel depth without generic floating cards everywhere. */
 .site-header{
   border-bottom:1px solid var(--sr-edge-light);

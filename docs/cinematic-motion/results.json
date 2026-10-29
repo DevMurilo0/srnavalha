@@ -1,0 +1,917 @@
+{
+  "date": "2026-10-29T05:35:21.437Z",
+  "results": [
+    {
+      "name": "Primeiro quadro: texto/fotos/CTA ocultos e logo disponível ao handoff",
+      "pass": true
+    },
+    {
+      "name": "Hero exclusivo: caracteres, máscara e profundidade com texto acessível único",
+      "pass": true,
+      "detail": {
+        "label": "Seu estilo, nossa assinatura.",
+        "letters": 26,
+        "echo": 4,
+        "clip": "inset(42% 15%)",
+        "fill": "both",
+        "logoAnimations": 0
+      }
+    },
+    {
+      "name": "Fotos atrasadas permanecem recortadas antes da sua entrada",
+      "pass": true,
+      "detail": {
+        "label": "Seu estilo, nossa assinatura.",
+        "letters": 26,
+        "echo": 4,
+        "clip": "inset(42% 15%)",
+        "fill": "both",
+        "logoAnimations": 0
+      }
+    },
+    {
+      "name": "Logo oficial não recebe nova animação",
+      "pass": true
+    },
+    {
+      "name": "Texto dividido e fotografias assentam sem salto geométrico",
+      "pass": true,
+      "detail": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Corte termina antes de qualquer efeito do hero",
+      "pass": true,
+      "detail": {
+        "loader": true,
+        "count": 0
+      }
+    },
+    {
+      "name": "CTA começa depois da tipografia principal",
+      "pass": true
+    },
+    {
+      "name": "Limpeza final restaura os nós originais e cancela fills",
+      "pass": true
+    },
+    {
+      "name": "Cilindros continuam girando após entrada",
+      "pass": true
+    },
+    {
+      "name": "320: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "320: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 20,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 42,
+            "bottom": 170,
+            "left": 20
+          },
+          {
+            "x": 278,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 300,
+            "bottom": 170,
+            "left": 278
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "320 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "320: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "390: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 20,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 42,
+            "bottom": 170,
+            "left": 20
+          },
+          {
+            "x": 348,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 370,
+            "bottom": 170,
+            "left": 348
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "390 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "390: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "430: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 21.5,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 43.5,
+            "bottom": 170,
+            "left": 21.5
+          },
+          {
+            "x": 386.5,
+            "y": 94,
+            "width": 22,
+            "height": 76,
+            "top": 94,
+            "right": 408.5,
+            "bottom": 170,
+            "left": 386.5
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "430 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "430: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "768: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 69.5,
+            "y": 158.625,
+            "width": 27,
+            "height": 94,
+            "top": 158.625,
+            "right": 96.5,
+            "bottom": 252.625,
+            "left": 69.5
+          },
+          {
+            "x": 671.5,
+            "y": 158.625,
+            "width": 27,
+            "height": 94,
+            "top": 158.625,
+            "right": 698.5,
+            "bottom": 252.625,
+            "left": 671.5
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "768 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "768: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "1024: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 92.671875,
+            "y": 144.1875,
+            "width": 27,
+            "height": 94,
+            "top": 144.1875,
+            "right": 119.671875,
+            "bottom": 238.1875,
+            "left": 92.671875
+          },
+          {
+            "x": 904.328125,
+            "y": 144.1875,
+            "width": 27,
+            "height": 94,
+            "top": 144.1875,
+            "right": 931.328125,
+            "bottom": 238.1875,
+            "left": 904.328125
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "1024 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1024: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440: composição tipográfica preserva linhas e acentos",
+      "pass": true,
+      "detail": {
+        "delta": 0,
+        "restored": true
+      }
+    },
+    {
+      "name": "1440: hero, cilindros e imagens íntegros",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "poles": [
+          {
+            "x": 130.3125,
+            "y": 125.046875,
+            "width": 32,
+            "height": 105,
+            "top": 125.046875,
+            "right": 162.3125,
+            "bottom": 230.046875,
+            "left": 130.3125
+          },
+          {
+            "x": 1277.6875,
+            "y": 125.046875,
+            "width": 32,
+            "height": 105,
+            "top": 125.046875,
+            "right": 1309.6875,
+            "bottom": 230.046875,
+            "left": 1277.6875
+          }
+        ],
+        "broken": []
+      }
+    },
+    {
+      "name": "1440 / casa: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / servicos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / equipe: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / trabalhos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / produtos: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / avaliacoes: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / localizacao: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440 / contato: entrada visível sem overflow",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "1440: saltos rápidos recuperam conteúdo",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "hidden": []
+      }
+    },
+    {
+      "name": "Tipografia acompanha progresso real, sem ticker autônomo",
+      "pass": false,
+      "detail": {
+        "t1": 0,
+        "t2": 223.57253086419755,
+        "t3": 563.0787037037037
+      }
+    },
+    {
+      "name": "Resize limpa splits e medições anteriores",
+      "pass": true
+    },
+    {
+      "name": "Split preserva frase, semântica e listeners de links",
+      "pass": true,
+      "detail": {
+        "accessible": "Ação, café e atenção — Sr. Navalha.",
+        "original": "Ação, café e atenção — Sr. Navalha.",
+        "restored": true,
+        "sameLink": true,
+        "clicks": 1
+      }
+    },
+    {
+      "name": "Seções executam nove famílias tipográficas e quatro máscaras",
+      "pass": false,
+      "detail": {
+        "modes": [
+          "sr-photo-lateral",
+          "sr-text-micro",
+          "sr-text-hero",
+          "sr-text-echo",
+          "sr-text-focus",
+          "sr-photo-crop",
+          "sr-photo-aperture",
+          "sr-photo-diagonal",
+          "sr-text-lines",
+          "sr-text-roll",
+          "sr-text-scroll",
+          "sr-photo-shutter",
+          "sr-text-fold"
+        ],
+        "headings": [
+          {
+            "id": "house-title",
+            "kind": "text"
+          },
+          {
+            "id": "ritual-title",
+            "kind": "text"
+          },
+          {
+            "id": "team-title",
+            "kind": "text"
+          },
+          {
+            "id": "work-title",
+            "kind": "text"
+          },
+          {
+            "id": "products-title",
+            "kind": "text"
+          },
+          {
+            "id": "reviews-title",
+            "kind": "text"
+          },
+          {
+            "id": "visit-title",
+            "kind": "text"
+          },
+          {
+            "id": "",
+            "kind": "text"
+          }
+        ],
+        "dividers": true
+      }
+    },
+    {
+      "name": "Todos os títulos das seções têm dono e placas antigas não reaparecem",
+      "pass": true,
+      "detail": [
+        {
+          "id": "house-title",
+          "kind": "text"
+        },
+        {
+          "id": "ritual-title",
+          "kind": "text"
+        },
+        {
+          "id": "team-title",
+          "kind": "text"
+        },
+        {
+          "id": "work-title",
+          "kind": "text"
+        },
+        {
+          "id": "products-title",
+          "kind": "text"
+        },
+        {
+          "id": "reviews-title",
+          "kind": "text"
+        },
+        {
+          "id": "visit-title",
+          "kind": "text"
+        },
+        {
+          "id": "",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "name": "Filtro de serviços preservado",
+      "pass": true
+    },
+    {
+      "name": "Filtro e contagem de produtos sincronizados",
+      "pass": true
+    },
+    {
+      "name": "Troca do profissional sincroniza retrato e legenda",
+      "pass": true
+    },
+    {
+      "name": "Galeria ampliada funciona",
+      "pass": true
+    },
+    {
+      "name": "Endereço copiado com feedback acessível",
+      "pass": true
+    },
+    {
+      "name": "Clipboard negado oferece seleção real",
+      "pass": true
+    },
+    {
+      "name": "Menu abre por controle acessível",
+      "pass": true
+    },
+    {
+      "name": "Escape devolve foco ao menu",
+      "pass": true
+    },
+    {
+      "name": "Preferência dinâmica libera todo conteúdo e cancela animações",
+      "pass": true
+    },
+    {
+      "name": "320: movimento reduzido sem splits nem animações",
+      "pass": true
+    },
+    {
+      "name": "390: movimento reduzido sem splits nem animações",
+      "pass": false
+    },
+    {
+      "name": "430: movimento reduzido sem splits nem animações",
+      "pass": true
+    },
+    {
+      "name": "768: movimento reduzido sem splits nem animações",
+      "pass": false
+    },
+    {
+      "name": "1024: movimento reduzido sem splits nem animações",
+      "pass": true
+    },
+    {
+      "name": "1440: movimento reduzido sem splits nem animações",
+      "pass": false
+    },
+    {
+      "name": "Axe WCAG A/AA em toda página",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Execução completa",
+      "pass": false,
+      "detail": "page.waitForFunction: Timeout 30000ms exceeded.\n    at ready (/home/murilo/Dev/andamento/srnavalha/scripts/test-cinematic-motion.mjs:10:18)\n    at /home/murilo/Dev/andamento/srnavalha/scripts/test-cinematic-motion.mjs:100:155"
+    }
+  ],
+  "errors": []
+}
