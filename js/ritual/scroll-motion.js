@@ -16,5 +16,10 @@ export function createScrollMotion(){
   const clear=()=>{cancelAnimationFrame(frame);frame=0;for(const scene of scenes.values()){scene.effect.cancel();scene.finish();}scenes.clear();};
   addEventListener('resize',clear,{passive:true});addEventListener('pagehide',clear);
   document.addEventListener('motionchange',clear);
-  return{add(node,effect,finish){scenes.set(node,{effect,finish,progress:0});request();},clear};
+  return{add(node,effect,finish){
+    scenes.set(node,{effect,finish,progress:0});
+    // Seek in this same task. Waiting for the next RAF made the first reading
+    // look like autonomous playback even with no further scroll event.
+    update();
+  },clear};
 }
