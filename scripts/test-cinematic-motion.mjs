@@ -90,14 +90,39 @@ try{
  await m.setViewportSize({width:390,height:844});await m.evaluate(()=>scrollTo({top:0,behavior:'instant'}));const menu=m.locator('.menu summary');await menu.click();check('Menu abre por controle acessível',await menu.getAttribute('aria-expanded')==='true');await m.keyboard.press('Escape');await m.waitForTimeout(400);check('Escape devolve foco ao menu',await menu.evaluate(n=>document.activeElement===n&&!n.parentElement.open));
  await m.reload({waitUntil:'domcontentloaded'});await m.waitForFunction(()=>document.querySelector('.hero.is-arriving'));await m.emulateMedia({reducedMotion:'reduce'});await m.waitForFunction(()=>!document.documentElement.classList.contains('motion-on'));await ready(m);
  check('Preferência dinâmica libera todo conteúdo e cancela animações',await m.evaluate(()=>!document.querySelector('.cm-pending,.cm-run')&&!document.getAnimations().some(a=>a.playState==='running')));
- for(const width of [320,390,430,768,1024,1440]){await m.setViewportSize({width,height:900});await m.reload({waitUntil:'domcontentloaded'});await ready(m);check(`${width}: movimento reduzido sem splits nem animações`,await m.evaluate(()=>!document.querySelector('.cm-pending,.cm-run')&&!document.getAnimations().some(a=>a.playState==='running')&&document.documentElement.scrollWidth===innerWidth));}
+ for(const width of [320,390,430,768,1024,1440]){
+  await m.setViewportSize({width,height:900});await m.reload({waitUntil:'domcontentloaded'});await ready(m);
+  const reduced=await m.evaluate(()=>({
+    splits:document.querySelectorAll('.cm-pending,.cm-run').length,
+    running:document.getAnimations().filter(a=>a.playState==='running').slice(0,10)
+      .map(a=>({id:a.id,node:a.effect?.target?.className,duration:a.effect?.getTiming().duration})),
+    scroll:document.documentElement.scrollWidth,viewport:innerWidth
+  }));
+  check(`${width}: movimento reduzido sem splits nem animações`,
+    !reduced.splits&&!reduced.running.length&&reduced.scroll===reduced.viewport,reduced);
+}
  const axe=await new AxeBuilder({page:m}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();writeFileSync(`${dir}/axe.json`,JSON.stringify(axe.violations,null,2));check('Axe WCAG A/AA em toda página',!axe.violations.length,axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
  await m.close();
  for(const mode of ['no-js','opening-failure','motion-failure','interrupted']){
   const p=await page({javaScriptEnabled:mode!=='no-js'});
   if(mode==='opening-failure')await p.route('**/js/ritual/opening.js',r=>r.abort());
   if(mode==='motion-failure')await p.addInitScript(()=>{const native=Element.prototype.animate;Element.prototype.animate=function(...args){if(this.closest('main,footer'))throw new Error('simulated WAAPI failure');return native.apply(this,args)}});
-  await p.goto(base,{waitUntil:'domcontentloaded'});if(mode==='interrupted'){await p.waitForSelector('.snv2-run');await p.keyboard.press('Escape')};await ready(p);
+  await p.goto(base,{waitUntil:'domcontentloaded'});
+   if(mode==='interrupted'){await p.waitForSelector('.snv2-run');await p.keyboard.press('Escape')}
+   try{await ready(p)}catch(error){
+      const state=await p.evaluate(()=>({
+        loader:!!document.querySelector('#sr-loader-stage'),
+        boot:document.documentElement.classList.contains('sr-loader-boot'),
+        arriving:!!document.querySelector('.hero.is-arriving'),
+        waiting:document.documentElement.classList.contains('sr-hero-queued'),
+        finishOwner:typeof window.__finishRitual,
+        motion:document.documentElement.className,
+        heroOpacity:getComputedStyle(document.querySelector('.hero h1')).opacity
+      }));
+      check(`${mode}: carregamento conclui ou recupera`,false,state);
+      await p.close();
+      continue;
+   }
   check(`${mode}: hero e agendamento continuam visíveis`,await p.locator('.hero .button').isVisible()&&await p.locator('.hero h1').evaluate(n=>getComputedStyle(n).opacity==='1'));
   await go(p,'contato');check(`${mode}: recuperação sem texto ou imagem presa`,!(await visibleHealth(p)).hidden.length&&await p.locator('.cm-run').count()===0);await p.close();
  }
