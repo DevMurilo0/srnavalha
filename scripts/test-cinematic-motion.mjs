@@ -103,8 +103,38 @@ try{
   return {modes:[...new Set(window.motionAudit.effects.map(e=>e.id))],
     maxHeadingEffects:Math.max(0,...Object.values(counts)),counts};
  });
+ // Directly exercise all four custom effects even if the visitor took a
+ // programmatic anchor jump past a section before its heading was observed.
+ // This tests the executable choreography, not merely the source strings.
+ const bespoke=await m.evaluate(async()=>{
+  const {revealText}=await import('/js/ritual/text-motion.js');
+  const fixtures=[
+   ['inkpress','.team-invite p'],
+   ['blade','.review blockquote'],
+   ['negative','.section-heading > p'],
+   ['shutter','.footer-small-note']
+  ];
+  return fixtures.map(([mode,selector])=>{
+   const original=document.querySelector(selector);
+   if(!original)return{mode,found:false};
+   const assigned=original.dataset.cmMode;
+   const host=document.createElement('p');
+   host.textContent=original.textContent.trim().slice(0,120)||'Sr. Navalha';
+   host.style.cssText='position:fixed;left:-2000px;top:0;font:24px sans-serif';
+   document.body.append(host);
+   const before=host.getBoundingClientRect().toJSON();
+   const run=revealText(host,mode);
+   const fx=host.getAnimations().filter(a=>a.id==='sr-text-'+mode);
+   run.cancel();
+   const after=host.getBoundingClientRect().toJSON();
+   host.remove();
+   return{mode,assigned,found:true,effects:fx.length,
+    frames:fx[0]?.effect?.getKeyframes()?.length||0,
+    stable:['x','y','width','height'].every(k=>Math.abs(before[k]-after[k])<1)};
+  });
+ });
  check('Letterpress, blade-shear, negative-space e shutter únicos por frase',
-   ['inkpress','blade','negative','shutter'].every(x=>typeBudget.modes.includes('sr-text-'+x)),typeBudget);
+   bespoke.length===4&&bespoke.every(x=>x.found&&x.assigned===x.mode&&x.effects===1&&x.frames>=2&&x.stable),bespoke);
  check('Títulos de seção usam no máximo um efeito WAAPI por frase',
    typeBudget.maxHeadingEffects<=1,typeBudget);
  await m.locator('#catalogo').evaluate(n=>n.scrollIntoView({behavior:'instant'}));await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
