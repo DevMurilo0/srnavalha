@@ -127,3 +127,38 @@ html.sr-lite-motion .footer-rail-track,
 html.sr-lite-motion .review-track{
   animation-play-state:paused!important;
 }
+
+
+/* Counter-current graphite echoes — inspired by kinetic printmaking.
+   A title keeps its real line-height, line breaks and accessible text.
+   Its single, short-lived outlined copy is ABSOLUTE, never in layout flow.
+   No filter, blur, canvas ticker or continuous GPU work is needed. */
+.cm-kinetic-host{position:relative;isolation:isolate}
+.cm-kinetic-ghost{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  font:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+  text-transform:inherit;
+  text-align:inherit;
+  white-space:inherit;
+  color:transparent!important;
+  -webkit-text-stroke:.85px var(--cm-ghost-ink,#777e86);
+  pointer-events:none;
+  user-select:none;
+  opacity:0;
+  z-index:-1;
+  transform-origin:center center;
+}
+.cm-kinetic-ghost *{
+  color:transparent!important;
+  -webkit-text-stroke:inherit;
+  font:inherit;
+}
+@media(prefers-reduced-motion:reduce){
+  .cm-kinetic-ghost{display:none!important}
+}
