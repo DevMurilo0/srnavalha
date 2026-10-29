@@ -7,7 +7,8 @@ import {createScrollMotion} from './scroll-motion.js';
 export function initMotion(){
  const root=document.documentElement;
  if(!('IntersectionObserver' in window))return;
- const copy='h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary';
+ const grouped='.service-entry,.product-option';
+ const copy='h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary,'+grouped;
  const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
  const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.sr-surface,.engraving,.sr-member-preview';
  const registered=new WeakSet(),pending=new Set(),running=new Map();
@@ -94,6 +95,9 @@ export function initMotion(){
   const nodes=[...(scope.matches?.(`${copy},${photos}`)?[scope]:[]),...scope.querySelectorAll(`${copy},${photos}`)];
   for(const node of nodes){
    if(registered.has(node)||node.closest(excluded)||!node.closest('main section:not(.hero),footer'))continue;
+   // Product/service catalogs have one motion per ROW, not 3-5 competing
+   // animations for name, category, price and the link inside that row.
+   if(node.closest(grouped)&&!node.matches(grouped))continue;
    if(!node.getClientRects().length)continue;
    const photo=node.matches(photos);
    if(photo){
