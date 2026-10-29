@@ -100,6 +100,9 @@ export function initMotion() {
           node.closest('.photo-window')) continue;
       if (photo && node.parentElement?.closest(images)) continue;
       if (node.matches('.service-entry,.album-sheets,.work-print')) continue;
+      // Photographic links already have a dedicated image entrance.
+      if (!photo && node.matches('a,button') && node.querySelector(images) &&
+          !node.textContent.trim()) continue;
       // Animate complete lines/controls, never every word inside the same
       // paragraph or button. This covers stand-alone text without double motion.
       if (!photo && node.parentElement?.closest(text) &&
