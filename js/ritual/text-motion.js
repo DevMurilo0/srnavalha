@@ -92,6 +92,22 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
           {opacity:0,transform:'translate3d(0,19px,0) rotateZ(-2deg) scale(.98)'},
           {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(.3deg) scale(1.01)'},
           {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg) scale(1)'}
+        ],
+        // Text that "floats" into print, settles and stays still.
+        slipstream:[
+          {opacity:0,transform:'translate3d(22px,12px,0) skewX(-6deg)'},
+          {offset:.66,opacity:1,transform:'translate3d(-3px,-1px,0) skewX(1.5deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg)'}
+        ],
+        looseink:[
+          {opacity:0,transform:'translate3d(-14px,8px,0) scaleX(.96)'},
+          {offset:.7,opacity:1,transform:'translate3d(2px,-1px,0) scaleX(1.008)'},
+          {opacity:1,transform:'translate3d(0,0,0) scaleX(1)'}
+        ],
+        breath:[
+          {opacity:0,transform:'translate3d(0,14px,0) rotateZ(-1.3deg)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(.25deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
         ]
       };
       // The original sentence stays in the DOM, untouched and accessible.
@@ -136,7 +152,7 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
         (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
         navigator.connection?.saveData===true;
       const time=duration||({fold:690,roll:640,stroke:740,echo:750,focus:590,lines:680,
-        scroll:920,inkpress:760,blade:710,negative:670,shutter:670}[mode]||650);
+        scroll:920,inkpress:760,blade:710,negative:670,shutter:670,slipstream:690,looseink:650,breath:720}[mode]||650);
       const effect=animate(node,frames,{
         duration:signature?Math.min(time+120,840):time,delay,easing:ease,fill:'both',persist:true
       });
