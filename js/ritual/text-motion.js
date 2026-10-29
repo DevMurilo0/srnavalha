@@ -29,6 +29,82 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   }};
   owners.set(node,handle);
   if(!canMove()||!node.animate||!node.textContent.trim()){cleanup();return handle;}
+  // Cinematic typography, one compositor animation per editorial phrase.
+  // Split DOM/Range measurements are reserved for the hero and explicit
+  // manual semantic fixtures. This is the crucial low-memory performance path.
+  // Each mode has its own physical grammar: letterpress, blade-shear, negative
+  // space, rotational fold, and optical compression. No extra DOM layers.
+  if(!node.closest('.hero')&&(!manual||mode==='scroll')){
+    try{
+      const ink=getComputedStyle(node).color;
+      const framesByMode={
+        fold:[
+          {opacity:0,transform:'perspective(750px) translateY(26px) rotateX(-32deg)'},
+          {offset:.72,opacity:1,transform:'perspective(750px) translateY(-2px) rotateX(3deg)'},
+          {opacity:1,transform:'perspective(750px) translateY(0px) rotateX(0deg)'}
+        ],
+        roll:[
+          {opacity:0,transform:'translate3d(0,30px,0) rotateZ(4deg)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(-.6deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
+        ],
+        stroke:[
+          {opacity:0,color:'transparent',webkitTextStroke:`1px ${ink}`,transform:'translate3d(0,13px,0)'},
+          {offset:.55,opacity:.95,color:'transparent',webkitTextStroke:`1px ${ink}`,transform:'translate3d(0,0,0)'},
+          {opacity:1,color:ink,webkitTextStroke:`0px ${ink}`,transform:'translate3d(0,0,0)'}
+        ],
+        echo:[
+          {opacity:0,transform:'translate3d(-24px,18px,0) scale(1.045) rotateZ(-2deg)'},
+          {offset:.65,opacity:1,transform:'translate3d(2px,-2px,0) scale(.99) rotateZ(.25deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1) rotateZ(0deg)'}
+        ],
+        focus:[
+          {opacity:0,transform:'translate3d(0,14px,0) scale(1.05)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+        ],
+        lines:[
+          {opacity:0,transform:'translate3d(-20px,0,0) skewX(9deg)'},
+          {offset:.8,opacity:1,transform:'translate3d(2px,0,0) skewX(-1deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg)'}
+        ],
+        scroll:[
+          {opacity:.16,transform:'perspective(680px) translate3d(0,18px,0) rotateX(-19deg)'},
+          {opacity:1,transform:'perspective(680px) translate3d(0,0,0) rotateX(0deg)'}
+        ],
+        // Four bespoke modes not tied to a preset text-animation package.
+        inkpress:[
+          {opacity:0,transform:'translate3d(0,-18px,0) scale(1.085,.82)'},
+          {offset:.48,opacity:1,transform:'translate3d(0,5px,0) scale(.97,1.045)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1,1)'}
+        ],
+        blade:[
+          {opacity:0,transform:'translate3d(32px,0,0) skewX(-18deg) scaleX(.93)'},
+          {offset:.72,opacity:1,transform:'translate3d(-3px,0,0) skewX(2deg) scaleX(1.015)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg) scaleX(1)'}
+        ],
+        negative:[
+          {opacity:0,transform:'translate3d(-19px,9px,0) scaleX(.84)'},
+          {offset:.66,opacity:1,transform:'translate3d(3px,-1px,0) scaleX(1.02)'},
+          {opacity:1,transform:'translate3d(0,0,0) scaleX(1)'}
+        ],
+        shutter:[
+          {opacity:0,transform:'translate3d(0,19px,0) rotateZ(-2deg) scale(.98)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(.3deg) scale(1.01)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg) scale(1)'}
+        ]
+      };
+      const frames=framesByMode[mode]||framesByMode.negative;
+      const time=duration||({fold:690,roll:640,stroke:740,echo:750,focus:590,lines:680,
+        scroll:920,inkpress:760,blade:710,negative:670,shutter:670}[mode]||650);
+      const effect=animate(node,frames,{duration:time,delay,easing:ease,fill:'both',persist:true});
+      if(effect){
+        effect.id=`sr-text-${mode}`;effects.push(effect);
+        if(manual){effect.pause();effect.currentTime=0;}
+        else effect.finished.catch(()=>{}).finally(cleanup);
+      }else cleanup();
+    }catch{cleanup();}
+    return handle;
+  }
   const live=node.closest('[aria-live]')||node.querySelector('[aria-live]');
   // Live regions retain an untouched text tree, avoiding repeated announcements.
   if(live||mode==='micro'){
