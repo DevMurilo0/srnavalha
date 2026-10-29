@@ -34,7 +34,7 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   // manual semantic fixtures. This is the crucial low-memory performance path.
   // Each mode has its own physical grammar: letterpress, blade-shear, negative
   // space, rotational fold, and optical compression. No extra DOM layers.
-  if(!node.closest('.hero')&&(!manual||mode==='scroll')){
+  if(!node.closest('.hero')&&mode!=='micro'&&(!manual||mode==='scroll')){
     try{
       const ink=getComputedStyle(node).color;
       const framesByMode={
