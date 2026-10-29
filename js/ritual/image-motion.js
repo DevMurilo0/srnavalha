@@ -3,6 +3,9 @@
 import { animate, canMove } from './core.js';
 export function revealImage(node, mode='shutter', {delay=0}={}){
   const effects=[];let done=false,resolve;
+  const lowPower=matchMedia('(max-width:700px)').matches||
+    (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+    navigator.connection?.saveData===true;
   const finished=new Promise(r=>resolve=r);
   const cancel=()=>{if(done)return;done=true;effects.forEach(a=>a.cancel());resolve();};
   if(!canMove()){cancel();return{finished,cancel};}
@@ -13,7 +16,15 @@ export function revealImage(node, mode='shutter', {delay=0}={}){
     if(effect){effect.id=`sr-photo-${mode}`;effects.push(effect);}
     // Existing review scene loops and interactive swaps retain their transforms.
     const image=node.matches('img')?null:node.querySelector('img:not(.review-scene)');
-    if(image){const zoom=animate(image,[{scale:1.12,translate:mode==='lateral'?'3% 0':'0 0'},{scale:1,translate:'0 0'}],{duration:1250,delay,easing:'cubic-bezier(.16,1,.3,1)',fill:'both',persist:true});if(zoom){zoom.id='sr-photo-crop';effects.push(zoom);}}
+    // Scaling every image while its parent is clipped is costly on integrated
+    // GPUs. Retain the detailed crop only on desktop feature photographs.
+    const featured=node.closest('.hero,.product-hero,.team-portrait,.house-portal');
+    if(image&&!lowPower&&featured){
+      const zoom=animate(image,[{scale:1.08},{scale:1}],{
+        duration:1050,delay,easing:'cubic-bezier(.16,1,.3,1)',fill:'both',persist:true
+      });
+      if(zoom){zoom.id='sr-photo-crop';effects.push(zoom);}
+    }
     Promise.allSettled(effects.map(e=>e.finished)).then(cancel);
   }catch{cancel();}
   return{finished,cancel};
@@ -21,6 +32,9 @@ export function revealImage(node, mode='shutter', {delay=0}={}){
 
 export function initPhotoParallax(){
   const fine=matchMedia('(hover:hover) and (pointer:fine)');
+  // On older hardware this continuous pointer effect competes with scroll.
+  if((navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+      navigator.connection?.saveData)return;
   let current=null,frame=0,x=0,y=0;
   const clear=()=>{cancelAnimationFrame(frame);frame=0;if(current){current.style.removeProperty('translate');current=null;}};
   document.querySelectorAll('.gallery-shot').forEach(link=>{
