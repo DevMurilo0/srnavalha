@@ -68,6 +68,13 @@ export function initMotion(){
  };
  const appear=node=>{
   if(!pending.has(node))return;
+  // Scroll-linked headlines must start in their own intersection callback:
+  // waiting behind 40 catalog labels misses the first scroll position.
+  if(node.dataset.cmMode==='scroll'){
+    entering.delete(node);
+    performEntrance(node);
+    return;
+  }
   entering.add(node);scheduleEntrances();
  };
  observer=new IntersectionObserver(entries=>{
