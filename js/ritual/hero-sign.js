@@ -1,7 +1,8 @@
-/* Sr. Navalha V7 — editorial reveal during The Perfect Cut.
- * Photos are uncovered in place (opacity + clip-path); typography and controls
- * fade in. NEVER animate transform on the hero's layout, photographs or logo:
- * the paper angles and geometry remain identical before and after the reveal.
+/* Sr. Navalha — editorial entrance during The Perfect Cut.
+ * The photographs are uncovered in their resting positions (opacity + clip-path).
+ * Text and controls receive a small, independent translate + opacity entrance.
+ * Never animate transform on figures, their layout, or the official FLIP logo.
+ * The final position and paper angles remain exactly as authored.
  */
 import { $, $$, animate, canMove } from './core.js';
 
@@ -45,21 +46,22 @@ export function initHeroExperience() {
       if (!canMove() || scrollY > 20) return settle();
       const mobile = matchMedia('(max-width:700px)').matches;
 
-      // An editorial reading order, from signature to photographs and CTA.
-      // Start the photos while the scissors are still cutting. No late second entrance.
-      // 'photo' reveals its actual figure from top down, without moving it.
+      // As the scissors descend, their panels uncover the scene from the top.
+      // The previous short fades finished BEHIND those panels and seemed absent.
+      // Stagger the editorial entrance into the uncovered area; it intentionally
+      // continues after the panels open, but never starts as a second animation.
       const tracks = [
-        ['.hero-pole__object',                 0, 440, 'fade'],
-        ['.hero-wordmark > span',             20, 430, 'fade'],
-        ['h1',                               40, 520, 'fade'],
-        ['.hero-intro',                       75, 460, 'fade'],
-        ['.hero-facade',                      95, 570, 'photo'],
-        ['.hero-room',                       115, 610, 'photo'],
-        ['.hero-detail',                     140, 560, 'photo'],
-        ['.hero-invitation > p',             180, 460, 'fade'],
-        ['.hero-invitation > .button',       215, 430, 'fade'],
-        ['.hero-invitation > .text-link',    240, 400, 'fade'],
-        ['.hero-bottom',                     255, 400, 'fade']
+        ['.hero-pole__object',                35, 640, 'fade'],
+        ['.hero-wordmark > span',             80, 670, 'fade'],
+        ['h1',                              135, 770, 'fade'],
+        ['.hero-intro',                      225, 720, 'fade'],
+        ['.hero-facade',                     380, 860, 'photo'],
+        ['.hero-room',                       440, 920, 'photo'],
+        ['.hero-detail',                     535, 840, 'photo'],
+        ['.hero-invitation > p',             565, 730, 'fade'],
+        ['.hero-invitation > .button',       680, 750, 'fade'],
+        ['.hero-invitation > .text-link',    765, 690, 'fade'],
+        ['.hero-bottom',                     825, 680, 'fade']
       ];
 
       // Keep the existing geometry intact: no reads or writes to transform.
@@ -76,12 +78,12 @@ export function initHeroExperience() {
                 {offset:1, opacity:1, clipPath:'inset(0 0 0% 0)'}
               ]
             : [
-                {offset:0, opacity:0},
-                {offset:1, opacity:1}
+                {offset:0, opacity:0, translate:'0 14px'},
+                {offset:1, opacity:1, translate:'0 0px'}
               ];
           const effect = animate(node,frames,{
-            delay:Math.round(delay*(mobile?.82:1)),
-            duration:Math.round(duration*(mobile?.85:1)),
+            delay:Math.round(delay*(mobile?.90:1)),
+            duration:Math.round(duration*(mobile?.92:1)),
             easing:'cubic-bezier(.22,1,.36,1)',
             fill:'both',
             persist:true
