@@ -118,9 +118,19 @@ export function initMotion(){
    node.dataset.cmState='pending';node.classList.add('cm-pending');pending.add(node);observer.observe(node);
   }
  };
- const scan=()=>{$$('main section:not(.hero),footer').forEach(enroll);};
- // Font metrics are final before line and grapheme measurements.
- document.fonts.ready.then(()=>{scan();root.classList.add('sr-motion-initialized');});
+ // Prepare only the next screen or two, not every phrase in the entire
+ // document during the cinematic intro. Deep-link landings remain visible.
+ const prepareSections=new IntersectionObserver(entries=>{
+  for(const entry of entries)if(entry.isIntersecting){
+   prepareSections.unobserve(entry.target);
+   enroll(entry.target);
+  }
+ },{rootMargin:'850px 0px 850px 0px',threshold:0});
+ // Font metrics are stable before the rare hero/special heading measurements.
+ document.fonts.ready.then(()=>{
+  for(const section of sections)prepareSections.observe(section);
+  root.classList.add('sr-motion-initialized');
+ }).catch(()=>{for(const section of sections)prepareSections.observe(section);});
  const mutations=new MutationObserver(records=>{
   for(const record of records){
    if(record.target.closest?.('.cm-split,.cm-run'))continue;
@@ -168,7 +178,7 @@ export function initMotion(){
  document.addEventListener('focusin',interactive);
  document.addEventListener('pointerdown',interactive,{passive:true});
  document.addEventListener('motionchange',()=>{if(!canMove())release();});
- addEventListener('pagehide',()=>{release();mutations.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(entryFrame);},{once:true});
+ addEventListener('pagehide',()=>{release();mutations.disconnect();prepareSections.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(entryFrame);},{once:true});
  // Back/forward restoration shows the settled page and does not rebuild layers.
  addEventListener('pageshow',event=>{if(event.persisted)release();});
  initPhotoParallax();
