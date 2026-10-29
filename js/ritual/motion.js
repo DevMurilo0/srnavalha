@@ -11,6 +11,10 @@ export function initMotion(){
  const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
  const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.sr-surface,.engraving,.sr-member-preview';
  const registered=new WeakSet(),pending=new Set(),running=new Map();
+ // Track a scene owner once. Scanning 300 bounding boxes on EVERY scroll
+ // frame is the largest layout-read hotspot on slower notebooks.
+ const sectionOwner=new WeakMap();
+ const sections=$('main section:not(.hero),footer');
  const scroll=createScrollMotion();let frame=0,entryFrame=0,observer;
  // Don't mount dozens of DOM-splitting animations inside one scroll event.
  // A bounded RAF queue spreads creation across frames, preserving input.
@@ -86,7 +90,9 @@ export function initMotion(){
     if(textParent&&!textParent.querySelector(photos))continue;
     if(node.matches('a,button')&&node.querySelector(photos))continue;
    }
-   registered.add(node);node.dataset.cmKind=photo?'image':'text';
+   registered.add(node);
+   sectionOwner.set(node,node.closest('section,footer'));
+   node.dataset.cmKind=photo?'image':'text';
    node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
    const rect=node.getBoundingClientRect();
    // Do not hide a scene the reader has already reached (late JS / deep link).
@@ -107,13 +113,31 @@ export function initMotion(){
  for(const scope of [$('main'),$('footer')])if(scope)mutations.observe(scope,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','open']});
  const recover=()=>{
   frame=0;if(!canMove())return release();
-  const samples=[...pending].map(node=>({node,rect:node.getBoundingClientRect()}));
-  for(const {node,rect} of samples){
-   if(!node.isConnected){pending.delete(node);continue;}
-   if(rect.bottom<0)clear(node);
-   else if(rect.top<innerHeight*.95&&rect.bottom>0)appear(node);
+  // Read the ~8 section boxes first, then ONLY geometry belonging to a
+  // section near the viewport. Observer still handles every entry normally.
+  const live=new Set(),passed=new Set();
+  for(const section of sections){
+   const box=section.getBoundingClientRect();
+   if(box.bottom<=0)passed.add(section);
+   else if(box.top<innerHeight&&box.bottom>0)live.add(section);
   }
-  for(const node of running.keys()){const r=node.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)finish(node);}
+  for(const node of pending){
+   if(!node.isConnected){clear(node);continue;}
+   const owner=sectionOwner.get(node);
+   if(passed.has(owner)){clear(node);continue;}
+   if(!live.has(owner))continue;
+   const rect=node.getBoundingClientRect();
+   if(rect.bottom<=0)clear(node);
+   else if(rect.top<innerHeight*.95)appear(node);
+  }
+  for(const node of running.keys()){
+   const owner=sectionOwner.get(node);
+   if(passed.has(owner))finish(node);
+   else if(live.has(owner)){
+    const r=node.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight)finish(node);
+   }
+  }
  };
  addEventListener('scroll',()=>{if(!frame&&(pending.size||running.size))frame=requestAnimationFrame(recover);},{passive:true});
  addEventListener('resize',()=>{for(const node of running.keys())finish(node);if(!frame)frame=requestAnimationFrame(recover);},{passive:true});
