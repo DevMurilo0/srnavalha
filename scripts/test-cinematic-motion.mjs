@@ -124,9 +124,17 @@ try{
   if(mode==='motion-failure')await p.addInitScript(()=>{const native=Element.prototype.animate;Element.prototype.animate=function(...args){if(this.closest('main,footer'))throw new Error('simulated WAAPI failure');return native.apply(this,args)}});
   await p.goto(base,{waitUntil:'domcontentloaded'});
    if(mode==='interrupted'){await p.waitForSelector('.snv2-run');await p.keyboard.press('Escape')}
-   try{await ready(p)}catch(error){
+   try{
+     if(mode==='no-js'){
+       // A static no-JS document deliberately retains the loader in markup.
+       // Playwright's JS-based waitForFunction cannot reliably poll when page
+       // scripting is disabled. Check rendered visibility through the locator.
+       await p.locator('#sr-loader-stage').waitFor({state:'hidden'});
+     }else await ready(p);
+   }catch(error){
       const state=await p.evaluate(()=>({
         loader:!!document.querySelector('#sr-loader-stage'),
+        loaderDisplay:getComputedStyle(document.querySelector('#sr-loader-stage')).display,
         boot:document.documentElement.classList.contains('sr-loader-boot'),
         arriving:!!document.querySelector('.hero.is-arriving'),
         waiting:document.documentElement.classList.contains('sr-hero-queued'),
