@@ -35,7 +35,10 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     try{
       // A single compositor-friendly fade + translation: no clipping or
       // glyph measurements for every price, caption, paragraph or CTA.
-      const effect=animate(node,[{opacity:0,translate:'0 14px'},{opacity:1,translate:'0 0px'}],{duration:duration||460,delay,easing:ease,fill:'both'});
+      const frames=node.closest('.hero')
+        ?[{opacity:0},{opacity:1}]
+        :[{opacity:0,translate:'0 14px'},{opacity:1,translate:'0 0px'}];
+      const effect=animate(node,frames,{duration:duration||460,delay,easing:ease,fill:'both'});
       if(effect){effect.id='sr-text-micro';effects.push(effect);effect.finished.catch(()=>{}).finally(cleanup);}else cleanup();
     }catch{cleanup();}
     return handle;
