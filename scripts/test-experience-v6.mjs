@@ -55,11 +55,14 @@ try{
   facade:getComputedStyle(document.querySelector('.hero-facade')).opacity,
   room:getComputedStyle(document.querySelector('.hero-room')).opacity,
   cta:getComputedStyle(document.querySelector('.hero-invitation > .button')).opacity,
-  logo:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility
+  logo:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility,
+  facadeClip:getComputedStyle(document.querySelector('.hero-facade')).clipPath,
+  roomClip:getComputedStyle(document.querySelector('.hero-room')).clipPath
  }));
  check('Antes do corte, hero oculto sem esconder logo FLIP',
   armed.queued&&armed.h1==='0'&&armed.facade==='0'&&
-  armed.room==='0'&&armed.cta==='0'&&armed.logo==='visible',armed);
+  armed.room==='0'&&armed.cta==='0'&&armed.logo==='visible'&&
+  armed.facadeClip.includes('100%')&&armed.roomClip.includes('100%'),armed);
  await m.waitForSelector('.snv2-cut-ready');
  check('Antes do meio da tesoura ainda não há revelação',await m.evaluate(()=>
   !document.getAnimations().some(a=>a.id==='sr-hero-reveal')));
@@ -76,11 +79,12 @@ try{
   if(!anim)return {hasAnimation:false};
   anim.pause();anim.currentTime=0;
   return {hasAnimation:true,queued:document.documentElement.classList.contains('sr-hero-queued'),
-    opacity:getComputedStyle(photo).opacity,fill:anim.effect.getTiming().fill};
+    opacity:getComputedStyle(photo).opacity,clip:getComputedStyle(photo).clipPath,
+    fill:anim.effect.getTiming().fill};
  });
  check('Antes da revelação, foto não aparece antecipadamente',
   firstFrame.hasAnimation&&firstFrame.queued&&firstFrame.opacity==='0'&&
-  firstFrame.fill==='both',firstFrame);
+  firstFrame.clip.includes('100%')&&firstFrame.fill==='both',firstFrame);
  const reveal=await m.evaluate(()=>{
   const effects=document.getAnimations().filter(a=>a.id==='sr-hero-reveal');
   const audit=effects.map(a=>{
@@ -148,12 +152,13 @@ try{
   photos:[...document.querySelectorAll('.hero-facade,.hero-room')].map(x=>getComputedStyle(x).opacity),
   heading:getComputedStyle(document.querySelector('.hero h1')).opacity,
   cta:getComputedStyle(document.querySelector('.hero-invitation > .button')).opacity,
-  remainingDrops:document.getAnimations().filter(a=>a.id==='sr-hero-reveal').length
+  remainingDrops:document.getAnimations().filter(a=>a.id==='sr-hero-reveal').length,
+  photoClip:getComputedStyle(document.querySelector('.hero-room')).clipPath
  }));
  check('Depois da revelação, itens visíveis e sem fills presos',
   !settledOpacity.queued&&settledOpacity.photos.every(x=>x==='1')&&
   settledOpacity.heading==='1'&&settledOpacity.cta==='1'&&
-  settledOpacity.remainingDrops===0,settledOpacity);
+  settledOpacity.remainingDrops===0&&settledOpacity.photoClip==='none',settledOpacity);
  // WAAPI currentTime advances only on a rendering tick: a synchronous check
  // immediately after finish() can read the exact same compositor frame.
  await m.waitForTimeout(95);
