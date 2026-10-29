@@ -108,9 +108,10 @@ export function initHeroExperience() {
   // A missed midpoint does not leave the hero invisible: completion recovers.
   document.addEventListener('openingcutmidpoint',beginReveal,
     {once:true,signal:controller.signal});
-  document.addEventListener('openingend',()=>{
-    // Missed midpoint? Show the STATIC final scene. Never reveal after loader.
-    if (!started) settle();
+  document.addEventListener('openingend',event=>{
+    // Interrupted loader must release every node immediately. A missed
+    // midpoint on normal completion is static, never a late second entrance.
+    if (!event.detail?.completed || !started) settle();
   },{once:true,signal:controller.signal});
 
   for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
