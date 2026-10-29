@@ -35,7 +35,13 @@ assert.ok(pole.includes('#000')&&pole.includes('#fff')&&pole.includes('linear in
 assert.ok(pole.includes('animation-play-state:paused')&&pole.includes('is-poles-visible'),'pausa fora da viewport');
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
 const heroTimeline=file('js/ritual/hero-sign.js');
-assert.ok(heroTimeline.includes("'openingend'")&&heroTimeline.includes('event.detail?.completed'),'entrada após término real');
+assert.ok(heroTimeline.includes("'openingcutmidpoint'")&&
+          heroTimeline.includes("document.addEventListener('openingend'")&&
+          heroTimeline.includes('!event.detail?.completed'),
+  'queda começa na metade da tesoura; interrupção ainda libera o hero');
+assert.ok(file('js/ritual/opening.js').includes("new CustomEvent('openingcutmidpoint'")&&
+          file('js/ritual/opening.js').includes("tCut + CUT * .367226"),
+  'gatilho usa metade da posição visual da tesoura na curva de easing');
 assert.ok(heroTimeline.includes('getComputedStyle(node).transform'),'preserva geometria original');
 const queuedCSS=file('css/ritual/hero-sign.css');
 assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&
