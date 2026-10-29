@@ -102,11 +102,13 @@ try{
    reveal.loader&&reveal.midpoint?.loader&&
    reveal.logo===1&&reveal.flightLogo===1&&reveal.audit.length===12,reveal);
  check('Nenhum elemento muda de posição, escala ou rotação na revelação',
-   reveal.audit.every(a=>a.transforms===0&&a.firstOpacity===0&&a.lastOpacity===1));
+   reveal.audit.every(a=>a.transforms===0&&
+     Number(a.firstOpacity)===0&&Number(a.lastOpacity)===1));
  check('Fotografias surgem de cima para baixo em suas posições originais',
    reveal.audit.filter(a=>a.photo).length===3&&
    reveal.audit.filter(a=>a.photo).every(a=>
-     a.firstClip==='inset(0 0 100% 0)'&&a.lastClip==='inset(0 0 0% 0)'));
+     a.firstClip==='inset(0px 0px 100%)'&&
+     a.lastClip==='inset(0px 0px 0%)'));
  check('Hierarquia escalonada do topo até CTA',reveal.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
  await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>{a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.64}));
