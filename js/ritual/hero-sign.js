@@ -4,13 +4,24 @@ import { $, $$, animate, canMove } from './core.js';
 
 export function initHeroExperience() {
   const hero = $('.hero');
-  if (!hero) return;
+  if (!hero) {
+    document.documentElement.classList.remove('sr-hero-queued');
+    return;
+  }
+  const root = document.documentElement;
   const motion = new Set();
+  // Finished animations need to stay filled until the very last element
+  // lands. Track every effect separately so none is leaked on cleanup.
+  const allEffects = new Set();
   let frame = 0;
   const stop = () => {
     cancelAnimationFrame(frame);
     frame = 0;
-    for (const animation of motion) animation.cancel();
+    // Release author opacity and WAAPI fill in one task (one paint).
+    // This prevents an early-settled image from flashing back to invisible.
+    root.classList.remove('sr-hero-queued');
+    for (const animation of allEffects) animation.cancel();
+    allEffects.clear();
     motion.clear();
     hero.classList.remove('is-arriving');
   };
@@ -21,7 +32,7 @@ export function initHeroExperience() {
   }
   document.addEventListener('openingend', event => {
     if (!event.detail?.completed || !canMove() || scrollY > 20) {
-      controller.abort();return;
+      settle();return;
     }
     hero.classList.add('is-arriving');
     frame = requestAnimationFrame(() => {
@@ -32,7 +43,7 @@ export function initHeroExperience() {
       // Two impacts with diminishing energy; paper keeps its resting angle.
       const tracks = [
         ['.hero-pole__object',                 0,  880, 62, 12, 0],
-        ['.hero-wordmark',                    65,  740, 20,  3, 0],
+        ['.hero-wordmark > span',             65,  740, 20,  3, 0],
         ['h1',                              130,  870, 54,  7, 0],
         ['.hero-intro',                      210,  790, 38,  5, 0],
         ['.hero-facade',                     290, 1020, 76, 11, -1.2],
@@ -55,17 +66,19 @@ export function initHeroExperience() {
           const suffix = base === 'none' ? '' : ` ${base}`;
           const at = (y,rotation=0) => `translate3d(0,${y}px,0) rotate(${rotation}deg)${suffix}`;
           const animation = animate(node,[
-            {offset:0, opacity:node.matches('.hero-wordmark')?1:0, transform:at(-drop,angle), easing:'cubic-bezier(.42,0,1,1)'},
+            {offset:0, opacity:0, transform:at(-drop,angle), easing:'cubic-bezier(.42,0,1,1)'},
             {offset:.46, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
             {offset:.64, opacity:1, transform:at(-bounce,-angle*.25), easing:'cubic-bezier(.42,0,1,1)'},
             {offset:.79, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
             {offset:.89, opacity:1, transform:at(-bounce*.24,angle*.08), easing:'cubic-bezier(.42,0,1,1)'},
             {offset:1, opacity:1, transform:base}
-          ], {duration:duration*(mobile?.86:1), delay:delay*(mobile?.8:1), easing:'linear',fill:'backwards'});
+          ], {duration:duration*(mobile?.86:1), delay:delay*(mobile?.8:1),
+               easing:'linear',fill:'both',persist:true});
           if (!animation) continue;
           animation.id='sr-hero-drop';
           animation.startTime=epoch;
           motion.add(animation);
+          allEffects.add(animation);
           animation.finished.catch(()=>{}).finally(()=>{
             motion.delete(animation);
             if (!motion.size) settle();
