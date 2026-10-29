@@ -13,8 +13,8 @@ export function initMotion() {
 
   const compact = matchMedia('(max-width:700px)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const text = 'h2,h3,h4,p,blockquote,figcaption,address,small,li,.text-link,.button,.mirror-choice,.team-name,.service-name,.service-price,.option-price,.rating>strong,.footer-oversize-lead,.footer-oversize-main,.footer-link-col>a,.footer-feature-cta,.footer-small-note,.catalog-tally,.album-caption>strong,.album-caption>span';
-  const images = '.photo-window,.image-stage,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.review-visual-frame,.map-frame,.team-mood-photo,.album-editorial-print,.product-photo-detail,.visit-storefront';
+  const text = 'h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary,.text-link,.mirror-choice,.team-name,.service-name,.service-price,.option-price,.rating>strong,.footer-oversize-lead,.footer-oversize-main,.footer-feature-cta,.footer-small-note,.catalog-tally';
+  const images = 'img,.photo-window,.image-stage,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.review-visual-frame,.map-frame,.team-mood-photo,.album-editorial-print,.product-photo-detail,.visit-storefront';
   const selector = text+','+images;
   const excludes = '.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],[aria-hidden="true"],#sr-loader-stage,.sr-prelude';
   const decorated = new WeakSet();
@@ -100,6 +100,11 @@ export function initMotion() {
           node.closest('.photo-window')) continue;
       if (photo && node.parentElement?.closest(images)) continue;
       if (node.matches('.service-entry,.album-sheets,.work-print')) continue;
+      // Animate complete lines/controls, never every word inside the same
+      // paragraph or button. This covers stand-alone text without double motion.
+      if (!photo && node.parentElement?.closest(text) &&
+          node.parentElement.closest('main section:not(.hero),footer')) continue;
+      if (!photo && node.parentElement?.closest(images)) continue;
       decorated.add(node);
 
       const rect=node.getBoundingClientRect();
