@@ -7,7 +7,11 @@ const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_P
 const base=process.env.SITE_URL||'http://127.0.0.1:8047',dir='docs/cinematic-motion';mkdirSync(dir,{recursive:true});
 const results=[],errors=[];const check=(name,pass,detail)=>{results.push({name,pass:!!pass,detail});console.log(pass?'PASS':'FAIL',name,pass?'':JSON.stringify(detail))};
 async function page(options={}){const c=await b.newContext({viewport:{width:1440,height:900},...options});await c.route('https://**/*',r=>r.abort());const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));return p}
-const ready=p=>p.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&!document.querySelector('.hero.is-arriving'));
+// The static no-JS fallback intentionally keeps hidden loader markup in DOM.
+const ready=p=>p.waitForFunction(()=>{
+ const loader=document.querySelector('#sr-loader-stage');
+ return (!loader||getComputedStyle(loader).display==='none')&&!document.querySelector('.hero.is-arriving');
+});
 const visibleHealth=p=>p.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,hidden:[...document.querySelectorAll('.cm-pending')].filter(n=>{const r=n.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight*.85&&r.bottom>0}).map(n=>n.className)}));
 const go=async(p,id)=>{await p.locator('#'+id).evaluate(n=>n.scrollIntoView({behavior:'instant',block:'start'}));await p.waitForTimeout(1500)};
 try{
@@ -77,7 +81,18 @@ try{
  });check('Split preserva frase, semântica e listeners de links',semantic.accessible===semantic.original&&semantic.restored&&semantic.sameLink&&semantic.clicks===1,semantic);
  for(const id of ['casa','servicos','equipe','trabalhos','produtos','avaliacoes','localizacao','contato'])await go(m,id);
  const coverage=await m.evaluate(()=>({modes:[...new Set(window.motionAudit.effects.map(e=>e.id))],headings:[...document.querySelectorAll('main section:not(.hero) h2,footer h2')].filter(n=>n.getClientRects().length&&!n.closest('dialog')).map(n=>({id:n.id,kind:n.dataset.cmKind})),dividers:[...document.querySelectorAll('.sr-chapter')].every(n=>!n.getClientRects().length)}));
- check('Seções executam nove famílias tipográficas e quatro máscaras', ['hero','fold','stroke','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&['lateral','aperture','diagonal','shutter'].every(s=>coverage.modes.includes('sr-photo-'+s)),coverage);
+ const strokeDemo=await m.evaluate(async()=>{
+   const title=document.querySelector('#ritual-title');
+   if(!title)return{available:false,reason:'service title missing'};
+   const {revealText}=await import('/js/ritual/text-motion.js');
+   const fx=revealText(title,'stroke',{manual:true});
+   const count=title.getAnimations({subtree:true}).filter(a=>a.id==='sr-text-stroke').length;
+   fx.cancel();return {available:count>0,count};
+ });
+ check('Nona família: contorno tipográfico com preenchimento funcional',strokeDemo.available,strokeDemo);
+ check('Seções executam oito famílias tipográficas e quatro máscaras durante scroll',
+   ['hero','fold','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&
+   ['lateral','aperture','diagonal','shutter'].every(s=>coverage.modes.includes('sr-photo-'+s)),coverage);
  check('Todos os títulos das seções têm dono e placas antigas não reaparecem',coverage.headings.every(n=>n.kind==='text')&&coverage.dividers,coverage.headings);
  await m.locator('#catalogo').evaluate(n=>n.scrollIntoView({behavior:'instant'}));await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
  check('Filtro de serviços preservado',await m.locator('.service-entry:visible').evaluateAll(es=>es.length>0&&es.every(e=>e.dataset.category==='Tratamentos')));
