@@ -1,5 +1,12 @@
 # Sr. Navalha · The Perfect Cut
 
+## V6.1 — Sem flash antes da queda do hero (29/10/2026)
+
+A intro foi corrigida para não renderizar imagens, título e CTA em seu estado definitivo antes de as animações começarem. O `head` arma `sr-hero-queued` junto com `sr-loader-boot` antes de o CSS pintar a primeira tela; o CSS posiciona os elementos de chegada com opacidade zero. `initHeroExperience()` inicia cada queda após `openingend`, preservando os dois rebotes. O preenchimento WAAPI `fill:'both',persist:true` retém cada elemento visível em seu frame final até o último pousar. Então todos os efeitos são cancelados em conjunto, no mesmo ciclo de pintura em que a classe de fila é retirada — **sem reaparecimento inicial e sem segundo flash ao concluir**.
+
+O SVG oficial não participa dessa ocultação: sua transferência FLIP permanece intacta, e apenas a pequena inscrição lateral recebe queda separada. Falhas, interrupções, navegação, movimento reduzido e falta de JavaScript liberam a fila por segurança. Os novos testes em `scripts/test-experience-v6.mjs` verificam opacidade antes da queda, no primeiro frame e após o último rebote; os de `scripts/test-reflexo-static.mjs` verificam a estrutura.
+
+
 ## Estado atual — Creative Motion & Experience V6 (27/10/2026)
 
 A branch `reconstruction/arte-do-ritual` contém a **V6 integrada**. A ordem atual é **carregamento → tesoura e abertura gradual → saída completa do loader → evento `openingend` (`detail.completed === true`) → queda com dois rebotes decrescentes dos elementos do hero**. O hero utiliza `initHeroExperience()`, que é independente da timeline de `opening.js`; a marca oficial termina seu FLIP antes da queda. Dois barber poles minimalistas pretos e brancos giram em sentidos opostos sem recomeçar a rotação ao pousar.
