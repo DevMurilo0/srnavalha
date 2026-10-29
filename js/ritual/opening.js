@@ -199,6 +199,17 @@ export function openRitual() {
       }
       root.classList.add('sr-cut-reveal');
 
+      // The scissors reach half of the viewport at 36.7226% of the CUT
+      // timeline (the easing is cubic-bezier(.38,.18,.36,1), not linear).
+      // Release the hero's independent fall at that VISUAL midpoint while
+      // the two cutting sheets are still on-screen. The hero owns the drops:
+      // finish() only cleans this loader, never cancels their effects.
+      delay(() => {
+        document.dispatchEvent(new CustomEvent('openingcutmidpoint', {
+          detail: { progress: .5 }
+        }));
+      }, tCut + CUT * .367226);
+
       if (source && target && sourceBox?.width && targetBox?.width &&
           logoPlate?.classList.contains('snv2-logo-ready') &&
           target.querySelector('filter') && target.querySelector('image')) {
