@@ -63,7 +63,8 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     node.classList.add('cm-split');
     // A 320px phone can render 100+ letter effects in one hero. Keep the
     // distinctive word-level motion there, reserve glyph splitting for desktop.
-    const useChars=!matchMedia('(max-width:700px)').matches&&
+    const modestCPU=navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4;
+    const useChars=!matchMedia('(max-width:700px)').matches&&!modestCPU&&
       ['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
     const units=[];
     // All measurements precede effect creation. Line groups follow real wrapping.
