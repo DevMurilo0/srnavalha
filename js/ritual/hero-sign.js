@@ -43,16 +43,16 @@ export function initHeroExperience() {
       // Two impacts with diminishing energy; paper keeps its resting angle.
       const tracks = [
         ['.hero-pole__object',                 0,  880, 62, 12, 0],
-        ['.hero-wordmark > span',             65,  740, 20,  3, 0],
-        ['h1',                              130,  870, 54,  7, 0],
-        ['.hero-intro',                      210,  790, 38,  5, 0],
-        ['.hero-facade',                     290, 1020, 76, 11, -1.2],
-        ['.hero-room',                       360, 1060, 82, 12, .8],
-        ['.hero-detail',                     420,  950, 60,  9, 1.1],
-        ['.hero-invitation > p',             480,  750, 32,  4, 0],
-        ['.hero-invitation > .button',       540,  670, 24,  3, 0],
-        ['.hero-invitation > .text-link',    580,  670, 22,  3, 0],
-        ['.hero-bottom',                    620,  700, 24,  3, 0]
+        ['.hero-wordmark > span',             40,  740, 20,  3, 0],
+        ['h1',                               80,  870, 54,  7, 0],
+        ['.hero-intro',                      135,  790, 38,  5, 0],
+        ['.hero-facade',                     180, 1020, 76, 11, -1.2],
+        ['.hero-room',                       230, 1060, 82, 12, .8],
+        ['.hero-detail',                     275,  950, 60,  9, 1.1],
+        ['.hero-invitation > p',             325,  750, 32,  4, 0],
+        ['.hero-invitation > .button',       370,  670, 24,  3, 0],
+        ['.hero-invitation > .text-link',    405,  670, 22,  3, 0],
+        ['.hero-bottom',                    435,  700, 24,  3, 0]
       ];
       // Batch all geometry/computed-style reads before any animation writes.
       const snapshots = tracks.flatMap(([selector,delay,duration,distance,rebound,angle]) =>
