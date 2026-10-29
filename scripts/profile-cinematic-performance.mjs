@@ -16,7 +16,7 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8047/';
 try{
  await page.goto(base,{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&
-   !document.querySelector('.hero.is-arriving'),{timeout:60000});
+   !document.querySelector('.hero.is-arriving'),undefined,{timeout:60000});
  const session=await context.newCDPSession(page);
  await session.send('Emulation.setCPUThrottlingRate',{rate:4});
  await page.evaluate(()=>{
