@@ -1,71 +1,151 @@
-/* One entrance owner. Natural content is never hidden in a waiting queue. */
-import {$,$$,animate,canMove} from './core.js';
+/* Sr. Navalha — single owner for scroll entrances across the entire page.
+ * All meaningful copy and photographic surfaces reveal WHEN they enter view.
+ * No synchronous hide-after-paint, no per-scroll handlers, no transforms on
+ * FLIP album cards, and no hidden content if JS/motion fails.
+ */
+import { $, $$, canMove } from './core.js';
 
-export function initMotion(){
- const compact=matchMedia('(max-width:700px)');
- if(!('IntersectionObserver' in window))return;
- const running=new Map(),seen=new WeakSet();
- // A heading is one composited object, not a layer per word. Controls and
- // nested image stages keep their own animation ownership.
- const targets=$$('main h2,footer h2,.section-heading>p,.house-copy>p,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.service-entry,.visit-info>address,.map-frame,.practical>p,.footer-story-copy,.footer-feature-cta,.footer-directory>*,.album-toolbar,.work-print .photo-window,[data-material-reveal]');
- let remaining=targets.length;
- const observer=new IntersectionObserver(entries=>{
-  // Read every composed state before starting any animations in this batch.
-  const incoming=entries.filter(e=>e.isIntersecting&&!seen.has(e.target));
-  const snapshots=incoming.map(({target})=>({target,transform:getComputedStyle(target).transform,opacity:getComputedStyle(target).opacity}));
-  for(const entry of entries)if(!entry.isIntersecting&&running.has(entry.target)){
-   running.get(entry.target).cancel();running.delete(entry.target);
+export function initMotion() {
+  const root = document.documentElement;
+  const main = $('main');
+  const footer = $('footer');
+  if (!main || !('IntersectionObserver' in window)) return;
+
+  const compact = matchMedia('(max-width:700px)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const text = 'h2,h3,h4,p,blockquote,figcaption,address,small,li,.text-link,.button,.mirror-choice,.team-name,.service-name,.service-price,.option-price,.rating>strong,.footer-oversize-lead,.footer-oversize-main,.footer-link-col>a,.footer-feature-cta,.footer-small-note,.catalog-tally,.album-caption>strong,.album-caption>span';
+  const images = '.photo-window,.image-stage,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.review-visual-frame,.map-frame,.team-mood-photo,.album-editorial-print,.product-photo-detail,.visit-storefront';
+  const selector = text+','+images;
+  const excludes = '.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],[aria-hidden="true"],#sr-loader-stage,.sr-prelude';
+  const decorated = new WeakSet();
+  const active = new Set();
+  let observer, mutations;
+
+  const clear = element => {
+    element.classList.remove('sr-scroll-pending','sr-scroll-image','sr-scroll-text');
+    element.classList.add('sr-scroll-done');
+  };
+  const releaseAll = () => {
+    observer?.disconnect();
+    mutations?.disconnect();
+    for (const animation of active) {
+      const node = animation.effect?.target;
+      if (node) clear(node);
+      try { animation.cancel(); } catch {}
+    }
+    active.clear();
+    $$('.sr-scroll-pending').forEach(clear);
+  };
+  if (reduced.matches || !canMove()) {
+    root.classList.add('sr-motion-initialized');
+    return;
   }
-  for(const {target,transform,opacity} of snapshots){
-   seen.add(target);remaining--;
-   const budget=compact.matches?3:6;
-   const decorative=target.hasAttribute('data-material-reveal');
-   if(!canMove()||running.size>=budget||(compact.matches&&decorative)||target.getAnimations().some(a=>a.id==='sr-filter-result')){
-    observer.unobserve(target);continue;
-   }
-   const paper=target.matches('.house-portal,.team-portrait,.product-hero,.footer-visual');
-   const row=target.matches('.service-entry');
-   const photograph=target.matches('.work-print .photo-window');
-   const route=target.matches('.visit-info>address,.map-frame');
-   const suffix=transform==='none'?'':` ${transform}`;
-   const start=photograph?`scale(1.035)${suffix}`:paper?`translateY(18px) rotate(${target.matches('.house-portal')?1.2:-.65}deg)${suffix}`:
-     route?`translateX(14px)${suffix}`:row?`translateX(9px)${suffix}`:`translateY(12px)${suffix}`;
-   // Preserve reading order within a local group, with a bounded delay.
-   const siblings=[...target.parentElement.children];
-   const delay=row||target.matches('.house-copy>p,.practical>p,.footer-directory>*')
-     ? Math.min(siblings.indexOf(target),3)*55:0;
-   const animation=animate(target,[{opacity:paper?.72:.4,transform:start},{opacity,transform}],
-     {duration:row?320:paper||photograph?780:480,delay,easing:'cubic-bezier(.22,1,.36,1)'});
-   if(animation)animation.id='sr-section-reveal';
-   if(!animation){observer.unobserve(target);continue}
-   running.set(target,animation);
-   animation.finished.catch(()=>{}).finally(()=>{
-    if(running.get(target)===animation)running.delete(target);
-    observer.unobserve(target);
-    if(!remaining&&!running.size)observer.disconnect();
-   });
-  }
- },{threshold:0,rootMargin:'80px 0px'});
- targets.forEach(el=>observer.observe(el));
- document.addEventListener('motionchange',()=>{
-  if(canMove())return;
-  for(const animation of running.values())animation.cancel();running.clear();
- });
- // The photographic doorway now dissolves once, rather than repainting a
- // polygon on every scroll. CSS view timelines enhance supported desktops.
- const inside=$('.portal-inside');
- if(inside&&!CSS.supports('animation-timeline: view()')){
-  const portal=new IntersectionObserver(entries=>{
-   if(!entries.some(e=>e.isIntersecting))return;
-   animate(inside,[{opacity:0},{opacity:1}],{duration:800});portal.disconnect();
-  },{threshold:.2});portal.observe(inside);
- }
- const progress=document.createElement('div');progress.className='scroll-thread';progress.setAttribute('aria-hidden','true');document.body.append(progress);
- const nav=$$('.desktop-nav a');
- const navObserver=new IntersectionObserver(entries=>{
-  const entry=entries.find(e=>e.isIntersecting);if(!entry)return;
-  nav.forEach(a=>a.hash===`#${entry.target.id}`?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));
- },{rootMargin:'-10% 0px -65%'});
- $$('main section[id]').forEach(el=>navObserver.observe(el));
- document.documentElement.classList.add('sr-motion-initialized');
+
+  const appear = element => {
+    observer.unobserve(element);
+    if (!element.classList.contains('sr-scroll-pending')) return;
+    if (!canMove()) { clear(element); return; }
+    const photo = element.classList.contains('sr-scroll-image');
+    const row = element.matches('.service-name,.service-price,.option-price,li,small');
+    const siblings = [...element.parentElement.children];
+    const index = Math.max(0,siblings.indexOf(element));
+    const delay = Math.min(index,3)*(compact.matches?28:43);
+    const duration = photo?(compact.matches?760:960):row?550:(compact.matches?640:790);
+    const frames = photo ? [
+      {opacity:0,translate:'0 27px',scale:.96,clipPath:'inset(9% 0 0 0)'},
+      {opacity:1,translate:'0 0px',scale:1,clipPath:'inset(0 0 0 0)'}
+    ] : [
+      {opacity:0,translate:'0 38px'},
+      {opacity:1,translate:'0 0px'}
+    ];
+    try {
+      const animation=element.animate(frames,{
+        duration,delay,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'
+      });
+      animation.id=photo?'sr-scroll-photo':'sr-scroll-text';
+      active.add(animation);
+      // Clear the parking class before canceling fill: no end-of-animation flash.
+      animation.finished.catch(()=>{}).finally(()=>{
+        clear(element);
+        active.delete(animation);
+        try { animation.cancel(); } catch {}
+      });
+    } catch {
+      clear(element);
+    }
+  };
+
+  observer = new IntersectionObserver(entries=>{
+    // Never abandon an element due to an arbitrary animation-budget limit.
+    // Offscreen nodes stay parked, visible nodes always get their entrance.
+    for (const entry of entries) if (entry.isIntersecting) appear(entry.target);
+  },{threshold:.06,rootMargin:'0px 0px -7% 0px'});
+
+  const enroll = scope => {
+    // A root may itself be a selected element (dynamically inserted media).
+    const nodes = [
+      ...(scope.matches?.(selector)?[scope]:[]),
+      ...scope.querySelectorAll(selector)
+    ];
+    for (const node of nodes) {
+      if (decorated.has(node) || node.closest(excludes)) continue;
+      if (!node.closest('main section:not(.hero),footer')) continue;
+      if (!node.getClientRects().length) continue;
+      // Do not animate nested photographic layers twice, nor interactive
+      // images managed by changePhoto() or the album's FLIP transform.
+      const photo = node.matches(images);
+      if (photo && node.closest('.image-stage') !== node &&
+          node.closest('.image-stage')) continue;
+      if (photo && node.closest('.photo-window') !== node &&
+          node.closest('.photo-window')) continue;
+      if (photo && node.parentElement?.closest(images)) continue;
+      if (node.matches('.service-entry,.album-sheets,.work-print')) continue;
+      decorated.add(node);
+
+      const rect=node.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top < innerHeight*.84) {
+        clear(node);
+        continue;
+      }
+      node.classList.add('sr-scroll-pending',photo?'sr-scroll-image':'sr-scroll-text');
+      observer.observe(node);
+    }
+  };
+  // The hero keeps its independent opening; every following section and
+  // footer text/image gets a one-time scroll entrance.
+  $$('main section:not(.hero)').forEach(enroll);
+  if (footer) enroll(footer);
+
+  // Catalog/album content can be inserted after initialization. Newly
+  // inserted content receives the same visibility guarantees.
+  mutations = new MutationObserver(records=>{
+    for (const record of records) {
+      for (const item of record.addedNodes) if (item.nodeType===1) enroll(item);
+    }
+  });
+  mutations.observe(main,{childList:true,subtree:true});
+  if (footer) mutations.observe(footer,{childList:true,subtree:true});
+
+  // Keyboard focus and deliberate jumps should never land on invisible text.
+  document.addEventListener('focusin',event=>{
+    const node=event.target.closest?.('.sr-scroll-pending');
+    if (node) { observer.unobserve(node);clear(node); }
+  });
+  document.addEventListener('motionchange',()=>{
+    if (!canMove()) releaseAll();
+  });
+  addEventListener('pagehide',releaseAll,{once:true});
+
+  // Keep navigation state for keyboard and landmark users without a
+  // per-frame scroll listener.
+  const nav=$$('.desktop-nav a');
+  const navObserver=new IntersectionObserver(entries=>{
+    const entry=entries.find(e=>e.isIntersecting);
+    if (!entry) return;
+    nav.forEach(a=>a.hash===`#${entry.target.id}`
+      ?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));
+  },{rootMargin:'-10% 0px -65%'});
+  $$('main section[id]').forEach(el=>navObserver.observe(el));
+
+  root.classList.add('sr-motion-initialized');
 }
