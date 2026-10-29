@@ -46,20 +46,20 @@ export function initHeroExperience() {
       const mobile = matchMedia('(max-width:700px)').matches;
 
       // An editorial reading order, from signature to photographs and CTA.
-      // Times are relative to the scissors crossing the viewport midpoint.
+      // Start the photos while the scissors are still cutting. No late second entrance.
       // 'photo' reveals its actual figure from top down, without moving it.
       const tracks = [
-        ['.hero-pole__object',                 0, 490, 'fade'],
-        ['.hero-wordmark > span',             45, 460, 'fade'],
-        ['h1',                               80, 570, 'fade'],
-        ['.hero-intro',                      140, 530, 'fade'],
-        ['.hero-facade',                     185, 690, 'photo'],
-        ['.hero-room',                       240, 720, 'photo'],
-        ['.hero-detail',                     290, 660, 'photo'],
-        ['.hero-invitation > p',             330, 520, 'fade'],
-        ['.hero-invitation > .button',       395, 500, 'fade'],
-        ['.hero-invitation > .text-link',    430, 450, 'fade'],
-        ['.hero-bottom',                     475, 460, 'fade']
+        ['.hero-pole__object',                 0, 440, 'fade'],
+        ['.hero-wordmark > span',             20, 430, 'fade'],
+        ['h1',                               40, 520, 'fade'],
+        ['.hero-intro',                       75, 460, 'fade'],
+        ['.hero-facade',                      95, 570, 'photo'],
+        ['.hero-room',                       115, 610, 'photo'],
+        ['.hero-detail',                     140, 560, 'photo'],
+        ['.hero-invitation > p',             180, 460, 'fade'],
+        ['.hero-invitation > .button',       215, 430, 'fade'],
+        ['.hero-invitation > .text-link',    240, 400, 'fade'],
+        ['.hero-bottom',                     255, 400, 'fade']
       ];
 
       // Keep the existing geometry intact: no reads or writes to transform.
@@ -73,7 +73,6 @@ export function initHeroExperience() {
           const frames = type === 'photo'
             ? [
                 {offset:0, opacity:0, clipPath:'inset(0 0 100% 0)'},
-                {offset:.28, opacity:.84, clipPath:'inset(0 0 65% 0)'},
                 {offset:1, opacity:1, clipPath:'inset(0 0 0% 0)'}
               ]
             : [
@@ -109,15 +108,18 @@ export function initHeroExperience() {
   // A missed midpoint does not leave the hero invisible: completion recovers.
   document.addEventListener('openingcutmidpoint',beginReveal,
     {once:true,signal:controller.signal});
-  document.addEventListener('openingend',event=>{
-    if (!event.detail?.completed) settle();
-    else if (!started) beginReveal();
+  document.addEventListener('openingend',()=>{
+    // Missed midpoint? Show the STATIC final scene. Never reveal after loader.
+    if (!started) settle();
   },{once:true,signal:controller.signal});
 
   for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
     addEventListener(type,settle,{passive:true,signal:controller.signal});
-  addEventListener('resize',()=>{if(active.size||frame)settle()},
-    {passive:true,signal:controller.signal});
+  const initialWidth = innerWidth;
+  addEventListener('resize',()=>{
+    // The mobile address bar changes viewport HEIGHT, not its composition.
+    if (Math.abs(innerWidth-initialWidth)>2 && (active.size||frame)) settle();
+  },{passive:true,signal:controller.signal});
   hero.addEventListener('focusin',settle,{signal:controller.signal});
   document.addEventListener('motionchange',()=>{if(!canMove())settle()},
     {signal:controller.signal});
