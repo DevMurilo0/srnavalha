@@ -33,7 +33,9 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   // Live regions retain an untouched text tree, avoiding repeated announcements.
   if(live||mode==='micro'){
     try{
-      const effect=animate(node,[{clipPath:'inset(0 100% 0 0)',opacity:.5},{clipPath:'inset(0 0% 0 0)',opacity:1}],{duration:duration||420,delay,easing:ease});
+      // A single compositor-friendly fade + translation: no clipping or
+      // glyph measurements for every price, caption, paragraph or CTA.
+      const effect=animate(node,[{opacity:0,translate:'0 14px'},{opacity:1,translate:'0 0px'}],{duration:duration||460,delay,easing:ease,fill:'both'});
       if(effect){effect.id='sr-text-micro';effects.push(effect);effect.finished.catch(()=>{}).finally(cleanup);}else cleanup();
     }catch{cleanup();}
     return handle;
@@ -59,7 +61,10 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
       wrapper.append(source,visual);original.replaceWith(wrapper);replacements.push({wrapper,original});
     }
     node.classList.add('cm-split');
-    const useChars=['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
+    // A 320px phone can render 100+ letter effects in one hero. Keep the
+    // distinctive word-level motion there, reserve glyph splitting for desktop.
+    const useChars=!matchMedia('(max-width:700px)').matches&&
+      ['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
     const units=[];
     // All measurements precede effect creation. Line groups follow real wrapping.
     const lineTops=[];
