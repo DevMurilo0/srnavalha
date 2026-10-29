@@ -213,7 +213,7 @@ try{
   await m.evaluate(()=>window.heroAudit.sections.length>=5));
  const scrollHealth=await m.evaluate(()=>{
    const all=[...document.querySelectorAll('.sr-scroll-pending')];
-   return {pending:all.length,aboveViewport:all.filter(x=>x.getBoundingClientRect().top<innerHeight*.45).length,
+   return {pending:all.length,aboveViewport:all.filter(x=>{const r=x.getBoundingClientRect();return r.top<innerHeight*.45&&r.bottom>0}).length,
      mediaCount:document.querySelectorAll('.sr-scroll-done.sr-scroll-image').length,
      dark:getComputedStyle(document.querySelector('.team')).backgroundImage,
      dividers:[...document.querySelectorAll('.sr-chapter')].every(x=>
