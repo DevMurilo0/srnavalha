@@ -1,18 +1,7 @@
-/* Chapters are static type with one bounded rule at selected thresholds. */
-import { $$, canMove } from './core.js';
+/* Chapter plaques were retired in favor of thin tonal transitions.
+ * Keep only the optional team portrait hover preview; no legacy observers. */
+import { $, canMove } from './core.js';
 export function initSceneCuts(){
- const chapters=$$('.sr-chapter');
- if('IntersectionObserver' in window&&canMove()){
-  let remaining=chapters.length;
-  const observer=new IntersectionObserver(entries=>{
-   for(const e of entries)if(e.isIntersecting){
-    e.target.classList.add('sr-chapter--played');observer.unobserve(e.target);
-    if(!--remaining)observer.disconnect();
-   }
-  },{rootMargin:'60px'});
-  chapters.forEach(el=>observer.observe(el));
-  document.addEventListener('motionchange',()=>{if(!canMove())observer.disconnect()});
- }
  initMemberHover();
 }
 
