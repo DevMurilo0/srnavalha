@@ -39,7 +39,11 @@ try{
  check('Listeners sem crescimento após aquecimento',new Set(stable.map(s=>s.jsEventListeners)).size===1,stable.map(s=>s.jsEventListeners));
  check('DOM estável após aquecimento',Math.max(...stable.map(s=>s.nodes))-Math.min(...stable.map(s=>s.nodes))<=5,stable.map(s=>s.nodes));
  check('Última seleção mantém somente um retrato',await page.locator('.team-portrait .image-stage img').count()===1);
- await page.emulateMedia({reducedMotion:'reduce'});check('Preferência dinâmica cancela movimento',await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length===0));await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ // emulateMedia can resolve before MediaQueryList dispatches change. Wait for
+ // the controller's acknowledgement; still require every running effect to end.
+ await page.waitForFunction(()=>matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.documentElement.classList.contains('motion-on'));
+ check('Preferência dinâmica cancela movimento',await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length===0));await page.emulateMedia({reducedMotion:'no-preference'});
  await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await page.waitForTimeout(200);check('Mídia fora da tela pausada',await page.evaluate(()=>document.querySelector('.detail-film').paused&&getComputedStyle(document.querySelector('.review-track')).animationPlayState==='paused'&&getComputedStyle(document.querySelector('.footer-rail-track')).animationPlayState==='paused'));
  // Essential photo deliberately slow: opening releases content within its bound.
  await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:120,downloadThroughput:100*1024,uploadThroughput:50*1024});await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});const slowStart=Date.now();await page.goto(base+'?intro=1',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot'));check('Rede móvel: abertura não bloqueia conteúdo',await page.locator('.hero .button').isVisible(),{elapsedMs:Date.now()-slowStart});await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:0,downloadThroughput:-1,uploadThroughput:-1});

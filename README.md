@@ -1,5 +1,52 @@
 # Sr. Navalha · The Perfect Cut
 
+## Atualização V7 — Revelação editorial sem deslocamento (29/10/2026)
+
+A antiga animação de **queda e quique** do hero foi substituída por uma revelação estável e discreta. Durante a passagem da tesoura pelo meio do corte, a assinatura, os títulos e os botões surgem suavemente em opacidade; as três fotografias são **descobertas progressivamente de cima para baixo** com `clip-path` e `opacity`. Nenhuma foto, cartão ou texto recebe `transform` nessa animação: os enquadramentos, as inclinações e as posições finais ficam idênticos desde o primeiro frame. A transferência FLIP da logo permanece independente. Os dois cilindros pretos e brancos conservam a rotação.
+
+Os elementos começam ocultos desde o `head` (`sr-hero-queued`) e o preenchimento dos efeitos Web Animations API é mantido até que todos estejam visíveis. Interrupções, redução de movimento e erros liberam o estado normal do hero. O novo teste de navegador mede caixas das fotografias durante a animação e depois do término; não deve haver nenhum deslocamento.
+
+
+## V6.1 — Sem flash antes da queda do hero (29/10/2026)
+
+A intro foi corrigida para não renderizar imagens, título e CTA em seu estado definitivo antes de as animações começarem. O `head` arma `sr-hero-queued` junto com `sr-loader-boot` antes de o CSS pintar a primeira tela; o CSS posiciona os elementos de chegada com opacidade zero. `initHeroExperience()` inicia cada queda após `openingend`, preservando os dois rebotes. O preenchimento WAAPI `fill:'both',persist:true` retém cada elemento visível em seu frame final até o último pousar. Então todos os efeitos são cancelados em conjunto, no mesmo ciclo de pintura em que a classe de fila é retirada — **sem reaparecimento inicial e sem segundo flash ao concluir**.
+
+O SVG oficial não participa dessa ocultação: sua transferência FLIP permanece intacta, e apenas a pequena inscrição lateral recebe queda separada. Falhas, interrupções, navegação, movimento reduzido e falta de JavaScript liberam a fila por segurança. Os novos testes em `scripts/test-experience-v6.mjs` verificam opacidade antes da queda, no primeiro frame e após o último rebote; os de `scripts/test-reflexo-static.mjs` verificam a estrutura.
+
+
+## Estado atual — Creative Motion & Experience V6 (27/10/2026)
+
+A branch `reconstruction/arte-do-ritual` contém a **V6 integrada**. A ordem atual é **carregamento → tesoura e abertura gradual → saída completa do loader → evento `openingend` (`detail.completed === true`) → queda com dois rebotes decrescentes dos elementos do hero**. O hero utiliza `initHeroExperience()`, que é independente da timeline de `opening.js`; a marca oficial termina seu FLIP antes da queda. Dois barber poles minimalistas pretos e brancos giram em sentidos opostos sem recomeçar a rotação ao pousar.
+
+A V6 inclui animações editoriais de seções, filtros, galeria, produtos, localização e rodapé. O agendamento continua sendo **uma demonstração local** e mantém seu wizard de quatro etapas. Os registros e screenshots históricos de testes estão em `docs/experience-v6`, `docs/perfect-cut-v4` e `docs/booking-v5`; são evidência do momento em que foram gerados, não garantem resultados de builds posteriores.
+
+**Correções de estabilidade posteriores:** `opening.js` recupera erros durante callbacks temporizados e usa fallback quando a estrutura SVG do FLIP está ausente; o overlay de carregamento captura o gesto inteiro (`pointerdown → pointerup → click`) sem repassar o clique aos CTAs atrás dele; o watchdog no `head` atua quando o módulo não chega a iniciar, mas não interrompe uma animação ativa em rede lenta; `app.js` comunica falhas do carregamento como `completed:false`. O teste automático é `.github/workflows/v6-regression.yml`, que valida JavaScript, HTML gerado, Perfect Cut, V6, agendamento e resiliência em Chromium. **A aprovação só vale quando o job da revisão atual estiver verde.**
+
+
+## Validação final da V6
+
+A matriz específica da experiência cobre 320, 360, 390, 430, 768, 1024 e 1440 px. A suíte geral verifica navegação e capítulos em dez larguras, com o mapa externo isolado para evitar dependência de rede; a presença do iframe e do link de rota continua sendo verificada. Os artefatos do CI incluem os JSON de navegação, acessibilidade e resiliência.
+
+Para reproduzir, sirva o projeto em `http://127.0.0.1:8047/`, instale as dependências de validação fora do site como descrito no workflow e execute as suítes **em sequência**: `test-experience-v6.mjs`, `test-perfect-cut-v4.mjs`, `test-reflexo.mjs`, `test-reflexo-resilience.mjs`, `test-booking-wizard.mjs` e `test-booking-wizard-state.mjs`. `CHROME_PATH` e `PLAYWRIGHT_PACKAGE` permitem usar outro Chromium e outra pasta de ferramentas. Não são dependências de produção.
+
+## Histórico V3 — queda durante o corte (substituída pela V6)
+
+A revelação do hero agora tem uma entrada **física e divertida**: cada elemento cai de um ponto acima de sua posição final, toca o lugar de repouso, comprime-se discretamente no impacto, dá um primeiro rebote e um segundo menor, e se estabiliza. A sequência é gradual do topo para a base — cilindro/assinatura → título → introdução → fachada, salão e detalhe → texto e botões — já **durante** a abertura da tela carregada. As 11 faixas temporais pertencem ao mesmo `document.timeline` que a tesoura, sem timers paralelos ou scripts de scroll.
+
+Foi preservada a geometria final: a transformação original calculada (`getComputedStyle(node).transform`) acompanha cada etapa, mantendo os ângulos das fotos e a escala do cilindro. Apenas `transform` e `opacity` são animados, com dois impactos progressivamente menores. No mobile, a distância de queda e as durações são reduzidas. O handoff FLIP da logo oficial não é substituído por um salto, e o loader continua reaparecendo a cada F5. A classe da introdução é encerrada depois do último repouso, sem cortar a animação no meio. Acessibilidade, movimento reduzido e cancelamento por interação permanecem como antes.
+
+Código: `js/ritual/hero-sign.js`, acionado por `js/ritual/opening.js`. Regressões estruturais: `scripts/test-reflexo-static.mjs`. Teste real de fluidez e composição no navegador ainda é necessário.
+
+
+## Correção de carregamento e cilindro minimalista · 27/10/2026
+
+O carregamento The Perfect Cut deixou de animar após a edição do hero porque `js/ritual/opening.js` possuía `import { $, $, ... }`, que produz **SyntaxError** e impede o entry point `app.js` de executar. Corrigido para importar `$` e `$$` separadamente e preservar a progressão completa: anel/assinatura/progresso → tesoura exclusiva do corte → duas metades da tela → hero sincronizado. Também corrigido o listener do menu que tentava chamar `.forEach` sobre um único elemento retornado por `$`, agora usando `$$` para todos os links.
+
+O cilindro do hero continua **preto puro / branco puro**, porém menor e mais limpo: acabamento metálico simplificado, projeção de sombra quase imperceptível, sem halo externo, sem brilho pulsante e sem reflexo artificial atravessando as fotografias. A rotação fluida do rotor e a animação de entrada dos elementos do hero durante o corte permanecem.
+
+O teste estático `scripts/test-reflexo-static.mjs` agora verifica as duas importações e o seletor correto do menu, além das cores e ausência de halo. Fazer teste visual no navegador real para confirmar suavidade; verificações de fonte não são equivalentes a medições de FPS.
+
+
 ## Hero: preto absoluto e revelação sincronizada de cima para baixo · 27/10/2026
 
 O cilindro do hero agora tem listras em **preto puro (`#000`) e branco puro (`#fff`)**, metal cromado neutro, sombreamento mínimo e apenas uma discreta iluminação branca estática no vidro. O grande halo pulsante e o reflexo luminoso que atravessava as fotografias foram completamente removidos.

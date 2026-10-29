@@ -1,8 +1,7 @@
 /* Perfect Cut V4: independent progress/cutting scissors. Two continuous
    surfaces share a single timeline with the blade and incision; no frame-time
    geometry reads. Every exit restores the real hero and cancels all effects. */
-import { $, $, canMove, cancelWithin } from './core.js';
-import { scheduleHeroEntrance } from './hero-sign.js';
+import { $, $$, canMove, cancelWithin } from './core.js';
 
 export function openRitual() {
   return new Promise(resolve => {
@@ -17,7 +16,15 @@ export function openRitual() {
     let raf = 0, completed = false, phase = 'loading', lastCounter = 0;
 
     function delay(callback, ms) {
-      const timer = setTimeout(() => { timers.delete(timer); callback(); }, ms);
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        if (completed) return;
+        try { callback(); }
+        catch (error) {
+          console.error('The Perfect Cut: falha na transição; liberando o hero.', error);
+          finish('interrupted');
+        }
+      }, ms);
       timers.add(timer);
     }
     function run(node, frames, options = {}) {
@@ -30,7 +37,7 @@ export function openRitual() {
       a.finished.catch(() => {});
       return a;
     }
-    function finish() {
+    function finish(reason = 'interrupted') {
       if (completed) return;
       const hadFocus = !!stage?.contains(document.activeElement);
       completed = true;
@@ -40,14 +47,22 @@ export function openRitual() {
       timers.clear();
       for (const a of animations) { try { a.cancel(); } catch {} }
       animations.clear();
-      for (const restore of restorers.reverse()) restore();
+      for (const restore of restorers.reverse()) {
+        try { restore(); } catch (error) {
+          console.warn('The Perfect Cut: limpeza da marca', error);
+        }
+      }
       for (const node of temporary) node.remove();
-      if (stage) cancelWithin(stage);
+      if (stage) {
+        try { cancelWithin(stage); } catch (error) {
+          console.warn('The Perfect Cut: limpeza das animações', error);
+        }
+      }
       root.classList.remove('sr-loader-boot', 'sr-cut-reveal');
       stage?.remove();
       if (hadFocus) $('.hero .button')?.focus({ preventScroll:true });
       if (window.__finishRitual === finish) delete window.__finishRitual;
-      document.dispatchEvent(new CustomEvent('openingend'));
+      document.dispatchEvent(new CustomEvent('openingend', { detail: { completed: reason === 'complete' } }));
       resolve();
     }
     window.__finishRitual = finish;
@@ -72,7 +87,22 @@ export function openRitual() {
       });
     }
 
-    for (const type of ['wheel','touchstart','pointerdown','keydown','pagehide']) {
+    // Segurar a camada até terminar o gesto: remover o stage em pointerdown
+    // deixa o pointerup/click seguinte atingir o CTA escondido no mesmo ponto.
+    // O gesto inteiro pertence ao loader e nunca dispara uma navegação.
+    stage.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    },{capture:true,signal:signal.signal});
+    stage.addEventListener('pointerdown',event=>{
+      if(event.cancelable)event.preventDefault();
+      const release=()=>requestAnimationFrame(()=>finish('interrupted'));
+      stage.addEventListener('pointerup',release,{once:true,signal:signal.signal});
+      stage.addEventListener('pointercancel',release,{once:true,signal:signal.signal});
+    },{once:true,signal:signal.signal});
+    // Touch is already represented by pointerdown/up on supported browsers.
+    // Never finish on touchstart: that releases the click-through barrier.
+    for (const type of ['wheel','keydown','pagehide']) {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
@@ -112,7 +142,7 @@ export function openRitual() {
       const scale = mobile ? 1.65 : 1.9;
       const startY = -80, endY = H + 80;
       const cutEase = 'cubic-bezier(.38,.18,.36,1)';
-      const epoch = document.timeline.currentTime;
+      const epoch = document.timeline.currentTime ?? performance.now();
       // Explicit shared startTime prevents sub-frame drift between the three
       // independently rendered parts, including on a busy main thread.
       const play = (node, frames, options) => {
@@ -167,15 +197,22 @@ export function openRitual() {
           {transform:sheet(endY,direction*W/2),offset:1}
         ],{duration:CUT+OPEN,delay:tCut,easing:'linear'});
       }
-      // Schedule every hero element on the *same epoch* as the blade and
-      // parting sheets, BEFORE exposing the hero composition. From top to
-      // bottom: barber pole, lettering, photos, invitation and final links.
-      // Filled backwards: no early flashes through the opening.
-      scheduleHeroEntrance(play, { tCut, CUT, mobile });
       root.classList.add('sr-cut-reveal');
 
+      // The scissors reach half of the viewport at 36.7226% of the CUT
+      // timeline (the easing is cubic-bezier(.38,.18,.36,1), not linear).
+      // Release the hero's independent fall at that VISUAL midpoint while
+      // the two cutting sheets are still on-screen. The hero owns the drops:
+      // finish() only cleans this loader, never cancels their effects.
+      delay(() => {
+        document.dispatchEvent(new CustomEvent('openingcutmidpoint', {
+          detail: { progress: .5 }
+        }));
+      }, tCut + CUT * .367226);
+
       if (source && target && sourceBox?.width && targetBox?.width &&
-          logoPlate?.classList.contains('snv2-logo-ready')) {
+          logoPlate?.classList.contains('snv2-logo-ready') &&
+          target.querySelector('filter') && target.querySelector('image')) {
         const previous = target.style.visibility;
         target.style.visibility = 'hidden';
         restorers.push(()=>{target.style.visibility=previous});
@@ -212,7 +249,7 @@ export function openRitual() {
       } else {
         play(logoPlate,[{opacity:1},{opacity:0}],{duration:240,delay:tMark});
       }
-      delay(finish,Math.max(tEnd+OPEN,tMark+logoTime+100));
+      delay(() => finish('complete'),Math.max(tEnd+OPEN,tMark+logoTime+100));
     }
 
     // The CSS bar/scissors and JS percentage MUST share the same epoch

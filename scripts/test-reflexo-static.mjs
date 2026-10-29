@@ -28,41 +28,47 @@ for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
 }
 assert.ok(html.includes('snv2-logo-matte'),'logo em alfa transparente');
 assert.ok(html.includes('hero-logo-transparent'),'hero oficial intacto');
-assert.equal((html.match(/class="hero-sign hero-pole"/g)||[]).length,1,
-  'um único barber pole independente no hero');
-assert.ok(!html.includes('hero-sign__face'),'placa retangular removida');
-assert.ok(html.includes('hero-pole__rotor')&&html.includes('hero-pole__glass'),
-  'corpo cilíndrico e rotor tricolor');
+assert.equal((html.match(/class="hero-pole hero-pole--/g)||[]).length,2,'dois cilindros no hero');
+assert.ok(!html.includes('hero-sign__face'),'sem placa retangular');
 const pole=file('css/ritual/hero-sign.css');
-assert.ok(pole.includes('sr-pole-rotation')&&pole.includes('linear infinite'),
-  'rotação contínua das faixas');
-assert.ok(pole.includes('#000 0 12px')&&pole.includes('#fff 12px 24px')&&
-          pole.includes('#000 24px 36px'),'faixas em preto puro e branco');
-assert.ok(!pole.includes('#a83933')&&!pole.includes('#244f78'),
-  'nenhuma faixa vermelha ou azul antiga');
-assert.ok(!pole.includes('sr-pole-neon-breathe')&&!pole.includes('sr-hero-light-pass')&&
-          !pole.includes('sr-hero-sheen'),'remover halo animado e reflexos nas fotos');
-assert.ok(pole.includes('filter:drop-shadow(1px 3px 2px #0002)'),
-  'sombras mínimas no cilindro');
-assert.ok(pole.includes('prefers-reduced-motion:reduce'),
-  'movimento reduzido interrompe a rotação');
+assert.ok(pole.includes('#000')&&pole.includes('#fff')&&pole.includes('linear infinite'),'rotor monocromático contínuo');
+assert.ok(pole.includes('animation-play-state:paused')&&pole.includes('is-poles-visible'),'pausa fora da viewport');
+assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
 const heroTimeline=file('js/ritual/hero-sign.js');
-assert.ok(heroTimeline.includes('scheduleHeroEntrance')&&
-          heroTimeline.includes('.hero .title-mask > span')&&
-          heroTimeline.includes('.hero-facade')&&heroTimeline.includes('.hero-room')&&
-          heroTimeline.includes('.hero-invitation > .button'),
-  'entrada de cima para baixo para título, fotos e CTA');
-assert.ok(heroTimeline.includes('getComputedStyle(node).transform')&&
-          heroTimeline.includes("duration: mobile ? Math.round(duration*.83) : duration"),
-  'preserva inclinação das fotos e suaviza durações no mobile');
-assert.ok(!heroTimeline.includes("'openingend'")&&
-          !file('js/ritual/app.js').includes('initHeroSign()'),
-  'não criar uma segunda animação após terminar o loader');
+assert.ok(heroTimeline.includes("'openingcutmidpoint'")&&
+          heroTimeline.includes("document.addEventListener('openingend'")&&
+          heroTimeline.includes('!event.detail?.completed'),
+  'queda começa na metade da tesoura; interrupção ainda libera o hero');
+assert.ok(file('js/ritual/opening.js').includes("new CustomEvent('openingcutmidpoint'")&&
+          file('js/ritual/opening.js').includes("tCut + CUT * .367226"),
+  'gatilho usa metade da posição visual da tesoura na curva de easing');
+assert.ok(!heroTimeline.includes('getComputedStyle(node).transform')&&
+          !heroTimeline.includes('transform:at(')&&
+          heroTimeline.includes("clipPath:'inset(0 0 100% 0)'")&&
+          heroTimeline.includes("clipPath:'inset(0 0 0% 0)'"),
+  'fotografias reveladas por máscara sem qualquer mudança de posição');
+const queuedCSS=file('css/ritual/hero-sign.css');
+assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&
+          queuedCSS.includes('html.sr-hero-queued .hero .hero-facade')&&
+          queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
+  'foto e título estão invisíveis antes do primeiro quadro da queda');
+assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&
+          heroTimeline.includes('effects.add(effect)')&&
+          heroTimeline.includes("fill:'both'")&&
+          heroTimeline.includes('persist:true'),
+  'efeitos revelados permanecem preenchidos até o último elemento terminar');
+assert.ok(heroTimeline.includes("'.hero-wordmark > span'"),
+  'a inscrição entra isolada da logo oficial do handoff');
+assert.ok(!file('js/ritual/opening.js').includes('scheduleHeroEntrance'),'loader não possui animações do hero');
+assert.ok(file('js/ritual/app.js').includes('initHeroExperience()'),'controlador próprio inicializado');
 assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
   'um único CTA fixo');
 assert.ok(html.includes('sr-booking-fixed__calendar')&&html.includes('href="agendar.html"'),
   'CTA de agendamento contém ícone de agenda');
 const menuScript=file('js/ritual/app.js');
+assert.ok(menuScript.includes("$$('.menu nav a').forEach"),
+  'menu percorre todos os links com querySelectorAll, sem TypeError');
+
 for(const token of ['is-active','is-closing','aria-expanded',
                     'panel.inert=true','menu.open=false','Escape']){
   assert.ok(menuScript.includes(token),'navegação animada: '+token);
@@ -92,6 +98,11 @@ assert.ok(!html.includes('id="sr-opening-skip"'),'skip removido do DOM');
 assert.equal((file('templates/v17/loader.html').match(/class="snv2-scissors"/g)||[]).length,2,'duas tesouras independentes');
 
 const code=file('js/ritual/opening.js');
+assert.ok(code.includes("import { $, $$, canMove, cancelWithin } from './core.js';"),
+  'o loader importa $ e $$ corretamente');
+assert.ok(!code.includes("import { $, $, canMove"),
+  'regressão: importação duplicada derrubava The Perfect Cut');
+
 for(const snippet of ['snv2-panels','snv2-panel','snv2-cut-flight',
                       'snv2-logo-flight','sr-cut-reveal','getBoundingClientRect',
                       'translate3d','scale(','CustomEvent','window.__finishRitual'])
@@ -102,13 +113,27 @@ assert.ok(!code.includes('stripHeight')&&!code.includes('pendingStrips'),'sem de
 assert.ok(code.includes("stage.classList.add('snv2-run')"),'contador e barra iniciam juntos');
 assert.ok(code.includes('sample(t,.65,.35)'),'curva da porcentagem é a mesma do CSS');
 assert.ok(!file('templates/v17/loader.html').includes('snv2-loader snv2-run'),'CSS não pode iniciar antes do JS');
-assert.ok(code.includes('scheduleHeroEntrance(play, { tCut, CUT, mobile })')&&
-          code.indexOf('scheduleHeroEntrance(play, { tCut, CUT, mobile })')<
-          code.indexOf("root.classList.add('sr-cut-reveal')"),
-  'hero e lâmina compartilham um único relógio, antes da revelação');
+assert.ok(code.includes("finish('complete')"),'sinal de conclusão natural do corte');
+
+assert.ok(code.includes("try { callback(); }")&&code.includes("finish('interrupted');"),
+  'falhas em callbacks assíncronos liberam o loader imediatamente');
+assert.ok(code.includes("target.querySelector('filter') && target.querySelector('image')"),
+  'FLIP incompleto usa fallback sem lançar exceções');
+assert.ok(code.includes("stage.addEventListener('pointerdown'")&&
+          code.includes("event.preventDefault()"),
+  'pointerdown do loader não ativa botões atrás da camada');
+assert.ok(file('css/ritual/loader-v2.css').includes('pointer-events:auto;background:var(--snv2-bg)'),
+  'camada de carregamento bloqueia clique direto no hero');
+assert.ok(file('templates/v17/head.html').includes("completed:false,reason:'watchdog'")&&
+          file('templates/v17/head.html').includes("if(!root.classList.contains('sr-loader-boot'))return"),
+  'watchdog ignora estados concluídos e informa abertura interrompida');
+
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
 assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));
+assert.ok(head.includes("'sr-hero-queued'")&&
+          head.includes("root.classList.remove('sr-loader-boot','sr-cut-reveal','sr-hero-queued')"),
+  'classe de fila começa no head e libera em falha de carregamento');
 assert.ok(head.includes('sr-cut-reveal'),'watchdog libera estado');
 const colors=file('css/ritual/tokens.css');
 for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',

@@ -41,10 +41,8 @@
 }
 #sr-loader-stage .snv2-logo-flight svg{display:block;width:100%;height:100%;overflow:visible}
 .snv2-tag{font-size:11px;letter-spacing:.16em;max-width:100%;text-wrap:balance}
-/* The Perfect Cut is the ONLY clock for the hero entrance. CSS exposes
-   the real layout beneath the sheets; JS/WAAPI controls the stagger with the
-   same document.timeline epoch as the descending scissors.
-   Never transition the whole composition or zoom the hero. */
+/* The loader reveals the static composition. Hero motion has its own owner
+   and starts only after all temporary surfaces and logo effects are removed. */
 html.sr-loader-boot .hero{
   opacity:1!important;transform:none!important;transition:none!important;
 }

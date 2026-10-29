@@ -18,10 +18,11 @@ for(const width of (process.env.FUNCTIONAL_ONLY?[]:[320,390,430,768,1440])){
  await p.waitForTimeout(1100);await p.screenshot({path:`${dir}/loading-${width}.png`});
  await p.waitForSelector('.snv2-cut-ready');
  check(`${width}: progresso conclui 100%`,await p.locator('#sr-loader-percent').textContent()==='100%');
- await p.waitForTimeout(420);
- const geometry=await p.evaluate(()=>{
+ const sample=await p.waitForFunction(()=>{
   const carrier=document.querySelector('.snv2-cut-flight'),seam=document.querySelector('.snv2-seam'),track=document.querySelector('.snv2-track');
+  if(!carrier||!seam||!track)return false;
   const tip=new DOMMatrix(getComputedStyle(carrier).transform).m42;
+  if(tip<innerHeight*.2||tip>innerHeight*.9||getComputedStyle(track).opacity!=='0')return false;
   const end=seam.getBoundingClientRect().bottom;
   const polygons=[...document.querySelectorAll('.snv2-panel')].map(e=>getComputedStyle(e).transform);
   const edges=polygons.map(t=>{const m=new DOMMatrix(t);return Math.abs(m.e+m.c*tip)});
@@ -29,10 +30,12 @@ for(const width of (process.env.FUNCTIONAL_ONLY?[]:[320,390,430,768,1440])){
    trackX:track.getBoundingClientRect().x,expectedTrackX:(innerWidth-track.offsetWidth)/2,
    overflow:document.documentElement.scrollWidth-innerWidth,heroOpacity:getComputedStyle(document.querySelector('.hero-composition')).opacity};
  });
+ const geometry=await sample.jsonValue();
  check(`${width}: lâmina/linha alinhadas e hero aparece durante corte`,geometry.delta<1&&geometry.edges.every(e=>e<.1)&&geometry.tip>0&&geometry.tip<844&&geometry.panels.length===2&&geometry.trackOpacity==='0'&&Math.abs(geometry.trackX-geometry.expectedTrackX)<1&&geometry.heroOpacity>0,geometry);
  await p.screenshot({path:`${dir}/cut-${width}.png`});
  await p.waitForTimeout(520);await p.screenshot({path:`${dir}/opening-${width}.png`});
  await done(p);
+ await p.waitForFunction(()=>!document.querySelector('.hero.is-arriving'));
  check(`${width}: limpeza, hero e largura`,await p.evaluate(()=>!document.querySelector('.snv2-logo-flight')&&getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'&&document.documentElement.scrollWidth<=innerWidth&&getComputedStyle(document.querySelector('h1')).opacity==='1'));
  await p.screenshot({path:`${dir}/hero-${width}.png`});await p.close();
 }
@@ -61,6 +64,65 @@ const cdp=await p.context().newCDPSession(p);await cdp.send('Network.setCacheDis
 await p.locator('.hero .button').click();await p.waitForURL('**/agendar.html');check('Agendamento local abre',await p.locator('h1').count()===1);await p.goBack({waitUntil:'domcontentloaded'});await done(p);check('Histórico libera homepage',await p.locator('.hero-logo-transparent').isVisible());await p.close();
 for(const hash of ['#servicos','#equipe']){const p=await pageAt();await p.goto(base+hash,{waitUntil:'domcontentloaded'});await done(p);check(`Âncora ${hash}`,await p.locator(hash).count()===1);await p.close()}
 for(const fail of ['**/assets/images/v8/logo-640.webp','**/js/ritual/opening.js']){const p=await pageAt();await p.route(fail,r=>r.abort());await load(p);await done(p);check(`Falha ${fail}`,await p.locator('#sr-loader-stage').count()===0&&await p.locator('h1').isVisible());await p.close()}
+// Fault injection: an exception in a delayed FLIP callback must NOT freeze
+// the full-screen loader until its watchdog fires.
+const brokenFlight=await pageAt();
+await brokenFlight.addInitScript(()=>{
+ window.__openingEvents=[];
+ document.addEventListener('openingend',event=>window.__openingEvents.push(event.detail));
+ const clone=SVGElement.prototype.cloneNode;
+ SVGElement.prototype.cloneNode=function(...args){
+  if(this.classList?.contains('hero-logo-transparent')) throw Error('TEST: voo da marca falhou');
+  return clone.apply(this,args);
+ };
+});
+await load(brokenFlight);
+// The fault occurs in the SAME task as snv2-cut-ready; the class disappears
+// before Playwright can observe it. Wait for the durable completion event.
+await brokenFlight.waitForFunction(()=>window.__openingEvents?.length>0);
+await done(brokenFlight);
+check('Falha interna do FLIP libera o hero sem travar',
+ await brokenFlight.evaluate(()=>!document.querySelector('#sr-loader-stage')&&
+  getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'&&
+  !document.querySelector('.hero.is-arriving')&&
+  window.__openingEvents.length===1&&window.__openingEvents[0].completed===false));
+await brokenFlight.close();
+
+// A touch/click during the overlay must never activate the booking CTA
+// underneath it in the same gesture.
+const covered=await pageAt(390);
+await load(covered);
+await covered.evaluate(()=>{
+ window.__clickedBehindLoader=false;
+ document.querySelector('.sr-booking-fixed')?.addEventListener('click',()=>{
+   window.__clickedBehindLoader=true;
+ });
+});
+const buttonRect=await covered.locator('.sr-booking-fixed').boundingBox();
+// The booking control may deliberately be display:none during the loader;
+// Playwright returns null in that case. That is a safe state, not a failure.
+const initialCTA=await covered.evaluate(()=>{
+ const node=document.querySelector('.sr-booking-fixed');
+ if(!node)return null;
+ const css=getComputedStyle(node);
+ return {display:css.display,visibility:css.visibility,pointerEvents:css.pointerEvents};
+});
+const clickX=buttonRect?buttonRect.x+buttonRect.width/2:30;
+const clickY=buttonRect?buttonRect.y+buttonRect.height/2:760;
+await covered.mouse.click(clickX,clickY);
+await done(covered);
+const coveredResult=await covered.evaluate(()=>({
+ clickBehind:window.__clickedBehindLoader,
+ pathname:location.pathname,
+ loaderAlive:!!document.querySelector('#sr-loader-stage'),
+ boot:document.documentElement.classList.contains('sr-loader-boot')
+}));
+check('Clique durante loader não aciona agendamento por trás',
+ initialCTA!==null&&coveredResult.clickBehind===false&&
+ (coveredResult.pathname==='/'||coveredResult.pathname.endsWith('/index.html'))&&
+ !coveredResult.loaderAlive,{initialCTA,coveredResult});
+await covered.close();
+
 const reduced=await pageAt(390,{reducedMotion:'reduce'});await load(reduced);await done(reduced);check('Reduced motion inicial',await reduced.locator('#sr-loader-stage').count()===0);await reduced.close();
 }
 check('Sem exceções JavaScript',errors.length===0,errors);

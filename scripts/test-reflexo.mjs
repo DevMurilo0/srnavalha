@@ -8,8 +8,15 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8047/',dir='docs/reflexo/vali
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/home/murilo/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome',headless:true});
 const results=[],errors=[];
 const check=(name,pass,detail)=>{results.push({name,pass:!!pass,detail});console.log(`${pass?'PASS':'FAIL'} ${name}`)};
-async function fresh(options={}){const context=await browser.newContext({viewport:{width:390,height:844},...options});const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));return page}
-const settle=page=>page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot'));
+async function fresh(options={}){
+ const context=await browser.newContext({viewport:{width:390,height:844},...options});
+ // Map availability is external; its iframe and route remain checked below.
+ await context.route('https://**/*',route=>route.abort());
+ const page=await context.newPage();
+ page.on('pageerror',e=>errors.push(e.message));
+ return page;
+}
+const settle=page=>page.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot')&&!document.querySelector('.hero.is-arriving'));
 const jump=(page,id)=>page.locator(id).evaluate(el=>el.scrollIntoView({behavior:'instant',block:'center'}));
 try{
  const page=await fresh();
@@ -45,17 +52,20 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  // During the cut, elements already have animations scheduled on the
-  // shared blade timeline. Higher elements start before photos and CTA.
+  // After the upper part is cut, the hero reveals in place while the
+  // scissors are still running and the loader's sheets are still present.
+  await intro.waitForFunction(()=>
+    !!document.querySelector('#sr-loader-stage') &&
+    document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
   const staged=await intro.evaluate(()=>{
-    const selectors=['.hero-pole__object','.hero .title-mask > span',
+    const selectors=['.hero-pole__object','.hero h1',
       '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
-      return {selector,exists:!!element,animations:element?.getAnimations().length||0};
+      return {selector,exists:!!element,animations:element?.getAnimations().filter(a=>a.id==='sr-hero-reveal').length||0};
     });
   });
-  check(`${width}px: entrada do hero sincronizada durante o corte`,
+  check(`${width}px: revelação começa durante a passagem central da tesoura`,
     staged.every(item=>item.exists&&item.animations>0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
@@ -80,7 +90,13 @@ try{
  }
  await page.goto(base);await settle(page);await page.evaluate(()=>scrollTo(0,0));await page.reload({waitUntil:'domcontentloaded'});check('F5 sempre repete a abertura',await page.locator('#sr-loader-stage').count()===1&&await page.evaluate(()=>document.documentElement.classList.contains('sr-loader-boot')));await settle(page);
  const cdp=await page.context().newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await page.reload();check('Hard refresh preserva conteúdo',await page.locator('.hero-room img').count()===1);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});
- for(const hash of ['#servicos','#equipe']){await page.goto(base+hash);check(`Link direto ${hash}`,await page.locator('#sr-loader-stage').count()===0&&await page.evaluate(()=>scrollY>200))}
+ for(const hash of ['#servicos','#equipe']){
+  await page.goto(base+hash);
+  // Fragment navigation may finish after load, especially after an uncached reload.
+  await page.waitForFunction(()=>scrollY>200&&Math.abs(document.querySelector(location.hash).getBoundingClientRect().top)<160);
+  const anchor=await page.evaluate(()=>({loader:!!document.querySelector('#sr-loader-stage'),scroll:scrollY,top:document.querySelector(location.hash).getBoundingClientRect().top}));
+  check(`Link direto ${hash}`,!anchor.loader&&anchor.scroll>200&&Math.abs(anchor.top)<160,anchor);
+ }
  await page.setViewportSize({width:390,height:844});await page.goto(base);await settle(page);await page.keyboard.press('Tab');check('Teclado: foco visível',await page.evaluate(()=>document.activeElement.classList.contains('skip')));
  await page.locator('.menu summary').click();
  await page.waitForFunction(()=>document.querySelector('.menu').classList.contains('is-active'));
@@ -98,7 +114,7 @@ try{
    fixture:!!document.querySelector('.hero-pole__cap--top'),
    bookingCalendar:!!document.querySelector('.sr-booking-fixed__calendar')
  }));
- check('Barber pole único e agenda fixa',pole.count===1&&pole.fixture&&
+ check('Dois barber poles e agenda fixa',pole.count===2&&pole.fixture&&
    pole.animated.includes('sr-pole-rotation')&&pole.bookingCalendar,pole);
  await jump(page,'#servicos');const choice=page.locator('.mirror-choice').nth(1);await choice.click();await page.waitForTimeout(500);check('Espelho troca serviço',await choice.getAttribute('aria-pressed')==='true');
  await page.locator('[data-filter]').nth(1).click();check('Filtro de catálogo',await page.locator('.service-entry[hidden]').count()>0);await page.locator('[data-filter]').first().click();

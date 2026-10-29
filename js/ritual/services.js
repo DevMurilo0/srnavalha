@@ -1,4 +1,5 @@
 import services from '../data/services.js';import {$,$$,animate,changePhoto,cancelWithin} from './core.js';
+import { revealList } from './list-motion.js';
 export function initServices(){
  const choices=$$('[data-ritual]'),info=$('#mirror-info');let selected=0;
  async function select(button,keyboard){const token=++selected;const service=services.find(s=>s.id===button.dataset.ritual);if(!service)return;
@@ -9,5 +10,5 @@ export function initServices(){
  cancelWithin(info);if(!keyboard)animate(info,[{opacity:.35,transform:'translateX(10px)'},{opacity:1,transform:'none'}],{duration:260});}
  choices.forEach(b=>b.addEventListener('click',e=>select(b,e.detail===0)));
  const rows=$$('.service-entry'),rest=$('.catalog-rest');
- $$('[data-filter]').forEach(b=>b.addEventListener('click',()=>{const category=b.dataset.filter;$$('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));let count=0;rows.forEach(row=>{row.hidden=category!=='Todos'&&row.dataset.category!==category;if(!row.hidden)count++});rest.open=category!=='Todos';$('.filter-status').textContent=`${count} serviços${category==='Todos'?'':' · '+category}`;$('.catalog-preview').hidden=!rows.slice(0,5).some(r=>!r.hidden);rest.hidden=!rows.slice(5).some(r=>!r.hidden)}));
+ $$('[data-filter]').forEach(b=>b.addEventListener('click',event=>{const category=b.dataset.filter;$$('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));let count=0;rows.forEach(row=>{row.hidden=category!=='Todos'&&row.dataset.category!==category;if(!row.hidden)count++});rest.open=category!=='Todos';$('.filter-status').textContent=`${count} serviços${category==='Todos'?'':' · '+category}`;$('.catalog-preview').hidden=!rows.slice(0,5).some(r=>!r.hidden);rest.hidden=!rows.slice(5).some(r=>!r.hidden);revealList(rows,event.detail===0)}));
 }

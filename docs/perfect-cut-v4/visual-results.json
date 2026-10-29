@@ -11,22 +11,22 @@
     "name": "320: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 466.469,
-      "end": 466.46923828125,
-      "delta": 0.00023828125000591172,
+      "tip": 179.357,
+      "end": 179.35707092285156,
+      "delta": 0.00007092285156318212,
       "edges": [
-        0.000047831300001632826,
-        0.000047831300001632826
+        0.000020108900001147845,
+        0.000020108900001147845
       ],
       "panels": [
-        "matrix(1, 0, 0.0834123, 1, -38.9093, 0)",
-        "matrix(1, 0, -0.0834123, 1, 38.9093, 0)"
+        "matrix(1, 0, 0.0834123, 1, -14.9606, 0)",
+        "matrix(1, 0, -0.0834123, 1, 14.9606, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 48,
       "expectedTrackX": 48,
       "overflow": 0,
-      "heroOpacity": "0.976413"
+      "heroOpacity": "1"
     }
   },
   {
@@ -45,22 +45,22 @@
     "name": "390: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 556.021,
-      "end": 556.0211181640625,
-      "delta": 0.00011816406254183676,
+      "tip": 179.313,
+      "end": 179.31304931640625,
+      "delta": 0.00004931640626182343,
       "edges": [
-        0.00013883899999456162,
-        0.00013883899999456162
+        0.00008026699999774678,
+        0.00008026699999774678
       ],
       "panels": [
-        "matrix(1, 0, 0.101659, 1, -56.5244, 0)",
-        "matrix(1, 0, -0.101659, 1, 56.5244, 0)"
+        "matrix(1, 0, 0.101659, 1, -18.2287, 0)",
+        "matrix(1, 0, -0.101659, 1, 18.2287, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 58.5,
       "expectedTrackX": 58.5,
       "overflow": 0,
-      "heroOpacity": "0.998864"
+      "heroOpacity": "1"
     }
   },
   {
@@ -79,22 +79,22 @@
     "name": "430: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 634.424,
-      "end": 634.4237060546875,
-      "delta": 0.00029394531247817213,
+      "tip": 179.401,
+      "end": 179.40110778808594,
+      "delta": 0.00010778808592704081,
       "edges": [
-        0.00018595999999604373,
-        0.00018595999999604373
+        0.00003891499999753023,
+        0.00003891499999753023
       ],
       "panels": [
-        "matrix(1, 0, 0.112085, 1, -71.1096, 0)",
-        "matrix(1, 0, -0.112085, 1, 71.1096, 0)"
+        "matrix(1, 0, 0.112085, 1, -20.1082, 0)",
+        "matrix(1, 0, -0.112085, 1, 20.1082, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 64.5,
       "expectedTrackX": 64.5,
       "overflow": 0,
-      "heroOpacity": "0.99826"
+      "heroOpacity": "1"
     }
   },
   {
@@ -113,22 +113,22 @@
     "name": "768: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 556.748,
-      "end": 556.7476196289062,
-      "delta": 0.0003803710937972937,
+      "tip": 175.921,
+      "end": 175.92088317871094,
+      "delta": 0.0001168212890547693,
       "edges": [
-        0.0003821200000118097,
-        0.0003821200000118097
+        0.00012498999999621674,
+        0.00012498999999621674
       ],
       "panels": [
-        "matrix(1, 0, 0.20019, 1, -111.455, 0)",
-        "matrix(1, 0, -0.20019, 1, 111.455, 0)"
+        "matrix(1, 0, 0.20019, 1, -35.2175, 0)",
+        "matrix(1, 0, -0.20019, 1, 35.2175, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 224,
       "expectedTrackX": 224,
       "overflow": 0,
-      "heroOpacity": "0.989594"
+      "heroOpacity": "1"
     }
   },
   {
@@ -147,22 +147,22 @@
     "name": "1440: lâmina/linha alinhadas e hero aparece durante corte",
     "pass": true,
     "detail": {
-      "tip": 195.54,
-      "end": 195.54039001464844,
-      "delta": 0.0003900146484454581,
+      "tip": 175.849,
+      "end": 175.84906005859375,
+      "delta": 0.00006005859376045919,
       "edges": [
-        0.00018330000000332802,
-        0.00018330000000332802
+        0.00009860500000513639,
+        0.00009860500000513639
       ],
       "panels": [
-        "matrix(1, 0, 0.375355, 1, -73.3971, 0)",
-        "matrix(1, 0, -0.375355, 1, 73.3971, 0)"
+        "matrix(1, 0, 0.375355, 1, -66.0059, 0)",
+        "matrix(1, 0, -0.375355, 1, 66.0059, 0)"
       ],
       "trackOpacity": "0",
       "trackX": 560,
       "expectedTrackX": 560,
       "overflow": 0,
-      "heroOpacity": "0.873986"
+      "heroOpacity": "1"
     }
   },
   {
@@ -233,6 +233,27 @@
   {
     "name": "Falha **/js/ritual/opening.js",
     "pass": true
+  },
+  {
+    "name": "Falha interna do FLIP libera o hero sem travar",
+    "pass": true
+  },
+  {
+    "name": "Clique durante loader não aciona agendamento por trás",
+    "pass": true,
+    "detail": {
+      "initialCTA": {
+        "display": "none",
+        "visibility": "visible",
+        "pointerEvents": "auto"
+      },
+      "coveredResult": {
+        "clickBehind": false,
+        "pathname": "/",
+        "loaderAlive": false,
+        "boot": false
+      }
+    }
   },
   {
     "name": "Reduced motion inicial",

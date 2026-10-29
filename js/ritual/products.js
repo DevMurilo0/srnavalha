@@ -1,3 +1,4 @@
+import { revealList } from './list-motion.js';
 import products from '../data/products.js';import {$,$$,activateButtonLink,changePhoto,animate,cancelWithin,invalidatePhoto} from './core.js';
 export function initProducts(){let latest=0;const stage=$('.product-hero .image-stage'),info=$('.product-info'),options=$$('[data-product]');
  async function select(link,keyboard=false){const token=++latest,p=products.find(p=>p.id===link.dataset.product);let ok=true;
@@ -6,5 +7,5 @@ export function initProducts(){let latest=0;const stage=$('.product-hero .image-
  options.forEach(o=>o.setAttribute('aria-pressed',String(o===link)));$('.product-category',info).textContent=p.category;$('h3',info).textContent=p.name;$('.product-price',info).textContent=p.price;$('a',info).href=`https://wa.me/5581995722396?text=${encodeURIComponent('Olá! Gostaria de consultar a disponibilidade de '+p.name+'.')}`;
  cancelWithin(info);if(!keyboard)animate(info,[{opacity:.4,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:240});}
  options.forEach((o,i)=>{o.setAttribute('aria-pressed',String(i===0));activateButtonLink(o,e=>select(o,e.detail===0))});
- $('#product-category').addEventListener('change',e=>{const category=e.target.value;options.forEach(o=>o.hidden=category!=='Todos'&&o.dataset.category!==category)});
+ $('#product-category').addEventListener('change',e=>{const category=e.target.value;options.forEach(o=>o.hidden=category!=='Todos'&&o.dataset.category!==category);$('#product-count').textContent=`${options.filter(o=>!o.hidden).length} produtos · ${category==='Todos'?'catálogo completo':category}`;revealList(options,true)});
 }

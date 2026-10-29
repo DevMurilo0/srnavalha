@@ -1,108 +1,72 @@
-/* Sr. Navalha / barber pole noir: physical monochrome chrome and cool-white light.
-   Colours stay isolated to the object, never changing the site's warm palette. */
+/* Two quiet shop cylinders. Geometry is separate from the moving paper bands. */
 .hero-pole{
-  position:absolute;top:-7px;right:clamp(19px,4.5%,68px);
-  z-index:4;width:64px;height:157px;pointer-events:none;
-  display:flex;align-items:flex-start;justify-content:center;
-  perspective:720px;isolation:isolate;
-  --pole-black:#000;--pole-white:#fff;
+  position:absolute;top:5px;width:32px;height:105px;z-index:4;
+  pointer-events:none;--pole-black:#000;--pole-white:#fff;
 }
-.hero-pole__object{
-  width:52px;height:150px;position:relative;z-index:1;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;
-  transform-origin:50% 8%;transform:rotate(-5deg);
-  /* Realistic contact shading, without a large floating shadow. */
-  filter:drop-shadow(1px 3px 2px #0002);
-}
-.hero-pole__finial{
-  display:block;position:relative;flex:none;z-index:2;
-  width:22px;height:9px;border-radius:48% 48% 20% 20%;
-  background:linear-gradient(90deg,#050505 0%,#555 25%,#fafafa 49%,#666 73%,#050505 100%);
-  box-shadow:inset 0 1px #fffd;
-}
-.hero-pole__finial--top::before{
-  content:"";position:absolute;top:-5px;left:8px;width:6px;height:6px;
-  border-radius:50%;background:#fafafa;box-shadow:inset 1px 1px #fff;
-}
-.hero-pole__finial--bottom{
-  transform:rotate(180deg);
-}
-.hero-pole__cap{
-  position:relative;display:block;flex:none;z-index:2;
-  width:48px;height:20px;
-  background:linear-gradient(90deg,#000 0%,#171717 12%,#777 33%,
-      #fff 49%,#888 65%,#101010 87%,#000 100%);
-  border:1px solid #111;
-  box-shadow:inset 0 1px #fff8,inset 0 -1px 2px #0008;
-}
-.hero-pole__cap--top{border-radius:48% 48% 13% 13% / 35% 35% 12% 12%}
-.hero-pole__cap--bottom{border-radius:12% 12% 45% 45% / 12% 12% 38% 38%;transform:rotate(180deg)}
-.hero-pole__glass{
-  position:relative;display:block;width:43px;height:92px;
-  z-index:1;flex:none;overflow:hidden;isolation:isolate;
-  background:#000;border-left:1px solid #111;border-right:1px solid #111;
-  box-shadow:inset 2px 0 3px #0009,inset -2px 0 3px #0009,
-    0 0 5px #ffffff66;
-  border-radius:4px / 3px;
-}
+.hero-pole--left{left:4.5%}
+.hero-pole--right{right:4.5%}
+.hero-pole__object{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transform-origin:50% 0}
+.hero-pole__cap{display:block;width:32px;height:9px;flex:none;background:#000;border-radius:5px 5px 2px 2px}
+.hero-pole__cap--bottom{border-radius:2px 2px 5px 5px}
+.hero-pole__glass{position:relative;display:block;overflow:hidden;width:27px;flex:1;background:#fff;border-inline:1px solid #000;border-radius:2px;isolation:isolate}
+.hero-pole__glass::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0002,transparent 30%,#fff2 60%,#0002);pointer-events:none}
 .hero-pole__rotor{
-  position:absolute;left:0;right:0;top:-63px;bottom:-63px;display:block;
-  background:repeating-linear-gradient(155deg,
-    #000 0 12px,
-    #fff 12px 24px,
-    #000 24px 36px,
-    #fff 36px 48px);
-  /* The vertical pitch of a 48px repeat at 155deg is 52.962px.
-     Move exactly one pitch per revolution to prevent a visible loop snap. */
-  transform:translate3d(0,-26.481px,0);
-  animation:sr-pole-rotation 2.85s linear infinite;
-  will-change:transform;
+  position:absolute;inset:-48px 0;
+  /* At 45deg the vertical period is exactly 32px: 2 * 11.313708 / cos(45deg).
+     A matching vertical translation makes the seam identical every cycle. */
+  background:repeating-linear-gradient(135deg,#000 0 11.313708px,#fff 11.313708px 22.627417px);
+  animation:sr-pole-rotation 2400ms linear infinite;
+  animation-play-state:paused;
 }
-@keyframes sr-pole-rotation{
-  from{transform:translate3d(0,-26.481px,0)}
-  to{transform:translate3d(0,26.481px,0)}
+@keyframes sr-pole-rotation{from{transform:translateY(-16px)}to{transform:translateY(16px)}}
+.hero-pole--left .hero-pole__rotor{animation-direction:reverse;animation-delay:-1200ms}
+html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{animation-play-state:running}
+/* Before the first frame of the loader, park every animated hero element.
+   When Perfect Cut is removed, the compositor still sees them at opacity 0.
+   Each WAAPI drop overrides this ordinary author opacity; its 'both' fill
+   holds the settled frame until the whole sequence completes.
+   The official logo is deliberately NOT hidden: it belongs to the FLIP.
+   The small side label can fall independently without moving the logo. */
+html.sr-hero-queued .hero .hero-pole__object,
+html.sr-hero-queued .hero .hero-wordmark > span,
+html.sr-hero-queued .hero h1,
+html.sr-hero-queued .hero .hero-intro,
+html.sr-hero-queued .hero .hero-facade,
+html.sr-hero-queued .hero .hero-room,
+html.sr-hero-queued .hero .hero-detail,
+html.sr-hero-queued .hero .hero-invitation > p,
+html.sr-hero-queued .hero .hero-invitation > .button,
+html.sr-hero-queued .hero .hero-invitation > .text-link,
+html.sr-hero-queued .hero .hero-bottom{
+ opacity:0;
 }
-.hero-pole__glass::after{
-  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(90deg,
-    #000c 0%,#0005 11%,
-    #fff2 30%,#ffffff74 42%,
-    #ffffff00 53%,#ffffff76 63%,
-    #0004 88%,#000c 100%);
-  box-shadow:inset 2px 0 2px #fff4,inset -2px 0 2px #0009;
-}
-.hero-pole__reflection{
-  position:absolute;top:3px;bottom:3px;left:8px;width:4px;z-index:3;
-  background:linear-gradient(90deg,#fff0,#fffffff7,#fff0);
-  border-radius:50%;pointer-events:none;opacity:.5;
-}
-/* Only an entrance settle for the actual object. Its rotating centre remains
-   on a separate DOM layer, so opening animation cannot reset the spinning. */
-html.sr-loader-boot .hero-pole__object{opacity:0}
-html.motion-paused .hero-pole__rotor{animation-play-state:paused}
-@media(min-width:701px) and (max-width:1100px){
-  .hero-pole{right:clamp(12px,3vw,35px);top:0;transform:scale(.86);transform-origin:top center}
-}
-@media(max-width:700px){
-  .hero-pole{top:0;right:1%;width:54px;height:122px;
-    transform:scale(.76);transform-origin:top right}
-}
-@media(max-width:400px){
-  .hero-pole{top:-1px;right:0;transform:scale(.68);transform-origin:top right}
-}
+/* During the panels' opening the higher-specificity loader rules otherwise
+   reveal h1 early. Keep it parked until its individual fall actually starts. */
+html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
+/* Visitors who request reduced motion must never see queued content. */
 @media(prefers-reduced-motion:reduce){
-  .hero-pole__rotor{animation:none!important;transform:translate3d(0,0,0)!important;will-change:auto}
-  html.sr-loader-boot .hero-pole__object{opacity:1}
+ html.sr-hero-queued .hero .hero-pole__object,
+ html.sr-hero-queued .hero .hero-wordmark > span,
+ html.sr-hero-queued .hero h1,
+ html.sr-hero-queued .hero .hero-intro,
+ html.sr-hero-queued .hero .hero-facade,
+ html.sr-hero-queued .hero .hero-room,
+ html.sr-hero-queued .hero .hero-detail,
+ html.sr-hero-queued .hero .hero-invitation > p,
+ html.sr-hero-queued .hero .hero-invitation > .button,
+ html.sr-hero-queued .hero .hero-invitation > .text-link,
+ html.sr-hero-queued .hero .hero-bottom{
+  opacity:1;
+ }
 }
 
-/* A small, static cool-white edge light. No animated halo or large glow. */
-.hero-pole::before{
-  content:"";position:absolute;z-index:0;pointer-events:none;
-  top:25px;left:50%;width:52px;height:110px;
-  transform:translate3d(-50%,0,0);
-  background:radial-gradient(ellipse,#fff5,transparent 70%);
-  opacity:.28;
+/* Hold the static layout beneath the cut; never start a second entrance there. */
+.hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
+.hero.is-arriving .title-mask{overflow:visible}
+@media(max-width:1100px){.hero-pole{width:27px;height:94px}.hero-pole__cap{width:27px}.hero-pole__glass{width:23px}}
+@media(max-width:700px){
+ .hero-pole{top:5px;width:22px;height:76px}
+ .hero-pole--left{left:0}.hero-pole--right{right:0}
+ .hero-pole__cap{width:22px;height:7px}.hero-pole__glass{width:18px}
 }
-@media(prefers-reduced-motion:reduce){
-  .hero-pole::before{opacity:.18}
-}
+@media(prefers-reduced-motion:reduce){.hero-pole__rotor{animation:none!important}}

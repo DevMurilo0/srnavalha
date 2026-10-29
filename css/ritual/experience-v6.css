@@ -1,0 +1,36 @@
+/* Finishing details share the site's printed menus, framed photographs and
+   brass rules. No extra ambient loop competes with the hero's two cylinders. */
+.service-entry{position:relative;isolation:isolate}
+.service-entry::before{
+ content:"";position:absolute;inset:0;z-index:-1;background:var(--stone);
+ transform:scaleX(0);transform-origin:0 50%;transition:transform 240ms cubic-bezier(.22,1,.36,1);
+}
+.service-entry:focus-within::before{transform:scaleX(1)}
+.service-entry .service-price,.product-price{font-variant-numeric:tabular-nums}
+.catalog-tally,.filter-status{font:500 12px/1.5 var(--body);color:var(--muted);letter-spacing:.02em}
+.catalog-tally{padding:10px 0 14px;border-bottom:1px solid var(--copper);margin:0 0 12px}
+.service-entry .icon,.map-frame>.text-link .icon{transition:transform 180ms cubic-bezier(.22,1,.36,1)}
+.hero .button,.filter-row button,.album-prev,.album-next,.album-enlarge{transition:background 180ms ease,color 180ms ease,transform 140ms ease-out}
+.hero .button:active,.filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active{transform:scale(.985)}
+/* Existing paper photographs retain their authored angles; only the caption
+   ink responds. The album's FLIP transform stays owned by album.js. */
+.work-print figcaption>span:first-child{display:inline-block;transition:transform 220ms cubic-bezier(.22,1,.36,1)}
+.work-print:focus-within figcaption>span:first-child{transform:translateX(3px)}
+.footer-link-col a,.visit-phone{text-underline-offset:.25em;text-decoration-thickness:1px}
+@media(hover:hover) and (pointer:fine){
+ .service-entry:hover::before{transform:scaleX(1)}
+ .service-entry:hover .icon{transform:translate(2px,-2px)}
+ .work-print:hover figcaption>span:first-child{transform:translateX(3px)}
+ .footer-link-col a:hover,.visit-phone:hover{text-decoration:underline;text-decoration-color:var(--copper)}
+}
+@media(prefers-reduced-motion:reduce){
+ .service-entry::before,.service-entry .icon,.work-print figcaption>span:first-child,
+ .hero .button,.filter-row button,.album-prev,.album-next,.album-enlarge{transition:none}
+ .hero .button:active,.filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active,
+ .work-print:hover figcaption>span:first-child,.work-print:focus-within figcaption>span:first-child,
+ .service-entry:hover .icon{transform:none}
+}
+.visit-address-copy{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 0;margin:2px 0 12px;border:0;border-bottom:1px solid var(--copper);background:none;color:var(--wood);font:600 12px/1.4 var(--body);cursor:pointer}
+.visit-address-copy[hidden]{display:none}
+.visit-copy-status{display:block;min-height:1.5em;max-width:32ch;font:500 12px/1.5 var(--body);color:var(--muted)}
+.visit-copy-status:empty{visibility:hidden}
