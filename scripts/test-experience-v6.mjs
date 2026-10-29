@@ -74,6 +74,14 @@ try{
   await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-reveal')),midpoint);
  await ready(m);
  await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
+ // The loader's layout rules are gone now. Capture the actual final-page
+ // geometry instead of comparing it with a midpoint under different styles.
+ await m.evaluate(()=>{
+   window.heroAudit.rest=[...document.querySelectorAll(
+     '.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button'
+   )].map(e=>({selector:e.className,rect:e.getBoundingClientRect().toJSON(),
+     transform:getComputedStyle(e).transform}));
+ });
  check('Revelação começa com loader removido e conteúdo ainda oculto',
   await m.evaluate(()=>!document.querySelector('#sr-loader-stage')&&
     document.documentElement.classList.contains('sr-hero-queued')));
