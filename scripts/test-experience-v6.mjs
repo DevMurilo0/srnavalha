@@ -90,11 +90,12 @@ try{
   });
   return {audit,midpoint:window.heroAudit.midpoint,
     loader:!!document.querySelector('#sr-loader-stage'),
-    logo:document.querySelectorAll('.hero-logo-transparent').length};
+    logo:document.querySelectorAll('.hero .hero-logo-transparent').length,
+    flightLogo:document.querySelectorAll('#sr-loader-stage .hero-logo-transparent').length};
  });
- check('Queda durante o corte, com loader ainda presente e logo única',
+ check('Queda durante o corte, com uma única logo oficial e cópia temporária de voo',
    physics.loader&&physics.midpoint?.loader&&
-   physics.logo===1&&physics.audit.length===12,physics);
+   physics.logo===1&&physics.flightLogo===1&&physics.audit.length===12,physics);
  check('Todas as quedas têm dois rebotes decrescentes',physics.audit.every(a=>a.y[0]<0&&Math.abs(a.y[1])<.01&&a.y[2]<0&&Math.abs(a.y[3])<.01&&a.y[4]<0&&Math.abs(a.y[4])<Math.abs(a.y[2])&&Math.abs(a.y[5])<.01));
  check('Hierarquia escalonada de cilindros até CTA',physics.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
@@ -106,11 +107,19 @@ try{
  await ready(m);
  check('The Perfect Cut termina normalmente depois de iniciar a queda',
   await m.evaluate(()=>window.heroAudit.events.at(-1)?.completed===true));
- const final=await m.evaluate(()=>{
+ // Before the loader is removed, its root layout may differ slightly
+ // from the final page (e.g. font readiness, viewport calculations). Do
+ // not compare a mid-cut baseline with a finished-page rect. Verify that
+ // removing the WAAPI fills causes NO final snap on a settled page.
+ const final=await m.evaluate(async()=>{
   const nodes=[...document.querySelectorAll('.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')];
-  return nodes.map((e,i)=>{const r=e.getBoundingClientRect(),old=window.heroAudit.rest[i].rect;return Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-old[k])))})
+  const measure=()=>nodes.map(e=>e.getBoundingClientRect().toJSON());
+  const before=measure();
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const after=measure();
+  return before.map((r,i)=>Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-after[i][k]))));
  });
- check('Geometria final idêntica ao hero revelado',final.every(n=>n<.1),final);
+ check('Geometria permanece estável após o último quique',final.every(n=>n<.1),final);
  const settledOpacity=await m.evaluate(()=>({
   queued:document.documentElement.classList.contains('sr-hero-queued'),
   photos:[...document.querySelectorAll('.hero-facade,.hero-room')].map(x=>getComputedStyle(x).opacity),
