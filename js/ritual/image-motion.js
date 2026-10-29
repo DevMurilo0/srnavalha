@@ -12,7 +12,16 @@ export function revealImage(node, mode='shutter', {delay=0}={}){
   const mask=mode==='aperture'?'inset(42% 15% 42% 15%)':mode==='lateral'?'inset(0 100% 0 0)':mode==='diagonal'?'polygon(0 0,0 0,0 100%,0 100%)':'inset(0 0 100% 0)';
   const final=mode==='diagonal'?'polygon(0 0,100% 0,100% 100%,0 100%)':'inset(0 0 0 0)';
   try{
-    const effect=animate(node,[{clipPath:mask,opacity:.6},{clipPath:final,opacity:1}],{duration:mode==='aperture'?1100:950,delay,easing:'cubic-bezier(.76,0,.24,1)',fill:'both',persist:true});
+    // Low-end devices keep the photographic rhythm with compositor-only
+    // opacity/transform; rasterizing a moving clip-path over large WebP images
+    // was noticeably costly during continuous scroll.
+    const lite=lowPower&&!node.closest('.hero');
+    const frames=lite
+      ?[{opacity:0,transform:'translate3d(0,17px,0) scale(.985)'},
+        {opacity:1,transform:'translate3d(0,0,0) scale(1)'}]
+      :[{clipPath:mask,opacity:.6},{clipPath:final,opacity:1}];
+    const effect=animate(node,frames,{duration:lite?650:mode==='aperture'?1100:950,
+      delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'both',persist:true});
     if(effect){effect.id=`sr-photo-${mode}`;effects.push(effect);}
     // Existing review scene loops and interactive swaps retain their transforms.
     const image=node.matches('img')?null:node.querySelector('img:not(.review-scene)');
