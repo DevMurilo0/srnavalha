@@ -61,6 +61,10 @@ body{background:var(--ivory)}
   background:radial-gradient(ellipse at 80% 20%,#41464d33,transparent 70%),
   linear-gradient(150deg,#111214,#212327 65%,#121315)!important;
 }
+/* Existing image-backed atmosphere stays behind the content, but its warm
+   overlays are neutralized while the real foreground photography stays vivid. */
+.house::after,.team::after,.portfolio::after,.products::after,
+.reviews::after,.visit::after{filter:grayscale(1)!important}
 .sr-surface{filter:grayscale(1);opacity:.45}
 .house .sr-surface,.team .sr-surface,.reviews .sr-surface,.footer .sr-surface{opacity:.26}
 .house .sr-surface::after,.team .sr-surface::after,.reviews .sr-surface::after,.footer .sr-surface::after{box-shadow:none}
