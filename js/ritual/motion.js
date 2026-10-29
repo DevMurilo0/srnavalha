@@ -10,7 +10,7 @@ export function initMotion(){
  const grouped='.service-entry,.product-option';
  const copy='h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary,.footer-small-note,'+grouped;
  const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
- const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.sr-surface,.engraving,.sr-member-preview';
+ const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.cm-kinetic-ghost,.sr-surface,.engraving,.sr-member-preview';
  const registered=new WeakSet(),pending=new Set(),running=new Map();
  // Track a scene owner once. Scanning 300 bounding boxes on EVERY scroll
  // frame is the largest layout-read hotspot on slower notebooks.
