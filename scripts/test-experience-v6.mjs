@@ -61,51 +61,72 @@ try{
   armed.queued&&armed.h1==='0'&&armed.facade==='0'&&
   armed.room==='0'&&armed.cta==='0'&&armed.logo==='visible',armed);
  await m.waitForSelector('.snv2-cut-ready');
- check('Antes do meio da tesoura ainda não há queda',await m.evaluate(()=>
-  !document.getAnimations().some(a=>a.id==='sr-hero-drop')));
+ check('Antes do meio da tesoura ainda não há revelação',await m.evaluate(()=>
+  !document.getAnimations().some(a=>a.id==='sr-hero-reveal')));
  await m.waitForFunction(()=>window.heroAudit.midpoint&&
-  document.getAnimations().some(a=>a.id==='sr-hero-drop'));
+  document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
  const midpoint=await m.evaluate(()=>window.heroAudit.midpoint);
- check('Tesoura no meio inicia queda enquanto loader ainda corta',
+ check('Tesoura no meio inicia revelação enquanto loader ainda corta',
   midpoint.loader&&midpoint.progress===.5&&
   Math.abs(midpoint.tip-midpoint.height/2)<midpoint.height*.12,midpoint);
  // The first delayed frames must not paint the original resting photographs.
  const firstFrame=await m.evaluate(()=>{
   const photo=document.querySelector('.hero-room');
-  const anim=photo.getAnimations().find(a=>a.id==='sr-hero-drop');
+  const anim=photo.getAnimations().find(a=>a.id==='sr-hero-reveal');
   if(!anim)return {hasAnimation:false};
   anim.pause();anim.currentTime=0;
   return {hasAnimation:true,queued:document.documentElement.classList.contains('sr-hero-queued'),
     opacity:getComputedStyle(photo).opacity,fill:anim.effect.getTiming().fill};
  });
- check('Antes de cair, foto não aparece parada',
+ check('Antes da revelação, foto não aparece antecipadamente',
   firstFrame.hasAnimation&&firstFrame.queued&&firstFrame.opacity==='0'&&
   firstFrame.fill==='both',firstFrame);
- const physics=await m.evaluate(()=>{
-  const drops=document.getAnimations().filter(a=>a.id==='sr-hero-drop');
-  const audit=drops.map(a=>{
+ const reveal=await m.evaluate(()=>{
+  const effects=document.getAnimations().filter(a=>a.id==='sr-hero-reveal');
+  const audit=effects.map(a=>{
    a.pause();a.currentTime=a.effect.getTiming().delay;
-   const f=a.effect.getKeyframes(),base=new DOMMatrix(f.at(-1).transform==='none'?undefined:f.at(-1).transform).m42;
-   return {target:a.effect.target.className,delay:a.effect.getTiming().delay,duration:a.effect.getTiming().duration,y:f.map(k=>new DOMMatrix(k.transform==='none'?undefined:k.transform).m42-base)};
+   const frames=a.effect.getKeyframes();
+   return {target:a.effect.target.className,delay:a.effect.getTiming().delay,
+     duration:a.effect.getTiming().duration,
+     transforms:frames.filter(frame=>'transform' in frame).length,
+     photo:frames.some(frame=>'clipPath' in frame),
+     firstOpacity:frames[0].opacity,lastOpacity:frames.at(-1).opacity,
+     firstClip:frames[0].clipPath,lastClip:frames.at(-1).clipPath};
   });
   return {audit,midpoint:window.heroAudit.midpoint,
     loader:!!document.querySelector('#sr-loader-stage'),
     logo:document.querySelectorAll('.hero .hero-logo-transparent').length,
     flightLogo:document.querySelectorAll('#sr-loader-stage .hero-logo-transparent').length};
  });
- check('Queda durante o corte, com uma única logo oficial e cópia temporária de voo',
-   physics.loader&&physics.midpoint?.loader&&
-   physics.logo===1&&physics.flightLogo===1&&physics.audit.length===12,physics);
- check('Todas as quedas têm dois rebotes decrescentes',physics.audit.every(a=>a.y[0]<0&&Math.abs(a.y[1])<.01&&a.y[2]<0&&Math.abs(a.y[3])<.01&&a.y[4]<0&&Math.abs(a.y[4])<Math.abs(a.y[2])&&Math.abs(a.y[5])<.01));
- check('Hierarquia escalonada de cilindros até CTA',physics.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
+ check('Revelação durante o corte, sem duplicar a logo oficial',
+   reveal.loader&&reveal.midpoint?.loader&&
+   reveal.logo===1&&reveal.flightLogo===1&&reveal.audit.length===12,reveal);
+ check('Nenhum elemento muda de posição, escala ou rotação na revelação',
+   reveal.audit.every(a=>a.transforms===0&&a.firstOpacity===0&&a.lastOpacity===1));
+ check('Fotografias surgem de cima para baixo em suas posições originais',
+   reveal.audit.filter(a=>a.photo).length===3&&
+   reveal.audit.filter(a=>a.photo).every(a=>
+     a.firstClip==='inset(0 0 100% 0)'&&a.lastClip==='inset(0 0 0% 0)'));
+ check('Hierarquia escalonada do topo até CTA',reveal.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
- await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-drop').forEach(a=>{a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.64}));
- await m.screenshot({path:`${dir}/drop-rebound.png`});
+ await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>{a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.64}));
+ await m.screenshot({path:`${dir}/reveal-midpoint.png`});
+ // Clip-path + opacity reveal must not change bounding boxes at ANY frame.
+ const inProgressGeometry=await m.evaluate(()=>{
+  const nodes=[...document.querySelectorAll('.hero-facade,.hero-room,.hero-detail')];
+  const rest=window.heroAudit.rest.slice(2,5);
+  return nodes.map((node,i)=>{
+   const box=node.getBoundingClientRect();const old=rest[i]?.rect;
+   return old?Math.max(...['x','y','width','height'].map(k=>Math.abs(box[k]-old[k]))):Infinity;
+  });
+ });
+ check('Fotografias nunca saem do lugar durante a revelação',
+  inProgressGeometry.every(delta=>delta<.2),inProgressGeometry);
  const rotorBefore=await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime);
- await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-drop').forEach(a=>a.finish()));
+ await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>a.finish()));
  await m.waitForFunction(()=>!document.querySelector('.hero.is-arriving'));
  await ready(m);
- check('The Perfect Cut termina normalmente depois de iniciar a queda',
+ check('The Perfect Cut termina normalmente depois de iniciar a revelação',
   await m.evaluate(()=>window.heroAudit.events.at(-1)?.completed===true));
  // Before the loader is removed, its root layout may differ slightly
  // from the final page (e.g. font readiness, viewport calculations). Do
@@ -119,34 +140,34 @@ try{
   const after=measure();
   return before.map((r,i)=>Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-after[i][k]))));
  });
- check('Geometria permanece estável após o último quique',final.every(n=>n<.1),final);
+ check('Geometria permanece estável após a revelação',final.every(n=>n<.1),final);
  const settledOpacity=await m.evaluate(()=>({
   queued:document.documentElement.classList.contains('sr-hero-queued'),
   photos:[...document.querySelectorAll('.hero-facade,.hero-room')].map(x=>getComputedStyle(x).opacity),
   heading:getComputedStyle(document.querySelector('.hero h1')).opacity,
   cta:getComputedStyle(document.querySelector('.hero-invitation > .button')).opacity,
-  remainingDrops:document.getAnimations().filter(a=>a.id==='sr-hero-drop').length
+  remainingDrops:document.getAnimations().filter(a=>a.id==='sr-hero-reveal').length
  }));
- check('Depois do último quique, itens visíveis e sem fills presos',
+ check('Depois da revelação, itens visíveis e sem fills presos',
   !settledOpacity.queued&&settledOpacity.photos.every(x=>x==='1')&&
   settledOpacity.heading==='1'&&settledOpacity.cta==='1'&&
   settledOpacity.remainingDrops===0,settledOpacity);
  // WAAPI currentTime advances only on a rendering tick: a synchronous check
  // immediately after finish() can read the exact same compositor frame.
  await m.waitForTimeout(95);
- check('Rotação interna não reinicia ao pousar',await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime)>rotorBefore);
+ check('Rotação interna não reinicia após a revelação',await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime)>rotorBefore);
  await m.locator('#casa').evaluate(e=>e.scrollIntoView({behavior:'instant'}));await m.waitForTimeout(120);
  check('Rotores pausam fora da viewport',await m.locator('.hero-pole__rotor').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationPlayState==='paused')));
  await m.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await m.waitForTimeout(100);
  check('Rotores retomam na viewport',await m.locator('.hero-pole__rotor').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationPlayState==='running')));
  const hidden=await m.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));const paused=[...document.querySelectorAll('.hero-pole__rotor')].every(e=>getComputedStyle(e).animationPlayState==='paused');delete document.hidden;document.dispatchEvent(new Event('visibilitychange'));return paused});
  check('Visibilidade simulada pausa os rotores',hidden);
- await m.reload({waitUntil:'domcontentloaded'});await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-drop'));
+ await m.reload({waitUntil:'domcontentloaded'});await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
  await m.emulateMedia({reducedMotion:'reduce'});
  check('Preferência dinâmica termina quedas e rotores',await m.locator('.hero').evaluate(e=>e.getAnimations({subtree:true}).length===0));
  await m.emulateMedia({reducedMotion:'no-preference'});
  await m.setViewportSize({width:390,height:844});await m.reload({waitUntil:'domcontentloaded'});await m.waitForSelector('.snv2-run');await m.keyboard.press('Escape');await ready(m);
- check('Interrupção do loader não dispara queda',await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-drop')));
+ check('Interrupção do loader não dispara queda',await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-reveal')));
  const menu=m.locator('.menu summary');await menu.click();check('Menu abre',await menu.getAttribute('aria-expanded')==='true');await m.keyboard.press('Escape');await m.waitForTimeout(330);check('Menu fecha e devolve foco',await menu.evaluate(e=>document.activeElement===e&&!e.parentElement.open));
  for(const [id,name] of [['casa','house'],['servicos','services'],['equipe','team'],['trabalhos','gallery'],['produtos','products'],['localizacao','location'],['contato','footer']]){
   await m.locator('#'+id).evaluate(e=>e.scrollIntoView({behavior:'instant'}));await m.waitForTimeout(850);check(`${name}: seção sem overflow`,await m.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await m.screenshot({path:`${dir}/${name}-390.png`});
