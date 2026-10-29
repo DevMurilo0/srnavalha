@@ -1,8 +1,8 @@
-/* Sr. Navalha — editorial entrance during The Perfect Cut.
- * The photographs are uncovered in their resting positions (opacity + clip-path).
- * Text and controls receive a small, independent translate + opacity entrance.
- * Never animate transform on figures, their layout, or the official FLIP logo.
- * The final position and paper angles remain exactly as authored.
+/* Sr. Navalha — cinematic hero entrance after The Perfect Cut.
+ * All entrance targets are hidden BEFORE the first paint by hero-sign.css.
+ * Wait for the sheets to leave the viewport: otherwise the animation runs
+ * behind them and looks like nothing happened. Keep the real logo owned by
+ * the loader handoff, and never change figure geometry or authored angles.
  */
 import { $, $$, animate, canMove } from './core.js';
 
@@ -24,7 +24,8 @@ export function initHeroExperience() {
     if (controller.signal.aborted) return;
     cancelAnimationFrame(frame);
     frame = 0;
-    // Author CSS opacity and WAAPI fill swap in the same rendering turn.
+    // Remove the CSS parking and filled animation in the same rendering turn.
+    // Nothing snaps back or becomes visible at its initial state.
     root.classList.remove('sr-hero-queued');
     hero.classList.remove('is-arriving');
     for (const effect of effects) {
@@ -37,7 +38,10 @@ export function initHeroExperience() {
 
   const beginReveal = () => {
     if (started || controller.signal.aborted) return;
-    if (!canMove() || scrollY > 20) return settle();
+    if (!canMove() || scrollY > 20 || !root.classList.contains('sr-hero-queued')) {
+      settle();
+      return;
+    }
     started = true;
     hero.classList.add('is-arriving');
 
@@ -46,57 +50,69 @@ export function initHeroExperience() {
       if (!canMove() || scrollY > 20) return settle();
       const mobile = matchMedia('(max-width:700px)').matches;
 
-      // As the scissors descend, their panels uncover the scene from the top.
-      // The previous short fades finished BEHIND those panels and seemed absent.
-      // Stagger the editorial entrance into the uncovered area; it intentionally
-      // continues after the panels open, but never starts as a second animation.
+      // Deliberately visible stagger: bold typography, an unmistakable photo
+      // uncover, then copy/CTA. The official logo does not move twice.
+      // Node coordinates and figure rotations never change.
       const tracks = [
-        ['.hero-pole__object',                35, 640, 'fade'],
-        ['.hero-wordmark > span',             80, 670, 'fade'],
-        ['h1',                              135, 770, 'fade'],
-        ['.hero-intro',                      225, 720, 'fade'],
-        ['.hero-facade',                     380, 860, 'photo'],
-        ['.hero-room',                       440, 920, 'photo'],
-        ['.hero-detail',                     535, 840, 'photo'],
-        ['.hero-invitation > p',             565, 730, 'fade'],
-        ['.hero-invitation > .button',       680, 750, 'fade'],
-        ['.hero-invitation > .text-link',    765, 690, 'fade'],
-        ['.hero-bottom',                     825, 680, 'fade']
+        ['.hero-pole__object',                 0, 830, 'pole'],
+        ['.hero-wordmark > span',            100, 700, 'rise'],
+        ['h1',                              115, 960, 'headline'],
+        ['.hero-intro',                     275, 820, 'rise'],
+        ['.hero-facade',                    355,1080, 'photo'],
+        ['.hero-room',                      460,1130, 'photo'],
+        ['.hero-detail',                    570,1050, 'photo'],
+        ['.hero-invitation > p',            640, 850, 'rise'],
+        ['.hero-invitation > .button',      770, 870, 'cta'],
+        ['.hero-invitation > .text-link',   865, 750, 'rise'],
+        ['.hero-bottom',                    950, 750, 'rise']
       ];
-
-      // Keep the existing geometry intact: no reads or writes to transform.
       const targets = tracks.flatMap(([selector,delay,duration,type]) =>
         $$(selector,hero)
           .filter(node => node.getClientRects().length > 0)
           .map(node => ({node,delay,duration,type})));
+
       const epoch = document.timeline.currentTime;
+      const play = (node,frames,delay,duration,id) => {
+        const effect = animate(node,frames,{
+          delay:Math.round(delay*(mobile?.85:1)),
+          duration:Math.round(duration*(mobile?.88:1)),
+          easing:'cubic-bezier(.2,.75,.2,1)',
+          fill:'both',persist:true
+        });
+        if (!effect) return;
+        effect.id=id;
+        if (epoch != null) effect.startTime=epoch;
+        effects.add(effect);
+        active.add(effect);
+        effect.finished.catch(()=>{}).finally(()=>{
+          active.delete(effect);
+          if (!active.size) settle();
+        });
+      };
+
       try {
         for (const {node,delay,duration,type} of targets) {
           const frames = type === 'photo'
             ? [
                 {offset:0, opacity:0, clipPath:'inset(0 0 100% 0)'},
+                {offset:.62, opacity:1, clipPath:'inset(0 0 24% 0)'},
                 {offset:1, opacity:1, clipPath:'inset(0 0 0% 0)'}
               ]
             : [
-                {offset:0, opacity:0, translate:'0 14px'},
-                {offset:1, opacity:1, translate:'0 0px'}
+                {offset:0, opacity:0, translate:type==='pole'?'0 -64px':type==='headline'?'0 72px':'0 48px',
+                  ...(type==='cta'?{scale:.90}:{})},
+                {offset:1, opacity:1, translate:'0 0px',
+                  ...(type==='cta'?{scale:1}:{})}
               ];
-          const effect = animate(node,frames,{
-            delay:Math.round(delay*(mobile?.90:1)),
-            duration:Math.round(duration*(mobile?.92:1)),
-            easing:'cubic-bezier(.22,1,.36,1)',
-            fill:'both',
-            persist:true
-          });
-          if (!effect) continue;
-          effect.id='sr-hero-reveal';
-          if (epoch != null) effect.startTime=epoch;
-          effects.add(effect);
-          active.add(effect);
-          effect.finished.catch(()=>{}).finally(()=>{
-            active.delete(effect);
-            if (!active.size) settle();
-          });
+          play(node,frames,delay,duration,'sr-hero-reveal');
+          if (type === 'photo') {
+            // The frame never leaves its paper position; only the photograph
+            // inside slowly resolves from a close crop into the final crop.
+            const image = $('.photo-window img',node);
+            if (image) play(image,[
+              {scale:1.14},{scale:1}
+            ],delay,duration+180,'sr-hero-photo-depth');
+          }
         }
         if (!active.size) settle();
       } catch (error) {
@@ -106,33 +122,39 @@ export function initHeroExperience() {
     });
   };
 
-  // Reuse the existing reliable milestone of the scissors in the centre.
-  // A missed midpoint does not leave the hero invisible: completion recovers.
-  document.addEventListener('openingcutmidpoint',beginReveal,
-    {once:true,signal:controller.signal});
+  // Keep tracking the scissors' midpoint for the ritual's shared timeline,
+  // but do not play while opaque panels still conceal the hero.
+  let cutReached=false;
+  document.addEventListener('openingcutmidpoint',()=>{
+    cutReached=true;
+  },{once:true,signal:controller.signal});
   document.addEventListener('openingend',event=>{
-    // Interrupted loader must release every node immediately. A missed
-    // midpoint on normal completion is static, never a late second entrance.
-    if (!event.detail?.completed || !started) settle();
+    if (!event.detail?.completed) return settle();
+    // Normal completion is sufficient even if the midpoint timer was missed.
+    // Starting in the same task that removes the stage avoids a visible flash.
+    if (!cutReached) console.info('Sr. Navalha: corte concluído sem marcador intermediário');
+    beginReveal();
   },{once:true,signal:controller.signal});
 
   for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
     addEventListener(type,settle,{passive:true,signal:controller.signal});
-  const initialWidth = innerWidth;
+  const initialWidth=innerWidth;
   addEventListener('resize',()=>{
-    // The mobile address bar changes viewport HEIGHT, not its composition.
     if (Math.abs(innerWidth-initialWidth)>2 && (active.size||frame)) settle();
   },{passive:true,signal:controller.signal});
   hero.addEventListener('focusin',settle,{signal:controller.signal});
   document.addEventListener('motionchange',()=>{if(!canMove())settle()},
     {signal:controller.signal});
 
-  // The decorative rotors still spin in their own layers, independently.
+  // Decorative poles spin only while visible; entrance does not restart them.
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      hero.classList.toggle('is-poles-visible',
-        entries.some(entry=>entry.isIntersecting));
-    });
-    observer.observe($('.hero-pole',hero));
+    const pole=$('.hero-pole',hero);
+    if (pole) {
+      const observer=new IntersectionObserver(entries=>{
+        hero.classList.toggle('is-poles-visible',
+          entries.some(entry=>entry.isIntersecting));
+      });
+      observer.observe(pole);
+    }
   }
 }
