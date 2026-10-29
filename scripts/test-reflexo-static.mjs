@@ -139,7 +139,9 @@ const colors=file('css/ritual/tokens.css');
 for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
                     '--wood:#80583c','--copper:#bd946e'])
   assert.ok(colors.includes(token),'identidade original '+token);
-assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"));
+assert.ok(file('js/ritual/motion.js').includes("addEventListener('scroll',queueRecovery,{passive:true})")&&
+          file('js/ritual/motion.js').includes('requestAnimationFrame(recoverVisible)'),
+  'fallback passivo de scroll limitado a um quadro e elementos pendentes');
 for(const name of [
   'motion','scene-cuts','opening','hero-sign','app','core','atmosphere','album','team',
   'gallery','products','services'
