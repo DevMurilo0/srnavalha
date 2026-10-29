@@ -1,0 +1,51 @@
+/* Booking wizard — monochrome extension of Sr. Navalha.
+ * Keep the four-stage flow and its native controls fully accessible.
+ */
+:root{
+ --ivory:#f5f5f4;--ink:#101113;--tobacco:#202124;
+ --wood:#555960;--copper:#95999e;--stone:#e3e4e6;
+ --muted:#555a61;--light-muted:#cbd0d5;
+ --bk-bg:#f5f5f4;--bk-dark:#101113;--bk-accent:#95999e;
+ --bk-muted:#555a61;--bk-rule:#161a2027;
+}
+body{background:var(--bk-bg);color:var(--bk-dark)}
+.bk-header{background:#181a1d;color:#f5f6f7;border-bottom:1px solid #ffffff24}
+.bk-brand span{color:#c8ccd1}
+.bk-hero{background:linear-gradient(140deg,#f9f9f9,#e6e7e9)}
+.bk-hero-copy>p:not(.bk-eyebrow,.bk-reality){color:#555a61}
+.bk-wizard-photo{
+ border:5px solid #fff;outline:1px solid #858b935c;outline-offset:3px;
+ box-shadow:0 18px 34px -19px #0c111b99;
+}
+.bk-search-shell input,.bk-name,.bk-preferences input{
+ background:#fff;border-color:#aeb3b9;color:#101113
+}
+.bk-search-shell input::placeholder,.bk-name::placeholder{color:#636a73}
+.bk-filters button{color:#22262c;border-color:#878e9852}
+.bk-filters button[aria-pressed=true]{color:#fff;background:#17191c}
+.bk-service:hover{background:#e5e7ea}
+.bk-service[aria-pressed=true]{background:#dadee2}
+.bk-service-info small{color:#555b64}
+.bk-prof{background:#fafafa;color:#202328;border-color:#b5bbc2}
+.bk-prof[aria-pressed=true]{background:#e1e3e6;border-color:#444a53}
+.bk-prof-symbol{background:#202329;color:#e9ebed}
+.bk-summary{
+ background:#202124;color:#f5f5f6;
+ border:1px solid #ffffff26;
+ box-shadow:0 20px 44px -22px #0b101ba9,0 5px 12px -7px #0b101b66;
+}
+.bk-ticket-top{border-bottom-color:#ffffff2d;color:#cbd0d5}
+.bk-recap>div{border-color:#ffffff24}
+.bk-ticket-primary{background:#dce0e4;color:#15181c}
+.bk-ticket-primary:hover{background:#fff}
+.bk-workshop-grid{gap:clamp(25px,4vw,62px)}
+.bk-steps{min-width:0}
+.bk-service-check{border-color:#a2a8ae}
+.bk-service[aria-pressed=true] .bk-service-check{background:#17191b;border-color:#17191b}
+.bk-wizard-nav{border-color:#aeb3b94d}
+.bk-wizard-nav #bk-next,.bk-wizard-nav #bk-submit{background:#191b1e;color:#fff}
+.bk-wizard-nav button:focus-visible,.bk-search-shell input:focus-visible,
+.bk-prof:focus-visible{outline-color:#666d77}
+.bk-success-box{background:#22252a;color:#f7f8f8}
+::selection{background:#abb0b7;color:#0c0e10}
+@media(prefers-reduced-motion:reduce){.bk-wizard-photo{transition:none!important}}

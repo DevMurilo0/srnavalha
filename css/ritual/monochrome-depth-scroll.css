@@ -1,0 +1,191 @@
+/* Sr. Navalha — preto, branco e cinza.
+ * Editorial materiality: ink, graphite, frosted paper and deliberate shadows.
+ * Overrides only surface design; photography and brand assets remain in color.
+ */
+:root{
+  --ivory:#f5f5f4;
+  --ink:#101113;
+  --tobacco:#202124;
+  --wood:#555960;
+  --copper:#95999e;
+  --stone:#e3e4e6;
+  --muted:#555a61;
+  --light-muted:#cbd0d5;
+  --sr-v19-brass:#a3a8ad;
+  --sr-v19-graphite:#161719;
+  --sr-v19-parchment:#f2f2f2;
+  --sr-shadow-light:0 22px 55px -30px #06080c55,0 5px 16px -8px #0c0d1230;
+  --sr-shadow-dark:0 26px 65px -32px #000e,0 7px 24px -10px #0009;
+  --sr-edge-light:#15191f1c;
+  --sr-edge-dark:#f5f6f72a;
+  color-scheme:light;
+}
+body{background:var(--ivory)}
+/* Full-bleed surfaces follow a grayscale tonal rhythm, never sepia. */
+.hero{
+  background:
+    radial-gradient(ellipse 55% 64% at 72% 21%,#c5c8cd42,transparent 72%),
+    linear-gradient(145deg,#f7f7f7 10%,#ededee 66%,#fafafa)!important;
+}
+.house{
+  background:
+    radial-gradient(ellipse at 90% 10%,#52575f30,transparent 62%),
+    linear-gradient(135deg,#101113,#23262a 65%,#111214)!important;
+}
+.rituals{
+  background:
+    radial-gradient(ellipse at 0% 35%,#c8cbd04d,transparent 55%),
+    linear-gradient(145deg,#f8f8f8,#e9eaec 76%)!important;
+}
+.team{
+  background:radial-gradient(ellipse at 40% 42%,#54596235,transparent 66%),
+  linear-gradient(130deg,#131416,#292b2e 65%,#17191b)!important;
+}
+.portfolio{
+  background:radial-gradient(ellipse at 80% 5%,#cbd0d54f,transparent 66%),
+  linear-gradient(125deg,#fafafa,#ededee 65%,#f7f7f7)!important;
+}
+.products{
+  background:radial-gradient(ellipse at 18% 16%,#ffffffa8,transparent 65%),
+  linear-gradient(135deg,#e5e6e8,#f1f2f3 55%,#d9dbde)!important;
+}
+.reviews{
+  background:radial-gradient(ellipse at 80% 20%,#535a6235,transparent 67%),
+  linear-gradient(135deg,#111214,#25272a 60%,#111214)!important;
+}
+.visit{
+  background:radial-gradient(ellipse at 80% 12%,#c8cacf55,transparent 69%),
+  linear-gradient(120deg,#f9f9f9,#e9eaec 60%,#f6f6f6)!important;
+}
+.footer{
+  background:radial-gradient(ellipse at 80% 20%,#41464d33,transparent 70%),
+  linear-gradient(150deg,#111214,#212327 65%,#121315)!important;
+}
+/* Existing image-backed atmosphere stays behind the content, but its warm
+   overlays are neutralized while the real foreground photography stays vivid. */
+.house::after,.team::after,.portfolio::after,.products::after,
+.reviews::after,.visit::after{filter:grayscale(1)!important}
+.sr-surface{filter:grayscale(1);opacity:.45}
+.house .sr-surface,.team .sr-surface,.reviews .sr-surface,.footer .sr-surface{opacity:.26}
+.house .sr-surface::after,.team .sr-surface::after,.reviews .sr-surface::after,.footer .sr-surface::after{box-shadow:none}
+/* REMOVE THE HEAVY CHAPTER PLAQUES AND GEOMETRIC DIVIDERS.
+   Only an understated tonal dissolve between neighboring sections remains. */
+.sr-chapter{
+  height:clamp(28px,3.6vw,50px)!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  pointer-events:none;
+  filter:grayscale(1);
+  background:linear-gradient(to bottom,var(--sr-before,#f6f6f6),var(--sr-after,#171819))!important;
+}
+.sr-chapter__surface,.sr-chapter__inner,
+.sr-chapter__plate,.sr-chapter__index,.sr-chapter__line,
+.sr-chapter__edge{display:none!important}
+.sr-chapter::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent,#ffffff08 40%,transparent);
+  pointer-events:none;
+}
+.sr-scene-join{display:none!important}
+/* Double-layer paper/steel depth without generic floating cards everywhere. */
+.site-header{
+  border-bottom:1px solid var(--sr-edge-light);
+  box-shadow:0 5px 28px -21px #07090c52;
+  background:var(--ivory)!important;
+}
+.hero .photo-window{
+  outline:1px solid #12161929;
+  outline-offset:6px;
+  box-shadow:0 24px 48px -29px #080b106b,0 4px 10px -4px #12141a32;
+}
+.hero .hero-facade::after,.hero .hero-detail::after{
+  content:"";position:absolute;inset:12px -12px -12px 12px;
+  border:1px solid #1b1e2333;z-index:-2;pointer-events:none;
+}
+.hero .hero-room::before{border-color:#41464d7a}
+.hero .hero-room::after{
+  content:"";position:absolute;inset:13px 12px -13px -12px;
+  background:#cacdd1;z-index:-2;pointer-events:none;
+  box-shadow:0 16px 31px -19px #12151b54;
+}
+.hero .button,.button,.sr-booking-fixed{
+  box-shadow:0 11px 24px -15px #08090f9c,0 3px 8px -5px #04050765;
+  border:1px solid #ffffff1f;
+}
+.hero .button:focus-visible,.button:focus-visible{outline-color:#7f8791}
+.hero-invitation>.button{background:#111214;color:#f7f7f7}
+.mirror-frame{
+  background:#25272b;
+  border:1px solid #ffffff28;
+  box-shadow:var(--sr-shadow-light),inset 0 0 0 6px #ffffff11;
+}
+.mirror-frame::before,.mirror-frame::after{background:#8f969e}
+.house-portal,.team-portrait,.product-hero,.footer-visual{
+  filter:drop-shadow(0 22px 21px #06080b42);
+}
+.team-portrait .image-stage{
+  outline:1px solid #ffffff3d;
+  outline-offset:5px;
+  box-shadow:0 24px 48px -25px #000b;
+}
+.team-mood-photo,.album-editorial-print,.product-photo-detail,.visit-storefront{
+  background:#f4f5f6;
+  border-color:#81868d66;
+  box-shadow:var(--sr-shadow-light);
+}
+.team-mood-stamp{background:#e5e6e9;color:#202327;box-shadow:3px 8px 17px -11px #090c1188}
+.album-sheets.is-folio::before{border-color:#4a4f5c55}
+.is-folio .work-print,.album-sheets.is-wall .work-print{
+  background:#f9f9f9;
+  border-color:#1012162b;
+  box-shadow:0 24px 48px -27px #080b127a,0 5px 15px -9px #05080d33;
+}
+.work-print .photo-window{box-shadow:inset 0 0 0 1px #00000026}
+.products .product-hero .image-stage{
+  border:1px solid #252a3026;
+  outline:8px solid #ffffffaa;
+  box-shadow:var(--sr-shadow-light);
+}
+.review{
+  background:#282a2e!important;
+  border:1px solid var(--sr-edge-dark);
+  box-shadow:var(--sr-shadow-dark),inset 0 1px #ffffff12;
+}
+.review blockquote{color:#f4f5f7}
+.map-frame{
+  border:1px solid var(--sr-edge-light);
+  box-shadow:var(--sr-shadow-light),0 0 0 7px #ffffff70;
+}
+.subscriptions{
+  border:1px solid #1e22262b;
+  background:#e4e6e8;
+  box-shadow:var(--sr-shadow-light),inset 0 2px #ffffffbe;
+}
+.filter-row button,.album-modes button,.album-dock button,
+.product-option,.service-entry{border-color:#1d22283d}
+.footer-feature-cta{
+  border:1px solid #ffffff4a;
+  box-shadow:0 19px 45px -23px #000e,inset 0 1px #fff;
+}
+.footer-cta-arrow{background:#999ea5;color:#131517}
+.footer-side-story{background:#272a2e;border-color:#e8ebee33}
+.footer .footer-visual{box-shadow:0 25px 55px -29px #000c}
+:focus-visible{outline-color:#717781}
+::selection{background:#aeb3ba;color:#101113}
+*{scrollbar-color:#747980 #dedfe2}
+@media(hover:hover) and (pointer:fine){
+  .hero figure:hover .photo-window{box-shadow:0 35px 58px -26px #080a1080}
+  .review:hover{box-shadow:0 35px 60px -31px #000e,inset 0 1px #ffffff24}
+}
+@media(max-width:700px){
+  .sr-chapter{height:26px!important}
+  .hero .hero-facade::after,.hero .hero-detail::after{inset:7px -7px -7px 7px}
+  .hero .photo-window{outline-offset:4px}
+  .map-frame{box-shadow:0 16px 32px -18px #0c10174b}
+  .review{box-shadow:0 17px 32px -20px #000c}
+}

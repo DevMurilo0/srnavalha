@@ -1,0 +1,113 @@
+/* Cinematic monochrome — light is the primary material. */
+:root{--ivory:#f8f8f8;--ink:#101113;--tobacco:#202226;--wood:#50565e;--copper:#8b9097;--stone:#e7e8ea;--muted:#555b63;--light-muted:#c8cbd0;--cm-paper:#fff;--cm-edge:#d0d3d7;--cm-shadow:0 18px 40px -24px #10111360}
+body{background:var(--ivory)}
+.hero,.rituals,.portfolio,.visit{background:#f8f8f8!important}
+.team{background:#fff!important;color:var(--ink)}
+.products{background:#f1f2f3!important}
+.house,.reviews,.footer{background:#101113!important}
+.sr-surface{opacity:.12;filter:grayscale(1)}
+.team .sr-surface{opacity:.06}
+.house .sr-surface,.reviews .sr-surface,.footer .sr-surface{opacity:.12}
+.house::after,.team::after,.portfolio::after,.products::after,.reviews::after,.visit::after{opacity:.035!important}
+.sr-chapter{display:none!important}
+section+section{border-top:1px solid #10111312}
+.house .house-word{color:#fff;opacity:.04}
+.house-copy h2 em,.reviews h2 em{color:#b8bdc5}
+.hero h1 em{color:#50565e}
+.team h2 em,.team .team-name,.team-invite p,.team .source-note,.team-portrait figcaption{color:var(--ink)}
+.team .team-name[aria-pressed=false]{color:#666c75}
+.team .team-name[aria-pressed=true],.team .text-link{color:var(--ink)}
+.team .portrait-name{color:#101113;background:#fff}
+.team .portrait-index,.team .team-row-note,.team-name::before{color:#50565e}
+.team .team-names,.team .team-name{border-color:#d0d3d7}
+.team .team-marker{background:#101113}
+.team-portrait{filter:none}
+.team-portrait .image-stage{outline-color:#d0d3d7;box-shadow:var(--cm-shadow)}
+.hero .photo-window{outline-color:#cbd0d5;box-shadow:var(--cm-shadow)}
+.house-portal,.product-hero,.footer-visual{filter:none}
+.house-portal .portal-images,.footer-visual{box-shadow:0 24px 48px -28px #0009}
+.product-hero .image-stage{box-shadow:var(--cm-shadow)!important}
+.products .product-photo-detail{background:#fff;color:var(--ink)}
+.portfolio .work-print{border-color:#d0d3d7!important;box-shadow:var(--cm-shadow)!important}
+.album-editorial-print,.team-mood-photo,.visit-storefront{border-color:#cbd0d5;background:#fff}
+.album-editorial-print span,.product-photo-detail span,.visit-storefront span{color:#50565e}
+.filter-row button[aria-pressed=true],.album-modes button[aria-pressed=true]{background:#101113;color:#fff}
+.review{box-shadow:none!important;background:#202226!important;border-color:#383b41!important}
+.review cite,.review .review-author,.review .review-date{color:#c8cbd0}
+.subscriptions{background:#e7e8ea;box-shadow:none}
+.site-header,.menu nav{background:#f8f8f8!important}
+.menu nav{color:#101113}
+.footer-feature-cta{background:#fff;color:#101113;border-color:#d0d3d7;box-shadow:0 18px 35px -22px #000b}
+.footer-cta-arrow{background:#e7e8ea;color:#101113;box-shadow:inset 0 1px #fff}
+.sr-booking-fixed{background:#101113;color:#fff;border-color:#8b9097}
+.sr-booking-fixed__calendar{background:#e7e8ea;color:#101113}
+.footer-side-story{background:#202226}
+.footer-rail,.footer-bottom,.footer-link-col{border-color:#ffffff24}
+/* Typography layers: natural text sets metrics, absolute ink alone moves.
+   Original semantics stay in .cm-source; visual ink is aria-hidden. */
+.cm-source{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+.cm-word{position:relative;display:inline-block;vertical-align:baseline;white-space:nowrap;isolation:isolate}
+.cm-layout{visibility:hidden}
+.cm-ink,.cm-echo{position:absolute;inset:0;display:block;transform-origin:50% 100%;backface-visibility:hidden;pointer-events:none}
+.cm-letter{position:absolute;top:0;display:block;transform-origin:50% 100%;backface-visibility:hidden}
+.cm-echo{z-index:-1;opacity:0;color:currentColor}
+.cm-pending{opacity:0}
+/* Keep authored heading rhythm and clipping independent of transient wrappers. */
+.cm-run{display:inline!important;font:inherit;letter-spacing:inherit;color:inherit}
+.hero h1 .title-mask{overflow:visible}
+.cm-split{perspective:900px}
+.gallery-shot img{transition:translate 300ms cubic-bezier(.2,.8,.2,1)}
+/* Replace the legacy portal's scroll opacity owner with a crisp photo crossfade. */
+.portal-inside{animation:none!important;opacity:1;clip-path:none!important}
+@media(prefers-reduced-motion:reduce){
+ .cm-pending{opacity:1!important}
+ .gallery-shot img{transition:none}
+ .cm-ink,.cm-letter{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
+ .cm-echo{display:none}
+}
+@media(hover:hover) and (pointer:fine){
+ .footer-feature-cta:hover .footer-cta-arrow{background:#101113;color:#fff}
+ .service-entry:hover::before{background:#e7e8ea}
+ .team-name:hover{color:#101113}
+}
+@media(max-width:700px){
+ .hero .photo-window{box-shadow:0 12px 24px -16px #10111360}
+ .team .portrait-name{padding-inline:7px}
+}
+
+/* Quiet metal edges and readable secondary copy on the newly light team. */
+.team .section-heading>p{color:#555b63}
+.hero .hero-facade::after,.hero .hero-detail::after{bottom:32px}
+.hero .hero-room::after{bottom:32px;background:#e7e8ea}
+.site-header .button{box-shadow:none}
+.album-modes,.mirror-choice,.catalog-heading,.product-catalog-head,.faq details{border-color:#d0d3d7}
+.house-portal::before,.house-portal::after,.atelier-detail,.portal-images{border-color:#8b909766}
+
+
+/* Fail-open contract: without JavaScript the opening stage remains in the
+   HTML, but MUST NOT cover the natural page. This also protects watchdog,
+   module errors and browser back/forward restoration. */
+html:not(.sr-loader-boot) #sr-loader-stage{
+  display:none!important;
+  pointer-events:none!important;
+}
+
+/* Reduce means NO ongoing decorative motion, not merely a 0.01ms loop.
+   The default page remains visible, including all text/image containers. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+  .cm-pending{opacity:1!important}
+  .cm-ink,.cm-letter{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
+}
+
+/* Preserve explicit paused state for the reputation and footer rails in
+   reduced motion; inspection and user controls must both report paused. */
+@media(prefers-reduced-motion:reduce){
+  .review-track,.footer .footer-rail-track{
+    animation-play-state:paused!important;
+  }
+}

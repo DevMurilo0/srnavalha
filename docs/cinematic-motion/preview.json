@@ -1,0 +1,204 @@
+[
+  {
+    "width": 1440,
+    "overflow": 0,
+    "split": 0,
+    "pending": 295,
+    "hero": "Seu estilo, nossa assinatura."
+  },
+  {
+    "id": "casa",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "lateral": 3,
+      "fold": 2,
+      "scroll": 1,
+      "micro": 2
+    }
+  },
+  {
+    "id": "servicos",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "stroke": 1,
+      "focus": 51,
+      "micro": 110,
+      "shutter": 1
+    }
+  },
+  {
+    "id": "equipe",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "roll": 6,
+      "focus": 2,
+      "aperture": 2,
+      "micro": 3
+    }
+  },
+  {
+    "id": "trabalhos",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "scroll": 1,
+      "focus": 3,
+      "micro": 13,
+      "diagonal": 7
+    }
+  },
+  {
+    "id": "produtos",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "focus": 5,
+      "aperture": 2,
+      "micro": 11
+    }
+  },
+  {
+    "id": "avaliacoes",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "lines": 5,
+      "micro": 8,
+      "shutter": 1,
+      "focus": 4
+    }
+  },
+  {
+    "id": "localizacao",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "fold": 12,
+      "micro": 14,
+      "lateral": 1
+    }
+  },
+  {
+    "id": "contato",
+    "width": 1440,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "shutter": 4,
+      "echo": 2,
+      "focus": 3,
+      "micro": 15
+    }
+  },
+  {
+    "width": 390,
+    "overflow": 0,
+    "split": 0,
+    "pending": 293,
+    "hero": "Seu estilo, nossa assinatura."
+  },
+  {
+    "id": "casa",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "lateral": 3,
+      "fold": 2,
+      "scroll": 1,
+      "micro": 2
+    }
+  },
+  {
+    "id": "servicos",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "stroke": 1,
+      "focus": 51,
+      "micro": 110,
+      "shutter": 1
+    }
+  },
+  {
+    "id": "equipe",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "roll": 6,
+      "focus": 2,
+      "aperture": 2,
+      "micro": 3
+    }
+  },
+  {
+    "id": "trabalhos",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "scroll": 1,
+      "focus": 2,
+      "micro": 13,
+      "diagonal": 7
+    }
+  },
+  {
+    "id": "produtos",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "focus": 5,
+      "aperture": 1,
+      "micro": 11
+    }
+  },
+  {
+    "id": "avaliacoes",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "lines": 5,
+      "micro": 8,
+      "shutter": 1,
+      "focus": 4
+    }
+  },
+  {
+    "id": "localizacao",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "fold": 12,
+      "micro": 14,
+      "lateral": 1
+    }
+  },
+  {
+    "id": "contato",
+    "width": 390,
+    "overflow": 0,
+    "hidden": [],
+    "runs": {
+      "shutter": 4,
+      "echo": 2,
+      "focus": 3,
+      "micro": 15
+    }
+  }
+]

@@ -1,0 +1,109 @@
+/* Original native typography engine. Layout text keeps kerning and line breaks;
+   only absolute ink layers move. Each original text node remains the sole
+   accessible source; links, emphasis and event listeners are never cloned. */
+import { animate, canMove } from './core.js';
+const owners = new WeakMap();
+const graphemes = typeof Intl.Segmenter === 'function'
+  ? new Intl.Segmenter('pt-BR',{granularity:'grapheme'}) : null;
+const chars = text => graphemes ? [...graphemes.segment(text)].map(x=>x.segment) : Array.from(text);
+const ease = 'cubic-bezier(.16,1,.3,1)';
+
+export function cancelText(node) { owners.get(node)?.cancel(); }
+export function cancelTextWithin(node) { cancelText(node);node.querySelectorAll('.cm-split').forEach(cancelText); }
+export function revealText(node, mode='focus', {delay=0, duration, manual=false}={}) {
+  cancelText(node);
+  const effects=[], replacements=[];
+  let done=false, resolve;
+  const finished=new Promise(r=>resolve=r);
+  const cleanup=()=>{
+    if(done)return;done=true;
+    for(const effect of effects)effect.cancel();
+    for(const {wrapper,original} of replacements)if(wrapper.isConnected)wrapper.replaceWith(original);
+    node.classList.remove('cm-split');
+    if(owners.get(node)===handle)owners.delete(node);
+    resolve();
+  };
+  const handle={finished,cancel:cleanup,seek(progress){
+    for(const effect of effects){const t=effect.effect.getComputedTiming();effect.currentTime=progress*t.endTime;}
+    if(progress>=1)cleanup();
+  }};
+  owners.set(node,handle);
+  if(!canMove()||!node.animate||!node.textContent.trim()){cleanup();return handle;}
+  const live=node.closest('[aria-live]')||node.querySelector('[aria-live]');
+  // Live regions retain an untouched text tree, avoiding repeated announcements.
+  if(live||mode==='micro'){
+    try{
+      const effect=animate(node,[{clipPath:'inset(0 100% 0 0)',opacity:.5},{clipPath:'inset(0 0% 0 0)',opacity:1}],{duration:duration||420,delay,easing:ease});
+      if(effect){effect.id='sr-text-micro';effects.push(effect);effect.finished.catch(()=>{}).finally(cleanup);}else cleanup();
+    }catch{cleanup();}
+    return handle;
+  }
+  try{
+    const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT,{
+      acceptNode:text=>text.textContent.trim()&&!text.parentElement.closest('svg,script,.cm-source')?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT
+    });
+    const texts=[];while(walker.nextNode())texts.push(walker.currentNode);
+    const words=[];
+    for(const original of texts){
+      const wrapper=document.createElement('span');wrapper.className='cm-run';
+      const source=document.createElement('span');source.className='cm-source';source.textContent=original.textContent;
+      const visual=document.createElement('span');visual.setAttribute('aria-hidden','true');
+      for(const token of original.textContent.split(/(\s+)/u)){
+        if(!token)continue;
+        if(/^\s+$/u.test(token)){visual.append(document.createTextNode(token));continue;}
+        const word=document.createElement('span');word.className='cm-word';
+        const layout=document.createElement('span');layout.className='cm-layout';layout.textContent=token;
+        const ink=document.createElement('span');ink.className='cm-ink';ink.textContent=token;
+        word.append(layout,ink);visual.append(word);words.push({word,layout,ink,token});
+      }
+      wrapper.append(source,visual);original.replaceWith(wrapper);replacements.push({wrapper,original});
+    }
+    node.classList.add('cm-split');
+    const useChars=['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
+    const units=[];
+    // All measurements precede effect creation. Line groups follow real wrapping.
+    const lineTops=[];
+    for(const item of words){
+      const rect=item.word.getBoundingClientRect();
+      let line=lineTops.findIndex(top=>Math.abs(top-rect.top)<4);
+      if(line<0){line=lineTops.length;lineTops.push(rect.top);}
+      if(useChars){
+        item.ink.textContent='';let offset=0;
+        for(const letter of chars(item.token)){
+          const range=document.createRange();range.setStart(item.layout.firstChild,offset);range.setEnd(item.layout.firstChild,offset+letter.length);
+          const box=range.getBoundingClientRect();offset+=letter.length;
+          const glyph=document.createElement('span');glyph.className='cm-letter';glyph.textContent=letter;
+          glyph.style.left=`${box.left-rect.left}px`;glyph.style.width=`${box.width}px`;
+          item.ink.append(glyph);units.push({ink:glyph,line});
+        }
+      }else units.push({ink:item.ink,line});
+      if(mode==='hero'||mode==='echo'){
+        const echo=document.createElement('span');echo.className='cm-echo';echo.textContent=item.token;item.word.append(echo);
+        units.push({ink:echo,line,echo:true});
+      }
+    }
+    const colors=units.map(({ink})=>getComputedStyle(ink).color);
+    const baseDuration=duration||({hero:1000,fold:850,roll:660,stroke:1100,echo:1050,focus:630,lines:750,scroll:1000}[mode]||700);
+    units.forEach(({ink,line,echo},index)=>{
+      const color=colors[index];
+      let frames;
+      if(echo)frames=[{opacity:.32,transform:'translate3d(-.1em,.38em,-30px)'},{opacity:0,transform:'translate3d(0,0,0)'}];
+      else if(mode==='stroke')frames=[
+        {offset:0,opacity:0,color:'transparent',webkitTextStroke:`.7px ${color}`,clipPath:'inset(0 100% 0 0)'},
+        {offset:.45,opacity:1,color:'transparent',webkitTextStroke:`.7px ${color}`,clipPath:'inset(0 0 0 0)'},
+        {offset:1,opacity:1,color,webkitTextStroke:`0px ${color}`,clipPath:'inset(0 0 0 0)'}];
+      else if(mode==='hero'||mode==='fold')frames=[{opacity:0,transform:'perspective(700px) translate3d(0,105%,40px) rotateX(-68deg)',clipPath:'inset(0 0 100% 0)'},{opacity:1,transform:'perspective(700px) translate3d(0,0,0) rotateX(0deg)',clipPath:'inset(0 0 0 0)'}];
+      else if(mode==='roll')frames=[{transform:'translateY(115%)',clipPath:'inset(0 0 100% 0)'},{transform:'translateY(0)',clipPath:'inset(0 0 0 0)'}];
+      else if(mode==='focus')frames=[{opacity:0,filter:'blur(3px)',transform:'translateX(.18em)'},{opacity:1,filter:'blur(0px)',transform:'translateX(0)'}];
+      else if(mode==='echo')frames=[{opacity:0,transform:'perspective(700px) translate3d(.12em,.4em,70px)'},{opacity:1,transform:'perspective(700px) translate3d(0,0,0)'}];
+      else if(mode==='scroll')frames=[{opacity:.2,transform:'perspective(600px) rotateX(-22deg) translateY(.2em)'},{opacity:1,transform:'perspective(600px) rotateX(0) translateY(0)'}];
+      else frames=[{clipPath:`inset(0 ${line%2?0:100}% 0 ${line%2?100:0}%)`,transform:`translateX(${line%2?'-': ''}.15em)`},{clipPath:'inset(0 0 0 0)',transform:'translateX(0)'}];
+      const stagger=mode==='lines'||mode==='fold'?line*105:Math.min(index*(useChars?17:38),manual?700:380);
+      const effect=animate(ink,frames,{duration:baseDuration,delay:delay+stagger,easing:ease,fill:'both',persist:true});
+      if(effect){effect.id=`sr-text-${echo?'echo':mode}`;effects.push(effect);if(manual){effect.pause();effect.currentTime=0;}}
+    });
+    if(!effects.length)cleanup();
+    else if(!manual)Promise.allSettled(effects.map(e=>e.finished)).then(cleanup);
+  }catch{cleanup();}
+  return handle;
+}

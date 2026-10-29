@@ -35,30 +35,20 @@ assert.ok(pole.includes('#000')&&pole.includes('#fff')&&pole.includes('linear in
 assert.ok(pole.includes('animation-play-state:paused')&&pole.includes('is-poles-visible'),'pausa fora da viewport');
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
 const heroTimeline=file('js/ritual/hero-sign.js');
-assert.ok(heroTimeline.includes("'openingcutmidpoint'")&&
-          heroTimeline.includes("document.addEventListener('openingend'")&&
-          heroTimeline.includes('!event.detail?.completed'),
-  'queda começa na metade da tesoura; interrupção ainda libera o hero');
-assert.ok(file('js/ritual/opening.js').includes("new CustomEvent('openingcutmidpoint'")&&
-          file('js/ritual/opening.js').includes("tCut + CUT * .367226"),
-  'gatilho usa metade da posição visual da tesoura na curva de easing');
-assert.ok(!heroTimeline.includes('getComputedStyle(node).transform')&&
-          !heroTimeline.includes('transform:at(')&&
-          heroTimeline.includes("clipPath:'inset(0 0 100% 0)'")&&
-          heroTimeline.includes("clipPath:'inset(0 0 0% 0)'"),
-  'fotografias reveladas por máscara sem qualquer mudança de posição');
+assert.ok(!heroTimeline.includes("'openingcutmidpoint'")&&heroTimeline.includes("document.addEventListener('openingend'")&&heroTimeline.includes('event.detail?.completed?begin():settle()'),
+  'hero só começa após abertura completa; interrupções mostram conteúdo');
+assert.ok(heroTimeline.includes("['.hero-wordmark>span'")&&!heroTimeline.includes("['.hero-logo-transparent'"),
+  'logo oficial não é alvo da segunda sequência');
+assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&heroTimeline.includes('effect.cancel()')&&heroTimeline.includes('controller.abort()'),
+  'um controlador libera fila, cancela efeitos e listeners');
 const queuedCSS=file('css/ritual/hero-sign.css');
-assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&
-          queuedCSS.includes('html.sr-hero-queued .hero .hero-facade')&&
-          queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
-  'foto e título estão invisíveis antes do primeiro quadro da queda');
-assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&
-          heroTimeline.includes('effects.add(effect)')&&
-          heroTimeline.includes("fill:'both'")&&
-          heroTimeline.includes('persist:true'),
-  'efeitos revelados permanecem preenchidos até o último elemento terminar');
-assert.ok(heroTimeline.includes("'.hero-wordmark > span'"),
-  'a inscrição entra isolada da logo oficial do handoff');
+assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
+  'hero permanece oculto antes do primeiro quadro');
+const textMotion=file('js/ritual/text-motion.js'),imageMotion=file('js/ritual/image-motion.js');
+assert.ok(textMotion.includes("fill:'both',persist:true")&&textMotion.includes('wrapper.replaceWith(original)')&&textMotion.includes("setAttribute('aria-hidden','true')"),
+  'split acessível restaura nós originais e preserva frames atrasados');
+assert.ok(imageMotion.includes('clipPath')&&!imageMotion.includes('node.style.transform'),
+  'máscaras fotográficas não substituem inclinação das molduras');
 assert.ok(!file('js/ritual/opening.js').includes('scheduleHeroEntrance'),'loader não possui animações do hero');
 assert.ok(file('js/ritual/app.js').includes('initHeroExperience()'),'controlador próprio inicializado');
 assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
@@ -135,13 +125,13 @@ assert.ok(head.includes("'sr-hero-queued'")&&
           head.includes("root.classList.remove('sr-loader-boot','sr-cut-reveal','sr-hero-queued')"),
   'classe de fila começa no head e libera em falha de carregamento');
 assert.ok(head.includes('sr-cut-reveal'),'watchdog libera estado');
-const colors=file('css/ritual/tokens.css');
-for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
-                    '--wood:#80583c','--copper:#bd946e'])
-  assert.ok(colors.includes(token),'identidade original '+token);
-assert.ok(!file('js/ritual/motion.js').includes("addEventListener('scroll'"));
+const colors=file('css/ritual/cinematic-motion.css');
+for(const token of ['--ivory:#f8f8f8','--ink:#101113','--tobacco:#202226','--stone:#e7e8ea'])assert.ok(colors.includes(token),'paleta monocromática '+token);
+assert.ok(colors.includes('.sr-chapter{display:none!important}'),'divisores sem placas nem espaço artificial');
+assert.ok(file('js/ritual/motion.js').includes('frame=requestAnimationFrame(recover)')&&file('js/ritual/motion.js').includes('pending.size||running.size'),
+  'recuperação passiva somente enquanto há efeitos pendentes');
 for(const name of [
-  'motion','scene-cuts','opening','hero-sign','app','core','atmosphere','album','team',
+  'text-motion','image-motion','scroll-motion','motion','scene-cuts','opening','hero-sign','app','core','atmosphere','album','team',
   'gallery','products','services'
 ]) execFileSync(process.execPath,[
   '--experimental-default-type=module','--check','js/ritual/'+name+'.js'

@@ -1,3 +1,4 @@
+import {revealText,cancelText} from './text-motion.js';
 import team from '../data/professionals.js';
 import {$,$$,activateButtonLink,changePhoto,animate,cancelWithin} from './core.js';
 export function initTeam(){
@@ -6,9 +7,9 @@ export function initTeam(){
  async function select(link,keyboard=false){
   const i=Number(link.dataset.person);if(i===selected)return;selected=i;const seq=++token,p=team[i];
   links.forEach(l=>l.setAttribute('aria-pressed',String(l===link)));alignMarker(link,!keyboard);
-  const name=$('.portrait-name');cancelWithin(name);name.textContent=p.name;if(!keyboard)animate(name,[{opacity:.4,transform:'translateX(-12px)'},{opacity:1,transform:'none'}],{duration:280});
+  const name=$('.portrait-name');cancelText(name);cancelWithin(name);name.textContent=p.name;if(!keyboard)revealText(name,'roll',{duration:580});
   $('.portrait-index').textContent=`${String(i+1).padStart(2,'0')} / 05`;
-  const frame=$('.portrait-engraving');cancelWithin(frame);if(!keyboard)animate(frame,[{transform:'translateX(-8px) rotate(-2deg)'},{transform:'none'}],{duration:300});
+  
   const ok=await changePhoto(stage,p.image,`${p.name}, profissional da Sr. Navalha`,{keyboard});if(seq!==token)return;
   $('#person-name').textContent=ok?p.name:`${p.name} · foto indisponível`;$('#team-booking').href='agendar.html?profissional='+encodeURIComponent(p.id);$('#team-booking').setAttribute('aria-label',`Escolher ${p.name} na página de agendamento`);
  }

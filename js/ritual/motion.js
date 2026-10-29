@@ -1,71 +1,110 @@
-/* One entrance owner. Natural content is never hidden in a waiting queue. */
-import {$,$$,animate,canMove} from './core.js';
-
+/* Cinematic orchestrator: an entrance has one owner, one completion and a
+   natural readable fallback. Split trees exist only while their ink moves. */
+import {$,$$,canMove} from './core.js';
+import {revealText} from './text-motion.js';
+import {revealImage,initPhotoParallax} from './image-motion.js';
+import {createScrollMotion} from './scroll-motion.js';
 export function initMotion(){
- const compact=matchMedia('(max-width:700px)');
+ const root=document.documentElement;
  if(!('IntersectionObserver' in window))return;
- const running=new Map(),seen=new WeakSet();
- // A heading is one composited object, not a layer per word. Controls and
- // nested image stages keep their own animation ownership.
- const targets=$$('main h2,footer h2,.section-heading>p,.house-copy>p,.house-portal,.mirror-frame,.team-portrait,.product-hero,.footer-visual,.service-entry,.visit-info>address,.map-frame,.practical>p,.footer-story-copy,.footer-feature-cta,.footer-directory>*,.album-toolbar,.work-print .photo-window,[data-material-reveal]');
- let remaining=targets.length;
- const observer=new IntersectionObserver(entries=>{
-  // Read every composed state before starting any animations in this batch.
-  const incoming=entries.filter(e=>e.isIntersecting&&!seen.has(e.target));
-  const snapshots=incoming.map(({target})=>({target,transform:getComputedStyle(target).transform,opacity:getComputedStyle(target).opacity}));
-  for(const entry of entries)if(!entry.isIntersecting&&running.has(entry.target)){
-   running.get(entry.target).cancel();running.delete(entry.target);
+ const copy='h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary';
+ const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
+ const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.sr-surface,.engraving,.sr-member-preview';
+ const registered=new WeakSet(),pending=new Set(),running=new Map();
+ const scroll=createScrollMotion();let frame=0,observer;
+ const clear=node=>{pending.delete(node);node.classList.remove('cm-pending');node.dataset.cmState='done';observer?.unobserve(node);};
+ const finish=node=>{running.get(node)?.cancel();running.delete(node);clear(node);};
+ const release=()=>{scroll.clear();for(const node of [...pending,...running.keys()])finish(node);};
+ const modeFor=node=>{
+  if(node.matches('.house-quote,#work-title'))return'scroll';
+  if(node.matches('.team-name,.portrait-name'))return'roll';
+  if(node.matches('h2,.footer-oversize-lead,.footer-oversize-main')){
+   return node.closest('#casa')?'fold':node.closest('#servicos')?'stroke':node.closest('#equipe')?'roll':node.closest('#produtos')?'focus':node.closest('#avaliacoes')?'lines':node.closest('#localizacao')?'fold':'echo';
   }
-  for(const {target,transform,opacity} of snapshots){
-   seen.add(target);remaining--;
-   const budget=compact.matches?3:6;
-   const decorative=target.hasAttribute('data-material-reveal');
-   if(!canMove()||running.size>=budget||(compact.matches&&decorative)||target.getAnimations().some(a=>a.id==='sr-filter-result')){
-    observer.unobserve(target);continue;
+  if(node.matches('.footer-feature-cta'))return'echo';
+  if(node.matches('blockquote'))return'lines';
+  if(node.matches('p,address')&&!node.classList.contains('source-note'))return node.closest('#casa,#localizacao')?'fold':'focus';
+  return'micro';
+ };
+ const appear=node=>{
+  if(!pending.has(node))return;
+  observer.unobserve(node);pending.delete(node);
+  if(!canMove()){clear(node);return;}
+  node.classList.remove('cm-pending');node.dataset.cmState='running';
+  const photo=node.dataset.cmKind==='image',mode=node.dataset.cmMode;
+  const effect=photo?revealImage(node,mode):revealText(node,mode,{manual:mode==='scroll'});
+  running.set(node,effect);
+  if(mode==='scroll')scroll.add(node,effect,()=>{running.delete(node);clear(node);});
+  effect.finished.then(()=>{if(running.get(node)===effect){running.delete(node);clear(node);}});
+ };
+ observer=new IntersectionObserver(entries=>{
+  for(const e of entries){
+   if(e.isIntersecting)appear(e.target);
+   else if(running.has(e.target))finish(e.target);
+  }
+ },{rootMargin:'0px 0px -5% 0px',threshold:0});
+ const enroll=scope=>{
+  const nodes=[...(scope.matches?.(`${copy},${photos}`)?[scope]:[]),...scope.querySelectorAll(`${copy},${photos}`)];
+  for(const node of nodes){
+   if(registered.has(node)||node.closest(excluded)||!node.closest('main section:not(.hero),footer'))continue;
+   if(!node.getClientRects().length)continue;
+   const photo=node.matches(photos);
+   if(photo){
+    if(node.parentElement.closest(photos)||node.matches('img')&&(node.width<24||node.src.endsWith('.svg')))continue;
+   }else{
+    if(!node.textContent.trim()||node.closest('[aria-hidden="true"]'))continue;
+    const textParent=node.parentElement.closest(copy);
+    if(textParent&&!textParent.querySelector(photos))continue;
+    if(node.matches('a,button')&&node.querySelector(photos))continue;
    }
-   const paper=target.matches('.house-portal,.team-portrait,.product-hero,.footer-visual');
-   const row=target.matches('.service-entry');
-   const photograph=target.matches('.work-print .photo-window');
-   const route=target.matches('.visit-info>address,.map-frame');
-   const suffix=transform==='none'?'':` ${transform}`;
-   const start=photograph?`scale(1.035)${suffix}`:paper?`translateY(18px) rotate(${target.matches('.house-portal')?1.2:-.65}deg)${suffix}`:
-     route?`translateX(14px)${suffix}`:row?`translateX(9px)${suffix}`:`translateY(12px)${suffix}`;
-   // Preserve reading order within a local group, with a bounded delay.
-   const siblings=[...target.parentElement.children];
-   const delay=row||target.matches('.house-copy>p,.practical>p,.footer-directory>*')
-     ? Math.min(siblings.indexOf(target),3)*55:0;
-   const animation=animate(target,[{opacity:paper?.72:.4,transform:start},{opacity,transform}],
-     {duration:row?320:paper||photograph?780:480,delay,easing:'cubic-bezier(.22,1,.36,1)'});
-   if(animation)animation.id='sr-section-reveal';
-   if(!animation){observer.unobserve(target);continue}
-   running.set(target,animation);
-   animation.finished.catch(()=>{}).finally(()=>{
-    if(running.get(target)===animation)running.delete(target);
-    observer.unobserve(target);
-    if(!remaining&&!running.size)observer.disconnect();
-   });
+   registered.add(node);node.dataset.cmKind=photo?'image':'text';
+   node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
+   const rect=node.getBoundingClientRect();
+   // Do not hide a scene the reader has already reached (late JS / deep link).
+   if(!canMove()||rect.top<innerHeight*.94){clear(node);continue;}
+   node.dataset.cmState='pending';node.classList.add('cm-pending');pending.add(node);observer.observe(node);
   }
- },{threshold:0,rootMargin:'80px 0px'});
- targets.forEach(el=>observer.observe(el));
- document.addEventListener('motionchange',()=>{
-  if(canMove())return;
-  for(const animation of running.values())animation.cancel();running.clear();
+ };
+ const scan=()=>{$$('main section:not(.hero),footer').forEach(enroll);};
+ // Font metrics are final before line and grapheme measurements.
+ document.fonts.ready.then(()=>{scan();root.classList.add('sr-motion-initialized');});
+ const mutations=new MutationObserver(records=>{
+  for(const record of records){
+   if(record.target.closest?.('.cm-split,.cm-run'))continue;
+   if(record.type==='attributes')enroll(record.target);
+   else for(const node of record.addedNodes)if(node.nodeType===1)enroll(node);
+  }
  });
- // The photographic doorway now dissolves once, rather than repainting a
- // polygon on every scroll. CSS view timelines enhance supported desktops.
- const inside=$('.portal-inside');
- if(inside&&!CSS.supports('animation-timeline: view()')){
-  const portal=new IntersectionObserver(entries=>{
-   if(!entries.some(e=>e.isIntersecting))return;
-   animate(inside,[{opacity:0},{opacity:1}],{duration:800});portal.disconnect();
-  },{threshold:.2});portal.observe(inside);
- }
- const progress=document.createElement('div');progress.className='scroll-thread';progress.setAttribute('aria-hidden','true');document.body.append(progress);
+ for(const scope of [$('main'),$('footer')])if(scope)mutations.observe(scope,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','open']});
+ const recover=()=>{
+  frame=0;if(!canMove())return release();
+  const samples=[...pending].map(node=>({node,rect:node.getBoundingClientRect()}));
+  for(const {node,rect} of samples){
+   if(!node.isConnected){pending.delete(node);continue;}
+   if(rect.bottom<0)clear(node);
+   else if(rect.top<innerHeight*.95&&rect.bottom>0)appear(node);
+  }
+  for(const node of running.keys()){const r=node.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)finish(node);}
+ };
+ addEventListener('scroll',()=>{if(!frame&&(pending.size||running.size))frame=requestAnimationFrame(recover);},{passive:true});
+ addEventListener('resize',()=>{for(const node of running.keys())finish(node);if(!frame)frame=requestAnimationFrame(recover);},{passive:true});
+ const interactive=event=>{
+  const section=event.target.closest?.('section,footer');if(!section)return;
+  // Focus / selection always wins over decoration, including nested controls.
+  for(const node of [...pending,...running.keys()])if(node.contains(event.target)||event.type==='pointerdown'&&node.closest('.living-mirror,.professional-panel,.product-editorial')===event.target.closest('.living-mirror,.professional-panel,.product-editorial')&&event.target.closest('.living-mirror,.professional-panel,.product-editorial'))finish(node);
+ };
+ document.addEventListener('photowillchange',event=>{for(const node of [...pending,...running.keys()])if(node.contains(event.target))finish(node);});
+ document.addEventListener('focusin',interactive);
+ document.addEventListener('pointerdown',interactive,{passive:true});
+ document.addEventListener('motionchange',()=>{if(!canMove())release();});
+ addEventListener('pagehide',()=>{release();mutations.disconnect();cancelAnimationFrame(frame);},{once:true});
+ // Back/forward restoration shows the settled page and does not rebuild layers.
+ addEventListener('pageshow',event=>{if(event.persisted)release();});
+ initPhotoParallax();
  const nav=$$('.desktop-nav a');
  const navObserver=new IntersectionObserver(entries=>{
   const entry=entries.find(e=>e.isIntersecting);if(!entry)return;
   nav.forEach(a=>a.hash===`#${entry.target.id}`?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));
  },{rootMargin:'-10% 0px -65%'});
  $$('main section[id]').forEach(el=>navObserver.observe(el));
- document.documentElement.classList.add('sr-motion-initialized');
 }

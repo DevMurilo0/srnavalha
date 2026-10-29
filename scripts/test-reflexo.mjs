@@ -52,20 +52,18 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  // After the upper part is cut, the hero reveals in place while the
-  // scissors are still running and the loader's sheets are still present.
-  await intro.waitForFunction(()=>
-    !!document.querySelector('#sr-loader-stage') &&
-    document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
+  check(`${width}px: hero não anima durante o corte`,await intro.evaluate(()=>
+    !document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))));
+  await intro.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&document.querySelector('.hero.is-arriving'));
   const staged=await intro.evaluate(()=>{
     const selectors=['.hero-pole__object','.hero h1',
       '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
-      return {selector,exists:!!element,animations:element?.getAnimations().filter(a=>a.id==='sr-hero-reveal').length||0};
+      return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')).length||0};
     });
   });
-  check(`${width}px: revelação começa durante a passagem central da tesoura`,
+  check(`${width}px: revelação começa somente depois da saída do loader`,
     staged.every(item=>item.exists&&item.animations>0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));

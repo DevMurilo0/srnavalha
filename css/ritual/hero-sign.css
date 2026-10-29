@@ -23,8 +23,8 @@
 html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{animation-play-state:running}
 /* Before the first frame of the loader, park every animated hero element.
    When Perfect Cut is removed, the compositor still sees them at opacity 0.
-   Each WAAPI drop overrides this ordinary author opacity; its 'both' fill
-   holds the settled frame until the whole sequence completes.
+   A pre-painted mask hides each photo before the first animation frame.
+   The WAAPI 'both' fill holds the final reveal until cleanup.
    The official logo is deliberately NOT hidden: it belongs to the FLIP.
    The small side label can fall independently without moving the logo. */
 html.sr-hero-queued .hero .hero-pole__object,
@@ -39,6 +39,13 @@ html.sr-hero-queued .hero .hero-invitation > .button,
 html.sr-hero-queued .hero .hero-invitation > .text-link,
 html.sr-hero-queued .hero .hero-bottom{
  opacity:0;
+}
+/* The pre-paint mask guarantees no photograph appears BEFORE its reveal,
+   including on a slow device or during a delayed compositor frame. */
+html.sr-hero-queued .hero .hero-facade,
+html.sr-hero-queued .hero .hero-room,
+html.sr-hero-queued .hero .hero-detail{
+ clip-path:inset(0 0 100% 0);
 }
 /* During the panels' opening the higher-specificity loader rules otherwise
    reveal h1 early. Keep it parked until its individual fall actually starts. */
@@ -60,6 +67,11 @@ html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
  }
 }
 
+@media(prefers-reduced-motion:reduce){
+ html.sr-hero-queued .hero .hero-facade,
+ html.sr-hero-queued .hero .hero-room,
+ html.sr-hero-queued .hero .hero-detail{clip-path:none!important}
+}
 /* Hold the static layout beneath the cut; never start a second entrance there. */
 .hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
 .hero.is-arriving .title-mask{overflow:visible}
