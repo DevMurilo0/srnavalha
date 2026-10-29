@@ -82,3 +82,24 @@ section+section{border-top:1px solid #10111312}
 .site-header .button{box-shadow:none}
 .album-modes,.mirror-choice,.catalog-heading,.product-catalog-head,.faq details{border-color:#d0d3d7}
 .house-portal::before,.house-portal::after,.atelier-detail,.portal-images{border-color:#8b909766}
+
+
+/* Fail-open contract: without JavaScript the opening stage remains in the
+   HTML, but MUST NOT cover the natural page. This also protects watchdog,
+   module errors and browser back/forward restoration. */
+html:not(.sr-loader-boot) #sr-loader-stage{
+  display:none!important;
+  pointer-events:none!important;
+}
+
+/* Reduce means NO ongoing decorative motion, not merely a 0.01ms loop.
+   The default page remains visible, including all text/image containers. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+  .cm-pending{opacity:1!important}
+  .cm-ink,.cm-letter{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
+}
