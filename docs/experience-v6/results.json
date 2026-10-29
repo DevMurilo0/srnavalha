@@ -14,6 +14,20 @@
     "pass": true
   },
   {
+    "name": "360: dois cilindros sem colisão e sem overflow",
+    "pass": true,
+    "detail": {
+      "count": 2,
+      "overflow": 0,
+      "fits": true,
+      "animations": 0
+    }
+  },
+  {
+    "name": "360: movimento reduzido estático",
+    "pass": true
+  },
+  {
     "name": "390: dois cilindros sem colisão e sem overflow",
     "pass": true,
     "detail": {
@@ -251,7 +265,7 @@
       ],
       "events": [
         {
-          "time": 5971.100000023842,
+          "time": 5956.300000011921,
           "completed": true,
           "loader": false
         }
