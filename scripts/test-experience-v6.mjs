@@ -66,12 +66,17 @@ try{
  await m.waitForSelector('.snv2-cut-ready');
  check('Antes do meio da tesoura ainda não há revelação',await m.evaluate(()=>
   !document.getAnimations().some(a=>a.id==='sr-hero-reveal')));
- await m.waitForFunction(()=>window.heroAudit.midpoint&&
-  document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
+ await m.waitForFunction(()=>window.heroAudit.midpoint);
  const midpoint=await m.evaluate(()=>window.heroAudit.midpoint);
- check('Tesoura no meio inicia revelação enquanto loader ainda corta',
+ check('Tesoura passa pelo meio antes da aparição do hero',
   midpoint.loader&&midpoint.progress===.5&&
-  Math.abs(midpoint.tip-midpoint.height/2)<midpoint.height*.12,midpoint);
+  Math.abs(midpoint.tip-midpoint.height/2)<midpoint.height*.12&&
+  await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-reveal')),midpoint);
+ await ready(m);
+ await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-reveal'));
+ check('Revelação começa com loader removido e conteúdo ainda oculto',
+  await m.evaluate(()=>!document.querySelector('#sr-loader-stage')&&
+    document.documentElement.classList.contains('sr-hero-queued')));
  // The first delayed frames must not paint the original resting photographs.
  const firstFrame=await m.evaluate(()=>{
   const photo=document.querySelector('.hero-room');
@@ -104,9 +109,12 @@ try{
     logo:document.querySelectorAll('.hero .hero-logo-transparent').length,
     flightLogo:document.querySelectorAll('#sr-loader-stage .hero-logo-transparent').length};
  });
- check('Revelação durante o corte, sem duplicar a logo oficial',
-   reveal.loader&&reveal.midpoint?.loader&&
-   reveal.logo===1&&reveal.flightLogo===1&&reveal.audit.length===12,reveal);
+ check('Aparição visível após o corte, sem duplicar a logo oficial',
+   !reveal.loader&&reveal.midpoint?.loader&&
+   reveal.logo===1&&reveal.flightLogo===0&&reveal.audit.length===12,reveal);
+ check('Zoom editorial independente das fotos, sem mexer nas figuras',
+   await m.evaluate(()=>document.getAnimations().filter(a=>
+     a.id==='sr-hero-photo-depth').length===3));
  check('Nenhum elemento muda de posição, escala ou rotação na revelação',
    reveal.audit.every(a=>a.transforms===0&&
      Number(a.firstOpacity)===0&&Number(a.lastOpacity)===1));
@@ -115,17 +123,19 @@ try{
    reveal.audit.filter(a=>a.photo).every(a=>
      a.firstClip==='inset(0px 0px 100%)'&&
      a.lastClip==='inset(0px 0px 0%)'&&!a.lifts));
- check('Textos e botões aparecem suavemente com elevação sem alterar o layout',
+ check('Textos e botões sobem de forma marcante e retornam ao repouso',
    reveal.audit.filter(a=>!a.photo).length===9&&
    reveal.audit.filter(a=>!a.photo).every(a=>
-     a.lifts&&a.firstTranslate==='0px 14px'&&a.lastTranslate==='0px 0px'));
- check('Revelação não termina escondida atrás dos painéis do corte',
-   reveal.audit.filter(a=>a.photo).every(a=>a.duration>=750&&a.delay>=350));
+     a.lifts&&a.firstTranslate!==a.lastTranslate&&
+     a.lastTranslate==='0px 0px')&&
+   reveal.audit.some(a=>a.firstTranslate==='0px 72px'));
+ check('Fotos reveladas com duração perceptível depois do corte',
+   reveal.audit.filter(a=>a.photo).every(a=>a.duration>=900&&a.delay>=300));
  check('Hierarquia escalonada do topo até CTA',reveal.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
  await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>{a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.64}));
  await m.screenshot({path:`${dir}/reveal-midpoint.png`});
- // Clip-path + opacity reveal must not change bounding boxes at ANY frame.
+ // Parent figure clip-path and opacity cannot change bounding boxes.
  const inProgressGeometry=await m.evaluate(()=>{
   const nodes=[...document.querySelectorAll('.hero-facade,.hero-room,.hero-detail')];
   const rest=window.heroAudit.rest.slice(2,5);
@@ -137,10 +147,11 @@ try{
  check('Fotografias nunca saem do lugar durante a revelação',
   inProgressGeometry.every(delta=>delta<.2),inProgressGeometry);
  const rotorBefore=await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime);
- await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>a.finish()));
+ await m.evaluate(()=>document.getAnimations().filter(a=>
+   a.id==='sr-hero-reveal'||a.id==='sr-hero-photo-depth').forEach(a=>a.finish()));
  await m.waitForFunction(()=>!document.querySelector('.hero.is-arriving'));
  await ready(m);
- check('The Perfect Cut termina normalmente depois de iniciar a revelação',
+ check('The Perfect Cut termina normalmente antes da aparição do hero',
   await m.evaluate(()=>window.heroAudit.events.at(-1)?.completed===true));
  // Before the loader is removed, its root layout may differ slightly
  // from the final page (e.g. font readiness, viewport calculations). Do
