@@ -33,9 +33,16 @@ try{
    queueMicrotask(()=>{if(animation.id==='sr-section-reveal')window.heroAudit.sections.push(this.className||this.tagName)});
    return animation;
   };
+  document.addEventListener('openingcutmidpoint',e=>{
+   const carrier=document.querySelector('.snv2-cut-flight');
+   const tip=carrier?new DOMMatrix(getComputedStyle(carrier).transform).m42:null;
+   window.heroAudit.midpoint={time:performance.now(),loader:!!document.querySelector('#sr-loader-stage'),
+     tip,height:innerHeight,progress:e.detail.progress};
+   // Capture the final static geometry BEFORE the hero's WAAPI effects.
+   window.heroAudit.rest=[...document.querySelectorAll('.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')].map(e=>({selector:e.className,rect:e.getBoundingClientRect().toJSON(),transform:getComputedStyle(e).transform}));
+  });
   document.addEventListener('openingend',e=>{
    window.heroAudit.events.push({time:performance.now(),completed:e.detail.completed,loader:!!document.querySelector('#sr-loader-stage')});
-   window.heroAudit.rest=[...document.querySelectorAll('.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')].map(e=>({selector:e.className,rect:e.getBoundingClientRect().toJSON(),transform:getComputedStyle(e).transform}));
   });
  });
  await m.goto(base,{waitUntil:'domcontentloaded'});
@@ -54,8 +61,14 @@ try{
   armed.queued&&armed.h1==='0'&&armed.facade==='0'&&
   armed.room==='0'&&armed.cta==='0'&&armed.logo==='visible',armed);
  await m.waitForSelector('.snv2-cut-ready');
- check('Nenhuma queda durante o corte',await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-drop')));
- await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-drop'));
+ check('Antes do meio da tesoura ainda não há queda',await m.evaluate(()=>
+  !document.getAnimations().some(a=>a.id==='sr-hero-drop')));
+ await m.waitForFunction(()=>window.heroAudit.midpoint&&
+  document.getAnimations().some(a=>a.id==='sr-hero-drop'));
+ const midpoint=await m.evaluate(()=>window.heroAudit.midpoint);
+ check('Tesoura no meio inicia queda enquanto loader ainda corta',
+  midpoint.loader&&midpoint.progress===.5&&
+  Math.abs(midpoint.tip-midpoint.height/2)<midpoint.height*.12,midpoint);
  // The first delayed frames must not paint the original resting photographs.
  const firstFrame=await m.evaluate(()=>{
   const photo=document.querySelector('.hero-room');
@@ -75,9 +88,13 @@ try{
    const f=a.effect.getKeyframes(),base=new DOMMatrix(f.at(-1).transform==='none'?undefined:f.at(-1).transform).m42;
    return {target:a.effect.target.className,delay:a.effect.getTiming().delay,duration:a.effect.getTiming().duration,y:f.map(k=>new DOMMatrix(k.transform==='none'?undefined:k.transform).m42-base)};
   });
-  return {audit,events:window.heroAudit.events,loader:!!document.querySelector('#sr-loader-stage'),logo:document.querySelectorAll('.hero-logo-transparent').length};
+  return {audit,midpoint:window.heroAudit.midpoint,
+    loader:!!document.querySelector('#sr-loader-stage'),
+    logo:document.querySelectorAll('.hero-logo-transparent').length};
  });
- check('Queda só depois da limpeza, com logo única',!physics.loader&&physics.logo===1&&physics.events.at(-1).completed&&physics.audit.length===12,physics);
+ check('Queda durante o corte, com loader ainda presente e logo única',
+   physics.loader&&physics.midpoint?.loader&&
+   physics.logo===1&&physics.audit.length===12,physics);
  check('Todas as quedas têm dois rebotes decrescentes',physics.audit.every(a=>a.y[0]<0&&Math.abs(a.y[1])<.01&&a.y[2]<0&&Math.abs(a.y[3])<.01&&a.y[4]<0&&Math.abs(a.y[4])<Math.abs(a.y[2])&&Math.abs(a.y[5])<.01));
  check('Hierarquia escalonada de cilindros até CTA',physics.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
@@ -86,6 +103,9 @@ try{
  const rotorBefore=await m.locator('.hero-pole__rotor').first().evaluate(e=>e.getAnimations()[0].currentTime);
  await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-drop').forEach(a=>a.finish()));
  await m.waitForFunction(()=>!document.querySelector('.hero.is-arriving'));
+ await ready(m);
+ check('The Perfect Cut termina normalmente depois de iniciar a queda',
+  await m.evaluate(()=>window.heroAudit.events.at(-1)?.completed===true));
  const final=await m.evaluate(()=>{
   const nodes=[...document.querySelectorAll('.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')];
   return nodes.map((e,i)=>{const r=e.getBoundingClientRect(),old=window.heroAudit.rest[i].rect;return Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-old[k])))})
