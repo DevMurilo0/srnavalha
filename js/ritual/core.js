@@ -31,7 +31,14 @@ export async function changePhoto(stage,src,alt,{mode='reflection',keyboard=fals
  // Retain the last photograph beneath the incoming image: rapid selections never flash.
  const old=stage.querySelector('img.is-current')||stage.querySelector('img');
  stage.replaceChildren(...(old?[old]:[]),next);next.className='is-current swap-image';if(old)old.className='previous-image';
- const motion=!keyboard?animate(next,[{opacity:.5,clipPath:mode==='product'?'inset(12% 48% 12% 48%)':'inset(0 100% 0 0)',scale:1.07},{opacity:1,clipPath:'inset(0 0 0 0)',scale:1}],{duration:620,easing:flow}):null;
+ const lowPower=matchMedia('(max-width:700px)').matches||
+   (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+   navigator.connection?.saveData===true;
+ const frames=lowPower
+  ?[{opacity:.35},{opacity:1}]
+  :[{opacity:.5,clipPath:mode==='product'?'inset(12% 48% 12% 48%)':'inset(0 100% 0 0)',scale:1.07},
+    {opacity:1,clipPath:'inset(0 0 0 0)',scale:1}];
+ const motion=!keyboard?animate(next,frames,{duration:lowPower?300:620,easing:flow}):null;
  const clean=()=>{if(sequence.get(stage)===token){stage.replaceChildren(next);next.className='is-current'}};
  if(motion)motion.finished.then(clean).catch(clean);else clean();
  stage.dispatchEvent(new CustomEvent('photochange',{bubbles:true,detail:{mode}}));
