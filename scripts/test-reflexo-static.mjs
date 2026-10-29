@@ -37,6 +37,17 @@ assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida'
 const heroTimeline=file('js/ritual/hero-sign.js');
 assert.ok(heroTimeline.includes("'openingend'")&&heroTimeline.includes('event.detail?.completed'),'entrada após término real');
 assert.ok(heroTimeline.includes('getComputedStyle(node).transform'),'preserva geometria original');
+const queuedCSS=file('css/ritual/hero-sign.css');
+assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&
+          queuedCSS.includes('html.sr-hero-queued .hero .hero-facade')&&
+          queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
+  'foto e título estão invisíveis antes do primeiro quadro da queda');
+assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&
+          heroTimeline.includes('allEffects.add(animation)')&&
+          heroTimeline.includes("fill:'both',persist:true"),
+  'frames finais permanecem até todos pousarem e são limpos juntos');
+assert.ok(heroTimeline.includes("'.hero-wordmark > span'"),
+  'a inscrição entra isolada da logo oficial do handoff');
 assert.ok(!file('js/ritual/opening.js').includes('scheduleHeroEntrance'),'loader não possui animações do hero');
 assert.ok(file('js/ritual/app.js').includes('initHeroExperience()'),'controlador próprio inicializado');
 assert.equal((html.match(/class="sr-booking-fixed"/g)||[]).length,1,
@@ -109,6 +120,9 @@ assert.ok(file('templates/v17/head.html').includes("completed:false,reason:'watc
 assert.ok(!code.includes('sessionStorage'),'intro repete a cada F5');
 const head=file('templates/v17/head.html');
 assert.ok(!head.includes('sessionStorage')&&head.includes('sr-loader-boot'));
+assert.ok(head.includes("'sr-hero-queued'")&&
+          head.includes("root.classList.remove('sr-loader-boot','sr-cut-reveal','sr-hero-queued')"),
+  'classe de fila começa no head e libera em falha de carregamento');
 assert.ok(head.includes('sr-cut-reveal'),'watchdog libera estado');
 const colors=file('css/ritual/tokens.css');
 for(const token of ['--ivory:#f1eae0','--ink:#171615','--tobacco:#302620',
