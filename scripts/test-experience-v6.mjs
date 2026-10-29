@@ -127,7 +127,7 @@ try{
    reveal.audit.filter(a=>!a.photo).length===9&&
    reveal.audit.filter(a=>!a.photo).every(a=>
      a.lifts&&a.firstTranslate!==a.lastTranslate&&
-     a.lastTranslate==='0px 0px')&&
+     ['0px','0px 0px'].includes(a.lastTranslate))&&
    reveal.audit.some(a=>a.firstTranslate==='0px 72px'));
  check('Fotos reveladas com duração perceptível depois do corte',
    reveal.audit.filter(a=>a.photo).every(a=>a.duration>=900&&a.delay>=300));
