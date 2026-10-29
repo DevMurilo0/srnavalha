@@ -1,5 +1,12 @@
 # Sr. Navalha · The Perfect Cut
 
+## Atualização V7 — Revelação editorial sem deslocamento (29/10/2026)
+
+A antiga animação de **queda e quique** do hero foi substituída por uma revelação estável e discreta. Durante a passagem da tesoura pelo meio do corte, a assinatura, os títulos e os botões surgem suavemente em opacidade; as três fotografias são **descobertas progressivamente de cima para baixo** com `clip-path` e `opacity`. Nenhuma foto, cartão ou texto recebe `transform` nessa animação: os enquadramentos, as inclinações e as posições finais ficam idênticos desde o primeiro frame. A transferência FLIP da logo permanece independente. Os dois cilindros pretos e brancos conservam a rotação.
+
+Os elementos começam ocultos desde o `head` (`sr-hero-queued`) e o preenchimento dos efeitos Web Animations API é mantido até que todos estejam visíveis. Interrupções, redução de movimento e erros liberam o estado normal do hero. O novo teste de navegador mede caixas das fotografias durante a animação e depois do término; não deve haver nenhum deslocamento.
+
+
 ## V6.1 — Sem flash antes da queda do hero (29/10/2026)
 
 A intro foi corrigida para não renderizar imagens, título e CTA em seu estado definitivo antes de as animações começarem. O `head` arma `sr-hero-queued` junto com `sr-loader-boot` antes de o CSS pintar a primeira tela; o CSS posiciona os elementos de chegada com opacidade zero. `initHeroExperience()` inicia cada queda após `openingend`, preservando os dois rebotes. O preenchimento WAAPI `fill:'both',persist:true` retém cada elemento visível em seu frame final até o último pousar. Então todos os efeitos são cancelados em conjunto, no mesmo ciclo de pintura em que a classe de fila é retirada — **sem reaparecimento inicial e sem segundo flash ao concluir**.
