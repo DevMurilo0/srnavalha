@@ -111,3 +111,19 @@ html:not(.sr-loader-boot) #sr-loader-stage{
     animation-play-state:paused!important;
   }
 }
+
+
+/* Compositor budget for integrated graphics (the same flag is set by
+   atmosphere.js). Preserve white / graphite depth, but remove costly
+   offscreen filter surfaces and endless animated ribbons. */
+html.sr-lite-motion .sr-surface,
+html.sr-lite-motion .house-portal,
+html.sr-lite-motion .team-portrait,
+html.sr-lite-motion .product-hero,
+html.sr-lite-motion .footer-visual{
+  filter:none!important;
+}
+html.sr-lite-motion .footer-rail-track,
+html.sr-lite-motion .review-track{
+  animation-play-state:paused!important;
+}
