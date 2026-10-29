@@ -151,13 +151,12 @@ html.sr-lite-motion .review-track{
   pointer-events:none;
   user-select:none;
   opacity:0;
-  z-index:-1;
+  z-index:0;
   transform-origin:center center;
 }
 .cm-kinetic-ghost *{
   color:transparent!important;
   -webkit-text-stroke:inherit;
-  font:inherit;
 }
 @media(prefers-reduced-motion:reduce){
   .cm-kinetic-ghost{display:none!important}
