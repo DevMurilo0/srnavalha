@@ -21,6 +21,45 @@
 @keyframes sr-pole-rotation{from{transform:translateY(-16px)}to{transform:translateY(16px)}}
 .hero-pole--left .hero-pole__rotor{animation-direction:reverse;animation-delay:-1200ms}
 html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{animation-play-state:running}
+/* Before the first frame of the loader, park every animated hero element.
+   When Perfect Cut is removed, the compositor still sees them at opacity 0.
+   Each WAAPI drop overrides this ordinary author opacity; its 'both' fill
+   holds the settled frame until the whole sequence completes.
+   The official logo is deliberately NOT hidden: it belongs to the FLIP.
+   The small side label can fall independently without moving the logo. */
+html.sr-hero-queued .hero .hero-pole__object,
+html.sr-hero-queued .hero .hero-wordmark > span,
+html.sr-hero-queued .hero h1,
+html.sr-hero-queued .hero .hero-intro,
+html.sr-hero-queued .hero .hero-facade,
+html.sr-hero-queued .hero .hero-room,
+html.sr-hero-queued .hero .hero-detail,
+html.sr-hero-queued .hero .hero-invitation > p,
+html.sr-hero-queued .hero .hero-invitation > .button,
+html.sr-hero-queued .hero .hero-invitation > .text-link,
+html.sr-hero-queued .hero .hero-bottom{
+ opacity:0;
+}
+/* During the panels' opening the higher-specificity loader rules otherwise
+   reveal h1 early. Keep it parked until its individual fall actually starts. */
+html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
+/* Visitors who request reduced motion must never see queued content. */
+@media(prefers-reduced-motion:reduce){
+ html.sr-hero-queued .hero .hero-pole__object,
+ html.sr-hero-queued .hero .hero-wordmark > span,
+ html.sr-hero-queued .hero h1,
+ html.sr-hero-queued .hero .hero-intro,
+ html.sr-hero-queued .hero .hero-facade,
+ html.sr-hero-queued .hero .hero-room,
+ html.sr-hero-queued .hero .hero-detail,
+ html.sr-hero-queued .hero .hero-invitation > p,
+ html.sr-hero-queued .hero .hero-invitation > .button,
+ html.sr-hero-queued .hero .hero-invitation > .text-link,
+ html.sr-hero-queued .hero .hero-bottom{
+  opacity:1;
+ }
+}
+
 /* Hold the static layout beneath the cut; never start a second entrance there. */
 .hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
 .hero.is-arriving .title-mask{overflow:visible}
