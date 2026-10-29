@@ -111,6 +111,18 @@ export function initMotion(){
    registered.add(node);
    sectionOwner.set(node,node.closest('main section:not(.hero)')||node.closest('footer'));
    node.dataset.cmKind=photo?'image':'text';
+   // An authored gesture per section, not an identical scroll fade. Keep
+   // the work-title's existing position-driven animation independent.
+   if(!photo&&node.matches('h2,.footer-oversize-lead,.footer-oversize-main')&&
+      !node.matches('#work-title')){
+     const area=node.closest('section,footer');
+     const sign={
+       casa:'inktrail',servicos:'crosscurrent',equipe:'pendulum',
+       produtos:'accordion',avaliacoes:'ghostprint',
+       localizacao:'mirrorfold',contato:'inktrail'
+     };
+     node.dataset.cmSignature=sign[area?.id]||'ghostprint';
+   }
    node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
    const rect=node.getBoundingClientRect();
    // Do not hide a scene the reader has already reached (late JS / deep link).
