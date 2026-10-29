@@ -91,7 +91,7 @@ export function initMotion(){
     if(node.matches('a,button')&&node.querySelector(photos))continue;
    }
    registered.add(node);
-   sectionOwner.set(node,node.closest('section,footer'));
+   sectionOwner.set(node,node.closest('main section:not(.hero)')||node.closest('footer'));
    node.dataset.cmKind=photo?'image':'text';
    node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
    const rect=node.getBoundingClientRect();
