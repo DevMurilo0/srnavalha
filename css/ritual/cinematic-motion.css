@@ -103,3 +103,11 @@ html:not(.sr-loader-boot) #sr-loader-stage{
   .cm-pending{opacity:1!important}
   .cm-ink,.cm-letter{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}
 }
+
+/* Preserve explicit paused state for the reputation and footer rails in
+   reduced motion; inspection and user controls must both report paused. */
+@media(prefers-reduced-motion:reduce){
+  .review-track,.footer .footer-rail-track{
+    animation-play-state:paused!important;
+  }
+}
