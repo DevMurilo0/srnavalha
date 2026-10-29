@@ -14,7 +14,7 @@ export function initMotion(){
  // Track a scene owner once. Scanning 300 bounding boxes on EVERY scroll
  // frame is the largest layout-read hotspot on slower notebooks.
  const sectionOwner=new WeakMap();
- const sections=$('main section:not(.hero),footer');
+ const sections=$$('main section:not(.hero),footer');
  const scroll=createScrollMotion();let frame=0,entryFrame=0,observer;
  // Don't mount dozens of DOM-splitting animations inside one scroll event.
  // A bounded RAF queue spreads creation across frames, preserving input.
