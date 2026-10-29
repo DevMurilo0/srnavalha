@@ -38,9 +38,36 @@ try{
    window.heroAudit.rest=[...document.querySelectorAll('.hero-wordmark,.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')].map(e=>({selector:e.className,rect:e.getBoundingClientRect().toJSON(),transform:getComputedStyle(e).transform}));
   });
  });
- await m.goto(base,{waitUntil:'domcontentloaded'});await m.waitForSelector('.snv2-cut-ready');
+ await m.goto(base,{waitUntil:'domcontentloaded'});
+ // Regression: the hero was visible for one frame before delayed WAAPI drops.
+ // Its items must already be parked in the head, before the cut begins.
+ await m.waitForSelector('.snv2-run');
+ const armed=await m.evaluate(()=>({
+  queued:document.documentElement.classList.contains('sr-hero-queued'),
+  h1:getComputedStyle(document.querySelector('.hero h1')).opacity,
+  facade:getComputedStyle(document.querySelector('.hero-facade')).opacity,
+  room:getComputedStyle(document.querySelector('.hero-room')).opacity,
+  cta:getComputedStyle(document.querySelector('.hero-invitation > .button')).opacity,
+  logo:getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility
+ }));
+ check('Antes do corte, hero oculto sem esconder logo FLIP',
+  armed.queued&&armed.h1==='0'&&armed.facade==='0'&&
+  armed.room==='0'&&armed.cta==='0'&&armed.logo==='visible',armed);
+ await m.waitForSelector('.snv2-cut-ready');
  check('Nenhuma queda durante o corte',await m.evaluate(()=>!document.getAnimations().some(a=>a.id==='sr-hero-drop')));
  await m.waitForFunction(()=>document.getAnimations().some(a=>a.id==='sr-hero-drop'));
+ // The first delayed frames must not paint the original resting photographs.
+ const firstFrame=await m.evaluate(()=>{
+  const photo=document.querySelector('.hero-room');
+  const anim=photo.getAnimations().find(a=>a.id==='sr-hero-drop');
+  if(!anim)return {hasAnimation:false};
+  anim.pause();anim.currentTime=0;
+  return {hasAnimation:true,queued:document.documentElement.classList.contains('sr-hero-queued'),
+    opacity:getComputedStyle(photo).opacity,fill:anim.effect.getTiming().fill};
+ });
+ check('Antes de cair, foto não aparece parada',
+  firstFrame.hasAnimation&&firstFrame.queued&&firstFrame.opacity==='0'&&
+  firstFrame.fill==='both',firstFrame);
  const physics=await m.evaluate(()=>{
   const drops=document.getAnimations().filter(a=>a.id==='sr-hero-drop');
   const audit=drops.map(a=>{
@@ -64,6 +91,17 @@ try{
   return nodes.map((e,i)=>{const r=e.getBoundingClientRect(),old=window.heroAudit.rest[i].rect;return Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-old[k])))})
  });
  check('Geometria final idêntica ao hero revelado',final.every(n=>n<.1),final);
+ const settledOpacity=await m.evaluate(()=>({
+  queued:document.documentElement.classList.contains('sr-hero-queued'),
+  photos:[...document.querySelectorAll('.hero-facade,.hero-room')].map(x=>getComputedStyle(x).opacity),
+  heading:getComputedStyle(document.querySelector('.hero h1')).opacity,
+  cta:getComputedStyle(document.querySelector('.hero-invitation > .button')).opacity,
+  remainingDrops:document.getAnimations().filter(a=>a.id==='sr-hero-drop').length
+ }));
+ check('Depois do último quique, itens visíveis e sem fills presos',
+  !settledOpacity.queued&&settledOpacity.photos.every(x=>x==='1')&&
+  settledOpacity.heading==='1'&&settledOpacity.cta==='1'&&
+  settledOpacity.remainingDrops===0,settledOpacity);
  // WAAPI currentTime advances only on a rendering tick: a synchronous check
  // immediately after finish() can read the exact same compositor frame.
  await m.waitForTimeout(95);
