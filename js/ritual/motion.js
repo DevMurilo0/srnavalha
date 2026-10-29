@@ -56,6 +56,11 @@ export function initMotion(){
   if(node.matches('.review blockquote'))return'blade';
   if(node.matches('.section-heading > p'))return'negative';
   if(node.matches('.footer-small-note'))return'shutter';
+  // Copy also carries different rhythms, but NEVER a split tree. These are
+  // single-element compositor gestures, timed for reading rather than spectacle.
+  if(node.matches('.house-copy>p:not(.house-quote)'))return'slipstream';
+  if(node.matches('.product-info>p,.visit-info>p'))return'looseink';
+  if(node.matches('.footer-story-copy>p'))return'breath';
   if(node.matches('blockquote'))return'lines';
   // Ordinary copy is still animated, but as a SINGLE composited layer,
   // not by rebuilding every word and running blur/clip-path on each glyph.
