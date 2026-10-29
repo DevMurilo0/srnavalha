@@ -12,14 +12,15 @@ export function cancelText(node) { owners.get(node)?.cancel(); }
 export function cancelTextWithin(node) { cancelText(node);node.querySelectorAll('.cm-split').forEach(cancelText); }
 export function revealText(node, mode='focus', {delay=0, duration, manual=false}={}) {
   cancelText(node);
-  const effects=[], replacements=[];
+  const effects=[], replacements=[], ghosts=[];
   let done=false, resolve;
   const finished=new Promise(r=>resolve=r);
   const cleanup=()=>{
     if(done)return;done=true;
     for(const effect of effects)effect.cancel();
     for(const {wrapper,original} of replacements)if(wrapper.isConnected)wrapper.replaceWith(original);
-    node.classList.remove('cm-split');
+    for(const ghost of ghosts)ghost.remove();
+    node.classList.remove('cm-split','cm-kinetic-host');
     if(owners.get(node)===handle)owners.delete(node);
     resolve();
   };
@@ -29,11 +30,170 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   }};
   owners.set(node,handle);
   if(!canMove()||!node.animate||!node.textContent.trim()){cleanup();return handle;}
+  // Cinematic typography, one compositor animation per editorial phrase.
+  // Split DOM/Range measurements are reserved for the hero and explicit
+  // manual semantic fixtures. This is the crucial low-memory performance path.
+  // Each mode has its own physical grammar: letterpress, blade-shear, negative
+  // space, rotational fold, and optical compression. No extra DOM layers.
+  if(!node.closest('.hero')&&mode!=='micro'&&(!manual||mode==='scroll')){
+    try{
+      const ink=getComputedStyle(node).color;
+      const framesByMode={
+        fold:[
+          {opacity:0,transform:'perspective(750px) translateY(26px) rotateX(-32deg)'},
+          {offset:.72,opacity:1,transform:'perspective(750px) translateY(-2px) rotateX(3deg)'},
+          {opacity:1,transform:'perspective(750px) translateY(0px) rotateX(0deg)'}
+        ],
+        roll:[
+          {opacity:0,transform:'translate3d(0,30px,0) rotateZ(4deg)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(-.6deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
+        ],
+        stroke:[
+          {opacity:0,color:'transparent',webkitTextStroke:`1px ${ink}`,transform:'translate3d(0,13px,0)'},
+          {offset:.55,opacity:.95,color:'transparent',webkitTextStroke:`1px ${ink}`,transform:'translate3d(0,0,0)'},
+          {opacity:1,color:ink,webkitTextStroke:`0px ${ink}`,transform:'translate3d(0,0,0)'}
+        ],
+        echo:[
+          {opacity:0,transform:'translate3d(-24px,18px,0) scale(1.045) rotateZ(-2deg)'},
+          {offset:.65,opacity:1,transform:'translate3d(2px,-2px,0) scale(.99) rotateZ(.25deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1) rotateZ(0deg)'}
+        ],
+        focus:[
+          {opacity:0,transform:'translate3d(0,14px,0) scale(1.05)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+        ],
+        lines:[
+          {opacity:0,transform:'translate3d(-20px,0,0) skewX(9deg)'},
+          {offset:.8,opacity:1,transform:'translate3d(2px,0,0) skewX(-1deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg)'}
+        ],
+        scroll:[
+          {opacity:.16,transform:'perspective(680px) translate3d(0,18px,0) rotateX(-19deg)'},
+          {opacity:1,transform:'perspective(680px) translate3d(0,0,0) rotateX(0deg)'}
+        ],
+        // Four bespoke modes not tied to a preset text-animation package.
+        inkpress:[
+          {opacity:0,transform:'translate3d(0,-18px,0) scale(1.085,.82)'},
+          {offset:.48,opacity:1,transform:'translate3d(0,5px,0) scale(.97,1.045)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1,1)'}
+        ],
+        blade:[
+          {opacity:0,transform:'translate3d(32px,0,0) skewX(-18deg) scaleX(.93)'},
+          {offset:.72,opacity:1,transform:'translate3d(-3px,0,0) skewX(2deg) scaleX(1.015)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg) scaleX(1)'}
+        ],
+        negative:[
+          {opacity:0,transform:'translate3d(-19px,9px,0) scaleX(.84)'},
+          {offset:.66,opacity:1,transform:'translate3d(3px,-1px,0) scaleX(1.02)'},
+          {opacity:1,transform:'translate3d(0,0,0) scaleX(1)'}
+        ],
+        shutter:[
+          {opacity:0,transform:'translate3d(0,19px,0) rotateZ(-2deg) scale(.98)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(.3deg) scale(1.01)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg) scale(1)'}
+        ],
+        // Text that "floats" into print, settles and stays still.
+        slipstream:[
+          {opacity:0,transform:'translate3d(22px,12px,0) skewX(-6deg)'},
+          {offset:.66,opacity:1,transform:'translate3d(-3px,-1px,0) skewX(1.5deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) skewX(0deg)'}
+        ],
+        looseink:[
+          {opacity:0,transform:'translate3d(-14px,8px,0) scaleX(.96)'},
+          {offset:.7,opacity:1,transform:'translate3d(2px,-1px,0) scaleX(1.008)'},
+          {opacity:1,transform:'translate3d(0,0,0) scaleX(1)'}
+        ],
+        breath:[
+          {opacity:0,transform:'translate3d(0,14px,0) rotateZ(-1.3deg)'},
+          {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) rotateZ(.25deg)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
+        ]
+      };
+      // The original sentence stays in the DOM, untouched and accessible.
+      // Each named signature is a single kinetic poster gesture. One optional
+      // outline ghost gives the impression of drifting type without a WebGL
+      // scene, a canvas render loop, or 80 letter-level animations.
+      const signatures={
+        inktrail:[
+          {opacity:0,transform:'translate3d(-34px,22px,0) rotateZ(-5deg) skewX(-8deg) scaleX(.9)'},
+          {offset:.64,opacity:1,transform:'translate3d(6px,-3px,0) rotateZ(1deg) skewX(2deg) scaleX(1.035)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0) skewX(0) scaleX(1)'}
+        ],
+        crosscurrent:[
+          {opacity:0,transform:'translate3d(38px,-22px,0) rotateZ(4deg) skewX(12deg) scaleX(.89)'},
+          {offset:.65,opacity:1,transform:'translate3d(-5px,3px,0) rotateZ(-.7deg) skewX(-2deg) scaleX(1.02)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0) skewX(0) scaleX(1)'}
+        ],
+        pendulum:[
+          {opacity:0,transform:'perspective(850px) translate3d(-18px,33px,0) rotateY(-23deg) rotateZ(-3deg)'},
+          {offset:.7,opacity:1,transform:'perspective(850px) translate3d(4px,-3px,0) rotateY(3deg) rotateZ(.5deg)'},
+          {opacity:1,transform:'perspective(850px) translate3d(0,0,0) rotateY(0) rotateZ(0)'}
+        ],
+        accordion:[
+          {opacity:0,transform:'translate3d(0,24px,0) scaleX(.78) scaleY(1.11)'},
+          {offset:.62,opacity:1,transform:'translate3d(0,-3px,0) scaleX(1.035) scaleY(.98)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+        ],
+        ghostprint:[
+          {opacity:0,transform:'translate3d(-23px,-17px,0) rotateZ(-3deg) scale(1.035)'},
+          {offset:.63,opacity:1,transform:'translate3d(3px,2px,0) rotateZ(.6deg) scale(.993)'},
+          {opacity:1,transform:'translate3d(0,0,0) rotateZ(0) scale(1)'}
+        ],
+        mirrorfold:[
+          {opacity:0,transform:'perspective(800px) translate3d(24px,11px,0) rotateY(19deg) scaleX(.92)'},
+          {offset:.68,opacity:1,transform:'perspective(800px) translate3d(-3px,-2px,0) rotateY(-2deg) scaleX(1.015)'},
+          {opacity:1,transform:'perspective(800px) translate3d(0,0,0) rotateY(0) scaleX(1)'}
+        ]
+      };
+      const signature=node.dataset.cmSignature;
+      const frames=signatures[signature]||framesByMode[mode]||framesByMode.negative;
+      const lowPower=matchMedia('(max-width:760px)').matches||
+        (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+        navigator.connection?.saveData===true;
+      const time=duration||({fold:690,roll:640,stroke:740,echo:750,focus:590,lines:680,
+        scroll:920,inkpress:760,blade:710,negative:670,shutter:670,slipstream:690,looseink:650,breath:720}[mode]||650);
+      const effect=animate(node,frames,{
+        duration:signature?Math.min(time+120,840):time,delay,easing:ease,fill:'both',persist:true
+      });
+      if(effect){
+        effect.id=`sr-text-${mode}`;effects.push(effect);
+        // Only large, short editorial titles earn ONE translucent outline
+        // afterimage. It disappears once the original lands in its own box.
+        if(signature&&!lowPower&&node.matches('h2')&&node.textContent.length<115){
+          const ghost=document.createElement('span');
+          ghost.className='cm-kinetic-ghost';
+          ghost.setAttribute('aria-hidden','true');
+          ghost.style.setProperty('--cm-ghost-ink',ink);
+          ghost.innerHTML=node.innerHTML;
+          node.classList.add('cm-kinetic-host');
+          node.append(ghost);ghosts.push(ghost);
+          const reverse=signature==='crosscurrent'||signature==='mirrorfold';
+          const drift=reverse?-26:26;
+          const echo=animate(ghost,[
+            {opacity:0,transform:`translate3d(${drift}px,-12px,0) rotateZ(${reverse?-4:4}deg) scale(1.025)`},
+            {offset:.4,opacity:.34,transform:`translate3d(${-drift*.27}px,4px,0) rotateZ(0deg) scale(1.01)`},
+            {opacity:0,transform:'translate3d(0,0,0) rotateZ(0deg) scale(1)'}
+          ],{duration:Math.min(time+30,740),delay,easing:'cubic-bezier(.2,.78,.22,1)',fill:'both'});
+          if(echo){echo.id=`sr-ghost-${signature}`;effects.push(echo);}
+          else{ghost.remove();ghosts.pop();node.classList.remove('cm-kinetic-host');}
+        }
+        if(manual){effect.pause();effect.currentTime=0;}
+        else effect.finished.catch(()=>{}).finally(cleanup);
+      }else cleanup();
+    }catch{cleanup();}
+    return handle;
+  }
   const live=node.closest('[aria-live]')||node.querySelector('[aria-live]');
   // Live regions retain an untouched text tree, avoiding repeated announcements.
   if(live||mode==='micro'){
     try{
-      const effect=animate(node,[{clipPath:'inset(0 100% 0 0)',opacity:.5},{clipPath:'inset(0 0% 0 0)',opacity:1}],{duration:duration||420,delay,easing:ease});
+      // A single compositor-friendly fade + translation: no clipping or
+      // glyph measurements for every price, caption, paragraph or CTA.
+      const frames=node.closest('.hero')
+        ?[{opacity:0},{opacity:1}]
+        :[{opacity:0,translate:'0 14px'},{opacity:1,translate:'0 0px'}];
+      const effect=animate(node,frames,{duration:duration||460,delay,easing:ease,fill:'both'});
       if(effect){effect.id='sr-text-micro';effects.push(effect);effect.finished.catch(()=>{}).finally(cleanup);}else cleanup();
     }catch{cleanup();}
     return handle;
@@ -59,7 +219,11 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
       wrapper.append(source,visual);original.replaceWith(wrapper);replacements.push({wrapper,original});
     }
     node.classList.add('cm-split');
-    const useChars=['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
+    // A 320px phone can render 100+ letter effects in one hero. Keep the
+    // distinctive word-level motion there, reserve glyph splitting for desktop.
+    const modestCPU=navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4;
+    const useChars=!matchMedia('(max-width:700px)').matches&&!modestCPU&&
+      ['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
     const units=[];
     // All measurements precede effect creation. Line groups follow real wrapping.
     const lineTops=[];

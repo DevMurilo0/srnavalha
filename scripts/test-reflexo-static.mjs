@@ -137,3 +137,22 @@ for(const name of [
   '--experimental-default-type=module','--check','js/ritual/'+name+'.js'
 ]);
 console.log('Perfect Cut V4: 2 painéis, linha contínua, FLIP, reload, conteúdo e JS OK.');
+
+/* Performance contract: detailed editorial animation must not multiply
+   layers on every paragraph or create unlimited work in a single scroll tick. */
+const motionRuntime=file('js/ritual/motion.js');
+const textRuntime=file('js/ritual/text-motion.js');
+const imageRuntime=file('js/ritual/image-motion.js');
+assert.ok(motionRuntime.includes("const sections=$$('main section:not(.hero),footer')"),
+  'recuperação de scroll usa a lista completa de seções');
+assert.ok(motionRuntime.includes('const perFrame=')&&
+          motionRuntime.includes('requestAnimationFrame(flushEntrances)'),
+  'entradas no scroll distribuídas em lotes com limite por quadro');
+assert.ok(motionRuntime.includes("return'micro';")&&
+          !motionRuntime.includes("node.closest('#casa,#localizacao')?'fold':'focus'"),
+  'textos comuns têm efeito leve; títulos preservam as animações editoriais');
+assert.ok(textRuntime.includes("translate:'0 14px'")&&
+          textRuntime.includes("matchMedia('(max-width:700px)').matches"),
+  'texto simples usa apenas composição e mobile evita animação por caractere');
+assert.ok(imageRuntime.includes('if(image&&!lowPower&&featured)'),
+  'zoom fotográfico secundário desligado em hardware modesto');

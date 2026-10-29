@@ -6,17 +6,21 @@ export function initAtmosphere(){
  const clone=group.cloneNode(true);clone.setAttribute('aria-hidden','true');clone.inert=true;
  $$('a',clone).forEach(a=>a.tabIndex=-1);track.append(clone);
  const visible=new Set(),compact=matchMedia('(max-width:700px)');let paused=false;
+ const lowPower=(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+   navigator.connection?.saveData===true;
+ // Motion text and photos have priority over ambient loops on older laptops.
+ if(lowPower)document.documentElement.classList.add('sr-lite-motion');
  const pause=$('#review-pause');
  function sync(){
   const move=canMove();
-  track.classList.toggle('is-moving',!preference.matches);
-  track.classList.toggle('is-paused',paused||!move||!visible.has(viewport));
+  track.classList.toggle('is-moving',!preference.matches&&!lowPower);
+  track.classList.toggle('is-paused',lowPower||paused||!move||!visible.has(viewport));
   clone.hidden=preference.matches;
   reviewFrame?.classList.toggle('is-playing',move&&visible.has(reviewFrame));
   footer?.classList.toggle('is-in-view',move&&visible.has(footer));
   // Keep the real still photograph on phones; avoid a second video decoder
   // competing with scroll. Desktop retains the original film when visible.
-  if(film){if(move&&!compact.matches&&visible.has(film)){
+  if(film){if(move&&!compact.matches&&!lowPower&&visible.has(film)){
    if(!film.src)film.src=film.dataset.src;
    if(film.paused)film.play().catch(()=>{});
   }else film.pause()}

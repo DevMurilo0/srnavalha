@@ -18,7 +18,7 @@ try{
  const m=await page();
  await m.addInitScript(()=>{
   window.motionAudit={effects:[],end:[],mid:null};const original=Element.prototype.animate;
-  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0})});return a;};
+  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),tag:target.tagName,heading:target.closest('h2')?.id||null,logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0})});return a;};
   document.addEventListener('openingcutmidpoint',()=>window.motionAudit.mid={loader:!!document.querySelector('#sr-loader-stage'),count:window.motionAudit.effects.filter(e=>e.hero).length});
   document.addEventListener('openingend',e=>window.motionAudit.end.push({completed:e.detail.completed,loader:!!document.querySelector('#sr-loader-stage')}));
  });
@@ -29,9 +29,9 @@ try{
   const selected=document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'));selected.forEach(a=>{a.pause();a.currentTime=0});
   const photo=document.querySelector('.hero-room');const a=photo.getAnimations()[0];
   const h=document.querySelector('h1');const label=[...h.querySelectorAll('.cm-source')].map(n=>n.textContent).join('');
-  return {label,letters:h.querySelectorAll('.cm-letter').length,echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
+  return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
  });
- check('Hero exclusivo: caracteres, máscara e profundidade com texto acessível único',active.letters>15&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
+ check('Hero exclusivo: caracteres, máscara e profundidade com texto acessível único',(active.lowPower?active.words>=4:active.letters>15)&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
  check('Fotos atrasadas permanecem recortadas antes da sua entrada',active.clip!=='none'&&active.fill==='both',active);
  check('Logo oficial não recebe nova animação',active.logoAnimations===0);
  const geometry=await m.evaluate(async()=>{
@@ -94,6 +94,80 @@ try{
    ['hero','fold','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&
    ['lateral','aperture','diagonal','shutter'].every(s=>coverage.modes.includes('sr-photo-'+s)),coverage);
  check('Todos os títulos das seções têm dono e placas antigas não reaparecem',coverage.headings.every(n=>n.kind==='text')&&coverage.dividers,coverage.headings);
+ // Four custom, single-layer editorial entrances must be real animations.
+ // The big headlines must never launch one Web Animation per glyph/word.
+ const typeBudget=await m.evaluate(()=>{
+  const effects=window.motionAudit.effects.filter(e=>!e.hero&&e.heading);
+  const counts={};
+  for(const effect of effects)counts[effect.heading]=(counts[effect.heading]||0)+1;
+  return {modes:[...new Set(window.motionAudit.effects.map(e=>e.id))],
+    maxHeadingEffects:Math.max(0,...Object.values(counts)),counts};
+ });
+ // Directly exercise all four custom effects even if the visitor took a
+ // programmatic anchor jump past a section before its heading was observed.
+ // This tests the executable choreography, not merely the source strings.
+ const bespoke=await m.evaluate(async()=>{
+  const {revealText}=await import('/js/ritual/text-motion.js');
+  const fixtures=[
+   ['inkpress','.team-invite p'],
+   ['blade','.review blockquote'],
+   ['negative','.section-heading > p'],
+   ['shutter','.footer-small-note']
+  ];
+  return fixtures.map(([mode,selector])=>{
+   const original=document.querySelector(selector);
+   if(!original)return{mode,found:false};
+   const assigned=original.dataset.cmMode;
+   const host=document.createElement('p');
+   host.textContent=original.textContent.trim().slice(0,120)||'Sr. Navalha';
+   host.style.cssText='position:fixed;left:-2000px;top:0;font:24px sans-serif';
+   document.body.append(host);
+   const before=host.getBoundingClientRect().toJSON();
+   const run=revealText(host,mode);
+   const fx=host.getAnimations().filter(a=>a.id==='sr-text-'+mode);
+   run.cancel();
+   const after=host.getBoundingClientRect().toJSON();
+   host.remove();
+   return{mode,assigned,found:true,effects:fx.length,
+    frames:fx[0]?.effect?.getKeyframes()?.length||0,
+    stable:['x','y','width','height'].every(k=>Math.abs(before[k]-after[k])<1)};
+  });
+ });
+ check('Letterpress, blade-shear, negative-space e shutter únicos por frase',
+   bespoke.length===4&&bespoke.every(x=>x.found&&x.assigned===x.mode&&x.effects===1&&x.frames>=2&&x.stable),bespoke);
+ check('Títulos de seção mantêm apenas uma animação de preenchimento principal',
+   typeBudget.maxHeadingEffects<=1,typeBudget);
+ const signatures=await m.evaluate(async()=>{
+   const {revealText}=await import('/js/ritual/text-motion.js');
+   const names=['inktrail','crosscurrent','pendulum','accordion','ghostprint','mirrorfold'];
+   const lite=matchMedia('(max-width:760px)').matches||
+     (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
+     navigator.connection?.saveData===true;
+   return names.map(name=>{
+     const h=document.createElement('h2');
+     h.textContent='Seu estilo, nossa assinatura.';
+     h.dataset.cmSignature=name;
+     h.style.cssText='position:fixed;top:10px;left:-3000px;font:600 32px sans-serif';
+     document.body.append(h);
+     const before=h.getBoundingClientRect().toJSON();
+     const owner=revealText(h,'fold');
+     const main=h.getAnimations().filter(a=>a.id==='sr-text-fold');
+     const ghost=h.querySelector('.cm-kinetic-ghost');
+     const trace=ghost?.getAnimations().filter(a=>a.id==='sr-ghost-'+name)||[];
+     const first=main[0]?.effect?.getKeyframes()?.[0]?.transform;
+     owner.cancel();
+     const after=h.getBoundingClientRect().toJSON();
+     const result={name,main:main.length,ghost:trace.length,removed:!h.querySelector('.cm-kinetic-ghost'),
+       original:h.textContent==='Seu estilo, nossa assinatura.',
+       stable:['x','y','width','height'].every(k=>Math.abs(before[k]-after[k])<.5),
+       first};
+     h.remove();
+     return result;
+   });
+ });
+ check('Seis entradas cinéticas realmente diferentes com rastros temporários',
+   signatures.length===6&&new Set(signatures.map(s=>s.first)).size===6&&
+   signatures.every(s=>s.main===1&&s.removed&&s.original&&s.stable&&s.ghost<=1),signatures);
  await m.locator('#catalogo').evaluate(n=>n.scrollIntoView({behavior:'instant'}));await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
  check('Filtro de serviços preservado',await m.locator('.service-entry:visible').evaluateAll(es=>es.length>0&&es.every(e=>e.dataset.category==='Tratamentos')));
  await m.locator('#product-category').selectOption('Barba');const count=await m.locator('.product-option:visible').count();check('Filtro e contagem de produtos sincronizados',(await m.locator('#product-count').textContent()).startsWith(count+' produtos · Barba'));
