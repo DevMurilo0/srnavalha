@@ -94,6 +94,8 @@ try{
      duration:a.effect.getTiming().duration,
      transforms:frames.filter(frame=>'transform' in frame).length,
      photo:frames.some(frame=>'clipPath' in frame),
+     lifts:frames.some(frame=>'translate' in frame),
+     firstTranslate:frames[0].translate,lastTranslate:frames.at(-1).translate,
      firstOpacity:frames[0].opacity,lastOpacity:frames.at(-1).opacity,
      firstClip:frames[0].clipPath,lastClip:frames.at(-1).clipPath};
   });
@@ -112,7 +114,13 @@ try{
    reveal.audit.filter(a=>a.photo).length===3&&
    reveal.audit.filter(a=>a.photo).every(a=>
      a.firstClip==='inset(0px 0px 100%)'&&
-     a.lastClip==='inset(0px 0px 0%)'));
+     a.lastClip==='inset(0px 0px 0%)'&&!a.lifts));
+ check('Textos e botões aparecem suavemente com elevação sem alterar o layout',
+   reveal.audit.filter(a=>!a.photo).length===9&&
+   reveal.audit.filter(a=>!a.photo).every(a=>
+     a.lifts&&a.firstTranslate==='0px 14px'&&a.lastTranslate==='0px 0px'));
+ check('Revelação não termina escondida atrás dos painéis do corte',
+   reveal.audit.filter(a=>a.photo).every(a=>a.duration>=750&&a.delay>=350));
  check('Hierarquia escalonada do topo até CTA',reveal.audit.map(a=>a.delay).every((n,i,a)=>i===0||n>=a[i-1]));
  await m.screenshot({path:`${dir}/drop-start.png`});
  await m.evaluate(()=>document.getAnimations().filter(a=>a.id==='sr-hero-reveal').forEach(a=>{a.currentTime=a.effect.getTiming().delay+a.effect.getTiming().duration*.64}));
