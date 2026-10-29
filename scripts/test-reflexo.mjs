@@ -88,6 +88,9 @@ try{
  }
  await page.goto(base);await settle(page);await page.evaluate(()=>scrollTo(0,0));await page.reload({waitUntil:'domcontentloaded'});check('F5 sempre repete a abertura',await page.locator('#sr-loader-stage').count()===1&&await page.evaluate(()=>document.documentElement.classList.contains('sr-loader-boot')));await settle(page);
  const cdp=await page.context().newCDPSession(page);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await page.reload();check('Hard refresh preserva conteúdo',await page.locator('.hero-room img').count()===1);await cdp.send('Network.setCacheDisabled',{cacheDisabled:false});
+ // The hard refresh above deliberately catches the loader during its intro.
+ // Complete that transition before evaluating a different hash destination.
+ await settle(page);
  for(const hash of ['#servicos','#equipe']){
   await page.goto(base+hash);
   // Fragment navigation may finish after load, especially after an uncached reload.
