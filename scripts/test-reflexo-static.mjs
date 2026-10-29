@@ -143,6 +143,8 @@ console.log('Perfect Cut V4: 2 painéis, linha contínua, FLIP, reload, conteúd
 const motionRuntime=file('js/ritual/motion.js');
 const textRuntime=file('js/ritual/text-motion.js');
 const imageRuntime=file('js/ritual/image-motion.js');
+assert.ok(motionRuntime.includes("const sections=$('main section:not(.hero),footer')"),
+  'recuperação de scroll usa a lista completa de seções');
 assert.ok(motionRuntime.includes('const perFrame=')&&
           motionRuntime.includes('requestAnimationFrame(flushEntrances)'),
   'entradas no scroll distribuídas em lotes com limite por quadro');
