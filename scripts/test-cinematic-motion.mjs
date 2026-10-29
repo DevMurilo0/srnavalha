@@ -29,9 +29,9 @@ try{
   const selected=document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'));selected.forEach(a=>{a.pause();a.currentTime=0});
   const photo=document.querySelector('.hero-room');const a=photo.getAnimations()[0];
   const h=document.querySelector('h1');const label=[...h.querySelectorAll('.cm-source')].map(n=>n.textContent).join('');
-  return {label,letters:h.querySelectorAll('.cm-letter').length,echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
+  return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
  });
- check('Hero exclusivo: caracteres, máscara e profundidade com texto acessível único',active.letters>15&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
+ check('Hero exclusivo: caracteres, máscara e profundidade com texto acessível único',(active.lowPower?active.words>=4:active.letters>15)&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
  check('Fotos atrasadas permanecem recortadas antes da sua entrada',active.clip!=='none'&&active.fill==='both',active);
  check('Logo oficial não recebe nova animação',active.logoAnimations===0);
  const geometry=await m.evaluate(async()=>{
