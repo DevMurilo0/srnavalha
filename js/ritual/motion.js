@@ -19,15 +19,19 @@ export function initMotion() {
   const excludes = '.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],[aria-hidden="true"],#sr-loader-stage,.sr-prelude';
   const decorated = new WeakSet();
   const active = new Set();
-  let observer, mutations;
+  const pending = new Set();
+  let observer, mutations, scrollFrame = 0;
 
   const clear = element => {
+    pending.delete(element);
     element.classList.remove('sr-scroll-pending','sr-scroll-image','sr-scroll-text');
     element.classList.add('sr-scroll-done');
   };
   const releaseAll = () => {
     observer?.disconnect();
     mutations?.disconnect();
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame=0;
     for (const animation of active) {
       const node = animation.effect?.target;
       if (node) clear(node);
@@ -43,6 +47,7 @@ export function initMotion() {
 
   const appear = element => {
     observer.unobserve(element);
+    pending.delete(element);
     if (!element.classList.contains('sr-scroll-pending')) return;
     if (!canMove()) { clear(element); return; }
     const photo = element.classList.contains('sr-scroll-image');
@@ -79,7 +84,7 @@ export function initMotion() {
     // Never abandon an element due to an arbitrary animation-budget limit.
     // Offscreen nodes stay parked, visible nodes always get their entrance.
     for (const entry of entries) if (entry.isIntersecting) appear(entry.target);
-  },{threshold:.06,rootMargin:'0px 0px -7% 0px'});
+  },{threshold:0,rootMargin:'36px 0px 36px 0px'});
 
   const enroll = scope => {
     // A root may itself be a selected element (dynamically inserted media).
@@ -116,6 +121,7 @@ export function initMotion() {
         continue;
       }
       node.classList.add('sr-scroll-pending',photo?'sr-scroll-image':'sr-scroll-text');
+      pending.add(node);
       observer.observe(node);
     }
   };
@@ -133,6 +139,25 @@ export function initMotion() {
   });
   mutations.observe(main,{childList:true,subtree:true});
   if (footer) mutations.observe(footer,{childList:true,subtree:true});
+
+  // A bounded compositor-frame fallback catches fast anchor jumps and
+  // partially clipped content that IntersectionObserver may miss between
+  // scroll positions. The set SHRINKS as elements reveal; no layout writes.
+  const recoverVisible = () => {
+    scrollFrame=0;
+    if (!canMove()) return;
+    const windowHeight=innerHeight;
+    for (const node of pending) {
+      if (!node.isConnected) { pending.delete(node);continue; }
+      const rect=node.getBoundingClientRect();
+      if (rect.top<windowHeight*.84 && rect.bottom>0) appear(node);
+    }
+  };
+  const queueRecovery = () => {
+    if (!scrollFrame && pending.size) scrollFrame=requestAnimationFrame(recoverVisible);
+  };
+  addEventListener('scroll',queueRecovery,{passive:true});
+  addEventListener('resize',queueRecovery,{passive:true});
 
   // Keyboard focus and deliberate jumps should never land on invisible text.
   document.addEventListener('focusin',event=>{
