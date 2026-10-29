@@ -11,10 +11,32 @@ export function initMotion(){
  const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
  const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.sr-surface,.engraving,.sr-member-preview';
  const registered=new WeakSet(),pending=new Set(),running=new Map();
- const scroll=createScrollMotion();let frame=0,observer;
- const clear=node=>{pending.delete(node);node.classList.remove('cm-pending');node.dataset.cmState='done';observer?.unobserve(node);};
+ const scroll=createScrollMotion();let frame=0,entryFrame=0,observer;
+ // Don't mount dozens of DOM-splitting animations inside one scroll event.
+ // A bounded RAF queue spreads creation across frames, preserving input.
+ const entering=new Set();
+ const perFrame=matchMedia('(max-width:700px)').matches?5:9;
+ const flushEntrances=()=>{
+  entryFrame=0;
+  if(!canMove()){entering.clear();return;}
+  let budget=perFrame;
+  for(const node of entering){
+   entering.delete(node);
+   if(!pending.has(node)||!node.isConnected)continue;
+   const rect=node.getBoundingClientRect();
+   if(rect.bottom<=0){clear(node);continue;}
+   if(rect.top>=innerHeight){continue;}
+   performEntrance(node);
+   if(!--budget)break;
+  }
+  if(entering.size)entryFrame=requestAnimationFrame(flushEntrances);
+ };
+ const scheduleEntrances=()=>{
+  if(!entryFrame&&entering.size)entryFrame=requestAnimationFrame(flushEntrances);
+ };
+ const clear=node=>{pending.delete(node);entering.delete(node);node.classList.remove('cm-pending');node.dataset.cmState='done';observer?.unobserve(node);};
  const finish=node=>{running.get(node)?.cancel();running.delete(node);clear(node);};
- const release=()=>{scroll.clear();for(const node of [...pending,...running.keys()])finish(node);};
+ const release=()=>{cancelAnimationFrame(entryFrame);entryFrame=0;entering.clear();scroll.clear();for(const node of [...pending,...running.keys()])finish(node);};
  const modeFor=node=>{
   if(node.matches('.house-quote,#work-title'))return'scroll';
   if(node.matches('.team-name,.portrait-name'))return'roll';
@@ -23,10 +45,13 @@ export function initMotion(){
   }
   if(node.matches('.footer-feature-cta'))return'echo';
   if(node.matches('blockquote'))return'lines';
-  if(node.matches('p,address')&&!node.classList.contains('source-note'))return node.closest('#casa,#localizacao')?'fold':'focus';
+  // Ordinary copy is still animated, but as a SINGLE composited layer,
+  // not by rebuilding every word and running blur/clip-path on each glyph.
+  // Reserve the costly editorial splits for major titles and selected quotes.
+  if(node.matches('.product-info h3,.catalog-heading h3'))return'focus';
   return'micro';
  };
- const appear=node=>{
+ const performEntrance=node=>{
   if(!pending.has(node))return;
   observer.unobserve(node);pending.delete(node);
   if(!canMove()){clear(node);return;}
@@ -36,6 +61,10 @@ export function initMotion(){
   running.set(node,effect);
   if(mode==='scroll')scroll.add(node,effect,()=>{running.delete(node);clear(node);});
   effect.finished.then(()=>{if(running.get(node)===effect){running.delete(node);clear(node);}});
+ };
+ const appear=node=>{
+  if(!pending.has(node))return;
+  entering.add(node);scheduleEntrances();
  };
  observer=new IntersectionObserver(entries=>{
   for(const e of entries){
@@ -97,7 +126,7 @@ export function initMotion(){
  document.addEventListener('focusin',interactive);
  document.addEventListener('pointerdown',interactive,{passive:true});
  document.addEventListener('motionchange',()=>{if(!canMove())release();});
- addEventListener('pagehide',()=>{release();mutations.disconnect();cancelAnimationFrame(frame);},{once:true});
+ addEventListener('pagehide',()=>{release();mutations.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(entryFrame);},{once:true});
  // Back/forward restoration shows the settled page and does not rebuild layers.
  addEventListener('pageshow',event=>{if(event.persisted)release();});
  initPhotoParallax();
