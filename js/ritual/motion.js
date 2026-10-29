@@ -48,6 +48,13 @@ export function initMotion(){
    return node.closest('#casa')?'fold':node.closest('#servicos')?'stroke':node.closest('#equipe')?'roll':node.closest('#produtos')?'focus':node.closest('#avaliacoes')?'lines':node.closest('#localizacao')?'fold':'echo';
   }
   if(node.matches('.footer-feature-cta'))return'echo';
+  // Uncommon editorial "physical type": a stamped invitation, sheared
+  // testimony, condensed negative-space intro, and closing shutter imprint.
+  // Each is ONE animation on the entire phrase, not one per glyph.
+  if(node.matches('.team-invite p'))return'inkpress';
+  if(node.matches('.review blockquote'))return'blade';
+  if(node.matches('.section-heading > p'))return'negative';
+  if(node.matches('.footer-small-note'))return'shutter';
   if(node.matches('blockquote'))return'lines';
   // Ordinary copy is still animated, but as a SINGLE composited layer,
   // not by rebuilding every word and running blur/clip-path on each glyph.
