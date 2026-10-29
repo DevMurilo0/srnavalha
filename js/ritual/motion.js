@@ -127,10 +127,18 @@ export function initMotion(){
   }
  },{rootMargin:'850px 0px 850px 0px',threshold:0});
  // Font metrics are stable before the rare hero/special heading measurements.
- document.fonts.ready.then(()=>{
-  for(const section of sections)prepareSections.observe(section);
+ const primeSections=()=>{
+  // Important display headings cost ~8 observers, not 300. They must be
+  // parked before an anchor jump so a title never flashes into existence
+  // without its own authored entrance (notably #servicos / #trabalhos).
+  for(const section of sections){
+   const heading=section.querySelector('h2');
+   if(heading)enroll(heading);
+   prepareSections.observe(section);
+  }
   root.classList.add('sr-motion-initialized');
- }).catch(()=>{for(const section of sections)prepareSections.observe(section);});
+ };
+ document.fonts.ready.then(primeSections).catch(primeSections);
  const mutations=new MutationObserver(records=>{
   for(const record of records){
    if(record.target.closest?.('.cm-split,.cm-run'))continue;
