@@ -1,119 +1,132 @@
-/* The blade's visual midpoint releases the hero; its falls run independently.
-   No timer guesses, clone layers, per-frame geometry or loader-owned effects. */
+/* Sr. Navalha V7 — editorial reveal during The Perfect Cut.
+ * Photos are uncovered in place (opacity + clip-path); typography and controls
+ * fade in. NEVER animate transform on the hero's layout, photographs or logo:
+ * the paper angles and geometry remain identical before and after the reveal.
+ */
 import { $, $$, animate, canMove } from './core.js';
 
 export function initHeroExperience() {
   const hero = $('.hero');
+  const root = document.documentElement;
   if (!hero) {
-    document.documentElement.classList.remove('sr-hero-queued');
+    root.classList.remove('sr-hero-queued');
     return;
   }
-  const root = document.documentElement;
-  const motion = new Set();
-  // Finished animations need to stay filled until the very last element
-  // lands. Track every effect separately so none is leaked on cleanup.
-  const allEffects = new Set();
+
+  const controller = new AbortController();
+  const effects = new Set();
+  const active = new Set();
   let frame = 0;
-  const stop = () => {
+  let started = false;
+
+  const settle = () => {
+    if (controller.signal.aborted) return;
     cancelAnimationFrame(frame);
     frame = 0;
-    // Release author opacity and WAAPI fill in one task (one paint).
-    // This prevents an early-settled image from flashing back to invisible.
+    // Author CSS opacity and WAAPI fill swap in the same rendering turn.
     root.classList.remove('sr-hero-queued');
-    for (const animation of allEffects) animation.cancel();
-    allEffects.clear();
-    motion.clear();
     hero.classList.remove('is-arriving');
-  };
-  const controller = new AbortController();
-  function settle() {
-    stop();
+    for (const effect of effects) {
+      try { effect.cancel(); } catch {}
+    }
+    effects.clear();
+    active.clear();
     controller.abort();
-  }
-  let started = false;
-  const beginFalls = () => {
+  };
+
+  const beginReveal = () => {
     if (started || controller.signal.aborted) return;
     if (!canMove() || scrollY > 20) return settle();
     started = true;
     hero.classList.add('is-arriving');
+
     frame = requestAnimationFrame(() => {
       frame = 0;
       if (!canMove() || scrollY > 20) return settle();
       const mobile = matchMedia('(max-width:700px)').matches;
-      // A small logo settle follows the completed FLIP, using the real node.
-      // Two impacts with diminishing energy; paper keeps its resting angle.
+
+      // An editorial reading order, from signature to photographs and CTA.
+      // Times are relative to the scissors crossing the viewport midpoint.
+      // 'photo' reveals its actual figure from top down, without moving it.
       const tracks = [
-        ['.hero-pole__object',                 0,  880, 62, 12, 0],
-        ['.hero-wordmark > span',             40,  740, 20,  3, 0],
-        ['h1',                               80,  870, 54,  7, 0],
-        ['.hero-intro',                      135,  790, 38,  5, 0],
-        ['.hero-facade',                     180, 1020, 76, 11, -1.2],
-        ['.hero-room',                       230, 1060, 82, 12, .8],
-        ['.hero-detail',                     275,  950, 60,  9, 1.1],
-        ['.hero-invitation > p',             325,  750, 32,  4, 0],
-        ['.hero-invitation > .button',       370,  670, 24,  3, 0],
-        ['.hero-invitation > .text-link',    405,  670, 22,  3, 0],
-        ['.hero-bottom',                    435,  700, 24,  3, 0]
+        ['.hero-pole__object',                 0, 490, 'fade'],
+        ['.hero-wordmark > span',             45, 460, 'fade'],
+        ['h1',                               80, 570, 'fade'],
+        ['.hero-intro',                      140, 530, 'fade'],
+        ['.hero-facade',                     185, 690, 'photo'],
+        ['.hero-room',                       240, 720, 'photo'],
+        ['.hero-detail',                     290, 660, 'photo'],
+        ['.hero-invitation > p',             330, 520, 'fade'],
+        ['.hero-invitation > .button',       395, 500, 'fade'],
+        ['.hero-invitation > .text-link',    430, 450, 'fade'],
+        ['.hero-bottom',                     475, 460, 'fade']
       ];
-      // Batch all geometry/computed-style reads before any animation writes.
-      const snapshots = tracks.flatMap(([selector,delay,duration,distance,rebound,angle]) =>
-        $$(selector,hero).filter(node => node.getClientRects().length).map(node => ({
-          node,delay,duration,distance,rebound,angle,base:getComputedStyle(node).transform
-        })));
+
+      // Keep the existing geometry intact: no reads or writes to transform.
+      const targets = tracks.flatMap(([selector,delay,duration,type]) =>
+        $$(selector,hero)
+          .filter(node => node.getClientRects().length > 0)
+          .map(node => ({node,delay,duration,type})));
       const epoch = document.timeline.currentTime;
       try {
-        for (const {node,delay,duration,distance,rebound,angle,base} of snapshots) {
-          const drop = distance * (mobile ? .65 : 1), bounce = rebound * (mobile ? .7 : 1);
-          const suffix = base === 'none' ? '' : ` ${base}`;
-          const at = (y,rotation=0) => `translate3d(0,${y}px,0) rotate(${rotation}deg)${suffix}`;
-          const animation = animate(node,[
-            {offset:0, opacity:0, transform:at(-drop,angle), easing:'cubic-bezier(.42,0,1,1)'},
-            {offset:.46, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
-            {offset:.64, opacity:1, transform:at(-bounce,-angle*.25), easing:'cubic-bezier(.42,0,1,1)'},
-            {offset:.79, opacity:1, transform:at(0), easing:'cubic-bezier(0,0,.35,1)'},
-            {offset:.89, opacity:1, transform:at(-bounce*.24,angle*.08), easing:'cubic-bezier(.42,0,1,1)'},
-            {offset:1, opacity:1, transform:base}
-          ], {duration:duration*(mobile?.86:1), delay:delay*(mobile?.8:1),
-               easing:'linear',fill:'both',persist:true});
-          if (!animation) continue;
-          animation.id='sr-hero-drop';
-          animation.startTime=epoch;
-          motion.add(animation);
-          allEffects.add(animation);
-          animation.finished.catch(()=>{}).finally(()=>{
-            motion.delete(animation);
-            if (!motion.size) settle();
+        for (const {node,delay,duration,type} of targets) {
+          const frames = type === 'photo'
+            ? [
+                {offset:0, opacity:0, clipPath:'inset(0 0 100% 0)'},
+                {offset:.28, opacity:.84, clipPath:'inset(0 0 65% 0)'},
+                {offset:1, opacity:1, clipPath:'inset(0 0 0% 0)'}
+              ]
+            : [
+                {offset:0, opacity:0},
+                {offset:1, opacity:1}
+              ];
+          const effect = animate(node,frames,{
+            delay:Math.round(delay*(mobile?.82:1)),
+            duration:Math.round(duration*(mobile?.85:1)),
+            easing:'cubic-bezier(.22,1,.36,1)',
+            fill:'both',
+            persist:true
+          });
+          if (!effect) continue;
+          effect.id='sr-hero-reveal';
+          if (epoch != null) effect.startTime=epoch;
+          effects.add(effect);
+          active.add(effect);
+          effect.finished.catch(()=>{}).finally(()=>{
+            active.delete(effect);
+            if (!active.size) settle();
           });
         }
-        if (!motion.size) settle();
-      } catch { settle(); }
+        if (!active.size) settle();
+      } catch (error) {
+        console.error('Sr. Navalha: falha na revelação do hero',error);
+        settle();
+      }
     });
   };
-  // The midpoint is an actual visual milestone of the blade, not simply
-  // 50% of clock time. The cutting overlay is still present at this event.
-  document.addEventListener('openingcutmidpoint', beginFalls,
+
+  // Reuse the existing reliable milestone of the scissors in the centre.
+  // A missed midpoint does not leave the hero invisible: completion recovers.
+  document.addEventListener('openingcutmidpoint',beginReveal,
     {once:true,signal:controller.signal});
-  document.addEventListener('openingend', event => {
-    if (!event.detail?.completed) {
-      settle();
-    } else if (!started) {
-      // Defensive fallback if the midpoint event was missed (e.g. browser
-      // suspended a timer). Never start a duplicate entrance.
-      beginFalls();
-    }
-  }, {once:true,signal:controller.signal});
-  // Any interaction wins immediately. These listeners exist only for the intro.
+  document.addEventListener('openingend',event=>{
+    if (!event.detail?.completed) settle();
+    else if (!started) beginReveal();
+  },{once:true,signal:controller.signal});
+
   for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])
     addEventListener(type,settle,{passive:true,signal:controller.signal});
-  addEventListener('resize',()=>{if(motion.size||frame)settle()},{passive:true,signal:controller.signal});
+  addEventListener('resize',()=>{if(active.size||frame)settle()},
+    {passive:true,signal:controller.signal});
   hero.addEventListener('focusin',settle,{signal:controller.signal});
-  document.addEventListener('motionchange',()=>{if(!canMove())settle()},{signal:controller.signal});
+  document.addEventListener('motionchange',()=>{if(!canMove())settle()},
+    {signal:controller.signal});
 
-  // Pause, never remove, the two independent rotor animations: preserve phase.
+  // The decorative rotors still spin in their own layers, independently.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
-      const visible = entries.some(entry=>entry.isIntersecting);
-      hero.classList.toggle('is-poles-visible',visible);
+      hero.classList.toggle('is-poles-visible',
+        entries.some(entry=>entry.isIntersecting));
     });
     observer.observe($('.hero-pole',hero));
   }
