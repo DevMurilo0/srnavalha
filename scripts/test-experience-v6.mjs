@@ -215,11 +215,15 @@ try{
    const all=[...document.querySelectorAll('.sr-scroll-pending')];
    return {pending:all.length,aboveViewport:all.filter(x=>{const r=x.getBoundingClientRect();return r.top<innerHeight*.45&&r.bottom>0}).length,
      mediaCount:document.querySelectorAll('.sr-scroll-done.sr-scroll-image').length,
+     pendingVisible:all.filter(x=>{const r=x.getBoundingClientRect();return r.top<innerHeight*.45&&r.bottom>0})
+       .slice(0,12).map(x=>({tag:x.tagName,cls:x.className,text:x.textContent?.trim().slice(0,38),
+         rect:x.getBoundingClientRect().toJSON(),display:getComputedStyle(x).display})),
      dark:getComputedStyle(document.querySelector('.team')).backgroundImage,
      dividers:[...document.querySelectorAll('.sr-chapter')].every(x=>
        getComputedStyle(x).height==='50px'||parseFloat(getComputedStyle(x).height)<=50)};
  });
  check('Scroll não deixa textos ocultos acima da tela',scrollHealth.aboveViewport===0,scrollHealth);
+ if(scrollHealth.aboveViewport) console.log('Scroll pending candidates:',JSON.stringify(scrollHealth.pendingVisible));
  check('Divisores antigos substituídos por transições finas',scrollHealth.dividers,scrollHealth);
  await m.locator('#catalogo').evaluate(e=>e.scrollIntoView({behavior:'instant'}));
  await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
