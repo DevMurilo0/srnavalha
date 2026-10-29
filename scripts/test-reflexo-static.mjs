@@ -42,16 +42,21 @@ assert.ok(heroTimeline.includes("'openingcutmidpoint'")&&
 assert.ok(file('js/ritual/opening.js').includes("new CustomEvent('openingcutmidpoint'")&&
           file('js/ritual/opening.js').includes("tCut + CUT * .367226"),
   'gatilho usa metade da posição visual da tesoura na curva de easing');
-assert.ok(heroTimeline.includes('getComputedStyle(node).transform'),'preserva geometria original');
+assert.ok(!heroTimeline.includes('getComputedStyle(node).transform')&&
+          !heroTimeline.includes('transform:at(')&&
+          heroTimeline.includes("clipPath:'inset(0 0 100% 0)'")&&
+          heroTimeline.includes("clipPath:'inset(0 0 0% 0)'"),
+  'fotografias reveladas por máscara sem qualquer mudança de posição');
 const queuedCSS=file('css/ritual/hero-sign.css');
 assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&
           queuedCSS.includes('html.sr-hero-queued .hero .hero-facade')&&
           queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
   'foto e título estão invisíveis antes do primeiro quadro da queda');
 assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&
-          heroTimeline.includes('allEffects.add(animation)')&&
-          heroTimeline.includes("fill:'both',persist:true"),
-  'frames finais permanecem até todos pousarem e são limpos juntos');
+          heroTimeline.includes('effects.add(effect)')&&
+          heroTimeline.includes("fill:'both'")&&
+          heroTimeline.includes('persist:true'),
+  'efeitos revelados permanecem preenchidos até o último elemento terminar');
 assert.ok(heroTimeline.includes("'.hero-wordmark > span'"),
   'a inscrição entra isolada da logo oficial do handoff');
 assert.ok(!file('js/ritual/opening.js').includes('scheduleHeroEntrance'),'loader não possui animações do hero');
