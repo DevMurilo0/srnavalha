@@ -119,6 +119,7 @@
   background:#747c89;
   box-shadow:0 15px 23px -13px #000c,5px 6px 0 #d1d8e225;
   pointer-events:none;
+  translate:none!important;
   opacity:0;
   transform:translate3d(12px,-46%,0) rotate(5deg) scale(.86);
   transition:opacity .23s ease,transform .44s cubic-bezier(.16,1,.3,1);
