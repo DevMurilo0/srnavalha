@@ -8,6 +8,65 @@ const graphemes = typeof Intl.Segmenter === 'function'
 const chars = text => graphemes ? [...graphemes.segment(text)].map(x=>x.segment) : Array.from(text);
 const ease = 'cubic-bezier(.16,1,.3,1)';
 
+// Character-led editorial gestures. Each heading is briefly segmented, then
+// reverted to its ORIGINAL text nodes once the letters settle. No WebGL,
+// perpetual ticker, blur, clip-path, or force-created image layers.
+const letterSignature=(kind,index,total)=>{
+  const alternate=index%2===0?1:-1;
+  const distance=index-(total-1)/2;
+  const edge=Math.abs(distance)/Math.max(1,(total-1)/2);
+  switch(kind){
+    case 'inktrail': return [
+      {opacity:0,transform:`translate3d(${-22-12*edge}px,35px,0) rotateZ(${-15+index%5*3}deg)`},
+      {offset:.76,opacity:1,transform:'translate3d(2px,-3px,0) rotateZ(1deg)'},
+      {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
+    ];
+    case 'crosscurrent':return [
+      {opacity:0,transform:`translate3d(${alternate*34}px,${alternate*-15}px,0) rotateZ(${alternate*12}deg)`},
+      {offset:.7,opacity:1,transform:`translate3d(${-alternate*3}px,2px,0) rotateZ(${-alternate*1.2}deg)`},
+      {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg)'}
+    ];
+    case 'pendulum':return [
+      {opacity:0,transform:`perspective(620px) translate3d(${alternate*-8}px,26px,0) rotateX(-68deg) rotateZ(${alternate*7}deg)`},
+      {offset:.7,opacity:1,transform:'perspective(620px) translate3d(0,-2px,0) rotateX(4deg) rotateZ(0deg)'},
+      {opacity:1,transform:'perspective(620px) translate3d(0,0,0) rotateX(0deg) rotateZ(0deg)'}
+    ];
+    case 'accordion':return [
+      {opacity:0,transform:`translate3d(${alternate*13}px,6px,0) scaleX(.33) scaleY(1.08)`},
+      {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) scaleX(1.07) scaleY(.99)'},
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+    ];
+    case 'ghostprint':return [
+      {opacity:0,transform:`translate3d(${alternate*19}px,${-26*edge}px,0) rotateZ(${alternate*9}deg) scale(.88)`},
+      {offset:.7,opacity:1,transform:'translate3d(0,2px,0) rotateZ(0deg) scale(1.03)'},
+      {opacity:1,transform:'translate3d(0,0,0) rotateZ(0deg) scale(1)'}
+    ];
+    case 'mirrorfold':return [
+      {opacity:0,transform:`perspective(700px) translate3d(${alternate*14}px,15px,0) rotateY(${alternate*73}deg)`},
+      {offset:.72,opacity:1,transform:`perspective(700px) translate3d(0,-2px,0) rotateY(${alternate*-5}deg)`},
+      {opacity:1,transform:'perspective(700px) translate3d(0,0,0) rotateY(0deg)'}
+    ];
+    case 'shards':return [
+      {opacity:0,transform:`translate3d(${alternate*29}px,${alternate*23}px,0) skewX(${alternate*13}deg) rotateZ(${alternate*-6}deg)`},
+      {offset:.72,opacity:1,transform:'translate3d(0,-2px,0) skewX(0deg) rotateZ(0deg)'},
+      {opacity:1,transform:'translate3d(0,0,0) skewX(0deg) rotateZ(0deg)'}
+    ];
+    default:return [
+      {opacity:0,transform:`translate3d(${alternate*8}px,34px,0) rotateX(-55deg)`},
+      {offset:.76,opacity:1,transform:'translate3d(0,-2px,0) rotateX(4deg)'},
+      {opacity:1,transform:'translate3d(0,0,0) rotateX(0deg)'}
+    ];
+  }
+};
+const letterStagger=(kind,index,total)=>{
+  const midpoint=(total-1)/2;
+  const order=kind==='crosscurrent'||kind==='ghostprint'
+    ?Math.abs(index-midpoint)*2
+    :kind==='mirrorfold'||kind==='accordion'
+      ?total-1-index :index;
+  return Math.min(order*17,440);
+};
+
 export function cancelText(node) { owners.get(node)?.cancel(); }
 export function cancelTextWithin(node) { cancelText(node);node.querySelectorAll('.cm-split').forEach(cancelText); }
 export function revealText(node, mode='focus', {delay=0, duration, manual=false}={}) {
@@ -35,7 +94,7 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   // manual semantic fixtures. This is the crucial low-memory performance path.
   // Each mode has its own physical grammar: letterpress, blade-shear, negative
   // space, rotational fold, and optical compression. No extra DOM layers.
-  if(!node.closest('.hero')&&mode!=='micro'&&(!manual||mode==='scroll')){
+  if(!node.closest('.hero')&&mode!=='micro'&&!node.dataset.cmSignature&&(!manual||mode==='scroll')){
     try{
       const ink=getComputedStyle(node).color;
       const framesByMode={
@@ -222,8 +281,15 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     // A 320px phone can render 100+ letter effects in one hero. Keep the
     // distinctive word-level motion there, reserve glyph splitting for desktop.
     const modestCPU=navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4;
-    const useChars=!matchMedia('(max-width:700px)').matches&&!modestCPU&&
-      ['hero','roll','stroke'].includes(mode)&&node.textContent.length<230;
+    // Per-letter reveal is intentionally limited to the page's major
+    // display headings; secondary copy remains ONE animation per paragraph.
+    // Even on a four-thread notebook a 20-35 character heading is affordable
+    // when it runs only once and all frames use compositor-safe transforms.
+    const headingLetters=node.matches('h1,h2')&&
+      (Boolean(node.dataset.cmSignature)||node.closest('.hero'))&&
+      words.reduce((count,word)=>count+chars(word.token).length,0)<=100;
+    const useChars=headingLetters||(!matchMedia('(max-width:700px)').matches&&!modestCPU&&
+      ['hero','roll','stroke'].includes(mode)&&node.textContent.length<230);
     const units=[];
     // All measurements precede effect creation. Line groups follow real wrapping.
     const lineTops=[];
@@ -248,10 +314,15 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     }
     const colors=units.map(({ink})=>getComputedStyle(ink).color);
     const baseDuration=duration||({hero:1000,fold:850,roll:660,stroke:1100,echo:1050,focus:630,lines:750,scroll:1000}[mode]||700);
+    const signature=node.dataset.cmSignature;
+    const totalGlyphs=units.filter(unit=>!unit.echo).length;
+    let letterIndex=0;
     units.forEach(({ink,line,echo},index)=>{
       const color=colors[index];
+      const glyphIndex=echo?0:letterIndex++;
       let frames;
-      if(echo)frames=[{opacity:.32,transform:'translate3d(-.1em,.38em,-30px)'},{opacity:0,transform:'translate3d(0,0,0)'}];
+      if(!echo&&headingLetters)frames=letterSignature(signature||'hero',glyphIndex,totalGlyphs);
+      else if(echo)frames=[{opacity:.32,transform:'translate3d(-.1em,.38em,-30px)'},{opacity:0,transform:'translate3d(0,0,0)'}];
       else if(mode==='stroke')frames=[
         {offset:0,opacity:0,color:'transparent',webkitTextStroke:`.7px ${color}`,clipPath:'inset(0 100% 0 0)'},
         {offset:.45,opacity:1,color:'transparent',webkitTextStroke:`.7px ${color}`,clipPath:'inset(0 0 0 0)'},
@@ -262,8 +333,11 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
       else if(mode==='echo')frames=[{opacity:0,transform:'perspective(700px) translate3d(.12em,.4em,70px)'},{opacity:1,transform:'perspective(700px) translate3d(0,0,0)'}];
       else if(mode==='scroll')frames=[{opacity:.2,transform:'perspective(600px) rotateX(-22deg) translateY(.2em)'},{opacity:1,transform:'perspective(600px) rotateX(0) translateY(0)'}];
       else frames=[{clipPath:`inset(0 ${line%2?0:100}% 0 ${line%2?100:0}%)`,transform:`translateX(${line%2?'-': ''}.15em)`},{clipPath:'inset(0 0 0 0)',transform:'translateX(0)'}];
-      const stagger=mode==='lines'||mode==='fold'?line*105:Math.min(index*(useChars?17:38),manual?700:380);
-      const effect=animate(ink,frames,{duration:baseDuration,delay:delay+stagger,easing:ease,fill:'both',persist:true});
+      const stagger=headingLetters&&!echo
+        ?letterStagger(signature||'hero',glyphIndex,totalGlyphs)
+        :mode==='lines'||mode==='fold'?line*105:Math.min(index*(useChars?17:38),manual?700:380);
+      const effect=animate(ink,frames,{duration:headingLetters&&!echo?760:baseDuration,
+        delay:delay+stagger,easing:ease,fill:'both',persist:true});
       if(effect){effect.id=`sr-text-${echo?'echo':mode}`;effects.push(effect);if(manual){effect.pause();effect.currentTime=0;}}
     });
     if(!effects.length)cleanup();
