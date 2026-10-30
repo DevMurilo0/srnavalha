@@ -118,12 +118,11 @@ export function initMotion(){
    node.dataset.cmKind=photo?'image':'text';
    // An authored gesture per section, not an identical scroll fade. Keep
    // the work-title's existing position-driven animation independent.
-   if(!photo&&node.matches('h2,.footer-oversize-lead,.footer-oversize-main')&&
-      !node.matches('#work-title')){
+   if(!photo&&node.matches('h2,.footer-oversize-lead,.footer-oversize-main')){
      const area=node.closest('section,footer');
      const sign={
        casa:'inktrail',servicos:'crosscurrent',equipe:'pendulum',
-       produtos:'accordion',avaliacoes:'ghostprint',
+       trabalhos:'shards',produtos:'accordion',avaliacoes:'ghostprint',
        localizacao:'mirrorfold',contato:'inktrail'
      };
      node.dataset.cmSignature=sign[area?.id]||'ghostprint';
