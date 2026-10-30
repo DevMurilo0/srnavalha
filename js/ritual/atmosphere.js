@@ -13,8 +13,10 @@ export function initAtmosphere(){
  const pause=$('#review-pause');
  function sync(){
   const move=canMove();
-  track.classList.toggle('is-moving',!preference.matches&&!lowPower);
-  track.classList.toggle('is-paused',lowPower||paused||!move||!visible.has(viewport));
+  // The reviews ribbon is a compositor-only transform; it may run even on
+  // 4-thread notebooks. Previously lowPower stopped it permanently.
+  track.classList.toggle('is-moving',!preference.matches);
+  track.classList.toggle('is-paused',paused||!move||!visible.has(viewport));
   clone.hidden=preference.matches;
   reviewFrame?.classList.toggle('is-playing',move&&visible.has(reviewFrame));
   footer?.classList.toggle('is-in-view',move&&visible.has(footer));
