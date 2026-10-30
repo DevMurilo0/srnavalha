@@ -54,6 +54,7 @@ jobs:
           set -euo pipefail
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
           node scripts/profile-cinematic-performance.mjs
+          node scripts/test-editorial-interactions.mjs
           node scripts/test-experience-v6.mjs
           node scripts/test-perfect-cut-v4.mjs
           node scripts/test-reflexo.mjs
