@@ -96,7 +96,14 @@ export function initTeam(){
      {opacity:0,transform:'translate3d(-103%,0,0)'}
    ],{duration:350,easing:'cubic-bezier(.53,.05,.79,.33)'});
   }
-  if(!ok||seq!==turn)return;
+  if(seq!==turn)return;
+  if(!ok){
+   // Visibility/reduced-motion changed mid-flight: reveal the chosen
+   // decoded image immediately instead of leaving the stage aria-busy.
+   stopAnimations();incoming.className='is-current';
+   stage.replaceChildren(incoming);updateCaption(person,i);
+   return;
+  }
   if(outgoing)outgoing.remove();
   incoming.className='is-current team-photo-incoming';
   updateCaption(person,i);
