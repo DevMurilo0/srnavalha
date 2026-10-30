@@ -134,7 +134,13 @@ export function initTeam(){
    hoverTimer=setTimeout(()=>{hoverTimer=0;select(link)},125);
   });
   link.addEventListener('pointerleave',cancelHover);
-  link.addEventListener('focus',()=>{cancelHover();select(link,true)});
+  // Pointer clicks also focus links. Only a keyboard-visible focus
+  // should bypass animation; otherwise focus would preempt the click
+  // and snap the portrait straight to the replacement.
+  link.addEventListener('focus',()=>{
+   if(!link.matches(':focus-visible'))return;
+   cancelHover();select(link,true);
+  });
   link.addEventListener('keydown',e=>{
    if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;
    e.preventDefault();
