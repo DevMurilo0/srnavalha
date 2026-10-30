@@ -51,20 +51,28 @@ try{
   check(width+' serviço selecionável',await service.getAttribute('aria-pressed')==='true');
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
-  const shade=await team.evaluate(el=>getComputedStyle(el).backgroundImage);
-  check(width+' equipe realmente cinza',shade.includes('gradient'),shade.slice(0,170));
-  check(width+' cinco retratos em miniatura',await page.locator('.team-name__thumb img').count()===5);
+  const shade=await team.evaluate(el=>({
+    background:getComputedStyle(el).backgroundImage,
+    heading:getComputedStyle(el.querySelector('.section-heading')).backgroundColor,
+    extraPhotos:el.querySelectorAll('.team-name__thumb,.team-mood-photo,.portrait-engraving').length,
+    names:el.querySelectorAll('.team-name').length,
+    photo:!!el.querySelector('.team-portrait .image-stage img')
+  }));
+  check(width+' fundo inteiramente cinza e lista restaurada',
+    shade.background.includes('gradient')&&shade.background.includes('196, 201, 209')&&
+    shade.extraPhotos===0&&shade.names===5&&shade.photo,shade);
   const link=page.locator('.team-name[data-person="2"]');
   if(width>600)await link.hover({force:true});else await link.click({force:true});
   await page.waitForTimeout(width>600?670:360);
   check(width+' clique/hover seleciona Kauã',await link.getAttribute('aria-pressed')==='true');
-  const thumb=await link.locator('.team-name__thumb').evaluate(el=>{
-   const r=el.getBoundingClientRect();
-   return {opacity:Number(getComputedStyle(el).opacity),right:r.right,width:r.width,
-     height:r.height,viewport:innerWidth};
+  await page.waitForFunction(()=>document.querySelector('#person-name')?.textContent==='Kauã',
+    undefined,{timeout:5000});
+  const portrait=await page.locator('.team-portrait .image-stage').evaluate(el=>{
+    const r=el.getBoundingClientRect();
+    return {width:r.width,height:r.height,right:r.right,viewport:innerWidth};
   });
-  check(width+' miniatura aparece sem sair da tela',thumb.opacity>.75&&
-    thumb.right<=thumb.viewport+1&&thumb.width>20,thumb);
+  check(width+' retrato principal permanece funcional',
+    portrait.width>70&&portrait.height>95&&portrait.right<=portrait.viewport+1,portrait);
   check(width+' sem overflow horizontal',
     await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   check(width+' sem erros JS',errors.length===0,errors);
