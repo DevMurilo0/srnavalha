@@ -220,7 +220,21 @@ try{
       continue;
    }
   check(`${mode}: hero e agendamento continuam visíveis`,await p.locator('.hero .button').isVisible()&&await p.locator('.hero h1').evaluate(n=>getComputedStyle(n).opacity==='1'));
-  await go(p,'contato');check(`${mode}: recuperação sem texto ou imagem presa`,!(await visibleHealth(p)).hidden.length&&await p.locator('.cm-run').count()===0);await p.close();
+  await go(p,'contato');
+  // The 440ms letter stagger + 760ms final frame can outlast the scroll
+  // transport on throttled CI. Wait for ACTUAL cleanup, not a guessed delay.
+  try{
+    await p.waitForFunction(()=>![...document.querySelectorAll('.cm-pending')]
+      .some(n=>{const r=n.getBoundingClientRect();return r.width&&r.height&&r.top<innerHeight*.85&&r.bottom>0})
+      &&!document.querySelector('.cm-run'),undefined,{timeout:3000});
+  }catch{}
+  const health=await visibleHealth(p);
+  const openLayers=await p.evaluate(()=>[...document.querySelectorAll('.cm-run')]
+    .map(n=>({text:n.textContent?.slice(0,45),owner:n.closest('h1,h2,h3,p')?.id,
+      state:n.closest('[data-cm-state]')?.dataset.cmState})));
+  check(`${mode}: recuperação sem texto ou imagem presa`,
+    !health.hidden.length&&openLayers.length===0,{...health,openLayers});
+  await p.close();
  }
  check('Sem exceções JavaScript',!errors.length,errors);
 }catch(e){check('Execução completa',false,e.stack)}finally{writeFileSync(`${dir}/results.json`,JSON.stringify({date:new Date().toISOString(),results,errors},null,2));await b.close();console.log(`RESULTADO ${results.filter(r=>r.pass).length}/${results.length}`)}
