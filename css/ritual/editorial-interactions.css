@@ -189,6 +189,16 @@
   .professional-panel .team-row-note{grid-column:1/-1}
   .team .team-portrait::after{inset:13px -7px 18px 12px}
 }
+/* Keep long names and the photo print side by side on 320px devices. */
+@media(max-width:420px){
+  .professional-panel .team-name{
+    grid-template-columns:minmax(0,1fr) 36px;
+    font-size:clamp(19px,5.7vw,24px);
+    min-height:67px;
+  }
+  .professional-panel .team-name__thumb{width:36px;height:46px}
+  .professional-panel .team-name>span:first-child{overflow-wrap:normal}
+}
 @media(prefers-reduced-motion:reduce){
   .rituals .mirror-choice,.rituals .mirror-choice::before,
   .rituals .mirror-choice>span,.rituals .mirror-choice .icon,
