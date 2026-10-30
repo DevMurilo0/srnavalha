@@ -29,10 +29,25 @@ for(const cls of ['snv2-rail','snv2-ring','snv2-plate','snv2-name',
 assert.ok(html.includes('snv2-logo-matte'),'logo em alfa transparente');
 assert.ok(html.includes('hero-logo-transparent'),'hero oficial intacto');
 assert.equal((html.match(/class="hero-pole hero-pole--/g)||[]).length,2,'dois cilindros no hero');
+assert.equal((html.match(/class="hero-pole__mount-plate"/g)||[]).length,2,
+  'cada poste tem placa de fixação com parafusos');
+assert.equal((html.match(/class="hero-pole__collar hero-pole__collar--/g)||[]).length,4,
+  'cada poste tem anéis metálicos superior e inferior');
+assert.equal((html.match(/class="hero-pole__glass-reflection"/g)||[]).length,2,
+  'cada poste mantém vidro e reflexão estática');
+assert.ok(html.includes('Mais que um corte, um estilo de vida.')&&
+  html.includes('Tradição no corte. Excelência no resultado.'),
+  'duas frases institucionais preservadas');
+
 assert.ok(!html.includes('hero-sign__face'),'sem placa retangular');
 const pole=file('css/ritual/hero-sign.css');
 assert.ok(pole.includes('#000')&&pole.includes('#fff')&&pole.includes('linear infinite'),'rotor monocromático contínuo');
 assert.ok(pole.includes('animation-play-state:paused')&&pole.includes('is-poles-visible'),'pausa fora da viewport');
+assert.ok(pole.includes('sr-pole-rotation 4800ms linear infinite')&&
+  pole.includes('translate3d(0,31.1125px,0)')&&
+  pole.includes('.hero-pole__mount-plate'),
+  'faixa gira apenas com transform, estrutura possui suporte físico');
+
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
 const heroTimeline=file('js/ritual/hero-sign.js');
 assert.ok(!heroTimeline.includes("'openingcutmidpoint'")&&heroTimeline.includes("document.addEventListener('openingend'")&&heroTimeline.includes('event.detail?.completed?begin():settle()'),
@@ -45,6 +60,14 @@ const queuedCSS=file('css/ritual/hero-sign.css');
 assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
   'hero permanece oculto antes do primeiro quadro');
 const textMotion=file('js/ritual/text-motion.js'),imageMotion=file('js/ritual/image-motion.js');
+const orchestration=file('js/ritual/motion.js');
+for(const section of ['casa','servicos','equipe','produtos','avaliacoes','localizacao']){
+  assert.ok(orchestration.includes(section+':'),
+    'animação de título própria para '+section);
+}
+assert.ok(orchestration.includes('node.matches(\'h2,.footer-oversize-lead,.footer-oversize-main\')'),
+  'títulos dos capítulos são registrados para animação no scroll');
+
 assert.ok(textMotion.includes("fill:'both',persist:true")&&textMotion.includes('wrapper.replaceWith(original)')&&textMotion.includes("setAttribute('aria-hidden','true')"),
   'split acessível restaura nós originais e preserva frames atrasados');
 assert.ok(imageMotion.includes('clipPath')&&!imageMotion.includes('node.style.transform'),
