@@ -194,3 +194,98 @@ html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
 .hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
 .hero.is-arriving .title-mask{overflow:visible}
 @media(prefers-reduced-motion:reduce){.hero-pole__rotor{animation:none!important}}
+
+
+/* Machined-steel barber pole — photographed-metal treatment.
+   Less toy-like domes, taller optical chamber, fine polished steel ribs
+   and static anisotropic highlights. Only the striped core animates. */
+.hero-pole__object{
+  filter:drop-shadow(0 12px 8px #090d1742) drop-shadow(0 2px 2px #03060a50);
+}
+.hero-pole__cap{
+  height:16%;
+  min-height:0;
+  border:1px solid #07090e;
+  background:
+    linear-gradient(90deg,#030408 0%,#1b2028 8%,#696f79 13%,
+      #0b0f16 22%,#121821 46%,#05070b 72%,#454d57 91%,#030509 100%);
+  box-shadow:inset 1px 0 1px #ffffff77,inset -2px -3px 4px #010307c9,
+    0 3px 7px #080b1361;
+}
+.hero-pole__cap--top{
+  border-radius:49% 49% 9% 9% / 58% 58% 13% 13%;
+  background:
+    radial-gradient(ellipse 25% 15% at 31% 21%,#e5e9edb3,transparent 100%),
+    linear-gradient(105deg,#070a10 5%,#313843 24%,#090c11 54%,#111720 76%,#05070c 100%);
+}
+.hero-pole__cap--bottom{
+  height:15%;
+  border-radius:7% 7% 48% 48% / 11% 11% 62% 62%;
+  background:
+    linear-gradient(90deg,#030509,#272e37 18%,#0c1016 37%,#05070a 63%,#434b55 89%,#04060a);
+}
+.hero-pole__cap::after{
+  content:"";position:absolute;left:0;right:0;height:12%;
+  border-top:1px solid #ffffff80;
+  border-bottom:1px solid #04060a;
+  background:linear-gradient(#79818c,#080a0f 38%,#252a31 77%,#05070b);
+  box-shadow:0 1px 2px #0007,inset 0 1px #fff4;
+}
+.hero-pole__cap--top::after{bottom:3%;border-radius:0 0 9px 9px}
+.hero-pole__cap--bottom::after{top:2%;border-radius:9px 9px 0 0}
+.hero-pole__collar{
+  height:5.7%;
+  min-height:4px;
+  background:linear-gradient(180deg,#d2d8de 0%,#535b66 13%,
+    #05070b 32%,#131a24 60%,#9da7b3 88%,#0a0c10);
+  box-shadow:inset 1px 0 2px #ffffff8f,
+    inset -2px 0 2px #000b,0 2px 3px #06091170;
+}
+.hero-pole__glass{
+  width:84%;
+  border:2px solid #303741;
+  background:#e6e7e8;
+  border-radius:7px;
+  box-shadow:0 0 0 1px #05070a,0 0 0 2px #b9c1cb52,
+    inset 3px 0 5px #05070c91,inset -4px 0 5px #05070c90;
+}
+.hero-pole__glass::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#ffffff8a 0 2%,#c1c8d027 7%,transparent 19%,
+    transparent 74%,#e5e9ee55 86%,#04060b7d 99%);
+}
+.hero-pole__glass-reflection{
+  background:
+    linear-gradient(105deg,transparent 0 8%,#ffffffbf 11% 13%,#e1e6eb18 16%,
+      transparent 22% 60%,#ffffff11 65%,#f4f6f9a5 87%,#14192280 96%),
+    linear-gradient(180deg,#04070d5a 0%,transparent 17% 76%,#03060b64 100%);
+  box-shadow:inset 1px 0 #fff8,inset -1px 0 #ffffff80;
+}
+.hero-pole__rotor{
+  /* A pale solid stripe with black, steel-edged intervals like the
+     reference photograph, not playful cartoon white/black blocks. */
+  background:repeating-linear-gradient(135deg,
+    #fafbfd 0 20px,#c4cad2 21px 22px,#0b0f15 23px 42px,
+    #646c77 43px 44px);
+}
+.hero-pole__mount-plate{
+  border-radius:4px;
+  background:
+    radial-gradient(circle at 48% 14%,#e4e8ee 0 1px,#10131a 1.1px 2.7px,transparent 2.8px),
+    radial-gradient(circle at 48% 86%,#e4e8ee 0 1px,#10131a 1.1px 2.7px,transparent 2.8px),
+    linear-gradient(90deg,#080b10,#6a717a 24%,#191e26 44%,#070a10 85%);
+  box-shadow:inset 1px 0 #ffffff70,inset -2px 0 #0009,0 5px 8px #060a1252;
+}
+.hero-pole__mount-arm{
+  background:linear-gradient(180deg,#d9dfe5 0%,#444b55 14%,
+    #121820 30% 73%,#79838e 86%,#05070c 100%);
+  box-shadow:0 3px 5px #05070b8a,inset 0 1px #ffffffb0,inset -1px 0 #000a;
+}
+/* Allow the rotor to spin on compositor while visible. No permanent
+   will-change allocation on low-end integrated graphics. */
+.hero.is-poles-visible .hero-pole__rotor{backface-visibility:hidden}
+@media(max-width:700px){
+ .hero-pole__cap{min-height:0}
+ .hero-pole__collar{min-height:3px}
+ .hero-pole__glass{border-width:1px}
+}
