@@ -209,10 +209,10 @@ assert.ok(file('css/ritual.css').includes("editorial-interactions.css")&&
  'hover de serviços e restauração da equipe carregados');
 assert.equal((teamTemplate.match(/class="team-name"/g)||[]).length,5,
  'cinco profissionais preservados na lista');
-assert.equal((teamTemplate.match(/class="team-name__thumb"/g)||[]).length,0,
- 'lista restaurada sem miniaturas embutidas');
-assert.equal((html.match(/class="team-name__thumb"/g)||[]).length,0,
- 'HTML final restaurado sem miniaturas embutidas');
+assert.equal((teamTemplate.match(/class="team-name__thumb"/g)||[]).length,5,
+ 'miniaturas dos cinco profissionais restauradas no template');
+assert.equal((html.match(/class="team-name__thumb"/g)||[]).length,5,
+ 'HTML final contém cinco miniaturas fotográficas');
 assert.ok(!teamTemplate.includes('team-mood-photo')&&
  !teamTemplate.includes('portrait-engraving')&&
  !html.includes('team-mood-photo'),
@@ -221,14 +221,16 @@ assert.ok(editorialStyle.includes('.rituals .mirror-choice::before')&&
  editorialStyle.includes('.rituals .mirror-choice:is(:hover,:focus-visible,[aria-pressed=true])'),
  'hover dos serviços mantido');
 assert.ok(teamRestore.includes('#equipe.team')&&
- teamRestore.includes('#c4c9d1')&&
- teamRestore.includes('.section-heading{background:transparent')&&
- teamRestore.includes('.team-name__thumb{display:none'),
- 'cinza em toda a seção e cabeçalho sem cartão branco');
+ teamRestore.includes('#262a30')&&
+ teamRestore.includes('#equipe .section-heading{')&&
+ teamRestore.includes('.team-name__thumb{')&&
+ teamRestore.includes('display:block!important')&&
+ teamRestore.includes('.team-name:is(:hover,:focus-visible) .team-name__thumb'),
+ 'fundo grafite escuro em toda seção e miniaturas ativadas no hover/foco');
 assert.ok(file('js/ritual/scene-cuts.js').includes('No global pointermove')&&
  !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
  'sem preview que segue o cursor');
-console.log('Team restored: 5 nomes, retrato principal e fundo cinza integral.');
+console.log('Team graphite: 5 nomes, 5 miniaturas no hover e retrato principal preservado.');
 
 /* Atelier redesign contract: the entrance still owns logo FLIP and
    prepaint guards, but the composition is not the old centered collage. */

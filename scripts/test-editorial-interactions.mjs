@@ -53,20 +53,36 @@ try{
   await team.scrollIntoViewIfNeeded();
   const shade=await team.evaluate(el=>({
     background:getComputedStyle(el).backgroundImage,
-    heading:getComputedStyle(el.querySelector('.section-heading')).backgroundColor,
-    extraPhotos:el.querySelectorAll('.team-name__thumb,.team-mood-photo,.portrait-engraving').length,
+    headingBackground:getComputedStyle(el.querySelector('.section-heading')).backgroundColor,
+    titleColor:getComputedStyle(el.querySelector('h2')).color,
+    thumbs:el.querySelectorAll('.team-name__thumb img').length,
+    extraPhotos:el.querySelectorAll('.team-mood-photo,.portrait-engraving').length,
     names:el.querySelectorAll('.team-name').length,
     photo:!!el.querySelector('.team-portrait .image-stage img')
   }));
-  check(width+' fundo inteiramente cinza e lista restaurada',
-    shade.background.includes('gradient')&&shade.background.includes('196, 201, 209')&&
-    shade.extraPhotos===0&&shade.names===5&&shade.photo,shade);
+  check(width+' seção grafite escuro uniforme e cinco miniaturas disponíveis',
+    shade.background.includes('rgb(38, 42, 48)')&&
+    shade.titleColor==='rgb(247, 248, 250)'&&
+    shade.headingBackground==='rgba(0, 0, 0, 0)'&&
+    shade.thumbs===5&&shade.extraPhotos===0&&shade.names===5&&shade.photo,shade);
   const link=page.locator('.team-name[data-person="2"]');
   if(width>600)await link.hover({force:true});else await link.click({force:true});
   await page.waitForTimeout(width>600?670:360);
   check(width+' clique/hover seleciona Kauã',await link.getAttribute('aria-pressed')==='true');
   await page.waitForFunction(()=>document.querySelector('#person-name')?.textContent==='Kauã',
     undefined,{timeout:5000});
+  const thumb=await link.locator('.team-name__thumb').evaluate(el=>{
+    const box=el.getBoundingClientRect();
+    return {opacity:Number(getComputedStyle(el).opacity),
+      display:getComputedStyle(el).display,
+      width:box.width,height:box.height,
+      imageLoaded:el.querySelector('img')?.complete,
+      viewport:innerWidth,
+      right:box.right};
+  });
+  check(width+' miniatura aparece com animação no hover/clique',
+    thumb.opacity>.9&&thumb.display!=='none'&&thumb.width>30&&
+    thumb.height>40&&thumb.right<=thumb.viewport+1,thumb);
   const portrait=await page.locator('.team-portrait .image-stage').evaluate(el=>{
     const r=el.getBoundingClientRect();
     return {width:r.width,height:r.height,right:r.right,viewport:innerWidth};
