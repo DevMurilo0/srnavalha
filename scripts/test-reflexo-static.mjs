@@ -194,3 +194,29 @@ assert.ok(textRuntime.includes("translate:'0 14px'")&&
   'texto simples usa apenas composição e mobile evita animação por caractere');
 assert.ok(imageRuntime.includes('if(image&&!lowPower&&featured)'),
   'zoom fotográfico secundário desligado em hardware modesto');
+
+
+/* 2026-10: editorial service hover and inline, keyboard/touch-safe portraits. */
+const editorialStyle=file('css/ritual/editorial-interactions.css');
+const teamTemplate=file('templates/v17/equipe.html');
+const heroTemplate=file('templates/v17/inicio.html');
+assert.ok(!html.includes('Explore nossos serviços')&&!heroTemplate.includes('Explore nossos serviços'),
+  'link redundante dos serviços removido do hero e da página gerada');
+assert.ok(file('css/ritual.css').includes("editorial-interactions.css"),
+  'estilos da nova seção importados depois dos anteriores');
+assert.equal((teamTemplate.match(/class="team-name__thumb"/g)||[]).length,5,
+  'os cinco profissionais possuem miniatura dentro da própria linha');
+assert.equal((html.match(/class="team-name__thumb"/g)||[]).length,5,
+  'a saída HTML contém as cinco prévias da equipe');
+assert.ok(editorialStyle.includes('.rituals .mirror-choice::before')&&
+  editorialStyle.includes('.rituals .mirror-choice:is(:hover,:focus-visible,[aria-pressed=true])'),
+  'hover de serviços progressivo, acessível e compatível com seleção');
+assert.ok(editorialStyle.includes('.team{')&&
+  editorialStyle.includes('#dce0e5')&&editorialStyle.includes('.team-name__thumb'),
+  'equipe usa superfície cinza e miniaturas fotográficas');
+assert.ok(editorialStyle.includes('prefers-reduced-motion:reduce'),
+  'hover e miniaturas respeitam movimento reduzido');
+assert.ok(file('js/ritual/scene-cuts.js').includes('No global pointermove')&&
+  !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
+  'miniaturas não geram loop de animação seguindo cursor');
+console.log('Editorial interactions: 5 miniaturas, serviços suaves, equipe cinza, HTML consistente.');

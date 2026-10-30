@@ -13,6 +13,30 @@ export function initTeam(){
   const ok=await changePhoto(stage,p.image,`${p.name}, profissional da Sr. Navalha`,{keyboard});if(seq!==token)return;
   $('#person-name').textContent=ok?p.name:`${p.name} · foto indisponível`;$('#team-booking').href='agendar.html?profissional='+encodeURIComponent(p.id);$('#team-booking').setAttribute('aria-label',`Escolher ${p.name} na página de agendamento`);
  }
- links.forEach((link,i)=>{link.setAttribute('aria-pressed',String(i===0));activateButtonLink(link,e=>select(link,e.detail===0));link.addEventListener('pointerenter',()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches)select(link)});link.addEventListener('focus',()=>select(link,true));link.addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?links.length-1:(i+(e.key==='ArrowDown'?1:-1)+links.length)%links.length;links[next].focus()})});
+ // Hover reveals the row's own CSS thumbnail at once, but only swaps
+ // the large portrait once the pointer rests on the row. This prevents
+ // triggering five image loads and animations while sweeping the list.
+ let hoverTimer=0;
+ const cancelHover=()=>{clearTimeout(hoverTimer);hoverTimer=0};
+ const fine=matchMedia('(hover:hover) and (pointer:fine)');
+ links.forEach((link,i)=>{
+  link.setAttribute('aria-pressed',String(i===0));
+  activateButtonLink(link,e=>{cancelHover();select(link,e.detail===0)});
+  link.addEventListener('pointerenter',()=>{
+   if(!fine.matches)return;
+   cancelHover();
+   hoverTimer=setTimeout(()=>{hoverTimer=0;select(link)},115);
+  });
+  link.addEventListener('pointerleave',cancelHover);
+  link.addEventListener('focus',()=>{cancelHover();select(link,true)});
+  link.addEventListener('keydown',e=>{
+   if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;
+   e.preventDefault();
+   const next=e.key==='Home'?0:e.key==='End'?links.length-1:
+    (i+(e.key==='ArrowDown'?1:-1)+links.length)%links.length;
+   links[next].focus();
+  });
+ });
+ addEventListener('pagehide',cancelHover,{once:true});
  selected=0;alignMarker(links[0],false);new ResizeObserver(()=>alignMarker(links[selected],false)).observe(names);
 }
