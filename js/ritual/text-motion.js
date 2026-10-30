@@ -294,6 +294,9 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     // All measurements precede effect creation. Line groups follow real wrapping.
     const lineTops=[];
     for(const item of words){
+      // Read the inherited ink color ONCE per word, not once per character.
+      // This keeps the 4-thread/mid-range GPU path cheap.
+      const color=getComputedStyle(item.ink).color;
       const rect=item.word.getBoundingClientRect();
       let line=lineTops.findIndex(top=>Math.abs(top-rect.top)<4);
       if(line<0){line=lineTops.length;lineTops.push(rect.top);}
@@ -304,21 +307,19 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
           const box=range.getBoundingClientRect();offset+=letter.length;
           const glyph=document.createElement('span');glyph.className='cm-letter';glyph.textContent=letter;
           glyph.style.left=`${box.left-rect.left}px`;glyph.style.width=`${box.width}px`;
-          item.ink.append(glyph);units.push({ink:glyph,line});
+          item.ink.append(glyph);units.push({ink:glyph,line,color});
         }
-      }else units.push({ink:item.ink,line});
+      }else units.push({ink:item.ink,line,color});
       if(mode==='hero'||mode==='echo'){
         const echo=document.createElement('span');echo.className='cm-echo';echo.textContent=item.token;item.word.append(echo);
-        units.push({ink:echo,line,echo:true});
+        units.push({ink:echo,line,color,echo:true});
       }
     }
-    const colors=units.map(({ink})=>getComputedStyle(ink).color);
     const baseDuration=duration||({hero:1000,fold:850,roll:660,stroke:1100,echo:1050,focus:630,lines:750,scroll:1000}[mode]||700);
     const signature=node.dataset.cmSignature;
     const totalGlyphs=units.filter(unit=>!unit.echo).length;
     let letterIndex=0;
-    units.forEach(({ink,line,echo},index)=>{
-      const color=colors[index];
+    units.forEach(({ink,line,echo,color},index)=>{
       const glyphIndex=echo?0:letterIndex++;
       let frames;
       if(!echo&&headingLetters)frames=letterSignature(signature||'hero',glyphIndex,totalGlyphs);
