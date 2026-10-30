@@ -22,17 +22,17 @@ export function initHeroExperience(){
   // Everything is installed synchronously in openingend, before another paint.
   const tracks=[
    ['.hero-pole__object',0,'image','lateral'],
-   ['.hero-wordmark>span',50,'text','micro'],
-   ['h1',80,'text','hero'],
-   ['.hero-intro',350,'text','focus'],
-   ['.hero-facade',420,'image','lateral'],
-   ['.hero-room',570,'image','aperture'],
-   ['.hero-detail',680,'image','diagonal'],
-   ['figure figcaption',900,'text','micro'],
-   ['.hero-invitation>p',850,'text','lines'],
-   ['.hero-invitation>.button',1050,'text','micro'],
-   ['.hero-invitation>.text-link',1130,'text','micro'],
-   ['.hero-bottom',1180,'text','micro']
+   ['.hero-wordmark>span',85,'text','micro'],
+   ['h1',165,'text','hero'],
+   ['.hero-intro',485,'text','focus'],
+   ['.hero-facade',570,'image','lateral'],
+   ['.hero-room',690,'image','aperture'],
+   ['.hero-detail',810,'image','diagonal'],
+   ['figure figcaption',1000,'text','micro'],
+   ['.hero-invitation>p',970,'text','lines'],
+   ['.hero-invitation>.button',1190,'text','micro'],
+   ['.hero-invitation>.text-link',1240,'text','micro'],
+   ['.hero-bottom',1330,'text','micro']
   ];
   try{
    for(const [selector,delay,type,mode] of tracks)for(const node of $$(selector,hero)){
@@ -50,5 +50,12 @@ export function initHeroExperience(){
  addEventListener('resize',()=>{if(Math.abs(width-innerWidth)>2)settle();},{passive:true,signal:controller.signal});
  hero.addEventListener('focusin',settle,{signal:controller.signal});
  document.addEventListener('motionchange',()=>{if(!canMove())settle();},{signal:controller.signal});
- if('IntersectionObserver' in window){const pole=$('.hero-pole');if(pole)new IntersectionObserver(entries=>hero.classList.toggle('is-poles-visible',entries.some(e=>e.isIntersecting))).observe(pole);}
+ if('IntersectionObserver' in window){
+  // Observe the hero rather than a 25px ornament: responsive clipping of a
+  // tiny pole must never make both striped cylinders stop unexpectedly.
+  const observer=new IntersectionObserver(entries=>{
+   hero.classList.toggle('is-poles-visible',entries.some(e=>e.isIntersecting));
+  },{threshold:0});
+  observer.observe(hero);
+ }else hero.classList.add('is-poles-visible');
 }
