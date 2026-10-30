@@ -1,0 +1,61 @@
+/* Finishing moments only where a section has no independent micro-motion.
+   Leave every existing scroll/reveal owner intact. */
+.team .section-heading{
+  position:relative;
+  padding:clamp(18px,2vw,33px) clamp(20px,3vw,45px);
+  margin-bottom:clamp(26px,5vw,58px);
+  border:1px solid #646c7832;
+  background:
+    radial-gradient(ellipse 64% 70% at 87% 7%,#ffffffa9,transparent 75%),
+    linear-gradient(120deg,#d4d8de 0%,#e1e4e8 65%,#d5dae1 100%);
+  box-shadow:0 21px 44px -38px #1118278c,inset 0 1px #ffffffbd;
+}
+.team .section-heading::before{
+  content:"";position:absolute;top:20px;bottom:20px;left:0;
+  width:3px;background:linear-gradient(#111823,#828b96,#111823);
+}
+.team .section-heading h2{color:#161c24!important}
+.team .section-heading h2 em{color:#4c5663!important}
+.team .section-heading p{color:#434b57!important}
+.team{background:linear-gradient(150deg,#e0e3e7,#cdd2d9 54%,#e3e6e9)!important}
+/* Map assistance has functional content but lacked a hover/focus story. */
+.visit .map-assistance summary{
+  transition:background .3s ease,color .3s ease,border-color .3s ease;
+}
+.visit .map-assistance summary .icon{
+  transition:transform .48s cubic-bezier(.16,1,.3,1);
+}
+.visit .map-assistance:is(:hover,:focus-within) summary{
+  background:#eef1f4;color:#101721;
+}
+.visit .map-assistance[open] summary .icon{
+  transform:rotate(45deg);
+}
+/* The practical amenities were static; each receives only a single
+   composite-layer offset on hover, never a scroll animation per word. */
+@media(hover:hover) and (pointer:fine){
+  .visit .practical>p{
+    transition:translate .44s cubic-bezier(.16,1,.3,1),color .25s ease;
+  }
+  .visit .practical>p:hover{
+    translate:0 -4px;color:#111720;
+  }
+  .house .house-copy>.text-link .icon{
+    transition:transform .42s cubic-bezier(.16,1,.3,1);
+  }
+  .house .house-copy>.text-link:hover .icon{transform:translate3d(0,5px,0)}
+}
+@media(max-width:700px){
+  .team .section-heading{
+    padding:18px 20px;
+    margin-bottom:25px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .visit .map-assistance summary,
+  .visit .map-assistance summary .icon,
+  .visit .practical>p,
+  .house .house-copy>.text-link .icon{
+    transition:none!important;transform:none!important;translate:none!important;
+  }
+}
