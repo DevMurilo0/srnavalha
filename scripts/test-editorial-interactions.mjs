@@ -12,6 +12,19 @@ try{
  for(const width of [390,1280]){
   const context=await browser.newContext({viewport:{width,height:900}});
   const page=await context.newPage();
+  await page.addInitScript(()=>{
+    window.__teamRailEvents=[];
+    const original=Element.prototype.animate;
+    Element.prototype.animate=function(frames,options){
+      if(this.tagName==='IMG'&&this.closest('#equipe .image-stage')){
+        window.__teamRailEvents.push({
+          first:frames?.[0]?.transform,last:frames?.at(-1)?.transform,
+          time:performance.now()
+        });
+      }
+      return original.call(this,frames,options);
+    };
+  });
   const errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   await page.goto(base,{waitUntil:'domcontentloaded'});
@@ -69,8 +82,22 @@ try{
   if(width>600)await link.hover({force:true});else await link.click({force:true});
   await page.waitForTimeout(width>600?670:360);
   check(width+' clique/hover seleciona Kauã',await link.getAttribute('aria-pressed')==='true');
-  await page.waitForFunction(()=>document.querySelector('#person-name')?.textContent==='Kauã',
-    undefined,{timeout:5000});
+  await page.waitForFunction(()=>{
+    const stage=document.querySelector('#equipe .image-stage');
+    return document.querySelector('#person-name')?.textContent==='Kauã'&&
+      !stage?.hasAttribute('aria-busy')&&stage?.querySelectorAll('img').length===1;
+  },undefined,{timeout:6000});
+  const choreography=await page.evaluate(()=>{
+    const events=window.__teamRailEvents||[];
+    const exit=events.findIndex(e=>e.last?.includes('-103%'));
+    const rise=events.findIndex(e=>e.first?.includes('105%'));
+    return {exit,rise,count:events.length,events:events.slice(-5)};
+  });
+  check(width+' retrato sai para esquerda e novo sobe, nesta ordem',
+    choreography.exit>=0&&choreography.rise>choreography.exit,choreography);
+  const positions=await page.locator('#equipe .team-name').evaluateAll(nodes=>
+    nodes.map(n=>({top:Math.round(n.getBoundingClientRect().top),
+      height:Math.round(n.getBoundingClientRect().height)})));
   const thumb=await link.locator('.team-name__thumb').evaluate(el=>{
     const box=el.getBoundingClientRect();
     return {opacity:Number(getComputedStyle(el).opacity),
@@ -89,6 +116,20 @@ try{
   });
   check(width+' retrato principal permanece funcional',
     portrait.width>70&&portrait.height>95&&portrait.right<=portrait.viewport+1,portrait);
+  await page.locator('#equipe .team-name[data-person="4"]').click({force:true});
+  await page.locator('#equipe .team-name[data-person="1"]').click({force:true});
+  await page.waitForFunction(()=>{
+    const stage=document.querySelector('#equipe .image-stage');
+    return document.querySelector('#person-name')?.textContent==='Eduardo'&&
+      !stage?.hasAttribute('aria-busy')&&stage?.querySelectorAll('img').length===1;
+  },undefined,{timeout:6000});
+  const afterPositions=await page.locator('#equipe .team-name').evaluateAll(nodes=>
+    nodes.map(n=>({top:Math.round(n.getBoundingClientRect().top),
+      height:Math.round(n.getBoundingClientRect().height)})));
+  check(width+' seleção rápida termina com uma foto e linhas sem pular',
+    positions.every((p,i)=>Math.abs(p.height-afterPositions[i].height)<=1&&
+      Math.abs(p.top-afterPositions[i].top)<=1),
+    {positions,afterPositions});
   check(width+' sem overflow horizontal',
     await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   check(width+' sem erros JS',errors.length===0,errors);
