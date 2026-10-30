@@ -29,6 +29,9 @@ try{
   }));
   check(width+' serviço com destaque suave',Number(hover.opacity)>.8,hover);
   await service.click({force:true});
+  // Service selection waits for the photographic crossfade to resolve.
+  await page.waitForFunction(()=>document.querySelector('.mirror-choice[data-ritual="barboterapia"]')
+    ?.getAttribute('aria-pressed')==='true',undefined,{timeout:5000});
   check(width+' serviço selecionável',await service.getAttribute('aria-pressed')==='true');
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
