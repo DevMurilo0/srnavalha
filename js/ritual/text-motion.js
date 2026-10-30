@@ -64,7 +64,9 @@ const letterStagger=(kind,index,total)=>{
     ?Math.abs(index-midpoint)*2
     :kind==='mirrorfold'||kind==='accordion'
       ?total-1-index :index;
-  return Math.min(order*17,440);
+  // Noticeable, unhurried spacing without a long blocking animation.
+  // Limits keep short words lively and longer titles below ~1.5 seconds.
+  return Math.min(order*25,580);
 };
 
 export function cancelText(node) { owners.get(node)?.cancel(); }
