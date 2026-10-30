@@ -507,3 +507,16 @@ html.sr-hero-queued .hero--atelier.is-arriving .hero-bottom{
   .hero--atelier .hero-room img{filter:grayscale(.4) brightness(.95)}
   .hero--atelier .hero-facade,.hero--atelier .hero-detail{transform:none!important}
 }
+
+
+/* Integrated graphics: the editorial framing remains; skip large image filters
+   and other full-surface raster work that might cause scroll jank. */
+html.sr-lite-motion .hero--atelier .hero-room img,
+html.sr-lite-motion .hero--atelier .hero-facade img,
+html.sr-lite-motion .hero--atelier .hero-detail img{
+  filter:none!important;
+}
+html.sr-lite-motion .hero--atelier .hero-pole__object{
+  filter:none!important;
+}
+html.sr-lite-motion .hero--atelier .detail-film{display:none!important}
