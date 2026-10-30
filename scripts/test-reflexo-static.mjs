@@ -49,6 +49,21 @@ assert.ok(pole.includes('sr-pole-rotation 4800ms linear infinite')&&
   'faixa gira apenas com transform, estrutura possui suporte físico');
 
 assert.ok(pole.includes('prefers-reduced-motion:reduce'),'preferência reduzida');
+assert.ok(pole.includes('Machined-steel barber pole')&&
+  pole.includes('.hero-pole__glass::before')&&
+  pole.includes('.hero-pole__cap::after'),
+  'poste possui reflexos de vidro e anéis de acabamento realista');
+const ambience=file('js/ritual/atmosphere.js');
+const palette=file('css/ritual/cinematic-motion.css');
+assert.ok(ambience.includes("track.classList.toggle('is-moving',!preference.matches)")&&
+  ambience.includes("track.classList.toggle('is-paused',paused||!move||!visible.has(viewport))"),
+  'carrossel nunca fica desativado apenas por hardware de quatro threads');
+assert.ok(!palette.includes('html.sr-lite-motion .review-track{')&&
+  palette.includes('.rituals{')&&palette.includes('.portfolio{')&&palette.includes('.visit{'),
+  'cinza em três seções e avaliações desbloqueadas em modo leve');
+assert.ok(file('js/ritual/text-motion.js').includes('Math.min(order*25,580)')&&
+  file('js/ritual/motion.js').includes('const entranceDelay='),
+  'títulos têm pequeno atraso inicial e entrada espaçada por letras');
 const heroTimeline=file('js/ritual/hero-sign.js');
 assert.ok(!heroTimeline.includes("'openingcutmidpoint'")&&heroTimeline.includes("document.addEventListener('openingend'")&&heroTimeline.includes('event.detail?.completed?begin():settle()'),
   'hero só começa após abertura completa; interrupções mostram conteúdo');
