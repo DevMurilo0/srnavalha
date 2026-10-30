@@ -16,6 +16,13 @@ const letterSignature=(kind,index,total)=>{
   const distance=index-(total-1)/2;
   const edge=Math.abs(distance)/Math.max(1,(total-1)/2);
   switch(kind){
+    // The new hero typesets from an invisible center seam outward. Ink units
+    // travel in opposing diagonals with a short 3D counter-rotation.
+    case 'monolith':return [
+      {opacity:0,transform:`perspective(720px) translate3d(${alternate*(13+edge*19)}px,${23+edge*11}px,0) rotateY(${alternate*56}deg) rotateZ(${alternate*8}deg) scale(.85)`},
+      {offset:.69,opacity:1,transform:`perspective(720px) translate3d(${-alternate*2}px,-3px,0) rotateY(${-alternate*3}deg) rotateZ(0deg) scale(1.025)`},
+      {opacity:1,transform:'perspective(720px) translate3d(0,0,0) rotateY(0deg) rotateZ(0deg) scale(1)'}
+    ];
     case 'inktrail': return [
       {opacity:0,transform:`translate3d(${-22-12*edge}px,35px,0) rotateZ(${-15+index%5*3}deg)`},
       {offset:.76,opacity:1,transform:'translate3d(2px,-3px,0) rotateZ(1deg)'},
@@ -60,7 +67,8 @@ const letterSignature=(kind,index,total)=>{
 };
 const letterStagger=(kind,index,total)=>{
   const midpoint=(total-1)/2;
-  const order=kind==='crosscurrent'||kind==='ghostprint'
+  const order=kind==='monolith'?Math.abs(index-midpoint)*1.25
+    :kind==='crosscurrent'||kind==='ghostprint'
     ?Math.abs(index-midpoint)*2
     :kind==='mirrorfold'||kind==='accordion'
       ?total-1-index :index;
