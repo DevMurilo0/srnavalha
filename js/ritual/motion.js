@@ -74,7 +74,13 @@ export function initMotion(){
   if(!canMove()){clear(node);return;}
   node.classList.remove('cm-pending');node.dataset.cmState='running';
   const photo=node.dataset.cmKind==='image',mode=node.dataset.cmMode;
-  const effect=photo?revealImage(node,mode):revealText(node,mode,{manual:mode==='scroll'});
+  // A modest initial pause lets each section settle into view before
+  // its title begins. Preserve scroll-driven headline timing (manual seek).
+  const entranceDelay=mode==='scroll'?0:
+    node.matches('h2')?190:
+    node.matches('.section-heading>p')?115:0;
+  const effect=photo?revealImage(node,mode):
+    revealText(node,mode,{delay:entranceDelay,manual:mode==='scroll'});
   running.set(node,effect);
   if(mode==='scroll')scroll.add(node,effect,()=>{running.delete(node);clear(node);});
   effect.finished.then(()=>{if(running.get(node)===effect){running.delete(node);clear(node);}});
