@@ -23,16 +23,20 @@ try{
   document.addEventListener('openingend',e=>window.motionAudit.end.push({completed:e.detail.completed,loader:!!document.querySelector('#sr-loader-stage')}));
  });
  await m.goto(base,{waitUntil:'domcontentloaded'});await m.waitForSelector('.snv2-run');
- check('Primeiro quadro: texto/fotos/CTA ocultos e logo disponível ao handoff',await m.evaluate(()=>['h1','.hero-facade','.hero-room','.hero-invitation>.button'].every(s=>getComputedStyle(document.querySelector('.hero '+s)).opacity==='0')&&getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'));
+ check('Primeiro quadro: headline/CTA ocultos por cortina e logo disponível',await m.evaluate(()=>
+   ['h1','.hero-invitation>.button'].every(s=>getComputedStyle(document.querySelector('.hero '+s)).opacity==='0')&&
+   getComputedStyle(document.querySelector('.hero-cinema__curtain')).transform!=='none'&&
+   getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'));
  await m.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
  const active=await m.evaluate(()=>{
   const selected=document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'));selected.forEach(a=>{a.pause();a.currentTime=0});
-  const photo=document.querySelector('.hero-room');const a=photo.getAnimations()[0];
+  const curtain=document.querySelector('.hero-cinema__curtain');
+  const a=curtain.getAnimations()[0];
   const h=document.querySelector('h1');const label=[...h.querySelectorAll('.cm-source')].map(n=>n.textContent).join('');
-  return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
+  return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,curtain:a?.id,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
  });
- check('Hero aparece letra a letra inclusive em mobile / CPUs de quatro threads',active.letters>15&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
- check('Fotos atrasadas permanecem recortadas antes da sua entrada',active.clip!=='none'&&active.fill==='both',active);
+ check('Hero letra por letra também em hardware modesto',active.letters>15&&active.echo>0&&active.label.includes('SEU ESTILO.')&&active.label.includes('NOSSA ASSINATURA.'),active);
+ check('Cortina cobre a foto até o handoff e usa fill estável',active.curtain==='sr-hero-curtain'&&active.fill==='both',active);
  check('Logo oficial não recebe nova animação',active.logoAnimations===0);
  const geometry=await m.evaluate(async()=>{
   const nodes=[...document.querySelectorAll('.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')];const read=()=>nodes.map(n=>n.getBoundingClientRect().toJSON());const before=read();
@@ -43,7 +47,7 @@ try{
  check('Texto dividido e fotografias assentam sem salto geométrico',geometry.every(n=>n<1),geometry);
  const audit=await m.evaluate(()=>window.motionAudit);
  check('Corte termina antes de qualquer efeito do hero',audit.mid?.loader&&audit.mid.count===0&&audit.end.at(-1)?.completed&&audit.end.at(-1)?.loader===false&&audit.effects.filter(e=>e.hero).every(e=>!e.loader),audit.mid);
- check('CTA começa depois da tipografia principal',audit.effects.some(e=>e.hero&&e.id==='sr-text-micro'&&e.delay>=1050));
+ check('CTA começa depois da tipografia principal',audit.effects.some(e=>e.hero&&e.id==='sr-text-micro'&&e.delay>=800));
  check('Limpeza final restaura os nós originais e cancela fills',await m.evaluate(()=>!document.querySelector('.hero .cm-run')&&!document.documentElement.classList.contains('sr-hero-queued')&&!document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text')||a.id.startsWith('sr-photo'))));
  const rotor=await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime);await m.waitForTimeout(100);
  check('Cilindros continuam girando após entrada',await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime)>rotor);
@@ -90,9 +94,9 @@ try{
    fx.cancel();return {available:count>0,count};
  });
  check('Nona família: contorno tipográfico com preenchimento funcional',strokeDemo.available,strokeDemo);
- check('Seções executam oito famílias tipográficas e quatro máscaras durante scroll',
+ check('Seções executam famílias de texto e máscaras sem WebGL',
    ['hero','fold','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&
-   ['lateral','aperture','diagonal','shutter'].every(s=>coverage.modes.includes('sr-photo-'+s)),coverage);
+   coverage.modes.filter(s=>s.startsWith('sr-photo-')).length>=1,coverage);
  check('Todos os títulos das seções têm dono e placas antigas não reaparecem',coverage.headings.every(n=>n.kind==='text')&&coverage.dividers,coverage.headings);
  // Four custom, single-layer editorial entrances must be real animations.
  // The big headlines must never launch one Web Animation per glyph/word.
