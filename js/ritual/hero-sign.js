@@ -83,7 +83,7 @@ export function initHeroExperience(){
  // User-controlled scenes live independently of the one-time hero reveal.
  // Arrow keys and focus remain native and accessible; no continuous loop.
  if(hero.classList.contains('hero--cinema')){
-  const buttons=$('[data-cinema-shot]',hero);
+  const buttons=$$('[data-cinema-shot]',hero);
   const choose=button=>{
    const selected=button?.dataset.cinemaShot;
    if(!['0','1','2'].includes(selected))return;
