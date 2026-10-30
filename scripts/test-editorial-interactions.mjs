@@ -96,7 +96,7 @@ try{
   check(width+' retrato sai para esquerda e novo sobe, nesta ordem',
     choreography.exit>=0&&choreography.rise>choreography.exit,choreography);
   const positions=await page.locator('#equipe .team-name').evaluateAll(nodes=>
-    nodes.map(n=>({top:Math.round(n.getBoundingClientRect().top),
+    nodes.map(n=>({top:Math.round(n.offsetTop),
       height:Math.round(n.getBoundingClientRect().height)})));
   const thumb=await link.locator('.team-name__thumb').evaluate(el=>{
     const box=el.getBoundingClientRect();
@@ -124,7 +124,7 @@ try{
       !stage?.hasAttribute('aria-busy')&&stage?.querySelectorAll('img').length===1;
   },undefined,{timeout:6000});
   const afterPositions=await page.locator('#equipe .team-name').evaluateAll(nodes=>
-    nodes.map(n=>({top:Math.round(n.getBoundingClientRect().top),
+    nodes.map(n=>({top:Math.round(n.offsetTop),
       height:Math.round(n.getBoundingClientRect().height)})));
   check(width+' seleção rápida termina com uma foto e linhas sem pular',
     positions.every((p,i)=>Math.abs(p.height-afterPositions[i].height)<=1&&
