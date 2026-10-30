@@ -17,6 +17,12 @@ try{
  await page.goto(base,{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&
    !document.querySelector('.hero.is-arriving'),undefined,{timeout:60000});
+ const poleState=await page.evaluate(()=>{
+   const rotor=document.querySelector('.hero-pole__rotor');
+   return {visible:document.querySelector('.hero').classList.contains('is-poles-visible'),
+     name:getComputedStyle(rotor).animationName,
+     playState:getComputedStyle(rotor).animationPlayState};
+ });
  const session=await context.newCDPSession(page);
  await session.send('Emulation.setCPUThrottlingRate',{rate:4});
  await page.evaluate(()=>{
@@ -39,9 +45,24 @@ try{
   };
   requestAnimationFrame(sample);
  });
+ let reviewState=null;
  for(const id of ['casa','servicos','equipe','trabalhos','produtos','avaliacoes','localizacao','contato']){
   await page.locator('#'+id).evaluate(el=>el.scrollIntoView({behavior:'instant',block:'start'}));
   await page.waitForTimeout(420);
+  if(id==='avaliacoes'){
+   await page.locator('.review-viewport').evaluate(el=>
+     el.scrollIntoView({behavior:'instant',block:'center'}));
+   await page.waitForTimeout(320);
+   reviewState=await page.evaluate(()=>{
+     const track=document.querySelector('.review-track');
+     const style=getComputedStyle(track);
+     return {lite:document.documentElement.classList.contains('sr-lite-motion'),
+       moving:track.classList.contains('is-moving'),
+       paused:track.classList.contains('is-paused'),
+       playState:style.animationPlayState,animationName:style.animationName,
+       clone:!!document.querySelector('.review-group[aria-hidden="true"]')};
+   });
+  }
  }
  const metrics=await page.evaluate(()=>{
   const p=window.__motionProfile;p.active=false;
@@ -63,9 +84,12 @@ try{
   };
  });
  metrics.errors=errors;
+ metrics.reviewState=reviewState;
+ metrics.poleState=poleState;
  mkdirSync('docs/cinematic-motion',{recursive:true});
  writeFileSync('docs/cinematic-motion/performance-4x.json',JSON.stringify(metrics,null,2));
  console.log('4x CPU / 4 threads — cinematic scroll:',JSON.stringify(metrics));
- if(metrics.overflowPx||metrics.visiblePending||errors.length||!metrics.liteMode)
-  process.exitCode=1;
+ if(metrics.overflowPx||metrics.visiblePending||errors.length||!metrics.liteMode||
+    !reviewState?.moving||reviewState?.paused||reviewState?.playState!=='running'||
+    poleState?.playState!=='running')process.exitCode=1;
 }finally{await browser.close();}

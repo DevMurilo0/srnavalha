@@ -123,8 +123,9 @@ html.sr-lite-motion .product-hero,
 html.sr-lite-motion .footer-visual{
   filter:none!important;
 }
-html.sr-lite-motion .footer-rail-track,
-html.sr-lite-motion .review-track{
+/* Decorative footer lettering may pause on modest GPUs, but the review
+   carousel MUST remain usable and move while its viewport is visible. */
+html.sr-lite-motion .footer-rail-track{
   animation-play-state:paused!important;
 }
 
@@ -160,4 +161,27 @@ html.sr-lite-motion .review-track{
 }
 @media(prefers-reduced-motion:reduce){
   .cm-kinetic-ghost{display:none!important}
+}
+
+
+/* 2026 editorial rhythm — white remains dominant; selected full-bleed
+   chapters use cool graphite-tinted paper instead of alternating only white. */
+.rituals{
+  background:
+    radial-gradient(ellipse 52% 54% at 12% 12%,#ffffffbd,transparent 76%),
+    linear-gradient(150deg,#e8eaed 0%,#f0f1f3 56%,#e4e6e9 100%)!important;
+}
+.portfolio{
+  background:
+    radial-gradient(ellipse 55% 66% at 83% 20%,#ffffffa0,transparent 80%),
+    linear-gradient(140deg,#e1e3e7 0%,#e8eaed 54%,#dee1e5 100%)!important;
+}
+.visit{
+  background:
+    radial-gradient(ellipse 72% 60% at 75% 0%,#ffffffba,transparent 75%),
+    linear-gradient(135deg,#eceef1 0%,#e2e5e9 72%,#e9ebee 100%)!important;
+}
+.products{background:#f9fafb!important}
+.rituals .mirror-frame,.portfolio .work-print,.visit .map-frame{
+  box-shadow:0 25px 56px -36px #1b232f70,0 7px 24px -18px #1b232f52;
 }
