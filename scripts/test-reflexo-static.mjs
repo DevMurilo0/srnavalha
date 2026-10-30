@@ -231,6 +231,23 @@ assert.ok(file('js/ritual/scene-cuts.js').includes('No global pointermove')&&
  !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
  'sem preview que segue o cursor');
 console.log('Team graphite: 5 nomes, 5 miniaturas no hover e retrato principal preservado.');
+const rail=file('js/ritual/team.js');
+const railCss=file('css/ritual/team-restored.css');
+assert.ok(rail.includes("translate3d(-103%,0,0)")&&
+  rail.includes("translate3d(0,105%,0)")&&
+  rail.includes("await Promise.all([photo,name])"),
+  'foto anterior sai pela lateral e próxima sobe em sequência');
+assert.ok(rail.includes('if(seq!==turn)return')&&
+  rail.includes('stopAnimations()')&&
+  rail.includes('incoming.decode()'),
+  'troca resiste a cliques rápidos e decodifica antes da saída');
+assert.ok(railCss.includes('position:absolute;')&&
+  railCss.includes('.team-name .team-row-note')&&
+  railCss.includes('contain:layout paint')&&
+  railCss.includes('team-photo-changing'),
+  'linhas preservam altura e palco fotográfico mantém geometria estável');
+console.log('Team portrait rail: saída lateral, entrada vertical e contenção sem saltos.');
+
 
 /* Atelier redesign contract: the entrance still owns logo FLIP and
    prepaint guards, but the composition is not the old centered collage. */
