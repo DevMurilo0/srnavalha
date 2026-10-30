@@ -196,31 +196,39 @@ assert.ok(imageRuntime.includes('if(image&&!lowPower&&featured)'),
   'zoom fotográfico secundário desligado em hardware modesto');
 
 
-/* 2026-10: editorial service hover and inline, keyboard/touch-safe portraits. */
+/* Editorial services stay interactive; the team returns to its previous
+   clean list + main portrait with one full gray background. */
 const editorialStyle=file('css/ritual/editorial-interactions.css');
 const teamTemplate=file('templates/v17/equipe.html');
 const heroTemplate=file('templates/v17/inicio.html');
+const teamRestore=file('css/ritual/team-restored.css');
 assert.ok(!html.includes('Explore nossos serviços')&&!heroTemplate.includes('Explore nossos serviços'),
-  'link redundante dos serviços removido do hero e da página gerada');
-assert.ok(file('css/ritual.css').includes("editorial-interactions.css"),
-  'estilos da nova seção importados depois dos anteriores');
-assert.equal((teamTemplate.match(/class="team-name__thumb"/g)||[]).length,5,
-  'os cinco profissionais possuem miniatura dentro da própria linha');
-assert.equal((html.match(/class="team-name__thumb"/g)||[]).length,5,
-  'a saída HTML contém as cinco prévias da equipe');
+ 'link redundante dos serviços permanece removido do hero');
+assert.ok(file('css/ritual.css').includes("editorial-interactions.css")&&
+ file('css/ritual.css').includes("team-restored.css"),
+ 'hover de serviços e restauração da equipe carregados');
+assert.equal((teamTemplate.match(/class="team-name"/g)||[]).length,5,
+ 'cinco profissionais preservados na lista');
+assert.equal((teamTemplate.match(/class="team-name__thumb"/g)||[]).length,0,
+ 'lista restaurada sem miniaturas embutidas');
+assert.equal((html.match(/class="team-name__thumb"/g)||[]).length,0,
+ 'HTML final restaurado sem miniaturas embutidas');
+assert.ok(!teamTemplate.includes('team-mood-photo')&&
+ !teamTemplate.includes('portrait-engraving')&&
+ !html.includes('team-mood-photo'),
+ 'fotos decorativas extras removidas');
 assert.ok(editorialStyle.includes('.rituals .mirror-choice::before')&&
-  editorialStyle.includes('.rituals .mirror-choice:is(:hover,:focus-visible,[aria-pressed=true])'),
-  'hover de serviços progressivo, acessível e compatível com seleção');
-assert.ok(editorialStyle.includes('.team{')&&
-  editorialStyle.includes('#dce0e5')&&editorialStyle.includes('.team-name__thumb'),
-  'equipe usa superfície cinza e miniaturas fotográficas');
-assert.ok(editorialStyle.includes('prefers-reduced-motion:reduce'),
-  'hover e miniaturas respeitam movimento reduzido');
+ editorialStyle.includes('.rituals .mirror-choice:is(:hover,:focus-visible,[aria-pressed=true])'),
+ 'hover dos serviços mantido');
+assert.ok(teamRestore.includes('#equipe.team')&&
+ teamRestore.includes('#c4c9d1')&&
+ teamRestore.includes('.section-heading{background:transparent')&&
+ teamRestore.includes('.team-name__thumb{display:none'),
+ 'cinza em toda a seção e cabeçalho sem cartão branco');
 assert.ok(file('js/ritual/scene-cuts.js').includes('No global pointermove')&&
-  !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
-  'miniaturas não geram loop de animação seguindo cursor');
-console.log('Editorial interactions: 5 miniaturas, serviços suaves, equipe cinza, HTML consistente.');
-
+ !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
+ 'sem preview que segue o cursor');
+console.log('Team restored: 5 nomes, retrato principal e fundo cinza integral.');
 
 /* Atelier redesign contract: the entrance still owns logo FLIP and
    prepaint guards, but the composition is not the old centered collage. */
