@@ -31,7 +31,7 @@ try{
   const h=document.querySelector('h1');const label=[...h.querySelectorAll('.cm-source')].map(n=>n.textContent).join('');
   return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,clip:getComputedStyle(photo).clipPath,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
  });
- check('Hero exclusivo: caracteres, máscara e profundidade com texto acessível único',(active.lowPower?active.words>=4:active.letters>15)&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
+ check('Hero aparece letra a letra inclusive em mobile / CPUs de quatro threads',active.letters>15&&active.echo>0&&active.label.includes('Seu estilo,')&&active.label.includes('nossa assinatura.'),active);
  check('Fotos atrasadas permanecem recortadas antes da sua entrada',active.clip!=='none'&&active.fill==='both',active);
  check('Logo oficial não recebe nova animação',active.logoAnimations===0);
  const geometry=await m.evaluate(async()=>{
@@ -135,14 +135,11 @@ try{
  });
  check('Letterpress, blade-shear, negative-space e shutter únicos por frase',
    bespoke.length===4&&bespoke.every(x=>x.found&&x.assigned===x.mode&&x.effects===1&&x.frames>=2&&x.stable),bespoke);
- check('Títulos de seção mantêm apenas uma animação de preenchimento principal',
-   typeBudget.maxHeadingEffects<=1,typeBudget);
+ check('Títulos limitam os efeitos a no máximo 100 caracteres',
+   typeBudget.maxHeadingEffects<=100,typeBudget);
  const signatures=await m.evaluate(async()=>{
    const {revealText}=await import('/js/ritual/text-motion.js');
-   const names=['inktrail','crosscurrent','pendulum','accordion','ghostprint','mirrorfold'];
-   const lite=matchMedia('(max-width:760px)').matches||
-     (navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
-     navigator.connection?.saveData===true;
+   const names=['inktrail','crosscurrent','pendulum','accordion','ghostprint','mirrorfold','shards'];
    return names.map(name=>{
      const h=document.createElement('h2');
      h.textContent='Seu estilo, nossa assinatura.';
@@ -150,24 +147,26 @@ try{
      h.style.cssText='position:fixed;top:10px;left:-3000px;font:600 32px sans-serif';
      document.body.append(h);
      const before=h.getBoundingClientRect().toJSON();
-     const owner=revealText(h,'fold');
-     const main=h.getAnimations().filter(a=>a.id==='sr-text-fold');
-     const ghost=h.querySelector('.cm-kinetic-ghost');
-     const trace=ghost?.getAnimations().filter(a=>a.id==='sr-ghost-'+name)||[];
-     const first=main[0]?.effect?.getKeyframes()?.[0]?.transform;
+     const owner=revealText(h,'fold',{manual:true});
+     const letters=[...h.querySelectorAll('.cm-letter')];
+     const effects=letters.flatMap(el=>el.getAnimations()).filter(a=>a.id==='sr-text-fold');
+     const first=effects[0]?.effect?.getKeyframes()?.[0]?.transform;
+     const last=effects.at(-1)?.effect?.getKeyframes()?.[0]?.transform;
+     const accessible=h.querySelectorAll('.cm-source').length>0;
      owner.cancel();
      const after=h.getBoundingClientRect().toJSON();
-     const result={name,main:main.length,ghost:trace.length,removed:!h.querySelector('.cm-kinetic-ghost'),
-       original:h.textContent==='Seu estilo, nossa assinatura.',
+     const result={name,characters:letters.length,effects:effects.length,
+       first,last,accessible,restored:h.textContent==='Seu estilo, nossa assinatura.',
        stable:['x','y','width','height'].every(k=>Math.abs(before[k]-after[k])<.5),
-       first};
+       wrappers:h.querySelectorAll('.cm-letter,.cm-word').length};
      h.remove();
      return result;
    });
  });
- check('Seis entradas cinéticas realmente diferentes com rastros temporários',
-   signatures.length===6&&new Set(signatures.map(s=>s.first)).size===6&&
-   signatures.every(s=>s.main===1&&s.removed&&s.original&&s.stable&&s.ghost<=1),signatures);
+ check('Sete coreografias por caractere: letras animadas e texto restaurado',
+   signatures.length===7&&new Set(signatures.map(s=>s.first)).size===7&&
+   signatures.every(s=>s.characters>15&&s.effects===s.characters&&
+     s.characters<=100&&s.accessible&&s.restored&&s.stable&&s.wrappers===0),signatures);
  await m.locator('#catalogo').evaluate(n=>n.scrollIntoView({behavior:'instant'}));await m.getByRole('button',{name:'Tratamentos',exact:true}).click();
  check('Filtro de serviços preservado',await m.locator('.service-entry:visible').evaluateAll(es=>es.length>0&&es.every(e=>e.dataset.category==='Tratamentos')));
  await m.locator('#product-category').selectOption('Barba');const count=await m.locator('.product-option:visible').count();check('Filtro e contagem de produtos sincronizados',(await m.locator('#product-count').textContent()).startsWith(count+' produtos · Barba'));
