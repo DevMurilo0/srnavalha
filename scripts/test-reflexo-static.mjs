@@ -249,31 +249,33 @@ assert.ok(railCss.includes('position:absolute;')&&
 console.log('Team portrait rail: saída lateral, entrada vertical e contenção sem saltos.');
 
 
-/* Atelier redesign contract: the entrance still owns logo FLIP and
-   prepaint guards, but the composition is not the old centered collage. */
-const atelierMarkup=file('templates/v17/inicio.html');
-const atelierStyles=file('css/ritual/hero-atelier.css');
-const finishingStyles=file('css/ritual/subtle-moments.css');
+/* Cinema hero: full-bleed identity, real photographic assets and native
+   shot controls; the scissors and real logo FLIP remain untouched. */
+const cinemaMarkup=file('templates/v17/inicio.html');
+const cinemaStyle=file('css/ritual/hero-cinema.css');
+const heroMotion=file('js/ritual/hero-sign.js');
 const typeEngine=file('js/ritual/text-motion.js');
-assert.ok(html.includes('class="hero hero--atelier"')&&
-  atelierMarkup.includes('class="hero hero--atelier"'),
-  'hero está reconstruído no template e no HTML publicado');
-for(const token of ['hero-stage','hero-photo-stage','hero-room','hero-facade','hero-detail',
-                    'hero-wordmark','hero-title','hero-pole--left','hero-pole--right'])
-  assert.ok(atelierMarkup.includes(token),'novo hero mantém integração '+token);
-assert.ok(file('css/ritual.css').includes("hero-atelier.css")&&
-  file('css/ritual.css').includes("subtle-moments.css"),
-  'CSS editorial e refinamentos finais carregam por último');
-assert.ok(typeEngine.includes("case 'monolith'")&&atelierMarkup.includes('data-cm-signature="monolith"'),
-  'título ganha coreografia própria por letra');
-assert.ok(atelierStyles.includes('.hero-photo-stage__scan')&&
-  atelierStyles.includes('sr-atelier-scanner')&&
-  atelierStyles.includes('@media(prefers-reduced-motion:reduce)'),
-  'scanner editorial é temporário e respeita movimento reduzido');
-assert.ok(finishingStyles.includes('.team .section-heading')&&
-  finishingStyles.includes('#cdd2d9')&&
-  finishingStyles.includes('.visit .map-assistance summary'),
-  'equipe recebe cinza em destaque e novas microinterações pontuais');
+assert.ok(html.includes('class="hero hero--cinema"')&&cinemaMarkup.includes('class="hero hero--cinema"'),
+  'novo hero cinematográfico presente no template e na página');
+for(const token of ['hero-cinema__stage','hero-room','hero-facade','hero-detail',
+  'hero-wordmark','hero-title','hero-pole--left','hero-pole--right'])
+  assert.ok(cinemaMarkup.includes(token),'hero preserva integração: '+token);
+assert.ok(file('css/ritual.css').includes("hero-cinema.css")&&
+  cinemaStyle.includes('.hero--cinema .hero-cinema__stage'),
+  'CSS cinematográfico carregado por último');
+assert.equal((cinemaMarkup.match(/data-cinema-shot="/g)||[]).length,3,
+  'três quadros fotográficos seletivos, sem colagem estática');
 assert.equal((html.match(/class="hero-logo-transparent"/g)||[]).length,1,
-  'somente uma logo oficial recebe o FLIP do loader');
-console.log('Atelier: novo hero, scanner, tipografia monolith e equipe cinza preservados.');
+  'logo oficial única conserva FLIP');
+assert.ok(heroMotion.includes("sr-hero-curtain")&&
+  heroMotion.includes("openingend")&&heroMotion.includes("data-cinema-shot"),
+  'cortina sincronizada à tesoura e controles reais de cenário');
+assert.ok(typeEngine.includes("case 'monolith'")&&
+  cinemaMarkup.includes('data-cm-signature="monolith"'),
+  'headline com letras animadas individualmente');
+assert.ok(cinemaStyle.includes('prefers-reduced-motion:reduce')&&
+  cinemaStyle.includes('hero-ambiente')===false&&
+  cinemaMarkup.includes('hero-ambiente-1920.webp')&&
+  cinemaMarkup.includes('hero-ambiente-mobile-960.webp'),
+  'fotografia local responsiva sem pesado vídeo de fundo');
+console.log('Cinema hero: imagem ampla, tipografia, tesoura, agenda e três cenas.');
