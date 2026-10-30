@@ -1,26 +1,144 @@
-/* Two quiet shop cylinders. Geometry is separate from the moving paper bands. */
+/* Two physically modeled barbershop poles, inspired by the supplied
+   storefront photograph. Gloss and screws are static paint; the only
+   continuous animation is a single transform on the striped cylinder.
+   The two poles stay subordinate to the typography in the hero. */
 .hero-pole{
-  position:absolute;top:5px;width:32px;height:105px;z-index:4;
-  pointer-events:none;--pole-black:#000;--pole-white:#fff;
+  --pole-width:clamp(40px,3.9vw,52px);
+  --pole-height:clamp(128px,13vw,167px);
+  position:absolute;
+  top:clamp(13px,2vw,27px);
+  width:var(--pole-width);
+  height:var(--pole-height);
+  z-index:4;
+  pointer-events:none;
+  --pole-black:#07090d;
+  --pole-white:#fbfbfc;
 }
-.hero-pole--left{left:4.5%}
-.hero-pole--right{right:4.5%}
-.hero-pole__object{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transform-origin:50% 0}
-.hero-pole__cap{display:block;width:32px;height:9px;flex:none;background:#000;border-radius:5px 5px 2px 2px}
-.hero-pole__cap--bottom{border-radius:2px 2px 5px 5px}
-.hero-pole__glass{position:relative;display:block;overflow:hidden;width:27px;flex:1;background:#fff;border-inline:1px solid #000;border-radius:2px;isolation:isolate}
-.hero-pole__glass::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0002,transparent 30%,#fff2 60%,#0002);pointer-events:none}
+.hero-pole--left{left:4.4%}
+.hero-pole--right{right:4.4%}
+.hero-pole__object{
+  width:100%;height:100%;
+  position:relative;isolation:isolate;
+  display:flex;flex-direction:column;align-items:center;
+  transform-origin:50% 0;
+  filter:drop-shadow(0 7px 7px #11182736);
+}
+.hero-pole__mount{
+  position:absolute;top:25%;left:-21%;
+  width:45%;height:55%;z-index:-1;
+  display:block;pointer-events:none;
+}
+.hero-pole__mount-plate{
+  position:absolute;left:0;top:5%;height:89%;width:43%;
+  border-radius:3px 1px 1px 3px;
+  border:1px solid #090b10b8;
+  background:
+    radial-gradient(circle at 45% 14%,#e5e7eb 0 1px,#12151b 1.2px 2.5px,transparent 2.7px),
+    radial-gradient(circle at 45% 86%,#e5e7eb 0 1px,#12151b 1.2px 2.5px,transparent 2.7px),
+    linear-gradient(90deg,#050609,#444850 45%,#0a0b10 100%);
+  box-shadow:inset 1px 0 #ffffff42,0 3px 8px #10131b40;
+}
+.hero-pole__mount-arm{
+  position:absolute;left:29%;top:30%;width:80%;height:34%;
+  border:1px solid #090b10;
+  background:linear-gradient(180deg,#9a9fa6 0%,#20242c 17%,#090b10 66%,#454a53 100%);
+  box-shadow:0 2px 4px #0006,inset 0 1px #ffffff7d;
+  border-radius:2px;
+}
+.hero-pole--right .hero-pole__mount{left:auto;right:-21%;transform:scaleX(-1)}
+.hero-pole__cap{
+  display:block;position:relative;flex:none;
+  width:100%;height:20%;min-height:20px;
+  background:
+    linear-gradient(90deg,#080a0e 0%,#363a43 11%,#05070b 23%,#20242b 48%,#05070b 73%,#3e444d 89%,#05070b 100%);
+  border:1px solid #080a0e;
+  box-shadow:inset 2px 0 2px #fff5,inset -3px 0 3px #000b,
+    0 3px 5px #07091045;
+  z-index:3;
+}
+.hero-pole__cap--top{
+  border-radius:55% 55% 11% 11% / 77% 77% 13% 13%;
+  box-shadow:inset 2px 2px 4px #ffffff79,inset -4px -5px 7px #0009,
+    0 2px 5px #0304065a;
+}
+.hero-pole__cap--bottom{
+  height:19%;
+  border-radius:11% 11% 55% 55% / 13% 13% 80% 80%;
+  box-shadow:inset 2px 4px 3px #ffffff50,inset -6px -4px 6px #000a,
+    0 6px 8px #03040638;
+}
+.hero-pole__cap::before{
+  content:"";position:absolute;left:9%;right:9%;height:2px;
+  background:linear-gradient(90deg,transparent,#fff9 26%,#171a20 55%,#fff6 86%,transparent);
+  border-radius:50%;
+}
+.hero-pole__cap--top::before{bottom:14%}
+.hero-pole__cap--bottom::before{top:18%}
+.hero-pole__collar{
+  display:block;flex:none;position:relative;z-index:4;
+  width:114%;height:8%;
+  min-height:7px;margin-inline:-7%;
+  border:1px solid #05070c;
+  border-radius:36%/42%;
+  background:linear-gradient(180deg,#9ca3ab 0%,#20242b 16%,#06080c 35%,#11151b 61%,#79818c 86%,#090b10 100%);
+  box-shadow:inset 2px 0 2px #fff5,inset -3px 0 3px #0008,0 2px 3px #0005;
+}
+.hero-pole__collar::after{
+  content:"";position:absolute;top:48%;left:84%;width:2px;height:2px;
+  border-radius:50%;background:#d6dbe1;box-shadow:0 0 0 1px #070a0e;
+}
+.hero-pole__glass{
+  display:block;position:relative;isolation:isolate;flex:1;
+  width:81%;min-height:0;
+  overflow:hidden;
+  border:1.5px solid #131820;
+  border-radius:4px;
+  background:#f5f6f8;
+  box-shadow:inset 4px 0 4px #06070a63,inset -5px 0 5px #0a0d146e,
+    inset 0 2px 4px #04050a3b,0 0 0 1px #eef0f280;
+}
 .hero-pole__rotor{
-  position:absolute;inset:-48px 0;
-  /* At 45deg the vertical period is exactly 32px: 2 * 11.313708 / cos(45deg).
-     A matching vertical translation makes the seam identical every cycle. */
-  background:repeating-linear-gradient(135deg,#000 0 11.313708px,#fff 11.313708px 22.627417px);
-  animation:sr-pole-rotation 2400ms linear infinite;
+  display:block;position:absolute;
+  inset:-72px 0;
+  /* One exact stripe period: 44px / sin(45deg) = 62.225px vertically. */
+  background:repeating-linear-gradient(135deg,
+    #f9fafb 0 21.5px,#e9ecef 21.5px 22px,
+    #10141b 22px 43.5px,#0c0e13 43.5px 44px);
+  animation:sr-pole-rotation 4800ms linear infinite;
   animation-play-state:paused;
+  transform:translate3d(0, -31.1125px, 0);
+  will-change:auto;
 }
-@keyframes sr-pole-rotation{from{transform:translateY(-16px)}to{transform:translateY(16px)}}
-.hero-pole--left .hero-pole__rotor{animation-direction:reverse;animation-delay:-1200ms}
+@keyframes sr-pole-rotation{
+  from{transform:translate3d(0,-31.1125px,0)}
+  to{transform:translate3d(0,31.1125px,0)}
+}
+.hero-pole--left .hero-pole__rotor{animation-direction:reverse;animation-delay:-2400ms}
+.hero-pole__glass-reflection{
+  display:block;position:absolute;inset:0;z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,#0c0f165c 0%,#ffffff94 6%,transparent 15%,
+      transparent 74%,#ffffff91 85%,#090c125e 99%),
+    linear-gradient(175deg,#ffffff43 0%,transparent 24%,transparent 82%,#05060945 100%);
+  box-shadow:inset 1px 0 #fff,inset -2px 0 #ffffff73;
+}
 html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{animation-play-state:running}
+@media(max-width:1100px){
+  .hero-pole{--pole-width:38px;--pole-height:135px}
+}
+@media(max-width:700px){
+  .hero-pole{--pole-width:25px;--pole-height:87px;top:8px}
+  .hero-pole--left{left:1%}
+  .hero-pole--right{right:1%}
+  .hero-pole__mount-plate{border-radius:2px}
+  .hero-pole__collar{min-height:4px}
+  .hero-pole__cap{min-height:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-pole__rotor{animation:none!important;will-change:auto}
+}
+
 /* Before the first frame of the loader, park every animated hero element.
    When Perfect Cut is removed, the compositor still sees them at opacity 0.
    A pre-painted mask hides each photo before the first animation frame.
@@ -75,10 +193,4 @@ html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
 /* Hold the static layout beneath the cut; never start a second entrance there. */
 .hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
 .hero.is-arriving .title-mask{overflow:visible}
-@media(max-width:1100px){.hero-pole{width:27px;height:94px}.hero-pole__cap{width:27px}.hero-pole__glass{width:23px}}
-@media(max-width:700px){
- .hero-pole{top:5px;width:22px;height:76px}
- .hero-pole--left{left:0}.hero-pole--right{right:0}
- .hero-pole__cap{width:22px;height:7px}.hero-pole__glass{width:18px}
-}
 @media(prefers-reduced-motion:reduce){.hero-pole__rotor{animation:none!important}}
