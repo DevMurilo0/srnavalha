@@ -23,7 +23,7 @@ export function initHeroExperience(){
   const tracks=[
    ['.hero-pole__object',0,'image','lateral'],
    ['.hero-wordmark>span',85,'text','micro'],
-   ['h1',165,'text','hero'],
+   ['h1',210,'text','hero'],
    ['.hero-intro',485,'text','focus'],
    ['.hero-facade',570,'image','lateral'],
    ['.hero-room',690,'image','aperture'],
@@ -31,8 +31,7 @@ export function initHeroExperience(){
    ['figure figcaption',1000,'text','micro'],
    ['.hero-invitation>p',970,'text','lines'],
    ['.hero-invitation>.button',1190,'text','micro'],
-   ['.hero-invitation>.text-link',1240,'text','micro'],
-   ['.hero-bottom',1330,'text','micro']
+   ['.hero-invitation>.text-link',1240,'text','micro']
   ];
   try{
    for(const [selector,delay,type,mode] of tracks)for(const node of $$(selector,hero)){

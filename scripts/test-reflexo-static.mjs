@@ -220,3 +220,33 @@ assert.ok(file('js/ritual/scene-cuts.js').includes('No global pointermove')&&
   !file('js/ritual/scene-cuts.js').includes('requestAnimationFrame('),
   'miniaturas não geram loop de animação seguindo cursor');
 console.log('Editorial interactions: 5 miniaturas, serviços suaves, equipe cinza, HTML consistente.');
+
+
+/* Atelier redesign contract: the entrance still owns logo FLIP and
+   prepaint guards, but the composition is not the old centered collage. */
+const atelierMarkup=file('templates/v17/inicio.html');
+const atelierStyles=file('css/ritual/hero-atelier.css');
+const finishingStyles=file('css/ritual/subtle-moments.css');
+const typeEngine=file('js/ritual/text-motion.js');
+assert.ok(html.includes('class="hero hero--atelier"')&&
+  atelierMarkup.includes('class="hero hero--atelier"'),
+  'hero está reconstruído no template e no HTML publicado');
+for(const token of ['hero-stage','hero-photo-stage','hero-room','hero-facade','hero-detail',
+                    'hero-wordmark','hero-title','hero-pole--left','hero-pole--right'])
+  assert.ok(atelierMarkup.includes(token),'novo hero mantém integração '+token);
+assert.ok(file('css/ritual.css').includes("hero-atelier.css")&&
+  file('css/ritual.css').includes("subtle-moments.css"),
+  'CSS editorial e refinamentos finais carregam por último');
+assert.ok(typeEngine.includes("case 'monolith'")&&atelierMarkup.includes('data-cm-signature="monolith"'),
+  'título ganha coreografia própria por letra');
+assert.ok(atelierStyles.includes('.hero-photo-stage__scan')&&
+  atelierStyles.includes('sr-atelier-scanner')&&
+  atelierStyles.includes('@media(prefers-reduced-motion:reduce)'),
+  'scanner editorial é temporário e respeita movimento reduzido');
+assert.ok(finishingStyles.includes('.team .section-heading')&&
+  finishingStyles.includes('#cdd2d9')&&
+  finishingStyles.includes('.visit .map-assistance summary'),
+  'equipe recebe cinza em destaque e novas microinterações pontuais');
+assert.equal((html.match(/class="hero-logo-transparent"/g)||[]).length,1,
+  'somente uma logo oficial recebe o FLIP do loader');
+console.log('Atelier: novo hero, scanner, tipografia monolith e equipe cinza preservados.');

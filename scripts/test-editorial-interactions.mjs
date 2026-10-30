@@ -18,6 +18,22 @@ try{
   await page.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&
     !document.querySelector('.hero.is-arriving'),undefined,{timeout:60000});
   check(width+' hero sem link antigo',await page.locator('.hero-bottom a[href="#servicos"]').count()===0);
+  const hero=await page.evaluate(()=>{
+    const root=document.querySelector('.hero'),stage=root.querySelector('.hero-photo-stage');
+    const title=root.querySelector('h1'),logo=root.querySelector('.hero-logo-transparent');
+    const rect=stage.getBoundingClientRect(),heading=title.getBoundingClientRect();
+    return {newHero:root.classList.contains('hero--atelier'),
+      stage:!!stage&&rect.width>190&&rect.height>310,
+      logo:!!logo&&logo.getBoundingClientRect().width>90,
+      title:heading.width>200&&getComputedStyle(title).opacity==='1',
+      columns:getComputedStyle(root.querySelector('.hero-stage')).gridTemplateColumns,
+      canBook:root.querySelector('.hero-invitation>.button')?.getAttribute('href')==='agendar.html',
+      stageWithin:rect.right<=innerWidth+1,
+      intro:root.querySelector('.hero-intro')?.textContent?.includes('Mais que um corte')
+    };
+  });
+  check(width+' novo hero editorial montado, legível e sem overflow',
+    hero.newHero&&hero.stage&&hero.logo&&hero.title&&hero.canBook&&hero.stageWithin&&hero.intro,hero);
   const service=page.locator('.mirror-choice[data-ritual="barboterapia"]');
   await service.scrollIntoViewIfNeeded();
   await service.hover({force:true});
