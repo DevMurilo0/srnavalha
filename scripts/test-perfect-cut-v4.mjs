@@ -28,7 +28,7 @@ for(const width of (process.env.FUNCTIONAL_ONLY?[]:[320,390,430,768,1440])){
   const edges=polygons.map(t=>{const m=new DOMMatrix(t);return Math.abs(m.e+m.c*tip)});
   return {tip,end,delta:Math.abs(tip-end),edges,panels:polygons,trackOpacity:getComputedStyle(track).opacity,
    trackX:track.getBoundingClientRect().x,expectedTrackX:(innerWidth-track.offsetWidth)/2,
-   overflow:document.documentElement.scrollWidth-innerWidth,heroOpacity:getComputedStyle(document.querySelector('.hero-composition')).opacity};
+   overflow:document.documentElement.scrollWidth-innerWidth,heroOpacity:getComputedStyle(document.querySelector('.hero-centerpiece')).opacity};
  });
  const geometry=await sample.jsonValue();
  check(`${width}: lâmina/linha alinhadas e hero aparece durante corte`,geometry.delta<1&&geometry.edges.every(e=>e<.1)&&geometry.tip>0&&geometry.tip<844&&geometry.panels.length===2&&geometry.trackOpacity==='0'&&Math.abs(geometry.trackX-geometry.expectedTrackX)<1&&geometry.heroOpacity>0,geometry);
