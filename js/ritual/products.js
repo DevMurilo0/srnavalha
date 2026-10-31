@@ -108,6 +108,14 @@ export function initProducts(){
   });
   categorySelect.value=category;
   updateFilterCounters();
+  // A filtered-out selected product must not remain in the detail showcase.
+  // Keep the user's current selection if it remains visible.
+  if(shown.length && !shown.some(card=>card.dataset.product===selected)){
+   void select(shown[0],{keyboard:true});
+  }else if(!shown.length){
+   cancelHover();
+   ++latest;
+  }
   if(animate&&motionOK())revealList(shown,false);
  }
  function applySort(){
@@ -143,6 +151,7 @@ export function initProducts(){
     hoverTimer=setTimeout(()=>{hoverTimer=0;select(card)},160);
    });
    card.addEventListener('pointerleave',cancelHover);
+   card.addEventListener('focusin',cancelHover);
   }
  }
  search?.addEventListener('input',()=>{
