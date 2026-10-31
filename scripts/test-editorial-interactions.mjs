@@ -196,9 +196,20 @@ try{
   const fit=await page.evaluate(()=>{
     const extent=document.documentElement.scrollWidth-innerWidth;
     const offenders=extent>1?[...document.querySelectorAll('body *')]
-      .filter(n=>{const r=n.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left< -1)&&getComputedStyle(n).position!=='fixed'})
-      .slice(0,16).map(n=>({tag:n.tagName,className:String(n.className).slice(0,100),right:Math.round(n.getBoundingClientRect().right),left:Math.round(n.getBoundingClientRect().left)})):[];
-    return {extent,offenders};
+      .filter(n=>{
+        const r=n.getBoundingClientRect();
+        if(!(r.width>0&&(r.right>innerWidth+1||r.left< -1))||getComputedStyle(n).position==='fixed')return false;
+        // Do not report intentionally cropped inner slides/cinema shutters.
+        for(let p=n.parentElement;p&&p!==document.documentElement;p=p.parentElement){
+          if(['hidden','clip','scroll','auto'].includes(getComputedStyle(p).overflowX))return false;
+        }
+        return true;
+      })
+      .slice(0,26).map(n=>({tag:n.tagName,className:String(n.className).slice(0,100),right:Math.round(n.getBoundingClientRect().right),left:Math.round(n.getBoundingClientRect().left)})):[];
+    const top=[...document.querySelectorAll('body,main,main>section,main>.sr-chapter,footer,.product-catalog,.review-gallery,.review-viewport')]
+      .filter(n=>n.scrollWidth>innerWidth+1||n.getBoundingClientRect().right>innerWidth+1)
+      .slice(0,16).map(n=>({className:String(n.className).slice(0,70),tag:n.tagName,client:n.clientWidth,scroll:n.scrollWidth,rectRight:Math.round(n.getBoundingClientRect().right),overflow:getComputedStyle(n).overflowX}));
+    return {extent,offenders,top};
   });
   check(width+' sem overflow horizontal',fit.extent<=1,fit);
   check(width+' sem erros JS',errors.length===0,errors);
