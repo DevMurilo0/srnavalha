@@ -48,13 +48,6 @@
 #produtos .no-photo__label{font-size:7px}
 #produtos .product-hero__placeholder{background:linear-gradient(145deg,#e5e9ef,#bdc5d0)}
 #produtos .catalog-workbench__index>.source-note{color:#596779;font-size:11px;line-height:1.6}
-#inicio.hero--cinema .hero-cinema__brand-lockup::before,
-#inicio.hero--cinema .hero-cinema__brand-lockup::after{content:"";position:absolute;top:50%;
- height:1px;width:clamp(9px,2vw,38px);background:linear-gradient(90deg,transparent,#fff9);pointer-events:none}
-#inicio.hero--cinema .hero-cinema__brand-lockup::before{right:calc(100% + 16px)}
-#inicio.hero--cinema .hero-cinema__brand-lockup::after{left:calc(100% + 16px);transform:scaleX(-1)}
-#inicio.hero--cinema .hero-cinema__stage::after{content:"";position:absolute;z-index:3;pointer-events:none;
- inset:clamp(12px,2vw,28px);opacity:.26;border:1px solid #e8edf655}
 @media(max-width:1120px){
  #produtos .catalog-workbench{grid-template-columns:minmax(225px,.88fr) minmax(0,1.4fr);gap:20px}
  #produtos .product-option__preview{grid-template-columns:15px 60px minmax(0,1fr) auto;gap:8px}
@@ -90,7 +83,6 @@
  #produtos .product-option strong{font-size:13px}
  #produtos .product-option .option-price{font-size:12px}
  #produtos .product-option__consult{font-size:0;min-width:40px}
- #inicio.hero--cinema .hero-cinema__stage::after{inset:10px}
 }
 @media(max-width:360px){
  #produtos .product-option__ordinal{display:none}

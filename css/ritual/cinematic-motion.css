@@ -1,7 +1,7 @@
 /* Cinematic monochrome — light is the primary material. */
 :root{--ivory:#f8f8f8;--ink:#101113;--tobacco:#202226;--wood:#50565e;--copper:#8b9097;--stone:#e7e8ea;--muted:#555b63;--light-muted:#c8cbd0;--cm-paper:#fff;--cm-edge:#d0d3d7;--cm-shadow:0 18px 40px -24px #10111360}
 body{background:var(--ivory)}
-.hero,.rituals,.portfolio,.visit{background:#f8f8f8!important}
+.rituals,.portfolio,.visit{background:#f8f8f8!important}
 .team{background:#fff!important;color:var(--ink)}
 .products{background:#f1f2f3!important}
 .house,.reviews,.footer{background:#101113!important}
@@ -13,7 +13,6 @@ body{background:var(--ivory)}
 section+section{border-top:1px solid #10111312}
 .house .house-word{color:#fff;opacity:.04}
 .house-copy h2 em,.reviews h2 em{color:#b8bdc5}
-.hero h1 em{color:#50565e}
 .team h2 em,.team .team-name,.team-invite p,.team .source-note,.team-portrait figcaption{color:var(--ink)}
 .team .team-name[aria-pressed=false]{color:#666c75}
 .team .team-name[aria-pressed=true],.team .text-link{color:var(--ink)}
@@ -23,7 +22,6 @@ section+section{border-top:1px solid #10111312}
 .team .team-marker{background:#101113}
 .team-portrait{filter:none}
 .team-portrait .image-stage{outline-color:#d0d3d7;box-shadow:var(--cm-shadow)}
-.hero .photo-window{outline-color:#cbd0d5;box-shadow:var(--cm-shadow)}
 .house-portal,.product-hero,.footer-visual{filter:none}
 .house-portal .portal-images,.footer-visual{box-shadow:0 24px 48px -28px #0009}
 .product-hero .image-stage{box-shadow:var(--cm-shadow)!important}
@@ -54,7 +52,6 @@ section+section{border-top:1px solid #10111312}
 .cm-pending{opacity:0}
 /* Keep authored heading rhythm and clipping independent of transient wrappers. */
 .cm-run{display:inline!important;font:inherit;letter-spacing:inherit;color:inherit}
-.hero h1 .title-mask{overflow:visible}
 .cm-split{perspective:900px}
 .gallery-shot img{transition:translate 300ms cubic-bezier(.2,.8,.2,1)}
 /* Replace the legacy portal's scroll opacity owner with a crisp photo crossfade. */
@@ -71,14 +68,11 @@ section+section{border-top:1px solid #10111312}
  .team-name:hover{color:#101113}
 }
 @media(max-width:700px){
- .hero .photo-window{box-shadow:0 12px 24px -16px #10111360}
  .team .portrait-name{padding-inline:7px}
 }
 
 /* Quiet metal edges and readable secondary copy on the newly light team. */
 .team .section-heading>p{color:#555b63}
-.hero .hero-facade::after,.hero .hero-detail::after{bottom:32px}
-.hero .hero-room::after{bottom:32px;background:#e7e8ea}
 .site-header .button{box-shadow:none}
 .album-modes,.mirror-choice,.catalog-heading,.product-catalog-head,.faq details{border-color:#d0d3d7}
 .house-portal::before,.house-portal::after,.atelier-detail,.portal-images{border-color:#8b909766}

@@ -22,11 +22,6 @@
 }
 body{background:var(--ivory)}
 /* Full-bleed surfaces follow a grayscale tonal rhythm, never sepia. */
-.hero{
-  background:
-    radial-gradient(ellipse 55% 64% at 72% 21%,#c5c8cd42,transparent 72%),
-    linear-gradient(145deg,#f7f7f7 10%,#ededee 66%,#fafafa)!important;
-}
 .house{
   background:
     radial-gradient(ellipse at 90% 10%,#52575f30,transparent 62%),
@@ -98,27 +93,11 @@ body{background:var(--ivory)}
   box-shadow:0 5px 28px -21px #07090c52;
   background:var(--ivory)!important;
 }
-.hero .photo-window{
-  outline:1px solid #12161929;
-  outline-offset:6px;
-  box-shadow:0 24px 48px -29px #080b106b,0 4px 10px -4px #12141a32;
-}
-.hero .hero-facade::after,.hero .hero-detail::after{
-  content:"";position:absolute;inset:12px -12px -12px 12px;
-  border:1px solid #1b1e2333;z-index:-2;pointer-events:none;
-}
-.hero .hero-room::before{border-color:#41464d7a}
-.hero .hero-room::after{
-  content:"";position:absolute;inset:13px 12px -13px -12px;
-  background:#cacdd1;z-index:-2;pointer-events:none;
-  box-shadow:0 16px 31px -19px #12151b54;
-}
-.hero .button,.button,.sr-booking-fixed{
+.button,.sr-booking-fixed{
   box-shadow:0 11px 24px -15px #08090f9c,0 3px 8px -5px #04050765;
   border:1px solid #ffffff1f;
 }
-.hero .button:focus-visible,.button:focus-visible{outline-color:#7f8791}
-.hero-invitation>.button{background:#111214;color:#f7f7f7}
+.button:focus-visible{outline-color:#7f8791}
 .mirror-frame{
   background:#25272b;
   border:1px solid #ffffff28;
@@ -179,13 +158,10 @@ body{background:var(--ivory)}
 ::selection{background:#aeb3ba;color:#101113}
 *{scrollbar-color:#747980 #dedfe2}
 @media(hover:hover) and (pointer:fine){
-  .hero figure:hover .photo-window{box-shadow:0 35px 58px -26px #080a1080}
   .review:hover{box-shadow:0 35px 60px -31px #000e,inset 0 1px #ffffff24}
 }
 @media(max-width:700px){
   .sr-chapter{height:26px!important}
-  .hero .hero-facade::after,.hero .hero-detail::after{inset:7px -7px -7px 7px}
-  .hero .photo-window{outline-offset:4px}
   .map-frame{box-shadow:0 16px 32px -18px #0c10174b}
   .review{box-shadow:0 17px 32px -20px #000c}
 }

@@ -42,7 +42,7 @@ try{
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
   await intro.waitForSelector('.snv2-cut-ready',{state:'attached',timeout:6500});
   // Snapshot halfway through the actual cut, not just when the SVG appears.
-  await intro.waitForTimeout(420);
+  await intro.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
   const cut=await intro.evaluate(()=>{
     const seam=document.querySelector('.snv2-seam');
     const panels=[...document.querySelectorAll('.snv2-panel')];
@@ -52,17 +52,17 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  check(`${width}px: hero não anima durante o corte`,await intro.evaluate(()=>
-    !document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))));
-  await intro.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&document.querySelector('.hero.is-arriving'));
+  check(`${width}px: hero anima durante o corte`,await intro.evaluate(()=>
+    document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-hero-'))));
+  await intro.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
   const staged=await intro.evaluate(()=>{
     const selectors=['.hero h1','.hero-intro','.hero-topline','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
-      return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')).length||0};
+      return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-hero-')).length||0};
     });
   });
-  check(`${width}px: revelação começa somente depois da saída do loader`,
+  check(`${width}px: revelação sobrepõe a abertura do loader`,
     staged.every(item=>item.exists&&item.animations>0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));

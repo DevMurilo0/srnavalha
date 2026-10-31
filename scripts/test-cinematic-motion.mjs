@@ -18,36 +18,39 @@ try{
  const m=await page();
  await m.addInitScript(()=>{
   window.motionAudit={effects:[],end:[],mid:null};const original=Element.prototype.animate;
-  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),tag:target.tagName,heading:target.closest('h2')?.id||null,logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0})});return a;};
+  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')||a.id==='sr-hero-booking-arrival')window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),tag:target.tagName,heading:target.closest('h2')?.id||null,logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0})});return a;};
+  const firstFrame=new MutationObserver(()=>{
+   if(!document.querySelector('.snv2-run'))return;
+   window.motionAudit.first=['h1','.hero-cta'].every(s=>getComputedStyle(document.querySelector('.hero '+s)).opacity==='0')&&getComputedStyle(document.querySelector('.hero-cinema__shutter')).transform!=='none'&&getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible';
+   firstFrame.disconnect();
+  });
+  firstFrame.observe(document,{subtree:true,attributes:true,attributeFilter:['class']});
   document.addEventListener('openingcutmidpoint',()=>window.motionAudit.mid={loader:!!document.querySelector('#sr-loader-stage'),count:window.motionAudit.effects.filter(e=>e.hero).length});
   document.addEventListener('openingend',e=>window.motionAudit.end.push({completed:e.detail.completed,loader:!!document.querySelector('#sr-loader-stage')}));
  });
  await m.goto(base,{waitUntil:'domcontentloaded'});await m.waitForSelector('.snv2-run');
- check('Primeiro quadro: headline/CTA ocultos por cortina e logo disponível',await m.evaluate(()=>
-   ['h1','.hero-invitation>.button'].every(s=>getComputedStyle(document.querySelector('.hero '+s)).opacity==='0')&&
-   getComputedStyle(document.querySelector('.hero-cinema__curtain')).transform!=='none'&&
-   getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible'));
+ check('Primeiro quadro: headline/CTA ocultos por cortina e logo disponível',await m.evaluate(()=>window.motionAudit.first));
  await m.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
  const active=await m.evaluate(()=>{
-  const selected=document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'));selected.forEach(a=>{a.pause();a.currentTime=0});
-  const curtain=document.querySelector('.hero-cinema__curtain');
+  const selected=document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')||a.id==='sr-hero-booking-arrival');selected.forEach(a=>{a.pause();a.currentTime=0});
+  const curtain=document.querySelector('.hero-cinema__shutter');
   const a=curtain.getAnimations()[0];
-  const h=document.querySelector('h1');const label=[...h.querySelectorAll('.cm-source')].map(n=>n.textContent).join('');
-  return {label,letters:h.querySelectorAll('.cm-letter').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,curtain:a?.id,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
+  const h=document.querySelector('h1');const label=[...h.querySelectorAll('.title-mask>span')].map(n=>[...n.childNodes].filter(c=>!c.classList?.contains('cm-cut-window')).map(c=>c.textContent).join('')).join('');
+  return {label,groups:h.querySelectorAll('.cm-cut-window').length,words:h.querySelectorAll('.cm-word').length,lowPower:matchMedia('(max-width:700px)').matches||(navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4),echo:h.querySelectorAll('.cm-echo').length,curtain:a?.id,fill:a?.effect.getTiming().fill,logoAnimations:document.querySelector('.hero-logo-transparent').getAnimations().length};
  });
- check('Hero letra por letra também em hardware modesto',active.letters>15&&active.echo>0&&active.label.includes('SEU ESTILO.')&&active.label.includes('NOSSA ASSINATURA.'),active);
- check('Cortina cobre a foto até o handoff e usa fill estável',active.curtain==='sr-hero-curtain'&&active.fill==='both',active);
- check('Logo oficial não recebe nova animação',active.logoAnimations===0);
+ check('Corte de Luz: seis grupos e fonte sem ecos duplicados',active.groups===6&&active.echo===0&&active.label.includes('SEU ESTILO.')&&active.label.includes('NOSSA ASSINATURA.'),active);
+ check('Superfícies abrem no ponto médio e usam fill estável',active.curtain==='sr-hero-curtain'&&active.fill==='both',active);
+ check('Logo oficial conserva somente o FLIP da tesoura',active.logoAnimations<=1);
  const geometry=await m.evaluate(async()=>{
-  const nodes=[...document.querySelectorAll('.hero h1,.hero-facade,.hero-room,.hero-detail,.hero .button')];const read=()=>nodes.map(n=>n.getBoundingClientRect().toJSON());const before=read();
-  document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')).forEach(a=>a.finish());
+  const nodes=[...document.querySelectorAll('.hero h1,.hero-room')];const read=()=>nodes.map(n=>n.getBoundingClientRect().toJSON());const before=read();
+  document.getAnimations().filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')||a.id==='sr-hero-booking-arrival').forEach(a=>a.finish());
   await new Promise(r=>setTimeout(r,40));const after=read();return before.map((r,i)=>Math.max(...['x','y','width','height'].map(k=>Math.abs(r[k]-after[i][k]))));
  });
  await ready(m);
  check('Texto dividido e fotografias assentam sem salto geométrico',geometry.every(n=>n<1),geometry);
  const audit=await m.evaluate(()=>window.motionAudit);
- check('Corte termina antes de qualquer efeito do hero',audit.mid?.loader&&audit.mid.count===0&&audit.end.at(-1)?.completed&&audit.end.at(-1)?.loader===false&&audit.effects.filter(e=>e.hero).every(e=>!e.loader),audit.mid);
- check('CTA começa depois da tipografia principal',audit.effects.some(e=>e.hero&&e.id==='sr-text-micro'&&e.delay>=800));
+ check('Hero começa durante o corte, sem esperar openingend',audit.mid?.loader&&audit.end.at(-1)?.completed&&audit.end.at(-1)?.loader===false&&audit.effects.some(e=>e.hero&&e.loader),audit.mid);
+ check('CTA sobrepõe o fim da tipografia, com atraso curto',audit.effects.some(e=>e.hero&&e.id==='sr-hero-booking-arrival'&&e.delay===440));
  check('Limpeza final restaura os nós originais e cancela fills',await m.evaluate(()=>!document.querySelector('.hero .cm-run')&&!document.documentElement.classList.contains('sr-hero-queued')&&!document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text')||a.id.startsWith('sr-photo'))));
  const rotor=await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime);await m.waitForTimeout(100);
  check('Cilindros continuam girando após entrada',await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime)>rotor);
@@ -56,7 +59,7 @@ try{
   await m.setViewportSize({width,height:900});await m.reload({waitUntil:'domcontentloaded'});await ready(m);
   const shape=await m.evaluate(async()=>{
    const {revealText}=await import('/js/ritual/text-motion.js');const h=document.querySelector('h1'),read=()=>h.getBoundingClientRect().toJSON();const before=read(),text=h.textContent;
-   const e=revealText(h,'hero',{manual:true});const during=read();e.cancel();return {delta:Math.max(...['x','y','width','height'].map(k=>Math.abs(before[k]-during[k]))),restored:text===h.textContent};
+   const e=revealText(h,'lightcut',{manual:true});const during=read();e.cancel();return {delta:Math.max(...['x','y','width','height'].map(k=>Math.abs(before[k]-during[k]))),restored:text===h.textContent};
   });check(`${width}: composição tipográfica preserva linhas e acentos`,shape.delta<1&&shape.restored,shape);
   const fit=await m.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,poles:[...document.querySelectorAll('.hero-pole')].map(n=>n.getBoundingClientRect().toJSON()),broken:[...document.images].filter(n=>n.complete&&!n.naturalWidth&&!n.closest('[hidden]')).map(n=>n.src)}));
   check(`${width}: hero, cilindros e imagens íntegros`,fit.overflow===0&&fit.poles.length===2&&fit.poles.every(r=>r.left>=0&&r.right<=width)&&!fit.broken.length,fit);
@@ -95,7 +98,7 @@ try{
  });
  check('Nona família: contorno tipográfico com preenchimento funcional',strokeDemo.available,strokeDemo);
  check('Seções executam famílias de texto e máscaras sem WebGL',
-   ['hero','fold','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&
+   ['lightcut','fold','roll','focus','echo','lines','scroll','micro'].every(s=>coverage.modes.includes('sr-text-'+s))&&
    coverage.modes.filter(s=>s.startsWith('sr-photo-')).length>=1,coverage);
  check('Todos os títulos das seções têm dono e placas antigas não reaparecem',coverage.headings.every(n=>n.kind==='text')&&coverage.dividers,coverage.headings);
  // Four custom, single-layer editorial entrances must be real animations.

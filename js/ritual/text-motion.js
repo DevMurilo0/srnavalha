@@ -81,7 +81,7 @@ export function cancelText(node) { owners.get(node)?.cancel(); }
 export function cancelTextWithin(node) { cancelText(node);node.querySelectorAll('.cm-split').forEach(cancelText); }
 export function revealText(node, mode='focus', {delay=0, duration, manual=false}={}) {
   cancelText(node);
-  const effects=[], replacements=[], ghosts=[];
+  const effects=[], replacements=[], ghosts=[], restorers=[];
   let done=false, resolve;
   const finished=new Promise(r=>resolve=r);
   const cleanup=()=>{
@@ -89,6 +89,7 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     for(const effect of effects)effect.cancel();
     for(const {wrapper,original} of replacements)if(wrapper.isConnected)wrapper.replaceWith(original);
     for(const ghost of ghosts)ghost.remove();
+    restorers.forEach(restore=>restore());
     node.classList.remove('cm-split','cm-kinetic-host');
     if(owners.get(node)===handle)owners.delete(node);
     resolve();
@@ -99,6 +100,52 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
   }};
   owners.set(node,handle);
   if(!canMove()||!node.animate||!node.textContent.trim()){cleanup();return handle;}
+  // Six masked printing plates, measured once in the natural line boxes.
+  // Original text retains kerning, emphasis and semantics. The two lines travel
+  // in opposing directions; groups move together rather than a glyph stagger.
+  if(mode==='lightcut'){
+    try{
+      const lines=[...node.querySelectorAll('.title-mask>span')];
+      const measured=lines.map(line=>{
+        const box=line.getBoundingClientRect();
+        const text=document.createTreeWalker(line,NodeFilter.SHOW_TEXT);
+        const nodes=[];while(text.nextNode())nodes.push(text.currentNode);
+        const length=nodes.reduce((n,t)=>n+t.length,0),edges=[0];
+        for(const fraction of [1/3,2/3]){
+          let offset=Math.round(length*fraction);
+          for(const t of nodes){
+            if(offset<=t.length){const range=document.createRange();range.setStart(t,offset);range.collapse(true);edges.push(range.getBoundingClientRect().left-box.left);break;}
+            offset-=t.length;
+          }
+        }
+        edges.push(box.width);
+        return {line,box,edges,ink:getComputedStyle(line).color};
+      });
+      for(const {line,box,edges,ink} of measured){
+        const index=lines.indexOf(line),color=line.style.color;
+        // A transparent source remains laid out and is the only accessible text.
+        restorers.push(()=>{line.style.color=color;line.classList.remove('cm-cut-line')});
+        const html=line.innerHTML;line.classList.add('cm-cut-line');line.style.color='transparent';
+        line.querySelectorAll('em').forEach(em=>{const color=em.style.color;restorers.push(()=>em.style.color=color);em.style.color='inherit'});
+        for(let group=0;group<3;group++){
+          const window=document.createElement('span');window.className='cm-cut-window';window.setAttribute('aria-hidden','true');
+          Object.assign(window.style,{left:edges[group]+'px',width:Math.max(0,edges[group+1]-edges[group])+'px'});
+          const plate=document.createElement('span');plate.className='cm-cut-ink';plate.innerHTML=html;
+          Object.assign(plate.style,{left:-edges[group]+'px',width:box.width+'px',color:ink});
+          window.append(plate);line.append(window);ghosts.push(window);
+          const direction=index===0?-1:1;
+          const effect=animate(plate,[
+            {opacity:0,transform:`perspective(850px) translate3d(${direction*(18+group*5)}px,${index?-7:9}px,0) rotateY(${direction*12}deg)`},
+            {opacity:1,transform:'perspective(850px) translate3d(0,0,0) rotateY(0deg)'}
+          ],{duration:duration||640,delay:delay+index*90+[45,0,65][group],easing:ease,fill:'both',persist:true});
+          if(effect){effect.id='sr-text-lightcut';effects.push(effect);if(manual){effect.pause();effect.currentTime=0}}
+        }
+      }
+      if(!effects.length)cleanup();
+      else if(!manual)Promise.allSettled(effects.map(e=>e.finished)).then(cleanup);
+    }catch{cleanup();}
+    return handle;
+  }
   // Cinematic typography, one compositor animation per editorial phrase.
   // Split DOM/Range measurements are reserved for the hero and explicit
   // manual semantic fixtures. This is the crucial low-memory performance path.

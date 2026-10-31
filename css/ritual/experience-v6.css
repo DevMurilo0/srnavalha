@@ -10,8 +10,8 @@
 .catalog-tally,.filter-status{font:500 12px/1.5 var(--body);color:var(--muted);letter-spacing:.02em}
 .catalog-tally{padding:10px 0 14px;border-bottom:1px solid var(--copper);margin:0 0 12px}
 .service-entry .icon,.map-frame>.text-link .icon{transition:transform 180ms cubic-bezier(.22,1,.36,1)}
-.hero .button,.filter-row button,.album-prev,.album-next,.album-enlarge{transition:background 180ms ease,color 180ms ease,transform 140ms ease-out}
-.hero .button:active,.filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active{transform:scale(.985)}
+.filter-row button,.album-prev,.album-next,.album-enlarge{transition:background 180ms ease,color 180ms ease,transform 140ms ease-out}
+.filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active{transform:scale(.985)}
 /* Existing paper photographs retain their authored angles; only the caption
    ink responds. The album's FLIP transform stays owned by album.js. */
 .work-print figcaption>span:first-child{display:inline-block;transition:transform 220ms cubic-bezier(.22,1,.36,1)}
@@ -24,11 +24,8 @@
  .footer-link-col a:hover,.visit-phone:hover{text-decoration:underline;text-decoration-color:var(--copper)}
 }
 @media(prefers-reduced-motion:reduce){
- .service-entry::before,.service-entry .icon,.work-print figcaption>span:first-child,
- .hero .button,.filter-row button,.album-prev,.album-next,.album-enlarge{transition:none}
- .hero .button:active,.filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active,
- .work-print:hover figcaption>span:first-child,.work-print:focus-within figcaption>span:first-child,
- .service-entry:hover .icon{transform:none}
+ .service-entry::before,.service-entry .icon,.work-print figcaption>span:first-child,.filter-row button,.album-prev,.album-next,.album-enlarge{transition:none}
+ .filter-row button:active,.album-prev:active,.album-next:active,.album-enlarge:active,.work-print:hover figcaption>span:first-child,.work-print:focus-within figcaption>span:first-child,.service-entry:hover .icon{transform:none}
 }
 .visit-address-copy{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 0;margin:2px 0 12px;border:0;border-bottom:1px solid var(--copper);background:none;color:var(--wood);font:600 12px/1.4 var(--body);cursor:pointer}
 .visit-address-copy[hidden]{display:none}

@@ -2,10 +2,8 @@
    Scenes adapted from client photographs; public MIT barber vectors.
    The layout remains fully readable with effects disabled. */
 :root{--v18-metal:#a77b55;--v18-ink:#201915;--v18-paper:#efe5d6}
-.hero,.house,.rituals,.team,.portfolio,.products,.reviews,.visit,.footer{position:relative;isolation:isolate}
-.hero>.wrap,.house>.wrap,.rituals>.wrap,.team>.wrap,.portfolio>.wrap,.products>.wrap,.reviews>.wrap,.visit>.wrap,.footer>.wrap{position:relative;z-index:1}
-.hero{background:radial-gradient(ellipse 54% 65% at 80% 33%,#d6b89d40,transparent 74%),radial-gradient(ellipse at 10% 4%,#fff9f4,transparent 58%),linear-gradient(130deg,#f2e9de,#f9f4ed 55%,#eadcc9)}
-.hero::before{opacity:.13}
+.house,.rituals,.team,.portfolio,.products,.reviews,.visit,.footer{position:relative;isolation:isolate}
+.house>.wrap,.rituals>.wrap,.team>.wrap,.portfolio>.wrap,.products>.wrap,.reviews>.wrap,.visit>.wrap,.footer>.wrap{position:relative;z-index:1}
 .house{background:radial-gradient(ellipse 65% 50% at 85% 33%,#9f603849,transparent 70%),linear-gradient(128deg,#171412,#2b211c 64%,#171412)}
 .house::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#181411ee 2%,#18141191 54%,#181411bf 100%),url('../../assets/images/hero-redesign/interior-720.webp') 80% 40%/cover no-repeat;opacity:.31;pointer-events:none;z-index:-1;filter:grayscale(.5);mask-image:linear-gradient(90deg,transparent,#000 40%,#000)}
 .rituals{background:radial-gradient(ellipse 78% 80% at 12% 25%,#c0986731,transparent 65%),radial-gradient(ellipse 45% 65% at 90% 76%,#ffffffc4,transparent 85%),linear-gradient(155deg,#f6efe5,#e8dbc9 67%,#f7eee5)}

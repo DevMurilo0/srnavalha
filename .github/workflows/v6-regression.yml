@@ -56,6 +56,7 @@ jobs:
           node scripts/profile-cinematic-performance.mjs
           node scripts/test-editorial-interactions.mjs
           node scripts/test-experience-v6.mjs
+          node scripts/test-hero-lightcut.mjs
           node scripts/test-perfect-cut-v4.mjs
           node scripts/test-reflexo.mjs
           node scripts/test-reflexo-resilience.mjs

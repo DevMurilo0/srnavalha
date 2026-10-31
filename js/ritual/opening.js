@@ -106,11 +106,11 @@ export function openRitual() {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
-    // Browser address bars change viewport HEIGHT on phones, which should
-    // not abort the choreography midway. Only width changes/rotation do.
-    const initialWidth=innerWidth;
+    // A resize invalidates the measured FLIP destination. Settle both timelines
+    // rather than flying toward stale geometry, including short desktop windows.
+    const initialWidth=innerWidth,initialHeight=innerHeight;
     addEventListener('resize',()=>{
-      if (Math.abs(innerWidth-initialWidth)>2) finish();
+      if (Math.abs(innerWidth-initialWidth)>2||Math.abs(innerHeight-initialHeight)>2) finish();
     },{passive:true,signal:signal.signal});
     document.addEventListener('motionchange',()=>{
       if (!canMove()) finish();
@@ -136,9 +136,9 @@ export function openRitual() {
       const sourceBox = source?.getBoundingClientRect();
       const targetBox = target?.getBoundingClientRect();
       const mobile = W <= 700;
-      const FADE = 240, CUT = mobile ? 1350 : 1500, OPEN = 680;
+      const FADE = 160, CUT = mobile ? 1020 : 1120, OPEN = 420;
       const tCut = FADE, tEnd = tCut + CUT;
-      const tMark = tCut + CUT * .16, logoTime = mobile ? 900 : 960;
+      const tMark = tCut + CUT * .16, logoTime = mobile ? 720 : 760;
       const scale = mobile ? 1.65 : 1.9;
       const startY = -80, endY = H + 80;
       const cutEase = 'cubic-bezier(.38,.18,.36,1)';
@@ -255,8 +255,8 @@ export function openRitual() {
     // The CSS bar/scissors and JS percentage MUST share the same epoch
     // and easing. Previously CSS began during parsing but JS much later.
     // This created the progress drift visible in slower mobile browsers.
-    const DURATION=2250;
-    const epoch=performance.now()+180;
+    const DURATION=1000;
+    const epoch=performance.now()+80;
     // Exact cubic-bezier(.65,0,.35,1), matching loader-v2.css.
     // Newton solve x(t)=progress, then derive y(t); ~25 calls/sec.
     const sample=(t,a,b)=>{
@@ -281,7 +281,7 @@ export function openRitual() {
         lastCounter=now;
       }
       if(p<1) raf=requestAnimationFrame(tick);
-      else delay(beginCut,160);
+      else delay(beginCut,80);
     }
     raf=requestAnimationFrame(tick);
   });

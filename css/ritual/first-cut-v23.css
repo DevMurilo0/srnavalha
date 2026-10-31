@@ -52,34 +52,6 @@ html.sr-loader-boot #sr-loader-stage.sr-opening{display:block}
 
 /* First paint gate: only when JavaScript proactively activated it in <head>.
    Natural content remains visible without JavaScript and with reduced motion. */
-@media(prefers-reduced-motion:no-preference){
-  html.sr-loader-boot .hero-wordmark,
-  html.sr-loader-boot .hero h1,
-  html.sr-loader-boot .hero-intro,
-  html.sr-loader-boot .hero-composition,
-  html.sr-loader-boot .hero-bottom{
-    transition:opacity 820ms var(--sr-motion-out),transform 980ms var(--sr-motion-out);
-  }
-  html.sr-loader-boot:not(.sr-opening-reveal) .hero-wordmark,
-  html.sr-loader-boot:not(.sr-opening-reveal) .hero h1,
-  html.sr-loader-boot:not(.sr-opening-reveal) .hero-intro,
-  html.sr-loader-boot:not(.sr-opening-reveal) .hero-composition,
-  html.sr-loader-boot:not(.sr-opening-reveal) .hero-bottom{
-    opacity:0;transform:translate3d(0,22px,0);
-  }
-  html.sr-loader-boot.sr-opening-reveal .hero-wordmark,
-  html.sr-loader-boot.sr-opening-reveal .hero h1,
-  html.sr-loader-boot.sr-opening-reveal .hero-intro,
-  html.sr-loader-boot.sr-opening-reveal .hero-composition,
-  html.sr-loader-boot.sr-opening-reveal .hero-bottom{
-    opacity:1;transform:none;
-  }
-  html.sr-loader-boot .hero-wordmark{transition-delay:70ms}
-  html.sr-loader-boot .hero h1{transition-delay:155ms}
-  html.sr-loader-boot .hero-intro{transition-delay:260ms}
-  html.sr-loader-boot .hero-composition{transition-delay:205ms}
-  html.sr-loader-boot .hero-bottom{transition-delay:320ms}
-}
 
 /* CHAPTER JOINTS · genuine between-section editorial cuts, not overlays
    on functional content, so all navigation and scrolling stay native. */
@@ -197,7 +169,6 @@ html.sr-chapters-active .sr-chapter .sr-chapter__edge{transition-delay:170ms}
 @media(prefers-reduced-motion:reduce){
   #sr-loader-stage{display:none!important}
   .sr-chapter .sr-chapter__plate,.sr-chapter .sr-chapter__index,.sr-chapter .sr-chapter__edge,.sr-chapter .sr-chapter__line{transition:none!important;translate:none!important;scale:1!important;opacity:1!important}
-  .hero-wordmark,.hero h1,.hero-intro,.hero-composition,.hero-bottom{transition:none!important}
 }
 
 /* Pré-pintura das passagens: evita flash no carregamento e em deep links.
