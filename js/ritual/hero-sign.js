@@ -53,7 +53,7 @@ export function initHeroExperience(){
     }
     // Synchronized physical-pole entrance after the scissors, using only
     // transform and opacity. Cleanup belongs to this existing timeline.
-    $('.hero-cinema__brand-lockup .hero-pole__object',hero).forEach((node,index)=>{
+    $$('.hero-cinema__brand-lockup .hero-pole__object',hero).forEach((node,index)=>{
       styles.push({node,opacity:node.style.opacity,clipPath:node.style.clipPath});
       const side=index===0?-1:1;
       const effect=node.animate([
