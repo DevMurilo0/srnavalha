@@ -249,33 +249,70 @@ assert.ok(railCss.includes('position:absolute;')&&
 console.log('Team portrait rail: saída lateral, entrada vertical e contenção sem saltos.');
 
 
-/* Cinema hero: full-bleed identity, real photographic assets and native
-   shot controls; the scissors and real logo FLIP remain untouched. */
-const cinemaMarkup=file('templates/v17/inicio.html');
-const cinemaStyle=file('css/ritual/hero-cinema.css');
+/* V27: central brand, two functioning barber poles, catalog usability.
+   Verify actual public behaviors rather than the removed scene chooser. */
+const heroTemplate=file('templates/v17/inicio.html');
+const productTemplate=file('templates/v17/produtos.html');
+const heroBrand=file('css/ritual/hero-brand-v27.css');
+const catalogCSS=file('css/ritual/catalog-atelier.css');
+const catalogJS=file('js/ritual/products.js');
 const heroMotion=file('js/ritual/hero-sign.js');
 const typeEngine=file('js/ritual/text-motion.js');
-assert.ok(html.includes('class="hero hero--cinema"')&&cinemaMarkup.includes('class="hero hero--cinema"'),
-  'novo hero cinematográfico presente no template e na página');
-for(const token of ['hero-cinema__stage','hero-room','hero-facade','hero-detail',
-  'hero-wordmark','hero-title','hero-pole--left','hero-pole--right'])
-  assert.ok(cinemaMarkup.includes(token),'hero preserva integração: '+token);
-assert.ok(file('css/ritual.css').includes("hero-cinema.css")&&
-  cinemaStyle.includes('.hero--cinema .hero-cinema__stage'),
-  'CSS cinematográfico carregado por último');
-assert.equal((cinemaMarkup.match(/data-cinema-shot="/g)||[]).length,3,
-  'três quadros fotográficos seletivos, sem colagem estática');
+assert.ok(heroTemplate.includes('class="hero hero--cinema"')&&
+ html.includes('class="hero hero--cinema"'),'capa cinematográfica preservada');
+assert.equal((heroTemplate.match(/class="hero-pole hero-pole--/g)||[]).length,2,
+ 'marca central entre dois postes reais');
+assert.ok(heroTemplate.indexOf('hero-pole--left')<
+ heroTemplate.indexOf('hero-logo-transparent')&&
+ heroTemplate.indexOf('hero-logo-transparent')<
+ heroTemplate.indexOf('hero-pole--right'),
+ 'logo centralizada entre postes no mesmo lockup');
+assert.ok(heroTemplate.includes('hero-cinema__brand-lockup')&&
+ heroBrand.includes('grid-template-columns')&&
+ heroBrand.includes('hero-cinema__brand-lockup .hero-pole'),
+ 'layout central responsivo carregado');
+assert.ok(!heroTemplate.includes('OLHAR DE PERTO')&&
+ !heroTemplate.includes('data-cinema-shot')&&
+ !heroTemplate.includes('hero-facade')&&
+ !heroTemplate.includes('hero-detail')&&
+ !heroMotion.includes('data-cinema-shot'),
+ 'seletor de imagens antigas removido de HTML e JS');
 assert.equal((html.match(/class="hero-logo-transparent"/g)||[]).length,1,
-  'logo oficial única conserva FLIP');
-assert.ok(heroMotion.includes("sr-hero-curtain")&&
-  heroMotion.includes("openingend")&&heroMotion.includes("data-cinema-shot"),
-  'cortina sincronizada à tesoura e controles reais de cenário');
+ 'marca oficial única para o FLIP da introdução');
+assert.ok(heroMotion.includes('sr-hero-curtain')&&
+ heroMotion.includes('sr-hero-light-slit')&&
+ heroMotion.includes('openingend'),
+ 'cortina cinematográfica e novo traço de luz sincronizados à tesoura');
 assert.ok(typeEngine.includes("case 'monolith'")&&
-  cinemaMarkup.includes('data-cm-signature="monolith"'),
-  'headline com letras animadas individualmente');
-assert.ok(cinemaStyle.includes('prefers-reduced-motion:reduce')&&
-  cinemaStyle.includes('hero-ambiente')===false&&
-  cinemaMarkup.includes('hero-ambiente-1920.webp')&&
-  cinemaMarkup.includes('hero-ambiente-mobile-960.webp'),
-  'fotografia local responsiva sem pesado vídeo de fundo');
-console.log('Cinema hero: imagem ampla, tipografia, tesoura, agenda e três cenas.');
+ heroTemplate.includes('data-cm-signature="monolith"'),
+ 'tipografia por letras preservada');
+assert.ok(heroBrand.includes('prefers-reduced-motion:reduce')&&
+ heroTemplate.includes('hero-ambiente-mobile-960.webp')&&
+ heroTemplate.includes('hero-ambiente-1920.webp'),
+ 'imagem própria responsiva e modo movimento reduzido');
+assert.ok(file('css/ritual.css').includes("hero-brand-v27.css")&&
+ file('css/ritual.css').includes("catalog-atelier.css"),
+ 'CSS de nova composição e catálogo ligado à página');
+assert.equal((productTemplate.match(/class="product-option"/g)||[]).length,22,
+ 'todos os 22 produtos preservados');
+assert.equal((productTemplate.match(/class="product-option__consult"/g)||[]).length,22,
+ '22 links separados de consulta preservados');
+assert.equal((productTemplate.match(/class="product-option__preview"/g)||[]).length,22,
+ '22 botões reais de visualização de detalhes');
+assert.equal((productTemplate.match(/class="no-photo"/g)||[]).length,4,
+ 'itens sem imagem recebem tratamento gráfico sem fotografia inventada');
+for(const id of ['product-search','product-sort','product-category',
+ 'product-count','product-empty','product-reset','product-clear']){
+ assert.ok(productTemplate.includes('id="'+id+'"'),
+  'controle funcional do catálogo '+id);
+}
+assert.ok(catalogJS.includes('applyFilter(')&&
+ catalogJS.includes('applySort(')&&
+ catalogJS.includes('normalize(')&&
+ catalogJS.includes('changePhoto('),
+ 'pesquisa, acentos, ordenação e prévia ligados ao catálogo');
+assert.ok(catalogCSS.includes('.product-option__consult')&&
+ catalogCSS.includes('prefers-reduced-motion:reduce')&&
+ catalogCSS.includes('.catalog-empty[hidden]'),
+ 'design do catálogo é acessível e tem fallback de movimento');
+console.log('V27 Hero + Catálogo: marca central, cenário limpo, 22 produtos e controles.');
