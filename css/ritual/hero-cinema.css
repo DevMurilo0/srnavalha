@@ -112,7 +112,7 @@ html.sr-hero-queued .hero--cinema :is(.hero-pole__object,.hero-wordmark>span,.he
 @media(max-width:1000px){.hero.hero--cinema{--hero-header:100px}}
 @media(max-width:700px){
  .hero.hero--cinema{--hero-header:84px;--hero-logo:clamp(112px,32vw,164px);--hero-type:clamp(30px,8.85vw,59px);--hero-space:clamp(12px,2.2svh,23px)}
- .hero--cinema .hero-inner{width:calc(100% - 36px);gap:clamp(15px,3svh,29px)}
+ .hero--cinema .hero-inner{width:calc(100% - 40px);gap:clamp(15px,3svh,29px)}
  .hero--cinema .hero-cinema__brand-lockup{--pole-width:clamp(20px,6vw,26px);--pole-height:clamp(69px,18vw,90px);gap:clamp(11px,3vw,19px)}
  .hero--cinema .hero-cinema__masthead-tag{gap:8px;font-size:9px;letter-spacing:.08em}
  .hero--cinema .hero-cinema__masthead-tag i{width:8px}
