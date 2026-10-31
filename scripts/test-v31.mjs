@@ -35,11 +35,13 @@ try{
   const move=flight.getAnimations().find(a=>a.effect.getKeyframes().some(f=>f.transform)),end=move.effect.getComputedTiming().endTime;
   const matte=n=>n.querySelector('feColorMatrix').getAttribute('values').trim().split(/\s+/).map(Number);
   const canonical=JSON.stringify(matte(plate))===JSON.stringify(matte(target));
+  const hasStaticMatte=!!flight.querySelector('#snv2-logo-matte-ink')&&
+    !all.some(a=>a.effect?.getKeyframes?.().some(f=>Object.hasOwn(f,'filter')));
   const readings=[];
-  for(const time of [end-2,end+2]){all.forEach(a=>a.currentTime=time);const a=flight.getBoundingClientRect(),b=target.getBoundingClientRect();readings.push({canonical,flight:+getComputedStyle(flight).opacity,target:+getComputedStyle(target).opacity,sameInk:getComputedStyle(flight.querySelector('svg')).filter===getComputedStyle(target).filter,error:Math.max(...['x','y','width','height'].map(k=>Math.abs(a[k]-b[k])))})}
+  for(const time of [end-2,end+2]){all.forEach(a=>a.currentTime=time);const a=flight.getBoundingClientRect(),b=target.getBoundingClientRect();readings.push({canonical,hasStaticMatte,flight:+getComputedStyle(flight).opacity,target:+getComputedStyle(target).opacity,sameInk:getComputedStyle(flight.querySelector('svg')).filter===getComputedStyle(target).filter,error:Math.max(...['x','y','width','height'].map(k=>Math.abs(a[k]-b[k])))})}
   window.__finishRitual?.();return readings;
  });
- check('FLIP sem sobreposição de logos e com destino exato',handoff[0].flight===1&&handoff[0].target===0&&handoff[1].flight===0&&handoff[1].target===1&&handoff.every(r=>r.error<.15&&r.sameInk&&r.canonical),handoff);await flip.context().close();
+ check('FLIP sem sobreposição de logos e com destino exato',handoff[0].flight===1&&handoff[0].target===0&&handoff[1].flight===0&&handoff[1].target===1&&handoff.every(r=>r.error<.15&&r.sameInk&&r.canonical&&r.hasStaticMatte),handoff);await flip.context().close();
  for(const width of [390,1440]){
   const p=await fresh({viewport:{width,height:900}});await p.goto(base,{waitUntil:'domcontentloaded'});await ready(p);
   for(const id of ['casa','servicos','equipe','trabalhos','produtos','avaliacoes','localizacao','contato']){

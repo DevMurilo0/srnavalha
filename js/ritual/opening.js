@@ -233,16 +233,24 @@ export function openRitual() {
         copy.removeAttribute('role'); copy.removeAttribute('aria-label');
         copy.setAttribute('aria-hidden','true');
         copy.style.visibility = 'visible';
-        // Outside .hero--cinema, ink needs an explicit transition from the
-        // paper mark to the measured destination filter.
-        copy.style.filter = 'none';
-        copy.querySelector('filter').id = 'snv2-logo-flight-ink';
+        // The destination artwork is the first child. Both copies have the
+        // exact same viewBox and pixel bounds; only a *temporary* matte crossfades.
+        // This avoids animating CSS filter (which repaints the logo every frame).
+        copy.style.filter=targetInk;
+        copy.querySelector('filter').id='snv2-logo-flight-ink';
         copy.querySelector('image').setAttribute('filter','url(#snv2-logo-flight-ink)');
-        flight.append(copy); stage.append(flight); temporary.push(flight);
-        // Identical alpha masks at both ends; light changes continuously as
-        // charcoal ink leaves the paper and reaches the dark photographic scene.
-        play(copy,[{filter:'brightness(1) invert(0)'},{filter:targetInk}],
-          {duration:logoTime*.8,delay:tMark,easing:'linear'});
+        const matte=target.cloneNode(true);
+        matte.removeAttribute('role');matte.removeAttribute('aria-label');
+        matte.setAttribute('aria-hidden','true');
+        matte.style.visibility='visible';
+        Object.assign(matte.style,{position:'absolute',inset:'0',filter:'brightness(1) invert(0)'});
+        matte.querySelector('filter').id='snv2-logo-matte-ink';
+        matte.querySelector('image').setAttribute('filter','url(#snv2-logo-matte-ink)');
+        flight.append(copy,matte);stage.append(flight);temporary.push(flight);
+        // The paper ink dissolves into the lit sign using compositor opacity.
+        // The flight object owns position and scale; neither child moves.
+        play(matte,[{opacity:1},{opacity:0}],
+          {duration:Math.round(logoTime*.65),delay:tMark+90,easing:'cubic-bezier(.42,0,.58,1)',fill:'both'});
         const move = `translate3d(${destLeft-left}px,${destTop-top}px,0) scale(${targetUnit/sourceUnit})`;
         // One visible mark at a time. Atomic compositor handoffs avoid the
         // opacity dip produced by crossfading two copies of the same white ink.
