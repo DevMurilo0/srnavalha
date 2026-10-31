@@ -15,7 +15,7 @@ execFileSync(process.execPath,['scripts/render-site.mjs']);
 assert.equal(file('index.html'),html,'render do HTML idempotente');
 assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'oito divisores mantidos');
 assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'serviços mantidos');
-assert.equal((html.match(/href="agendar.html/g)||[]).length,55,'52 ações originais e três convites comerciais confirmados');
+assert.equal((html.match(/href="agendar.html/g)||[]).length,52,'52 ações originais de agendamento preservadas');
 assert.ok(html.includes('application/ld+json'),'SEO preservado');
 
 for(const id of ['id="sr-loader-stage"','id="snv2-panels"','id="sr-loader-plate"',
@@ -315,7 +315,8 @@ assert.ok(catalogCSS.includes('.product-option__consult')&&
  catalogCSS.includes('prefers-reduced-motion:reduce')&&
  catalogCSS.includes('.catalog-empty[hidden]'),
  'design do catálogo é acessível e tem fallback de movimento');
-assert.ok(html.includes('class="team-grain"')&&html.includes('class="essential-rituals"')&&
-  html.includes('product-catalog__still-life')&&!html.includes('01 / 08</small>'),
-  'atelier V32, preços reais e bússola sem contador');
-console.log('V32: 42 serviços, corte/barba em destaque e 18 produtos fotografados.');
+assert.ok(html.includes('class="team-grain"')&&!html.includes('class="essential-rituals"')&&
+  html.includes('product-catalog__still-life')&&!html.includes('01 / 08</small>')&&
+  (html.match(/data-featured="true"/g)||[]).length===3,
+  'layout original, madeira e três serviços principais em evidência');
+console.log('Atelier: 42 serviços, visual restaurado e 18 produtos fotografados.');
