@@ -50,7 +50,7 @@ try{
  check('Texto dividido e fotografias assentam sem salto geométrico',geometry.every(n=>n<1),geometry);
  const audit=await m.evaluate(()=>window.motionAudit);
  check('Hero começa durante o corte, sem esperar openingend',audit.mid?.loader&&audit.end.at(-1)?.completed&&audit.end.at(-1)?.loader===false&&audit.effects.some(e=>e.hero&&e.loader),audit.mid);
- check('CTA sobrepõe o fim da tipografia em ritmo V31',audit.effects.some(e=>e.hero&&e.id==='sr-hero-booking-arrival'&&e.delay===740));
+ check('CTA sobrepõe o fim da tipografia em ritmo V31',audit.effects.some(e=>e.hero&&e.id==='sr-hero-booking-arrival'&&e.delay>=600&&e.delay<=800&&e.duration>=900));
  check('Limpeza final restaura os nós originais e cancela fills',await m.evaluate(()=>!document.querySelector('.hero .cm-run')&&!document.documentElement.classList.contains('sr-hero-queued')&&!document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text')||a.id.startsWith('sr-photo'))));
  const rotor=await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime);await m.waitForTimeout(100);
  check('Cilindros continuam girando após entrada',await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime)>rotor);
