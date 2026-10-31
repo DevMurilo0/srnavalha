@@ -289,67 +289,7 @@ html.sr-hero-queued .hero--cinema .hero-cinema__curtain{
 .hero--cinema .hero-invitation>.text-link:hover{
   color:#fff;border-color:#fff;translate:0 -2px;
 }
-.hero--cinema .hero-composition.hero-cinema__sequence{
-  display:flex!important;
-  position:relative;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:stretch;
-  gap:12px;
-  width:100%;
-  max-width:none;
-  margin:0!important;
-  padding:0 0 19px;
-  grid-template-columns:none;
-  border-bottom:1px solid #eef0f42e;
-  z-index:5;
-}
-.hero--cinema .hero-cinema__sequence-heading{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color:#cad0d8;
-  font:650 10px/1.2 var(--body);
-  letter-spacing:.19em;
-}
-.hero--cinema .hero-cinema__controls{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  width:min(700px,100%);
-  gap:0;
-  border-top:1px solid #ffffff34;
-}
-.hero--cinema .hero-cinema__scene-button{
-  display:flex;
-  width:100%;
-  gap:clamp(7px,1vw,18px);
-  align-items:center;
-  padding:clamp(10px,1.4vw,18px) clamp(5px,1.4vw,18px);
-  border:0;
-  border-right:1px solid #ffffff24;
-  border-bottom:2px solid transparent;
-  color:#bec5cf;
-  background:transparent;
-  font:650 clamp(11px,1.1vw,14px)/1.2 var(--body);
-  text-align:left;
-  cursor:pointer;
-  transition:color .25s ease,background .25s ease,border-color .3s ease;
-}
-.hero--cinema .hero-cinema__scene-button:last-child{border-right:0}
-.hero--cinema .hero-cinema__scene-number{
-  font:600 10px var(--body);
-  color:#9da9b6;
-  letter-spacing:.05em;
-}
-.hero--cinema .hero-cinema__scene-button:is(:hover,:focus-visible,.is-selected){
-  background:#ffffff17;
-  color:#fff;
-  border-bottom-color:#f9fafb;
-}
-.hero--cinema .hero-cinema__scene-button:focus-visible{
-  outline:2px solid #fff;
-  outline-offset:-3px;
-}
+/* Removed obsolete 01/02/03 scene switcher block (no markup remains). */
 .hero--cinema .hero-bottom{
   display:flex!important;
   align-items:center;
@@ -388,7 +328,6 @@ html.sr-hero-queued .hero--cinema .hero-topline,
 html.sr-hero-queued .hero--cinema .hero-intro,
 html.sr-hero-queued .hero--cinema .hero-invitation>.button,
 html.sr-hero-queued .hero--cinema .hero-invitation>.text-link,
-html.sr-hero-queued .hero--cinema .hero-cinema__sequence,
 html.sr-hero-queued .hero--cinema .hero-bottom{opacity:0}
 .hero--cinema.is-arriving .hero-cinema__curtain{will-change:transform}
 @media(min-width:1800px){
@@ -451,9 +390,6 @@ html.sr-hero-queued .hero--cinema .hero-bottom{opacity:0}
     padding:13px 18px;
   }
   .hero--cinema .hero-invitation>.text-link{font-size:11px}
-  .hero--cinema .hero-cinema__sequence-heading{font-size:9px}
-  .hero--cinema .hero-composition.hero-cinema__sequence{padding-bottom:10px}
-  .hero--cinema .hero-cinema__scene-button{padding:13px 4px;font-size:11px}
   .hero--cinema .hero-bottom{padding:12px 0 18px!important;font-size:8px;gap:8px}
   .hero--cinema .hero-pole{top:26px;--pole-width:23px;--pole-height:79px}
   .hero--cinema .hero-pole--left{right:43px}
@@ -464,7 +400,6 @@ html.sr-hero-queued .hero--cinema .hero-bottom{opacity:0}
   .hero--cinema .hero-cinema__masthead{min-height:84px}
   .hero--cinema h1{font-size:clamp(35px,10.2vw,42px)!important}
   .hero--cinema .hero-invitation>.button{min-width:180px}
-  .hero--cinema .hero-cinema__scene-number{font-size:9px}
   .hero--cinema .hero-bottom{font-size:7px}
 }
 html.sr-lite-motion .hero--cinema .hero-room img,
@@ -474,7 +409,6 @@ html.sr-lite-motion .hero--cinema .hero-cinema__scene--portrait img{
 @media(prefers-reduced-motion:reduce){
   .hero--cinema .hero-cinema__curtain{transform:translate3d(103%,0,0)!important}
   .hero--cinema .hero-cinema__scene--portrait{transition:none!important}
-  .hero--cinema .hero-cinema__scene-button{transition:none!important}
   .hero--cinema .hero-invitation>.button,
   .hero--cinema .hero-invitation>.text-link{transition:none!important}
   html.sr-hero-queued .hero--cinema .hero-centerpiece h1,
@@ -482,6 +416,5 @@ html.sr-lite-motion .hero--cinema .hero-cinema__scene--portrait img{
   html.sr-hero-queued .hero--cinema .hero-intro,
   html.sr-hero-queued .hero--cinema .hero-invitation>.button,
   html.sr-hero-queued .hero--cinema .hero-invitation>.text-link,
-  html.sr-hero-queued .hero--cinema .hero-cinema__sequence,
   html.sr-hero-queued .hero--cinema .hero-bottom{opacity:1!important}
 }
