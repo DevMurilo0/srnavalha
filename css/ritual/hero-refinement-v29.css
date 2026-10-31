@@ -1,0 +1,227 @@
+/* Sr. Navalha | Hero refinement V29
+   A precise lockup, raised headline, booking object and supporting typography.
+   No new continuous animation: existing hero-sign.js owns the entrance. */
+
+#inicio.hero--cinema .hero-centerpiece{
+  /* Increase bottom breathing room to lift the message without moving the
+     official logo (the scissors' landing target) or changing the hero height. */
+  padding-bottom:clamp(100px,13svh,160px)!important;
+}
+
+#inicio.hero--cinema .hero-cinema__brand-lockup{
+  gap:clamp(17px,2.7vw,38px);
+}
+#inicio.hero--cinema .hero-cinema__brand-lockup .hero-pole{
+  --pole-width:clamp(33px,3.45vw,47px);
+  --pole-height:clamp(106px,11vw,146px);
+}
+#inicio.hero--cinema .hero-pole__object{
+  filter:drop-shadow(0 13px 12px #000b) drop-shadow(0 0 10px #f4f7ff18);
+}
+#inicio.hero--cinema .hero-pole__glass{
+  box-shadow:inset 3px 0 6px #fff6,inset -5px 0 8px #0008,
+             0 0 0 1px #e9edf270,0 0 15px #f0f4fa14;
+}
+#inicio.hero--cinema .hero-cinema__brand-lockup .hero-wordmark > span{
+  /* Previously anchored at top:96% / right:0, reading vertically by
+     the pole. Keep this label in the logo's normal centered text flow. */
+  position:static!important;
+  inset:auto!important;
+  display:block;
+  width:100%;
+  margin:-4px auto 0;
+  padding:0;
+  transform:none!important;
+  text-align:center;
+  white-space:nowrap;
+  font:600 9px/1.3 var(--body);
+  letter-spacing:.25em;
+  color:#e3e8ee;
+  text-shadow:0 1px 5px #000b;
+}
+#inicio.hero--cinema .hero-cinema__masthead-tag{
+  display:block!important;
+  position:relative;
+  width:max-content;
+  max-width:100%;
+  min-height:28px;
+  margin:10px auto 0!important;
+  padding:8px clamp(14px,2.5vw,29px);
+  border-top:1px solid #ffffff70;
+  border-bottom:1px solid #ffffff50;
+  background:linear-gradient(90deg,transparent,#0b0e12ac 17% 83%,transparent);
+  box-shadow:0 8px 17px -12px #000a;
+  color:#e9edf3;
+  font:650 clamp(8px,.77vw,10px)/1.35 var(--body);
+  letter-spacing:.2em;
+  text-align:center;
+  text-wrap:balance;
+}
+#inicio.hero--cinema .hero-cinema__masthead-tag::before,
+#inicio.hero--cinema .hero-cinema__masthead-tag::after{
+  content:"";position:absolute;top:calc(50% - 2px);
+  width:4px;height:4px;transform:rotate(45deg);
+  background:#dee5ee;opacity:.78;
+}
+#inicio.hero--cinema .hero-cinema__masthead-tag::before{left:5px}
+#inicio.hero--cinema .hero-cinema__masthead-tag::after{right:5px}
+
+#inicio.hero--cinema .hero-topline{
+  position:relative;
+  width:fit-content;
+  max-width:100%;
+  margin-bottom:clamp(16px,2vw,27px);
+  gap:14px;
+  color:#eef2f7;
+  font-size:clamp(9px,.82vw,12px);
+  letter-spacing:.15em;
+  text-wrap:balance;
+  text-shadow:0 2px 10px #000b;
+}
+#inicio.hero--cinema .hero-topline__rule{
+  width:clamp(28px,4vw,55px);
+  background:linear-gradient(90deg,#fff9,#fff);
+  box-shadow:0 0 12px #ffffff52;
+}
+#inicio.hero--cinema h1{
+  text-shadow:0 9px 28px #020408ae;
+}
+#inicio.hero--cinema .hero-intro{
+  color:#e5eaf0;
+  font-weight:500;
+  letter-spacing:.005em;
+  text-shadow:0 2px 11px #000a;
+}
+
+/* Booking is an interactive material object, not another generic button.
+   The entire white plaque remains the native accessible link. */
+#inicio.hero--cinema .hero-invitation > .hero-cta{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(20px,3vw,47px);
+  min-width:clamp(262px,23.5vw,340px);
+  min-height:74px;
+  padding:11px 12px 11px 23px;
+  border:1px solid #f8fafc;
+  border-radius:2px;
+  background:linear-gradient(128deg,#fff 5%,#f2f4f7 56%,#cbd2dc 100%);
+  color:#111720;
+  box-shadow:0 17px 33px -18px #000d, inset 0 1px #fff;
+  text-decoration:none;
+  translate:none;
+  transition:transform .42s cubic-bezier(.16,1,.3,1),
+             box-shadow .42s cubic-bezier(.16,1,.3,1),
+             background-color .3s ease,color .3s ease;
+}
+#inicio.hero--cinema .hero-cta::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background:linear-gradient(105deg,transparent 16%,#ffffffa3 49%,transparent 70%);
+  opacity:0;transform:translate3d(-65%,0,0);
+  transition:opacity .4s ease,transform .7s cubic-bezier(.16,1,.3,1);
+}
+#inicio.hero--cinema .hero-cta__copy{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:5px;
+  flex:1;min-width:0;line-height:1.2;
+}
+#inicio.hero--cinema .hero-cta__eyebrow{
+  display:block;
+  color:#596474;
+  font:750 9px/1.15 var(--body);
+  letter-spacing:.19em;
+}
+#inicio.hero--cinema .hero-cta__copy strong{
+  color:#151a22;
+  font:700 clamp(14px,1.04vw,17px)/1.18 var(--body);
+  letter-spacing:-.02em;
+}
+#inicio.hero--cinema .hero-cta__arrow{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:48px;height:48px;
+  border:1px solid #242d39;
+  border-radius:50%;
+  background:#101820;
+  color:#f6f8fb;
+  box-shadow:inset 0 1px #ffffff30,0 4px 12px -6px #03070ac9;
+  transition:transform .36s cubic-bezier(.16,1,.3,1),
+             background-color .3s ease;
+}
+#inicio.hero--cinema .hero-cta__arrow .icon{display:block;flex:none}
+@media(hover:hover) and (pointer:fine){
+ #inicio.hero--cinema .hero-invitation > .hero-cta:hover{
+  background:linear-gradient(128deg,#fff,#f2f4f7 56%,#cbd2dc);
+  color:#111720;
+  transform:translate3d(0,-4px,0);
+  translate:none;
+  box-shadow:0 25px 42px -20px #000f, inset 0 1px #fff;
+ }
+ #inicio.hero--cinema .hero-cta:hover::before{
+  opacity:.85;transform:translate3d(65%,0,0);
+ }
+ #inicio.hero--cinema .hero-cta:hover .hero-cta__arrow{
+  transform:rotate(-8deg) translate3d(2px,-2px,0);
+  background:#293849;
+ }
+}
+#inicio.hero--cinema .hero-invitation > .hero-cta:focus-visible{
+ outline:3px solid #fff;outline-offset:5px;
+ color:#111720;translate:none;
+}
+#inicio.hero--cinema .hero-bottom{
+  border-top:1px solid #ffffff52;
+}
+@media(max-width:980px){
+ #inicio.hero--cinema .hero-centerpiece{
+  padding-bottom:clamp(76px,10svh,115px)!important;
+ }
+}
+@media(max-width:700px){
+ #inicio.hero--cinema .hero-centerpiece{
+  padding-bottom:clamp(54px,8svh,85px)!important;
+ }
+ #inicio.hero--cinema .hero-cinema__brand-lockup{
+  gap:clamp(12px,3.8vw,19px);
+ }
+ #inicio.hero--cinema .hero-cinema__brand-lockup .hero-pole{
+  --pole-width:26px;--pole-height:90px;
+ }
+ #inicio.hero--cinema .hero-cinema__brand-lockup .hero-wordmark>span{
+  margin:-4px auto 0;font-size:8px;letter-spacing:.17em;
+ }
+ #inicio.hero--cinema .hero-cinema__masthead-tag{
+  margin:7px auto 0!important;
+  min-height:27px;padding:7px 13px;font-size:8px;letter-spacing:.115em;
+ }
+ #inicio.hero--cinema .hero-topline{font-size:9px;letter-spacing:.07em}
+ #inicio.hero--cinema .hero-invitation > .hero-cta{
+  min-width:min(100%,290px);
+  min-height:67px;
+  padding:9px 10px 9px 17px;
+ }
+ #inicio.hero--cinema .hero-cta__arrow{width:44px;height:44px}
+}
+@media(max-width:390px){
+ #inicio.hero--cinema .hero-cinema__brand-lockup .hero-pole{
+  --pole-width:23px;--pole-height:81px;
+ }
+ #inicio.hero--cinema .hero-centerpiece{padding-bottom:56px!important}
+ #inicio.hero--cinema .hero-cinema__masthead-tag{
+  font-size:7.5px;letter-spacing:.055em;
+ }
+ #inicio.hero--cinema .hero-cta__copy strong{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+ #inicio.hero--cinema .hero-cta,
+ #inicio.hero--cinema .hero-cta::before,
+ #inicio.hero--cinema .hero-cta__arrow{
+  transition:none!important;
+ }
+}
