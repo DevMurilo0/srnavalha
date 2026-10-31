@@ -18,7 +18,7 @@ try{
  const m=await page();
  await m.addInitScript(()=>{
   window.motionAudit={effects:[],end:[],mid:null};const original=Element.prototype.animate;
-  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')||a.id==='sr-hero-booking-arrival')window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),tag:target.tagName,heading:target.closest('h2')?.id||null,logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0})});return a;};
+  Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options),target=this;const loader=!!document.querySelector('#sr-loader-stage');queueMicrotask(()=>{if(a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')||a.id==='sr-hero-booking-arrival')window.motionAudit.effects.push({id:a.id,hero:!!target.closest('.hero'),tag:target.tagName,heading:target.closest('h2')?.id||null,logo:target.matches('.hero-logo-transparent'),loader,frames,delay:options.delay||0,duration:options.duration||0})});return a;};
   const firstFrame=new MutationObserver(()=>{
    if(!document.querySelector('.snv2-run'))return;
    window.motionAudit.first=['h1','.hero-cta'].every(s=>getComputedStyle(document.querySelector('.hero '+s)).opacity==='0')&&getComputedStyle(document.querySelector('.hero-cinema__shutter')).transform!=='none'&&getComputedStyle(document.querySelector('.hero-logo-transparent')).visibility==='visible';
