@@ -14,7 +14,14 @@ async function pageAt(width=390,options={}){const p=await browser.newPage({viewp
   const tip=new DOMMatrix(getComputedStyle(carrier).transform).m42;
   const polygons=[...document.querySelectorAll('.snv2-panel')].map(e=>getComputedStyle(e).transform);
   window.__cutGeometry={tip,end:seam.getBoundingClientRect().bottom,delta:Math.abs(tip-seam.getBoundingClientRect().bottom),edges:polygons.map(t=>{const m=new DOMMatrix(t);return Math.abs(m.e+m.c*tip)}),panels:polygons,trackOpacity:getComputedStyle(track).opacity,trackX:track.getBoundingClientRect().x,expectedTrackX:(innerWidth-track.offsetWidth)/2,heroOpacity:getComputedStyle(document.querySelector('.hero-centerpiece')).opacity};
- }));return p}
+ }));
+ // A durable start proves reload behavior even if a busy browser finishes
+ // the overlay before the DOM-ready test task gets a turn.
+ await p.addInitScript(()=>{
+  window.__openingStarted=false;
+  const observer=new MutationObserver(()=>{if(document.querySelector('.snv2-run')){window.__openingStarted=true;observer.disconnect()}});
+  observer.observe(document,{subtree:true,attributes:true,attributeFilter:['class']});
+ });return p}
 const load=p=>p.goto(base,{waitUntil:'domcontentloaded'});
 const done=p=>p.waitForFunction(()=>!document.documentElement.classList.contains('sr-loader-boot'));
 try {
@@ -55,8 +62,8 @@ const handoff=await landing.evaluate(()=>{
  window.__finishRitual();return {error,effects:t.getAnimations().length,visible:getComputedStyle(t).visibility};
 });
 check('Logo: chegada proporcional e cancelamento no handoff',handoff.error<.1&&handoff.effects===0&&handoff.visible==='visible',handoff);await landing.close();
-const p=await pageAt();await load(p);await done(p);await p.reload({waitUntil:'domcontentloaded'});check('F5 reinicia',await p.locator('.snv2-loader').count()===1);await p.keyboard.press('Escape');await done(p);
-const cdp=await p.context().newCDPSession(p);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await p.reload({waitUntil:'domcontentloaded'});check('Refresh sem cache reinicia',await p.locator('.snv2-loader').count()===1);await p.keyboard.press('Escape');await done(p);
+const p=await pageAt();await load(p);await done(p);await p.reload({waitUntil:'domcontentloaded'});check('F5 reinicia',await p.evaluate(()=>window.__openingStarted===true));await p.keyboard.press('Escape');await done(p);
+const cdp=await p.context().newCDPSession(p);await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});await p.reload({waitUntil:'domcontentloaded'});check('Refresh sem cache reinicia',await p.evaluate(()=>window.__openingStarted===true));await p.keyboard.press('Escape');await done(p);
 await p.locator('.hero .button').click();await p.waitForURL('**/agendar.html');check('Agendamento local abre',await p.locator('h1').count()===1);await p.goBack({waitUntil:'domcontentloaded'});await done(p);check('Histórico libera homepage',await p.locator('.hero-logo-transparent').isVisible());await p.close();
 for(const hash of ['#servicos','#equipe']){const p=await pageAt();await p.goto(base+hash,{waitUntil:'domcontentloaded'});await done(p);check(`Âncora ${hash}`,await p.locator(hash).count()===1);await p.close()}
 for(const fail of ['**/assets/images/v8/logo-640.webp','**/js/ritual/opening.js']){const p=await pageAt();await p.route(fail,r=>r.abort());await load(p);await done(p);check(`Falha ${fail}`,await p.locator('#sr-loader-stage').count()===0&&await p.locator('h1').isVisible());await p.close()}

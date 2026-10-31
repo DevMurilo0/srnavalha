@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-31T16:35:40.177Z",
+  "checks": [
+    {
+      "name": "Gesto nativo com impulso move a página",
+      "pass": true,
+      "detail": {
+        "scrollY": 465
+      }
+    },
+    {
+      "name": "Rotação sem overflow",
+      "pass": true
+    },
+    {
+      "name": "Swipe seleciona folha",
+      "pass": true
+    },
+    {
+      "name": "Mais de dois minutos de navegação",
+      "pass": true,
+      "detail": {
+        "durationMs": 176570
+      }
+    },
+    {
+      "name": "Listeners sem crescimento após aquecimento",
+      "pass": true,
+      "detail": [
+        193,
+        193,
+        193,
+        193,
+        193,
+        193
+      ]
+    },
+    {
+      "name": "DOM estável após aquecimento",
+      "pass": true,
+      "detail": [
+        3492,
+        3490,
+        3492,
+        3490,
+        3492,
+        3492
+      ]
+    },
+    {
+      "name": "Última seleção mantém somente um retrato",
+      "pass": true
+    },
+    {
+      "name": "Preferência dinâmica cancela movimento",
+      "pass": true
+    },
+    {
+      "name": "Mídia fora da tela pausada",
+      "pass": true
+    },
+    {
+      "name": "Rede móvel: abertura não bloqueia conteúdo",
+      "pass": true,
+      "detail": {
+        "elapsedMs": 9963
+      }
+    },
+    {
+      "name": "Sem erros JavaScript após repetições",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "elapsedMs": 6065,
+      "documents": 3,
+      "nodes": 3490,
+      "jsEventListeners": 193,
+      "heap": 2767100,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 5,
+      "elapsedMs": 34269,
+      "documents": 3,
+      "nodes": 3492,
+      "jsEventListeners": 193,
+      "heap": 2863360,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 10,
+      "elapsedMs": 64617,
+      "documents": 3,
+      "nodes": 3490,
+      "jsEventListeners": 193,
+      "heap": 2879348,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 15,
+      "elapsedMs": 95226,
+      "documents": 3,
+      "nodes": 3492,
+      "jsEventListeners": 193,
+      "heap": 2903380,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 20,
+      "elapsedMs": 124653,
+      "documents": 3,
+      "nodes": 3490,
+      "jsEventListeners": 193,
+      "heap": 2935212,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 25,
+      "elapsedMs": 152791,
+      "documents": 3,
+      "nodes": 3492,
+      "jsEventListeners": 193,
+      "heap": 2939096,
+      "images": 1,
+      "animations": 3
+    },
+    {
+      "round": 29,
+      "elapsedMs": 176539,
+      "documents": 3,
+      "nodes": 3492,
+      "jsEventListeners": 193,
+      "heap": 2949240,
+      "images": 1,
+      "animations": 3
+    }
+  ],
+  "errors": []
+}

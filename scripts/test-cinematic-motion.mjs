@@ -50,7 +50,7 @@ try{
  check('Texto dividido e fotografias assentam sem salto geométrico',geometry.every(n=>n<1),geometry);
  const audit=await m.evaluate(()=>window.motionAudit);
  check('Hero começa durante o corte, sem esperar openingend',audit.mid?.loader&&audit.end.at(-1)?.completed&&audit.end.at(-1)?.loader===false&&audit.effects.some(e=>e.hero&&e.loader),audit.mid);
- check('CTA sobrepõe o fim da tipografia, com atraso curto',audit.effects.some(e=>e.hero&&e.id==='sr-hero-booking-arrival'&&e.delay===440));
+ check('CTA sobrepõe o fim da tipografia em ritmo V31',audit.effects.some(e=>e.hero&&e.id==='sr-hero-booking-arrival'&&e.delay===740));
  check('Limpeza final restaura os nós originais e cancela fills',await m.evaluate(()=>!document.querySelector('.hero .cm-run')&&!document.documentElement.classList.contains('sr-hero-queued')&&!document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text')||a.id.startsWith('sr-photo'))));
  const rotor=await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime);await m.waitForTimeout(100);
  check('Cilindros continuam girando após entrada',await m.locator('.hero-pole__rotor').first().evaluate(n=>n.getAnimations()[0].currentTime)>rotor);
@@ -74,14 +74,14 @@ try{
  }
  // A scroll-driven heading must respond to scroll rather than elapsed time.
  await m.reload({waitUntil:'domcontentloaded'});await ready(m);
- await m.locator('#work-title').evaluate(n=>scrollTo({top:scrollY+n.getBoundingClientRect().top-innerHeight*.78,behavior:'instant'}));await m.waitForTimeout(120);
- const t1=await m.evaluate(()=>document.querySelector('#work-title').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));await m.waitForTimeout(160);
- const t2=await m.evaluate(()=>document.querySelector('#work-title').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));
+ await m.locator('.house-quote').evaluate(n=>scrollTo({top:scrollY+n.getBoundingClientRect().top-innerHeight*.78,behavior:'instant'}));await m.waitForTimeout(120);
+ const t1=await m.evaluate(()=>document.querySelector('.house-quote').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));await m.waitForTimeout(160);
+ const t2=await m.evaluate(()=>document.querySelector('.house-quote').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));
  await m.evaluate(()=>scrollBy({top:110,behavior:'instant'}));await m.waitForTimeout(120);
- const t3=await m.evaluate(()=>document.querySelector('#work-title').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));
+ const t3=await m.evaluate(()=>document.querySelector('.house-quote').getAnimations({subtree:true}).filter(a=>a.id==='sr-text-scroll').map(a=>a.currentTime));
  check('Tipografia acompanha progresso real, sem ticker autônomo',t1.length>0&&t1[0]===t2[0]&&t3[0]>t2[0],{t1:t1[0],t2:t2[0],t3:t3[0]});
  await m.screenshot({path:`${dir}/scroll-typography-midpoint.png`});await m.setViewportSize({width:1024,height:900});
- check('Resize limpa splits e medições anteriores',await m.locator('#work-title .cm-run').count()===0);
+ check('Resize limpa splits e medições anteriores',await m.locator('.house-quote .cm-run').count()===0);
  // Small semantic fixture exercises accents, Portuguese spaces, inline links.
  const semantic=await m.evaluate(async()=>{
   const {revealText}=await import('/js/ritual/text-motion.js');const n=document.createElement('p');n.innerHTML='Ação, <a href="#casa">café e atenção</a> — Sr. Navalha.';document.body.append(n);const a=n.querySelector('a');let clicks=0;a.addEventListener('click',e=>{e.preventDefault();clicks++});const original=n.textContent;const e=revealText(n,'roll',{manual:true});a.click();const accessible=[...n.querySelectorAll('.cm-source')].map(s=>s.textContent).join('');e.cancel();const result={accessible,original,restored:n.textContent===original,sameLink:a===n.querySelector('a'),clicks};n.remove();return result;
@@ -183,7 +183,7 @@ try{
  await m.context().grantPermissions(['clipboard-read','clipboard-write']);await m.locator('.visit-address-copy').click();await m.waitForFunction(()=>document.querySelector('.visit-copy-status').textContent==='Endereço copiado.');check('Endereço copiado com feedback acessível',await m.evaluate(async()=> (await navigator.clipboard.readText()).includes('349')));
  await m.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:()=>Promise.reject(new Error('blocked'))}})});await m.locator('.visit-address-copy').click();await m.waitForFunction(()=>document.querySelector('.visit-copy-status').textContent.includes('selecionado'));check('Clipboard negado oferece seleção real',await m.evaluate(()=>getSelection().toString().includes('349')));
  await m.setViewportSize({width:390,height:844});await m.evaluate(()=>scrollTo({top:0,behavior:'instant'}));const menu=m.locator('.menu summary');await menu.click();check('Menu abre por controle acessível',await menu.getAttribute('aria-expanded')==='true');await m.keyboard.press('Escape');await m.waitForTimeout(400);check('Escape devolve foco ao menu',await menu.evaluate(n=>document.activeElement===n&&!n.parentElement.open));
- await m.reload({waitUntil:'domcontentloaded'});await m.waitForFunction(()=>document.querySelector('.hero.is-arriving'));await m.emulateMedia({reducedMotion:'reduce'});await m.waitForFunction(()=>!document.documentElement.classList.contains('motion-on'));await ready(m);
+ await m.goto(base+'?motion-interruption=1',{waitUntil:'domcontentloaded'});await m.waitForFunction(()=>document.querySelector('.hero.is-arriving'));await m.emulateMedia({reducedMotion:'reduce'});await m.waitForFunction(()=>!document.documentElement.classList.contains('motion-on'));await ready(m);
  check('Preferência dinâmica libera todo conteúdo e cancela animações',await m.evaluate(()=>!document.querySelector('.cm-pending,.cm-run')&&!document.getAnimations().some(a=>a.playState==='running')));
  for(const width of [320,390,430,768,1024,1440]){
   await m.setViewportSize({width,height:900});await m.reload({waitUntil:'domcontentloaded'});await ready(m);

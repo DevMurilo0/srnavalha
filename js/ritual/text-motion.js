@@ -135,9 +135,10 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
           window.append(plate);line.append(window);ghosts.push(window);
           const direction=index===0?-1:1;
           const effect=animate(plate,[
-            {opacity:0,transform:`perspective(850px) translate3d(${direction*(18+group*5)}px,${index?-7:9}px,0) rotateY(${direction*12}deg)`},
+            {opacity:0,transform:`perspective(850px) translate3d(${direction*(22+group*5)}px,${index?-9:12}px,0) rotateY(${direction*16}deg)`},
+            {offset:.3,opacity:1},
             {opacity:1,transform:'perspective(850px) translate3d(0,0,0) rotateY(0deg)'}
-          ],{duration:duration||640,delay:delay+index*90+[45,0,65][group],easing:ease,fill:'both',persist:true});
+          ],{duration:duration||640,delay:delay+index*90+[45,0,65][group],easing:'cubic-bezier(.32,.08,.24,1)',fill:'both',persist:true});
           if(effect){effect.id='sr-text-lightcut';effects.push(effect);if(manual){effect.pause();effect.currentTime=0}}
         }
       }
@@ -350,22 +351,29 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
     const units=[];
     // All measurements precede effect creation. Line groups follow real wrapping.
     const lineTops=[];
-    for(const item of words){
-      // Read the inherited ink color ONCE per word, not once per character.
-      // This keeps the 4-thread/mid-range GPU path cheap.
-      const color=getComputedStyle(item.ink).color;
-      const rect=item.word.getBoundingClientRect();
+    // Read the natural glyph geometry in one batch before writing ANY ink.
+    // The legacy loop appended a glyph between successive Range reads.
+    const measurements=words.map(item=>{
+      const color=getComputedStyle(item.ink).color,rect=item.word.getBoundingClientRect();
+      let offset=0;
+      const letters=useChars?chars(item.token).map(letter=>{
+        const range=document.createRange();range.setStart(item.layout.firstChild,offset);range.setEnd(item.layout.firstChild,offset+letter.length);
+        const box=range.getBoundingClientRect();offset+=letter.length;
+        return {letter,left:box.left-rect.left,width:box.width};
+      }):[];
+      return {item,color,rect,letters};
+    });
+    for(const {item,color,rect,letters} of measurements){
       let line=lineTops.findIndex(top=>Math.abs(top-rect.top)<4);
       if(line<0){line=lineTops.length;lineTops.push(rect.top);}
       if(useChars){
-        item.ink.textContent='';let offset=0;
-        for(const letter of chars(item.token)){
-          const range=document.createRange();range.setStart(item.layout.firstChild,offset);range.setEnd(item.layout.firstChild,offset+letter.length);
-          const box=range.getBoundingClientRect();offset+=letter.length;
+        const fragment=document.createDocumentFragment();
+        for(const {letter,left,width} of letters){
           const glyph=document.createElement('span');glyph.className='cm-letter';glyph.textContent=letter;
-          glyph.style.left=`${box.left-rect.left}px`;glyph.style.width=`${box.width}px`;
-          item.ink.append(glyph);units.push({ink:glyph,line,color});
+          glyph.style.left=`${left}px`;glyph.style.width=`${width}px`;
+          fragment.append(glyph);units.push({ink:glyph,line,color});
         }
+        item.ink.replaceChildren(fragment);
       }else units.push({ink:item.ink,line,color});
       if(mode==='hero'||mode==='echo'){
         const echo=document.createElement('span');echo.className='cm-echo';echo.textContent=item.token;item.word.append(echo);
@@ -394,7 +402,7 @@ export function revealText(node, mode='focus', {delay=0, duration, manual=false}
       const stagger=headingLetters&&!echo
         ?letterStagger(signature||'hero',glyphIndex,totalGlyphs)
         :mode==='lines'||mode==='fold'?line*105:Math.min(index*(useChars?17:38),manual?700:380);
-      const effect=animate(ink,frames,{duration:headingLetters&&!echo?760:baseDuration,
+      const effect=animate(ink,frames,{duration:headingLetters&&!echo?(duration||940):baseDuration,
         delay:delay+stagger,easing:ease,fill:'both',persist:true});
       if(effect){effect.id=`sr-text-${echo?'echo':mode}`;effects.push(effect);if(manual){effect.pause();effect.currentTime=0;}}
     });

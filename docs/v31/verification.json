@@ -1,0 +1,57 @@
+{
+  "baseline": "c3a1e68513463b9bf158cf50443f1b0780bdcaa8",
+  "suites": [
+    {
+      "suite": "cut",
+      "checks": 39,
+      "passed": 39
+    },
+    {
+      "suite": "cinematic",
+      "checks": 109,
+      "passed": 109
+    },
+    {
+      "suite": "navigation",
+      "checks": 66,
+      "passed": 66
+    },
+    {
+      "suite": "resilience",
+      "checks": 11,
+      "passed": 11
+    },
+    {
+      "suite": "booking",
+      "checks": 101,
+      "passed": 101
+    },
+    {
+      "suite": "booking-state",
+      "checks": 12,
+      "passed": 12
+    },
+    {
+      "suite": "hero",
+      "checks": 62,
+      "passed": 62
+    },
+    {
+      "suite": "v31",
+      "checks": 51,
+      "passed": 51
+    }
+  ],
+  "checks": 451,
+  "passed": 451,
+  "viewports": [
+    "320\u00d7568",
+    "390\u00d7844",
+    "430\u00d7932",
+    "768\u00d71024",
+    "900\u00d7550",
+    "1024\u00d7600",
+    "1366\u00d7768",
+    "1440\u00d7900"
+  ]
+}

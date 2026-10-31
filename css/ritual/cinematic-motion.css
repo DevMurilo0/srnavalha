@@ -179,3 +179,27 @@ html.sr-lite-motion .footer-rail-track{
 .rituals .mirror-frame,.portfolio .work-print,.visit .map-frame{
   box-shadow:0 25px 56px -36px #1b232f70,0 7px 24px -18px #1b232f52;
 }
+
+/* Depth is a child plane; swaps, album FLIP and hover keep their own owners. */
+.depth-frame,.portrait-depth{--depth-bleed:0px;position:relative;overflow:hidden;isolation:isolate}
+.depth-plane{position:absolute;inset:calc(-1 * var(--depth-bleed)) 0;pointer-events:none}
+.depth-plane>img,.depth-plane>picture,.depth-plane>picture>img{display:block;width:100%;height:100%;object-fit:cover}
+.portrait-depth{aspect-ratio:4/5}
+#equipe .portrait-depth .depth-plane>.image-stage{height:100%;aspect-ratio:auto}
+.review-visual-frame .depth-plane>img{filter:saturate(.9)}
+/* A small context control shares the existing section observer. */
+.chapter-compass{position:fixed;z-index:24;right:18px;bottom:18px;display:grid;grid-template-columns:40px minmax(130px,1fr) 40px;align-items:center;min-height:54px;background:#111315;color:#f7f7f7;border:1px solid #8b9097}
+.chapter-compass a{display:flex;align-items:center;justify-content:center;min-height:52px}
+.chapter-compass__current{flex-direction:column;gap:3px;padding:5px 9px;font:600 10px/1.3 var(--body);letter-spacing:.1em}
+.chapter-compass__current small{font:500 9px/1.3 var(--body);color:#bbc0c4;letter-spacing:.12em}
+.chapter-compass a:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.chapter-compass svg{transition:transform 180ms cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){
+ .chapter-compass__prev:hover svg{transform:translateY(-2px)}
+ .chapter-compass__next:hover svg{transform:translateY(2px)}
+ .chapter-compass__current:hover{background:#2a2e32}
+}
+body:has(dialog[open]) .chapter-compass,body:has(.menu[open]) .chapter-compass{display:none}
+@media(max-width:980px){.chapter-compass{display:none}}
+@media(max-width:700px){.portrait-depth{aspect-ratio:3/4}}
+@media(prefers-reduced-motion:reduce){.depth-plane{transform:none}.chapter-compass svg{transition:none}}

@@ -1,0 +1,408 @@
+[
+  {
+    "name": "320: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "320: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "320: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "320: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "320: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "320: exige horário",
+    "pass": true
+  },
+  {
+    "name": "320: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "320: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "320: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "320: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "320: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "320: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "320: gravação local",
+    "pass": true
+  },
+  {
+    "name": "320: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "360: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "360: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "360: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "360: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "360: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "360: exige horário",
+    "pass": true
+  },
+  {
+    "name": "360: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "360: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "360: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "360: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "360: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "360: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "360: gravação local",
+    "pass": true
+  },
+  {
+    "name": "360: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "390: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "390: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "390: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "390: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "390: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "390: exige horário",
+    "pass": true
+  },
+  {
+    "name": "390: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "390: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "390: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "390: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "390: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "390: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "390: gravação local",
+    "pass": true
+  },
+  {
+    "name": "390: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "430: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "430: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "430: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "430: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "430: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "430: exige horário",
+    "pass": true
+  },
+  {
+    "name": "430: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "430: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "430: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "430: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "430: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "430: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "430: gravação local",
+    "pass": true
+  },
+  {
+    "name": "430: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "768: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "768: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "768: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "768: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "768: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "768: exige horário",
+    "pass": true
+  },
+  {
+    "name": "768: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "768: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "768: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "768: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "768: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "768: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "768: gravação local",
+    "pass": true
+  },
+  {
+    "name": "768: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "1440: próximo dentro da viewport",
+    "pass": true
+  },
+  {
+    "name": "1440: etapa única e largura",
+    "pass": true
+  },
+  {
+    "name": "1440: exige serviço",
+    "pass": true
+  },
+  {
+    "name": "1440: profissional e foco",
+    "pass": true
+  },
+  {
+    "name": "1440: sem preferência válido",
+    "pass": true
+  },
+  {
+    "name": "1440: exige horário",
+    "pass": true
+  },
+  {
+    "name": "1440: data inválida rejeitada",
+    "pass": true
+  },
+  {
+    "name": "1440: dados e resumo",
+    "pass": true
+  },
+  {
+    "name": "1440: volta preserva horário",
+    "pass": true
+  },
+  {
+    "name": "1440: avanço preserva resumo",
+    "pass": true
+  },
+  {
+    "name": "1440: valida nome e foco",
+    "pass": true
+  },
+  {
+    "name": "1440: valida telefone",
+    "pass": true
+  },
+  {
+    "name": "1440: gravação local",
+    "pass": true
+  },
+  {
+    "name": "1440: exclusão local",
+    "pass": true
+  },
+  {
+    "name": "Pré-seleção de profissional",
+    "pass": true
+  },
+  {
+    "name": "Pré-seleção do serviço",
+    "pass": true
+  },
+  {
+    "name": "Movimento reduzido",
+    "pass": true
+  },
+  {
+    "name": "Axe agendamento",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "320: botão sob loader e dois cilindros exclusivos do hero",
+    "pass": true
+  },
+  {
+    "name": "320: CTA fixo único",
+    "pass": true
+  },
+  {
+    "name": "320: CTA libera rodapé",
+    "pass": true
+  },
+  {
+    "name": "320: CTA abre agenda sem flutuante",
+    "pass": true
+  },
+  {
+    "name": "390: botão sob loader e dois cilindros exclusivos do hero",
+    "pass": true
+  },
+  {
+    "name": "390: CTA fixo único",
+    "pass": true
+  },
+  {
+    "name": "390: CTA libera rodapé",
+    "pass": true
+  },
+  {
+    "name": "390: CTA abre agenda sem flutuante",
+    "pass": true
+  },
+  {
+    "name": "1440: botão sob loader e dois cilindros exclusivos do hero",
+    "pass": true
+  },
+  {
+    "name": "1440: CTA fixo único",
+    "pass": true
+  },
+  {
+    "name": "1440: CTA libera rodapé",
+    "pass": true
+  },
+  {
+    "name": "1440: CTA abre agenda sem flutuante",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções",
+    "pass": true,
+    "detail": []
+  }
+]

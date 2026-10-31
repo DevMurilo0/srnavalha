@@ -1,0 +1,20 @@
+[
+  {
+    "fallback": false,
+    "active": {
+      "count": 2,
+      "promoted": 2
+    },
+    "cleared": true,
+    "pass": true
+  },
+  {
+    "fallback": true,
+    "active": {
+      "count": 2,
+      "promoted": 2
+    },
+    "cleared": true,
+    "pass": true
+  }
+]

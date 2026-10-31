@@ -38,24 +38,3 @@ export function revealImage(node, mode='shutter', {delay=0}={}){
   }catch{cancel();}
   return{finished,cancel};
 }
-
-export function initPhotoParallax(){
-  const fine=matchMedia('(hover:hover) and (pointer:fine)');
-  // On older hardware this continuous pointer effect competes with scroll.
-  if((navigator.hardwareConcurrency>0&&navigator.hardwareConcurrency<=4)||
-      navigator.connection?.saveData)return;
-  let current=null,frame=0,x=0,y=0;
-  const clear=()=>{cancelAnimationFrame(frame);frame=0;if(current){current.style.removeProperty('translate');current=null;}};
-  document.querySelectorAll('.gallery-shot').forEach(link=>{
-    link.addEventListener('pointermove',event=>{
-      if(!fine.matches||!canMove()||link.closest('.cm-pending'))return;
-      const image=link.querySelector('img');if(!image||image.getAnimations().length)return;
-      const box=link.getBoundingClientRect();current=image;
-      x=(event.clientX-box.left)/box.width*6-3;y=(event.clientY-box.top)/box.height*6-3;
-      if(!frame)frame=requestAnimationFrame(()=>{frame=0;if(current)current.style.translate=`${x.toFixed(2)}px ${y.toFixed(2)}px`;});
-    });
-    link.addEventListener('pointerleave',clear);link.addEventListener('pointerdown',clear);
-  });
-  addEventListener('scroll',clear,{passive:true});addEventListener('pagehide',clear);
-  document.addEventListener('motionchange',clear);fine.addEventListener('change',clear);
-}

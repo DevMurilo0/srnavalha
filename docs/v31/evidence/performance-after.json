@@ -1,0 +1,48 @@
+{
+  "environment": "Linux headless Chromium; 1366×768; hardwareConcurrency=4; scripted native-scroll tour",
+  "results": [
+    {
+      "phase": "first-pass",
+      "samples": 112,
+      "medianFrameMs": 33.3,
+      "p95FrameMs": 150.1,
+      "maxFrameMs": 233.4,
+      "longTasks": 31,
+      "longestTaskMs": 226,
+      "layoutShift": 0.000028738358095662496,
+      "overflow": 0,
+      "activePlanes": 0,
+      "visiblePending": 0,
+      "cpuThrottling": 1,
+      "layoutCount": 342,
+      "styleRecalculations": 838,
+      "scriptDurationSeconds": 0.78227
+    },
+    {
+      "phase": "steady-4x",
+      "samples": 271,
+      "medianFrameMs": 16.7,
+      "p95FrameMs": 33.5,
+      "maxFrameMs": 200,
+      "longTasks": 5,
+      "longestTaskMs": 185,
+      "layoutShift": 0.000028738358095662496,
+      "overflow": 0,
+      "activePlanes": 0,
+      "visiblePending": 0,
+      "cpuThrottling": 4,
+      "layoutCount": 23,
+      "styleRecalculations": 300,
+      "scriptDurationSeconds": 0.4731359999999999
+    }
+  ],
+  "typography": {
+    "letters": 25,
+    "original": "O próximo encontroé no Prado.",
+    "layoutCount": 2,
+    "styleRecalculations": 2,
+    "restored": true
+  },
+  "errors": [],
+  "limitations": "rAF timings are local headless samples, not physical GPU FPS guarantees; first-pass includes section entrances; steady-4x runs after entrances settle"
+}

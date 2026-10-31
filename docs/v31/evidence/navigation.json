@@ -1,0 +1,733 @@
+{
+  "date": "2026-10-31T16:36:03.295Z",
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "name": "320px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "320px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "360px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "360px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "375px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "375px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "390px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "390px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "412px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "412px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "430px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "430px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "768px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "768px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1024px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1024px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1366px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1366px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "1440px: hero, fontes e largura",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "title": 0,
+        "photos": true
+      }
+    },
+    {
+      "name": "1440px: todos os capítulos",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "invisible": 0
+      }
+    },
+    {
+      "name": "390px: corte contínuo (sem degraus)",
+      "pass": true,
+      "detail": {
+        "strips": 2,
+        "tip": true,
+        "seam": true,
+        "logo": true,
+        "scale": 0.577436
+      }
+    },
+    {
+      "name": "390px: hero anima durante o corte",
+      "pass": true
+    },
+    {
+      "name": "390px: revelação sobrepõe a abertura do loader",
+      "pass": true,
+      "detail": [
+        {
+          "selector": ".hero h1",
+          "exists": true,
+          "animations": 6
+        },
+        {
+          "selector": ".hero-intro",
+          "exists": true,
+          "animations": 1
+        },
+        {
+          "selector": ".hero-topline",
+          "exists": true,
+          "animations": 2
+        },
+        {
+          "selector": ".hero-invitation > .button",
+          "exists": true,
+          "animations": 1
+        }
+      ]
+    },
+    {
+      "name": "390px: sem reflexo tardio nas fotos",
+      "pass": true
+    },
+    {
+      "name": "390px: The Perfect Cut: tesoura, divisões e hero real",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "time": 2104,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2189.2000000029802,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2318.10000000149,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2414.10000000149,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2436.10000000149,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2450.5,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2478.7000000029802,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2502.7000000029802,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2545.39999999851,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2577.5,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2674.2000000029802,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2692,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2716.39999999851,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2733.5,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2744.60000000149,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2787.60000000149,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2812.89999999851,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2842.3000000044703,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2854.2000000029802,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          },
+          {
+            "time": 2903.3000000044703,
+            "x": 120,
+            "y": 331.75,
+            "width": 150,
+            "images": 4
+          }
+        ],
+        "photo": true,
+        "mark": true,
+        "flights": 0,
+        "logoVisible": true
+      }
+    },
+    {
+      "name": "1440px: corte contínuo (sem degraus)",
+      "pass": true,
+      "detail": {
+        "strips": 2,
+        "tip": true,
+        "seam": true,
+        "logo": true,
+        "scale": 0.566166
+      }
+    },
+    {
+      "name": "1440px: hero anima durante o corte",
+      "pass": true
+    },
+    {
+      "name": "1440px: revelação sobrepõe a abertura do loader",
+      "pass": true,
+      "detail": [
+        {
+          "selector": ".hero h1",
+          "exists": true,
+          "animations": 6
+        },
+        {
+          "selector": ".hero-intro",
+          "exists": true,
+          "animations": 1
+        },
+        {
+          "selector": ".hero-topline",
+          "exists": true,
+          "animations": 2
+        },
+        {
+          "selector": ".hero-invitation > .button",
+          "exists": true,
+          "animations": 1
+        }
+      ]
+    },
+    {
+      "name": "1440px: sem reflexo tardio nas fotos",
+      "pass": true
+    },
+    {
+      "name": "1440px: The Perfect Cut: tesoura, divisões e hero real",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "time": 1589.2000000029802,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 1736.8999999985099,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2049.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2182.10000000149,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2204.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2240,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2246.7000000029802,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2262.2999999970198,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2268.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2285.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2309.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2317.7999999970198,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2335.2999999970198,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2354.39999999851,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2372.5,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2384.10000000149,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2404.60000000149,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2418.7999999970198,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2434.2999999970198,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          },
+          {
+            "time": 2453.39999999851,
+            "x": 625,
+            "y": 303.3999938964844,
+            "width": 190,
+            "images": 4
+          }
+        ],
+        "photo": true,
+        "mark": true,
+        "flights": 0,
+        "logoVisible": true
+      }
+    },
+    {
+      "name": "Abertura interrompida: click",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: keyboard",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: wheel",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: touch",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: resize",
+      "pass": true
+    },
+    {
+      "name": "Abertura interrompida: hidden",
+      "pass": true
+    },
+    {
+      "name": "F5 sempre repete a abertura",
+      "pass": true
+    },
+    {
+      "name": "Hard refresh preserva conteúdo",
+      "pass": true
+    },
+    {
+      "name": "Link direto #servicos",
+      "pass": true,
+      "detail": {
+        "loader": false,
+        "scroll": 1843,
+        "top": 100.078125
+      }
+    },
+    {
+      "name": "Link direto #equipe",
+      "pass": true,
+      "detail": {
+        "loader": false,
+        "scroll": 3710,
+        "top": 100.015625
+      }
+    },
+    {
+      "name": "Teclado: foco visível",
+      "pass": true
+    },
+    {
+      "name": "Menu móvel abre suavemente",
+      "pass": true
+    },
+    {
+      "name": "Menu inicia fechamento suave",
+      "pass": true
+    },
+    {
+      "name": "Menu: Escape fecha e devolve foco",
+      "pass": true
+    },
+    {
+      "name": "Dois barber poles e agenda fixa",
+      "pass": true,
+      "detail": {
+        "count": 2,
+        "animated": "sr-pole-rotation",
+        "fixture": true,
+        "bookingCalendar": true
+      }
+    },
+    {
+      "name": "Espelho troca serviço",
+      "pass": true
+    },
+    {
+      "name": "Filtro de catálogo",
+      "pass": true
+    },
+    {
+      "name": "Equipe: teclado seleciona e atualiza",
+      "pass": true
+    },
+    {
+      "name": "Álbum muda para parede",
+      "pass": true
+    },
+    {
+      "name": "Lightbox abre",
+      "pass": true
+    },
+    {
+      "name": "Lightbox fecha e devolve foco",
+      "pass": true
+    },
+    {
+      "name": "Álbum seleciona fotografia",
+      "pass": true
+    },
+    {
+      "name": "Produto interativo",
+      "pass": true
+    },
+    {
+      "name": "Filtro produtos",
+      "pass": true
+    },
+    {
+      "name": "Pausa depoimentos",
+      "pass": true
+    },
+    {
+      "name": "Mapa e rota preservados",
+      "pass": true
+    },
+    {
+      "name": "Navegação agendamento local",
+      "pass": true
+    },
+    {
+      "name": "Histórico restaura hero",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: sem abertura",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: controles funcionam",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: sem animações ativas",
+      "pass": true
+    },
+    {
+      "name": "Axe WCAG A/AA",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Sem JS: conteúdo e agendamento",
+      "pass": true
+    },
+    {
+      "name": "Falha: **/js/ritual/app.js",
+      "pass": true
+    },
+    {
+      "name": "Falha: **/assets/images/hero-ambiente-1920.webp",
+      "pass": true
+    },
+    {
+      "name": "Console sem erros JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}
