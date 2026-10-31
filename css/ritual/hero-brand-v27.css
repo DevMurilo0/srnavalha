@@ -1,0 +1,170 @@
+/* SR. NAVALHA / MARCA CENTRAL / physical balance, not duplicated logos.
+   Loaded after earlier cinematic layouts. The scissors FLIP targets the
+   same single official SVG regardless of breakpoint. */
+.hero--cinema .hero-inner{
+  grid-template-rows:auto minmax(345px,1fr) auto!important;
+}
+.hero--cinema .hero-cinema__masthead{
+  display:flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  width:100%;
+  position:relative;
+  z-index:8;
+  min-height:clamp(130px,13.5vw,175px);
+}
+.hero--cinema .hero-cinema__brand-lockup{
+  position:relative;
+  display:grid;
+  grid-template-columns:clamp(30px,3.2vw,43px) minmax(128px,clamp(168px,17.2vw,224px)) clamp(30px,3.2vw,43px);
+  justify-content:center;
+  align-items:center;
+  gap:clamp(14px,2.4vw,36px);
+  width:max-content;
+  max-width:100%;
+  margin-inline:auto;
+  min-height:clamp(100px,10vw,141px);
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-wordmark{
+  position:relative!important;
+  align-self:center;
+  justify-self:center;
+  display:block;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0;
+  margin:0!important;
+  line-height:1;
+  z-index:8;
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-logo-transparent{
+  display:block;
+  width:100%;
+  height:auto;
+  filter:brightness(0) invert(1) drop-shadow(0 6px 13px #0009);
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-wordmark>span{
+  position:absolute;
+  right:0;
+  top:96%;
+  color:#bfc4cc;
+  font:600 8px/1.3 var(--body);
+  letter-spacing:.22em;
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-pole{
+  position:relative!important;
+  display:block;
+  top:auto!important;
+  left:auto!important;
+  right:auto!important;
+  width:var(--pole-width);
+  height:var(--pole-height);
+  --pole-width:clamp(30px,3.2vw,43px);
+  --pole-height:clamp(98px,10.7vw,135px);
+  justify-self:center;
+  align-self:center;
+  transform:none!important;
+  z-index:8;
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-pole__object{
+  width:100%;
+  height:100%;
+}
+.hero--cinema .hero-cinema__masthead-tag{
+  display:block!important;
+  position:relative;
+  width:100%;
+  padding:0;
+  margin:6px 0 0!important;
+  text-align:center;
+  font:650 9px/1.4 var(--body);
+  letter-spacing:.23em;
+  color:#dee1e5;
+  text-shadow:0 1px 6px #000;
+}
+.hero--cinema .hero-centerpiece{
+  padding-bottom:clamp(45px,6vh,95px)!important;
+}
+.hero--cinema h1{
+  font-size:clamp(55px,8.75vw,144px)!important;
+  letter-spacing:-.074em!important;
+  overflow-wrap:normal;
+}
+.hero--cinema h1 .title-mask:nth-child(2){
+  font-size:.86em;
+  letter-spacing:-.081em!important;
+}
+.hero--cinema .hero-cinema__stage .hero-room{
+  opacity:1;
+  clip-path:none;
+}
+.hero--cinema .hero-cinema__stage .hero-room img{
+  transform:scale(1.04);
+  transform-origin:center;
+}
+.hero--cinema .hero-cinema__light-slit{
+  position:absolute;
+  inset:0 auto 0 0;
+  z-index:7;
+  width:2px;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(180deg,transparent,#f4f6ff99 20%,#fff 42%,#e3e9f1ad 75%,transparent);
+  box-shadow:0 0 20px 1px #f8fafc6d;
+  transform:translate3d(-10px,0,0);
+}
+.hero--cinema .hero-bottom{
+  position:relative;
+  align-self:end;
+  border-top:1px solid #ffffff3b;
+  padding-top:16px!important;
+}
+.hero--cinema .hero-cinema__cut{inset:0 auto 0 50%;opacity:.18}
+@media(max-width:980px){
+  .hero--cinema .hero-cinema__masthead{min-height:146px}
+  .hero--cinema h1{font-size:clamp(50px,8.5vw,90px)!important}
+  .hero--cinema .hero-centerpiece{padding-bottom:44px!important}
+}
+@media(max-width:700px){
+  .hero--cinema .hero-inner{grid-template-rows:auto minmax(320px,1fr) auto!important}
+  .hero--cinema .hero-cinema__masthead{min-height:126px}
+  .hero--cinema .hero-cinema__brand-lockup{
+    grid-template-columns:25px minmax(122px,150px) 25px;
+    gap:clamp(13px,4.1vw,25px);
+    min-height:99px;
+  }
+  .hero--cinema .hero-cinema__brand-lockup .hero-pole{
+    --pole-width:25px;
+    --pole-height:83px;
+    top:auto!important;
+  }
+  .hero--cinema .hero-cinema__brand-lockup .hero-wordmark{
+    width:100%!important;
+  }
+  .hero--cinema .hero-cinema__masthead-tag{
+    margin:0!important;
+    font-size:8px;
+    letter-spacing:.14em;
+  }
+  .hero--cinema .hero-topline{
+    margin-bottom:15px;
+    line-height:1.4;
+  }
+  .hero--cinema h1{font-size:clamp(39px,10.2vw,70px)!important;line-height:.96}
+  .hero--cinema h1 .title-mask:nth-child(2){font-size:.85em}
+  .hero--cinema .hero-centerpiece{padding-bottom:32px!important}
+  .hero--cinema .hero-invitation{gap:13px 15px}
+}
+@media(max-width:390px){
+  .hero--cinema .hero-cinema__brand-lockup{grid-template-columns:23px minmax(109px,136px) 23px;gap:12px}
+  .hero--cinema .hero-cinema__brand-lockup .hero-pole{--pole-width:23px;--pole-height:76px}
+  .hero--cinema h1{font-size:clamp(35px,9.7vw,42px)!important}
+  .hero--cinema .hero-cinema__masthead-tag{font-size:7px}
+  .hero--cinema .hero-topline{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero--cinema .hero-cinema__light-slit{display:none!important}
+  .hero--cinema .hero-cinema__stage .hero-room img{transform:none!important}
+}
