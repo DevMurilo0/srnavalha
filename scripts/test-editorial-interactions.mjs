@@ -84,14 +84,14 @@ try{
   await page.waitForFunction(()=>document.querySelector('.mirror-choice[data-ritual="barboterapia"]')
     ?.getAttribute('aria-pressed')==='true',undefined,{timeout:5000});
   check(width+' serviço selecionável',await service.getAttribute('aria-pressed')==='true');
-  // Catalogue is no longer 22 pseudo-buttons pointing to WhatsApp.
+  // The curated catalog retains only photographed products and direct consultation links.
   // Each card has native preview and an independent direct consultation link.
   const catalog=page.locator('#produtos .product-catalog');
   await catalog.scrollIntoViewIfNeeded();
-  check(width+' 22 produtos e links WhatsApp independentes',
-    await catalog.locator('.product-option').count()===22&&
-    await catalog.locator('.product-option__preview').count()===22&&
-    await catalog.locator('.product-option__consult[href^="https://wa.me/"]').count()===22);
+  check(width+' 18 produtos fotografados e links WhatsApp independentes',
+    await catalog.locator('.product-option').count()===18&&
+    await catalog.locator('.product-option__preview').count()===18&&
+    await catalog.locator('.product-option__consult[href^="https://wa.me/"]').count()===18);
   const search=page.locator('#product-search');
   await search.fill('oleo');
   await page.waitForFunction(()=>[...document.querySelectorAll('#produtos .product-option')]
@@ -107,18 +107,19 @@ try{
   check(width+' busca sem resultados oferece recuperação',
     await page.locator('#product-reset').isVisible());
   await page.locator('#product-reset').click();
-  check(width+' reset restaura 22 itens',
-    await catalog.locator('.product-option:not([hidden])').count()===22);
+  check(width+' reset restaura 18 itens',
+    await catalog.locator('.product-option:not([hidden])').count()===18);
   await page.locator('#product-sort').selectOption('price-desc');
   const first=await catalog.locator('.product-option').first().getAttribute('data-product');
   check(width+' ordenação por preço conserva dados',first==='tonico-de-crescimento',first);
   await page.locator('#product-sort').selectOption('original');
-  const balm=catalog.locator('.product-option[data-product="balm-para-barba"] .product-option__preview');
-  await balm.click({force:true});
-  await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Balm para barba',
+  const pictured=catalog.locator('.product-option[data-product="oleo-para-barba"] .product-option__preview');
+  await pictured.click({force:true});
+  await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Óleo para barba',
     undefined,{timeout:4500});
-  check(width+' falta de foto tem placeholder e consulta preservada',
-    await page.locator('.product-hero__placeholder').count()===1&&
+  check(width+' imagem real disponível e consulta preservada',
+    await catalog.locator('.no-photo').count()===0&&
+    await page.locator('.product-hero .image-stage img').count()===1&&
     (await page.locator('.product-info a').getAttribute('href')).includes('wa.me/'));
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
