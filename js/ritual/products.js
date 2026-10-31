@@ -28,7 +28,6 @@ export function initProducts(){
  const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').trim();
  const numeric=price=>Number(String(price).replace(/[^\d,]/g,'').replace(',','.'))||0;
  const cancelHover=()=>{clearTimeout(hoverTimer);hoverTimer=0};
- const featured=$('.product-info>a',document);
  const allFound=()=>options.filter(o=>!o.hidden);
  function updateFeatured(person){
   $('h3',info).textContent=person.name;
@@ -93,9 +92,12 @@ export function initProducts(){
  function applyFilter(animate=false){
   options.forEach(option=>option.hidden=!matchesSearch(option));
   const shown=allFound();
-  count.textContent=shown.length===1?'1 produto encontrado':
-    category==='Todos'&&!query?`${shown.length} produtos · catálogo completo`:
-    `${shown.length} produtos encontrados`;
+  const noun=shown.length===1?'produto':'produtos';
+  count.textContent=category==='Todos'&&!query
+    ?`${shown.length} ${noun} · catálogo completo`
+    :category==='Todos'
+      ?`${shown.length} ${noun} · resultado da busca`
+      :`${shown.length} ${noun} · ${category}${query?' · busca ativa':''}`;
   const filtered=category!=='Todos'||!!query;
   clear.hidden=!filtered;
   empty.hidden=shown.length!==0;
