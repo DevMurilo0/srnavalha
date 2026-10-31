@@ -251,44 +251,44 @@ console.log('Team portrait rail: saída lateral, entrada vertical e contenção 
 
 /* V27: central brand, two functioning barber poles, catalog usability.
    Verify actual public behaviors rather than the removed scene chooser. */
-const heroTemplate=file('templates/v17/inicio.html');
+const heroV27Template=file('templates/v17/inicio.html');
 const productTemplate=file('templates/v17/produtos.html');
 const heroBrand=file('css/ritual/hero-brand-v27.css');
 const catalogCSS=file('css/ritual/catalog-atelier.css');
 const catalogJS=file('js/ritual/products.js');
-const heroMotion=file('js/ritual/hero-sign.js');
-const typeEngine=file('js/ritual/text-motion.js');
-assert.ok(heroTemplate.includes('class="hero hero--cinema"')&&
+const heroV27Motion=file('js/ritual/hero-sign.js');
+const typeV27Engine=file('js/ritual/text-motion.js');
+assert.ok(heroV27Template.includes('class="hero hero--cinema"')&&
  html.includes('class="hero hero--cinema"'),'capa cinematográfica preservada');
-assert.equal((heroTemplate.match(/class="hero-pole hero-pole--/g)||[]).length,2,
+assert.equal((heroV27Template.match(/class="hero-pole hero-pole--/g)||[]).length,2,
  'marca central entre dois postes reais');
-assert.ok(heroTemplate.indexOf('hero-pole--left')<
- heroTemplate.indexOf('hero-logo-transparent')&&
- heroTemplate.indexOf('hero-logo-transparent')<
- heroTemplate.indexOf('hero-pole--right'),
+assert.ok(heroV27Template.indexOf('hero-pole--left')<
+ heroV27Template.indexOf('hero-logo-transparent')&&
+ heroV27Template.indexOf('hero-logo-transparent')<
+ heroV27Template.indexOf('hero-pole--right'),
  'logo centralizada entre postes no mesmo lockup');
-assert.ok(heroTemplate.includes('hero-cinema__brand-lockup')&&
+assert.ok(heroV27Template.includes('hero-cinema__brand-lockup')&&
  heroBrand.includes('grid-template-columns')&&
  heroBrand.includes('hero-cinema__brand-lockup .hero-pole'),
  'layout central responsivo carregado');
-assert.ok(!heroTemplate.includes('OLHAR DE PERTO')&&
- !heroTemplate.includes('data-cinema-shot')&&
- !heroTemplate.includes('hero-facade')&&
- !heroTemplate.includes('hero-detail')&&
- !heroMotion.includes('data-cinema-shot'),
+assert.ok(!heroV27Template.includes('OLHAR DE PERTO')&&
+ !heroV27Template.includes('data-cinema-shot')&&
+ !heroV27Template.includes('hero-facade')&&
+ !heroV27Template.includes('hero-detail')&&
+ !heroV27Motion.includes('data-cinema-shot'),
  'seletor de imagens antigas removido de HTML e JS');
 assert.equal((html.match(/class="hero-logo-transparent"/g)||[]).length,1,
  'marca oficial única para o FLIP da introdução');
-assert.ok(heroMotion.includes('sr-hero-curtain')&&
- heroMotion.includes('sr-hero-light-slit')&&
- heroMotion.includes('openingend'),
+assert.ok(heroV27Motion.includes('sr-hero-curtain')&&
+ heroV27Motion.includes('sr-hero-light-slit')&&
+ heroV27Motion.includes('openingend'),
  'cortina cinematográfica e novo traço de luz sincronizados à tesoura');
-assert.ok(typeEngine.includes("case 'monolith'")&&
- heroTemplate.includes('data-cm-signature="monolith"'),
+assert.ok(typeV27Engine.includes("case 'monolith'")&&
+ heroV27Template.includes('data-cm-signature="monolith"'),
  'tipografia por letras preservada');
 assert.ok(heroBrand.includes('prefers-reduced-motion:reduce')&&
- heroTemplate.includes('hero-ambiente-mobile-960.webp')&&
- heroTemplate.includes('hero-ambiente-1920.webp'),
+ heroV27Template.includes('hero-ambiente-mobile-960.webp')&&
+ heroV27Template.includes('hero-ambiente-1920.webp'),
  'imagem própria responsiva e modo movimento reduzido');
 assert.ok(file('css/ritual.css').includes("hero-brand-v27.css")&&
  file('css/ritual.css').includes("catalog-atelier.css"),
