@@ -168,3 +168,42 @@
   .hero--cinema .hero-cinema__light-slit{display:none!important}
   .hero--cinema .hero-cinema__stage .hero-room img{transform:none!important}
 }
+
+
+/* Hero finish: precise lockup and readable image treatment across small screens.
+   Never animate the wordmark container itself: the loader FLIP depends on its final box. */
+.hero--cinema .hero-cinema__brand-lockup{isolation:isolate}
+.hero--cinema .hero-cinema__brand-lockup .hero-pole__glass{
+ box-shadow:inset 3px 0 7px #fff3,inset -4px 0 9px #0008,0 0 0 1px #fff3;
+}
+.hero--cinema .hero-cinema__brand-lockup .hero-wordmark{
+ filter:drop-shadow(0 13px 20px #0007);
+}
+.hero--cinema .hero-invitation>.button:focus-visible,
+.hero--cinema .hero-invitation>.text-link:focus-visible{
+ outline:3px solid #fff;outline-offset:5px;
+}
+.hero--cinema .hero-cinema__stage .hero-room img{
+ object-position:center 47%;
+}
+@media(max-width:700px){
+ .hero--cinema .hero-cinema__stage .hero-room img{object-position:56% 37%}
+ .hero--cinema .hero-cinema__brand-lockup{
+  max-width:calc(100vw - 56px);
+ }
+}
+@media(max-width:350px){
+ .hero--cinema .hero-cinema__brand-lockup{
+  grid-template-columns:22px minmax(0,120px) 22px;
+  gap:10px;
+ }
+ .hero--cinema .hero-cinema__brand-lockup .hero-pole{
+  --pole-width:22px;--pole-height:74px;
+ }
+ .hero--cinema .hero-cinema__masthead-tag{
+  letter-spacing:.10em;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .hero--cinema .hero-cinema__brand-lockup .hero-wordmark{transition:none!important}
+}
