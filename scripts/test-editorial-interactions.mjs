@@ -84,14 +84,14 @@ try{
   await page.waitForFunction(()=>document.querySelector('.mirror-choice[data-ritual="barboterapia"]')
     ?.getAttribute('aria-pressed')==='true',undefined,{timeout:5000});
   check(width+' serviço selecionável',await service.getAttribute('aria-pressed')==='true');
-  // Catalogue is no longer 22 pseudo-buttons pointing to WhatsApp.
+  // The curated catalog retains only photographed products and direct consultation links.
   // Each card has native preview and an independent direct consultation link.
   const catalog=page.locator('#produtos .product-catalog');
   await catalog.scrollIntoViewIfNeeded();
-  check(width+' 22 produtos e links WhatsApp independentes',
-    await catalog.locator('.product-option').count()===22&&
-    await catalog.locator('.product-option__preview').count()===22&&
-    await catalog.locator('.product-option__consult[href^="https://wa.me/"]').count()===22);
+  check(width+' 18 produtos fotografados e links WhatsApp independentes',
+    await catalog.locator('.product-option').count()===18&&
+    await catalog.locator('.product-option__preview').count()===18&&
+    await catalog.locator('.product-option__consult[href^="https://wa.me/"]').count()===18);
   const search=page.locator('#product-search');
   await search.fill('oleo');
   await page.waitForFunction(()=>[...document.querySelectorAll('#produtos .product-option')]
@@ -107,18 +107,23 @@ try{
   check(width+' busca sem resultados oferece recuperação',
     await page.locator('#product-reset').isVisible());
   await page.locator('#product-reset').click();
-  check(width+' reset restaura 22 itens',
-    await catalog.locator('.product-option:not([hidden])').count()===22);
+  check(width+' reset restaura 18 itens',
+    await catalog.locator('.product-option:not([hidden])').count()===18);
   await page.locator('#product-sort').selectOption('price-desc');
   const first=await catalog.locator('.product-option').first().getAttribute('data-product');
   check(width+' ordenação por preço conserva dados',first==='tonico-de-crescimento',first);
   await page.locator('#product-sort').selectOption('original');
-  const balm=catalog.locator('.product-option[data-product="balm-para-barba"] .product-option__preview');
-  await balm.click({force:true});
-  await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Balm para barba',
+  const pictured=catalog.locator('.product-option[data-product="oleo-para-barba"] .product-option__preview');
+  await pictured.click({force:true});
+  await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Óleo para barba',
     undefined,{timeout:4500});
-  check(width+' falta de foto tem placeholder e consulta preservada',
-    await page.locator('.product-hero__placeholder').count()===1&&
+  // The photo engine briefly retains the previous image beneath the new
+  // photograph. Assert its settled state rather than racing a 620ms transition.
+  await page.waitForFunction(()=>document.querySelectorAll('.product-hero .image-stage img').length===1,
+    undefined,{timeout:2500});
+  check(width+' imagem real disponível e consulta preservada',
+    await catalog.locator('.no-photo').count()===0&&
+    await page.locator('.product-hero .image-stage img.is-current').count()===1&&
     (await page.locator('.product-info a').getAttribute('href')).includes('wa.me/'));
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
@@ -188,8 +193,25 @@ try{
     positions.every((p,i)=>Math.abs(p.height-afterPositions[i].height)<=1&&
       Math.abs(p.top-afterPositions[i].top)<=1),
     {positions,afterPositions});
-  check(width+' sem overflow horizontal',
-    await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  const fit=await page.evaluate(()=>{
+    const extent=document.documentElement.scrollWidth-innerWidth;
+    const offenders=extent>1?[...document.querySelectorAll('body *')]
+      .filter(n=>{
+        const r=n.getBoundingClientRect();
+        if(!(r.width>0&&(r.right>innerWidth+1||r.left< -1))||getComputedStyle(n).position==='fixed')return false;
+        // Do not report intentionally cropped inner slides/cinema shutters.
+        for(let p=n.parentElement;p&&p!==document.documentElement;p=p.parentElement){
+          if(['hidden','clip','scroll','auto'].includes(getComputedStyle(p).overflowX))return false;
+        }
+        return true;
+      })
+      .slice(0,26).map(n=>({tag:n.tagName,className:String(n.className).slice(0,100),right:Math.round(n.getBoundingClientRect().right),left:Math.round(n.getBoundingClientRect().left)})):[];
+    const top=[...document.querySelectorAll('body,main,main>section,main>.sr-chapter,footer,.product-catalog,.review-gallery,.review-viewport')]
+      .filter(n=>n.scrollWidth>innerWidth+1||n.getBoundingClientRect().right>innerWidth+1)
+      .slice(0,16).map(n=>({className:String(n.className).slice(0,70),tag:n.tagName,client:n.clientWidth,scroll:n.scrollWidth,rectRight:Math.round(n.getBoundingClientRect().right),overflow:getComputedStyle(n).overflowX}));
+    return {extent,offenders,top};
+  });
+  check(width+' sem overflow horizontal',fit.extent<=1,fit);
   check(width+' sem erros JS',errors.length===0,errors);
   await context.close();
  }

@@ -15,7 +15,7 @@ execFileSync(process.execPath,['scripts/render-site.mjs']);
 assert.equal(file('index.html'),html,'render do HTML idempotente');
 assert.equal((html.match(/class="sr-chapter sr-chapter--/g)||[]).length,8,'oito divisores mantidos');
 assert.equal((html.match(/class="service-entry"/g)||[]).length,42,'serviços mantidos');
-assert.equal((html.match(/href="agendar.html/g)||[]).length,52,'agendamento preservado e CTA fixo único');
+assert.equal((html.match(/href="agendar.html/g)||[]).length,55,'52 ações originais e três convites comerciais confirmados');
 assert.ok(html.includes('application/ld+json'),'SEO preservado');
 
 for(const id of ['id="sr-loader-stage"','id="snv2-panels"','id="sr-loader-plate"',
@@ -293,14 +293,14 @@ assert.ok(heroBrand.includes('prefers-reduced-motion:reduce')&&
 assert.ok(file('css/ritual.css').includes("hero-cinema.css")&&
  file('css/ritual.css').includes("catalog-atelier.css"),
  'CSS de nova composição e catálogo ligado à página');
-assert.equal((productTemplate.match(/class="product-option"/g)||[]).length,22,
- 'todos os 22 produtos preservados');
-assert.equal((productTemplate.match(/class="product-option__consult"/g)||[]).length,22,
- '22 links separados de consulta preservados');
-assert.equal((productTemplate.match(/class="product-option__preview"/g)||[]).length,22,
- '22 botões reais de visualização de detalhes');
-assert.equal((productTemplate.match(/class="no-photo"/g)||[]).length,4,
- 'itens sem imagem recebem tratamento gráfico sem fotografia inventada');
+assert.equal((productTemplate.match(/class="product-option"/g)||[]).length,18,
+ '18 produtos fotografados e verificados na vitrine');
+assert.equal((productTemplate.match(/class="product-option__consult"/g)||[]).length,18,
+ '18 links separados de consulta preservados');
+assert.equal((productTemplate.match(/class="product-option__preview"/g)||[]).length,18,
+ '18 botões reais de visualização de detalhes');
+assert.equal((productTemplate.match(/class="no-photo"/g)||[]).length,0,
+ 'itens sem fotografia não aparecem na vitrine pública');
 for(const id of ['product-search','product-sort','product-category',
  'product-count','product-empty','product-reset','product-clear']){
  assert.ok(productTemplate.includes('id="'+id+'"'),
@@ -315,4 +315,7 @@ assert.ok(catalogCSS.includes('.product-option__consult')&&
  catalogCSS.includes('prefers-reduced-motion:reduce')&&
  catalogCSS.includes('.catalog-empty[hidden]'),
  'design do catálogo é acessível e tem fallback de movimento');
-console.log('V27 Hero + Catálogo: marca central, cenário limpo, 22 produtos e controles.');
+assert.ok(html.includes('class="team-grain"')&&html.includes('class="essential-rituals"')&&
+  html.includes('product-catalog__still-life')&&!html.includes('01 / 08</small>'),
+  'atelier V32, preços reais e bússola sem contador');
+console.log('V32: 42 serviços, corte/barba em destaque e 18 produtos fotografados.');

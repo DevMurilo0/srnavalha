@@ -1,0 +1,264 @@
+/* SR. NAVALHA / atelier identity: two services, photographic still life,
+   tactile team backdrop and unnumbered navigation. No new JS animation loop. */
+#servicos .essential-rituals{
+ position:relative;isolation:isolate;overflow:hidden;
+ max-width:1250px;margin:clamp(30px,4.3vw,59px) auto clamp(40px,6.5vw,88px);
+ padding:clamp(22px,3.6vw,48px);
+ background:linear-gradient(124deg,#101318,#20252c 64%,#13171b);
+ color:#f8f9fa;border:1px solid #303740;
+ box-shadow:0 29px 62px -42px #0b121dab;
+}
+#servicos .essential-rituals::before{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+ background:
+  repeating-linear-gradient(108deg,transparent 0 51px,#d8e1ea08 51px 52px),
+  radial-gradient(ellipse at 95% 4%,#8494a33b,transparent 55%);
+ opacity:.77;
+}
+#servicos .essential-rituals__heading{
+ display:flex;align-items:baseline;justify-content:space-between;gap:15px;
+ padding:0 0 clamp(14px,2vw,24px);border-bottom:1px solid #d2dbe046;
+}
+#servicos .essential-rituals__heading>span{
+ color:#c6cdd6;font:680 10px/1.4 var(--body);letter-spacing:.17em;
+}
+#servicos .essential-rituals__heading>p{
+ margin:0;color:#dce2ea;font:450 clamp(16px,2vw,23px)/1.2 var(--display);
+}
+#servicos .essential-rituals__grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+}
+#servicos .essential-ritual{
+ display:flex;flex-direction:column;justify-content:space-between;gap:20px;
+ position:relative;min-width:0;min-height:clamp(190px,22vw,280px);
+ padding:clamp(17px,2.6vw,34px) clamp(12px,2.3vw,30px);
+ color:#f3f5f7;text-decoration:none;
+ transition:background-color .25s ease;
+}
+#servicos .essential-ritual:first-child{
+ padding-left:0;border-right:1px solid #c7d1da4b;
+}
+#servicos .essential-ritual:nth-child(2){padding-right:0}
+#servicos .essential-ritual__category{
+ display:flex;justify-content:space-between;gap:10px;
+ font:670 10px/1.4 var(--body);letter-spacing:.13em;color:#d8e0e8;
+}
+#servicos .essential-ritual__category>span{white-space:nowrap;color:#adb7c4}
+#servicos .essential-ritual__body{
+ display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+}
+#servicos .essential-ritual__body>strong{
+ font:590 clamp(23px,3.3vw,53px)/1.08 var(--display);
+ letter-spacing:-.055em;
+}
+#servicos .essential-ritual__body em{font-weight:350;color:#bbc5d2;font-style:normal}
+#servicos .essential-ritual__price{
+ display:flex;align-items:baseline;gap:3px;white-space:nowrap;
+ font:560 14px var(--body);letter-spacing:-.03em;
+}
+#servicos .essential-ritual__price b{
+ font:580 clamp(34px,4vw,59px)/.96 var(--display);
+ font-variant-numeric:tabular-nums;
+}
+#servicos .essential-ritual__price small{font-size:14px}
+#servicos .essential-ritual__action{
+ display:flex;align-items:center;justify-content:space-between;
+ min-height:37px;padding-top:9px;border-top:1px solid #d5dce365;
+ font:620 12px/1.5 var(--body);
+}
+#servicos .essential-ritual__action svg{
+ flex:none;transition:transform .25s cubic-bezier(.23,1,.32,1);
+}
+#servicos .essential-ritual:hover .essential-ritual__action svg,
+#servicos .essential-ritual:focus-visible .essential-ritual__action svg{transform:translate(3px,-3px)}
+#servicos .essential-ritual:focus-visible,
+#servicos .essential-rituals__combo:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+#servicos .essential-rituals__combo{
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ min-height:63px;padding:16px 0 9px;border-top:1px solid #d2dae27d;
+ color:#e6ebf1;text-decoration:none;
+ font:650 10px/1.5 var(--body);letter-spacing:.14em;
+}
+#servicos .essential-rituals__combo>span{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
+#servicos .essential-rituals__combo strong{color:#fff;font-size:16px;letter-spacing:-.015em}
+#servicos .essential-rituals__combo b{font-size:17px;letter-spacing:0;white-space:nowrap;color:#fff}
+#servicos .essential-rituals__combo svg{transition:transform .25s ease}
+#servicos .essential-rituals__combo:hover svg{transform:translate(3px,-3px)}
+#servicos .essential-rituals__source{
+ margin:13px 0 0;color:#b6c0cd;font:450 11px/1.5 var(--body);
+}
+
+/* Real grain texture like a woven work apron — restrained and static by default. */
+#equipe.team{position:relative;overflow:clip}
+#equipe .team-grain{
+ position:absolute;inset:-38px 0;pointer-events:none;z-index:0;
+ background-image:
+  repeating-linear-gradient(93deg,#ffffff0b 0 1px,transparent 1px 6px),
+  repeating-linear-gradient(0deg,#ffffff07 0 1px,transparent 1px 11px),
+  radial-gradient(ellipse at 72% 30%,#b5bdc619,transparent 63%),
+  radial-gradient(ellipse at 13% 76%,#ffffff10,transparent 55%);
+ opacity:.52;mix-blend-mode:screen;
+}
+#equipe>.wrap{position:relative;z-index:1}
+#equipe .team-portrait::before{
+ content:"";position:absolute;z-index:-1;pointer-events:none;
+ inset:-4px -8px 23px 16px;border:1px solid #eef3f65a;
+ box-shadow:17px 19px 0 -16px #e6edf455;
+}
+#equipe .team-names{border-top-color:#d6dce06d}
+#equipe .team-invite{border-top-color:#d6dce06d}
+@keyframes sr-apron-drift{
+ from{transform:translate3d(0,-18px,0)}
+ to{transform:translate3d(0,18px,0)}
+}
+@media(prefers-reduced-motion:no-preference){
+ @supports ((animation-timeline:view()) and (animation-range:entry)){
+  #equipe .team-grain{
+   animation:sr-apron-drift linear both;
+   animation-timeline:view(block);
+   animation-range:entry 0% exit 100%;
+  }
+ }
+}
+
+/* Product banner: an authentic photographed still life, not a templated badge. */
+#produtos .product-catalog__folio{
+ display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.9fr);
+ align-items:center;gap:clamp(15px,3.6vw,50px);
+ min-height:clamp(275px,29vw,390px);
+ padding:clamp(24px,4vw,48px);
+ border:1px solid #3e4753;
+ background:
+   repeating-linear-gradient(90deg,transparent 0 72px,#ffffff08 72px 73px),
+   radial-gradient(ellipse at 83% 30%,#52617177,transparent 64%),
+   linear-gradient(125deg,#0e1319 0%,#1b2430 60%,#0d1218 100%);
+}
+#produtos .product-catalog__folio::after{content:none}
+#produtos .product-catalog__identity{z-index:2}
+#produtos .product-catalog__index{color:#d7dfe7}
+#produtos .product-catalog__folio h3{
+ font:620 clamp(35px,5.2vw,75px)/1.02 var(--display);
+ letter-spacing:-.062em;margin:17px 0 14px;
+}
+#produtos .product-catalog__folio h3 em{font-weight:380;color:#c5cfda}
+#produtos .product-catalog__folio p{color:#e0e5eb;max-width:37ch}
+#produtos .product-catalog__undertext{
+ display:block;width:max-content;max-width:100%;
+ margin-top:clamp(18px,3vw,32px);padding-top:11px;
+ border-top:1px solid #d3dce476;
+ color:#b9c6d4;font:600 9px/1.5 var(--body);letter-spacing:.14em;
+}
+#produtos .product-catalog__still-life{
+ position:relative;display:grid;grid-template-columns:1fr 1fr;
+ align-items:center;justify-items:center;
+ min-width:0;max-width:510px;width:100%;height:clamp(195px,23vw,295px);
+ margin-inline:auto;isolation:isolate;
+}
+#produtos .product-catalog__still-life::before{
+ content:"";position:absolute;z-index:-1;inset:8% 3% 13%;
+ border:1px solid #ffffff4d;
+ background:linear-gradient(135deg,#c0ccd015,#d2dce309);
+ transform:rotate(-3deg);
+}
+#produtos .product-catalog__photo{
+ display:block;position:relative;overflow:hidden;
+ width:86%;max-width:200px;aspect-ratio:4/5;
+ border:5px solid #e7e9eb;
+ background:#d5d8dc;
+ box-shadow:0 28px 32px -18px #000c,5px 7px 0 #e2e6ec27;
+}
+#produtos .product-catalog__photo img{
+ display:block;width:100%;height:100%;object-fit:cover;object-position:center;
+ filter:contrast(1.04);transition:transform .5s cubic-bezier(.23,1,.32,1);
+}
+#produtos .product-catalog__photo--first{transform:rotate(-8deg) translate(10px,9px)}
+#produtos .product-catalog__photo--second{transform:rotate(6deg) translate(-9px,-6px)}
+#produtos .product-catalog__still-label{
+ position:absolute;bottom:0;right:0;max-width:90%;padding:8px 12px;
+ background:#f2f4f6;color:#1d2732;
+ font:720 9px/1.4 var(--body);letter-spacing:.11em;
+ box-shadow:0 12px 21px -12px #0009;
+}
+@media(hover:hover) and (pointer:fine){
+ #produtos .product-catalog__folio:hover .product-catalog__photo img{transform:scale(1.035)}
+}
+/* The curated index remains practical: no cropped control labels or tiny tap areas. */
+#produtos .catalog-category{min-height:44px}
+#produtos .product-option__preview{min-height:82px}
+#produtos .product-list{gap:0}
+#produtos .product-option__consult{min-width:44px;min-height:44px}
+#produtos .catalog-search__control:focus-within{outline:2px solid #222f3a;outline-offset:2px}
+.chapter-compass .chapter-compass__current{
+ display:grid;place-content:center;min-width:95px;
+ font:660 11px/1.25 var(--body);letter-spacing:.08em;
+}
+.chapter-compass .chapter-compass__current span{white-space:nowrap}
+.chapter-compass .chapter-compass__current small{display:none}
+/* Editorial border lines across a few sections, no extra running animations. */
+#produtos .section-heading::after,#servicos .section-heading::after{
+ content:"";display:block;height:1px;flex:0 0 100%;margin-top:12px;
+ background:linear-gradient(90deg,#1f263354,transparent 72%);
+}
+
+@media(max-width:850px){
+ #servicos .essential-ritual__body{align-items:flex-start;flex-direction:column;gap:15px}
+ #servicos .essential-ritual__price b{font-size:clamp(38px,6vw,50px)}
+ #produtos .product-catalog__folio{gap:10px}
+ #produtos .product-catalog__still-life{height:220px}
+}
+@media(max-width:700px){
+ #servicos .essential-rituals{margin:28px auto 44px;padding:22px 18px}
+ #servicos .essential-rituals__heading{align-items:flex-start;flex-direction:column;gap:5px}
+ #servicos .essential-rituals__heading>p{font-size:19px}
+ #servicos .essential-ritual{min-height:178px;padding:19px 11px}
+ #servicos .essential-ritual__body>strong{font-size:clamp(21px,4.1vw,31px)}
+ #servicos .essential-ritual__body{flex-direction:column;gap:12px}
+ #servicos .essential-ritual__price b{font-size:36px}
+ #servicos .essential-ritual__action{font-size:11px}
+ #servicos .essential-rituals__combo{align-items:flex-start;gap:6px}
+ #servicos .essential-rituals__combo>span{gap:4px 8px}
+ #servicos .essential-rituals__combo strong{font-size:13px}
+ #produtos .product-catalog__folio{grid-template-columns:minmax(0,1fr) minmax(110px,.64fr);min-height:235px;gap:8px;padding:clamp(18px,4vw,26px)}
+ #produtos .product-catalog__folio h3{font-size:clamp(30px,6.9vw,47px)}
+ #produtos .product-catalog__folio p{font-size:12px;line-height:1.5}
+ #produtos .product-catalog__undertext{display:none}
+ #produtos .product-catalog__still-life{height:190px}
+ #produtos .product-catalog__photo{width:94%;border-width:3px}
+ #produtos .product-catalog__still-label{font-size:7px;bottom:2px;letter-spacing:.04em}
+ #produtos .product-option__preview{min-height:80px}
+ #equipe .team-grain{opacity:.4}
+}
+@media(max-width:430px){
+ #servicos .essential-rituals__grid{grid-template-columns:minmax(0,1fr)}
+ #servicos .essential-ritual{min-height:135px;padding:15px 0!important;border-right:0!important}
+ #servicos .essential-ritual+.essential-ritual{border-top:1px solid #c7d1da4b}
+ #servicos .essential-ritual__body{flex-direction:row;align-items:flex-end;gap:5px}
+ #servicos .essential-ritual__body>strong{font-size:clamp(24px,7.3vw,34px)}
+ #servicos .essential-ritual__price b{font-size:40px}
+ #servicos .essential-ritual__action{padding-top:6px;min-height:28px}
+ #produtos .product-catalog__folio{grid-template-columns:1fr;gap:22px}
+ #produtos .product-catalog__folio h3{font-size:clamp(40px,10vw,51px)}
+ #produtos .product-catalog__still-life{height:175px;width:min(100%,280px)}
+ #produtos .product-catalog__photo{width:74%}
+ #produtos .catalog-toolbar{grid-template-columns:1fr 1fr}
+ #produtos .catalog-search__control{height:48px}
+ #produtos .product-option__consult{min-width:40px}
+ #equipe .team-portrait{padding-inline:3px}
+ #equipe .professional-panel .team-name{font-size:clamp(20px,6vw,27px)}
+}
+@media(max-width:340px){
+ #servicos .essential-ritual__body>strong{font-size:23px}
+ #servicos .essential-ritual__price b{font-size:35px}
+ #produtos .product-catalog__folio{padding:19px 17px}
+ #produtos .product-catalog__still-label{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ #servicos .essential-ritual__action svg,#servicos .essential-rituals__combo svg,
+ #produtos .product-catalog__photo img{transition:none!important;transform:none!important}
+ #equipe .team-grain{animation:none!important;transform:none!important}
+}
+
+/* Container-scoped clipping: the picture/engraving layers and masked
+   galleries have internal scrollable overflow but must not expand the page.
+   Vertical flow remains native; no document-wide overflow suppression. */
+#servicos.rituals,#produtos.products{overflow-x:clip}

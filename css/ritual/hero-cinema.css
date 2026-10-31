@@ -111,18 +111,18 @@ html.sr-hero-queued .hero-cinema__shutter{transform:translateX(0)}
 html.sr-hero-queued .hero--cinema :is(.hero-pole__object,.hero-wordmark>span,.hero-cinema__masthead-tag,.hero-topline,h1,.hero-intro,.hero-cta,.hero-explore){opacity:0}
 @media(max-width:1000px){.hero.hero--cinema{--hero-header:100px}}
 @media(max-width:700px){
- .hero.hero--cinema{--hero-header:84px;--hero-logo:clamp(142px,38vw,186px);--hero-type:clamp(34px,10.8vw,72px);--hero-space:clamp(20px,3.5svh,34px)}
- .hero--cinema .hero-inner{width:calc(100% - 40px);gap:clamp(28px,5svh,44px)}
- .hero--cinema .hero-cinema__brand-lockup{--pole-width:26px;--pole-height:90px;gap:23px}
+ .hero.hero--cinema{--hero-header:84px;--hero-logo:clamp(112px,32vw,164px);--hero-type:clamp(30px,8.85vw,59px);--hero-space:clamp(12px,2.2svh,23px)}
+ .hero--cinema .hero-inner{width:calc(100% - 36px);gap:clamp(15px,3svh,29px)}
+ .hero--cinema .hero-cinema__brand-lockup{--pole-width:clamp(20px,6vw,26px);--pole-height:clamp(69px,18vw,90px);gap:clamp(11px,3vw,19px)}
  .hero--cinema .hero-cinema__masthead-tag{gap:8px;font-size:9px;letter-spacing:.08em}
  .hero--cinema .hero-cinema__masthead-tag i{width:8px}
- .hero--cinema .hero-centerpiece{justify-content:flex-start;padding-bottom:14px}
- .hero--cinema .hero-topline{max-width:34ch;font-size:10px;letter-spacing:.08em}
- .hero--cinema h1 .title-mask:nth-child(2){font-size:.78em;letter-spacing:-.055em}
- .hero--cinema .hero-invitation{flex-direction:column;gap:13px;margin-top:22px}
+ .hero--cinema .hero-centerpiece{justify-content:center;padding-bottom:clamp(8px,2svh,16px)}
+ .hero--cinema .hero-topline{max-width:38ch;font-size:9px;line-height:1.45;letter-spacing:.075em}
+ .hero--cinema h1 .title-mask:nth-child(2){font-size:.70em;letter-spacing:-.065em}
+ .hero--cinema .hero-invitation{flex-direction:column;gap:10px;margin-top:clamp(12px,2svh,18px)}
  .hero--cinema .hero-cta{flex:0 0 auto;width:min(340px,100%)}
  .hero--cinema .hero-invitation__aside{border-top:0;padding:0;gap:2px}
- .hero--cinema .hero-cta__surface{min-height:74px;padding:12px 12px 12px 19px}
+ .hero--cinema .hero-cta__surface{min-height:70px;padding:10px 10px 10px 17px}
  .hero--cinema .hero-explore{font-size:12px}
  .hero--cinema .photo-window img{object-position:56% 37%}
  .hero--cinema .hero-cinema__shade{background:linear-gradient(180deg,#08090a70,transparent 35%,#08090ae6 76%,#08090af5)}
@@ -185,4 +185,30 @@ html.sr-hero-queued .hero--cinema :is(.hero-pole__object,.hero-wordmark>span,.he
 @media(prefers-reduced-motion:reduce){
  .hero--cinema .hero-cta__surface::before,
  .hero--cinema .hero-cta__arrow svg{transition:none;transform:none}
+}
+
+/* Portrait phones and short landscape windows have their own optical budget.
+   Keep the official logo's FLIP destination in normal flow. */
+@media(max-width:480px){
+ .hero.hero--cinema{--hero-type:clamp(29px,8.7vw,41px)}
+ .hero--cinema .hero-cinema__masthead{gap:7px}
+ .hero--cinema .hero-wordmark>span{font-size:8px;margin-top:4px}
+ .hero--cinema .hero-cinema__masthead-tag{font-size:8px;letter-spacing:.055em}
+ .hero--cinema h1{letter-spacing:-.065em;line-height:1}
+ .hero--cinema h1 .title-mask:nth-child(2){font-size:.67em;letter-spacing:-.055em}
+ .hero--cinema .hero-invitation__aside{gap:0}
+ .hero--cinema .hero-intro{font-size:13px;line-height:1.45}
+ .hero--cinema .hero-cta__engraving{font-size:7px}
+}
+@media(max-width:700px) and (max-height:650px){
+ .hero.hero--cinema{--hero-logo:clamp(100px,28vw,128px);--hero-space:10px;--hero-type:clamp(27px,8.2vw,41px)}
+ .hero--cinema .hero-inner{gap:10px}
+ .hero--cinema .hero-cinema__masthead-tag{font-size:7px}
+ .hero--cinema .hero-cinema__brand-lockup{--pole-height:68px;--pole-width:20px}
+ .hero--cinema .hero-centerpiece{padding-bottom:0}
+ .hero--cinema .hero-topline{margin-bottom:7px}
+ .hero--cinema h1 .title-mask:nth-child(2){font-size:.69em}
+ .hero--cinema .hero-invitation{margin-top:10px}
+ .hero--cinema .hero-cta__surface{min-height:59px;padding-block:7px}
+ .hero--cinema .hero-cta__arrow{width:38px;height:38px}
 }
