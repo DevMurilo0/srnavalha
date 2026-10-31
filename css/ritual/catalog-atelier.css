@@ -433,3 +433,11 @@
   .products .catalog-category,
   .products .product-info .button{transition:none!important;transform:none!important}
 }
+
+
+/* Enhancement utilities use display:flex by default in base.css; restore
+   correct semantic layouts for these mixed-content controls explicitly. */
+.enhanced .products .catalog-toolbar{display:grid}
+.enhanced .products .catalog-categories{display:flex}
+.enhanced .products .catalog-clear{display:inline-flex}
+.enhanced .products .catalog-empty{display:block}
