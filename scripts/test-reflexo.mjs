@@ -56,8 +56,7 @@ try{
     !document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))));
   await intro.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&document.querySelector('.hero.is-arriving'));
   const staged=await intro.evaluate(()=>{
-    const selectors=['.hero-pole__object','.hero h1',
-      '.hero-intro','.hero-facade','.hero-room','.hero-invitation > .button'];
+    const selectors=['.hero h1','.hero-intro','.hero-topline','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
       return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')).length||0};
@@ -123,7 +122,7 @@ try{
  await jump(page,'#trabalhos');await page.locator('[data-album-mode="wall"]').click();check('Álbum muda para parede',await page.locator('.album-sheets.is-wall').count()===1);await page.waitForTimeout(850);
  await page.locator('.gallery-shot').first().click();check('Lightbox abre',await page.locator('dialog').evaluate(e=>e.open));await page.keyboard.press('ArrowRight');await page.keyboard.press('Escape');check('Lightbox fecha e devolve foco',await page.locator('dialog').evaluate(e=>!e.open));
  await page.locator('[data-album-mode="folio"]').click();await page.locator('[data-album-photo="1"]').click();check('Álbum seleciona fotografia',await page.locator('[data-sheet="1"]').evaluate(e=>e.classList.contains('is-selected')));
- await jump(page,'#produtos');await page.locator('[data-product]').nth(1).click();await page.waitForTimeout(400);check('Produto interativo',await page.locator('[data-product]').nth(1).getAttribute('aria-pressed')==='true');
+ await jump(page,'#produtos');await page.locator('.product-option__preview').nth(1).click();await page.waitForTimeout(400);check('Produto interativo',await page.locator('.product-option__preview').nth(1).getAttribute('aria-pressed')==='true');
  await page.locator('#product-category').selectOption({index:1});check('Filtro produtos',await page.locator('[data-product][hidden]').count()>0);
  await jump(page,'#avaliacoes');await page.locator('#review-pause').click();check('Pausa depoimentos',await page.locator('#review-pause').getAttribute('aria-pressed')==='true');
  await jump(page,'#localizacao');check('Mapa e rota preservados',await page.locator('.map-frame iframe').count()===1&&await page.locator('a[href*="google.com/maps"]').count()>0);
@@ -131,7 +130,7 @@ try{
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'?intro=1');check('Movimento reduzido: sem abertura',await page.locator('#sr-loader-stage').count()===0);await jump(page,'#trabalhos');await page.locator('[data-album-mode="wall"]').click();check('Movimento reduzido: controles funcionam',await page.locator('.album-sheets.is-wall').count()===1);await page.waitForTimeout(150);check('Movimento reduzido: sem animações ativas',await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running'&&a.effect.getTiming().iterations===Infinity).length===0));
  const axe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();writeFileSync(`${dir}/axe.json`,JSON.stringify(axe.violations,null,2));check('Axe WCAG A/AA',axe.violations.length===0,axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
  const nojs=await fresh({javaScriptEnabled:false});await nojs.goto(base);check('Sem JS: conteúdo e agendamento',await nojs.evaluate(()=>document.querySelectorAll('.service-entry').length===42&&document.querySelectorAll('[data-product]').length===22&&document.querySelectorAll('.gallery-shot').length===6&&getComputedStyle(document.querySelector('#sr-loader-stage')).display==='none'&&document.querySelector('.hero .button').getAttribute('href')==='agendar.html'));await nojs.context().close();
- for(const resource of ['**/js/ritual/app.js','**/assets/images/hero-redesign/interior-*.webp']){
+ for(const resource of ['**/js/ritual/app.js','**/assets/images/hero-ambiente-1920.webp']){
   const fallback=await fresh();await fallback.route(resource,r=>r.abort());await fallback.goto(base+'?intro=1');await settle(fallback);check(`Falha: ${resource}`,await fallback.evaluate(()=>getComputedStyle(document.querySelector('h1')).opacity==='1'&&!document.querySelector('#sr-loader-stage')));await fallback.context().close();
  }
  check('Console sem erros JavaScript',!errors.length,errors);
