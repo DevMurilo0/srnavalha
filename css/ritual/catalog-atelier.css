@@ -441,3 +441,42 @@
 .enhanced .products .catalog-categories{display:flex}
 .enhanced .products .catalog-clear{display:inline-flex}
 .enhanced .products .catalog-empty{display:block}
+
+
+/* 2026 editorial refinement: improve scan paths without adding expensive layout animation. */
+.products .product-catalog__folio{position:relative;overflow:hidden}
+.products .product-catalog__folio::after{
+ content:"";position:absolute;pointer-events:none;inset:auto -12% -75% 45%;aspect-ratio:1;
+ border-radius:50%;border:1px solid #ffffff1f;
+ box-shadow:0 0 0 34px #ffffff07,0 0 0 92px #ffffff05;
+}
+.products .product-catalog__identity,.products .product-catalog__seal{position:relative;z-index:1}
+.products .product-option__preview:focus-visible,
+.products .product-option__consult:focus-visible,
+.products .catalog-category:focus-visible,
+.products .catalog-clear:focus-visible,
+.products .catalog-empty__reset:focus-visible{
+ outline:3px solid #283948;outline-offset:4px;
+}
+.products .product-option:focus-within{z-index:2}
+.products .product-option__preview .product-thumb{
+ transition:transform .5s cubic-bezier(.16,1,.3,1),filter .4s ease;
+ transform-origin:50% 55%;
+}
+@media(hover:hover) and (pointer:fine){
+ .products .product-option:hover .product-thumb,
+ .products .product-option:focus-within .product-thumb{
+  transform:scale(1.065) rotate(-1deg);filter:contrast(1.045);
+ }
+}
+.products .product-catalog .no-photo{
+ background:linear-gradient(155deg,#252d37,#111820);
+ border:1px solid #ffffff2b;
+ box-shadow:inset 0 0 0 3px #ffffff09,0 12px 20px -15px #000a;
+}
+.products .catalog-tally{min-height:1.6em}
+.products .product-option[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){
+ .products .product-option__preview .product-thumb{transition:none!important;transform:none!important}
+ .products .product-option::before{transition:none!important}
+}
