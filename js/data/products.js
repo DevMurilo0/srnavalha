@@ -1,27 +1,11 @@
 export default [
   {
-    "id": "balm-para-barba",
-    "name": "Balm para barba",
-    "price": "R$ 40,00",
-    "category": "Barba",
-    "image": null,
-    "source": null
-  },
-  {
     "id": "body-splash",
     "name": "Body splash",
     "price": "R$ 50,00",
     "category": "Fragrância",
     "image": "assets/images/v8/body-splash-640.webp",
     "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/6a877cc9595a9.png"
-  },
-  {
-    "id": "condicionador-icefresh",
-    "name": "Condicionador icefresh",
-    "price": "R$ 50,00",
-    "category": "Cabelo",
-    "image": null,
-    "source": null
   },
   {
     "id": "leave-in",
@@ -62,14 +46,6 @@ export default [
     "category": "Finalização",
     "image": "assets/images/v8/pomada-orange-640.webp",
     "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68ded081c8b8c.png"
-  },
-  {
-    "id": "pomada-po",
-    "name": "Pomada pó",
-    "price": "R$ 40,00",
-    "category": "Finalização",
-    "image": null,
-    "source": null
   },
   {
     "id": "pomada-queratina",
@@ -158,14 +134,6 @@ export default [
     "category": "Cabelo",
     "image": "assets/images/v8/shampoo-matizador-640.webp",
     "source": "https://s3-sa-east-1.amazonaws.com/img-appbarber-appbeleza/srnavala-pqjj/68e9107d323f1.png"
-  },
-  {
-    "id": "shampoo-para-barba",
-    "name": "Shampoo para barba",
-    "price": "R$ 40,00",
-    "category": "Barba",
-    "image": null,
-    "source": null
   },
   {
     "id": "tonico-de-crescimento",

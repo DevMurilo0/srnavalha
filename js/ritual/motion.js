@@ -221,7 +221,7 @@ export function initMotion(){
   if(!compass)return;
   compass.hidden=index===0||id==='contato';
   const current=$('.chapter-compass__current',compass),prev=$('.chapter-compass__prev',compass),next=$('.chapter-compass__next',compass);
-  current.href=`#${id}`;$('small',current).textContent=`${String(index).padStart(2,'0')} / 08`;$('span',current).textContent=names[id];
+  current.href=`#${id}`;$('span',current).textContent=names[id];
   for(const [link,destination] of [[prev,chapters[Math.max(0,index-1)]],[next,chapters[Math.min(chapters.length-1,index+1)]]]){
    link.href=`#${destination.id}`;link.setAttribute('aria-label',`Ir para ${names[destination.id].toLowerCase()}`);
   }
