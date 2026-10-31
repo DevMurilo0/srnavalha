@@ -51,10 +51,37 @@ export function initHeroExperience(){
      a.id='sr-hero-curtain';
      effects.push(a);
     }
+    // Synchronized physical-pole entrance after the scissors, using only
+    // transform and opacity. Cleanup belongs to this existing timeline.
+    $('.hero-cinema__brand-lockup .hero-pole__object',hero).forEach((node,index)=>{
+      styles.push({node,opacity:node.style.opacity,clipPath:node.style.clipPath});
+      const side=index===0?-1:1;
+      const effect=node.animate([
+        {opacity:0,transform:`perspective(600px) translate3d(${side*18}px,13px,0) rotateY(${-side*22}deg) scale(.91)`},
+        {offset:.77,opacity:1,transform:'translate3d(0,-2px,0) scale(1.015)'},
+        {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+      ],{duration:850,delay:160+index*90,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+      effects.push(effect);
+    });
+    const photograph=$('.hero-room .photo-window img',hero);
+    if(photograph)effects.push(photograph.animate(
+      [{transform:'scale(1.11)'},{transform:'scale(1.04)'}],
+      {duration:1600,delay:40,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'}
+    ));
     const decorated=[
-     ['.hero-cinema__sequence',960],['.hero-bottom',1120],
-     ['.hero-cinema__masthead-tag',180]
+     ['.hero-bottom',1090],['.hero-cinema__masthead-tag',185]
     ];
+    const slit=$('.hero-cinema__light-slit',hero);
+    if(slit){
+     const effect=slit.animate([
+      {opacity:0,transform:'translate3d(-3%,0,0)'},
+      {offset:.16,opacity:.88},
+      {offset:.76,opacity:.48},
+      {opacity:0,transform:'translate3d(100vw,0,0)'}
+     ],{duration:1180,delay:140,easing:'cubic-bezier(.62,.08,.22,1)',fill:'both'});
+     effect.id='sr-hero-light-slit';
+     effects.push(effect);
+    }
     for(const [selector,delay] of decorated){
      const node=$(selector,hero);
      if(!node)continue;
@@ -80,31 +107,6 @@ export function initHeroExperience(){
  for(const type of ['wheel','touchstart','pointerdown','keydown','pagehide'])addEventListener(type,settle,{passive:true,signal:controller.signal});
  const width=innerWidth;
  addEventListener('resize',()=>{if(Math.abs(width-innerWidth)>2)settle();},{passive:true,signal:controller.signal});
- // User-controlled scenes live independently of the one-time hero reveal.
- // Arrow keys and focus remain native and accessible; no continuous loop.
- if(hero.classList.contains('hero--cinema')){
-  const buttons=$$('[data-cinema-shot]',hero);
-  const choose=button=>{
-   const selected=button?.dataset.cinemaShot;
-   if(!['0','1','2'].includes(selected))return;
-   hero.dataset.cinemaScene=selected;
-   buttons.forEach(b=>{
-    const active=b===button;
-    b.classList.toggle('is-selected',active);
-    b.setAttribute('aria-pressed',String(active));
-   });
-  };
-  buttons.forEach((button,i)=>{
-   button.addEventListener('click',()=>choose(button));
-   button.addEventListener('keydown',event=>{
-    if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
-    event.preventDefault();
-    const next=event.key==='Home'?0:event.key==='End'?buttons.length-1:
-     (i+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;
-    choose(buttons[next]);buttons[next].focus();
-   });
-  });
- }
  hero.addEventListener('focusin',settle,{signal:controller.signal});
  document.addEventListener('motionchange',()=>{if(!canMove())settle();},{signal:controller.signal});
  if('IntersectionObserver' in window){

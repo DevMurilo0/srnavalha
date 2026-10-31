@@ -51,17 +51,24 @@ try{
   check(width+' novo hero cinematográfico, fotografias locais, CTA e sem overflow',
     hero.cinema&&hero.stage&&hero.logo&&hero.heading&&hero.canBook&&
     hero.stageWithin&&hero.localPhoto&&hero.intro,hero);
-  // Three live frames, but only one scene can be pressed at a time.
-  const scenes=page.locator('.hero-cinema__scene-button');
-  check(width+' três enquadramentos acessíveis',await scenes.count()===3);
-  await scenes.nth(1).click({force:true});
-  check(width+' opção fachada altera quadro real',
-    await scenes.nth(1).getAttribute('aria-pressed')==='true'&&
-    await page.locator('.hero').getAttribute('data-cinema-scene')==='1');
-  await scenes.nth(2).focus();
-  await page.keyboard.press('ArrowRight');
-  check(width+' teclado navega pelos enquadramentos',
-    await page.locator('.hero').getAttribute('data-cinema-scene')==='0');
+  const brand=await page.evaluate(()=>{
+    const logo=document.querySelector('.hero-cinema__brand-lockup .hero-wordmark').getBoundingClientRect();
+    const left=document.querySelector('.hero-cinema__brand-lockup .hero-pole--left').getBoundingClientRect();
+    const right=document.querySelector('.hero-cinema__brand-lockup .hero-pole--right').getBoundingClientRect();
+    const h=document.querySelector('.hero h1');
+    return {
+      centered:Math.abs((logo.left+logo.right)/2-innerWidth/2),
+      leftGap:logo.left-left.right,
+      rightGap:right.left-logo.right,
+      bothInViewport:left.left>=0&&right.right<=innerWidth,
+      captionGone:!document.querySelector('.hero-cinema__sequence'),
+      h1Overflow:h.scrollWidth-h.clientWidth,
+      height:document.querySelector('.hero').getBoundingClientRect().height
+    };
+  });
+  check(width+' logo central e dois postes simétricos sem controles antigos',
+    brand.centered<=3&&brand.leftGap>0&&brand.rightGap>0&&
+    brand.bothInViewport&&brand.captionGone&&brand.h1Overflow<=2,brand);
   const service=page.locator('.mirror-choice[data-ritual="barboterapia"]');
   await service.scrollIntoViewIfNeeded();
   await service.hover({force:true});
@@ -77,6 +84,42 @@ try{
   await page.waitForFunction(()=>document.querySelector('.mirror-choice[data-ritual="barboterapia"]')
     ?.getAttribute('aria-pressed')==='true',undefined,{timeout:5000});
   check(width+' serviço selecionável',await service.getAttribute('aria-pressed')==='true');
+  // Catalogue is no longer 22 pseudo-buttons pointing to WhatsApp.
+  // Each card has native preview and an independent direct consultation link.
+  const catalog=page.locator('#produtos .product-catalog');
+  await catalog.scrollIntoViewIfNeeded();
+  check(width+' 22 produtos e links WhatsApp independentes',
+    await catalog.locator('.product-option').count()===22&&
+    await catalog.locator('.product-option__preview').count()===22&&
+    await catalog.locator('.product-option__consult[href^="https://wa.me/"]').count()===22);
+  const search=page.locator('#product-search');
+  await search.fill('oleo');
+  await page.waitForFunction(()=>[...document.querySelectorAll('#produtos .product-option')]
+    .filter(e=>!e.hidden).length===1,undefined,{timeout:3500});
+  check(width+' busca ignora acentos e mantém preço real',
+    await catalog.locator('.product-option:not([hidden]) strong').textContent()==='Óleo para barba');
+  await page.locator('#product-category').selectOption('Barba');
+  check(width+' filtro combinado pode produzir estado vazio',
+    await page.locator('#product-empty').isHidden());
+  await search.fill('não existe este produto');
+  await page.waitForFunction(()=>!document.querySelector('#product-empty').hidden,
+    undefined,{timeout:3500});
+  check(width+' busca sem resultados oferece recuperação',
+    await page.locator('#product-reset').isVisible());
+  await page.locator('#product-reset').click();
+  check(width+' reset restaura 22 itens',
+    await catalog.locator('.product-option:not([hidden])').count()===22);
+  await page.locator('#product-sort').selectOption('price-desc');
+  const first=await catalog.locator('.product-option').first().getAttribute('data-product');
+  check(width+' ordenação por preço conserva dados',first==='tonico-de-crescimento',first);
+  await page.locator('#product-sort').selectOption('original');
+  const balm=catalog.locator('.product-option[data-product="balm-para-barba"] .product-option__preview');
+  await balm.click({force:true});
+  await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Balm para barba',
+    undefined,{timeout:4500});
+  check(width+' falta de foto tem placeholder e consulta preservada',
+    await page.locator('.product-hero__placeholder').count()===1&&
+    (await page.locator('.product-info a').getAttribute('href')).includes('wa.me/'));
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
   const shade=await team.evaluate(el=>({

@@ -1,0 +1,103 @@
+/* Sr. Navalha / Catalog Atelier V28 — editorial composition and restrained depth */
+#produtos .product-catalog{margin:clamp(50px,7vw,100px) auto 0;max-width:1350px;
+ padding:clamp(9px,1.5vw,22px);background:linear-gradient(140deg,#e9ebee,#dce0e5);
+ border:1px solid #aab3be;box-shadow:0 37px 75px -51px #070b13b8}
+#produtos .product-catalog__folio{min-height:clamp(205px,23vw,315px);
+ padding:clamp(28px,4vw,59px);background:radial-gradient(ellipse at 80% 12%,#37414b,transparent 55%),linear-gradient(130deg,#0a0d12,#19212b)}
+#produtos .product-catalog__folio h3{font-size:clamp(43px,5.4vw,82px);letter-spacing:-.08em}
+#produtos .catalog-workbench{display:grid;grid-template-columns:minmax(245px,.85fr) minmax(0,1.5fr);
+ gap:clamp(19px,3vw,48px);align-items:start;padding:clamp(16px,3vw,38px) clamp(6px,1.4vw,20px) 24px}
+#produtos .catalog-workbench__index{min-width:0}
+#produtos .catalog-workbench>.product-editorial{position:sticky;top:22px;display:flex;flex-direction:column;
+ align-items:stretch;gap:0;width:100%;max-width:none;min-width:0;margin:0;
+ color:#fff;background:#111820;border:1px solid #34404e;scroll-margin-top:20px;
+ box-shadow:0 26px 57px -33px #070b14c9}
+#produtos .product-editorial .product-hero{position:relative;width:100%;max-width:none;margin:0;padding:12px 12px 0}
+#produtos .product-editorial .product-hero .image-stage{width:100%;aspect-ratio:1.08;outline:0;
+ overflow:hidden;box-shadow:inset 0 1px #fff7}
+#produtos .product-editorial .product-hero .image-stage>img{display:block;width:100%;height:100%;object-fit:contain}
+#produtos .product-editorial .product-hero figcaption{margin:12px 0 0;color:#b9c1cb;
+ font:600 10px/1.5 var(--body);letter-spacing:.14em;text-transform:uppercase}
+#produtos .product-editorial .product-photo-detail{display:none!important}
+#produtos .product-editorial .product-info{width:100%;max-width:none;padding:21px clamp(18px,2.6vw,31px) 27px;
+ background:linear-gradient(160deg,#171f29,#090e14)}
+#produtos .product-editorial .product-info h3{margin:0;max-width:none;color:#f7f9fb;
+ font:620 clamp(27px,3vw,43px)/1.05 var(--display);letter-spacing:-.06em;overflow-wrap:anywhere}
+#produtos .product-editorial .product-category{color:#b9c4d0;font:600 11px var(--body);
+ text-transform:uppercase;letter-spacing:.14em;margin:12px 0}
+#produtos .product-editorial .product-price{font:570 28px var(--display);margin:16px 0 20px;color:#fff}
+#produtos .product-editorial .product-info .button{display:flex;align-items:center;justify-content:space-between;
+ min-height:48px;width:100%;padding:12px 16px;color:#141b24;background:#f4f6f8;border:1px solid #fff;box-shadow:none}
+#produtos .product-editorial .product-info .button:is(:hover,:focus-visible){background:#34404d;color:#fff;border-color:#798799}
+#produtos .product-editorial .source-note{margin:17px 0 0;color:#aeb7c4;font-size:11px;line-height:1.6}
+#produtos .catalog-toolbar{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;padding:0 0 19px}
+#produtos .catalog-search{grid-column:1/-1}
+#produtos .catalog-search__control,#produtos .catalog-select select{height:51px;background:#f7f9fb;border-color:#9aa6b5}
+#produtos .catalog-categories{padding:16px 0 19px;gap:7px}
+#produtos .product-list{grid-template-columns:1fr;gap:0}
+#produtos .product-option{min-height:104px;gap:6px;padding:6px 0;border-bottom:1px solid #697b8b66}
+#produtos .product-option::before{inset:3px -9px;background:linear-gradient(100deg,#fff,#f4f6f9)}
+#produtos .product-option.is-selected::before{opacity:1;transform:translate3d(0,0,0);border-left:3px solid #161e29}
+#produtos .product-option__preview{grid-template-columns:20px 78px minmax(0,1fr) auto 16px;
+ gap:clamp(7px,1.2vw,14px);min-height:90px;padding:9px 5px}
+#produtos .product-thumb,#produtos .no-photo{width:78px;height:78px;object-fit:cover;border:1px solid #aeb8c4}
+#produtos .product-option strong{font-size:clamp(13px,1.2vw,16px);line-height:1.3}
+#produtos .product-option .option-price{font-size:clamp(12px,1vw,15px);font-weight:740;text-align:right}
+#produtos .product-option__consult{border-left:1px solid #aeb8c4}
+#produtos .no-photo{background:linear-gradient(145deg,#303c49,#0c121a);color:#f5f7fa}
+#produtos .no-photo__label{font-size:7px}
+#produtos .product-hero__placeholder{background:linear-gradient(145deg,#e5e9ef,#bdc5d0)}
+#produtos .catalog-workbench__index>.source-note{color:#596779;font-size:11px;line-height:1.6}
+#inicio.hero--cinema .hero-cinema__brand-lockup::before,
+#inicio.hero--cinema .hero-cinema__brand-lockup::after{content:"";position:absolute;top:50%;
+ height:1px;width:clamp(9px,2vw,38px);background:linear-gradient(90deg,transparent,#fff9);pointer-events:none}
+#inicio.hero--cinema .hero-cinema__brand-lockup::before{right:calc(100% + 16px)}
+#inicio.hero--cinema .hero-cinema__brand-lockup::after{left:calc(100% + 16px);transform:scaleX(-1)}
+#inicio.hero--cinema .hero-cinema__stage::after{content:"";position:absolute;z-index:3;pointer-events:none;
+ inset:clamp(12px,2vw,28px);opacity:.26;border:1px solid #e8edf655}
+@media(max-width:1120px){
+ #produtos .catalog-workbench{grid-template-columns:minmax(225px,.88fr) minmax(0,1.4fr);gap:20px}
+ #produtos .product-option__preview{grid-template-columns:15px 60px minmax(0,1fr) auto;gap:8px}
+ #produtos .product-option__preview>.icon{display:none}
+ #produtos .product-thumb,#produtos .no-photo{width:60px;height:69px}
+ #produtos .product-option__consult{font-size:0;min-width:40px;padding:8px}
+}
+@media(max-width:900px){
+ #produtos .catalog-workbench{display:flex;flex-direction:column;gap:24px}
+ #produtos .catalog-workbench>.product-editorial{position:relative;top:auto;flex-direction:row;width:100%}
+ #produtos .product-editorial .product-hero{width:46%;flex:none;padding:10px}
+ #produtos .product-editorial .product-hero .image-stage{aspect-ratio:1}
+ #produtos .product-editorial .product-info{width:54%;padding:21px;display:flex;flex-direction:column;justify-content:center}
+ #produtos .product-editorial .product-info h3{font-size:clamp(24px,4vw,38px)}
+ #produtos .catalog-workbench__index{width:100%}
+ #produtos .product-option__preview{grid-template-columns:20px 74px minmax(0,1fr) auto 15px}
+ #produtos .product-option__preview>.icon{display:block}
+ #produtos .product-thumb,#produtos .no-photo{width:74px;height:74px}
+ #produtos .product-option__consult{font-size:11px}
+}
+@media(max-width:600px){
+ #produtos .product-catalog{margin-top:56px;padding:8px}
+ #produtos .product-catalog__folio{min-height:205px;padding:25px 21px}
+ #produtos .product-catalog__folio h3{font-size:clamp(36px,9vw,53px)}
+ #produtos .catalog-workbench{padding:16px 4px 22px}
+ #produtos .catalog-workbench>.product-editorial{flex-direction:column}
+ #produtos .product-editorial .product-hero{width:100%;padding:9px}
+ #produtos .product-editorial .product-hero .image-stage{aspect-ratio:1.24}
+ #produtos .product-editorial .product-info{width:100%;padding:20px}
+ #produtos .product-option__preview{grid-template-columns:14px 55px minmax(0,1fr) auto;gap:7px}
+ #produtos .product-option__preview>.icon{display:none}
+ #produtos .product-thumb,#produtos .no-photo{width:55px;height:61px}
+ #produtos .product-option strong{font-size:13px}
+ #produtos .product-option .option-price{font-size:12px}
+ #produtos .product-option__consult{font-size:0;min-width:40px}
+ #inicio.hero--cinema .hero-cinema__stage::after{inset:10px}
+}
+@media(max-width:360px){
+ #produtos .product-option__ordinal{display:none}
+ #produtos .product-option__preview{grid-template-columns:50px minmax(0,1fr) auto;gap:7px}
+ #produtos .product-thumb,#produtos .no-photo{width:50px;height:58px}
+ #produtos .product-catalog__seal{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ #produtos .product-option,#produtos .product-option::before,#produtos .product-thumb{transition:none!important}
+}

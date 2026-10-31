@@ -73,3 +73,38 @@ Testar após o commit:
 
 **Sem copiar material de terceiros**: referências são apenas bibliografia de
 direção artística e padrões de interação.
+
+
+---
+
+## Etapa V27 — catálogo e hero centralizado (31/10/2026)
+
+Cinco fontes verificadas para orientar decisões reais de implementação:
+
+| Fonte | Evidência útil | Aplicação à Sr. Navalha |
+| --- | --- | --- |
+| [Baymard — Product Lists](https://baymard.com/research/ecommerce-product-lists) | Comparação, filtros e preços bem organizados | Pesquisa, categoria, contagem e hierarquia de preços |
+| [Baymard — PLP Best Practices 2026](https://baymard.com/blog/product-listing-page-plp-ux) | Estado dos filtros e retorno de resultados | Limpar filtros, estado vazio e ordenação |
+| [Aesop — Shop All](https://www.aesop.com/shop-all/) | Categorias, refinamentos e apresentação premium | Controles acessíveis, materialidade e disposição clara |
+| [CRISP Barbershop — Casa Media](https://casamedia.com/projects/crisp-website/) | Fotografia full-bleed, marca e agendamento direto | Imagem real e identidade oficial preservadas, marca central entre postes |
+| [Codrops — Creative Hub](https://tympanus.net/codrops/hub/) | Coreografia de máscaras e movimentos temporários | Novo traço de luz e revelação sincronizada à tesoura |
+
+Pesquisa auxiliar:
+[Exemplos reais Baymard](https://baymard.com/ecommerce-design-examples/37-product-list-category),
+[arquivo Awwwards / Casa Media](https://awwwards.withseismic.com/author/bonjour-casa).
+
+A implementação preserva a fotografia principal e a assinatura tipográfica
+do Sr. Navalha; não copia códigos, textos nem fotografias das referências.
+
+Entregas:
+- Logo oficial central entre postes reais em um mesmo lockup com o FLIP original.
+- Remoção dos três quadros e controles de Olhar de perto, com handler JS correspondente.
+- Cortina e traço de luz temporários; nenhuma nova dependência pesada.
+- 22 produtos reais sem alteração de preço, categoria ou nome.
+- Botões nativos de visualização independentes dos 22 links originais de WhatsApp.
+- Busca tolerante a acentos, categorias, total, ordenação e estado vazio.
+- Identificação gráfica própria para os quatro produtos sem foto, sem imagem inventada.
+- Animações reduzidas quando necessário; sem backend novo.
+
+QA solicitado: testes estáticos, navegador nas larguras 320–1440 px,
+teclado, navegação, agendamento, carregamento e baixo consumo.

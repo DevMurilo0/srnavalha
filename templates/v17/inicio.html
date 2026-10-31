@@ -1,4 +1,4 @@
-<section class="hero hero--cinema" id="inicio" aria-labelledby="hero-title" data-cinema-scene="0">
+<section class="hero hero--cinema" id="inicio" aria-labelledby="hero-title">
   <div class="hero-cinema__stage">
     <figure class="hero-room hero-cinema__scene hero-cinema__scene--wide" data-cinema-photo="0" aria-hidden="true">
       <div class="photo-window">
@@ -7,29 +7,22 @@
           sizes="100vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async"></picture>
       </div><figcaption>Interior da Sr. Navalha</figcaption>
     </figure>
-    <figure class="hero-facade hero-cinema__scene hero-cinema__scene--portrait" data-cinema-photo="1" aria-hidden="true">
-      <div class="photo-window"><img src="assets/images/hero-redesign/fachada-720.webp"
-        srcset="assets/images/hero-redesign/fachada-480.webp 480w,assets/images/hero-redesign/fachada-720.webp 720w"
-        sizes="(max-width:700px) 70vw, 39vw" width="720" height="1060" alt="" loading="lazy" decoding="async"></div>
-      <figcaption>A fachada da Sr. Navalha</figcaption>
-    </figure>
-    <figure class="hero-detail hero-cinema__scene hero-cinema__scene--portrait" data-cinema-photo="2" aria-hidden="true">
-      <div class="photo-window"><img src="assets/images/ritual/instrumentos-720.webp"
-        width="720" height="1280" alt="" loading="lazy" decoding="async"></div>
-      <figcaption>Instrumentos de precisão</figcaption>
-    </figure>
     <span class="hero-cinema__shade" aria-hidden="true"></span>
     <span class="hero-cinema__cut" aria-hidden="true"></span>
     <span class="hero-cinema__curtain" aria-hidden="true"></span>
+    <span class="hero-cinema__light-slit" aria-hidden="true"></span>
   </div>
   <div class="hero-inner wrap">
     <div class="hero-cinema__masthead">
-      <div class="hero-wordmark"><svg class="hero-logo-transparent" viewBox="0 34 640 330" role="img" aria-label="Sr. Navalha Barbearia — marca oficial">
+      <div class="hero-cinema__brand-lockup" aria-label="Sr. Navalha Barbearia">
+        <div class="hero-pole hero-pole--left" aria-hidden="true"><div class="hero-pole__object"><span class="hero-pole__mount" aria-hidden="true"><span class="hero-pole__mount-plate"></span><span class="hero-pole__mount-arm"></span></span><span class="hero-pole__cap hero-pole__cap--top"></span><span class="hero-pole__collar hero-pole__collar--top"></span><span class="hero-pole__glass"><span class="hero-pole__rotor"></span><span class="hero-pole__glass-reflection"></span></span><span class="hero-pole__collar hero-pole__collar--bottom"></span><span class="hero-pole__cap hero-pole__cap--bottom"></span></div></div>
+        <div class="hero-wordmark"><svg class="hero-logo-transparent" viewBox="0 34 640 330" role="img" aria-label="Sr. Navalha Barbearia — marca oficial">
 <defs><filter id="sr-logo-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.105  0 0 0 0 0.09  0 0 0 0 0.082  0.333 0.333 0.333 0 -0.12"></feColorMatrix></filter></defs>
 <image href="assets/images/v8/logo-640.webp" width="640" height="412" filter="url(#sr-logo-ink)"></image></svg><span aria-hidden="true">GRAVATÁ / PE</span></div>
+        <div class="hero-pole hero-pole--right" aria-hidden="true"><div class="hero-pole__object"><span class="hero-pole__mount" aria-hidden="true"><span class="hero-pole__mount-plate"></span><span class="hero-pole__mount-arm"></span></span><span class="hero-pole__cap hero-pole__cap--top"></span><span class="hero-pole__collar hero-pole__collar--top"></span><span class="hero-pole__glass"><span class="hero-pole__rotor"></span><span class="hero-pole__glass-reflection"></span></span><span class="hero-pole__collar hero-pole__collar--bottom"></span><span class="hero-pole__cap hero-pole__cap--bottom"></span></div></div>
+      </div>
       <p class="hero-cinema__masthead-tag">BARBEARIA / EXPERIÊNCIA / PRECISÃO</p>
     </div>
-    <div class="hero-pole hero-pole--left" aria-hidden="true"><div class="hero-pole__object"><span class="hero-pole__mount" aria-hidden="true"><span class="hero-pole__mount-plate"></span><span class="hero-pole__mount-arm"></span></span><span class="hero-pole__cap hero-pole__cap--top"></span><span class="hero-pole__collar hero-pole__collar--top"></span><span class="hero-pole__glass"><span class="hero-pole__rotor"></span><span class="hero-pole__glass-reflection"></span></span><span class="hero-pole__collar hero-pole__collar--bottom"></span><span class="hero-pole__cap hero-pole__cap--bottom"></span></div></div><div class="hero-pole hero-pole--right" aria-hidden="true"><div class="hero-pole__object"><span class="hero-pole__mount" aria-hidden="true"><span class="hero-pole__mount-plate"></span><span class="hero-pole__mount-arm"></span></span><span class="hero-pole__cap hero-pole__cap--top"></span><span class="hero-pole__collar hero-pole__collar--top"></span><span class="hero-pole__glass"><span class="hero-pole__rotor"></span><span class="hero-pole__glass-reflection"></span></span><span class="hero-pole__collar hero-pole__collar--bottom"></span><span class="hero-pole__cap hero-pole__cap--bottom"></span></div></div>
     <div class="hero-centerpiece">
       <p class="hero-topline"><span class="hero-topline__rule" aria-hidden="true"></span>TRADIÇÃO NO CORTE. EXCELÊNCIA NO RESULTADO.</p>
       <div class="hero-cinema__headline">
@@ -43,20 +36,6 @@
         <a class="text-link hero-explore" href="#casa">Conhecer a casa
           <svg class="icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v18m-7-7 7 7 7-7"></path></svg>
         </a>
-      </div>
-    </div>
-    <div class="hero-composition hero-cinema__sequence" role="group" aria-label="Explore os ambientes da Sr. Navalha">
-      <div class="hero-cinema__sequence-heading"><span>OLHAR DE PERTO</span><span>01 — 03</span></div>
-      <div class="hero-cinema__controls">
-        <button type="button" class="hero-cinema__scene-button is-selected" data-cinema-shot="0" aria-pressed="true">
-          <span class="hero-cinema__scene-number">01</span><span>O ambiente</span>
-        </button>
-        <button type="button" class="hero-cinema__scene-button" data-cinema-shot="1" aria-pressed="false">
-          <span class="hero-cinema__scene-number">02</span><span>A casa</span>
-        </button>
-        <button type="button" class="hero-cinema__scene-button" data-cinema-shot="2" aria-pressed="false">
-          <span class="hero-cinema__scene-number">03</span><span>O ritual</span>
-        </button>
       </div>
     </div>
     <div class="hero-bottom"><span>SR. NAVALHA / GRAVATÁ, PERNAMBUCO</span><span class="hero-bottom__line" aria-hidden="true"></span><span>DESDE A PRIMEIRA IMPRESSÃO</span></div>
