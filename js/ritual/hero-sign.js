@@ -51,6 +51,23 @@ export function initHeroExperience(){
      a.id='sr-hero-curtain';
      effects.push(a);
     }
+    // Synchronized physical-pole entrance after the scissors, using only
+    // transform and opacity. Cleanup belongs to this existing timeline.
+    $('.hero-cinema__brand-lockup .hero-pole__object',hero).forEach((node,index)=>{
+      styles.push({node,opacity:node.style.opacity,clipPath:node.style.clipPath});
+      const side=index===0?-1:1;
+      const effect=node.animate([
+        {opacity:0,transform:`perspective(600px) translate3d(${side*18}px,13px,0) rotateY(${-side*22}deg) scale(.91)`},
+        {offset:.77,opacity:1,transform:'translate3d(0,-2px,0) scale(1.015)'},
+        {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+      ],{duration:850,delay:160+index*90,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+      effects.push(effect);
+    });
+    const photograph=$('.hero-room .photo-window img',hero);
+    if(photograph)effects.push(photograph.animate(
+      [{transform:'scale(1.11)'},{transform:'scale(1.04)'}],
+      {duration:1600,delay:40,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'}
+    ));
     const decorated=[
      ['.hero-bottom',1090],['.hero-cinema__masthead-tag',185]
     ];

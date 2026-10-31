@@ -144,11 +144,18 @@ export function initProducts(){
  const fine=matchMedia('(hover:hover) and (pointer:fine)');
  for(const card of options){
   const view=card.querySelector('.product-option__preview');
-  view?.addEventListener('click',event=>select(card,{keyboard:event.detail===0}));
+  view?.addEventListener('click',event=>{
+   void select(card,{keyboard:event.detail===0});
+   if(matchMedia('(max-width:900px)').matches){
+    $('.catalog-workbench .product-editorial',catalog)?.scrollIntoView({
+      block:'start',behavior:motionOK()?'smooth':'auto'
+    });
+   }
+  });
   if(fine.matches){
    card.addEventListener('pointerenter',()=>{
     cancelHover();
-    hoverTimer=setTimeout(()=>{hoverTimer=0;select(card)},160);
+    hoverTimer=setTimeout(()=>{hoverTimer=0;if(!card.hidden)void select(card)},235);
    });
    card.addEventListener('pointerleave',cancelHover);
    card.addEventListener('focusin',cancelHover);
