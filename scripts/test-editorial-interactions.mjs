@@ -117,9 +117,13 @@ try{
   await pictured.click({force:true});
   await page.waitForFunction(()=>document.querySelector('.product-info h3')?.textContent==='Óleo para barba',
     undefined,{timeout:4500});
+  // The photo engine briefly retains the previous image beneath the new
+  // photograph. Assert its settled state rather than racing a 620ms transition.
+  await page.waitForFunction(()=>document.querySelectorAll('.product-hero .image-stage img').length===1,
+    undefined,{timeout:2500});
   check(width+' imagem real disponível e consulta preservada',
     await catalog.locator('.no-photo').count()===0&&
-    await page.locator('.product-hero .image-stage img').count()===1&&
+    await page.locator('.product-hero .image-stage img.is-current').count()===1&&
     (await page.locator('.product-info a').getAttribute('href')).includes('wa.me/'));
   const team=page.locator('#equipe');
   await team.scrollIntoViewIfNeeded();
@@ -189,8 +193,14 @@ try{
     positions.every((p,i)=>Math.abs(p.height-afterPositions[i].height)<=1&&
       Math.abs(p.top-afterPositions[i].top)<=1),
     {positions,afterPositions});
-  check(width+' sem overflow horizontal',
-    await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  const fit=await page.evaluate(()=>{
+    const extent=document.documentElement.scrollWidth-innerWidth;
+    const offenders=extent>1?[...document.querySelectorAll('body *')]
+      .filter(n=>{const r=n.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left< -1)&&getComputedStyle(n).position!=='fixed'})
+      .slice(0,16).map(n=>({tag:n.tagName,className:String(n.className).slice(0,100),right:Math.round(n.getBoundingClientRect().right),left:Math.round(n.getBoundingClientRect().left)})):[];
+    return {extent,offenders};
+  });
+  check(width+' sem overflow horizontal',fit.extent<=1,fit);
   check(width+' sem erros JS',errors.length===0,errors);
   await context.close();
  }
