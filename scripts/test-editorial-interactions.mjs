@@ -32,21 +32,36 @@ try{
     !document.querySelector('.hero.is-arriving'),undefined,{timeout:60000});
   check(width+' hero sem link antigo',await page.locator('.hero-bottom a[href="#servicos"]').count()===0);
   const hero=await page.evaluate(()=>{
-    const root=document.querySelector('.hero'),stage=root.querySelector('.hero-photo-stage');
-    const title=root.querySelector('h1'),logo=root.querySelector('.hero-logo-transparent');
+    const root=document.querySelector('.hero'),
+      stage=root.querySelector('.hero-cinema__stage'),
+      title=root.querySelector('h1'),
+      logo=root.querySelector('.hero-logo-transparent');
     const rect=stage.getBoundingClientRect(),heading=title.getBoundingClientRect();
-    return {newHero:root.classList.contains('hero--atelier'),
-      stage:!!stage&&rect.width>190&&rect.height>310,
-      logo:!!logo&&logo.getBoundingClientRect().width>90,
-      title:heading.width>200&&getComputedStyle(title).opacity==='1',
-      columns:getComputedStyle(root.querySelector('.hero-stage')).gridTemplateColumns,
+    return {
+      cinema:root.classList.contains('hero--cinema'),
+      stage:rect.width>190&&rect.height>310,
+      logo:logo.getBoundingClientRect().width>90,
+      heading:heading.width>200&&getComputedStyle(title).opacity==='1',
       canBook:root.querySelector('.hero-invitation>.button')?.getAttribute('href')==='agendar.html',
       stageWithin:rect.right<=innerWidth+1,
+      localPhoto:root.querySelector('.hero-room img')?.currentSrc.includes('hero-ambiente'),
       intro:root.querySelector('.hero-intro')?.textContent?.includes('Mais que um corte')
     };
   });
-  check(width+' novo hero editorial montado, legível e sem overflow',
-    hero.newHero&&hero.stage&&hero.logo&&hero.title&&hero.canBook&&hero.stageWithin&&hero.intro,hero);
+  check(width+' novo hero cinematográfico, fotografias locais, CTA e sem overflow',
+    hero.cinema&&hero.stage&&hero.logo&&hero.heading&&hero.canBook&&
+    hero.stageWithin&&hero.localPhoto&&hero.intro,hero);
+  // Three live frames, but only one scene can be pressed at a time.
+  const scenes=page.locator('.hero-cinema__scene-button');
+  check(width+' três enquadramentos acessíveis',await scenes.count()===3);
+  await scenes.nth(1).click({force:true});
+  check(width+' opção fachada altera quadro real',
+    await scenes.nth(1).getAttribute('aria-pressed')==='true'&&
+    await page.locator('.hero').getAttribute('data-cinema-scene')==='1');
+  await scenes.nth(2).focus();
+  await page.keyboard.press('ArrowRight');
+  check(width+' teclado navega pelos enquadramentos',
+    await page.locator('.hero').getAttribute('data-cinema-scene')==='0');
   const service=page.locator('.mirror-choice[data-ritual="barboterapia"]');
   await service.scrollIntoViewIfNeeded();
   await service.hover({force:true});
