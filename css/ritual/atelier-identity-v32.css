@@ -257,3 +257,8 @@
  #produtos .product-catalog__photo img{transition:none!important;transform:none!important}
  #equipe .team-grain{animation:none!important;transform:none!important}
 }
+
+/* Container-scoped clipping: the picture/engraving layers and masked
+   galleries have internal scrollable overflow but must not expand the page.
+   Vertical flow remains native; no document-wide overflow suppression. */
+#servicos.rituals,#produtos.products{overflow-x:clip}
