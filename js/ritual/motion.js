@@ -136,7 +136,7 @@ export function initMotion(){
    node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
    const rect=node.getBoundingClientRect();
    // Do not hide a scene the reader has already reached (late JS / deep link).
-   if(!canMove()||rect.top<innerHeight*.94){clear(node);continue;}
+   if(!canMove()||(rect.top<innerHeight*.94&&!node.matches('h2'))){clear(node);continue;}
    node.dataset.cmState='pending';node.classList.add('cm-pending');pending.add(node);observer.observe(node);
   }
  };

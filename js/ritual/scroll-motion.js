@@ -92,7 +92,7 @@ export function initDepthMotion(scroll){
    let node=entry.frame,top=0;
    while(node){top+=node.offsetTop;node=node.offsetParent;}
    const height=entry.frame.offsetHeight;
-   const intensity=entry.frame.dataset.depth==='hero'?24:entry.frame.dataset.depth==='print'?10:18;
+   const intensity=entry.frame.dataset.depth==='hero'?26:entry.frame.dataset.depth==='print'?15:22;
    return {entry,top,height,start:(top-innerHeight)/extent*100,end:(top+height)/extent*100,range:Math.min(intensity,height*.045)*((compact.matches||modest)?0.6:1)};
   });
   for(const {entry,top,height,range,start,end} of positions){

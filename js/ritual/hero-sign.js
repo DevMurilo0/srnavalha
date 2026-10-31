@@ -30,26 +30,26 @@ export function initHeroExperience(){
   };
   try{
    $$('.hero-cinema__shutter',hero).forEach((node,index)=>play(node,
-    [{transform:'translateX(0)'},{transform:`translateX(${index?101:-101}%)`}],0,1040,'sr-hero-curtain'));
-   $$('.hero-pole__object',hero).forEach((node,index)=>enter(node,65,index?14:-14,5,980));
-   enter($('.hero-wordmark>span',hero),65);
+    [{transform:'translateX(0)'},{transform:`translateX(${index?101:-101}%)`}],0,1380,'sr-hero-curtain'));
+   $$('.hero-pole__object',hero).forEach((node,index)=>enter(node,55,index?14:-14,5,1220));
+   enter($('.hero-wordmark>span',hero),80,0,4,1060);
    const tag=$('.hero-cinema__masthead-tag',hero);
    styles.push({node:tag,opacity:tag.style.opacity});tag.style.opacity='1';
-   $$('span',tag).forEach((node,i)=>enter(node,100+i*55,(i-1)*7,0,880));
-   $$('i',tag).forEach(node=>play(node,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],100,340));
+   $$('span',tag).forEach((node,i)=>enter(node,95+i*70,(i-1)*9,0,1040));
+   $$('i',tag).forEach(node=>play(node,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],110,670));
    const topline=$('.hero-topline',hero);
    styles.push({node:topline,opacity:topline.style.opacity});topline.style.opacity='1';
-   $$('span',topline).forEach((node,i)=>enter(node,140+i*65,i?7:-7,0,850));
+   $$('span',topline).forEach((node,i)=>enter(node,165+i*80,i?10:-10,0,1050));
    const picture=$('.hero-room picture',hero);
-   play(picture,[{transform:'scale(1.045)'},{transform:'scale(1)'}],0,1550,'sr-hero-camera');
+   play(picture,[{transform:'scale(1.045)'},{transform:'scale(1)'}],0,2150,'sr-hero-camera');
    const heading=$('h1',hero);
    styles.push({node:heading,opacity:heading.style.opacity});heading.style.opacity='1';
-   effects.push(revealText(heading,'lightcut',{delay:450,duration:1350}));
-   enter($('.hero-intro',hero),640,0,6,920);
+   effects.push(revealText(heading,'lightcut',{delay:300,duration:1760}));
+   enter($('.hero-intro',hero),620,0,9,1050);
    const booking=$('.hero-cta',hero);
    styles.push({node:booking,opacity:booking.style.opacity});booking.style.opacity='1';
-   play(booking,[{opacity:0,transform:'translate3d(0,12px,0) scale(.99)'},{offset:.24,opacity:1},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}],740,920,'sr-hero-booking-arrival');
-   enter($('.hero-explore',hero),820,0,3,760);
+   play(booking,[{opacity:0,transform:'translate3d(0,12px,0) scale(.99)'},{offset:.24,opacity:1},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}],700,1200,'sr-hero-booking-arrival');
+   enter($('.hero-explore',hero),880,0,3,930);
    Promise.allSettled(effects.map(effect=>effect.finished)).then(settle);
   }catch{settle();}
  };
