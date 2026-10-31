@@ -1,0 +1,57 @@
+{
+  "baseCommit": "1533be0e25c63f0deea98c7f65598108a77d3931",
+  "browser": "Chromium 1243, Linux headless",
+  "suites": {
+    "cinematic": {
+      "checks": 109,
+      "passed": 109,
+      "failures": []
+    },
+    "scissors": {
+      "checks": 39,
+      "passed": 39,
+      "failures": []
+    },
+    "navigation": {
+      "checks": 66,
+      "passed": 66,
+      "failures": []
+    },
+    "booking": {
+      "checks": 101,
+      "passed": 101,
+      "failures": []
+    },
+    "bookingState": {
+      "checks": 12,
+      "passed": 12,
+      "failures": []
+    },
+    "hero": {
+      "checks": 62,
+      "passed": 62,
+      "failures": []
+    },
+    "resilience": {
+      "checks": 11,
+      "passed": 11,
+      "failures": []
+    }
+  },
+  "staticConsistency": "passed",
+  "content": {
+    "total": 69,
+    "failures": []
+  },
+  "bookingLocal": {
+    "checks": 10,
+    "status": "passed"
+  },
+  "editorialInteractions": "passed at 390 and 1280",
+  "cpu4xSmoke": "passed functionality; no comparative FPS claim",
+  "review": "independent reviewer: ship",
+  "limitations": [
+    "No physical-device GPU or touch testing",
+    "Taste whole-page style gate reports findings; brief-specific exceptions and out-of-scope findings documented in README"
+  ]
+}

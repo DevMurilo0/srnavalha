@@ -43,43 +43,8 @@
 .snv2-tag{font-size:11px;letter-spacing:.16em;max-width:100%;text-wrap:balance}
 /* The loader reveals the static composition. Hero motion has its own owner
    and starts only after all temporary surfaces and logo effects are removed. */
-html.sr-loader-boot .hero{
-  opacity:1!important;transform:none!important;transition:none!important;
-}
-html.sr-loader-boot .hero-wordmark,
-html.sr-loader-boot .hero h1,
-html.sr-loader-boot .hero-intro,
-html.sr-loader-boot .hero-composition,
-html.sr-loader-boot .hero-bottom,
-html.sr-loader-boot .hero-facade,
-html.sr-loader-boot .hero-room,
-html.sr-loader-boot .hero-detail{
-  transition:none!important;
-}
-html.sr-loader-boot:not(.sr-cut-reveal) .hero-wordmark,
-html.sr-loader-boot:not(.sr-cut-reveal) .hero h1,
-html.sr-loader-boot:not(.sr-cut-reveal) .hero-intro,
-html.sr-loader-boot:not(.sr-cut-reveal) .hero-composition,
-html.sr-loader-boot:not(.sr-cut-reveal) .hero-bottom{
-  opacity:0;
-}
-html.sr-loader-boot.sr-cut-reveal .hero-wordmark,
-html.sr-loader-boot.sr-cut-reveal .hero h1,
-html.sr-loader-boot.sr-cut-reveal .hero-intro,
-html.sr-loader-boot.sr-cut-reveal .hero-composition,
-html.sr-loader-boot.sr-cut-reveal .hero-bottom{
-  opacity:1;
-}
 @media(prefers-reduced-motion:reduce){
   #sr-loader-stage{display:none!important}
-  html.sr-loader-boot .hero-wordmark,
-  html.sr-loader-boot .hero h1,
-  html.sr-loader-boot .hero-intro,
-  html.sr-loader-boot .hero-composition,
-  html.sr-loader-boot .hero-bottom{
-    transition:none!important;transform:none!important;opacity:1!important;
-  }
 }
 
 /* Keep the shared logo anchor still for the entire handoff, also on mobile. */
-html.sr-loader-boot .hero-wordmark{transform:none!important}

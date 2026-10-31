@@ -147,7 +147,7 @@ html.sr-loader-boot #sr-loader-stage.snv2-loader{display:block}
   opacity:.25;transform:scaleY(2);
 }
 .snv2-run .snv2-fill{
-  animation:snv2-progress 2250ms cubic-bezier(.65,0,.35,1) 180ms both;
+  animation:snv2-progress 1000ms cubic-bezier(.65,0,.35,1) 80ms both;
 }
 @keyframes snv2-progress{to{transform:scaleX(1)}}
 .snv2-scissors{
@@ -163,7 +163,7 @@ html.sr-loader-boot #sr-loader-stage.snv2-loader{display:block}
 @keyframes snv2-blade-a{from{transform:rotate(-3deg)}to{transform:rotate(15deg)}}
 @keyframes snv2-blade-b{from{transform:rotate(3deg)}to{transform:rotate(-15deg)}}
 .snv2-run .snv2-scissors{
-  animation:snv2-scissors-travel 2250ms cubic-bezier(.65,0,.35,1) 180ms both;
+  animation:snv2-scissors-travel 1000ms cubic-bezier(.65,0,.35,1) 80ms both;
 }
 @keyframes snv2-scissors-travel{
   to{transform:translate3d(min(320px,70vw),0,0)}

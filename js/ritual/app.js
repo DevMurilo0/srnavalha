@@ -1,4 +1,4 @@
-import { $, $$, startMotion } from './core.js';
+import { $, $$, startMotion, animate } from './core.js';
 import { initAlbum } from './album.js';
 import { initMotion } from './motion.js';
 import { initAtmosphere } from './atmosphere.js';
@@ -100,21 +100,28 @@ if(!root.classList.contains('enhanced')){
   observer.observe(albumRoot);
  }else album();
  initialize(initMap);
- // Native observation keeps the fixed action clear of the footer and,
- // on phones, the hero's existing action when it occupies the same corner.
- const bookingLink=$('.sr-booking-fixed');
- const footer=$('footer'), heroBooking=$('.hero .button');
- if(bookingLink && footer && 'IntersectionObserver' in window){
-  const visible=new Set(), compactBooking=matchMedia('(max-width:760px)');
-  const syncBooking=()=>{bookingLink.hidden=visible.has(footer)||(compactBooking.matches&&visible.has(heroBooking))};
-  const bookingObserver=new IntersectionObserver(entries=>{
-   entries.forEach(entry=>{if(entry.isIntersecting)visible.add(entry.target);else visible.delete(entry.target)});
-   syncBooking();
-  });
-  bookingObserver.observe(footer);
-  if(heroBooking)bookingObserver.observe(heroBooking);
-  compactBooking.addEventListener('change',syncBooking);
+ // The fixed action appears only beyond the hero, on every viewport.
+ // Visibility also removes the link from keyboard navigation while concealed.
+ const bookingLink=$('.sr-booking-fixed'),footer=$('footer'),hero=$('.hero');
+ if(bookingLink&&hero&&'IntersectionObserver' in window){
+  bookingLink.hidden=true;
+  const visible=new Set([hero]);
+  let arrival;
+  const headerInset=Math.round($('.site-header')?.getBoundingClientRect().height||0);
+  const observer=new IntersectionObserver(entries=>{
+   entries.forEach(entry=>entry.isIntersecting&&entry.intersectionRect.height>2?visible.add(entry.target):visible.delete(entry.target));
+   const hidden=visible.has(hero)||visible.has(footer);
+   if(bookingLink.hidden===hidden)return;
+   arrival?.cancel();bookingLink.hidden=hidden;
+   if(!hidden&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    arrival=animate(bookingLink,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'cubic-bezier(.16,1,.3,1)'});
+   }
+  },{threshold:[0,.01],rootMargin:`-${headerInset}px 0px 0px 0px`});
+  observer.observe(hero);if(footer)observer.observe(footer);
+  addEventListener('pagehide',()=>{arrival?.cancel();observer.disconnect()},{once:true});
+  addEventListener('pageshow',event=>{if(event.persisted){observer.observe(hero);if(footer)observer.observe(footer)}});
  }
+
 
 
 }

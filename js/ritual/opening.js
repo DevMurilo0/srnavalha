@@ -106,11 +106,11 @@ export function openRitual() {
       addEventListener(type,finish,{once:true,passive:true,signal:signal.signal});
     }
     addEventListener('scroll',finish,{once:true,passive:true,signal:signal.signal});
-    // Browser address bars change viewport HEIGHT on phones, which should
-    // not abort the choreography midway. Only width changes/rotation do.
-    const initialWidth=innerWidth;
+    // A resize invalidates the measured FLIP destination. Settle both timelines
+    // rather than flying toward stale geometry, including short desktop windows.
+    const initialWidth=innerWidth,initialHeight=innerHeight;
     addEventListener('resize',()=>{
-      if (Math.abs(innerWidth-initialWidth)>2) finish();
+      if (Math.abs(innerWidth-initialWidth)>2||Math.abs(innerHeight-initialHeight)>2) finish();
     },{passive:true,signal:signal.signal});
     document.addEventListener('motionchange',()=>{
       if (!canMove()) finish();
@@ -135,10 +135,11 @@ export function openRitual() {
       // All geometry is captured before writes. The wordmark stays stationary.
       const sourceBox = source?.getBoundingClientRect();
       const targetBox = target?.getBoundingClientRect();
+      const targetInk = target ? getComputedStyle(target).filter : 'none';
       const mobile = W <= 700;
-      const FADE = 240, CUT = mobile ? 1350 : 1500, OPEN = 680;
+      const FADE = 160, CUT = mobile ? 1220 : 1320, OPEN = 520;
       const tCut = FADE, tEnd = tCut + CUT;
-      const tMark = tCut + CUT * .16, logoTime = mobile ? 900 : 960;
+      const tMark = tCut + CUT * .16, logoTime = mobile ? 1040 : 1120;
       const scale = mobile ? 1.65 : 1.9;
       const startY = -80, endY = H + 80;
       const cutEase = 'cubic-bezier(.38,.18,.36,1)';
@@ -232,17 +233,34 @@ export function openRitual() {
         copy.removeAttribute('role'); copy.removeAttribute('aria-label');
         copy.setAttribute('aria-hidden','true');
         copy.style.visibility = 'visible';
-        copy.querySelector('filter').id = 'snv2-logo-flight-ink';
+        // The destination artwork is the first child. Both copies have the
+        // exact same viewBox and pixel bounds; only a *temporary* matte crossfades.
+        // This avoids animating CSS filter (which repaints the logo every frame).
+        copy.style.filter=targetInk;
+        copy.querySelector('filter').id='snv2-logo-flight-ink';
         copy.querySelector('image').setAttribute('filter','url(#snv2-logo-flight-ink)');
-        flight.append(copy); stage.append(flight); temporary.push(flight);
+        const matte=target.cloneNode(true);
+        matte.removeAttribute('role');matte.removeAttribute('aria-label');
+        matte.setAttribute('aria-hidden','true');
+        matte.style.visibility='visible';
+        Object.assign(matte.style,{position:'absolute',inset:'0',filter:'brightness(1) invert(0)'});
+        matte.querySelector('filter').id='snv2-logo-matte-ink';
+        matte.querySelector('image').setAttribute('filter','url(#snv2-logo-matte-ink)');
+        flight.append(copy,matte);stage.append(flight);temporary.push(flight);
+        // The paper ink dissolves into the lit sign using compositor opacity.
+        // The flight object owns position and scale; neither child moves.
+        play(matte,[{opacity:1},{opacity:0}],
+          {duration:Math.round(logoTime*.65),delay:tMark+90,easing:'cubic-bezier(.42,0,.58,1)',fill:'both'});
         const move = `translate3d(${destLeft-left}px,${destTop-top}px,0) scale(${targetUnit/sourceUnit})`;
+        // One visible mark at a time. Atomic compositor handoffs avoid the
+        // opacity dip produced by crossfading two copies of the same white ink.
         play(flight,[{transform:'translate3d(0,0,0) scale(1)'},{transform:move}],
-          {duration:logoTime-160,delay:tMark+80,easing:'cubic-bezier(.65,0,.2,1)'});
-        play(flight,[{opacity:0},{opacity:1}],{duration:80,delay:tMark,easing:'linear'});
-        play(logoPlate,[{opacity:1},{opacity:0}],{duration:80,delay:tMark,easing:'linear'});
-        const landing = tMark+logoTime-80;
-        play(flight,[{opacity:1},{opacity:0}],{duration:160,delay:landing,easing:'linear',fill:'forwards'});
-        play(target,[{opacity:0},{opacity:1}],{duration:160,delay:landing,easing:'linear'});
+          {duration:logoTime,delay:tMark,easing:'cubic-bezier(.55,.04,.14,1)'});
+        play(flight,[{opacity:0},{opacity:1}],{duration:1,delay:tMark,easing:'steps(1,end)'});
+        play(logoPlate,[{opacity:1},{opacity:0}],{duration:1,delay:tMark,easing:'steps(1,end)'});
+        const landing = tMark+logoTime;
+        play(flight,[{opacity:1},{opacity:0}],{duration:1,delay:landing,easing:'steps(1,end)',fill:'forwards'});
+        play(target,[{opacity:0},{opacity:1}],{duration:1,delay:landing,easing:'steps(1,end)'});
         // Backwards fill already holds opacity at zero until landing. Restore
         // visibility now so a delayed JS timer cannot leave a handoff gap.
         target.style.visibility = previous;
@@ -255,8 +273,8 @@ export function openRitual() {
     // The CSS bar/scissors and JS percentage MUST share the same epoch
     // and easing. Previously CSS began during parsing but JS much later.
     // This created the progress drift visible in slower mobile browsers.
-    const DURATION=2250;
-    const epoch=performance.now()+180;
+    const DURATION=1000;
+    const epoch=performance.now()+80;
     // Exact cubic-bezier(.65,0,.35,1), matching loader-v2.css.
     // Newton solve x(t)=progress, then derive y(t); ~25 calls/sec.
     const sample=(t,a,b)=>{
@@ -281,7 +299,7 @@ export function openRitual() {
         lastCounter=now;
       }
       if(p<1) raf=requestAnimationFrame(tick);
-      else delay(beginCut,160);
+      else delay(beginCut,80);
     }
     raf=requestAnimationFrame(tick);
   });

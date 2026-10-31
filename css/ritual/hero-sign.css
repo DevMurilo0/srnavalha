@@ -3,8 +3,6 @@
    continuous animation is a single transform on the striped cylinder.
    The two poles stay subordinate to the typography in the hero. */
 .hero-pole{
-  --pole-width:clamp(40px,3.9vw,52px);
-  --pole-height:clamp(128px,13vw,167px);
   position:absolute;
   top:clamp(13px,2vw,27px);
   width:var(--pole-width);
@@ -125,10 +123,9 @@
 }
 html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{animation-play-state:running}
 @media(max-width:1100px){
-  .hero-pole{--pole-width:38px;--pole-height:135px}
 }
 @media(max-width:700px){
-  .hero-pole{--pole-width:25px;--pole-height:87px;top:8px}
+  .hero-pole{top:8px}
   .hero-pole--left{left:1%}
   .hero-pole--right{right:1%}
   .hero-pole__mount-plate{border-radius:2px}
@@ -138,63 +135,6 @@ html.motion-on:not(.sr-loader-boot) .hero.is-poles-visible .hero-pole__rotor{ani
 @media(prefers-reduced-motion:reduce){
   .hero-pole__rotor{animation:none!important;will-change:auto}
 }
-
-/* Before the first frame of the loader, park every animated hero element.
-   When Perfect Cut is removed, the compositor still sees them at opacity 0.
-   A pre-painted mask hides each photo before the first animation frame.
-   The WAAPI 'both' fill holds the final reveal until cleanup.
-   The official logo is deliberately NOT hidden: it belongs to the FLIP.
-   The small side label can fall independently without moving the logo. */
-html.sr-hero-queued .hero .hero-pole__object,
-html.sr-hero-queued .hero .hero-wordmark > span,
-html.sr-hero-queued .hero h1,
-html.sr-hero-queued .hero .hero-intro,
-html.sr-hero-queued .hero .hero-facade,
-html.sr-hero-queued .hero .hero-room,
-html.sr-hero-queued .hero .hero-detail,
-html.sr-hero-queued .hero .hero-invitation > p,
-html.sr-hero-queued .hero .hero-invitation > .button,
-html.sr-hero-queued .hero .hero-invitation > .text-link,
-html.sr-hero-queued .hero .hero-bottom{
- opacity:0;
-}
-/* The pre-paint mask guarantees no photograph appears BEFORE its reveal,
-   including on a slow device or during a delayed compositor frame. */
-html.sr-hero-queued .hero .hero-facade,
-html.sr-hero-queued .hero .hero-room,
-html.sr-hero-queued .hero .hero-detail{
- clip-path:inset(0 0 100% 0);
-}
-/* During the panels' opening the higher-specificity loader rules otherwise
-   reveal h1 early. Keep it parked until its individual fall actually starts. */
-html.sr-loader-boot.sr-hero-queued .hero h1{opacity:0}
-/* Visitors who request reduced motion must never see queued content. */
-@media(prefers-reduced-motion:reduce){
- html.sr-hero-queued .hero .hero-pole__object,
- html.sr-hero-queued .hero .hero-wordmark > span,
- html.sr-hero-queued .hero h1,
- html.sr-hero-queued .hero .hero-intro,
- html.sr-hero-queued .hero .hero-facade,
- html.sr-hero-queued .hero .hero-room,
- html.sr-hero-queued .hero .hero-detail,
- html.sr-hero-queued .hero .hero-invitation > p,
- html.sr-hero-queued .hero .hero-invitation > .button,
- html.sr-hero-queued .hero .hero-invitation > .text-link,
- html.sr-hero-queued .hero .hero-bottom{
-  opacity:1;
- }
-}
-
-@media(prefers-reduced-motion:reduce){
- html.sr-hero-queued .hero .hero-facade,
- html.sr-hero-queued .hero .hero-room,
- html.sr-hero-queued .hero .hero-detail{clip-path:none!important}
-}
-/* Hold the static layout beneath the cut; never start a second entrance there. */
-.hero.is-arriving .hero-facade,.hero.is-arriving .hero-room,.hero.is-arriving .hero-detail{transition:none!important}
-.hero.is-arriving .title-mask{overflow:visible}
-@media(prefers-reduced-motion:reduce){.hero-pole__rotor{animation:none!important}}
-
 
 /* Machined-steel barber pole — photographed-metal treatment.
    Less toy-like domes, taller optical chamber, fine polished steel ribs

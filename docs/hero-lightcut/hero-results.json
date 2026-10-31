@@ -1,0 +1,2215 @@
+{
+  "checks": [
+    {
+      "name": "320×568: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 94,
+          "y": 98,
+          "width": 132,
+          "height": 68.0625,
+          "top": 98,
+          "right": 226,
+          "bottom": 166.0625,
+          "left": 94
+        },
+        "poles": [
+          {
+            "x": 46,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 71,
+            "bottom": 179.875,
+            "left": 46
+          },
+          {
+            "x": 249,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 274,
+            "bottom": 179.875,
+            "left": 249
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 440,
+          "width": 280,
+          "height": 60,
+          "top": 440,
+          "right": 300,
+          "bottom": 500,
+          "left": 20
+        },
+        "label": {
+          "x": 94,
+          "y": 170.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 170.0625,
+          "right": 226,
+          "bottom": 181.75,
+          "left": 94
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 324.453125,
+            "width": 186.109375,
+            "height": 43,
+            "top": 324.453125,
+            "right": 206.109375,
+            "bottom": 367.453125,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 362.25,
+            "width": 270.703125,
+            "height": 34,
+            "top": 362.25,
+            "right": 290.703125,
+            "bottom": 396.25,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "320×568: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 94,
+          "y": 98,
+          "width": 132,
+          "height": 68.0625,
+          "top": 98,
+          "right": 226,
+          "bottom": 166.0625,
+          "left": 94
+        },
+        "poles": [
+          {
+            "x": 46,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 71,
+            "bottom": 179.875,
+            "left": 46
+          },
+          {
+            "x": 249,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 274,
+            "bottom": 179.875,
+            "left": 249
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 440,
+          "width": 280,
+          "height": 60,
+          "top": 440,
+          "right": 300,
+          "bottom": 500,
+          "left": 20
+        },
+        "label": {
+          "x": 94,
+          "y": 170.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 170.0625,
+          "right": 226,
+          "bottom": 181.75,
+          "left": 94
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 324.453125,
+            "width": 186.109375,
+            "height": 43,
+            "top": 324.453125,
+            "right": 206.109375,
+            "bottom": 367.453125,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 362.25,
+            "width": 270.703125,
+            "height": 34,
+            "top": 362.25,
+            "right": 290.703125,
+            "bottom": 396.25,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "320×568: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 94,
+          "y": 98,
+          "width": 132,
+          "height": 68.0625,
+          "top": 98,
+          "right": 226,
+          "bottom": 166.0625,
+          "left": 94
+        },
+        "poles": [
+          {
+            "x": 46,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 71,
+            "bottom": 179.875,
+            "left": 46
+          },
+          {
+            "x": 249,
+            "y": 99.875,
+            "width": 25,
+            "height": 80,
+            "top": 99.875,
+            "right": 274,
+            "bottom": 179.875,
+            "left": 249
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 440,
+          "width": 280,
+          "height": 60,
+          "top": 440,
+          "right": 300,
+          "bottom": 500,
+          "left": 20
+        },
+        "label": {
+          "x": 94,
+          "y": 170.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 170.0625,
+          "right": 226,
+          "bottom": 181.75,
+          "left": 94
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 324.453125,
+            "width": 186.109375,
+            "height": 43,
+            "top": 324.453125,
+            "right": 206.109375,
+            "bottom": 367.453125,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 362.25,
+            "width": 270.703125,
+            "height": 34,
+            "top": 362.25,
+            "right": 290.703125,
+            "bottom": 396.25,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "320: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "320: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "320: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "390×844: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 120.90625,
+          "y": 113.53125,
+          "width": 148.1875,
+          "height": 76.40625,
+          "top": 113.53125,
+          "right": 269.09375,
+          "bottom": 189.9375,
+          "left": 120.90625
+        },
+        "poles": [
+          {
+            "x": 71.90625,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 97.90625,
+            "bottom": 207.234375,
+            "left": 71.90625
+          },
+          {
+            "x": 292.09375,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 318.09375,
+            "bottom": 207.234375,
+            "left": 292.09375
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 661.15625,
+          "width": 350,
+          "height": 70,
+          "top": 661.15625,
+          "right": 370,
+          "bottom": 731.15625,
+          "left": 20
+        },
+        "label": {
+          "x": 120.90625,
+          "y": 197.9375,
+          "width": 148.1875,
+          "height": 13,
+          "top": 197.9375,
+          "right": 269.09375,
+          "bottom": 210.9375,
+          "left": 120.90625
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 516.6875,
+            "width": 230.5,
+            "height": 53,
+            "top": 516.6875,
+            "right": 250.5,
+            "bottom": 569.6875,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 564.515625,
+            "width": 335.296875,
+            "height": 42,
+            "top": 564.515625,
+            "right": 355.296875,
+            "bottom": 606.515625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "390×844: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 120.90625,
+          "y": 113.53125,
+          "width": 148.1875,
+          "height": 76.40625,
+          "top": 113.53125,
+          "right": 269.09375,
+          "bottom": 189.9375,
+          "left": 120.90625
+        },
+        "poles": [
+          {
+            "x": 71.90625,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 97.90625,
+            "bottom": 207.234375,
+            "left": 71.90625
+          },
+          {
+            "x": 292.09375,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 318.09375,
+            "bottom": 207.234375,
+            "left": 292.09375
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 661.15625,
+          "width": 350,
+          "height": 70,
+          "top": 661.15625,
+          "right": 370,
+          "bottom": 731.15625,
+          "left": 20
+        },
+        "label": {
+          "x": 120.90625,
+          "y": 197.9375,
+          "width": 148.1875,
+          "height": 13,
+          "top": 197.9375,
+          "right": 269.09375,
+          "bottom": 210.9375,
+          "left": 120.90625
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 516.6875,
+            "width": 230.5,
+            "height": 53,
+            "top": 516.6875,
+            "right": 250.5,
+            "bottom": 569.6875,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 564.515625,
+            "width": 335.296875,
+            "height": 42,
+            "top": 564.515625,
+            "right": 355.296875,
+            "bottom": 606.515625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "390×844: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 120.90625,
+          "y": 113.53125,
+          "width": 148.1875,
+          "height": 76.40625,
+          "top": 113.53125,
+          "right": 269.09375,
+          "bottom": 189.9375,
+          "left": 120.90625
+        },
+        "poles": [
+          {
+            "x": 71.90625,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 97.90625,
+            "bottom": 207.234375,
+            "left": 71.90625
+          },
+          {
+            "x": 292.09375,
+            "y": 117.234375,
+            "width": 26,
+            "height": 90,
+            "top": 117.234375,
+            "right": 318.09375,
+            "bottom": 207.234375,
+            "left": 292.09375
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 661.15625,
+          "width": 350,
+          "height": 70,
+          "top": 661.15625,
+          "right": 370,
+          "bottom": 731.15625,
+          "left": 20
+        },
+        "label": {
+          "x": 120.90625,
+          "y": 197.9375,
+          "width": 148.1875,
+          "height": 13,
+          "top": 197.9375,
+          "right": 269.09375,
+          "bottom": 210.9375,
+          "left": 120.90625
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 516.6875,
+            "width": 230.5,
+            "height": 53,
+            "top": 516.6875,
+            "right": 250.5,
+            "bottom": 569.6875,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 564.515625,
+            "width": 335.296875,
+            "height": 42,
+            "top": 564.515625,
+            "right": 355.296875,
+            "bottom": 606.515625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "390: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "390: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "390: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "430×932: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 133.296875,
+          "y": 116.609375,
+          "width": 163.390625,
+          "height": 84.234375,
+          "top": 116.609375,
+          "right": 296.6875,
+          "bottom": 200.84375,
+          "left": 133.296875
+        },
+        "poles": [
+          {
+            "x": 84.296875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 110.296875,
+            "bottom": 214.21875,
+            "left": 84.296875
+          },
+          {
+            "x": 319.6875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 345.6875,
+            "bottom": 214.21875,
+            "left": 319.6875
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 743.4375,
+          "width": 390,
+          "height": 70,
+          "top": 743.4375,
+          "right": 410,
+          "bottom": 813.4375,
+          "left": 20
+        },
+        "label": {
+          "x": 133.296875,
+          "y": 208.84375,
+          "width": 163.390625,
+          "height": 13,
+          "top": 208.84375,
+          "right": 296.6875,
+          "bottom": 221.84375,
+          "left": 133.296875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 590.515625,
+            "width": 254.1875,
+            "height": 58,
+            "top": 590.515625,
+            "right": 274.1875,
+            "bottom": 648.515625,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 643.15625,
+            "width": 369.765625,
+            "height": 46,
+            "top": 643.15625,
+            "right": 389.765625,
+            "bottom": 689.15625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "430×932: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 133.296875,
+          "y": 116.609375,
+          "width": 163.390625,
+          "height": 84.234375,
+          "top": 116.609375,
+          "right": 296.6875,
+          "bottom": 200.84375,
+          "left": 133.296875
+        },
+        "poles": [
+          {
+            "x": 84.296875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 110.296875,
+            "bottom": 214.21875,
+            "left": 84.296875
+          },
+          {
+            "x": 319.6875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 345.6875,
+            "bottom": 214.21875,
+            "left": 319.6875
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 743.4375,
+          "width": 390,
+          "height": 70,
+          "top": 743.4375,
+          "right": 410,
+          "bottom": 813.4375,
+          "left": 20
+        },
+        "label": {
+          "x": 133.296875,
+          "y": 208.84375,
+          "width": 163.390625,
+          "height": 13,
+          "top": 208.84375,
+          "right": 296.6875,
+          "bottom": 221.84375,
+          "left": 133.296875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 590.515625,
+            "width": 254.1875,
+            "height": 58,
+            "top": 590.515625,
+            "right": 274.1875,
+            "bottom": 648.515625,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 643.15625,
+            "width": 369.765625,
+            "height": 46,
+            "top": 643.15625,
+            "right": 389.765625,
+            "bottom": 689.15625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "430×932: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 133.296875,
+          "y": 116.609375,
+          "width": 163.390625,
+          "height": 84.234375,
+          "top": 116.609375,
+          "right": 296.6875,
+          "bottom": 200.84375,
+          "left": 133.296875
+        },
+        "poles": [
+          {
+            "x": 84.296875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 110.296875,
+            "bottom": 214.21875,
+            "left": 84.296875
+          },
+          {
+            "x": 319.6875,
+            "y": 124.21875,
+            "width": 26,
+            "height": 90,
+            "top": 124.21875,
+            "right": 345.6875,
+            "bottom": 214.21875,
+            "left": 319.6875
+          }
+        ],
+        "cta": {
+          "x": 20,
+          "y": 743.4375,
+          "width": 390,
+          "height": 70,
+          "top": 743.4375,
+          "right": 410,
+          "bottom": 813.4375,
+          "left": 20
+        },
+        "label": {
+          "x": 133.296875,
+          "y": 208.84375,
+          "width": 163.390625,
+          "height": 13,
+          "top": 208.84375,
+          "right": 296.6875,
+          "bottom": 221.84375,
+          "left": 133.296875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 20,
+            "y": 590.515625,
+            "width": 254.1875,
+            "height": 58,
+            "top": 590.515625,
+            "right": 274.1875,
+            "bottom": 648.515625,
+            "left": 20
+          },
+          {
+            "x": 20,
+            "y": 643.15625,
+            "width": 369.765625,
+            "height": 46,
+            "top": 643.15625,
+            "right": 389.765625,
+            "bottom": 689.15625,
+            "left": 20
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "430: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "430: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "430: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "768×1024: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 314.875,
+          "y": 130.71875,
+          "width": 138.234375,
+          "height": 71.265625,
+          "top": 130.71875,
+          "right": 453.109375,
+          "bottom": 201.984375,
+          "left": 314.875
+        },
+        "poles": [
+          {
+            "x": 265.734375,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 291.84375,
+            "bottom": 219.078125,
+            "left": 265.734375
+          },
+          {
+            "x": 476.140625,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 502.25,
+            "bottom": 219.078125,
+            "left": 476.140625
+          }
+        ],
+        "cta": {
+          "x": 34.5625,
+          "y": 716.078125,
+          "width": 300,
+          "height": 70,
+          "top": 716.078125,
+          "right": 334.5625,
+          "bottom": 786.078125,
+          "left": 34.5625
+        },
+        "label": {
+          "x": 314.875,
+          "y": 209.984375,
+          "width": 138.234375,
+          "height": 13,
+          "top": 209.984375,
+          "right": 453.109375,
+          "bottom": 222.984375,
+          "left": 314.875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 34.5625,
+            "y": 508,
+            "width": 369.90625,
+            "height": 86,
+            "top": 508,
+            "right": 404.46875,
+            "bottom": 594,
+            "left": 34.5625
+          },
+          {
+            "x": 34.5625,
+            "y": 585.171875,
+            "width": 553.96875,
+            "height": 67,
+            "top": 585.171875,
+            "right": 588.53125,
+            "bottom": 652.171875,
+            "left": 34.5625
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "768×1024: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 314.875,
+          "y": 130.71875,
+          "width": 138.234375,
+          "height": 71.265625,
+          "top": 130.71875,
+          "right": 453.109375,
+          "bottom": 201.984375,
+          "left": 314.875
+        },
+        "poles": [
+          {
+            "x": 265.734375,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 291.84375,
+            "bottom": 219.078125,
+            "left": 265.734375
+          },
+          {
+            "x": 476.140625,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 502.25,
+            "bottom": 219.078125,
+            "left": 476.140625
+          }
+        ],
+        "cta": {
+          "x": 34.5625,
+          "y": 716.078125,
+          "width": 300,
+          "height": 70,
+          "top": 716.078125,
+          "right": 334.5625,
+          "bottom": 786.078125,
+          "left": 34.5625
+        },
+        "label": {
+          "x": 314.875,
+          "y": 209.984375,
+          "width": 138.234375,
+          "height": 13,
+          "top": 209.984375,
+          "right": 453.109375,
+          "bottom": 222.984375,
+          "left": 314.875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 34.5625,
+            "y": 508,
+            "width": 369.90625,
+            "height": 86,
+            "top": 508,
+            "right": 404.46875,
+            "bottom": 594,
+            "left": 34.5625
+          },
+          {
+            "x": 34.5625,
+            "y": 585.171875,
+            "width": 553.96875,
+            "height": 67,
+            "top": 585.171875,
+            "right": 588.53125,
+            "bottom": 652.171875,
+            "left": 34.5625
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "768×1024: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 314.875,
+          "y": 130.71875,
+          "width": 138.234375,
+          "height": 71.265625,
+          "top": 130.71875,
+          "right": 453.109375,
+          "bottom": 201.984375,
+          "left": 314.875
+        },
+        "poles": [
+          {
+            "x": 265.734375,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 291.84375,
+            "bottom": 219.078125,
+            "left": 265.734375
+          },
+          {
+            "x": 476.140625,
+            "y": 134.609375,
+            "width": 26.109375,
+            "height": 84.46875,
+            "top": 134.609375,
+            "right": 502.25,
+            "bottom": 219.078125,
+            "left": 476.140625
+          }
+        ],
+        "cta": {
+          "x": 34.5625,
+          "y": 716.078125,
+          "width": 300,
+          "height": 70,
+          "top": 716.078125,
+          "right": 334.5625,
+          "bottom": 786.078125,
+          "left": 34.5625
+        },
+        "label": {
+          "x": 314.875,
+          "y": 209.984375,
+          "width": 138.234375,
+          "height": 13,
+          "top": 209.984375,
+          "right": 453.109375,
+          "bottom": 222.984375,
+          "left": 314.875
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 34.5625,
+            "y": 508,
+            "width": 369.90625,
+            "height": 86,
+            "top": 508,
+            "right": 404.46875,
+            "bottom": 594,
+            "left": 34.5625
+          },
+          {
+            "x": 34.5625,
+            "y": 585.171875,
+            "width": 553.96875,
+            "height": 67,
+            "top": 585.171875,
+            "right": 588.53125,
+            "bottom": 652.171875,
+            "left": 34.5625
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "768: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "768: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "768: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "900×550: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 384,
+          "y": 114,
+          "width": 132,
+          "height": 68.0625,
+          "top": 114,
+          "right": 516,
+          "bottom": 182.0625,
+          "left": 384
+        },
+        "poles": [
+          {
+            "x": 332,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 357,
+            "bottom": 195.875,
+            "left": 332
+          },
+          {
+            "x": 543,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 568,
+            "bottom": 195.875,
+            "left": 543
+          }
+        ],
+        "cta": {
+          "x": 40.5,
+          "y": 450.5,
+          "width": 300,
+          "height": 60,
+          "top": 450.5,
+          "right": 340.5,
+          "bottom": 510.5,
+          "left": 40.5
+        },
+        "label": {
+          "x": 384,
+          "y": 186.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 186.0625,
+          "right": 516,
+          "bottom": 197.75,
+          "left": 384
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 40.5,
+            "y": 284.765625,
+            "width": 316.109375,
+            "height": 73,
+            "top": 284.765625,
+            "right": 356.609375,
+            "bottom": 357.765625,
+            "left": 40.5
+          },
+          {
+            "x": 40.5,
+            "y": 351,
+            "width": 473.375,
+            "height": 57,
+            "top": 351,
+            "right": 513.875,
+            "bottom": 408,
+            "left": 40.5
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "900×550: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 384,
+          "y": 114,
+          "width": 132,
+          "height": 68.0625,
+          "top": 114,
+          "right": 516,
+          "bottom": 182.0625,
+          "left": 384
+        },
+        "poles": [
+          {
+            "x": 332,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 357,
+            "bottom": 195.875,
+            "left": 332
+          },
+          {
+            "x": 543,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 568,
+            "bottom": 195.875,
+            "left": 543
+          }
+        ],
+        "cta": {
+          "x": 40.5,
+          "y": 450.5,
+          "width": 300,
+          "height": 60,
+          "top": 450.5,
+          "right": 340.5,
+          "bottom": 510.5,
+          "left": 40.5
+        },
+        "label": {
+          "x": 384,
+          "y": 186.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 186.0625,
+          "right": 516,
+          "bottom": 197.75,
+          "left": 384
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 40.5,
+            "y": 284.765625,
+            "width": 316.109375,
+            "height": 73,
+            "top": 284.765625,
+            "right": 356.609375,
+            "bottom": 357.765625,
+            "left": 40.5
+          },
+          {
+            "x": 40.5,
+            "y": 351,
+            "width": 473.375,
+            "height": 57,
+            "top": 351,
+            "right": 513.875,
+            "bottom": 408,
+            "left": 40.5
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "900×550: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 384,
+          "y": 114,
+          "width": 132,
+          "height": 68.0625,
+          "top": 114,
+          "right": 516,
+          "bottom": 182.0625,
+          "left": 384
+        },
+        "poles": [
+          {
+            "x": 332,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 357,
+            "bottom": 195.875,
+            "left": 332
+          },
+          {
+            "x": 543,
+            "y": 115.875,
+            "width": 25,
+            "height": 80,
+            "top": 115.875,
+            "right": 568,
+            "bottom": 195.875,
+            "left": 543
+          }
+        ],
+        "cta": {
+          "x": 40.5,
+          "y": 450.5,
+          "width": 300,
+          "height": 60,
+          "top": 450.5,
+          "right": 340.5,
+          "bottom": 510.5,
+          "left": 40.5
+        },
+        "label": {
+          "x": 384,
+          "y": 186.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 186.0625,
+          "right": 516,
+          "bottom": 197.75,
+          "left": 384
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 40.5,
+            "y": 284.765625,
+            "width": 316.109375,
+            "height": 73,
+            "top": 284.765625,
+            "right": 356.609375,
+            "bottom": 357.765625,
+            "left": 40.5
+          },
+          {
+            "x": 40.5,
+            "y": 351,
+            "width": 473.375,
+            "height": 57,
+            "top": 351,
+            "right": 513.875,
+            "bottom": 408,
+            "left": 40.5
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "900: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "900: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "900: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "Axe hero",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Foco por teclado visível",
+      "pass": true
+    },
+    {
+      "name": "CTA abre agendamento",
+      "pass": true
+    },
+    {
+      "name": "Histórico retorna ao estado íntegro",
+      "pass": true
+    },
+    {
+      "name": "1024×600: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 445.984375,
+          "y": 120,
+          "width": 132,
+          "height": 68.0625,
+          "top": 120,
+          "right": 577.984375,
+          "bottom": 188.0625,
+          "left": 445.984375
+        },
+        "poles": [
+          {
+            "x": 390.265625,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 415.265625,
+            "bottom": 201.875,
+            "left": 390.265625
+          },
+          {
+            "x": 608.703125,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 633.703125,
+            "bottom": 201.875,
+            "left": 608.703125
+          }
+        ],
+        "cta": {
+          "x": 46.078125,
+          "y": 483.75,
+          "width": 300,
+          "height": 60,
+          "top": 483.75,
+          "right": 346.078125,
+          "bottom": 543.75,
+          "left": 46.078125
+        },
+        "label": {
+          "x": 445.984375,
+          "y": 192.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 192.0625,
+          "right": 577.984375,
+          "bottom": 203.75,
+          "left": 445.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 46.078125,
+            "y": 307.6875,
+            "width": 344.859375,
+            "height": 79,
+            "top": 307.6875,
+            "right": 390.9375,
+            "bottom": 386.6875,
+            "left": 46.078125
+          },
+          {
+            "x": 46.078125,
+            "y": 379.765625,
+            "width": 516.515625,
+            "height": 62,
+            "top": 379.765625,
+            "right": 562.59375,
+            "bottom": 441.765625,
+            "left": 46.078125
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1024×600: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 445.984375,
+          "y": 120,
+          "width": 132,
+          "height": 68.0625,
+          "top": 120,
+          "right": 577.984375,
+          "bottom": 188.0625,
+          "left": 445.984375
+        },
+        "poles": [
+          {
+            "x": 390.265625,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 415.265625,
+            "bottom": 201.875,
+            "left": 390.265625
+          },
+          {
+            "x": 608.703125,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 633.703125,
+            "bottom": 201.875,
+            "left": 608.703125
+          }
+        ],
+        "cta": {
+          "x": 46.078125,
+          "y": 483.75,
+          "width": 300,
+          "height": 60,
+          "top": 483.75,
+          "right": 346.078125,
+          "bottom": 543.75,
+          "left": 46.078125
+        },
+        "label": {
+          "x": 445.984375,
+          "y": 192.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 192.0625,
+          "right": 577.984375,
+          "bottom": 203.75,
+          "left": 445.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 46.078125,
+            "y": 307.6875,
+            "width": 344.859375,
+            "height": 79,
+            "top": 307.6875,
+            "right": 390.9375,
+            "bottom": 386.6875,
+            "left": 46.078125
+          },
+          {
+            "x": 46.078125,
+            "y": 379.765625,
+            "width": 516.515625,
+            "height": 62,
+            "top": 379.765625,
+            "right": 562.59375,
+            "bottom": 441.765625,
+            "left": 46.078125
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1024×600: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 445.984375,
+          "y": 120,
+          "width": 132,
+          "height": 68.0625,
+          "top": 120,
+          "right": 577.984375,
+          "bottom": 188.0625,
+          "left": 445.984375
+        },
+        "poles": [
+          {
+            "x": 390.265625,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 415.265625,
+            "bottom": 201.875,
+            "left": 390.265625
+          },
+          {
+            "x": 608.703125,
+            "y": 121.875,
+            "width": 25,
+            "height": 80,
+            "top": 121.875,
+            "right": 633.703125,
+            "bottom": 201.875,
+            "left": 608.703125
+          }
+        ],
+        "cta": {
+          "x": 46.078125,
+          "y": 483.75,
+          "width": 300,
+          "height": 60,
+          "top": 483.75,
+          "right": 346.078125,
+          "bottom": 543.75,
+          "left": 46.078125
+        },
+        "label": {
+          "x": 445.984375,
+          "y": 192.0625,
+          "width": 132,
+          "height": 11.6875,
+          "top": 192.0625,
+          "right": 577.984375,
+          "bottom": 203.75,
+          "left": 445.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 46.078125,
+            "y": 307.6875,
+            "width": 344.859375,
+            "height": 79,
+            "top": 307.6875,
+            "right": 390.9375,
+            "bottom": 386.6875,
+            "left": 46.078125
+          },
+          {
+            "x": 46.078125,
+            "y": 379.765625,
+            "width": 516.515625,
+            "height": 62,
+            "top": 379.765625,
+            "right": 562.59375,
+            "bottom": 441.765625,
+            "left": 46.078125
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1024: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "1024: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "1024: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "1366×768: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 590.828125,
+          "y": 132.453125,
+          "width": 184.3125,
+          "height": 95.03125,
+          "top": 132.453125,
+          "right": 775.140625,
+          "bottom": 227.484375,
+          "left": 590.828125
+        },
+        "poles": [
+          {
+            "x": 511.46875,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 549.859375,
+            "bottom": 251.90625,
+            "left": 511.46875
+          },
+          {
+            "x": 816.109375,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 854.5,
+            "bottom": 251.90625,
+            "left": 816.109375
+          }
+        ],
+        "cta": {
+          "x": 61.46875,
+          "y": 621.640625,
+          "width": 300,
+          "height": 70,
+          "top": 621.640625,
+          "right": 361.46875,
+          "bottom": 691.640625,
+          "left": 61.46875
+        },
+        "label": {
+          "x": 590.828125,
+          "y": 235.484375,
+          "width": 184.3125,
+          "height": 13,
+          "top": 235.484375,
+          "right": 775.140625,
+          "bottom": 248.484375,
+          "left": 590.828125
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 61.46875,
+            "y": 371.546875,
+            "width": 487.59375,
+            "height": 112,
+            "top": 371.546875,
+            "right": 549.0625,
+            "bottom": 483.546875,
+            "left": 61.46875
+          },
+          {
+            "x": 61.46875,
+            "y": 472.65625,
+            "width": 730.25,
+            "height": 88,
+            "top": 472.65625,
+            "right": 791.71875,
+            "bottom": 560.65625,
+            "left": 61.46875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1366×768: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 590.828125,
+          "y": 132.453125,
+          "width": 184.3125,
+          "height": 95.03125,
+          "top": 132.453125,
+          "right": 775.140625,
+          "bottom": 227.484375,
+          "left": 590.828125
+        },
+        "poles": [
+          {
+            "x": 511.46875,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 549.859375,
+            "bottom": 251.90625,
+            "left": 511.46875
+          },
+          {
+            "x": 816.109375,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 854.5,
+            "bottom": 251.90625,
+            "left": 816.109375
+          }
+        ],
+        "cta": {
+          "x": 61.46875,
+          "y": 621.640625,
+          "width": 300,
+          "height": 70,
+          "top": 621.640625,
+          "right": 361.46875,
+          "bottom": 691.640625,
+          "left": 61.46875
+        },
+        "label": {
+          "x": 590.828125,
+          "y": 235.484375,
+          "width": 184.3125,
+          "height": 13,
+          "top": 235.484375,
+          "right": 775.140625,
+          "bottom": 248.484375,
+          "left": 590.828125
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 61.46875,
+            "y": 371.546875,
+            "width": 487.59375,
+            "height": 112,
+            "top": 371.546875,
+            "right": 549.0625,
+            "bottom": 483.546875,
+            "left": 61.46875
+          },
+          {
+            "x": 61.46875,
+            "y": 472.65625,
+            "width": 730.25,
+            "height": 88,
+            "top": 472.65625,
+            "right": 791.71875,
+            "bottom": 560.65625,
+            "left": 61.46875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1366×768: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 590.828125,
+          "y": 132.453125,
+          "width": 184.3125,
+          "height": 95.03125,
+          "top": 132.453125,
+          "right": 775.140625,
+          "bottom": 227.484375,
+          "left": 590.828125
+        },
+        "poles": [
+          {
+            "x": 511.46875,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 549.859375,
+            "bottom": 251.90625,
+            "left": 511.46875
+          },
+          {
+            "x": 816.109375,
+            "y": 129.03125,
+            "width": 38.390625,
+            "height": 122.875,
+            "top": 129.03125,
+            "right": 854.5,
+            "bottom": 251.90625,
+            "left": 816.109375
+          }
+        ],
+        "cta": {
+          "x": 61.46875,
+          "y": 621.640625,
+          "width": 300,
+          "height": 70,
+          "top": 621.640625,
+          "right": 361.46875,
+          "bottom": 691.640625,
+          "left": 61.46875
+        },
+        "label": {
+          "x": 590.828125,
+          "y": 235.484375,
+          "width": 184.3125,
+          "height": 13,
+          "top": 235.484375,
+          "right": 775.140625,
+          "bottom": 248.484375,
+          "left": 590.828125
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 61.46875,
+            "y": 371.546875,
+            "width": 487.59375,
+            "height": 112,
+            "top": 371.546875,
+            "right": 549.0625,
+            "bottom": 483.546875,
+            "left": 61.46875
+          },
+          {
+            "x": 61.46875,
+            "y": 472.65625,
+            "width": 730.25,
+            "height": 88,
+            "top": 472.65625,
+            "right": 791.71875,
+            "bottom": 560.65625,
+            "left": 61.46875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1366: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "1366: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "1366: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "1440×900: logo e postes simétricos",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 611.984375,
+          "y": 133.3125,
+          "width": 216,
+          "height": 111.375,
+          "top": 133.3125,
+          "right": 827.984375,
+          "bottom": 244.6875,
+          "left": 611.984375
+        },
+        "poles": [
+          {
+            "x": 525.796875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 568.796875,
+            "bottom": 266,
+            "left": 525.796875
+          },
+          {
+            "x": 871.171875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 914.171875,
+            "bottom": 266,
+            "left": 871.171875
+          }
+        ],
+        "cta": {
+          "x": 64.796875,
+          "y": 713.359375,
+          "width": 300,
+          "height": 70,
+          "top": 713.359375,
+          "right": 364.796875,
+          "bottom": 783.359375,
+          "left": 64.796875
+        },
+        "label": {
+          "x": 611.984375,
+          "y": 252.6875,
+          "width": 216,
+          "height": 13,
+          "top": 252.6875,
+          "right": 827.984375,
+          "bottom": 265.6875,
+          "left": 611.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 64.796875,
+            "y": 426.765625,
+            "width": 571.40625,
+            "height": 131,
+            "top": 426.765625,
+            "right": 636.203125,
+            "bottom": 557.765625,
+            "left": 64.796875
+          },
+          {
+            "x": 64.796875,
+            "y": 544.90625,
+            "width": 855.953125,
+            "height": 104,
+            "top": 544.90625,
+            "right": 920.75,
+            "bottom": 648.90625,
+            "left": 64.796875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1440×900: título e CTA dentro da primeira tela",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 611.984375,
+          "y": 133.3125,
+          "width": 216,
+          "height": 111.375,
+          "top": 133.3125,
+          "right": 827.984375,
+          "bottom": 244.6875,
+          "left": 611.984375
+        },
+        "poles": [
+          {
+            "x": 525.796875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 568.796875,
+            "bottom": 266,
+            "left": 525.796875
+          },
+          {
+            "x": 871.171875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 914.171875,
+            "bottom": 266,
+            "left": 871.171875
+          }
+        ],
+        "cta": {
+          "x": 64.796875,
+          "y": 713.359375,
+          "width": 300,
+          "height": 70,
+          "top": 713.359375,
+          "right": 364.796875,
+          "bottom": 783.359375,
+          "left": 64.796875
+        },
+        "label": {
+          "x": 611.984375,
+          "y": 252.6875,
+          "width": 216,
+          "height": 13,
+          "top": 252.6875,
+          "right": 827.984375,
+          "bottom": 265.6875,
+          "left": 611.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 64.796875,
+            "y": 426.765625,
+            "width": 571.40625,
+            "height": 131,
+            "top": 426.765625,
+            "right": 636.203125,
+            "bottom": 557.765625,
+            "left": 64.796875
+          },
+          {
+            "x": 64.796875,
+            "y": 544.90625,
+            "width": 855.953125,
+            "height": 104,
+            "top": 544.90625,
+            "right": 920.75,
+            "bottom": 648.90625,
+            "left": 64.796875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1440×900: local horizontal, rotor ativo e flutuante oculto",
+      "pass": true,
+      "detail": {
+        "logo": {
+          "x": 611.984375,
+          "y": 133.3125,
+          "width": 216,
+          "height": 111.375,
+          "top": 133.3125,
+          "right": 827.984375,
+          "bottom": 244.6875,
+          "left": 611.984375
+        },
+        "poles": [
+          {
+            "x": 525.796875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 568.796875,
+            "bottom": 266,
+            "left": 525.796875
+          },
+          {
+            "x": 871.171875,
+            "y": 133,
+            "width": 43,
+            "height": 133,
+            "top": 133,
+            "right": 914.171875,
+            "bottom": 266,
+            "left": 871.171875
+          }
+        ],
+        "cta": {
+          "x": 64.796875,
+          "y": 713.359375,
+          "width": 300,
+          "height": 70,
+          "top": 713.359375,
+          "right": 364.796875,
+          "bottom": 783.359375,
+          "left": 64.796875
+        },
+        "label": {
+          "x": 611.984375,
+          "y": 252.6875,
+          "width": 216,
+          "height": 13,
+          "top": 252.6875,
+          "right": 827.984375,
+          "bottom": 265.6875,
+          "left": 611.984375
+        },
+        "writing": "horizontal-tb",
+        "lines": [
+          {
+            "x": 64.796875,
+            "y": 426.765625,
+            "width": 571.40625,
+            "height": 131,
+            "top": 426.765625,
+            "right": 636.203125,
+            "bottom": 557.765625,
+            "left": 64.796875
+          },
+          {
+            "x": 64.796875,
+            "y": 544.90625,
+            "width": 855.953125,
+            "height": 104,
+            "top": 544.90625,
+            "right": 920.75,
+            "bottom": 648.90625,
+            "left": 64.796875
+          }
+        ],
+        "overflow": 0,
+        "fixed": true,
+        "rotor": "running"
+      }
+    },
+    {
+      "name": "1440: flutuante aparece após o hero",
+      "pass": true
+    },
+    {
+      "name": "1440: retorno oculta flutuante e retira do teclado",
+      "pass": true
+    },
+    {
+      "name": "1440: máscaras preservam texto e geometria",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "groups": 6,
+        "delta": 0
+      }
+    },
+    {
+      "name": "Interrupção wheel: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "Interrupção keyboard: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "Interrupção resize-height: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "Interrupção resize-width: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "Interrupção reduce: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "Interrupção pagehide: sem máscaras ou estados pendentes",
+      "pass": true
+    },
+    {
+      "name": "reduce: leitura e CTA disponíveis",
+      "pass": true
+    },
+    {
+      "name": "Movimento reduzido: sem animações do hero",
+      "pass": true
+    },
+    {
+      "name": "no-js: leitura e CTA disponíveis",
+      "pass": true
+    },
+    {
+      "name": "Nenhum erro JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

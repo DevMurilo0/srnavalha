@@ -2,15 +2,15 @@
    natural readable fallback. Split trees exist only while their ink moves. */
 import {$,$$,canMove} from './core.js';
 import {revealText} from './text-motion.js';
-import {revealImage,initPhotoParallax} from './image-motion.js';
-import {createScrollMotion} from './scroll-motion.js';
+import {revealImage} from './image-motion.js';
+import {createScrollMotion,initDepthMotion} from './scroll-motion.js';
 export function initMotion(){
  const root=document.documentElement;
  if(!('IntersectionObserver' in window))return;
  const grouped='.service-entry,.product-option';
  const copy='h2,h3,h4,p,blockquote,figcaption,address,small,li,span,strong,em,label,time,dt,dd,a,button,summary,.footer-small-note,'+grouped;
- const photos='.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
- const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.cm-kinetic-ghost,.sr-surface,.engraving,.sr-member-preview';
+ const photos='.depth-frame,.photo-window,.image-stage,.portal-images,.review-visual-frame,.footer-visual,img';
+ const excluded='.hero,.sr-chapter,.sr-scene-join,dialog,[hidden],[inert],svg,.cm-run,.cm-kinetic-ghost,.depth-plane,.sr-surface,.engraving,.sr-member-preview';
  const registered=new WeakSet(),pending=new Set(),running=new Map();
  // Track a scene owner once. Scanning 300 bounding boxes on EVERY scroll
  // frame is the largest layout-read hotspot on slower notebooks.
@@ -25,7 +25,7 @@ export function initMotion(){
   entryFrame=0;
   if(!canMove()){entering.clear();return;}
   let budget=perFrame;
-  for(const node of entering){
+  for(const node of [...entering].sort((a,b)=>Number(b.matches('h2'))-Number(a.matches('h2')))){
    entering.delete(node);
    if(!pending.has(node)||!node.isConnected)continue;
    const rect=node.getBoundingClientRect();
@@ -43,10 +43,10 @@ export function initMotion(){
  const finish=node=>{running.get(node)?.cancel();running.delete(node);clear(node);};
  const release=()=>{cancelAnimationFrame(entryFrame);entryFrame=0;entering.clear();scroll.clear();for(const node of [...pending,...running.keys()])finish(node);};
  const modeFor=node=>{
-  if(node.matches('.house-quote,#work-title'))return'scroll';
+  if(node.matches('.house-quote'))return'scroll';
   if(node.matches('.team-name,.portrait-name'))return'roll';
   if(node.matches('h2,.footer-oversize-lead,.footer-oversize-main')){
-   return node.closest('#casa')?'fold':node.closest('#servicos')?'stroke':node.closest('#equipe')?'roll':node.closest('#produtos')?'focus':node.closest('#avaliacoes')?'lines':node.closest('#localizacao')?'fold':'echo';
+   return node.closest('#casa')?'fold':node.closest('#servicos')?'stroke':node.closest('#equipe')?'roll':node.closest('#produtos')?'focus':node.closest('#avaliacoes')?'lines':node.closest('#localizacao,#trabalhos')?'fold':'echo';
   }
   if(node.matches('.footer-feature-cta'))return'echo';
   // Uncommon editorial "physical type": a stamped invitation, sheared
@@ -77,7 +77,7 @@ export function initMotion(){
   // A modest initial pause lets each section settle into view before
   // its title begins. Preserve scroll-driven headline timing (manual seek).
   const entranceDelay=mode==='scroll'?0:
-    node.matches('h2')?190:
+    node.matches('h2')?80:
     node.matches('.section-heading>p')?115:0;
   const effect=photo?revealImage(node,mode):
     revealText(node,mode,{delay:entranceDelay,manual:mode==='scroll'});
@@ -136,7 +136,7 @@ export function initMotion(){
    node.dataset.cmMode=photo?(node.closest('#casa,#localizacao')?'lateral':node.closest('#equipe,#produtos')?'aperture':node.closest('#trabalhos')?'diagonal':'shutter'):modeFor(node);
    const rect=node.getBoundingClientRect();
    // Do not hide a scene the reader has already reached (late JS / deep link).
-   if(!canMove()||rect.top<innerHeight*.94){clear(node);continue;}
+   if(!canMove()||(rect.top<innerHeight*.94&&!node.matches('h2'))){clear(node);continue;}
    node.dataset.cmState='pending';node.classList.add('cm-pending');pending.add(node);observer.observe(node);
   }
  };
@@ -211,11 +211,23 @@ export function initMotion(){
  addEventListener('pagehide',()=>{release();mutations.disconnect();prepareSections.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(entryFrame);},{once:true});
  // Back/forward restoration shows the settled page and does not rebuild layers.
  addEventListener('pageshow',event=>{if(event.persisted)release();});
- initPhotoParallax();
- const nav=$$('.desktop-nav a');
+ initDepthMotion(scroll);
+ const nav=$$('.desktop-nav a'),compass=$('.chapter-compass');
+ const chapters=$$('main section[id],footer[id]');
+ const names={inicio:'APRESENTAÇÃO',casa:'A CASA',servicos:'SERVIÇOS',equipe:'NOSSA EQUIPE',trabalhos:'O TRABALHO',produtos:'PRODUTOS',avaliacoes:'AVALIAÇÕES',localizacao:'NO PRADO',contato:'ATÉ LOGO'};
+ const orient=section=>{
+  const index=chapters.indexOf(section),id=section.id;
+  nav.forEach(a=>a.hash===`#${id}`?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));
+  if(!compass)return;
+  compass.hidden=index===0||id==='contato';
+  const current=$('.chapter-compass__current',compass),prev=$('.chapter-compass__prev',compass),next=$('.chapter-compass__next',compass);
+  current.href=`#${id}`;$('small',current).textContent=`${String(index).padStart(2,'0')} / 08`;$('span',current).textContent=names[id];
+  for(const [link,destination] of [[prev,chapters[Math.max(0,index-1)]],[next,chapters[Math.min(chapters.length-1,index+1)]]]){
+   link.href=`#${destination.id}`;link.setAttribute('aria-label',`Ir para ${names[destination.id].toLowerCase()}`);
+  }
+ };
  const navObserver=new IntersectionObserver(entries=>{
-  const entry=entries.find(e=>e.isIntersecting);if(!entry)return;
-  nav.forEach(a=>a.hash===`#${entry.target.id}`?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current'));
+  const entry=entries.filter(e=>e.isIntersecting).at(-1);if(entry)orient(entry.target);
  },{rootMargin:'-10% 0px -65%'});
- $$('main section[id]').forEach(el=>navObserver.observe(el));
+ chapters.forEach(el=>navObserver.observe(el));
 }

@@ -49,6 +49,7 @@ jobs:
         env:
           PLAYWRIGHT_PACKAGE: /tmp/srnavalha-validation/package.json
           SITE_URL: http://127.0.0.1:8047/
+          V31_EVIDENCE: docs/v31/ci
         shell: bash
         run: |
           set -euo pipefail
@@ -56,6 +57,9 @@ jobs:
           node scripts/profile-cinematic-performance.mjs
           node scripts/test-editorial-interactions.mjs
           node scripts/test-experience-v6.mjs
+          node scripts/test-hero-lightcut.mjs
+          node scripts/test-v31.mjs
+          node scripts/profile-v31.mjs
           node scripts/test-perfect-cut-v4.mjs
           node scripts/test-reflexo.mjs
           node scripts/test-reflexo-resilience.mjs
@@ -69,6 +73,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
           path: |
+            docs/v31/ci/*.json
             docs/cinematic-motion/*.json
             docs/perfect-cut-v4/*results.json
             docs/reflexo/validation/*.json

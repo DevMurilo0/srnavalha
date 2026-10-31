@@ -1,7 +1,7 @@
 /* Cinematic monochrome — light is the primary material. */
 :root{--ivory:#f8f8f8;--ink:#101113;--tobacco:#202226;--wood:#50565e;--copper:#8b9097;--stone:#e7e8ea;--muted:#555b63;--light-muted:#c8cbd0;--cm-paper:#fff;--cm-edge:#d0d3d7;--cm-shadow:0 18px 40px -24px #10111360}
 body{background:var(--ivory)}
-.hero,.rituals,.portfolio,.visit{background:#f8f8f8!important}
+.rituals,.portfolio,.visit{background:#f8f8f8!important}
 .team{background:#fff!important;color:var(--ink)}
 .products{background:#f1f2f3!important}
 .house,.reviews,.footer{background:#101113!important}
@@ -13,7 +13,6 @@ body{background:var(--ivory)}
 section+section{border-top:1px solid #10111312}
 .house .house-word{color:#fff;opacity:.04}
 .house-copy h2 em,.reviews h2 em{color:#b8bdc5}
-.hero h1 em{color:#50565e}
 .team h2 em,.team .team-name,.team-invite p,.team .source-note,.team-portrait figcaption{color:var(--ink)}
 .team .team-name[aria-pressed=false]{color:#666c75}
 .team .team-name[aria-pressed=true],.team .text-link{color:var(--ink)}
@@ -23,7 +22,6 @@ section+section{border-top:1px solid #10111312}
 .team .team-marker{background:#101113}
 .team-portrait{filter:none}
 .team-portrait .image-stage{outline-color:#d0d3d7;box-shadow:var(--cm-shadow)}
-.hero .photo-window{outline-color:#cbd0d5;box-shadow:var(--cm-shadow)}
 .house-portal,.product-hero,.footer-visual{filter:none}
 .house-portal .portal-images,.footer-visual{box-shadow:0 24px 48px -28px #0009}
 .product-hero .image-stage{box-shadow:var(--cm-shadow)!important}
@@ -54,7 +52,6 @@ section+section{border-top:1px solid #10111312}
 .cm-pending{opacity:0}
 /* Keep authored heading rhythm and clipping independent of transient wrappers. */
 .cm-run{display:inline!important;font:inherit;letter-spacing:inherit;color:inherit}
-.hero h1 .title-mask{overflow:visible}
 .cm-split{perspective:900px}
 .gallery-shot img{transition:translate 300ms cubic-bezier(.2,.8,.2,1)}
 /* Replace the legacy portal's scroll opacity owner with a crisp photo crossfade. */
@@ -71,14 +68,11 @@ section+section{border-top:1px solid #10111312}
  .team-name:hover{color:#101113}
 }
 @media(max-width:700px){
- .hero .photo-window{box-shadow:0 12px 24px -16px #10111360}
  .team .portrait-name{padding-inline:7px}
 }
 
 /* Quiet metal edges and readable secondary copy on the newly light team. */
 .team .section-heading>p{color:#555b63}
-.hero .hero-facade::after,.hero .hero-detail::after{bottom:32px}
-.hero .hero-room::after{bottom:32px;background:#e7e8ea}
 .site-header .button{box-shadow:none}
 .album-modes,.mirror-choice,.catalog-heading,.product-catalog-head,.faq details{border-color:#d0d3d7}
 .house-portal::before,.house-portal::after,.atelier-detail,.portal-images{border-color:#8b909766}
@@ -185,3 +179,27 @@ html.sr-lite-motion .footer-rail-track{
 .rituals .mirror-frame,.portfolio .work-print,.visit .map-frame{
   box-shadow:0 25px 56px -36px #1b232f70,0 7px 24px -18px #1b232f52;
 }
+
+/* Depth is a child plane; swaps, album FLIP and hover keep their own owners. */
+.depth-frame,.portrait-depth{--depth-bleed:0px;position:relative;overflow:hidden;isolation:isolate}
+.depth-plane{position:absolute;inset:calc(-1 * var(--depth-bleed)) 0;pointer-events:none}
+.depth-plane>img,.depth-plane>picture,.depth-plane>picture>img{display:block;width:100%;height:100%;object-fit:cover}
+.portrait-depth{aspect-ratio:4/5}
+#equipe .portrait-depth .depth-plane>.image-stage{height:100%;aspect-ratio:auto}
+.review-visual-frame .depth-plane>img{filter:saturate(.9)}
+/* A small context control shares the existing section observer. */
+.chapter-compass{position:fixed;z-index:24;right:18px;bottom:18px;display:grid;grid-template-columns:40px minmax(130px,1fr) 40px;align-items:center;min-height:54px;background:#111315;color:#f7f7f7;border:1px solid #8b9097}
+.chapter-compass a{display:flex;align-items:center;justify-content:center;min-height:52px}
+.chapter-compass__current{flex-direction:column;gap:3px;padding:5px 9px;font:600 10px/1.3 var(--body);letter-spacing:.1em}
+.chapter-compass__current small{font:500 9px/1.3 var(--body);color:#bbc0c4;letter-spacing:.12em}
+.chapter-compass a:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+.chapter-compass svg{transition:transform 180ms cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){
+ .chapter-compass__prev:hover svg{transform:translateY(-2px)}
+ .chapter-compass__next:hover svg{transform:translateY(2px)}
+ .chapter-compass__current:hover{background:#2a2e32}
+}
+body:has(dialog[open]) .chapter-compass,body:has(.menu[open]) .chapter-compass{display:none}
+@media(max-width:980px){.chapter-compass{display:none}}
+@media(max-width:700px){.portrait-depth{aspect-ratio:3/4}}
+@media(prefers-reduced-motion:reduce){.depth-plane{transform:none}.chapter-compass svg{transition:none}}

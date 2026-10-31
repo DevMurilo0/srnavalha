@@ -45,7 +45,7 @@ html.motion-paused *,html.motion-paused *::before,html.motion-paused *::after{an
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  .scroll-thread{display:none}.portal-inside{clip-path:none!important}
- .hero-room,.hero-facade,.house-word,.footer-oversize>span,.footer-visual,.team-portrait{translate:none!important;clip-path:none!important}
+ .house-word,.footer-oversize>span,.footer-visual,.team-portrait{translate:none!important;clip-path:none!important}
  .review-viewport{overflow:visible}.review-track{display:block;width:auto;transform:none!important;animation:none!important}.review-group{width:100%;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.review{width:auto;min-height:0}.review-group[aria-hidden=true]{display:none}
 }
 @media(prefers-reduced-motion:reduce) and (max-width:600px){.review-group{grid-template-columns:1fr}}

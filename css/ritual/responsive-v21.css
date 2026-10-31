@@ -3,7 +3,6 @@
  .menu summary{width:44px;height:44px}
  .header-actions{gap:10px}
  .header-book{min-height:44px}
- .hero-invitation>.button{min-height:54px}
  .product-info,.mirror-info,.team-invite{min-width:0}
  .product-catalog select{font-size:16px;min-height:44px;max-width:100%}
  .filter-row button{min-height:44px}

@@ -42,7 +42,7 @@ try{
   await intro.screenshot({path:`${dir}/opening-${width}.png`});
   await intro.waitForSelector('.snv2-cut-ready',{state:'attached',timeout:6500});
   // Snapshot halfway through the actual cut, not just when the SVG appears.
-  await intro.waitForTimeout(420);
+  await intro.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
   const cut=await intro.evaluate(()=>{
     const seam=document.querySelector('.snv2-seam');
     const panels=[...document.querySelectorAll('.snv2-panel')];
@@ -52,17 +52,17 @@ try{
   });
   check(`${width}px: corte contínuo (sem degraus)`,
     cut.strips===2&&cut.tip&&cut.seam&&cut.logo&&cut.scale>0&&cut.scale<1,cut);
-  check(`${width}px: hero não anima durante o corte`,await intro.evaluate(()=>
-    !document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-'))));
-  await intro.waitForFunction(()=>!document.querySelector('#sr-loader-stage')&&document.querySelector('.hero.is-arriving'));
+  check(`${width}px: hero anima durante o corte`,await intro.evaluate(()=>
+    document.querySelector('.hero').getAnimations({subtree:true}).some(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-hero-'))));
+  await intro.waitForFunction(()=>document.querySelector('.hero.is-arriving'));
   const staged=await intro.evaluate(()=>{
     const selectors=['.hero h1','.hero-intro','.hero-topline','.hero-invitation > .button'];
     return selectors.map(selector=>{
       const element=document.querySelector(selector);
-      return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-photo-')).length||0};
+      return {selector,exists:!!element,animations:element?.getAnimations({subtree:true}).filter(a=>a.id.startsWith('sr-text-')||a.id.startsWith('sr-hero-')).length||0};
     });
   });
-  check(`${width}px: revelação começa somente depois da saída do loader`,
+  check(`${width}px: revelação sobrepõe a abertura do loader`,
     staged.every(item=>item.exists&&item.animations>0),staged);
   check(`${width}px: sem reflexo tardio nas fotos`,
     await intro.evaluate(()=>!document.querySelector('.hero.sr-hero-sheen')));
@@ -126,7 +126,7 @@ try{
  await page.locator('#product-category').selectOption({index:1});check('Filtro produtos',await page.locator('[data-product][hidden]').count()>0);
  await jump(page,'#avaliacoes');await page.locator('#review-pause').click();check('Pausa depoimentos',await page.locator('#review-pause').getAttribute('aria-pressed')==='true');
  await jump(page,'#localizacao');check('Mapa e rota preservados',await page.locator('.map-frame iframe').count()===1&&await page.locator('a[href*="google.com/maps"]').count()>0);
- await jump(page,'#inicio');await page.locator('.hero .button').click();await page.waitForURL('**/agendar.html');check('Navegação agendamento local',await page.locator('h1').count()===1);await page.goBack();await settle(page);check('Histórico restaura hero',await page.locator('.hero-room img').count()===1);
+ await jump(page,'#inicio');await Promise.all([page.waitForURL('**/agendar.html',{waitUntil:'domcontentloaded'}),page.locator('.hero .button').click()]);await page.waitForSelector('.bk-wizard');check('Navegação agendamento local',await page.locator('h1').count()===1);await page.goBack();await settle(page);check('Histórico restaura hero',await page.locator('.hero-room img').count()===1);
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'?intro=1');check('Movimento reduzido: sem abertura',await page.locator('#sr-loader-stage').count()===0);await jump(page,'#trabalhos');await page.locator('[data-album-mode="wall"]').click();check('Movimento reduzido: controles funcionam',await page.locator('.album-sheets.is-wall').count()===1);await page.waitForTimeout(150);check('Movimento reduzido: sem animações ativas',await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running'&&a.effect.getTiming().iterations===Infinity).length===0));
  const axe=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();writeFileSync(`${dir}/axe.json`,JSON.stringify(axe.violations,null,2));check('Axe WCAG A/AA',axe.violations.length===0,axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
  const nojs=await fresh({javaScriptEnabled:false});await nojs.goto(base);check('Sem JS: conteúdo e agendamento',await nojs.evaluate(()=>document.querySelectorAll('.service-entry').length===42&&document.querySelectorAll('[data-product]').length===22&&document.querySelectorAll('.gallery-shot').length===6&&getComputedStyle(document.querySelector('#sr-loader-stage')).display==='none'&&document.querySelector('.hero .button').getAttribute('href')==='agendar.html'));await nojs.context().close();

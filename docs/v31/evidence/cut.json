@@ -1,0 +1,262 @@
+[
+  {
+    "name": "320: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "320: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "320: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 462.27,
+      "end": 462.2704162597656,
+      "delta": 0.0004162597656431899,
+      "edges": [
+        0.00000392100000112805,
+        0.00000392100000112805
+      ],
+      "panels": [
+        "matrix(1, 0, 0.0834123, 1, -38.559, 0)",
+        "matrix(1, 0, -0.0834123, 1, 38.559, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 48,
+      "expectedTrackX": 48,
+      "heroOpacity": "1"
+    }
+  },
+  {
+    "name": "320: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "390: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "390: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "390: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 409.08,
+      "end": 409.08001708984375,
+      "delta": 0.000017089843765916157,
+      "edges": [
+        0.00006371999999998934,
+        0.00006371999999998934
+      ],
+      "panels": [
+        "matrix(1, 0, 0.101659, 1, -41.5866, 0)",
+        "matrix(1, 0, -0.101659, 1, 41.5866, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 58.5,
+      "expectedTrackX": 58.5,
+      "heroOpacity": "1"
+    }
+  },
+  {
+    "name": "390: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "430: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "430: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "430: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 435.956,
+      "end": 435.95562744140625,
+      "delta": 0.0003725585937672804,
+      "edges": [
+        0.00007173999999565694,
+        0.00007173999999565694
+      ],
+      "panels": [
+        "matrix(1, 0, 0.112085, 1, -48.8642, 0)",
+        "matrix(1, 0, -0.112085, 1, 48.8642, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 64.5,
+      "expectedTrackX": 64.5,
+      "heroOpacity": "1"
+    }
+  },
+  {
+    "name": "430: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "768: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "768: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "768: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 429.681,
+      "end": 429.6806640625,
+      "delta": 0.00033593749998317435,
+      "edges": [
+        0.00023939000000439137,
+        0.00023939000000439137
+      ],
+      "panels": [
+        "matrix(1, 0, 0.20019, 1, -86.0176, 0)",
+        "matrix(1, 0, -0.20019, 1, 86.0176, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 224,
+      "expectedTrackX": 224,
+      "heroOpacity": "1"
+    }
+  },
+  {
+    "name": "768: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "1440: duas tesouras no DOM, nenhum skip",
+    "pass": true
+  },
+  {
+    "name": "1440: progresso conclui 100%",
+    "pass": true
+  },
+  {
+    "name": "1440: lâmina/linha alinhadas e hero aparece durante corte",
+    "pass": true,
+    "detail": {
+      "tip": 429.681,
+      "end": 429.6806640625,
+      "delta": 0.00033593749998317435,
+      "edges": [
+        0.00008824500000059743,
+        0.00008824500000059743
+      ],
+      "panels": [
+        "matrix(1, 0, 0.375355, 1, -161.283, 0)",
+        "matrix(1, 0, -0.375355, 1, 161.283, 0)"
+      ],
+      "trackOpacity": "0",
+      "trackX": 560,
+      "expectedTrackX": 560,
+      "heroOpacity": "1"
+    }
+  },
+  {
+    "name": "1440: limpeza, hero e largura",
+    "pass": true
+  },
+  {
+    "name": "Interrupção click",
+    "pass": true
+  },
+  {
+    "name": "Interrupção keyboard",
+    "pass": true
+  },
+  {
+    "name": "Interrupção wheel",
+    "pass": true
+  },
+  {
+    "name": "Interrupção touch",
+    "pass": true
+  },
+  {
+    "name": "Interrupção rotation",
+    "pass": true
+  },
+  {
+    "name": "Interrupção reduce",
+    "pass": true
+  },
+  {
+    "name": "Logo: chegada proporcional e cancelamento no handoff",
+    "pass": true,
+    "detail": {
+      "error": 0.0106964111328125,
+      "effects": 0,
+      "visible": "visible"
+    }
+  },
+  {
+    "name": "F5 reinicia",
+    "pass": true
+  },
+  {
+    "name": "Refresh sem cache reinicia",
+    "pass": true
+  },
+  {
+    "name": "Agendamento local abre",
+    "pass": true
+  },
+  {
+    "name": "Histórico libera homepage",
+    "pass": true
+  },
+  {
+    "name": "Âncora #servicos",
+    "pass": true
+  },
+  {
+    "name": "Âncora #equipe",
+    "pass": true
+  },
+  {
+    "name": "Falha **/assets/images/v8/logo-640.webp",
+    "pass": true
+  },
+  {
+    "name": "Falha **/js/ritual/opening.js",
+    "pass": true
+  },
+  {
+    "name": "Falha interna do FLIP libera o hero sem travar",
+    "pass": true
+  },
+  {
+    "name": "Clique durante loader não aciona agendamento por trás",
+    "pass": true,
+    "detail": {
+      "initialCTA": {
+        "display": "none",
+        "visibility": "visible",
+        "pointerEvents": "auto"
+      },
+      "coveredResult": {
+        "clickBehind": false,
+        "pathname": "/",
+        "loaderAlive": false,
+        "boot": false
+      }
+    }
+  },
+  {
+    "name": "Reduced motion inicial",
+    "pass": true
+  },
+  {
+    "name": "Sem exceções JavaScript",
+    "pass": true,
+    "detail": []
+  }
+]

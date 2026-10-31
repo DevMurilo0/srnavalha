@@ -1,0 +1,548 @@
+{
+  "results": [
+    {
+      "name": "Coreografia mais longa, com CTA sobreposto e seis grupos",
+      "pass": true,
+      "detail": {
+        "durations": [
+          {
+            "id": "sr-hero-curtain",
+            "duration": 1040,
+            "delay": 0
+          },
+          {
+            "id": "sr-hero-curtain",
+            "duration": 1040,
+            "delay": 0
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 980,
+            "delay": 65
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 980,
+            "delay": 65
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 760,
+            "delay": 65
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 880,
+            "delay": 100
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 880,
+            "delay": 155
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 880,
+            "delay": 210
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 340,
+            "delay": 100
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 340,
+            "delay": 100
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 850,
+            "delay": 140
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 850,
+            "delay": 205
+          },
+          {
+            "id": "sr-hero-camera",
+            "duration": 1550,
+            "delay": 0
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 495
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 450
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 515
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 585
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 540
+          },
+          {
+            "id": "sr-text-lightcut",
+            "duration": 1350,
+            "delay": 605
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 920,
+            "delay": 640
+          },
+          {
+            "id": "sr-hero-booking-arrival",
+            "duration": 920,
+            "delay": 740
+          },
+          {
+            "id": "sr-hero-detail",
+            "duration": 760,
+            "delay": 820
+          }
+        ],
+        "groups": 6
+      }
+    },
+    {
+      "name": "Final remove máscaras e mantém logo única",
+      "pass": true
+    },
+    {
+      "name": "CTA responde na superfície própria e mantém link real",
+      "pass": true
+    },
+    {
+      "name": "CTA teclado tem foco visível",
+      "pass": true
+    },
+    {
+      "name": "FLIP sem sobreposição de logos e com destino exato",
+      "pass": true,
+      "detail": [
+        {
+          "canonical": true,
+          "flight": 1,
+          "target": 0,
+          "sameInk": true,
+          "error": 0.022735595703125
+        },
+        {
+          "canonical": true,
+          "flight": 0,
+          "target": 1,
+          "sameInk": true,
+          "error": 0.0226898193359375
+        }
+      ]
+    },
+    {
+      "name": "390 / casa: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "inktrail",
+        "letters": 21,
+        "accessible": "Chegue.Fique à vontade.",
+        "visual": true,
+        "frames": [
+          "translate3d(-34px, 35px, 0px) rotateZ(-15deg)",
+          "translate3d(-32.8px, 35px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / casa: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / servicos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "crosscurrent",
+        "letters": 22,
+        "accessible": "No seu tempo.Do seu jeito.",
+        "visual": true,
+        "frames": [
+          "translate3d(34px, -15px, 0px) rotateZ(12deg)",
+          "translate3d(-34px, 15px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / servicos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / equipe: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "pendulum",
+        "letters": 23,
+        "accessible": "Boas mãos.Boas histórias.",
+        "visual": true,
+        "frames": [
+          "perspective(620px) translate3d(-8px, 26px, 0px) rotateX(-68deg) rotateZ(7deg)",
+          "perspective(620px) translate3d(8px, 26px, 0px) rotateX(-68deg) rotateZ(-7deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / equipe: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / trabalhos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "shards",
+        "letters": 22,
+        "accessible": "O detalhefaz a diferença.",
+        "visual": true,
+        "frames": [
+          "translate3d(29px, 23px, 0px) skewX(13deg) rotateZ(-6deg)",
+          "translate3d(-29px, -23px, 0px) skewX(-13deg) rotateZ(6deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / trabalhos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / produtos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "accordion",
+        "letters": 19,
+        "accessible": "O cuidadovai com você.",
+        "visual": true,
+        "frames": [
+          "translate3d(13px, 6px, 0px) scaleX(0.33) scaleY(1.08)",
+          "translate3d(-13px, 6px, 0px) scaleX(0.33) scaleY(1.08)"
+        ]
+      }
+    },
+    {
+      "name": "390 / produtos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / avaliacoes: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "ghostprint",
+        "letters": 22,
+        "accessible": "A confiançavolta sempre.",
+        "visual": true,
+        "frames": [
+          "translate3d(19px, -26px, 0px) rotateZ(9deg) scale(0.88)",
+          "translate3d(-19px, -23.5238px, 0px) rotateZ(-9deg) scale(0.88)"
+        ]
+      }
+    },
+    {
+      "name": "390 / avaliacoes: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / localizacao: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "mirrorfold",
+        "letters": 25,
+        "accessible": "O próximo encontroé no Prado.",
+        "visual": true,
+        "frames": [
+          "perspective(700px) translate3d(14px, 15px, 0px) rotateY(73deg)",
+          "perspective(700px) translate3d(-14px, 15px, 0px) rotateY(-73deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / localizacao: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "390 / contato: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "inktrail",
+        "letters": 26,
+        "accessible": "Seu próximo corte começa aqui.",
+        "visual": true,
+        "frames": [
+          "translate3d(-34px, 35px, 0px) rotateZ(-15deg)",
+          "translate3d(-33.04px, 35px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "390 / contato: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / casa: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "inktrail",
+        "letters": 21,
+        "accessible": "Chegue.Fique à vontade.",
+        "visual": true,
+        "frames": [
+          "translate3d(-34px, 35px, 0px) rotateZ(-15deg)",
+          "translate3d(-32.8px, 35px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / casa: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / servicos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "crosscurrent",
+        "letters": 22,
+        "accessible": "No seu tempo.Do seu jeito.",
+        "visual": true,
+        "frames": [
+          "translate3d(34px, -15px, 0px) rotateZ(12deg)",
+          "translate3d(-34px, 15px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / servicos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / equipe: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "pendulum",
+        "letters": 23,
+        "accessible": "Boas mãos.Boas histórias.",
+        "visual": true,
+        "frames": [
+          "perspective(620px) translate3d(-8px, 26px, 0px) rotateX(-68deg) rotateZ(7deg)",
+          "perspective(620px) translate3d(8px, 26px, 0px) rotateX(-68deg) rotateZ(-7deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / equipe: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / trabalhos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "shards",
+        "letters": 22,
+        "accessible": "O detalhefaz a diferença.",
+        "visual": true,
+        "frames": [
+          "translate3d(29px, 23px, 0px) skewX(13deg) rotateZ(-6deg)",
+          "translate3d(-29px, -23px, 0px) skewX(-13deg) rotateZ(6deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / trabalhos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / produtos: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "accordion",
+        "letters": 19,
+        "accessible": "O cuidadovai com você.",
+        "visual": true,
+        "frames": [
+          "translate3d(13px, 6px, 0px) scaleX(0.33) scaleY(1.08)",
+          "translate3d(-13px, 6px, 0px) scaleX(0.33) scaleY(1.08)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / produtos: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / avaliacoes: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "ghostprint",
+        "letters": 22,
+        "accessible": "A confiançavolta sempre.",
+        "visual": true,
+        "frames": [
+          "translate3d(19px, -26px, 0px) rotateZ(9deg) scale(0.88)",
+          "translate3d(-19px, -23.5238px, 0px) rotateZ(-9deg) scale(0.88)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / avaliacoes: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / localizacao: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "mirrorfold",
+        "letters": 25,
+        "accessible": "O próximo encontroé no Prado.",
+        "visual": true,
+        "frames": [
+          "perspective(700px) translate3d(14px, 15px, 0px) rotateY(73deg)",
+          "perspective(700px) translate3d(-14px, 15px, 0px) rotateY(-73deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / localizacao: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "1440 / contato: assinatura original por letras presente",
+      "pass": true,
+      "detail": {
+        "signature": "inktrail",
+        "letters": 26,
+        "accessible": "Seu próximo corte começa aqui.",
+        "visual": true,
+        "frames": [
+          "translate3d(-34px, 35px, 0px) rotateZ(-15deg)",
+          "translate3d(-33.04px, 35px, 0px) rotateZ(-12deg)"
+        ]
+      }
+    },
+    {
+      "name": "1440 / contato: texto natural restaurado",
+      "pass": true
+    },
+    {
+      "name": "nativo: molduras próprias nas seis áreas",
+      "pass": true
+    },
+    {
+      "name": "nativo: profundidade reversível, sem lacunas",
+      "pass": true,
+      "detail": {
+        "a": {
+          "y": -6.71514,
+          "covered": true,
+          "state": "active",
+          "offset": 496,
+          "native": true
+        },
+        "b": {
+          "y": -4.45415,
+          "covered": true,
+          "state": "active",
+          "offset": 646,
+          "native": true
+        },
+        "c": {
+          "y": -6.71514,
+          "covered": true,
+          "state": "active",
+          "offset": 496,
+          "native": true
+        }
+      }
+    },
+    {
+      "name": "nativo: troca do profissional preserva o plano",
+      "pass": true
+    },
+    {
+      "name": "nativo: planos fora da tela suspensos",
+      "pass": true
+    },
+    {
+      "name": "nativo: movimento reduzido remove profundidade",
+      "pass": true
+    },
+    {
+      "name": "fallback: molduras próprias nas seis áreas",
+      "pass": true
+    },
+    {
+      "name": "fallback: profundidade reversível, sem lacunas",
+      "pass": true,
+      "detail": {
+        "a": {
+          "y": -6.715,
+          "covered": true,
+          "state": "active",
+          "offset": 496,
+          "native": false
+        },
+        "b": {
+          "y": -4.454,
+          "covered": true,
+          "state": "active",
+          "offset": 646,
+          "native": false
+        },
+        "c": {
+          "y": -6.715,
+          "covered": true,
+          "state": "active",
+          "offset": 496,
+          "native": false
+        }
+      }
+    },
+    {
+      "name": "fallback: troca do profissional preserva o plano",
+      "pass": true
+    },
+    {
+      "name": "fallback: planos fora da tela suspensos",
+      "pass": true
+    },
+    {
+      "name": "fallback: movimento reduzido remove profundidade",
+      "pass": true
+    },
+    {
+      "name": "Orientação editorial reflete a seção",
+      "pass": true
+    },
+    {
+      "name": "Próximo capítulo funciona pelo teclado",
+      "pass": true
+    },
+    {
+      "name": "Axe WCAG A/AA página completa",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "Nenhuma exceção JavaScript",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

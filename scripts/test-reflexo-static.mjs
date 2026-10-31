@@ -65,15 +65,15 @@ assert.ok(file('js/ritual/text-motion.js').includes('Math.min(order*25,580)')&&
   file('js/ritual/motion.js').includes('const entranceDelay='),
   'títulos têm pequeno atraso inicial e entrada espaçada por letras');
 const heroTimeline=file('js/ritual/hero-sign.js');
-assert.ok(!heroTimeline.includes("'openingcutmidpoint'")&&heroTimeline.includes("document.addEventListener('openingend'")&&heroTimeline.includes('event.detail?.completed?begin():settle()'),
-  'hero só começa após abertura completa; interrupções mostram conteúdo');
-assert.ok(heroTimeline.includes("['.hero-wordmark>span'")&&!heroTimeline.includes("['.hero-logo-transparent'"),
+assert.ok(heroTimeline.includes("document.addEventListener('openingcutmidpoint',begin")&&heroTimeline.includes("document.addEventListener('openingend'")&&heroTimeline.includes('if(!event.detail?.completed)settle()'),
+  'hero começa no ponto médio; interrupções mostram conteúdo');
+assert.ok(heroTimeline.includes("$('.hero-wordmark>span'")&&!heroTimeline.includes("['.hero-logo-transparent'"),
   'logo oficial não é alvo da segunda sequência');
 assert.ok(heroTimeline.includes("root.classList.remove('sr-hero-queued')")&&heroTimeline.includes('effect.cancel()')&&heroTimeline.includes('controller.abort()'),
   'um controlador libera fila, cancela efeitos e listeners');
-const queuedCSS=file('css/ritual/hero-sign.css');
-assert.ok(queuedCSS.includes('html.sr-hero-queued .hero .hero-room')&&queuedCSS.includes('html.sr-loader-boot.sr-hero-queued .hero h1'),
-  'hero permanece oculto antes do primeiro quadro');
+const queuedCSS=file('css/ritual/hero-cinema.css');
+assert.ok(queuedCSS.includes('html.sr-hero-queued .hero--cinema')&&queuedCSS.includes('.hero-topline,h1,.hero-intro,.hero-cta'),
+  'fila única oculta textos antes do primeiro quadro');
 const textMotion=file('js/ritual/text-motion.js'),imageMotion=file('js/ritual/image-motion.js');
 const orchestration=file('js/ritual/motion.js');
 for(const section of ['casa','servicos','equipe','produtos','avaliacoes','localizacao']){
@@ -114,10 +114,10 @@ assert.ok(imports.indexOf('loader-v2.css')<imports.indexOf('perfect-cut-v3.css')
 assert.ok(!imports.includes('negative-349-v24.css'));
 const perfect=file('css/ritual/perfect-cut-v3.css');
 for(const snippet of ['snv2-panel','snv2-cut-flight','snv2-logo-flight',
-                      'snv2-seam','sr-cut-reveal','prefers-reduced-motion:reduce'])
+                      'snv2-seam','prefers-reduced-motion:reduce'])
   assert.ok(perfect.includes(snippet),'estilo do corte: '+snippet);
 assert.ok(!file('css/ritual/loader-v2.css').includes('snv2-iris'),'íris obsoleta removida');
-assert.ok(perfect.includes('transition:none!important')&&
+assert.ok(!perfect.includes('html.sr-loader-boot .hero')&&
           !perfect.includes('transition-delay:220ms'),
   'remoção de fades CSS conflitantes no hero');
 assert.ok(!file('css/ritual/hero-sign.css').includes('.hero .photo-window::after'),
@@ -253,7 +253,7 @@ console.log('Team portrait rail: saída lateral, entrada vertical e contenção 
    Verify actual public behaviors rather than the removed scene chooser. */
 const heroV27Template=file('templates/v17/inicio.html');
 const productTemplate=file('templates/v17/produtos.html');
-const heroBrand=file('css/ritual/hero-brand-v27.css');
+const heroBrand=file('css/ritual/hero-cinema.css');
 const catalogCSS=file('css/ritual/catalog-atelier.css');
 const catalogJS=file('js/ritual/products.js');
 const heroV27Motion=file('js/ritual/hero-sign.js');
@@ -269,7 +269,7 @@ assert.ok(heroV27Template.indexOf('hero-pole--left')<
  'logo centralizada entre postes no mesmo lockup');
 assert.ok(heroV27Template.includes('hero-cinema__brand-lockup')&&
  heroBrand.includes('grid-template-columns')&&
- heroBrand.includes('hero-cinema__brand-lockup .hero-pole'),
+ heroBrand.includes('.hero--cinema .hero-pole'),
  'layout central responsivo carregado');
 assert.ok(!heroV27Template.includes('OLHAR DE PERTO')&&
  !heroV27Template.includes('data-cinema-shot')&&
@@ -280,17 +280,17 @@ assert.ok(!heroV27Template.includes('OLHAR DE PERTO')&&
 assert.equal((html.match(/class="hero-logo-transparent"/g)||[]).length,1,
  'marca oficial única para o FLIP da introdução');
 assert.ok(heroV27Motion.includes('sr-hero-curtain')&&
- heroV27Motion.includes('sr-hero-light-slit')&&
+ heroV27Motion.includes('hero-cinema__shutter')&&
  heroV27Motion.includes('openingend'),
- 'cortina cinematográfica e novo traço de luz sincronizados à tesoura');
-assert.ok(typeV27Engine.includes("case 'monolith'")&&
- heroV27Template.includes('data-cm-signature="monolith"'),
- 'tipografia por letras preservada');
+ 'duas superfícies sincronizadas ao corte da tesoura');
+assert.ok(typeV27Engine.includes("mode==='lightcut'")&&
+ heroV27Template.includes('data-cm-signature="lightcut"'),
+ 'tipografia em grupos com geometria natural preservada');
 assert.ok(heroBrand.includes('prefers-reduced-motion:reduce')&&
  heroV27Template.includes('hero-ambiente-mobile-960.webp')&&
  heroV27Template.includes('hero-ambiente-1920.webp'),
  'imagem própria responsiva e modo movimento reduzido');
-assert.ok(file('css/ritual.css').includes("hero-brand-v27.css")&&
+assert.ok(file('css/ritual.css').includes("hero-cinema.css")&&
  file('css/ritual.css').includes("catalog-atelier.css"),
  'CSS de nova composição e catálogo ligado à página');
 assert.equal((productTemplate.match(/class="product-option"/g)||[]).length,22,
