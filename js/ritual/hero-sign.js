@@ -22,11 +22,10 @@ export function initHeroExperience(){
   // Everything is installed synchronously in openingend, before another paint.
   const tracks=hero.classList.contains('hero--cinema')?[
    ['.hero-wordmark>span',0,'text','micro'],
-   ['.hero-topline',130,'text','micro'],
-   ['h1',300,'text','hero'],
-   ['.hero-intro',620,'text','focus'],
-   ['.hero-invitation>.button',840,'text','micro'],
-   ['.hero-invitation>.text-link',940,'text','micro']
+   ['.hero-topline',125,'text','lines'],
+   ['h1',295,'text','hero'],
+   ['.hero-intro',605,'text','lines'],
+   ['.hero-invitation>.text-link',1020,'text','micro']
   ]:[
    ['.hero-pole__object',0,'image','lateral'],
    ['.hero-wordmark>span',85,'text','micro'],
@@ -69,7 +68,7 @@ export function initHeroExperience(){
       {duration:1600,delay:40,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'}
     ));
     const decorated=[
-     ['.hero-bottom',1090],['.hero-cinema__masthead-tag',185]
+     ['.hero-bottom',1140],['.hero-cinema__masthead-tag',190]
     ];
     const slit=$('.hero-cinema__light-slit',hero);
     if(slit){
@@ -80,6 +79,20 @@ export function initHeroExperience(){
       {opacity:0,transform:'translate3d(100vw,0,0)'}
      ],{duration:1180,delay:140,easing:'cubic-bezier(.62,.08,.22,1)',fill:'both'});
      effect.id='sr-hero-light-slit';
+     effects.push(effect);
+    }
+    // A single tactile arrival for the booking CTA. It is intentionally
+    // NOT in the text tracks: two animations on the same button would
+    // compete for opacity and transform after the scissor reveal.
+    const booking=$('.hero-cta',hero);
+    if(booking){
+     styles.push({node:booking,opacity:booking.style.opacity,clipPath:booking.style.clipPath});
+     const effect=booking.animate([
+      {opacity:0,transform:'translate3d(0,27px,0) scale(.955)'},
+      {offset:.78,opacity:1,transform:'translate3d(0,-3px,0) scale(1.01)'},
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+     ],{duration:930,delay:810,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+     effect.id='sr-hero-booking-arrival';
      effects.push(effect);
     }
     for(const [selector,delay] of decorated){
