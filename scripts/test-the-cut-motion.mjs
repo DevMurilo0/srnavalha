@@ -35,10 +35,18 @@ async function test(width,reducedMotion='no-preference'){
   check(width+' reduced motion keeps hero',await page.locator('#hero-title').isVisible());
  }
  await page.locator('#casa').scrollIntoViewIfNeeded();
- await page.waitForTimeout(120);
- if(!reduce)check(width+' parallax is composited on actual photography',
-   await page.locator('.house-photos [data-depth]').first().evaluate(n=>
+ if(!reduce){
+  // On a narrow viewport the photograph is below the title. Bring the
+  // actual parallax layer into view rather than sampling an offscreen layer.
+  await page.locator('.house-photos [data-depth]').first().scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>{
+   const node=document.querySelector('.house-photos [data-depth]');
+   return node&&node.style.transform.includes('translate3d');
+  },null,{timeout:3000});
+  check(width+' parallax is composited on actual photography',
+    await page.locator('.house-photos [data-depth]').first().evaluate(n=>
       getComputedStyle(n).transform!=='none'));
+ }
  if(!reduce){
   await page.waitForFunction(()=>document.querySelector('#house-title')?.classList.contains('motion-finished'),null,{timeout:5000});
   check(width+' section title choreography',await page.locator('#house-title').isVisible());
