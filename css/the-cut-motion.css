@@ -5,7 +5,7 @@
 .cut-intro__lower{bottom:-2%;height:54%;background:linear-gradient(117deg,#e9e3d8,#d6ccba);clip-path:polygon(0 4%,100% 0,100% 100%,0 100%);animation:cut-lower 1.0s 1.27s cubic-bezier(.65,0,.17,1) both}
 .cut-intro__grain{position:absolute;inset:0;opacity:.24;pointer-events:none;background:repeating-linear-gradient(70deg,#e9e3d810 0 1px,transparent 1px 17px);animation:cut-grain .5s 1.35s both}
 .cut-intro__identity{position:absolute;top:17%;left:50%;width:min(55vw,370px);text-align:center;transform:translateX(-50%);color:#e9e3d8;animation:cut-identity-out .45s 1.05s both}
-.cut-intro__identity img{height:auto;width:min(75%,260px);margin-inline:auto;filter:brightness(0) invert(1);object-fit:contain;animation:cut-identity-in .6s cubic-bezier(.22,1,.36,1) both}
+.cut-intro__identity .official-logo{height:auto;width:min(75%,260px);margin-inline:auto;filter:brightness(0) invert(1);object-fit:contain;animation:cut-identity-in .6s cubic-bezier(.22,1,.36,1) both}
 .cut-intro__identity strong{display:block;margin-top:22px;font:800 clamp(23px,3.5vw,46px)/1.05 Manrope,Arial,sans-serif;letter-spacing:-.055em;animation:cut-identity-in .7s .12s both}
 .cut-intro__identity em{display:block;font:500 italic clamp(26px,3.8vw,48px)/1.08 Bodoni,Georgia,serif;animation:cut-identity-in .7s .24s both}
 .cut-intro__seam{position:absolute;left:-4%;top:49.3%;width:108%;height:2px;transform:rotate(-1.5deg);background:linear-gradient(90deg,transparent,#b8bab6 25%,#e9e3d8 50%,#b8bab6 75%,transparent);box-shadow:0 1px 10px #faf5e477;animation:cut-seam .75s .5s both}
@@ -47,7 +47,7 @@ h1[data-type],h2[data-type],.instrument-copy [data-type]{text-wrap:balance}
 }
 @media(max-width:700px){
  .cut-intro__identity{top:29%;width:min(80vw,360px)}
- .cut-intro__identity img{max-width:200px}
+ .cut-intro__identity .official-logo{max-width:200px}
  .cut-intro__blade{width:min(73vw,360px);top:43%}
  .cut-intro__edition{bottom:10%;letter-spacing:.12em}
  .service-panel>a:active,.product-selection a:active{opacity:.72}
