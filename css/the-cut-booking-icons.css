@@ -1,0 +1,9 @@
+/* Lightweight iconography for the existing standalone appointment wizard. */
+.bk-link-icon{display:inline-block;flex:none;width:17px;height:17px;vertical-align:-.23em}
+.bk-header-action{display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.bk-success-actions #bk-new-booking{display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.bk-footer a:has(>.bk-link-icon){display:inline-flex;align-items:center;gap:8px}
+.bk-noscript a:has(>.bk-link-icon){display:inline-flex;align-items:center;gap:5px}
+.bk-link-icon{transition:transform 210ms cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){a:hover>.bk-link-icon{transform:translate3d(1px,-1px,0)}}
+@media(prefers-reduced-motion:reduce){.bk-link-icon{transition:none}}
