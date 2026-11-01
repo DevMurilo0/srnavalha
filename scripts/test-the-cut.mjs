@@ -75,6 +75,7 @@ try {
    await page.locator('[data-gallery-next]').click();
    check(width+' gallery moves',await page.locator('.gallery-controls [role="status"]').textContent()==='2 de 6');
    await page.locator('.gallery-dialog .dialog-close').click();
+   await page.waitForFunction(()=>!document.querySelector('.gallery-dialog').open,null,{timeout:3000});
    check(width+' gallery closes',await page.locator('.gallery-dialog').evaluate(d=>!d.open));
    const a11y=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
    check(width+' serious a11y violations',a11y.violations.filter(v=>['critical','serious'].includes(v.impact)).length===0,
