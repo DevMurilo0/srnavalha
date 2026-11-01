@@ -24,13 +24,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install browser and accessibility dependencies
-        run: |
-          mkdir -p /tmp/srnavalha-validation
-          cd /tmp/srnavalha-validation
-          npm init -y >/dev/null
-          npm install --no-audit --no-fund playwright playwright-core @axe-core/playwright
-          npx playwright install --with-deps chromium
       - name: Verify generated HTML and JavaScript
         run: |
           node --check js/the-cut/app.js
@@ -38,6 +31,13 @@ jobs:
           node scripts/render-site.mjs
           git diff --exit-code -- index.html
           node --experimental-default-type=module scripts/test-booking-local.mjs
+      - name: Install browser and accessibility dependencies
+        run: |
+          mkdir -p /tmp/srnavalha-validation
+          cd /tmp/srnavalha-validation
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund playwright playwright-core @axe-core/playwright
+          npx playwright install --with-deps chromium
       - name: Start local website
         run: |
           python3 -m http.server 8047 --bind 127.0.0.1 > /tmp/srnavalha-server.log 2>&1 &
@@ -57,6 +57,18 @@ jobs:
           node scripts/test-the-cut.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
+      - name: Package working source for download
+        if: always()
+        run: |
+          mkdir -p dist
+          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html assets css js templates scripts README.md DESIGN.md PRODUCT.md
+      - name: Upload source ZIP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: srnavalha-the-cut-source
+          retention-days: 14
+          path: dist/srnavalha-the-cut-source.zip
       - name: Upload visual comparisons
         if: always()
         uses: actions/upload-artifact@v4
