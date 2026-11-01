@@ -27,49 +27,107 @@ function headings(ready){
  const nodes=all('h1[data-type],h2[data-type],.instrument-copy [data-type]');
  if(!canAnimate()||!('IntersectionObserver'in window))return;
  const seen=new WeakSet();
- for(const node of nodes){
-  node.classList.add('motion-armed');
-  if(node.dataset.type==='shards'){
-   all(':scope > span,:scope > em',node).forEach(part=>{
-    const value=part.textContent||'';
-    part.replaceChildren(...value.split(/(\s+)/).filter(Boolean).map(fragment=>{
-     if(/^\s+$/.test(fragment))return document.createTextNode(fragment);
-     const word=document.createElement('span');word.className='motion-word';word.textContent=fragment;return word;
-    }));
-   });
+ // Adapted from the original Sr. Navalha title gestures: monolith,
+ // pendulum, inktrail, ghostprint, shards, accordion and mirrorfold.
+ const styles={
+  inicio:'monolith',casa:'pendulum',servicos:'inktrail',equipe:'inktrail',
+  trabalhos:'shards',produtos:'ghostprint',
+  agendamento:'accordion',localizacao:'mirrorfold'
+ };
+ const segmenter=typeof Intl.Segmenter==='function'
+  ?new Intl.Segmenter('pt-BR',{granularity:'grapheme'}):null;
+ const chars=text=>segmenter?[...segmenter.segment(text)].map(s=>s.segment):Array.from(text);
+ const frames=(kind,index,total)=>{
+  const dir=index%2===0?1:-1;
+  const edge=Math.abs(index-(total-1)/2)/Math.max(1,(total-1)/2);
+  const last={opacity:1,transform:'translate3d(0,0,0) rotate(0deg) scale(1)'};
+  switch(kind){
+   case 'monolith':return [
+    {opacity:0,transform:'perspective(680px) translate3d('+(dir*(13+edge*19))+'px,'+(23+edge*11)+'px,0) rotateY('+(dir*55)+'deg) rotateZ('+(dir*8)+'deg) scale(.85)'},
+    {offset:.72,opacity:1,transform:'perspective(680px) translate3d(0,-3px,0) rotateY(3deg) scale(1.02)'},last];
+   case 'pendulum':return [
+    {opacity:0,transform:'perspective(620px) translate3d('+(dir*-8)+'px,26px,0) rotateX(-67deg) rotateZ('+(dir*7)+'deg)'},
+    {offset:.74,opacity:1,transform:'perspective(620px) translate3d(0,-2px,0) rotateX(4deg)'},last];
+   case 'mirrorfold':return [
+    {opacity:0,transform:'perspective(700px) translate3d('+(dir*14)+'px,15px,0) rotateY('+(dir*73)+'deg)'},
+    {offset:.74,opacity:1,transform:'perspective(700px) translate3d(0,-2px,0) rotateY('+(dir*-5)+'deg)'},last];
+   case 'ghostprint':return [
+    {opacity:0,transform:'translate3d('+(dir*19)+'px,'+(-26*edge)+'px,0) rotate('+(dir*9)+'deg) scale(.88)'},
+    {offset:.74,opacity:1,transform:'translate3d(0,2px,0) rotate(0deg) scale(1.025)'},last];
+   case 'shards':return [
+    {opacity:0,transform:'translate3d('+(dir*29)+'px,'+(dir*23)+'px,0) skewX('+(dir*13)+'deg) rotate('+(dir*-6)+'deg)'},
+    {offset:.75,opacity:1,transform:'translate3d(0,-2px,0) skewX(0deg) rotate(0deg)'},last];
+   case 'accordion':return [
+    {opacity:0,transform:'translate3d('+(dir*13)+'px,6px,0) scaleX(.33) scaleY(1.08)'},
+    {offset:.73,opacity:1,transform:'translate3d(0,-2px,0) scaleX(1.06) scaleY(.99)'},last];
+   case 'crosscurrent':return [
+    {opacity:0,transform:'translate3d('+(dir*34)+'px,'+(dir*-15)+'px,0) rotate('+(dir*12)+'deg)'},
+    {offset:.72,opacity:1,transform:'translate3d(0,2px,0) rotate('+(dir*-1.2)+'deg)'},last];
+   default:return [
+    {opacity:0,transform:'translate3d(-22px,34px,0) rotate(-12deg)'},
+    {offset:.75,opacity:1,transform:'translate3d(2px,-3px,0) rotate(1deg)'},last];
   }
- }
- function play(node){
+ };
+ for(const node of nodes)node.classList.add('motion-armed');
+ const play=node=>{
   if(seen.has(node))return;seen.add(node);
-  const type=node.dataset.type;
-  const items=type==='shards'?all('.motion-word',node):all(':scope > span,:scope > em',node);
-  if(!items.length){node.classList.remove('motion-armed');return;}
-  const animations=items.map((item,index)=>{
-   const emphasized=item.matches('em')||item.closest('em');
-   const duration=type==='cut'?920:type==='mirror'?1000:type==='shards'?680:810;
-   const delay=type==='shards'?index*105:index*(type==='cut'?220:150);
-   let from={opacity:0,transform:'translate3d('+(type==='mirror'?(index===0?'-24px':'24px'):'0')+','+(type==='fold'?'33px':type==='shards'?'22px':'16px')+',0)'};
-   let to={opacity:1,transform:'translate3d(0,0,0)'};
-   if(type==='cut'){
-    from={...from,clipPath:emphasized?'inset(0 0 100% 0)':'inset(0 100% 0 0)'};
-    to={...to,clipPath:'inset(0 0 0 0)'};
+  const parts=all(':scope > span,:scope > em',node);
+  if(!parts.length){
+   node.classList.remove('motion-armed');node.classList.add('motion-finished');return;
+  }
+  const originals=parts.map(part=>part.innerHTML);
+  const glyphs=[];
+  try{
+   for(const part of parts){
+    const walker=document.createTreeWalker(part,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode())nodes.push(walker.currentNode);
+    for(const textNode of nodes){
+     const frag=document.createDocumentFragment();
+     for(const token of textNode.textContent.split(/(\s+)/u)){
+      if(!token)continue;
+      if(/^\s+$/u.test(token)){frag.append(document.createTextNode(token));continue;}
+      const word=document.createElement('span');word.className='motion-word';
+      for(const char of chars(token)){
+       const glyph=document.createElement('span');glyph.className='motion-glyph';
+       glyph.textContent=char;word.append(glyph);glyphs.push(glyph);
+      }
+      frag.append(word);
+     }
+     textNode.replaceWith(frag);
+    }
    }
-   if(type==='fold')from.transform='translate3d(0,28px,0) rotateX(-24deg) skewY(2deg)';
-   if(type==='mirror')from.transform='translate3d('+(index===0?'-42px':'42px')+',14px,0) rotate('+(index===0?'-3deg':'3deg')+')';
-   if(type==='shards')from.transform='translate3d('+(index%2===0?'-14px':'14px')+',30px,0) rotate('+(index%2===0?'-8deg':'7deg')+')';
-   return item.animate([from,to],{duration,delay,easing:eased,fill:'both'});
-  });
-  Promise.allSettled(animations.map(a=>a.finished)).then(()=>{
-   node.classList.remove('motion-armed');animations.forEach(a=>a.cancel());
-   node.classList.add('motion-finished');
-  });
- }
- const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{if(entry.isIntersecting){observer.unobserve(entry.target);play(entry.target);}});
- },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
- nodes.forEach(node=>{if(node.closest('.hero'))ready.then(()=>play(node));else observer.observe(node)});
+   const hero=Boolean(node.closest('.hero'));
+   const kind=hero?'monolith':styles[node.closest('section[id]')?.id]||'crosscurrent';
+   const total=glyphs.length,base=hero?0:280; // Scroll only: later appearance.
+   const effects=glyphs.map((glyph,index)=>{
+    const order=kind==='monolith'?Math.abs(index-(total-1)/2)*1.25
+     :kind==='ghostprint'?Math.abs(index-(total-1)/2)*1.6
+     :kind==='accordion'||kind==='mirrorfold'?total-1-index:index;
+    return glyph.animate(frames(kind,index,total),{
+     delay:base+Math.min(order*24,520),duration:hero?790:760,
+     easing:'cubic-bezier(.16,1,.3,1)',fill:'both'
+    });
+   });
+   node.classList.remove('motion-armed');
+   Promise.allSettled(effects.map(a=>a.finished)).then(()=>{
+    effects.forEach(a=>a.cancel());
+    parts.forEach((part,i)=>part.innerHTML=originals[i]);
+    node.classList.add('motion-finished');
+   });
+  }catch{
+   parts.forEach((part,i)=>part.innerHTML=originals[i]);
+   node.classList.remove('motion-armed');node.classList.add('motion-finished');
+  }
+ };
+ const io=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(entry.isIntersecting){io.unobserve(entry.target);play(entry.target);}
+  }
+ },{threshold:.12,rootMargin:'0px 0px -12% 0px'});
+ nodes.forEach(node=>{if(node.closest('.hero'))ready.then(()=>play(node));else io.observe(node)});
  reduced.addEventListener?.('change',()=>{
-  if(reduced.matches){observer.disconnect();nodes.forEach(node=>node.classList.remove('motion-armed'));}
+  if(reduced.matches){io.disconnect();nodes.forEach(node=>node.classList.remove('motion-armed'));}
  },{once:true});
 }
 
