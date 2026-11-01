@@ -16,7 +16,7 @@ function opening(){
    if(event.target===intro&&event.animationName==='cut-intro-clear')finish();
   });
   // The animation plays on every refresh, but can never trap the page.
-  const watchdog=setTimeout(finish,3100);
+  const watchdog=setTimeout(finish,3300);
   const original=finish;
   reduced.addEventListener?.('change',()=>{if(reduced.matches){clearTimeout(watchdog);original();}},{once:true});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)finish();},{once:true});
@@ -95,10 +95,10 @@ function editorialPhotographs(){
    else if(kind==='portrait')frames=[{opacity:.35,transform:'translate3d(0,'+distance+'px,0) scale(.98)'},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}];
    else if(kind==='fade')frames=[{opacity:.25},{opacity:1}];
    else frames=[{opacity:.2,transform:'translate3d(0,'+distance+'px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}];
-   const animation=node.animate(frames,{duration:kind==='wipe'?1000:800,easing:eased});
+   const animation=node.animate(frames,{duration:kind==='wipe'?1000:850,delay:300,easing:eased,fill:'backwards'});
    animation.finished.catch(()=>{});
   }
- },{threshold:.16,rootMargin:'0px 0px -7% 0px'});
+ },{threshold:.18,rootMargin:'0px 0px -11% 0px'});
  target.forEach(({node})=>observer.observe(node));
  reduced.addEventListener?.('change',()=>{if(reduced.matches)observer.disconnect();},{once:true});
 }
@@ -238,13 +238,13 @@ function productRollIn(){
     {offset:0,opacity:.3,transform:'translate3d('+(p.x*scale)+'px,'+(p.y*scale)+'px,0) rotate('+p.angle+'deg)'},
     {offset:.77,opacity:1,transform:'translate3d(0,0,0) rotate('+p.bounce+'deg)'},
     {offset:1,opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
-   ],{duration:1000+index*85,delay:100+index*155,
+   ],{duration:1050+index*90,delay:480+index*210,
       easing:'cubic-bezier(.2,.78,.18,1)',fill:'backwards'});
    animation.finished.then(()=>{
     item.dataset.motionDone='1';animation.cancel();
    }).catch(()=>{item.dataset.motionDone='1'});
   });
- },{threshold:.2,rootMargin:'0px 0px -4% 0px'});
+ },{threshold:.32,rootMargin:'0px 0px -13% 0px'});
  io.observe(shelf);
  reduced.addEventListener?.('change',()=>{
   if(!reduced.matches)return;
@@ -270,7 +270,7 @@ function tactileScroll(){
    all(group[1],entry.target).forEach((el,i)=>el.animate([
     {opacity:.35,transform:'translate3d(0,20px,0)'},
     {opacity:1,transform:'translate3d(0,0,0)'}
-   ],{duration:720,delay:Math.min(i*95,300),easing:eased}));
+   ],{duration:740,delay:300+Math.min(i*105,350),easing:eased,fill:'backwards'}));
   }
  },{threshold:.15});
  zones.forEach(([q])=>all(q).forEach(el=>io.observe(el)));

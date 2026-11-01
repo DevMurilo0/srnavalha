@@ -43,7 +43,7 @@ async function test(width,reducedMotion='no-preference'){
  await page.locator('.product-still-life').scrollIntoViewIfNeeded();
  // The three objects have separate starts and durations. Wait for the whole
  // physical sequence to settle, not just the first package.
- await page.waitForFunction(()=>document.querySelectorAll('.product-object[data-motion-done="1"]').length===3,null,{timeout:6500});
+ await page.waitForFunction(()=>document.querySelectorAll('.product-object[data-motion-done="1"]').length===3,null,{timeout:10000});
  check(width+' product roll-in completes',await page.locator('.product-object[data-motion-done="1"]').count()===3);
  await page.locator('.services-catalog>summary').click();
  check(width+' catalogue opens',await page.locator('.services-catalog').evaluate(x=>x.open));

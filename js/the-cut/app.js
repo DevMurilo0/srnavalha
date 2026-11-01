@@ -69,35 +69,39 @@ function initTeam(){
    }
   }
   if(serial!==currentToken)return;
-  // The scene owns both sprites during a true left-to-right procession.
-  // Superseded departures are removed before rapid successive selections.
-  $$('img.is-departing',stage).forEach(img=>img.remove());
+  // Measured travel: EXIT beyond right viewport edge; ENTER from left.
+  $$('img.is-departing',stage).forEach(img=>{img.getAnimations().forEach(a=>a.cancel());img.remove()});
   const existing=$('img.is-current',stage);
+  existing?.getAnimations().forEach(a=>a.cancel());
   const next=document.createElement('img');
   next.src=source(person);next.alt=person.name+', profissional da Sr. Navalha';
-  next.width=person.id==='damiao'?725:800;
-  next.height=next.width;
-  next.className='is-current';
-  if(motion())next.classList.add('is-arriving');
-  if(existing){existing.classList.remove('is-current');existing.classList.add('is-departing');}
-  stage.append(next);
-  if(motion()){
-   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    if(next.isConnected)next.classList.remove('is-arriving');
-   }));
+  next.width=person.id==='damiao'?725:800;next.height=next.width;
+  next.className='is-current';stage.append(next);
+  if(existing)existing.classList.replace('is-current','is-departing');
+  if(motion()&&typeof next.animate==='function'){
+   const r=stage.getBoundingClientRect(),extra=Math.max(60,r.width*.15);
+   const right=Math.ceil(innerWidth-r.left+extra),left=-Math.ceil(r.right+extra);
+   const config={duration:990,easing:'cubic-bezier(.22,.82,.2,1)',fill:'both'};
    if(existing){
-    const remove=()=>existing.remove();
-    existing.addEventListener('transitionend',e=>{if(e.propertyName==='transform')remove()},{once:true});
-    setTimeout(remove,920);
+    const exit=existing.animate([
+     {offset:0,opacity:1,transform:'translate3d(0,0,0)'},
+     {offset:.83,opacity:1,transform:'translate3d('+(right*.87)+'px,0,0)'},
+     {offset:1,opacity:0,transform:'translate3d('+right+'px,0,0)'}
+    ],config);
+    exit.finished.catch(()=>{}).finally(()=>{exit.cancel();existing.remove()});
    }
+   const enter=next.animate([
+    {offset:0,opacity:0,transform:'translate3d('+left+'px,0,0)'},
+    {offset:.16,opacity:1,transform:'translate3d('+(left*.82)+'px,0,0)'},
+    {offset:.82,opacity:1,transform:'translate3d(12px,0,0)'},
+    {offset:1,opacity:1,transform:'translate3d(0,0,0)'}
+   ],{...config,duration:1060});
+   enter.finished.catch(()=>{}).finally(()=>enter.cancel());
   }else existing?.remove();
-  const aside=$('.team-aside');
-  if(aside&&motion()){
-   aside.classList.remove('is-changing');
-   void aside.offsetWidth;
-   aside.classList.add('is-changing');
-   setTimeout(()=>aside.classList.remove('is-changing'),210);
-  }
+  if(motion())$('#person-name')?.animate([
+   {opacity:.25,transform:'translate3d(-10px,0,0)'},
+   {opacity:1,transform:'translate3d(0,0,0)'}
+  ],{duration:380,easing:'cubic-bezier(.22,1,.36,1)'});
   chosen=id;
   buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.person===id)));
   if(name)name.textContent=person.name;
