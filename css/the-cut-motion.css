@@ -1,24 +1,25 @@
-/* THE CUT / Motion 02: cut, expose, settle. Fixed geometry; transform/opacity first. */
-.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;background:#141412;touch-action:none;animation:cut-intro-clear .16s 2.12s both;animation-fill-mode:forwards}
-.cut-intro__upper,.cut-intro__lower{position:absolute;left:-2%;right:-2%;pointer-events:none;will-change:transform}
-.cut-intro__upper{top:-2%;height:55%;background:repeating-linear-gradient(111deg,transparent 0 58px,#ffffff07 59px 60px),#171715;clip-path:polygon(0 0,100% 0,100% 100%,0 96%);animation:cut-upper 1.0s 1.27s cubic-bezier(.65,0,.17,1) both}
-.cut-intro__lower{bottom:-2%;height:54%;background:linear-gradient(117deg,#e9e3d8,#d6ccba);clip-path:polygon(0 4%,100% 0,100% 100%,0 100%);animation:cut-lower 1.0s 1.27s cubic-bezier(.65,0,.17,1) both}
-.cut-intro__grain{position:absolute;inset:0;opacity:.24;pointer-events:none;background:repeating-linear-gradient(70deg,#e9e3d810 0 1px,transparent 1px 17px);animation:cut-grain .5s 1.35s both}
-.cut-intro__identity{position:absolute;top:17%;left:50%;width:min(55vw,370px);text-align:center;transform:translateX(-50%);color:#e9e3d8;animation:cut-identity-out .45s 1.05s both}
-.cut-intro__identity .official-logo{height:auto;width:min(75%,260px);margin-inline:auto;filter:brightness(0) invert(1);object-fit:contain;animation:cut-identity-in .6s cubic-bezier(.22,1,.36,1) both}
-.cut-intro__identity strong{display:block;margin-top:22px;font:800 clamp(23px,3.5vw,46px)/1.05 Manrope,Arial,sans-serif;letter-spacing:-.055em;animation:cut-identity-in .7s .12s both}
-.cut-intro__identity em{display:block;font:500 italic clamp(26px,3.8vw,48px)/1.08 Bodoni,Georgia,serif;animation:cut-identity-in .7s .24s both}
-.cut-intro__seam{position:absolute;left:-4%;top:49.3%;width:108%;height:2px;transform:rotate(-1.5deg);background:linear-gradient(90deg,transparent,#b8bab6 25%,#e9e3d8 50%,#b8bab6 75%,transparent);box-shadow:0 1px 10px #faf5e477;animation:cut-seam .75s .5s both}
-.cut-intro__blade{position:absolute;top:43%;left:50%;width:min(42vw,430px);max-height:26vh;object-fit:contain;filter:drop-shadow(0 8px 12px #0008);animation:cut-blade 1.45s .15s cubic-bezier(.38,.05,.12,1) both;pointer-events:none}
-.cut-intro__edition{position:absolute;bottom:7%;left:50%;color:#493126;letter-spacing:.18em;white-space:nowrap;transform:translateX(-50%);font:750 clamp(9px,.85vw,13px)/1.5 Manrope,Arial,sans-serif;animation:cut-identity-out .4s 1.07s both}
-@keyframes cut-identity-in{from{opacity:0;transform:translate3d(0,15px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
-@keyframes cut-identity-out{from{opacity:1}to{opacity:0}}
-@keyframes cut-seam{0%{opacity:0;transform:scaleX(.1) rotate(-1.5deg)}70%{opacity:1}100%{opacity:1;transform:scaleX(1) rotate(-1.5deg)}}
-@keyframes cut-blade{0%{opacity:0;transform:translate3d(-155%,18px,0) rotate(-18deg) scale(.88)}21%{opacity:1}68%{opacity:1;transform:translate3d(-48%,-7px,0) rotate(-7deg) scale(1)}100%{opacity:0;transform:translate3d(94%,-25px,0) rotate(-3deg) scale(1.08)}}
-@keyframes cut-upper{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,-111%,0)}}
-@keyframes cut-lower{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,111%,0)}}
-@keyframes cut-grain{to{opacity:0}}
-@keyframes cut-intro-clear{0%{opacity:1;visibility:visible;pointer-events:auto}100%{opacity:0;visibility:hidden;pointer-events:none}}
+/* Editorial aperture / ink and paper — no razor enters the loading screen. */
+.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;background:#141412;touch-action:none;animation:cut-intro-clear .18s 2.06s both}
+.cut-intro__upper,.cut-intro__lower{position:absolute;inset:-2%;pointer-events:none;will-change:transform}
+.cut-intro__upper{background:repeating-linear-gradient(114deg,transparent 0 82px,#ffffff08 82px 83px),#141412;clip-path:polygon(0 0,100% 0,100% 48%,0 54%);animation:cut-ink-opening .91s 1.12s cubic-bezier(.75,.03,.14,1) both}
+.cut-intro__lower{background:linear-gradient(135deg,#eee9df,#d6ccba);clip-path:polygon(0 53%,100% 47%,100% 100%,0 100%);animation:cut-paper-opening .91s 1.12s cubic-bezier(.75,.03,.14,1) both}
+.cut-intro__monogram{position:absolute;inset:0;display:grid;place-content:center;color:#dad0c21c;font:900 min(38vw,420px)/.8 Manrope,Arial,sans-serif;letter-spacing:-.14em;white-space:nowrap;pointer-events:none;animation:cut-oversize 1.55s .2s both}
+.cut-intro__monogram span{color:#c68d6388;font:italic .8em Bodoni,Georgia,serif;transform:translateY(-.05em)}
+.cut-intro__identity{position:absolute;top:16%;left:50%;width:min(78vw,450px);text-align:center;transform:translateX(-50%);color:#e9e3d8;animation:cut-identity-away .38s .92s both;z-index:2}
+.cut-intro__identity .official-logo{height:auto;width:min(55%,250px);margin:auto;filter:brightness(0) invert(1);object-fit:contain;animation:cut-title-reveal .55s both}
+.cut-intro__identity strong{display:block;margin-top:12px;font:800 clamp(22px,3.3vw,48px)/1.1 Manrope,Arial,sans-serif;letter-spacing:-.06em;animation:cut-title-reveal .58s .1s both}
+.cut-intro__identity em{display:block;font:500 italic clamp(22px,3.6vw,46px)/1.12 Bodoni,Georgia,serif;animation:cut-title-reveal .62s .18s both}
+.cut-intro__seam{position:absolute;left:-15%;top:49%;width:130%;height:2px;transform-origin:50% 50%;background:linear-gradient(90deg,transparent 4%,#a3654b 31%,#f2e9de 50%,#a3654b 68%,transparent 95%);box-shadow:0 0 7px #fff6;animation:cut-seam-sweep 1.25s .37s both;z-index:3}
+.cut-intro__edition{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);white-space:nowrap;color:#3d2b20;font:750 clamp(8px,.95vw,12px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.18em;animation:cut-identity-away .4s 1.06s both;z-index:2}
+@keyframes cut-title-reveal{from{opacity:0;translate:0 22px;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0 0;clip-path:inset(0)}}
+@keyframes cut-oversize{0%{opacity:0;transform:scale(1.1) translateY(3%)}35%{opacity:1}100%{opacity:.72;transform:scale(1) translateY(0)}}
+@keyframes cut-identity-away{from{opacity:1}to{opacity:0}}
+@keyframes cut-seam-sweep{0%{opacity:0;transform:translateX(-55%) rotate(-2deg) scaleX(.18)}38%{opacity:1}100%{opacity:0;transform:translateX(55%) rotate(-2deg) scaleX(.9)}}
+@keyframes cut-ink-opening{from{transform:translate3d(0,0,0)}to{transform:translate3d(-103%,0,0)}}
+@keyframes cut-paper-opening{from{transform:translate3d(0,0,0)}to{transform:translate3d(103%,0,0)}}
+@keyframes cut-intro-clear{from{opacity:1;visibility:visible;pointer-events:auto}to{opacity:0;visibility:hidden;pointer-events:none}}
+@media(max-width:700px){.cut-intro__identity{top:24%}.cut-intro__monogram{font-size:55vw}.cut-intro__identity .official-logo{max-width:225px}.cut-intro__edition{font-size:8px;letter-spacing:.08em}}
+@media(prefers-reduced-motion:reduce){.cut-intro{display:none!important;animation:none!important}}
 
 /* Reveal only the editorial headlines explicitly marked in the approved layout. */
 .motion-armed>:is(span,em){opacity:0}
@@ -56,4 +57,37 @@ h1[data-type],h2[data-type],.instrument-copy [data-type]{text-wrap:balance}
  .cut-intro{display:none!important;animation:none!important}
  .motion-armed>:is(span,em),.motion-armed .motion-word{opacity:1!important}
  .gallery-dialog[open],.reviews-dialog[open],.gallery-dialog::backdrop,.reviews-dialog::backdrop{animation:none!important}
+}
+
+/* Directional portrait procession; both people occupy one art-directed scene. */
+.portrait-stage{overflow:hidden;isolation:isolate}
+.portrait-stage img{transform:translate3d(0,0,0);opacity:1;transition:transform 800ms cubic-bezier(.18,.85,.24,1),opacity 660ms cubic-bezier(.18,.85,.24,1)}
+.portrait-stage img.is-departing{transform:translate3d(105%,0,0);opacity:.45;pointer-events:none}
+.portrait-stage img.is-arriving{transform:translate3d(-105%,0,0);opacity:.65}
+.portrait-scene{overflow:hidden}
+.team-list button span{transition:transform 280ms cubic-bezier(.22,1,.36,1)}
+.team-list button[aria-pressed="true"] span{transform:translate3d(4px,0,0)}
+.team-list button:not([aria-pressed="true"]):hover span{transform:translate3d(3px,0,0)}
+.team-aside #person-name{display:inline-block;transition:opacity 200ms ease,transform 200ms ease}
+.team-aside.is-changing #person-name{opacity:.1;transform:translate3d(10px,0,0)}
+/* Rotation is authored on the physical product anchors; parent parallax remains independent. */
+.product-object{transform-origin:50% 84%;backface-visibility:hidden}
+.product-object:focus-visible{outline:2px solid #a3654b;outline-offset:4px}
+.ui-icon{display:inline-block;flex:none;width:17px;height:17px;vertical-align:-.18em}
+a:has(>.ui-icon),button:has(>.ui-icon){display:inline-flex;align-items:center;justify-content:space-between;gap:8px}
+.service-panel>a .ui-icon,.floating-booking .ui-icon{width:17px;height:17px}
+.all-services article>a .ui-icon{width:15px;height:15px}
+.footer-signature>a{display:inline-flex;align-items:center;gap:9px}
+.footer-legal>a{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:4px;line-height:1.6}
+.footer-legal>a span{color:#d9bc9c;text-decoration:underline;text-underline-offset:3px}
+.booking-demo>a .ui-icon{width:14px;height:14px}
+@media(hover:hover) and (pointer:fine){
+ .button:hover .ui-icon{transform:translate3d(1px,-1px,0)}
+ .service-panel>a:hover .ui-icon{transform:rotate(-7deg)}
+ .footer-signature>a:hover .ui-icon{transform:scale(1.07)}
+}
+.ui-icon{transition:transform 210ms cubic-bezier(.22,1,.36,1)}
+@media(prefers-reduced-motion:reduce){
+ .portrait-stage img,.team-aside #person-name,.team-list button span,.ui-icon{transition:none!important}
+ .portrait-stage img.is-arriving,.portrait-stage img.is-departing{opacity:1;transform:none}
 }

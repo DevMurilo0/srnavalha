@@ -19,7 +19,7 @@ async function test(width,reducedMotion='no-preference'){
  if(!reduce){
   await page.waitForTimeout(320);
   await page.screenshot({path:dir+'/intro-'+width+'.png',animations:'allow'});
-  check(width+' loader geometry',await page.locator('.cut-intro__blade,.cut-intro__upper,.cut-intro__lower').count()===3);
+  check(width+' loader geometry without blade',await page.locator('.cut-intro__monogram,.cut-intro__upper,.cut-intro__lower').count()===3);
   await page.waitForFunction(()=>!document.getElementById('cut-intro'),null,{timeout:6000});
   check(width+' loader exits automatically',await page.locator('#cut-intro').count()===0);
   await page.waitForFunction(()=>document.querySelector('#hero-title')?.classList.contains('motion-finished'),null,{timeout:6000});
@@ -36,6 +36,11 @@ async function test(width,reducedMotion='no-preference'){
  await page.locator('.team-list button[data-person="rafael"]').click();
  await page.waitForFunction(()=>document.querySelector('.portrait-stage img.is-current')?.src.endsWith('/rafael.webp'),null,{timeout:5000});
  check(width+' team change',await page.locator('.team-list button[data-person="rafael"]').getAttribute('aria-pressed')==='true');
+ check(width+' portrait slides horizontally',await page.locator('.portrait-stage img.is-current').count()===1 &&
+    await page.locator('.portrait-stage img.is-departing').count()>=0);
+ await page.locator('#produtos').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.product-object')?.dataset.motionDone==='1',null,{timeout:6500});
+ check(width+' product roll-in completes',await page.locator('.product-object[data-motion-done="1"]').count()===3);
  await page.locator('.services-catalog>summary').click();
  check(width+' catalogue opens',await page.locator('.services-catalog').evaluate(x=>x.open));
  await page.locator('.services-catalog>summary').click();

@@ -7,6 +7,14 @@ import reviews from '../js/data/reviews.js';
 const read=name=>readFile(new URL(`../templates/the-cut/${name}.html`,import.meta.url),'utf8');
 const esc=value=>String(value??'').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const arrow='<svg class="arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg>';
+const calendarIcon='<svg class="ui-icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.25" y="5.75" width="17.5" height="15" rx="2"/><path d="M7.5 3.5v4.5M16.5 3.5v4.5M3.5 10h17M8 14h3M8 17h5"/></svg>';
+const instagramIcon='<svg class="ui-icon icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.1"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.7" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>';
+const whatsappIcon='<svg class="ui-icon icon-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 11.7a8.3 8.3 0 0 1-12.2 7.3L3 20.4l1.4-4.9a8.3 8.3 0 1 1 15.9-3.8Z"/><path d="M8.6 8.3c-.5-.7-1.1-.6-1.5 0-.5.7-.4 1.8.1 2.8 1.3 2.7 3.1 4.1 5.7 4.9 1 .3 2 .1 2.7-.5.6-.6.8-1.2.3-1.5l-2-1a.8.8 0 0 0-.9.2l-.6.6c-1.2-.4-2.2-1.2-3-2.3l.5-.7a.8.8 0 0 0 .1-.9Z"/></svg>';
+const decorateLinks=markup=>markup
+ .replace(/(<a\b[^>]*\bhref="agendar\.html[^"]*"[^>]*>)/g,'$1'+calendarIcon)
+ .replace(/(<a\b[^>]*\bhref="https:\/\/www\.instagram\.com\/[^"]*"[^>]*>)/g,'$1'+instagramIcon)
+ .replace(/(<a\b[^>]*\bhref="https:\/\/wa\.me\/[^"]*"[^>]*>)/g,'$1'+whatsappIcon)
+ .replace(/(<button\b[^>]*class="button"[^>]*type="submit"[^>]*>)/g,'$1'+calendarIcon);
 const nav=[['casa','A casa'],['servicos','Serviços'],['equipe','Nossa equipe'],['trabalhos','O trabalho'],['produtos','Produtos'],['localizacao','Localização']].map(([id,text])=>`<a href="#${id}">${text}</a>`).join('');
 const logo=id=>`<svg class="official-logo" viewBox="0 34 640 330" role="img" aria-label="Sr. Navalha Barbearia"><defs><filter id="logo-${id}" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .078 0 0 0 0 .078 0 0 0 0 .07 .466 .466 .466 0 -.34"/></filter></defs><image href="assets/images/v8/logo-640.webp" width="640" height="412" filter="url(#logo-${id})"/></svg>`;
 const pole='<div class="barber-pole" aria-hidden="true"><span class="pole-cap"></span><span class="pole-ring"></span><span class="pole-glass"><span class="pole-cylinder"></span></span><span class="pole-ring"></span><span class="pole-cap pole-bottom"></span></div>';
@@ -37,5 +45,6 @@ const tokens={
 const sections=['inicio','casa','servicos','equipe','trabalhos','produtos','agendamento','localizacao'];
 let html=`<!doctype html>\n<html lang="pt-BR">\n<head>${await read('head')}</head>\n<body>\n${await read('header')}\n<main id="conteudo">${(await Promise.all(sections.map(read))).join('\n')}</main>\n${await read('footer')}\n</body>\n</html>\n`;
 html=html.replace(/\{\{([A-Z_]+)\}\}/g,(_,key)=>{if(!(key in tokens))throw new Error('Unknown template token: '+key);return tokens[key]});
+html=decorateLinks(html);
 await writeFile(new URL('../index.html',import.meta.url),html);
 console.log('The Cut: index.html assembled from templates/the-cut and original commercial data.');
