@@ -1,0 +1,59 @@
+/* THE CUT / Motion 02: cut, expose, settle. Fixed geometry; transform/opacity first. */
+.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;background:#141412;touch-action:none;animation:cut-intro-clear .16s 2.12s both;animation-fill-mode:forwards}
+.cut-intro__upper,.cut-intro__lower{position:absolute;left:-2%;right:-2%;pointer-events:none;will-change:transform}
+.cut-intro__upper{top:-2%;height:55%;background:repeating-linear-gradient(111deg,transparent 0 58px,#ffffff07 59px 60px),#171715;clip-path:polygon(0 0,100% 0,100% 100%,0 96%);animation:cut-upper 1.0s 1.27s cubic-bezier(.65,0,.17,1) both}
+.cut-intro__lower{bottom:-2%;height:54%;background:linear-gradient(117deg,#e9e3d8,#d6ccba);clip-path:polygon(0 4%,100% 0,100% 100%,0 100%);animation:cut-lower 1.0s 1.27s cubic-bezier(.65,0,.17,1) both}
+.cut-intro__grain{position:absolute;inset:0;opacity:.24;pointer-events:none;background:repeating-linear-gradient(70deg,#e9e3d810 0 1px,transparent 1px 17px);animation:cut-grain .5s 1.35s both}
+.cut-intro__identity{position:absolute;top:17%;left:50%;width:min(55vw,370px);text-align:center;transform:translateX(-50%);color:#e9e3d8;animation:cut-identity-out .45s 1.05s both}
+.cut-intro__identity img{height:auto;width:min(75%,260px);margin-inline:auto;filter:brightness(0) invert(1);object-fit:contain;animation:cut-identity-in .6s cubic-bezier(.22,1,.36,1) both}
+.cut-intro__identity strong{display:block;margin-top:22px;font:800 clamp(23px,3.5vw,46px)/1.05 Manrope,Arial,sans-serif;letter-spacing:-.055em;animation:cut-identity-in .7s .12s both}
+.cut-intro__identity em{display:block;font:500 italic clamp(26px,3.8vw,48px)/1.08 Bodoni,Georgia,serif;animation:cut-identity-in .7s .24s both}
+.cut-intro__seam{position:absolute;left:-4%;top:49.3%;width:108%;height:2px;transform:rotate(-1.5deg);background:linear-gradient(90deg,transparent,#b8bab6 25%,#e9e3d8 50%,#b8bab6 75%,transparent);box-shadow:0 1px 10px #faf5e477;animation:cut-seam .75s .5s both}
+.cut-intro__blade{position:absolute;top:43%;left:50%;width:min(42vw,430px);max-height:26vh;object-fit:contain;filter:drop-shadow(0 8px 12px #0008);animation:cut-blade 1.45s .15s cubic-bezier(.38,.05,.12,1) both;pointer-events:none}
+.cut-intro__edition{position:absolute;bottom:7%;left:50%;color:#493126;letter-spacing:.18em;white-space:nowrap;transform:translateX(-50%);font:750 clamp(9px,.85vw,13px)/1.5 Manrope,Arial,sans-serif;animation:cut-identity-out .4s 1.07s both}
+@keyframes cut-identity-in{from{opacity:0;transform:translate3d(0,15px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes cut-identity-out{from{opacity:1}to{opacity:0}}
+@keyframes cut-seam{0%{opacity:0;transform:scaleX(.1) rotate(-1.5deg)}70%{opacity:1}100%{opacity:1;transform:scaleX(1) rotate(-1.5deg)}}
+@keyframes cut-blade{0%{opacity:0;transform:translate3d(-155%,18px,0) rotate(-18deg) scale(.88)}21%{opacity:1}68%{opacity:1;transform:translate3d(-48%,-7px,0) rotate(-7deg) scale(1)}100%{opacity:0;transform:translate3d(94%,-25px,0) rotate(-3deg) scale(1.08)}}
+@keyframes cut-upper{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,-111%,0)}}
+@keyframes cut-lower{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(0,111%,0)}}
+@keyframes cut-grain{to{opacity:0}}
+@keyframes cut-intro-clear{0%{opacity:1;visibility:visible;pointer-events:auto}100%{opacity:0;visibility:hidden;pointer-events:none}}
+
+/* Reveal only the editorial headlines explicitly marked in the approved layout. */
+.motion-armed>:is(span,em){opacity:0}
+.motion-armed .motion-word{opacity:0}
+.motion-word{display:inline-block;white-space:nowrap;transform-origin:50% 85%}
+h1[data-type],h2[data-type],.instrument-copy [data-type]{text-wrap:balance}
+
+/* Feedback: small, legible state changes instead of global motion. */
+.button,.service-panel>a,.service-extras a,.team-list button,.product-selection a,.work-print a,.catalog-disclosure>summary,.gallery-controls button,.gallery-all,.desktop-nav a,.floating-booking{transition-property:background-color,color,border-color,box-shadow,opacity,transform;transition-duration:220ms;transition-timing-function:cubic-bezier(.22,1,.36,1)}
+.button:active,.gallery-controls button:active,.team-list button:active{transform:scale(.975)}
+.service-panel>a .arrow,.service-extras a .arrow,.team-list .arrow{transition:transform 230ms cubic-bezier(.22,1,.36,1),opacity 220ms ease}
+.catalog-disclosure>summary{min-height:48px;touch-action:manipulation}
+.catalog-disclosure>summary span{transform-origin:center;transition:transform 240ms cubic-bezier(.22,1,.36,1)}
+.mobile-menu[open] nav{transform-origin:top center}
+.gallery-dialog[open],.reviews-dialog[open]{animation:cut-dialog-enter 260ms cubic-bezier(.22,1,.36,1)}
+.gallery-dialog::backdrop,.reviews-dialog::backdrop{animation:cut-dialog-backdrop 240ms ease-out}
+@keyframes cut-dialog-enter{from{opacity:0;transform:translate3d(0,14px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cut-dialog-backdrop{from{opacity:0}to{opacity:1}}
+@media(hover:hover) and (pointer:fine){
+ .service-panel>a:hover .arrow,.service-extras a:hover .arrow{transform:translate3d(4px,-4px,0)}
+ .service-panel:hover .service-description{color:#e9d8c5}
+ .team-list button:hover .arrow{transform:translate3d(3px,-3px,0)}
+ .product-selection article:hover .arrow{transform:translate3d(3px,-3px,0)}
+ .gallery-controls button:hover{background:#e9e3d8;color:#141412}
+ .work-print a:hover{box-shadow:inset 0 0 0 2px #e9e3d8}
+}
+@media(max-width:700px){
+ .cut-intro__identity{top:29%;width:min(80vw,360px)}
+ .cut-intro__identity img{max-width:200px}
+ .cut-intro__blade{width:min(73vw,360px);top:43%}
+ .cut-intro__edition{bottom:10%;letter-spacing:.12em}
+ .service-panel>a:active,.product-selection a:active{opacity:.72}
+}
+@media(prefers-reduced-motion:reduce){
+ .cut-intro{display:none!important;animation:none!important}
+ .motion-armed>:is(span,em),.motion-armed .motion-word{opacity:1!important}
+ .gallery-dialog[open],.reviews-dialog[open],.gallery-dialog::backdrop,.reviews-dialog::backdrop{animation:none!important}
+}

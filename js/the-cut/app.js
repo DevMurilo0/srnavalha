@@ -3,6 +3,7 @@
 import professionals from '../data/professionals.js';
 import services from '../data/services.js';
 import products from '../data/products.js';
+import {initEditorialMotion} from './motion.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -204,68 +205,6 @@ function initFloatCTA(){
  observer.observe(hero);
 }
 
-function initMotion(){
- if(!motion()||!('IntersectionObserver'in window))return;
- const hero=$('#inicio');
- const started=new WeakSet;
- function reveal(node){
-  if(started.has(node))return;started.add(node);
-  const targets=node.matches('h1,h2')?$$(':scope > span,:scope > em',node):[node];
-  targets.forEach((part,i)=>{
-   part.animate([
-    {opacity:0,transform:'translate3d(0,24px,0) skewY(2.5deg)'},
-    {opacity:1,transform:'translate3d(0,0,0) skewY(0deg)'}
-   ],{duration:850,delay:i*135,easing:'cubic-bezier(.22,1,.36,1)'});
-  });
- }
- const titleObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){reveal(e.target);titleObs.unobserve(e.target);}});
- },{threshold:.12,rootMargin:'0px 0px -9% 0px'});
- $$('h1[data-type],h2[data-type],.instrument-copy p[data-type]').forEach(n=>titleObs.observe(n));
- if(hero){
-  const arrivals=[
-   ['.hero-brand',700,80],['.hero-eyebrow',740,230],['.hero-description',730,560],
-   ['.hero-actions',830,650],['.razor-stage',1250,230]
-  ];
-  arrivals.forEach(([selector,duration,delay])=>{
-   const n=$(selector,hero);if(!n)return;
-   n.animate([
-    {opacity:0,transform:selector==='.razor-stage'?'translate3d(28px,18px,0) rotate(1.3deg)':'translate3d(0,20px,0)'},
-    {opacity:1,transform:'translate3d(0,0,0)'}
-   ],{duration,delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});
-  });
- }
- const poles=$$('.barber-pole');
- const poleObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{e.target.closest('.hero')?.classList.toggle('poles-visible',e.isIntersecting);});
- });
- if(poles[0])poleObs.observe(poles[0]);
- const nodes=$$('[data-depth]');
- const viewport=new Set;
- const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)viewport.add(e.target);else viewport.delete(e.target)});
- },{rootMargin:'180px 0px'});
- nodes.forEach(n=>obs.observe(n));
- let scheduled=false;
- function update(){
-  scheduled=false;if(!motion())return;
-  const mid=innerHeight/2,limit=innerWidth<700?7:16;
-  for(const n of viewport){
-   const r=n.getBoundingClientRect();
-   const p=Math.max(-1,Math.min(1,(r.top+r.height/2-mid)/(innerHeight*.85)));
-   const scale=Math.min(1,Number(n.dataset.depth||8)/20);
-   n.style.transform='translate3d(0,'+(-p*limit*scale).toFixed(2)+'px,0)';
-  }
- }
- function request(){if(!scheduled){scheduled=true;requestAnimationFrame(update)}}
- on(window,'scroll',request,{passive:true});
- on(window,'resize',request,{passive:true});request();
- reduce.addEventListener?.('change',()=>{
-  if(!motion()){nodes.forEach(n=>n.style.removeProperty('transform'));hero?.classList.remove('poles-visible')}
-  else request();
- });
-}
-
 function boot(){
  initMobileMenu();
  initNav();
@@ -276,7 +215,7 @@ function boot(){
  initReviews();
  initBooking();
  initFloatCTA();
- initMotion();
+ initEditorialMotion();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
 else boot();
