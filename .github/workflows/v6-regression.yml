@@ -61,7 +61,7 @@ jobs:
         if: always()
         run: |
           mkdir -p dist
-          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html assets css js templates scripts README.md DESIGN.md PRODUCT.md
+          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html assets css js templates scripts print README.md DESIGN.md PRODUCT.md
       - name: Upload source ZIP
         if: always()
         uses: actions/upload-artifact@v4
