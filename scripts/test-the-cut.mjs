@@ -17,7 +17,7 @@ try {
   const context=await browser.newContext({viewport:{width,height:width===900?550:width<=390?844:900},deviceScaleFactor:1});
   await context.route(/https:\/\/.*/,route=>route.abort());
   const page=await context.newPage();
-  page.on('pageerror',e=>errors.push({width,error:e.message}));
+  page.on('pageerror',e=>errors.push({width,error:e.message,stack:e.stack}));
   const missing=[];
   page.on('response',r=>{if(r.url().startsWith(site)&&r.status()>=400)missing.push({url:r.url(),status:r.status()})});
   await page.goto(site+'/',{waitUntil:'domcontentloaded'});
