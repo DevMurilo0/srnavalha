@@ -38,10 +38,12 @@ async function test(width,reducedMotion='no-preference'){
  check(width+' team change',await page.locator('.team-list button[data-person="rafael"]').getAttribute('aria-pressed')==='true');
  check(width+' portrait retains one current image and horizontal transition',
     await page.locator('.portrait-stage img.is-current').count()===1 &&
-    await page.locator('.portrait-stage').evaluate(stage=>[...stage.querySelectorAll('img')]
-      .every(img=>getComputedStyle(img).transitionProperty.includes('transform'))));
- await page.locator('#produtos').scrollIntoViewIfNeeded();
- await page.waitForFunction(()=>document.querySelector('.product-object')?.dataset.motionDone==='1',null,{timeout:6500});
+    (reduce || await page.locator('.portrait-stage').evaluate(stage=>[...stage.querySelectorAll('img')]
+      .every(img=>getComputedStyle(img).transitionProperty.includes('transform')))));
+ await page.locator('.product-still-life').scrollIntoViewIfNeeded();
+ // The three objects have separate starts and durations. Wait for the whole
+ // physical sequence to settle, not just the first package.
+ await page.waitForFunction(()=>document.querySelectorAll('.product-object[data-motion-done="1"]').length===3,null,{timeout:6500});
  check(width+' product roll-in completes',await page.locator('.product-object[data-motion-done="1"]').count()===3);
  await page.locator('.services-catalog>summary').click();
  check(width+' catalogue opens',await page.locator('.services-catalog').evaluate(x=>x.open));
