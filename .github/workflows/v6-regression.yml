@@ -55,6 +55,7 @@ jobs:
           set -euo pipefail
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
           node scripts/test-the-cut.mjs
+          node scripts/test-the-cut-motion.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
       - name: Package working source for download
