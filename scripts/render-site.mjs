@@ -45,6 +45,15 @@ const tokens={
 const sections=['inicio','casa','servicos','equipe','trabalhos','produtos','agendamento','localizacao'];
 let html=`<!doctype html>\n<html lang="pt-BR">\n<head>${await read('head')}</head>\n<body>\n${await read('header')}\n<main id="conteudo">${(await Promise.all(sections.map(read))).join('\n')}</main>\n${await read('footer')}\n</body>\n</html>\n`;
 html=html.replace(/\{\{([A-Z_]+)\}\}/g,(_,key)=>{if(!(key in tokens))throw new Error('Unknown template token: '+key);return tokens[key]});
+// Decorative dashes have been removed from visible typography only.
+// Preserve URL slugs, product IDs, HTML attributes and structured data.
+function noVisibleHyphens(html){
+ return html.replace(/>([^<>]*)</g,(match,text)=>{
+  if(text.trimStart().startsWith('{"@context":'))return match;
+  return '>'+text.replace(/[–—]/g,' · ').replace(/[‐‑-]/g,' ')+'<';
+ });
+}
 html=decorateLinks(html);
+html=noVisibleHyphens(html);
 await writeFile(new URL('../index.html',import.meta.url),html);
 console.log('The Cut: index.html assembled from templates/the-cut and original commercial data.');

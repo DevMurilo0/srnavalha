@@ -7,19 +7,57 @@ const eased='cubic-bezier(.22,1,.36,1)';
 const canAnimate=()=>!reduced.matches&&typeof Element.prototype.animate==='function';
 
 function opening(){
- const intro=one('#cut-intro');
+ const intro=one('#cut-intro'),target=one('#inicio .razor-stage .razor');
  return new Promise(resolve=>{
   if(!intro||!canAnimate()){intro?.remove();resolve();return;}
-  let done=false;
-  const finish=()=>{if(done)return;done=true;intro.remove();resolve();};
+  let ended=false,travel=null,startTimer=null;
+  const tool=one('.cut-intro__razor',intro);
+  // Progressive enhancement: without JavaScript the real hero razor is visible.
+  // Hide it only while its identical opening counterpart is in flight.
+  if(target&&tool)target.style.opacity='0';
+  const finish=()=>{
+   if(ended)return;ended=true;
+   if(startTimer!==null)clearTimeout(startTimer);
+   if(travel){travel.cancel();travel=null}
+   if(target)target.style.removeProperty('opacity');
+   intro.remove();resolve();
+  };
+  if(target&&tool){
+   startTimer=setTimeout(async()=>{
+    if(ended)return;
+    const img=one('img',tool);
+    if(img&&!img.complete){try{await img.decode()}catch{}}
+    if(ended||!target.isConnected)return;
+    const begin=tool.getBoundingClientRect();
+    const final=target.getBoundingClientRect();
+    if(!begin.width||!final.width)return;
+    const dx=final.left+final.width/2-(begin.left+begin.width/2);
+    const dy=final.top+final.height/2-(begin.top+begin.height/2);
+    const sx=final.width/begin.width,sy=final.height/begin.height;
+    travel=tool.animate([
+     {offset:0,opacity:1,transform:'translate(-50%,-50%) rotate(-8deg) scale(.96)'},
+     {offset:.24,opacity:1,transform:'translate(calc(-50% + '+(dx*.2)+'px),calc(-50% + '+(dy*.16)+'px)) rotate(-3deg) scale(.98)'},
+     {offset:1,opacity:1,transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale('+sx+','+sy+') rotate(0deg)'}
+    ],{duration:1080,easing:'cubic-bezier(.22,.78,.18,1)',fill:'forwards'});
+    travel.finished.then(()=>{
+     if(ended)return;
+     // Same source pixels at the same rect, so swapping layers is invisible.
+     target.style.removeProperty('opacity');
+     tool.style.opacity='0';
+     travel.cancel();travel=null;
+    }).catch(()=>{});
+   },1130);
+  }
   intro.addEventListener('animationend',event=>{
    if(event.target===intro&&event.animationName==='cut-intro-clear')finish();
   });
-  // The animation plays on every refresh, but can never trap the page.
-  const watchdog=setTimeout(finish,3300);
-  const original=finish;
-  reduced.addEventListener?.('change',()=>{if(reduced.matches){clearTimeout(watchdog);original();}},{once:true});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)finish();},{once:true});
+  const watchdog=setTimeout(finish,3550);
+  reduced.addEventListener?.('change',()=>{
+   if(reduced.matches){clearTimeout(watchdog);finish()}
+  },{once:true});
+  document.addEventListener('visibilitychange',()=>{
+   if(document.hidden){clearTimeout(watchdog);finish()}
+  },{once:true});
  });
 }
 
@@ -177,9 +215,15 @@ function chapterDepth(){
   for(const el of visible){
    const rect=el.getBoundingClientRect();
    const delta=Math.max(-1,Math.min(1,(rect.top+rect.height/2-center)/(innerHeight*.9)));
-   const intensity=Math.min(1,Number(el.dataset.depth||8)/18);
-   const move=(-delta*(small?8:17)*intensity).toFixed(2);
+   const intensity=Math.min(1.22,Number(el.dataset.depth||8)/14);
+   const photo=el.closest('.hero-background,.house-photos,.instrument-photo,.facade');
+   const amplitude=photo?(small?12:31):(small?7:16);
+   const move=(-delta*amplitude*intensity).toFixed(2);
    el.style.transform='translate3d(0,'+move+'px,0)';
+   if(el.closest('.house-photos')){
+    const house=el.closest('.house');
+    house?.style.setProperty('--house-parallax',(-delta*(small?5:13)).toFixed(2)+'px');
+   }
   }
  };
  const request=()=>{if(!frame)frame=requestAnimationFrame(sample)};
@@ -255,8 +299,7 @@ function heroEntrance(ready){
   const hero=one('#inicio');if(!hero)return;
   const stagger=[
    ['.hero-brand',0,760],['.hero-eyebrow',160,580],
-   ['.hero-description',410,650],['.hero-actions',560,700],
-   ['.razor-stage',40,1000]
+   ['.hero-description',410,650],['.hero-actions',560,700]
   ];
   stagger.forEach(([selector,delay,duration])=>{
    const el=one(selector,hero);if(!el)return;
