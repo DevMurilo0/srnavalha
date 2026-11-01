@@ -106,7 +106,7 @@ function initTeam(){
 }
 
 function initCatalogue(type){
- const details=$('.'+type+'-catalog');
+ const details=$(type==='service'?'.services-catalog':'.product-catalog');
  if(!details)return;
  const isProduct=type==='product';
  const input=$(isProduct?'#product-search':'#service-search',details);
