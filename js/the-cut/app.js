@@ -71,7 +71,7 @@ function initTeam(){
   if(serial!==currentToken)return;
   // The scene owns both sprites during a true left-to-right procession.
   // Superseded departures are removed before rapid successive selections.
-  $('img.is-departing',stage).forEach(img=>img.remove());
+  $$('img.is-departing',stage).forEach(img=>img.remove());
   const existing=$('img.is-current',stage);
   const next=document.createElement('img');
   next.src=source(person);next.alt=person.name+', profissional da Sr. Navalha';
