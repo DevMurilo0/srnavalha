@@ -1,27 +1,30 @@
-/* Motion 04 — vertical letterpress doors. No blade in the opening. */
-.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;background:#141412;touch-action:none;animation:cut-intro-clear .18s 2.29s both}
-.cut-intro__upper,.cut-intro__lower{position:absolute;top:-1%;bottom:-1%;width:52%;will-change:transform;pointer-events:none}
-.cut-intro__upper{left:-1%;background:linear-gradient(115deg,#1c1b18,#10100f 72%,#25221f);box-shadow:inset -1px 0 #b8bab67a;animation:cut-ink-opening 1.08s 1.14s cubic-bezier(.76,0,.18,1) both}
-.cut-intro__lower{right:-1%;background:repeating-linear-gradient(105deg,#ffffff12 0 1px,transparent 1px 65px),linear-gradient(110deg,#e9e3d8,#cfc4b3 97%);box-shadow:inset 1px 0 #513c3060;animation:cut-paper-opening 1.08s 1.14s cubic-bezier(.76,0,.18,1) both}
-.cut-intro__monogram{position:absolute;inset:0;display:grid;place-content:center;grid-auto-flow:column;align-items:center;font:900 min(38vw,520px)/1 Manrope,Arial,sans-serif;letter-spacing:-.13em;color:#eee6d818;pointer-events:none;animation:cut-oversize 1.6s .12s both}
-.cut-intro__monogram span{font:italic .75em Bodoni,Georgia,serif;color:#a3654b9c;align-self:center}
-.cut-intro__seam{position:absolute;top:-10%;bottom:-10%;left:50%;width:2px;z-index:2;transform-origin:center;background:linear-gradient(180deg,transparent,#a3654b 18%,#fff5e8 50%,#a3654b 82%,transparent);animation:cut-seam-sweep 1.38s .2s both}
-.cut-intro__identity{position:absolute;left:50%;top:43%;width:min(83vw,440px);transform:translate(-50%,-50%);z-index:3;text-align:center;color:#ede6db;animation:cut-identity-away .25s 1.12s both}
-.cut-intro__identity .official-logo{display:block;width:clamp(155px,23vw,275px);height:auto;margin:auto;filter:brightness(0) invert(1);animation:cut-title-reveal .62s .11s both}
-.cut-intro__identity .cut-intro__issue{display:block;margin-bottom:12px;letter-spacing:.24em;font:700 clamp(8px,.73vw,11px)/1.6 Manrope,Arial,sans-serif;color:#d9d0c1;animation:cut-title-reveal .5s both}
-.cut-intro__identity .cut-intro__issue span{color:#a3654b}
-.cut-intro__identity strong{display:block;margin-top:12px;font:900 clamp(24px,3.5vw,50px)/1 Manrope,Arial,sans-serif;letter-spacing:-.07em;animation:cut-title-reveal .66s .13s both}
-.cut-intro__identity em{display:block;font:italic 500 clamp(25px,3.8vw,53px)/1.05 Bodoni,Georgia,serif;animation:cut-title-reveal .7s .19s both}
-.cut-intro__edition{position:absolute;bottom:8%;left:50%;width:max-content;max-width:95%;transform:translateX(-50%);color:#4c382a;z-index:3;font:750 clamp(9px,1vw,13px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.17em;animation:cut-identity-away .25s 1.12s both}
-.cut-intro__edition span{color:#a3654b}
-@keyframes cut-title-reveal{from{opacity:0;translate:0 25px;clip-path:inset(0 0 100% 0)}to{opacity:1;translate:0 0;clip-path:inset(0)}}
-@keyframes cut-oversize{0%{opacity:0;transform:scale(1.1)}35%{opacity:1}100%{opacity:.8;transform:scale(1)}}
+/* The Cut / Motion 05: the actual hero razor travels from the editorial
+   opening into its final position without substituting a different object. */
+.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;pointer-events:auto;background:#151511;animation:cut-intro-clear .16s 2.37s both}
+.cut-intro__upper,.cut-intro__lower{position:absolute;inset:-1%;pointer-events:none}
+.cut-intro__upper{background:radial-gradient(ellipse at 74% 32%,#37342b,#151512 70%);clip-path:polygon(0 0,100% 0,100% 55%,0 65%);animation:cut-plate-rise .97s 1.17s cubic-bezier(.76,.08,.15,1) both}
+.cut-intro__lower{background:repeating-linear-gradient(110deg,#fff2 0 1px,transparent 1px 53px),linear-gradient(120deg,#e9e3d8,#c8bba9);clip-path:polygon(0 65%,100% 55%,100% 100%,0 100%);animation:cut-plate-fall .97s 1.17s cubic-bezier(.76,.08,.15,1) both}
+.cut-intro__monogram{position:absolute;inset:0;display:grid;grid-auto-flow:column;place-content:center;align-items:center;color:#e9e3d81b;font:900 min(38vw,440px)/1 Manrope,Arial,sans-serif;letter-spacing:-.13em;animation:cut-monogram .8s .15s both}
+.cut-intro__monogram span{font:italic .65em Bodoni,Georgia,serif;color:#a3654b99}
+.cut-intro__identity{position:absolute;left:50%;top:19%;width:min(80vw,360px);text-align:center;transform:translateX(-50%);z-index:4;color:#eee7dc;animation:cut-identity-away .32s 1.07s both}
+.cut-intro__identity .official-logo{display:block;width:clamp(145px,17vw,220px);margin:auto;filter:brightness(0) invert(1)}
+.cut-intro__issue{display:block;font:650 clamp(8px,.85vw,12px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.19em;margin-bottom:8px}
+.cut-intro__issue span{color:#d79b73}
+.cut-intro__identity strong{display:block;margin-top:9px;font:850 clamp(22px,3vw,45px)/1.1 Manrope,Arial,sans-serif;letter-spacing:-.065em}
+.cut-intro__identity em{display:block;font:italic clamp(21px,2.9vw,45px)/1.15 Bodoni,Georgia,serif}
+.cut-intro__razor{position:fixed;left:50%;top:56%;width:min(56vw,650px);aspect-ratio:389/166;transform:translate(-50%,-50%);z-index:9;pointer-events:none;transform-origin:center}
+.cut-intro__razor img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 22px 13px #100b0b70);animation:cut-razor-first-look .66s .38s both}
+.cut-intro__seam{position:absolute;left:-5%;top:62%;width:110%;height:2px;background:linear-gradient(90deg,transparent,#b8bab6,#c9885f,transparent);transform:rotate(-5deg);transform-origin:50% 50%;z-index:3;animation:cut-seam-glide .95s .5s both}
+.cut-intro__edition{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);white-space:nowrap;font:650 clamp(8px,.9vw,11px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.16em;color:#3d2d25;z-index:3;animation:cut-identity-away .3s 1.12s both}
+.cut-intro__edition span{color:#946047}
+@keyframes cut-monogram{from{opacity:0;transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
+@keyframes cut-razor-first-look{from{opacity:0;transform:translate3d(0,16px,0) rotate(-7deg) scale(.93)}to{opacity:1;transform:translate3d(0,0,0) rotate(0deg) scale(1)}}
 @keyframes cut-identity-away{to{opacity:0}}
-@keyframes cut-seam-sweep{0%{opacity:0;transform:scaleY(0)}32%{opacity:1;transform:scaleY(1)}72%{opacity:1}100%{opacity:0;transform:scaleY(1)}}
-@keyframes cut-ink-opening{from{transform:translate3d(0,0,0)}to{transform:translate3d(-106%,0,0)}}
-@keyframes cut-paper-opening{from{transform:translate3d(0,0,0)}to{transform:translate3d(106%,0,0)}}
-@keyframes cut-intro-clear{from{opacity:1;visibility:visible;pointer-events:auto}to{opacity:0;visibility:hidden;pointer-events:none}}
-@media(max-width:700px){.cut-intro__monogram{font-size:60vw}.cut-intro__identity{top:42%}.cut-intro__identity .official-logo{max-width:230px}.cut-intro__edition{font-size:8px;letter-spacing:.08em}}
+@keyframes cut-seam-glide{from{opacity:0;clip-path:inset(0 90% 0 0)}50%{opacity:1}to{opacity:0;clip-path:inset(0 0 0 0)}}
+@keyframes cut-plate-rise{to{transform:translate3d(0,-110%,0)}}
+@keyframes cut-plate-fall{to{transform:translate3d(0,110%,0)}}
+@keyframes cut-intro-clear{to{opacity:0;visibility:hidden;pointer-events:none}}
+@media(max-width:700px){.cut-intro__identity{top:22%;width:85%}.cut-intro__identity .official-logo{max-width:190px}.cut-intro__monogram{font-size:56vw}.cut-intro__razor{top:55%;width:83vw}.cut-intro__edition{bottom:11%;letter-spacing:.07em}}
 @media(prefers-reduced-motion:reduce){.cut-intro{display:none!important;animation:none!important}}
 
 /* Reveal only the editorial headlines explicitly marked in the approved layout. */
@@ -101,3 +104,9 @@ a:has(>.ui-icon),button:has(>.ui-icon){display:inline-flex;align-items:center;ju
 .motion-glyph{display:inline-block;white-space:pre;transform-origin:50% 88%;backface-visibility:hidden}
 .motion-word{display:inline-block;white-space:nowrap;transform-origin:50% 90%}
 @media(prefers-reduced-motion:reduce){.motion-glyph,.motion-word{opacity:1!important;transform:none!important}}
+
+/* An independent, layered parallax material detail. Background photographs are
+   shifted on the compositor only; body text stays anchored and readable. */
+.hero-background .depth-plane,.house-photos .depth-plane,.instrument-photo .depth-plane,.facade .depth-plane{backface-visibility:hidden}
+.house:after{content:"";position:absolute;inset:auto 7% 4% auto;width:min(15vw,165px);height:1px;background:linear-gradient(90deg,transparent,#a3654b,#14141220);transform:translate3d(0,var(--house-parallax,0px),0);pointer-events:none;opacity:.8}
+@media(prefers-reduced-motion:reduce){.house:after{transform:none}}
