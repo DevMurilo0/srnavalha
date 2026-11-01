@@ -1,4 +1,4 @@
-name: Sr. Navalha — cinematic motion e regressão
+name: Sr. Navalha — The Cut editorial QA
 on:
   push:
     branches:
@@ -7,6 +7,7 @@ on:
       - 'js/**'
       - 'css/**'
       - 'templates/**'
+      - 'assets/images/the-cut/**'
       - 'scripts/**'
       - 'index.html'
       - 'agendar.html'
@@ -17,64 +18,50 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install browser and accessibility test dependencies
-        shell: bash
+      - name: Install browser and accessibility dependencies
         run: |
           mkdir -p /tmp/srnavalha-validation
           cd /tmp/srnavalha-validation
           npm init -y >/dev/null
           npm install --no-audit --no-fund playwright playwright-core @axe-core/playwright
           npx playwright install --with-deps chromium
-      - name: Setup test web server
-        shell: bash
+      - name: Verify generated HTML and JavaScript
         run: |
-          python3 -m http.server 8047 --bind 127.0.0.1 > /tmp/sr-nav-server.log 2>&1 &
+          node --check js/the-cut/app.js
+          node --check scripts/render-site.mjs
+          node scripts/render-site.mjs
+          git diff --exit-code -- index.html
+          node --experimental-default-type=module scripts/test-booking-local.mjs
+      - name: Start local website
+        run: |
+          python3 -m http.server 8047 --bind 127.0.0.1 > /tmp/srnavalha-server.log 2>&1 &
           for n in $(seq 1 30); do
             if curl --silent --fail http://127.0.0.1:8047/ >/dev/null; then exit 0; fi
             sleep 1
           done
-          cat /tmp/sr-nav-server.log
+          cat /tmp/srnavalha-server.log
           exit 1
-      - name: Static code and build consistency
-        run: |
-          node scripts/test-reflexo-static.mjs
-          node --experimental-default-type=module scripts/test-booking-local.mjs
-      - name: Chromium — cinematic motion, Perfect Cut, navigation and resilience
+      - name: Chromium — visual, functional and accessibility regression
         env:
           PLAYWRIGHT_PACKAGE: /tmp/srnavalha-validation/package.json
-          SITE_URL: http://127.0.0.1:8047/
-          V31_EVIDENCE: docs/v31/ci
-        shell: bash
+          SITE_URL: http://127.0.0.1:8047
         run: |
           set -euo pipefail
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
-          node scripts/profile-cinematic-performance.mjs
-          node scripts/test-editorial-interactions.mjs
-          node scripts/test-experience-v6.mjs
-          node scripts/test-hero-lightcut.mjs
-          node scripts/test-v31.mjs
-          node scripts/profile-v31.mjs
-          node scripts/test-perfect-cut-v4.mjs
-          node scripts/test-reflexo.mjs
-          node scripts/test-reflexo-resilience.mjs
+          node scripts/test-the-cut.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
-      - name: Upload test summaries
+      - name: Upload visual comparisons
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sr-navalha-cinematic-qa
+          name: srnavalha-the-cut-visual-qa
           if-no-files-found: ignore
-          retention-days: 7
-          path: |
-            docs/v31/ci/*.json
-            docs/cinematic-motion/*.json
-            docs/perfect-cut-v4/*results.json
-            docs/reflexo/validation/*.json
-            docs/booking-v5/*results.json
+          retention-days: 14
+          path: docs/the-cut/qa/**
