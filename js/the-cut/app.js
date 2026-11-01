@@ -69,21 +69,34 @@ function initTeam(){
    }
   }
   if(serial!==currentToken)return;
+  // The scene owns both sprites during a true left-to-right procession.
+  // Superseded departures are removed before rapid successive selections.
+  $('img.is-departing',stage).forEach(img=>img.remove());
   const existing=$('img.is-current',stage);
   const next=document.createElement('img');
   next.src=source(person);next.alt=person.name+', profissional da Sr. Navalha';
   next.width=person.id==='damiao'?725:800;
   next.height=next.width;
-  next.className='is-current is-arriving';
+  next.className='is-current';
+  if(motion())next.classList.add('is-arriving');
+  if(existing){existing.classList.remove('is-current');existing.classList.add('is-departing');}
   stage.append(next);
-  requestAnimationFrame(()=>{
-   if(serial!==currentToken)return;
-   if(existing)existing.classList.add('is-departing');
-   next.classList.remove('is-arriving');
-  });
-  if(existing){
-   const settle=()=>{if(existing.isConnected)existing.remove();};
-   if(motion())setTimeout(settle,610);else settle();
+  if(motion()){
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(next.isConnected)next.classList.remove('is-arriving');
+   }));
+   if(existing){
+    const remove=()=>existing.remove();
+    existing.addEventListener('transitionend',e=>{if(e.propertyName==='transform')remove()},{once:true});
+    setTimeout(remove,920);
+   }
+  }else existing?.remove();
+  const aside=$('.team-aside');
+  if(aside&&motion()){
+   aside.classList.remove('is-changing');
+   void aside.offsetWidth;
+   aside.classList.add('is-changing');
+   setTimeout(()=>aside.classList.remove('is-changing'),210);
   }
   chosen=id;
   buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.person===id)));

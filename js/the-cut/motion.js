@@ -54,7 +54,9 @@ function headings(ready){
     from={...from,clipPath:emphasized?'inset(0 0 100% 0)':'inset(0 100% 0 0)'};
     to={...to,clipPath:'inset(0 0 0 0)'};
    }
-   if(type==='fold')from.transform+=' skewY(2deg)';
+   if(type==='fold')from.transform='translate3d(0,28px,0) rotateX(-24deg) skewY(2deg)';
+   if(type==='mirror')from.transform='translate3d('+(index===0?'-42px':'42px')+',14px,0) rotate('+(index===0?'-3deg':'3deg')+')';
+   if(type==='shards')from.transform='translate3d('+(index%2===0?'-14px':'14px')+',30px,0) rotate('+(index%2===0?'-8deg':'7deg')+')';
    return item.animate([from,to],{duration,delay,easing:eased,fill:'both'});
   });
   Promise.allSettled(animations.map(a=>a.finished)).then(()=>{
@@ -76,7 +78,7 @@ function editorialPhotographs(){
  const areas=[
   ['.house-main','rise'],['.house-detail','tilt'],
   ['.portrait-stage > img.is-current','portrait'],
-  ['.work-print a','wipe'],['.product-object img','rise'],
+  ['.work-print a','wipe'],
   ['.instrument-photo img','fade'],['.facade','rise']
  ];
  const target=areas.flatMap(([selector,kind])=>all(selector).map(node=>({node,kind})));
@@ -208,10 +210,78 @@ function heroEntrance(ready){
  });
 }
 
+
+/* Object choreography: rotation is on each pack, depth on the parent. */
+function productRollIn(){
+ const shelf=one('.product-still-life'),items=all('.product-object',shelf||document);
+ if(!shelf||!items.length)return;
+ if(!canAnimate()||!('IntersectionObserver'in window)){
+  items.forEach(n=>n.dataset.motionDone='1');return;
+ }
+ let started=false;
+ const io=new IntersectionObserver(entries=>{
+  if(started||!entries.some(e=>e.isIntersecting))return;
+  started=true;io.disconnect();
+  const motions=[
+   {x:-84,y:-17,angle:-31,bounce:3.5},
+   {x:-31,y:-24,angle:-17,bounce:-2},
+   {x:88,y:-12,angle:28,bounce:-3.5}
+  ];
+  items.forEach(async(item,index)=>{
+   const img=one('img',item);
+   if(img&&!img.complete){try{await img.decode()}catch{}}
+   if(!item.isConnected)return;
+   const p=motions[index]||motions[0];
+   if(!canAnimate()){item.dataset.motionDone='1';return;}
+   const scale=innerWidth<=700?.55:1;
+   const animation=item.animate([
+    {offset:0,opacity:.3,transform:'translate3d('+(p.x*scale)+'px,'+(p.y*scale)+'px,0) rotate('+p.angle+'deg)'},
+    {offset:.77,opacity:1,transform:'translate3d(0,0,0) rotate('+p.bounce+'deg)'},
+    {offset:1,opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
+   ],{duration:1000+index*85,delay:100+index*155,
+      easing:'cubic-bezier(.2,.78,.18,1)',fill:'backwards'});
+   animation.finished.then(()=>{
+    item.dataset.motionDone='1';animation.cancel();
+   }).catch(()=>{item.dataset.motionDone='1'});
+  });
+ },{threshold:.2,rootMargin:'0px 0px -4% 0px'});
+ io.observe(shelf);
+ reduced.addEventListener?.('change',()=>{
+  if(!reduced.matches)return;
+  io.disconnect();
+  items.forEach(item=>{item.getAnimations().forEach(a=>a.cancel());item.dataset.motionDone='1'});
+ },{once:true});
+}
+/* Distinct, short section entrances rather than repeating a universal fade. */
+function tactileScroll(){
+ if(!canAnimate()||!('IntersectionObserver'in window))return;
+ const zones=[
+  ['.service-panels','.service-panel'],
+  ['.product-selection','.product-selection article'],
+  ['.booking-controls','.booking-steps li'],
+  ['.footer','.footer nav,.footer-signature']
+ ];
+ const io=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(!entry.isIntersecting)continue;
+   io.unobserve(entry.target);
+   const group=zones.find(([q])=>entry.target.matches(q));
+   if(!group)continue;
+   all(group[1],entry.target).forEach((el,i)=>el.animate([
+    {opacity:.35,transform:'translate3d(0,20px,0)'},
+    {opacity:1,transform:'translate3d(0,0,0)'}
+   ],{duration:720,delay:Math.min(i*95,300),easing:eased}));
+  }
+ },{threshold:.15});
+ zones.forEach(([q])=>all(q).forEach(el=>io.observe(el)));
+}
+
 export function initEditorialMotion(){
  const ready=opening();
  headings(ready);
  editorialPhotographs();
+ productRollIn();
+ tactileScroll();
  chapterDepth();
  detailsTransitions();
  dialogTransitions();

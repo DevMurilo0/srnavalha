@@ -36,8 +36,10 @@ async function test(width,reducedMotion='no-preference'){
  await page.locator('.team-list button[data-person="rafael"]').click();
  await page.waitForFunction(()=>document.querySelector('.portrait-stage img.is-current')?.src.endsWith('/rafael.webp'),null,{timeout:5000});
  check(width+' team change',await page.locator('.team-list button[data-person="rafael"]').getAttribute('aria-pressed')==='true');
- check(width+' portrait slides horizontally',await page.locator('.portrait-stage img.is-current').count()===1 &&
-    await page.locator('.portrait-stage img.is-departing').count()>=0);
+ check(width+' portrait retains one current image and horizontal transition',
+    await page.locator('.portrait-stage img.is-current').count()===1 &&
+    await page.locator('.portrait-stage').evaluate(stage=>[...stage.querySelectorAll('img')]
+      .every(img=>getComputedStyle(img).transitionProperty.includes('transform'))));
  await page.locator('#produtos').scrollIntoViewIfNeeded();
  await page.waitForFunction(()=>document.querySelector('.product-object')?.dataset.motionDone==='1',null,{timeout:6500});
  check(width+' product roll-in completes',await page.locator('.product-object[data-motion-done="1"]').count()===3);
