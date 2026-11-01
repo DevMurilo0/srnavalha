@@ -203,9 +203,18 @@ function chapterDepth(){
  if(!canAnimate()||!('IntersectionObserver'in window))return;
  const nodes=all('[data-depth]');
  const visible=new Set();
- const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
-  if(entry.isIntersecting)visible.add(entry.target);else visible.delete(entry.target);
- }),{rootMargin:'120px 0px'});
+ const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(entry.isIntersecting)visible.add(entry.target);else{
+    visible.delete(entry.target);
+    entry.target.style.removeProperty('transform');
+   }
+  }
+  // Intersection callbacks can arrive AFTER the scroll event/frame.
+  // Schedule a sample when photographic layers enter; otherwise a freshly
+  // revealed parallax layer can remain inert until the next user scroll.
+  request();
+ },{rootMargin:'120px 0px'});
  nodes.forEach(node=>observer.observe(node));
  let frame=0;
  const sample=()=>{
