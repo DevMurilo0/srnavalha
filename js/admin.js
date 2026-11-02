@@ -62,6 +62,7 @@ function confirmationUrls(booking){
 function prepareWhatsApp(booking){
  const phone=String(booking.customer_phone||'').replace(/\D/g,'');
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
+ const links=confirmationUrls(booking);
  const message=[
   'Olá, '+name+'! Tudo bem? 👋',
   'Aqui é da Barbearia Sr. Navalha. Estamos entrando em contato para confirmar seu horário:',
@@ -70,7 +71,12 @@ function prepareWhatsApp(booking){
   '📅 '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
   '💈 Profissional: '+booking.professional_name,
   '',
-  'Pode confirmar sua presença respondendo CONFIRMO? Se precisar cancelar, responda CANCELAR.',
+  'Por favor, responda CONFIRMO ou CANCELAR nesta conversa.',
+  '',
+  'Links de resposta para a demonstração:',
+  '✅ Confirmar: '+links.yes,
+  '❌ Cancelar: '+links.no,
+  '(Esses links funcionam apenas no navegador onde a solicitação foi registrada.)',
   '',
   'Obrigado! Sr. Navalha · Gravatá'
  ].join('\n');
