@@ -41,13 +41,12 @@ export default async function handler(req,res){
      const raw=message?.button?.payload||message?.interactive?.button_reply?.id;
      const data=parseReplyPayload(raw);
      if(!data||!message?.id)continue;
-     // Deduplicate Meta redeliveries before modifying the booking.
-     const first=await redis('SET','srn:wa:event:'+message.id,'1','EX','604800','NX');
-     if(first!=='OK')continue;
      const booking=await getBooking(data.id);
      if(!booking)continue;
      const sender=String(message.from||'').replace(/\D/g,'');
      if(sender!==booking.customer_phone)continue;
+     const eventKey='srn:wa:event:'+message.id;
+     if(await redis('GET',eventKey))continue;
      const target=data.action==='confirmar'?'confirmed':'cancelled';
      if(booking.status==='cancelled'&&target==='confirmed')continue;
      if(booking.status===target)continue;
@@ -55,7 +54,10 @@ export default async function handler(req,res){
      booking.responded_at=new Date().toISOString();
      booking.confirmation_channel='whatsapp';
      booking.whatsapp_reply_message_id=message.id;
+     // Mark an event as consumed only after its data has been persisted;
+     // otherwise a transient Redis failure would cause Meta's retry to be lost.
      await setBooking(booking);
+     await redis('SET',eventKey,'1','EX','604800');
     }
    }
   }
