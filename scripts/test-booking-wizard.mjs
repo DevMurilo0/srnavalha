@@ -13,6 +13,14 @@ for(const width of [320,360,390,430,768,1440]){
  check(`${width}: próximo dentro da viewport`,await p.locator('#bk-next').evaluate(e=>e.getBoundingClientRect().bottom<=innerHeight));
  check(`${width}: etapa única e largura`,await p.locator('.bk-step:visible').count()===1&&await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await p.screenshot({path:`docs/booking-v5/service-${width}.png`});
+ check(`${width}: três serviços principais imediatamente acessíveis`,
+  JSON.stringify(await p.locator('#bk-services .bk-service').evaluateAll(nodes=>nodes.map(n=>n.dataset.id)))===
+  JSON.stringify(['cortee','barba-simples','comb-cort-barb-simples']));
+ if(width===390){
+  await p.locator('[data-filter="Todos"]').click();
+  check('catálogo completo segue acessível',await p.locator('#bk-services .bk-service').count()===42);
+  await p.locator('[data-filter="Destaques"]').click();
+ }
  await next();check(`${width}: exige serviço`,await current()==='bk-step-0'&&await p.locator('#bk-step-error').textContent()!=='');
  await p.locator('.bk-service').first().click();await next();
  check(`${width}: profissional e foco`,await current()==='bk-step-1'&&await p.evaluate(()=>document.activeElement.id==='bk-prof-title'));
