@@ -3,7 +3,7 @@ const $ = selector => document.querySelector(selector);
 const STATUS = Object.freeze({pending:['Aguardando','pending'],confirmed:['Confirmado','confirmed'],cancelled:['Cancelado','cancelled']});
 const TZ = 'America/Recife';
 const LOGIN_KEY = 'srnavalha:admin-apresentacao:v1';
-let sharedMode=false;
+let sharedMode=false,cloudButtonsAvailable=false;
 try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(await r.json()).enabled===true}catch{}
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
@@ -25,7 +25,16 @@ async function presentDashboard() {
   catch{authorized=false}
  }
  $('#login-screen').hidden=authorized;$('#dashboard').hidden=!authorized;
- if(authorized){void renderDashboard();document.title='Agenda da equipe · Sr. Navalha'}
+ if(authorized){
+  if(sharedMode){
+   try{
+    const r=await fetch('/api/whatsapp',{credentials:'same-origin',cache:'no-store'});
+    cloudButtonsAvailable=r.ok&&(await r.json()).available===true;
+   }catch{cloudButtonsAvailable=false}
+  }
+  updateWhatsAppMode();
+  void renderDashboard();document.title='Agenda da equipe · Sr. Navalha';
+ }
  else document.title='Entrar na agenda · Sr. Navalha';
 }
 $('#admin-login').addEventListener('submit',async event=>{
@@ -59,6 +68,30 @@ $('#admin-logout').addEventListener('click',async()=>{
  await presentDashboard();$('#admin-email').focus();
 });
 function feedback(message){$('#admin-feedback').textContent=message}
+function updateWhatsAppMode(){
+ const note=$('#whatsapp-mode-details');
+ if(!note)return;
+ note.textContent=cloudButtonsAvailable
+  ? 'O cliente receberá dois botões no próprio WhatsApp: Confirmar e Cancelar. A resposta atualizará a agenda automaticamente após ser recebida pela integração da Meta.'
+  : 'O envio de botões nativos exige a WhatsApp Business Platform com um template aprovado. Enquanto a integração estiver desativada, o painel abre uma conversa para envio manual e oferece uma simulação das respostas.';
+}
+async function sendNativeWhatsApp(booking,button){
+ if(!sharedMode||!cloudButtonsAvailable){feedback('Conecte a conta WhatsApp Business para enviar botões nativos.');return}
+ button.disabled=true;
+ const original=button.textContent;
+ button.textContent='Enviando botões…';
+ try{
+  const r=await fetch('/api/whatsapp',{
+   method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({id:booking.id})
+  });
+  const data=await r.json();
+  if(!r.ok)throw Error(data.error||'Falha ao enviar');
+  feedback('Mensagem enviada ao WhatsApp do cliente com os botões Confirmar e Cancelar.');
+  await renderDashboard();
+ }catch(e){feedback(e.message);button.disabled=false;button.textContent=original}
+}
+
 function confirmationUrls(booking){
  // These routes work as interactive demos in the same browser that owns localStorage.
  // Cross-device synchronization requires persistent storage and a server later.
@@ -145,8 +178,11 @@ function createRow(booking){
  if(booking.reminder_prepared_at)state.append(el('small','', 'Mensagem preparada'));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
+ if(cloudButtonsAvailable){
+  const send=actionButton('Enviar botões no WhatsApp','message',()=>sendNativeWhatsApp(booking,send),status!=='pending');
+  group.append(send);
+ }else group.append(actionButton('Preparar WhatsApp ↗','message',()=>prepareWhatsApp(booking)));
  group.append(
-  actionButton('Preparar WhatsApp ↗','message',()=>prepareWhatsApp(booking)),
   actionButton('Confirmar presença','',()=>changeStatus(booking,'confirmed'),status==='confirmed'),
   actionButton('Cancelar horário','',()=>changeStatus(booking,'cancelled'),status==='cancelled')
  );
@@ -196,5 +232,7 @@ $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.v
 $('#refresh-bookings').addEventListener('click',()=>{renderDashboard();feedback('Agenda atualizada.')});
 window.addEventListener('storage',event=>{if(event.key===BOOKING_STORAGE_KEY)renderDashboard()});
 window.addEventListener('pageshow',()=>renderDashboard());
-window.addEventListener('visibilitychange',()=>{if(!document.hidden)renderDashboard()});
+window.addEventListener('visibilitychange',()=>{if(!document.hidden)void renderDashboard()});
+// Server webhooks persist responses asynchronously; refresh the live panel automatically.
+setInterval(()=>{if(sharedMode&&!document.hidden&&!$('#dashboard').hidden)void renderDashboard()},15000);
 void presentDashboard();
