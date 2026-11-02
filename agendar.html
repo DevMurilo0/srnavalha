@@ -24,7 +24,7 @@
   </header>
   <main id="agendamento">
     <section class="bk-hero" aria-labelledby="bk-title">
-      <div class="bk-hero-copy"><h1 id="bk-title">Seu próximo ritual.</h1><p>Escolha em quatro etapas. <strong>Demonstração local: não cria uma reserva real.</strong></p></div>
+      <div class="bk-hero-copy"><h1 id="bk-title">Seu horário, do seu jeito.</h1><p>Comece pelo serviço e escolha seu profissional. <strong>Os horários são apenas ilustrativos e não criam uma reserva real.</strong></p></div>
       <img class="bk-wizard-photo" src="assets/images/hero-redesign/interior-480.webp" width="480" height="707" alt="Cadeiras e espelhos do salão da Sr. Navalha">
     </section>
     <section class="bk-workshop" id="escolhas" aria-labelledby="bk-choose-title">
@@ -39,12 +39,16 @@
         <div class="bk-steps">
           <div class="bk-stage">
           <section class="bk-step" aria-labelledby="bk-service-title" id="bk-step-0">
-            <div class="bk-step-heading"><span class="bk-step-number">01</span><div><h3 id="bk-service-title">Qual serviço combina com você?</h3><p>Escolha um dos serviços do catálogo.</p></div></div>
-            <label class="bk-search-label" for="bk-search">Buscar serviço</label>
-            <div class="bk-search-shell"><span aria-hidden="true">⌕</span><input type="search" id="bk-search" autocomplete="off" placeholder="Ex.: corte, barba, hidratação"></div>
-            <div class="bk-filters" id="bk-filters" role="group" aria-label="Filtrar tipos de serviço"><button type="button" data-filter="Destaques" aria-pressed="true">Destaques</button><button type="button" data-filter="Todos" aria-pressed="false">Todos os serviços</button></div>
-            <div class="bk-services" id="bk-services" aria-label="Serviços disponíveis no catálogo"><p>Carregando serviços...</p></div>
+            <div class="bk-step-heading"><span class="bk-step-number">01</span><div><h3 id="bk-service-title">Qual serviço combina com você?</h3><p>Selecione o que você precisa. Para outros serviços, use a busca logo abaixo.</p></div></div>
+            <p class="bk-quick-intro">Comece por um dos três serviços principais. Um toque já leva você à próxima etapa.</p>
+            <div class="bk-services" id="bk-services" aria-label="Selecione seu serviço"><p>Carregando serviços...</p></div>
             <p class="bk-empty" id="bk-empty" hidden>Nenhum serviço encontrado. Tente outro termo ou escolha “Todos os serviços”.</p>
+            <div class="bk-service-explore">
+              <p>Procurando outro serviço?</p>
+              <label class="bk-search-label" for="bk-search">Buscar no catálogo completo</label>
+              <div class="bk-search-shell"><span aria-hidden="true">⌕</span><input type="search" id="bk-search" autocomplete="off" placeholder="Ex.: hidratação, corte infantil"></div>
+              <div class="bk-filters" id="bk-filters" role="group" aria-label="Filtrar tipos de serviço"><button type="button" data-filter="Destaques" aria-pressed="true">Principais</button><button type="button" data-filter="Todos" aria-pressed="false">Todos os serviços</button></div>
+            </div>
           </section>
           <section class="bk-step" aria-labelledby="bk-prof-title" id="bk-step-1">
             <div class="bk-step-heading"><span class="bk-step-number">02</span><div><h3 id="bk-prof-title">Com quem você quer cortar?</h3><p>Escolha alguém da equipe ou deixe em aberto.</p></div></div>
