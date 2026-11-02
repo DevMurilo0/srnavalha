@@ -32,8 +32,8 @@
       <nav class="bk-progress" aria-label="Etapas do agendamento"><ol>
         <li><button type="button" data-step="0" aria-current="step"><span>01</span> Serviço</button></li>
         <li><button type="button" data-step="1" disabled><span>02</span> Profissional</button></li>
-        <li><button type="button" data-step="2" disabled><span>03</span> Horário</button></li>
-        <li><button type="button" data-step="3" disabled><span>04</span> Seus dados</button></li>
+        <li><button type="button" data-step="2" disabled><span>03</span> Data</button></li>
+        <li><button type="button" data-step="3" disabled><span>04</span> Horário e dados</button></li>
       </ol></nav>
       <div class="bk-workshop-grid">
         <div class="bk-steps">
@@ -55,25 +55,29 @@
             <div class="bk-professionals" id="bk-professionals" role="group" aria-label="Selecionar profissional"><button class="bk-prof bk-prof-any" type="button" aria-pressed="true" data-pro="any"><span class="bk-prof-symbol" aria-hidden="true">✳</span><span>Sem preferência</span></button></div>
           </section>
           <section class="bk-step bk-step-last" aria-labelledby="bk-when-title" id="bk-step-2">
-            <div class="bk-step-heading"><span class="bk-step-number">03</span><div><h3 id="bk-when-title">Quando você quer vir?</h3><p>Veja horários de exemplo para experimentar o fluxo. Não representam a agenda verdadeira dos profissionais.</p></div></div>
+            <div class="bk-step-heading"><span class="bk-step-number">03</span><div><h3 id="bk-when-title">Qual dia fica melhor?</h3><p>Escolha primeiro a data. Os horários aparecerão depois que você clicar em “Próximo”.</p></div></div>
             <div class="bk-day-head"><label for="bk-date">Escolha a data</label><span>PRÓXIMOS 30 DIAS · TESTE</span></div>
-            <div class="bk-days" id="bk-days" aria-label="Próximos sete dias"></div>
-            <div class="bk-preferences"><label>Outra data para simular<input type="date" id="bk-date" required aria-describedby="bk-date-help"></label></div>
-            <p class="bk-help" id="bk-date-help">Expediente ilustrativo: segunda a sábado, das 9h às 12h e das 14h às 19h. Esses horários não representam disponibilidade real.</p>
-            <div class="bk-slot-head"><strong>Horários de demonstração</strong><span>EXEMPLOS · GRAVATÁ / PE</span></div>
-            <p class="bk-slot-state" id="bk-slot-state" role="status" aria-live="polite">Escolha seu serviço para ver os horários.</p>
-            <div class="bk-slots" id="bk-slots" role="group" aria-label="Escolher um horário disponível"></div>
-            <div id="bk-slot-error" hidden><button type="button" class="bk-retry" id="bk-slot-retry">Tentar consultar novamente ↗</button></div>
+            <div class="bk-days" id="bk-days" aria-label="Escolher um dos próximos sete dias"></div>
+            <div class="bk-preferences"><label>Ou selecione outra data<input type="date" id="bk-date" required aria-describedby="bk-date-help"></label></div>
+            <p class="bk-help" id="bk-date-help">Escolha uma data de segunda a sábado. Os horários apresentados depois são apenas exemplos, não vagas reais.</p>
           </section>
           <section class="bk-step bk-step-last" aria-labelledby="bk-data-title" id="bk-step-3">
-            <div class="bk-step-heading"><span class="bk-step-number">04</span><div><h3 id="bk-data-title">Para finalizar o teste.</h3><p>Use dados fictícios para testar. Nada será enviado à equipe.</p></div></div>
-            <form id="bk-form" class="bk-form" novalidate>
-              <label for="bk-name">Nome para o teste</label>
+            <div class="bk-step-heading"><span class="bk-step-number">04</span><div><h3 id="bk-data-title">Escolha o horário.</h3><p id="bk-selected-day">Selecione um horário ilustrativo para continuar com seu nome e WhatsApp nesta mesma tela.</p></div></div>
+            <div class="bk-slot-head"><strong>Horários para o dia escolhido</strong><span>APENAS DEMONSTRAÇÃO</span></div>
+            <p class="bk-slot-state" id="bk-slot-state" role="status" aria-live="polite">Escolha um horário de exemplo.</p>
+            <div class="bk-slots" id="bk-slots" role="group" aria-label="Escolher um horário ilustrativo"></div>
+            <div id="bk-slot-error" hidden><button type="button" class="bk-retry" id="bk-slot-retry">Atualizar os horários</button></div>
+            <div class="bk-contact-heading" id="bk-contact-heading" hidden>
+              <h4>Agora, seus dados.</h4>
+              <p>Horário escolhido. Preencha o nome e o WhatsApp logo abaixo para salvar a simulação neste navegador.</p>
+            </div>
+            <form id="bk-form" class="bk-form" novalidate hidden>
+              <label for="bk-name">Seu nome (teste)</label>
               <input class="bk-name" aria-describedby="bk-form-error" id="bk-name" name="name" type="text" minlength="2" maxlength="70" autocomplete="off" placeholder="Ex.: Cliente de teste" required>
-              <label for="bk-phone">Telefone de exemplo com DDD</label>
+              <label for="bk-phone">WhatsApp com DDD (teste)</label>
               <input class="bk-name" aria-describedby="bk-form-error" id="bk-phone" name="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="off" placeholder="(81) 99999-9999" required>
-              <label class="bk-consent"><input type="checkbox" id="bk-consent" required><span>Entendo que este é um teste local e que os dados ficam apenas neste navegador, sem envio à barbearia.</span></label>
-              <p class="bk-form-local-note"><strong>Privacidade:</strong> para testar, não informe dados pessoais reais. Você pode excluir os registros locais abaixo.</p>
+              <label class="bk-consent"><input type="checkbox" id="bk-consent" required><span>Entendo que este é um teste local: meu WhatsApp não receberá mensagens e os dados não serão enviados à barbearia.</span></label>
+              <p class="bk-form-local-note"><strong>Privacidade:</strong> use dados fictícios. Este formulário não confirma reservas reais e você pode excluir o registro de teste ao final.</p>
               <p class="bk-form-error" id="bk-form-error" role="alert" aria-live="assertive"></p>
             </form>
           </section>
