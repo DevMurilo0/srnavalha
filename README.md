@@ -34,7 +34,10 @@ as limitações da resolução do mockup.
 - **5 profissionais** (Damião, Eduardo, Kauã, Rafael e Yan), mostrados com imagens transparentes e troca interativa.
 - **18 produtos com fotografias**, catálogo pesquisável por nome/categoria; a consulta é feita diretamente na barbearia, sem links de WhatsApp na seção.
 - **Galeria fotográfica** com visualizador acessível, navegação e Escape.
-- **Agendamento próprio em `agendar.html`**: somente demonstração local, horários ilustrativos; **não reserva horários reais**. O atendimento deve confirmar pelo WhatsApp.
+- **Agendamento em `agendar.html`**: escolha serviço, profissional, data, horário, nome e WhatsApp, com comprovante redesenhado e aviso de confirmação futura; horários ilustrativos, **sem reserva real**.
+- **Gestão em `admin.html`**: acesso de apresentação com e-mail/senha, lista de solicitações, pesquisa, filtros e status de confirmação/cancelamento; tudo acessa o mesmo armazenamento local do navegador.
+- **Respostas em `confirmar.html`**: links de demonstração que registram confirmação ou cancelamento apenas quando abertos no navegador onde existe o registro. Em outros dispositivos, será necessária uma agenda centralizada.
+- **WhatsApp**: o botão do painel abre conversa com mensagem preenchida para envio manual; respostas e envios automáticos exigirão integração posterior com WhatsApp Business Platform e webhooks.
 - Localização e redes sociais vinculadas ao estabelecimento real.
 - Sem servidor de aplicação, checkout ou pagamento.
 
@@ -48,8 +51,8 @@ Após cada push na branch de desenvolvimento:
 3. Teste local do armazenamento de agendamentos.
 4. Capturas reais de Chromium em 320, 390, 768, 900, 1366 e 1440 px; fotos são carregadas ao passar pelas seções.
 5. Troca de profissionais, catálogos, galeria, Axe e movimento reduzido.
-6. Testes do agendamento em etapas.
-7. Artefatos ZIP e screenshots anexados ao workflow.
+6. Testes do agendamento em etapas e verificação da área administrativa, incluindo confirmação e cancelamento.
+7. Artefatos ZIP completos e screenshots anexados ao workflow.
 
 Os scripts de animação das versões V6–V31 e os templates anteriores
 permanecem no histórico do repositório, mas não são carregados pelo `index.html` atual.
