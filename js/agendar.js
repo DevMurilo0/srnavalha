@@ -1,6 +1,6 @@
 import services from './data/services.js';
 import professionals from './data/professionals.js';
-import { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking, BOOKING_STORAGE_KEY } from './booking-local.js';
+import { availableSlots, saveDemoBooking, BOOKING_STORAGE_KEY } from './booking-local.js';
 
 const $ = selector => document.querySelector(selector);
 const state = { service: null, professional: null, slot: null, filter: 'Destaques', slots: [], busy: false, step: 0, visited: 0 };
@@ -352,15 +352,19 @@ function submitBooking(event) {
       phone: normalizedPhone($('#bk-phone').value)
     });
     $('#bk-confirm-ref').textContent = entry.reference;
-    $('#bk-confirm-detail').textContent = entry.service_name + ' · ' + entry.professional_name +
-      ' · ' + readableDate($('#bk-date').value) + ', às ' + formatHour(entry.starts_at);
-    $('#bk-confirm-state').textContent = 'Teste salvo apenas neste navegador. Este horário NÃO foi enviado à barbearia.';
+    $('#bk-confirm-date').textContent = readableDate($('#bk-date').value);
+    $('#bk-confirm-hour').textContent = formatHour(entry.starts_at);
+    $('#bk-confirm-service').textContent = entry.service_name;
+    $('#bk-confirm-prof').textContent = entry.professional_name;
+    $('#bk-confirm-name').textContent = entry.customer_name;
+    $('#bk-confirm-phone').textContent = $('#bk-phone').value.trim();
+    $('#bk-confirm-state').textContent = 'Demonstração: solicitação registrada somente neste navegador. Nenhum WhatsApp automático foi enviado.';
     $('#escolhas').hidden = true;
     $('#bk-success').hidden = false;
     document.body.classList.add('bk-booked');
     $('#bk-success').scrollIntoView({ behavior: 'auto', block: 'start' });
     $('#bk-success-title').focus();
-    renderSavedBookings();
+    
   } catch (error) {
     const messages = {
       SLOT_TAKEN: 'Este horário já foi utilizado nos testes locais. Escolha outro.',
@@ -375,47 +379,6 @@ function submitBooking(event) {
   } finally {
     requestInFlight = false;
     updateSummary();
-  }
-}
-function renderSavedBookings() {
-  const container = $('#bk-saved-list');
-  const bookings = readDemoBookings()
-    .filter(item => item.status === 'demo')
-    .sort((a, b) => String(a.starts_at).localeCompare(String(b.starts_at)));
-  container.replaceChildren();
-  if (!bookings.length) {
-    const empty = document.createElement('p');
-    empty.textContent = 'Nenhum teste salvo neste navegador.';
-    container.append(empty);
-    return;
-  }
-  for (const entry of bookings) {
-    const row = document.createElement('div');
-    row.className = 'bk-saved-row';
-    const info = document.createElement('div');
-    const strong = document.createElement('strong');
-    strong.textContent = entry.service_name || 'Serviço';
-    const small = document.createElement('small');
-    const day = dateAtRecife(new Date(entry.starts_at));
-    small.textContent = (entry.professional_name || 'Profissional') + ' · ' +
-      formatHour(entry.starts_at) + ' · ' + readableDate(day);
-    info.append(strong, small);
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = 'Excluir teste';
-    button.setAttribute('aria-label', 'Excluir teste de ' + strong.textContent);
-    button.addEventListener('click', () => {
-      try {
-        removeDemoBooking(entry.id);
-        $('#bk-saved-error').textContent = '';
-        renderSavedBookings();
-        if (!$('#escolhas').hidden) refreshSlots();
-      } catch {
-        $('#bk-saved-error').textContent = 'Não foi possível excluir este registro local.';
-      }
-    });
-    row.append(info, button);
-    container.append(row);
   }
 }
 const today = dateAtRecife();
@@ -434,7 +397,7 @@ renderServices();
 renderProfessionals();
 renderDays();
 refreshSlots();
-renderSavedBookings();
+
 
 $('#bk-search').addEventListener('input', () => {
   if ($('#bk-search').value.trim() && state.filter !== 'Todos') {
@@ -451,8 +414,12 @@ $('#bk-slot-retry').addEventListener('click', refreshSlots);
 for (const input of ['#bk-name','#bk-phone','#bk-consent']) $(input).addEventListener('input', () => {$(input).removeAttribute('aria-invalid');$('#bk-form-error').textContent='';invalidateRequest()});
 $('#bk-form').addEventListener('submit', submitBooking);
 $('#bk-new-booking').addEventListener('click', () => location.assign('agendar.html'));
-window.addEventListener('storage', e => { if (e.key === BOOKING_STORAGE_KEY) { renderSavedBookings(); if (!$('#escolhas').hidden) refreshSlots(); } });
-window.addEventListener('pageshow', event => { if (event.persisted) { refreshSlots(); renderSavedBookings(); } });
+window.addEventListener('storage', e => {
+  if (e.key === BOOKING_STORAGE_KEY && !$('#escolhas').hidden) refreshSlots();
+});
+window.addEventListener('pageshow', event => {
+  if (event.persisted) refreshSlots();
+});
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible' && !$('#bk-success').hidden) return;
   if (document.visibilityState === 'visible' && !requestInFlight) refreshSlots();
