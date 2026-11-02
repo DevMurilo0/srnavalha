@@ -32,7 +32,7 @@ as limitações da resolução do mockup.
 
 - **42 serviços**, incluindo Corte (R$ 30), Barba simples (R$ 20) e Corte + barba simples (R$ 50), com catálogo completo expansível e buscável.
 - **5 profissionais** (Damião, Eduardo, Kauã, Rafael e Yan), mostrados com imagens transparentes e troca interativa.
-- **18 produtos com fotografias**, com consulta de disponibilidade pelo WhatsApp e filtro por nome/categoria.
+- **18 produtos com fotografias**, catálogo pesquisável por nome/categoria; a consulta é feita diretamente na barbearia, sem links de WhatsApp na seção.
 - **Galeria fotográfica** com visualizador acessível, navegação e Escape.
 - **Agendamento próprio em `agendar.html`**: somente demonstração local, horários ilustrativos; **não reserva horários reais**. O atendimento deve confirmar pelo WhatsApp.
 - Localização e redes sociais vinculadas ao estabelecimento real.
