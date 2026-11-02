@@ -12,11 +12,26 @@ let stepAnimation;
 const steps = [...document.querySelectorAll('.bk-step')];
 const progressButtons = [...document.querySelectorAll('.bk-progress button')];
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function syncContact({focus = false} = {}) {
+  const form = $('#bk-form'), heading = $('#bk-contact-heading');
+  const reveal = state.step === 3 && Boolean(state.slot);
+  const newlyVisible = reveal && form.hidden;
+  form.hidden = !reveal;
+  heading.hidden = !reveal;
+  if (newlyVisible && focus) {
+    requestAnimationFrame(() => {
+      if (state.step !== 3 || !state.slot) return;
+      form.scrollIntoView({block:'nearest',behavior:reducedMotion.matches?'instant':'smooth'});
+      $('#bk-name').focus({preventScroll:true});
+    });
+  }
+}
 function stepProblem(index) {
   if (index === 0 && !state.service) return 'Escolha um serviço para continuar.';
   if (index === 0 && state.service?.category === 'Assinantes') return 'Planos de assinatura não estão disponíveis neste teste. Escolha outro serviço.';
+  if (index === 2 && !$('#bk-date').value) return 'Escolha uma data para ver os horários.';
   if (index === 2 && !$('#bk-date').checkValidity()) return 'Escolha uma data válida entre hoje e os próximos 30 dias.';
-  if (index === 2 && !state.slot) return 'Escolha um horário de demonstração para continuar.';
+  if (index === 2 && new Date($('#bk-date').value+'T12:00:00Z').getUTCDay() === 0) return 'Escolha um dia de segunda a sábado.';
   return '';
 }
 function showStep(index, {focus = true, motion = false} = {}) {
@@ -25,6 +40,8 @@ function showStep(index, {focus = true, motion = false} = {}) {
   state.step = index;
   state.visited = Math.max(state.visited,index);
   steps.forEach((step,i) => {step.hidden = i !== index});
+  syncContact();
+  if (index === 3) $('#bk-selected-day').textContent = 'Data: ' + readableDate($('#bk-date').value) + '. Escolha o horário e preencha os dados nesta mesma tela.';
   progressButtons.forEach((button,i) => {
     button.disabled = i > state.visited;
     button.classList.toggle('is-complete',i < index);
@@ -36,7 +53,7 @@ function showStep(index, {focus = true, motion = false} = {}) {
   $('#bk-next').textContent = index === 0 && state.service ? 'Continuar com ' + state.service.name + ' →' : 'Continuar →';
   $('#bk-submit').hidden = index !== 3;
   $('#bk-step-error').textContent = '';
-  document.title = `${index+1} de 4 · ${['Serviço','Profissional','Horário','Seus dados'][index]} · Sr. Navalha`;
+  document.title = `${index+1} de 4 · ${['Serviço','Profissional','Data','Horário e dados'][index]} · Sr. Navalha`;
   const heading = steps[index].querySelector('h3');
   heading.tabIndex = -1;
   steps[index].scrollTop = 0;
@@ -263,6 +280,8 @@ function renderSlots() {
       state.slot = slot;
       for (const item of wrapper.querySelectorAll('.bk-slot')) item.setAttribute('aria-pressed', String(item === button));
       setSelectionFeedback();
+      $('#bk-step-error').textContent = '';
+      syncContact({focus:true});
     });
     fragment.append(button);
   }
@@ -272,6 +291,7 @@ function refreshSlots() {
   const previous = state.slot;
   state.slot = null;
   state.slots = [];
+  syncContact();
   $('#bk-slots').replaceChildren();
   $('#bk-slot-error').hidden = true;
   setSelectionFeedback();
@@ -292,9 +312,9 @@ function refreshSlots() {
   state.slot = state.slots.find(slot => slot.slot_at === previous?.slot_at && slot.professional_id === previous?.professional_id) || null;
   renderSlots();
   setSelectionFeedback();
+  syncContact();
   if(previous && !state.slot && state.step === 3){
-    showStep(2);
-    $('#bk-step-error').textContent = 'O horário escolhido deixou de estar disponível neste teste. Escolha outro.';
+    $('#bk-step-error').textContent = 'O horário de teste anterior não está mais disponível. Escolha outro horário aqui.';
   }
   $('#bk-slot-state').textContent = state.slots.length
     ? state.slots.length + ' horário(s) ilustrativo(s) nesta data — não são vagas reais.'
@@ -401,7 +421,7 @@ function renderSavedBookings() {
 const today = dateAtRecife();
 $('#bk-date').min = today;
 $('#bk-date').max = addDays(today, 30);
-$('#bk-date').value = today;
+$('#bk-date').value = '';
 const initialService = services.find(s => s.id === qs.get('servico'));
 const initialPro = professionals.find(p => p.id === qs.get('profissional'));
 if (initialService) {
@@ -442,7 +462,7 @@ document.addEventListener('visibilitychange', () => {
 const summary = $('.bk-summary');
 const compact = matchMedia('(max-width:760px)');
 function placeSummary(){
-  if(compact.matches) steps[3].insertBefore(summary,$('#bk-form'));
+  if(compact.matches) steps[3].append(summary);
   else $('.bk-workshop-grid').append(summary);
 }
 compact.addEventListener('change',placeSummary);placeSummary();
