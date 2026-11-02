@@ -3,6 +3,9 @@ const $ = selector => document.querySelector(selector);
 const STATUS = Object.freeze({pending:['Aguardando','pending'],confirmed:['Confirmado','confirmed'],cancelled:['Cancelado','cancelled']});
 const TZ = 'America/Recife';
 const LOGIN_KEY = 'srnavalha:admin-apresentacao:v1';
+let sharedMode=false;
+try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(await r.json()).enabled===true}catch{}
+if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter = 'all',currentSearch = '';
@@ -15,24 +18,29 @@ const el=(tag,cls,content)=>{
  if(content!==undefined)node.textContent=String(content);
  return node;
 };
-function presentDashboard() {
- const authorized=sessionStorage.getItem(LOGIN_KEY)==='on';
- $('#login-screen').hidden=authorized;
- $('#dashboard').hidden=!authorized;
- if(authorized){renderDashboard();document.title='Agenda da equipe · Sr. Navalha'}
+async function presentDashboard() {
+ let authorized=sessionStorage.getItem(LOGIN_KEY)==='on';
+ if(sharedMode){
+  try{const r=await fetch('/api/session',{credentials:'same-origin',cache:'no-store'});authorized=r.ok&&(await r.json()).authenticated===true}
+  catch{authorized=false}
+ }
+ $('#login-screen').hidden=authorized;$('#dashboard').hidden=!authorized;
+ if(authorized){void renderDashboard();document.title='Agenda da equipe · Sr. Navalha'}
  else document.title='Entrar na agenda · Sr. Navalha';
 }
-$('#admin-login').addEventListener('submit',event=>{
+$('#admin-login').addEventListener('submit',async event=>{
  event.preventDefault();
  const email=$('#admin-email').value.trim().toLowerCase();
  const password=$('#admin-password').value;
- if(email!==DEMO_EMAIL||password!==DEMO_PASSWORD){
-  $('#admin-login-error').textContent='Confira o e-mail e a senha utilizados na apresentação.';
-  return;
+ if(sharedMode){
+  try{const r=await fetch('/api/session',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(!r.ok)throw Error('E-mail ou senha incorretos.')}
+  catch(e){$('#admin-login-error').textContent=e.message;return}
+ }else if(email!==DEMO_EMAIL||password!==DEMO_PASSWORD){
+  $('#admin-login-error').textContent='Confira o e-mail e a senha utilizados na apresentação.';return;
  }
  $('#admin-login-error').textContent='';
- sessionStorage.setItem(LOGIN_KEY,'on');
- presentDashboard();
+ if(!sharedMode)sessionStorage.setItem(LOGIN_KEY,'on');
+ await presentDashboard();
 });
 $('#fill-demo').addEventListener('click',()=>{
  $('#admin-email').value=DEMO_EMAIL;
@@ -45,7 +53,11 @@ $('#show-password').addEventListener('click',()=>{
  input.type=input.type==='password'?'text':'password';
  $('#show-password').textContent=input.type==='password'?'Mostrar':'Ocultar';
 });
-$('#admin-logout').addEventListener('click',()=>{sessionStorage.removeItem(LOGIN_KEY);presentDashboard();$('#admin-email').focus()});
+$('#admin-logout').addEventListener('click',async()=>{
+ if(sharedMode)await fetch('/api/session',{method:'DELETE',credentials:'same-origin'}).catch(()=>{});
+ else sessionStorage.removeItem(LOGIN_KEY);
+ await presentDashboard();$('#admin-email').focus();
+});
 function feedback(message){$('#admin-feedback').textContent=message}
 function confirmationUrls(booking){
  // These routes work as interactive demos in the same browser that owns localStorage.
@@ -62,22 +74,23 @@ function confirmationUrls(booking){
 function prepareWhatsApp(booking){
  const phone=String(booking.customer_phone||'').replace(/\D/g,'');
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
- const links=confirmationUrls(booking);
+ const links=booking.links||null;
  const message=[
-  'Olá, '+name+'! Tudo bem? 👋',
+  'Olá, '+name+'! Tudo bem?',
   'Aqui é da Barbearia Sr. Navalha. Estamos entrando em contato para confirmar seu horário:',
   '',
-  '✂️ '+booking.service_name,
-  '📅 '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
-  '💈 Profissional: '+booking.professional_name,
+  'Serviço: '+booking.service_name,
+  'Data: '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
+  'Profissional: '+booking.professional_name,
   '',
   'Por favor, responda CONFIRMO ou CANCELAR nesta conversa.',
   '',
-  'Links de resposta para a demonstração:',
-  '✅ Confirmar: '+links.yes,
-  '❌ Cancelar: '+links.no,
-  '(Esses links funcionam apenas no navegador onde a solicitação foi registrada.)',
-  '',
+  ...(links?[
+   'Para confirmar ou cancelar pelo site:',
+   'Confirmar: '+links.yes,
+   'Cancelar: '+links.no,
+   ''
+  ]:[]),
   'Obrigado! Sr. Navalha · Gravatá'
  ].join('\n');
  if(!/^55\d{10,11}$/.test(phone)){feedback('O WhatsApp deste agendamento não está em um formato válido.');return}
@@ -86,7 +99,7 @@ function prepareWhatsApp(booking){
  const tab=window.open(link,'_blank');
  if(tab){tab.opener=null;feedback('Conversa aberta no WhatsApp. Confira e envie a mensagem manualmente.');}
  else feedback('Se o WhatsApp não abriu, permita novas abas para esta página.');
- try{markDemoReminderOpened(booking.id)}catch{ /* WhatsApp can still open even when localStorage is blocked */ }
+ if(!sharedMode)try{markDemoReminderOpened(booking.id)}catch{ /* demo storage unavailable */ }
  renderDashboard();
 }
 function actionButton(text,kind,fn,disabled=false){
@@ -94,18 +107,21 @@ function actionButton(text,kind,fn,disabled=false){
  button.type='button';button.disabled=disabled;button.addEventListener('click',fn);
  return button;
 }
-function changeStatus(booking,next){
+async function changeStatus(booking,next){
  if(normalizedStatus(booking)===next)return;
  const message=next==='cancelled'?'Cancelar o horário de '+booking.customer_name+'? O horário ficará livre nesta demonstração.':'Marcar a presença de '+booking.customer_name+' como confirmada?';
  if(!confirm(message))return;
  try{
-  updateDemoBookingStatus(booking.id,next);
+  if(sharedMode){
+   const reply=await fetch('/api/bookings',{method:'PATCH',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:booking.id,status:next})});
+   if(!reply.ok)throw Error('Não foi possível salvar na agenda compartilhada');
+  }else updateDemoBookingStatus(booking.id,next);
   feedback(next==='confirmed'?'Presença registrada como confirmada.':'Agendamento cancelado; horário liberado.');
-  renderDashboard();
+  await renderDashboard();
  }catch{feedback('Não foi possível atualizar este registro no navegador.')}
 }
 function openResponsePreview(booking){
- const urls=confirmationUrls(booking);
+ const urls=booking.links||confirmationUrls(booking);
  $('#reply-yes').href=urls.yes;
  $('#reply-no').href=urls.no;
  $('#reply-title').textContent='Respostas de '+booking.customer_name;
@@ -141,9 +157,16 @@ function createRow(booking){
  row.append(date,person,service,state,actions,serial);
  return row;
 }
-function renderDashboard(){
+async function renderDashboard(){
  if($('#dashboard').hidden)return;
- const entries=readDemoBookings().filter(b=>b && b.id && b.starts_at);
+ let entries;
+ if(sharedMode){
+  try{
+   const res=await fetch('/api/bookings',{credentials:'same-origin',cache:'no-store'});
+   if(!res.ok)throw Error('Sua sessão terminou. Entre novamente no painel.');
+   entries=(await res.json()).items;
+  }catch(e){feedback(e.message);return}
+ }else entries=readDemoBookings().filter(b=>b && b.id && b.starts_at);
  const counts={pending:0,confirmed:0,cancelled:0};
  entries.forEach(b=>{const s=normalizedStatus(b);if(s in counts)counts[s]++});
  $('#stat-total').textContent=String(entries.length);
@@ -174,4 +197,4 @@ $('#refresh-bookings').addEventListener('click',()=>{renderDashboard();feedback(
 window.addEventListener('storage',event=>{if(event.key===BOOKING_STORAGE_KEY)renderDashboard()});
 window.addEventListener('pageshow',()=>renderDashboard());
 window.addEventListener('visibilitychange',()=>{if(!document.hidden)renderDashboard()});
-presentDashboard();
+void presentDashboard();
