@@ -4,7 +4,7 @@ import { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking, B
 
 const $ = selector => document.querySelector(selector);
 const state = { service: null, professional: null, slot: null, filter: 'Destaques', slots: [], busy: false, step: 0, visited: 0 };
-const featured = ['cortee', 'comb-cort-barb-simples', 'barboterapia', 'barba-simples', 'corte-infantil', 'corte-exclusivo', 'sobrancelha', 'hidratacao'];
+const featured = ['cortee', 'barba-simples', 'comb-cort-barb-simples'];
 const qs = new URLSearchParams(location.search);
 const tz = 'America/Recife';
 let requestInFlight = false;
@@ -33,6 +33,7 @@ function showStep(index, {focus = true, motion = false} = {}) {
   });
   $('#bk-back').disabled = index === 0;
   $('#bk-next').hidden = index === 3;
+  $('#bk-next').textContent = index === 0 && state.service ? 'Continuar com ' + state.service.name + ' →' : 'Continuar →';
   $('#bk-submit').hidden = index !== 3;
   $('#bk-step-error').textContent = '';
   document.title = `${index+1} de 4 · ${['Serviço','Profissional','Horário','Seus dados'][index]} · Sr. Navalha`;
@@ -115,7 +116,7 @@ function renderFilters() {
   container.replaceChildren(...categories.map(category => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = category === 'Todos' ? 'Todos os serviços' : category;
+    button.textContent = category === 'Todos' ? 'Todos os serviços' : category === 'Destaques' ? 'Principais' : category;
     button.dataset.filter = category;
     button.setAttribute('aria-pressed', String(category === state.filter));
     button.addEventListener('click', () => {
@@ -133,14 +134,14 @@ function renderServices() {
     (state.filter === 'Todos' || (state.filter === 'Destaques'
       ? featured.includes(service.id) : service.category === state.filter)) &&
     (!query || fold(service.name + ' ' + service.category + ' ' + service.description).includes(query))
-  );
+  ).sort((a,b)=> state.filter === 'Destaques' ? featured.indexOf(a.id)-featured.indexOf(b.id) : 0);
   const container = $('#bk-services');
   const fragment = document.createDocumentFragment();
   selected.forEach(service => {
     const pressed = state.service?.id === service.id;
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'bk-service' + (pressed ? ' is-selected' : '');
+    button.className = 'bk-service' + (featured.includes(service.id) && state.filter === 'Destaques' ? ' bk-service-featured' : '') + (pressed ? ' is-selected' : '');
     button.dataset.id = service.id;
     button.setAttribute('aria-pressed', String(pressed));
     const info = document.createElement('span');
@@ -168,6 +169,7 @@ function renderServices() {
         item.querySelector('.bk-service-check').textContent = active ? '✓' : '+';
       }
       refreshSlots();
+      $('#bk-next').textContent = 'Continuar com ' + service.name + ' →';
     });
     fragment.append(button);
   });
@@ -403,7 +405,7 @@ const initialService = services.find(s => s.id === qs.get('servico'));
 const initialPro = professionals.find(p => p.id === qs.get('profissional'));
 if (initialService) {
   state.service = initialService;
-  state.filter = 'Todos';
+  state.filter = featured.includes(initialService.id) ? 'Destaques' : 'Todos';
 }
 state.professional = initialPro || null;
 renderFilters();
