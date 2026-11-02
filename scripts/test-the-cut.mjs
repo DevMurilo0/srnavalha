@@ -31,6 +31,9 @@ try {
    await page.locator('.portrait-stage img[src*="/the-cut/team/"]').count()===1);
   check(width+' catalogues preserve data',await page.locator('.all-services article').count()===42&&
    await page.locator('.all-products article').count()===18);
+  check(width+' products no longer link to WhatsApp',await page.locator('#produtos a[href*="wa.me"]').count()===0&&
+   await page.locator('#produtos .product-object').count()===3&&
+   await page.locator('#produtos .product-note').count()===21);
   check(width+' 3 editorial service panels',await page.locator('.service-panel').count()===3);
   check(width+' content inside viewport',await page.evaluate(()=>{
    return document.documentElement.scrollWidth<=innerWidth+2;
