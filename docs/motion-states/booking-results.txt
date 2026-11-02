@@ -1,0 +1,12 @@
+PASS Reescolher serviço preserva horário válido
+PASS Voltar por indicador preserva dados
+PASS Serviço mais longo invalida somente horário
+PASS Indicador não ignora validação posterior
+PASS Filtro mantém foco
+PASS Assinatura não cria agenda fictícia
+PASS Conflito real entre abas exige novo horário
+PASS Consentimento obrigatório e foco
+PASS Armazenamento bloqueado preserva formulário
+PASS Viewport curta: campo pode receber foco
+PASS Resize mantém um resumo no desktop
+PASS Resize devolve resumo à revisão mobile

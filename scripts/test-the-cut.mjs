@@ -22,7 +22,8 @@ try {
   page.on('response',r=>{if(r.url().startsWith(site)&&r.status()>=400)missing.push({url:r.url(),status:r.status()})});
   await page.goto(site+'/',{waitUntil:'domcontentloaded'});
   await page.evaluate(()=>document.fonts.ready);
-  await page.locator('.hero h1').waitFor();
+  await page.waitForFunction(()=>!document.querySelector('#cut-intro'));
+  await page.waitForFunction(()=>document.querySelector('#hero-title').dataset.reveal==='done');
   check(width+' The Cut stylesheet and razor',await page.locator('link[href="css/the-cut.css"]').count()===1&&
    await page.locator('.hero .razor[src$="razor.webp"]').count()===1);
   check(width+' five original transparent portraits',

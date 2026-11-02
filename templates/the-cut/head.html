@@ -9,6 +9,23 @@
 <link rel="preload" href="assets/fonts/bodoni-moda-italic-500.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/images/hero-ambiente-1920.webp" as="image" fetchpriority="high">
 <link rel="preload" href="assets/images/the-cut/razor.webp" as="image">
+<!-- Only marked entrances are armed, synchronously, before styles/body paint. -->
+<script>
+(()=>{
+ const root=document.documentElement;
+ const media=matchMedia('(prefers-reduced-motion: reduce)');
+ const release=()=>{root.classList.remove('motion-enabled','opening-active');window.__motionReleased=true;document.dispatchEvent(new Event('motionrelease'));};
+ window.__releaseMotion=release;
+ if(!media.matches&&'IntersectionObserver' in window&&typeof Element.prototype.animate==='function'){
+  root.classList.add('motion-enabled');
+  if(!location.hash)root.classList.add('opening-active');
+  window.__motionWatchdog=setTimeout(release,5000);
+  addEventListener('error',release);
+  addEventListener('unhandledrejection',release);
+  media.addEventListener('change',event=>{if(event.matches)release()});
+ }
+})();
+</script>
 <link rel="stylesheet" href="css/the-cut.css">
 <link rel="stylesheet" href="css/the-cut-motion.css">
 

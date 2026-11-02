@@ -56,6 +56,7 @@ jobs:
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
           node scripts/test-the-cut.mjs
           node scripts/test-the-cut-motion.mjs
+          node scripts/test-motion-states.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
       - name: Package working source for download
@@ -77,4 +78,6 @@ jobs:
           name: srnavalha-the-cut-visual-qa
           if-no-files-found: ignore
           retention-days: 14
-          path: docs/the-cut/qa/**
+          path: |
+            docs/the-cut/qa/**
+            docs/motion-states/**

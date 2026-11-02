@@ -326,10 +326,6 @@
     repeating-linear-gradient(135deg,transparent 0 11px,#c7cdd5b2 11px 12px),
     linear-gradient(145deg,#e4e7ec,#cfd5dc);
 }
-.products .no-photo__monogram{
-  font:800 19px/1 var(--display);
-  letter-spacing:-.08em;
-}
 .products .no-photo__label{
   font:650 6px/1.3 var(--body);
   letter-spacing:.12em;

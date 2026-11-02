@@ -3,7 +3,7 @@
 import professionals from '../data/professionals.js';
 import services from '../data/services.js';
 import products from '../data/products.js';
-import {initEditorialMotion} from './motion.js';
+import {initEditorialMotion,settleEditorialMotion} from './motion.js';
 
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
@@ -57,9 +57,17 @@ function initTeam(){
   return img;
  };
  professionals.forEach(preload);
+ reduce.addEventListener('change',()=>{
+  if(!reduce.matches)return;
+  $$('img',stage).forEach(img=>{
+   img.getAnimations().forEach(animation=>animation.cancel());
+   if(img.classList.contains('is-departing'))img.remove();
+  });
+ });
  async function select(id){
   const person=professionals.find(p=>p.id===id);
   if(!person||id===chosen)return;
+  settleEditorialMotion(stage);
   const currentToken=++serial;
   const prepared=preload(person);
   try{await prepared.decode();}catch{

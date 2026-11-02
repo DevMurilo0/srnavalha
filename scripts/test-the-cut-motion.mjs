@@ -18,12 +18,12 @@ async function test(width,reducedMotion='no-preference'){
   await page.locator('#cut-intro').count()===1);
  if(!reduce){
   await page.waitForTimeout(320);
-  await page.screenshot({path:dir+'/intro-'+width+'.png',animations:'allow'});
   check(width+' loader panels and original razor asset',
-   await page.locator('.cut-intro__monogram,.cut-intro__upper,.cut-intro__lower').count()===3 &&
-   await page.locator('.cut-intro__razor img').count()===1 &&
-   await page.locator('.cut-intro__razor img').getAttribute('src')===
-      await page.locator('.razor-stage .razor').getAttribute('src'));
+   await page.locator('.cut-intro__upper,.cut-intro__lower').count()===2 &&
+   await page.locator('.cut-intro .official-logo').count()===1 &&
+   await page.locator('img.razor').count()===1 &&
+   await page.locator('.cut-intro__monogram,.portrait-monogram').count()===0);
+  await page.screenshot({path:dir+'/intro-'+width+'.png',animations:'allow'});
   await page.waitForFunction(()=>!document.getElementById('cut-intro'),null,{timeout:6000});
   check(width+' loader exits automatically',await page.locator('#cut-intro').count()===0);
   check(width+' hero razor completes seamless handoff',
@@ -58,7 +58,7 @@ async function test(width,reducedMotion='no-preference'){
  check(width+' portrait retains one current image and horizontal transition',
     await page.locator('.portrait-stage img.is-current').count()===1 &&
     (reduce || await page.locator('.portrait-stage').evaluate(stage=>[...stage.querySelectorAll('img')]
-      .every(img=>getComputedStyle(img).transitionProperty.includes('transform')))));
+      .every(img=>img.getAnimations().length>0||img.classList.contains('is-current')))));
  await page.locator('.product-still-life').scrollIntoViewIfNeeded();
  // The three objects have separate starts and durations. Wait for the whole
  // physical sequence to settle, not just the first package.

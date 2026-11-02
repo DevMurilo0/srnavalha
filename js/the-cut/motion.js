@@ -1,80 +1,93 @@
-/* THE CUT / Motion 02 — editorial movement, no animation library.
-   Every entrance is progressive enhancement; the real page remains usable. */
+/* Native editorial motion. HTML owns pending; each entrance owns one lifetime. */
 const one=(q,root=document)=>root.querySelector(q);
 const all=(q,root=document)=>[...root.querySelectorAll(q)];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const eased='cubic-bezier(.22,1,.36,1)';
-const canAnimate=()=>!reduced.matches&&typeof Element.prototype.animate==='function';
-
-function opening(){
- const intro=one('#cut-intro'),target=one('#inicio .razor-stage .razor');
- return new Promise(resolve=>{
-  if(!intro||!canAnimate()){intro?.remove();resolve();return;}
-  let ended=false,travel=null,startTimer=null;
-  const tool=one('.cut-intro__razor',intro);
-  // Progressive enhancement: without JavaScript the real hero razor is visible.
-  // Hide it only while its identical opening counterpart is in flight.
-  if(target&&tool)target.style.opacity='0';
-  const finish=()=>{
-   if(ended)return;ended=true;
-   if(startTimer!==null)clearTimeout(startTimer);
-   if(travel){travel.cancel();travel=null}
-   if(target)target.style.removeProperty('opacity');
-   intro.remove();resolve();
-  };
-  if(target&&tool){
-   startTimer=setTimeout(async()=>{
-    if(ended)return;
-    const img=one('img',tool);
-    if(img&&!img.complete){try{await img.decode()}catch{}}
-    if(ended||!target.isConnected)return;
-    const begin=tool.getBoundingClientRect();
-    const final=target.getBoundingClientRect();
-    if(!begin.width||!final.width)return;
-    const dx=final.left+final.width/2-(begin.left+begin.width/2);
-    const dy=final.top+final.height/2-(begin.top+begin.height/2);
-    const sx=final.width/begin.width,sy=final.height/begin.height;
-    travel=tool.animate([
-     {offset:0,opacity:1,transform:'translate(-50%,-50%) rotate(-8deg) scale(.96)'},
-     {offset:.24,opacity:1,transform:'translate(calc(-50% + '+(dx*.2)+'px),calc(-50% + '+(dy*.16)+'px)) rotate(-3deg) scale(.98)'},
-     {offset:1,opacity:1,transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale('+sx+','+sy+') rotate(0deg)'}
-    ],{duration:1080,easing:'cubic-bezier(.22,.78,.18,1)',fill:'forwards'});
-    travel.finished.then(()=>{
-     if(ended)return;
-     // Same source pixels at the same rect, so swapping layers is invisible.
-     target.style.removeProperty('opacity');
-     tool.style.opacity='0';
-     travel.cancel();travel=null;
-    }).catch(()=>{});
-   },1130);
-  }
-  intro.addEventListener('animationend',event=>{
-   if(event.target===intro&&event.animationName==='cut-intro-clear')finish();
-  });
-  const watchdog=setTimeout(finish,3550);
-  reduced.addEventListener?.('change',()=>{
-   if(reduced.matches){clearTimeout(watchdog);finish()}
-  },{once:true});
-  document.addEventListener('visibilitychange',()=>{
-   if(document.hidden){clearTimeout(watchdog);finish()}
-  },{once:true});
- });
+const canAnimate=()=>!reduced.matches&&!window.__motionReleased&&typeof Element.prototype.animate==='function';
+const active=new Map();
+const cleanups=new Set();
+const bounded=(promise,ms=1200)=>new Promise(resolve=>{
+ const timer=setTimeout(()=>resolve(false),ms);
+ Promise.resolve(promise).then(()=>{clearTimeout(timer);resolve(true)},()=>{clearTimeout(timer);resolve(false)});
+});
+// Share one font deadline across the page; a late section must not wait again.
+const typographyReady=bounded(document.fonts.ready);
+const assetsReady=node=>bounded(Promise.all(all('img',node).concat(node.matches('img')?[node]:[]).map(img=>img.decode())));
+function done(node){
+ node.dataset.reveal='done';node.dataset.motionDone='1';node.classList.add('motion-finished');
+ active.get(node)?.();active.delete(node);
+}
+function release(){
+ cleanups.forEach(fn=>fn());cleanups.clear();
+ all('[data-reveal]').forEach(done);
+}
+function animate(node,frames,options={}){
+ if(!canAnimate()||node.dataset.reveal==='done'){done(node);return Promise.resolve()}
+ const effect=node.animate(frames,{duration:700,delay:100,easing:eased,fill:'both',...options});
+ node.dataset.reveal='playing';
+ const cancel=()=>effect.cancel();active.set(node,cancel);
+ return bounded(effect.finished,(options.duration||700)+(options.delay||100)+500).then(()=>done(node));
+}
+function observe(nodes,play){
+ const waiting=new Set(nodes.filter(n=>n.dataset.reveal==='pending'));
+ const start=node=>{if(!waiting.delete(node))return;io.unobserve(node);Promise.resolve(play(node)).catch(()=>done(node));};
+ const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)start(e.target)}),{threshold:0,rootMargin:'0px 0px -5% 0px'});
+ waiting.forEach(n=>io.observe(n));
+ // Independent recovery for a missed observation, including anchor/fast scroll.
+ const check=()=>{for(const n of waiting){const r=n.getBoundingClientRect();if(r.width&&r.height&&r.top<innerHeight*.95&&r.bottom>0)start(n)}};
+ const timer=setInterval(()=>{if(!waiting.size){clearInterval(timer);io.disconnect();return}check()},900);
+ const cleanup=()=>{clearInterval(timer);io.disconnect()};cleanups.add(cleanup);
+ check();
+}
+async function opening(){
+ const root=document.documentElement,intro=one('#cut-intro'),target=one('.razor-stage .razor');
+ if(!intro||!target||!root.classList.contains('opening-active')||!canAnimate()){intro?.remove();root.classList.remove('opening-active');return}
+ let ended=false,resolveEnd;
+ const endedPromise=new Promise(resolve=>resolveEnd=resolve);
+ const parent=target.parentNode,next=target.nextSibling;
+ const effects=[];
+ let placeholder;
+ const finish=()=>{
+  if(ended)return;ended=true;
+  // Restore the same image, not a second rendering of the asset.
+  parent.insertBefore(target,next);placeholder?.remove();
+  target.classList.remove('razor-flight');target.removeAttribute('style');
+  root.classList.remove('opening-active');intro.remove();
+  effects.forEach(a=>a.cancel());
+  removeEventListener('resize',finish);removeEventListener('scroll',finish);
+  document.removeEventListener('visibilitychange',visibility);
+  document.removeEventListener('motionrelease',finish);
+  clearTimeout(watchdog);resolveEnd();
+ };
+ const visibility=()=>{if(document.hidden)finish()};
+ const watchdog=setTimeout(finish,3900);
+ addEventListener('resize',finish,{once:true});addEventListener('scroll',finish,{once:true,passive:true});
+ document.addEventListener('visibilitychange',visibility);document.addEventListener('motionrelease',finish);
+ const run=(node,frames,options)=>{const a=node.animate(frames,{fill:'both',easing:eased,...options});effects.push(a);return a};
+ run(one('.cut-intro__identity',intro),[{opacity:0,translate:'0 8px'},{opacity:1,translate:'0 0'}],{duration:420});
+ await bounded(Promise.all([document.fonts.ready,target.decode(),one('.hero-background img').decode()]),1200);
+ if(ended)return endedPromise;
+ if(!target.naturalWidth){finish();return endedPromise}
+ const rect=target.getBoundingClientRect();
+ // Freeze the landing geometry while its real image is in the viewport layer.
+ placeholder=document.createElement('span');placeholder.style.cssText=`display:block;width:100%;aspect-ratio:${rect.width}/${rect.height}`;
+ parent.insertBefore(placeholder,target);
+ const filter=getComputedStyle(target).filter;
+ document.body.append(target);target.classList.add('razor-flight');
+ target.style.cssText=`left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;filter:${filter}`;
+ const scale=Math.min(innerWidth*.78,640)/rect.width;
+ const dx=innerWidth*.5-(rect.left+rect.width/2),dy=innerHeight*.57-(rect.top+rect.height/2);
+ const start=`translate(${dx}px,${dy}px) rotate(-7deg) scale(${scale})`;
+ const travel=run(target,[{offset:0,opacity:0,transform:start},{offset:.22,opacity:1,transform:start},{offset:1,opacity:1,transform:'translate(0,0) rotate(0deg) scale(1)'}],{duration:1550,easing:'cubic-bezier(.45,0,.2,1)'});
+ run(one('.cut-intro__upper',intro),[{transform:'translateY(0)'},{transform:'translateY(-110%)'}],{duration:1000,delay:350});
+ run(one('.cut-intro__lower',intro),[{transform:'translateY(0)'},{transform:'translateY(110%)'}],{duration:1000,delay:350});
+ for(const n of all('.cut-intro__identity,.cut-intro__edition,.cut-intro__seam',intro))run(n,[{opacity:1},{opacity:0}],{duration:250,delay:300,fill:'forwards'});
+ await travel.finished.catch(()=>{});finish();return endedPromise;
 }
 
 function headings(ready){
- const nodes=all('h1[data-type],h2[data-type],.instrument-copy [data-type]');
- if(!canAnimate()||!('IntersectionObserver'in window))return;
- const seen=new WeakSet();
- // Adapted from the original Sr. Navalha title gestures: monolith,
- // pendulum, inktrail, ghostprint, shards, accordion and mirrorfold.
- const styles={
-  inicio:'monolith',casa:'pendulum',servicos:'inktrail',equipe:'inktrail',
-  trabalhos:'shards',produtos:'ghostprint',
-  agendamento:'accordion',localizacao:'mirrorfold'
- };
- const segmenter=typeof Intl.Segmenter==='function'
-  ?new Intl.Segmenter('pt-BR',{granularity:'grapheme'}):null;
- const chars=text=>segmenter?[...segmenter.segment(text)].map(s=>s.segment):Array.from(text);
+ const nodes=all('[data-type][data-reveal]');
+ const styles={inicio:'monolith',casa:'pendulum',servicos:'inktrail',equipe:'inktrail',trabalhos:'shards',produtos:'ghostprint',agendamento:'accordion',localizacao:'mirrorfold'};
  const frames=(kind,index,total)=>{
   const dir=index%2===0?1:-1;
   const edge=Math.abs(index-(total-1)/2)/Math.max(1,(total-1)/2);
@@ -106,99 +119,94 @@ function headings(ready){
     {offset:.75,opacity:1,transform:'translate3d(2px,-3px,0) rotate(1deg)'},last];
   }
  };
- for(const node of nodes)node.classList.add('motion-armed');
- const play=node=>{
-  if(seen.has(node))return;seen.add(node);
-  const parts=all(':scope > span,:scope > em',node);
-  if(!parts.length){
-   node.classList.remove('motion-armed');node.classList.add('motion-finished');return;
-  }
-  const originals=parts.map(part=>part.innerHTML);
-  const glyphs=[];
-  try{
-   for(const part of parts){
-    const walker=document.createTreeWalker(part,NodeFilter.SHOW_TEXT);
-    const nodes=[];
-    while(walker.nextNode())nodes.push(walker.currentNode);
-    for(const textNode of nodes){
-     const frag=document.createDocumentFragment();
-     for(const token of textNode.textContent.split(/(\s+)/u)){
-      if(!token)continue;
-      if(/^\s+$/u.test(token)){frag.append(document.createTextNode(token));continue;}
-      const word=document.createElement('span');word.className='motion-word';
-      for(const char of chars(token)){
-       const glyph=document.createElement('span');glyph.className='motion-glyph';
-       glyph.textContent=char;word.append(glyph);glyphs.push(glyph);
-      }
-      frag.append(word);
-     }
-     textNode.replaceWith(frag);
-    }
+ const play=async node=>{
+  await typographyReady;
+  if(!canAnimate()||node.dataset.reveal==='done'){done(node);return}
+  // Range reads preserve the original kerning, line breaks and italic positions.
+  // The original DOM stays in flow and remains the only accessible text.
+  const box=node.getBoundingClientRect(), walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);
+  const samples=[];const segmenter=new Intl.Segmenter('pt-BR',{granularity:'grapheme'});
+  while(walker.nextNode()){
+   const text=walker.currentNode,style=getComputedStyle(text.parentElement);
+   for(const {segment,index} of segmenter.segment(text.textContent)){
+    if(!segment.trim())continue;
+    const range=document.createRange();range.setStart(text,index);range.setEnd(text,index+segment.length);
+    const r=range.getBoundingClientRect();
+    samples.push({char:segment,x:r.left-box.left,y:r.top-box.top,height:r.height,font:style.font,color:style.color,spacing:style.letterSpacing});
    }
-   const hero=Boolean(node.closest('.hero'));
-   const kind=hero?'monolith':styles[node.closest('section[id]')?.id]||'crosscurrent';
-   const total=glyphs.length,base=hero?0:280; // Scroll only: later appearance.
-   const effects=glyphs.map((glyph,index)=>{
-    const order=kind==='monolith'?Math.abs(index-(total-1)/2)*1.25
-     :kind==='ghostprint'?Math.abs(index-(total-1)/2)*1.6
-     :kind==='accordion'||kind==='mirrorfold'?total-1-index:index;
-    return glyph.animate(frames(kind,index,total),{
-     delay:base+Math.min(order*24,520),duration:hero?790:760,
-     easing:'cubic-bezier(.16,1,.3,1)',fill:'both'
-    });
-   });
-   node.classList.remove('motion-armed');
-   Promise.allSettled(effects.map(a=>a.finished)).then(()=>{
-    effects.forEach(a=>a.cancel());
-    parts.forEach((part,i)=>part.innerHTML=originals[i]);
-    node.classList.add('motion-finished');
-   });
-  }catch{
-   parts.forEach((part,i)=>part.innerHTML=originals[i]);
-   node.classList.remove('motion-armed');node.classList.add('motion-finished');
   }
+  const overlay=document.createElement('span');overlay.className='motion-overlay';overlay.setAttribute('aria-hidden','true');
+  const originals=[...node.children];
+  const glyphs=samples.map(sample=>{
+   const glyph=document.createElement('span');glyph.className='motion-glyph';glyph.textContent=sample.char;
+   glyph.style.cssText=`left:${sample.x}px;top:${sample.y}px;font:${sample.font};color:${sample.color};letter-spacing:${sample.spacing};line-height:${sample.height}px`;
+   overlay.append(glyph);return glyph;
+  });
+  node.append(overlay);
+  const offsets=glyphs.map((glyph,i)=>{
+   const range=document.createRange();range.selectNodeContents(glyph);
+   const r=range.getBoundingClientRect();
+   return {x:samples[i].x+box.left-r.left,y:samples[i].y+box.top-r.top};
+  });
+  glyphs.forEach((glyph,i)=>{glyph.style.left=(samples[i].x+offsets[i].x)+'px';glyph.style.top=(samples[i].y+offsets[i].y)+'px'});
+  originals.forEach(n=>n.classList.add('motion-original'));
+  const hero=!!node.closest('.hero'),kind=styles[node.closest('section[id]')?.id]||'crosscurrent',total=glyphs.length;
+  const effects=glyphs.map((glyph,index)=>{
+   const order=kind==='monolith'||kind==='ghostprint'?Math.abs(index-(total-1)/2):kind==='accordion'||kind==='mirrorfold'?total-1-index:index;
+   return glyph.animate(frames(kind,index,total),{delay:(hero?0:100)+Math.min(order*17,280),duration:720,easing:eased,fill:'both'});
+  });
+  node.dataset.reveal='playing';
+  const cleanup=()=>{overlay.remove();originals.forEach(n=>n.classList.remove('motion-original'));effects.forEach(a=>a.cancel())};
+  active.set(node,cleanup);
+  await bounded(Promise.allSettled(effects.map(a=>a.finished)),1600);done(node);
  };
- const io=new IntersectionObserver(entries=>{
-  for(const entry of entries){
-   if(entry.isIntersecting){io.unobserve(entry.target);play(entry.target);}
-  }
- },{threshold:.12,rootMargin:'0px 0px -12% 0px'});
- nodes.forEach(node=>{if(node.closest('.hero'))ready.then(()=>play(node));else io.observe(node)});
- reduced.addEventListener?.('change',()=>{
-  if(reduced.matches){io.disconnect();nodes.forEach(node=>node.classList.remove('motion-armed'));}
- },{once:true});
+ observe(nodes.filter(n=>!n.closest('.hero')),play);
+ ready.then(()=>nodes.filter(n=>n.closest('.hero')).forEach(n=>play(n).catch(()=>done(n))));
 }
-
 function editorialPhotographs(){
- if(!canAnimate()||!('IntersectionObserver'in window))return;
- const areas=[
-  ['.house-main','rise'],['.house-detail','tilt'],
-  ['.portrait-stage > img.is-current','portrait'],
-  ['.work-print a','wipe'],
-  ['.instrument-photo img','fade'],['.facade','rise']
- ];
- const target=areas.flatMap(([selector,kind])=>all(selector).map(node=>({node,kind})));
- const registry=new Map(target.map(p=>[p.node,p.kind]));
- const seen=new WeakSet();
- const observer=new IntersectionObserver(entries=>{
-  for(const entry of entries){
-   if(!entry.isIntersecting||seen.has(entry.target))continue;
-   const node=entry.target;seen.add(node);observer.unobserve(node);
-   const kind=registry.get(node),distance=innerWidth<700?12:25;
-   let frames;
-   if(kind==='wipe')frames=[{opacity:.3,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)'}];
-   else if(kind==='tilt')frames=[{opacity:0,transform:'translate3d(0,'+distance+'px,0) rotate(7deg)'},{opacity:1,transform:'rotate(5deg)'}];
-   else if(kind==='portrait')frames=[{opacity:.35,transform:'translate3d(0,'+distance+'px,0) scale(.98)'},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}];
-   else if(kind==='fade')frames=[{opacity:.25},{opacity:1}];
-   else frames=[{opacity:.2,transform:'translate3d(0,'+distance+'px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}];
-   const animation=node.animate(frames,{duration:kind==='wipe'?1000:850,delay:300,easing:eased,fill:'backwards'});
-   animation.finished.catch(()=>{});
-  }
- },{threshold:.18,rootMargin:'0px 0px -11% 0px'});
- target.forEach(({node})=>observer.observe(node));
- reduced.addEventListener?.('change',()=>{if(reduced.matches)observer.disconnect();},{once:true});
+ const nodes=all('.house-main,.house-detail,.portrait-stage,.work-print a,.instrument-photo img,.facade');
+ observe(nodes,async node=>{
+  const loaded=await assetsReady(node);
+  if(!loaded){done(node);return}
+  const final=getComputedStyle(node).transform;
+  const wipe=node.matches('.work-print a');
+  const frames=wipe?[{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)'}]
+   :[{opacity:0,transform:`translateY(18px) ${final==='none'?'':final}`},{opacity:1,transform:final}];
+  await animate(node,frames,{duration:800,delay:120});
+ });
 }
-
+function productRollIn(){
+ const nodes=all('.product-object');
+ observe(nodes,async item=>{
+  if(!await assetsReady(item)){done(item);return}
+  const i=nodes.indexOf(item),x=[-70,-24,70][i],angle=[-28,-15,25][i],scale=innerWidth<700?.55:1;
+  await animate(item,[{opacity:0,transform:`translate(${x*scale}px,-12px) rotate(${angle}deg)`},{offset:.8,opacity:1,transform:`translate(0,0) rotate(${i===1?-1:2}deg)`},{opacity:1,transform:'translate(0,0) rotate(0deg)'}],{duration:950,delay:180+i*90});
+ });
+}
+function tactileScroll(){
+ observe(all('.service-panel,.product-selection article,.booking-steps li,.footer nav,.footer-signature'),async node=>{
+  if(node.querySelector('img')&&!await assetsReady(node)){done(node);return}
+  const index=[...node.parentElement.children].indexOf(node);
+  return animate(node,[{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:500,delay:80+Math.min(index*50,150)});
+ });
+}
+function heroEntrance(ready){
+ ready.then(()=>all('.hero-brand,.hero-eyebrow,.hero-description,.hero-actions').forEach((node,i)=>animate(node,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:600,delay:i*80})));
+}
+export const settleEditorialMotion=done;
+export function initEditorialMotion(){
+ if(!canAnimate()||!document.documentElement.classList.contains('motion-enabled')){window.__releaseMotion?.();one('#cut-intro')?.remove();release();return}
+ document.addEventListener('motionrelease',release,{once:true});
+ try{
+  chapterDepth();const ready=opening();headings(ready);editorialPhotographs();productRollIn();tactileScroll();
+  detailsTransitions();dialogTransitions();heroEntrance(ready);
+  document.addEventListener('focusin',event=>{const node=event.target.closest('[data-reveal]');if(node)done(node)});
+  // Resizing invalidates glyph coordinates. Settle them before the next paint.
+  addEventListener('resize',()=>all('[data-type][data-reveal="playing"]').forEach(done));
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)all('[data-reveal="playing"]').forEach(done)});
+  clearTimeout(window.__motionWatchdog);
+ }catch{window.__releaseMotion?.();release()}
+}
 function chapterDepth(){
  if(!canAnimate()||!('IntersectionObserver'in window))return;
  const nodes=all('[data-depth]');
@@ -216,12 +224,15 @@ function chapterDepth(){
   request();
  },{rootMargin:'120px 0px'});
  nodes.forEach(node=>observer.observe(node));
- let frame=0;
+ let frame=0,razorDepthUnlocked=false;
  const sample=()=>{
   frame=0;
   if(reduced.matches)return;
   const center=innerHeight*.5,small=innerWidth<700;
   for(const el of visible){
+   // The landing parent stays fixed during the flight; its scroll motion resumes
+   // on the next scroll sample, without rebasing the destination mid-flight.
+   if(el.matches('.razor-depth')&&(!razorDepthUnlocked||document.documentElement.classList.contains('opening-active')))continue;
    const rect=el.getBoundingClientRect();
    const delta=Math.max(-1,Math.min(1,(rect.top+rect.height/2-center)/(innerHeight*.9)));
    const intensity=Math.min(1.22,Number(el.dataset.depth||8)/14);
@@ -236,7 +247,7 @@ function chapterDepth(){
   }
  };
  const request=()=>{if(!frame)frame=requestAnimationFrame(sample)};
- window.addEventListener('scroll',request,{passive:true});
+ window.addEventListener('scroll',()=>{razorDepthUnlocked=true;request()},{passive:true});
  window.addEventListener('resize',request,{passive:true});request();
  reduced.addEventListener?.('change',()=>{
   if(reduced.matches){if(frame)cancelAnimationFrame(frame);frame=0;nodes.forEach(n=>n.style.removeProperty('transform'));}
@@ -261,7 +272,7 @@ function detailsTransitions(){
    content().forEach((item,index)=>item.animate([
     {opacity:0,transform:'translate3d(0,-9px,0)'},
     {opacity:1,transform:'translate3d(0,0,0)'}
-   ],{duration:300,delay:Math.min(index*35,120),easing:eased}));
+   ],{duration:300,delay:Math.min(index*35,120),easing:eased,fill:'backwards'}));
   });
   const summary=one('summary',details);
   summary?.addEventListener('click',event=>{
@@ -300,100 +311,4 @@ function dialogTransitions(){
     });
   },true);
  });
-}
-
-function heroEntrance(ready){
- if(!canAnimate())return;
- ready.then(()=>{
-  const hero=one('#inicio');if(!hero)return;
-  const stagger=[
-   ['.hero-brand',0,760],['.hero-eyebrow',160,580],
-   ['.hero-description',410,650],['.hero-actions',560,700]
-  ];
-  stagger.forEach(([selector,delay,duration])=>{
-   const el=one(selector,hero);if(!el)return;
-   el.animate([
-    {opacity:0,transform:selector==='.razor-stage'?'translate3d(28px,12px,0) rotate(2deg)':'translate3d(0,16px,0)'},
-    {opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
-   ],{duration,delay,easing:eased,fill:'backwards'});
-  });
- });
-}
-
-
-/* Object choreography: rotation is on each pack, depth on the parent. */
-function productRollIn(){
- const shelf=one('.product-still-life'),items=all('.product-object',shelf||document);
- if(!shelf||!items.length)return;
- if(!canAnimate()||!('IntersectionObserver'in window)){
-  items.forEach(n=>n.dataset.motionDone='1');return;
- }
- let started=false;
- const io=new IntersectionObserver(entries=>{
-  if(started||!entries.some(e=>e.isIntersecting))return;
-  started=true;io.disconnect();
-  const motions=[
-   {x:-84,y:-17,angle:-31,bounce:3.5},
-   {x:-31,y:-24,angle:-17,bounce:-2},
-   {x:88,y:-12,angle:28,bounce:-3.5}
-  ];
-  items.forEach(async(item,index)=>{
-   const img=one('img',item);
-   if(img&&!img.complete){try{await img.decode()}catch{}}
-   if(!item.isConnected)return;
-   const p=motions[index]||motions[0];
-   if(!canAnimate()){item.dataset.motionDone='1';return;}
-   const scale=innerWidth<=700?.55:1;
-   const animation=item.animate([
-    {offset:0,opacity:.3,transform:'translate3d('+(p.x*scale)+'px,'+(p.y*scale)+'px,0) rotate('+p.angle+'deg)'},
-    {offset:.77,opacity:1,transform:'translate3d(0,0,0) rotate('+p.bounce+'deg)'},
-    {offset:1,opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
-   ],{duration:1050+index*90,delay:480+index*210,
-      easing:'cubic-bezier(.2,.78,.18,1)',fill:'backwards'});
-   animation.finished.then(()=>{
-    item.dataset.motionDone='1';animation.cancel();
-   }).catch(()=>{item.dataset.motionDone='1'});
-  });
- },{threshold:.32,rootMargin:'0px 0px -13% 0px'});
- io.observe(shelf);
- reduced.addEventListener?.('change',()=>{
-  if(!reduced.matches)return;
-  io.disconnect();
-  items.forEach(item=>{item.getAnimations().forEach(a=>a.cancel());item.dataset.motionDone='1'});
- },{once:true});
-}
-/* Distinct, short section entrances rather than repeating a universal fade. */
-function tactileScroll(){
- if(!canAnimate()||!('IntersectionObserver'in window))return;
- const zones=[
-  ['.service-panels','.service-panel'],
-  ['.product-selection','.product-selection article'],
-  ['.booking-controls','.booking-steps li'],
-  ['.footer','.footer nav,.footer-signature']
- ];
- const io=new IntersectionObserver(entries=>{
-  for(const entry of entries){
-   if(!entry.isIntersecting)continue;
-   io.unobserve(entry.target);
-   const group=zones.find(([q])=>entry.target.matches(q));
-   if(!group)continue;
-   all(group[1],entry.target).forEach((el,i)=>el.animate([
-    {opacity:.35,transform:'translate3d(0,20px,0)'},
-    {opacity:1,transform:'translate3d(0,0,0)'}
-   ],{duration:740,delay:300+Math.min(i*105,350),easing:eased,fill:'backwards'}));
-  }
- },{threshold:.15});
- zones.forEach(([q])=>all(q).forEach(el=>io.observe(el)));
-}
-
-export function initEditorialMotion(){
- const ready=opening();
- headings(ready);
- editorialPhotographs();
- productRollIn();
- tactileScroll();
- chapterDepth();
- detailsTransitions();
- dialogTransitions();
- heroEntrance(ready);
 }

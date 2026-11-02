@@ -1,0 +1,281 @@
+{
+  "date": "2026-11-02T04:03:07.469Z",
+  "checks": [
+    {
+      "label": "320 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "320 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "320 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "320 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "320 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 320,
+        "viewport": 320
+      }
+    },
+    {
+      "label": "320 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "320 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "390 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "390 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "390 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "390 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "390 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 390,
+        "viewport": 390
+      }
+    },
+    {
+      "label": "390 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "390 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "390 real photographs load after scroll",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "390 team portrait selection",
+      "pass": true
+    },
+    {
+      "label": "390 service filter",
+      "pass": true
+    },
+    {
+      "label": "390 product filter",
+      "pass": true
+    },
+    {
+      "label": "390 gallery modal opens",
+      "pass": true
+    },
+    {
+      "label": "390 gallery moves",
+      "pass": true
+    },
+    {
+      "label": "390 gallery closes",
+      "pass": true
+    },
+    {
+      "label": "390 serious a11y violations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "768 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "768 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "768 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "768 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "768 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 768,
+        "viewport": 768
+      }
+    },
+    {
+      "label": "768 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "768 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "900 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "900 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "900 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "900 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "900 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 900,
+        "viewport": 900
+      }
+    },
+    {
+      "label": "900 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "900 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "1366 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "1366 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "1366 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "1366 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "1366 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 1366,
+        "viewport": 1366
+      }
+    },
+    {
+      "label": "1366 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "1366 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "1440 The Cut stylesheet and razor",
+      "pass": true
+    },
+    {
+      "label": "1440 five original transparent portraits",
+      "pass": true
+    },
+    {
+      "label": "1440 catalogues preserve data",
+      "pass": true
+    },
+    {
+      "label": "1440 3 editorial service panels",
+      "pass": true
+    },
+    {
+      "label": "1440 content inside viewport",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "viewport": 1440
+      }
+    },
+    {
+      "label": "1440 main CTA goes to booking",
+      "pass": true
+    },
+    {
+      "label": "1440 assets load",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "1440 real photographs load after scroll",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "1440 team portrait selection",
+      "pass": true
+    },
+    {
+      "label": "1440 service filter",
+      "pass": true
+    },
+    {
+      "label": "1440 product filter",
+      "pass": true
+    },
+    {
+      "label": "1440 gallery modal opens",
+      "pass": true
+    },
+    {
+      "label": "1440 gallery moves",
+      "pass": true
+    },
+    {
+      "label": "1440 gallery closes",
+      "pass": true
+    },
+    {
+      "label": "1440 serious a11y violations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "label": "reduced motion keeps content visible",
+      "pass": true
+    },
+    {
+      "label": "no uncaught JS errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

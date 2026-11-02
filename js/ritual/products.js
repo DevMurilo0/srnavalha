@@ -56,13 +56,10 @@ export function initProducts(){
    invalidatePhoto(stage);
    const fallback=document.createElement('div');
    fallback.className='no-image product-hero__placeholder';
-   const monogram=document.createElement('span');
-   monogram.className='product-hero__placeholder-mark';
-   monogram.textContent='SN.';
    const title=document.createElement('strong');title.textContent=person.name;
    const note=document.createElement('small');
    note.textContent='Fotografia oficial ainda não disponível';
-   fallback.append(monogram,title,note);
+   fallback.append(title,note);
    stage.replaceChildren(fallback);
   }
   if(token!==latest||!ok)return;
