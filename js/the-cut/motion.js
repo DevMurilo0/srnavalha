@@ -60,12 +60,15 @@ async function opening(){
   clearTimeout(watchdog);resolveEnd();
  };
  const visibility=()=>{if(document.hidden)finish()};
- const watchdog=setTimeout(finish,3900);
+ const watchdog=setTimeout(finish,6700);
  addEventListener('resize',finish,{once:true});addEventListener('scroll',finish,{once:true,passive:true});
  document.addEventListener('visibilitychange',visibility);document.addEventListener('motionrelease',finish);
  const run=(node,frames,options)=>{const a=node.animate(frames,{fill:'both',easing:eased,...options});effects.push(a);return a};
- run(one('.cut-intro__identity',intro),[{opacity:0,translate:'0 8px'},{opacity:1,translate:'0 0'}],{duration:420});
+ run(one('.cut-intro__identity',intro),[{opacity:0,translate:'0 8px'},{opacity:1,translate:'0 0'}],{duration:730,easing:'cubic-bezier(.22,1,.36,1)'});
  await bounded(Promise.all([document.fonts.ready,target.decode(),one('.hero-background img').decode()]),1200);
+ if(ended)return endedPromise;
+ // Allow the identity to settle before the cinematic hand-off begins.
+ await new Promise(resolve=>setTimeout(resolve,520));
  if(ended)return endedPromise;
  if(!target.naturalWidth){finish();return endedPromise}
  const rect=target.getBoundingClientRect();
@@ -77,11 +80,16 @@ async function opening(){
  target.style.cssText=`left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;filter:${filter}`;
  const scale=Math.min(innerWidth*.78,640)/rect.width;
  const dx=innerWidth*.5-(rect.left+rect.width/2),dy=innerHeight*.57-(rect.top+rect.height/2);
- const start=`translate(${dx}px,${dy}px) rotate(-7deg) scale(${scale})`;
- const travel=run(target,[{offset:0,opacity:0,transform:start},{offset:.22,opacity:1,transform:start},{offset:1,opacity:1,transform:'translate(0,0) rotate(0deg) scale(1)'}],{duration:1550,easing:'cubic-bezier(.45,0,.2,1)'});
- run(one('.cut-intro__upper',intro),[{transform:'translateY(0)'},{transform:'translateY(-110%)'}],{duration:1000,delay:350});
- run(one('.cut-intro__lower',intro),[{transform:'translateY(0)'},{transform:'translateY(110%)'}],{duration:1000,delay:350});
- for(const n of all('.cut-intro__identity,.cut-intro__edition,.cut-intro__seam',intro))run(n,[{opacity:1},{opacity:0}],{duration:250,delay:300,fill:'forwards'});
+ // The single, original image performs two full rotations while travelling to its exact hero box.
+ // Position, angle and scale share one easing curve, so the final landing has no jump or bounce.
+ const start=`translate(${dx}px,${dy}px) rotate(-720deg) scale(${scale})`;
+ const travel=run(target,[{transform:start},{transform:'translate(0,0) rotate(0deg) scale(1)'}],
+  {duration:3000,easing:'cubic-bezier(.43,.03,.13,1)'});
+ run(target,[{opacity:0},{opacity:1}],{duration:840,delay:120,easing:'cubic-bezier(.22,1,.36,1)'});
+ run(one('.cut-intro__upper',intro),[{transform:'translateY(0)'},{transform:'translateY(-110%)'}],{duration:1860,delay:900,easing:'cubic-bezier(.65,.04,.17,1)'});
+ run(one('.cut-intro__lower',intro),[{transform:'translateY(0)'},{transform:'translateY(110%)'}],{duration:1860,delay:900,easing:'cubic-bezier(.65,.04,.17,1)'});
+ for(const n of all('.cut-intro__identity,.cut-intro__edition,.cut-intro__seam',intro))
+  run(n,[{opacity:1},{opacity:0}],{duration:620,delay:840,easing:'ease-in-out',fill:'forwards'});
  await travel.finished.catch(()=>{});finish();return endedPromise;
 }
 
@@ -180,14 +188,16 @@ function productRollIn(){
  observe(nodes,async item=>{
   if(!await assetsReady(item)){done(item);return}
   const i=nodes.indexOf(item),x=[-70,-24,70][i],angle=[-28,-15,25][i],scale=innerWidth<700?.55:1;
-  await animate(item,[{opacity:0,transform:`translate(${x*scale}px,-12px) rotate(${angle}deg)`},{offset:.8,opacity:1,transform:`translate(0,0) rotate(${i===1?-1:2}deg)`},{opacity:1,transform:'translate(0,0) rotate(0deg)'}],{duration:950,delay:180+i*90});
+  await animate(item,[{opacity:0,transform:`translate(${x*scale}px,-12px) rotate(${angle}deg)`},{offset:.8,opacity:1,transform:`translate(0,0) rotate(${i===1?-1:2}deg)`},{opacity:1,transform:'translate(0,0) rotate(0deg)'}],{duration:1900,delay:260+i*180,easing:'cubic-bezier(.35,.04,.18,1)'});
  });
 }
 function tactileScroll(){
  observe(all('.service-panel,.product-selection article,.booking-steps li,.footer nav,.footer-signature'),async node=>{
   if(node.querySelector('img')&&!await assetsReady(node)){done(node);return}
   const index=[...node.parentElement.children].indexOf(node);
-  return animate(node,[{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:500,delay:80+Math.min(index*50,150)});
+  const isProductCard=!!node.closest('.product-selection');
+  return animate(node,[{opacity:0,transform:isProductCard?'translateY(24px)':'translateY(14px)'},{opacity:1,transform:'none'}],
+   {duration:isProductCard?840:500,delay:isProductCard?180+index*110:80+Math.min(index*50,150)});
  });
 }
 function heroEntrance(ready){
