@@ -79,7 +79,7 @@ function initTeam(){
   if(serial!==currentToken)return;
   // Keep the image's current computed pose when another barber is chosen mid-flight.
   // Both portraits cross the full section in one continuous, slower glide.
-  const departing=$('img.is-departing',stage);
+  const departing=$('img.is-departing',stage); // a list, not a single image
   if(departing.length>2)departing.slice(0,-2).forEach(img=>{img.getAnimations().forEach(a=>a.cancel());img.remove()});
   const existing=$('img.is-current',stage);
   const startTransform=existing?getComputedStyle(existing).transform:'none';
