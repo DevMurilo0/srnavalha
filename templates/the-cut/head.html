@@ -19,7 +19,7 @@
  if(!media.matches&&'IntersectionObserver' in window&&typeof Element.prototype.animate==='function'){
   root.classList.add('motion-enabled');
   if(!location.hash)root.classList.add('opening-active');
-  window.__motionWatchdog=setTimeout(release,5000);
+  window.__motionWatchdog=setTimeout(release,7500);
   addEventListener('error',release);
   addEventListener('unhandledrejection',release);
   media.addEventListener('change',event=>{if(event.matches)release()});
