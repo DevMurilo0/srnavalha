@@ -1,0 +1,45 @@
+PASS 390 initial loading state
+PASS 390 loader panels and original razor asset
+PASS 390 loader exits automatically
+PASS 390 hero razor completes seamless handoff
+PASS 390 editorial headline finished
+PASS 390 parallax is composited on actual photography
+PASS 390 section title choreography
+PASS 390 team change
+PASS 390 portrait retains one current image and horizontal transition
+PASS 390 product roll-in completes
+PASS 390 catalogue opens
+PASS 390 catalogue closes smoothly
+PASS 390 gallery opens
+PASS 390 gallery exits smoothly
+PASS 390 no horizontal overflow
+PASS 390 no visible decorative hyphens
+PASS 1440 initial loading state
+PASS 1440 loader panels and original razor asset
+PASS 1440 loader exits automatically
+PASS 1440 hero razor completes seamless handoff
+PASS 1440 editorial headline finished
+PASS 1440 parallax is composited on actual photography
+PASS 1440 section title choreography
+PASS 1440 team change
+PASS 1440 portrait retains one current image and horizontal transition
+PASS 1440 product roll-in completes
+PASS 1440 catalogue opens
+PASS 1440 catalogue closes smoothly
+PASS 1440 gallery opens
+PASS 1440 gallery exits smoothly
+PASS 1440 no horizontal overflow
+PASS 1440 no visible decorative hyphens
+PASS 390 initial loading state
+PASS 390 reduced motion keeps hero
+PASS 390 team change
+PASS 390 portrait retains one current image and horizontal transition
+PASS 390 product roll-in completes
+PASS 390 catalogue opens
+PASS 390 catalogue closes smoothly
+PASS 390 gallery opens
+PASS 390 gallery exits smoothly
+PASS 390 no horizontal overflow
+PASS 390 no visible decorative hyphens
+PASS zero uncaught JavaScript errors
+MOTION RESULT 44/44

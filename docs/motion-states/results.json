@@ -1,0 +1,341 @@
+[
+  {
+    "name": "320 same razor landing (<2px)",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "320 team selection",
+    "pass": true
+  },
+  {
+    "name": "320 no premature frame / delay",
+    "pass": true,
+    "detail": {
+      "pending": [],
+      "overflow": 0,
+      "flashes": [],
+      "frames": 1553,
+      "delays": 3368,
+      "errors": [],
+      "cls": 0
+    }
+  },
+  {
+    "name": "320 all marked elements observed",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "320 no horizontal overflow",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "320 layout shift below .01",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "320 no browser errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "390 same razor landing (<2px)",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "390 team selection",
+    "pass": true
+  },
+  {
+    "name": "390 no premature frame / delay",
+    "pass": true,
+    "detail": {
+      "pending": [],
+      "overflow": 0,
+      "flashes": [],
+      "frames": 1662,
+      "delays": 3321,
+      "errors": [],
+      "cls": 0
+    }
+  },
+  {
+    "name": "390 all marked elements observed",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "390 no horizontal overflow",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "390 layout shift below .01",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "390 no browser errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "768 same razor landing (<2px)",
+    "pass": true,
+    "detail": 0.176361083984375
+  },
+  {
+    "name": "768 team selection",
+    "pass": true
+  },
+  {
+    "name": "768 no premature frame / delay",
+    "pass": true,
+    "detail": {
+      "pending": [],
+      "overflow": 0,
+      "flashes": [],
+      "frames": 1161,
+      "delays": 2474,
+      "errors": [],
+      "cls": 0
+    }
+  },
+  {
+    "name": "768 all marked elements observed",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "768 no horizontal overflow",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "768 layout shift below .01",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "768 no browser errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "1366 same razor landing (<2px)",
+    "pass": true,
+    "detail": 0.01763916015625
+  },
+  {
+    "name": "1366 team selection",
+    "pass": true
+  },
+  {
+    "name": "1366 no premature frame / delay",
+    "pass": true,
+    "detail": {
+      "pending": [],
+      "overflow": 0,
+      "flashes": [],
+      "frames": 1099,
+      "delays": 2360,
+      "errors": [],
+      "cls": 0
+    }
+  },
+  {
+    "name": "1366 all marked elements observed",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "1366 no horizontal overflow",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "1366 layout shift below .01",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "1366 no browser errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "1440 same razor landing (<2px)",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "1440 team selection",
+    "pass": true
+  },
+  {
+    "name": "1440 no premature frame / delay",
+    "pass": true,
+    "detail": {
+      "pending": [],
+      "overflow": 0,
+      "flashes": [],
+      "frames": 1478,
+      "delays": 2780,
+      "errors": [],
+      "cls": 0
+    }
+  },
+  {
+    "name": "1440 all marked elements observed",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "1440 no horizontal overflow",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "1440 layout shift below .01",
+    "pass": true,
+    "detail": 0
+  },
+  {
+    "name": "1440 no browser errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "WCAG A/AA",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "name": "Before module execution, HTML already pending",
+    "pass": true
+  },
+  {
+    "name": "no-js visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "no-js intro released",
+    "pass": true
+  },
+  {
+    "name": "reduced visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "reduced intro released",
+    "pass": true
+  },
+  {
+    "name": "module-failed visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "module-failed intro released",
+    "pass": true
+  },
+  {
+    "name": "no-waapi visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "no-waapi intro released",
+    "pass": true
+  },
+  {
+    "name": "no-observer visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "no-observer intro released",
+    "pass": true
+  },
+  {
+    "name": "observer-silent visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "observer-silent intro released",
+    "pass": true
+  },
+  {
+    "name": "image-failed visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "image-failed intro released",
+    "pass": true
+  },
+  {
+    "name": "slow-images visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "slow-images intro released",
+    "pass": true
+  },
+  {
+    "name": "slow-fonts visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "slow-fonts intro released",
+    "pass": true
+  },
+  {
+    "name": "resize visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "resize intro released",
+    "pass": true
+  },
+  {
+    "name": "tab visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "tab intro released",
+    "pass": true
+  },
+  {
+    "name": "dynamic-reduce visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "dynamic-reduce intro released",
+    "pass": true
+  },
+  {
+    "name": "anchor visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "anchor intro released",
+    "pass": true
+  },
+  {
+    "name": "fast-scroll visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "fast-scroll intro released",
+    "pass": true
+  },
+  {
+    "name": "reload visible title, usable page",
+    "pass": true
+  },
+  {
+    "name": "reload intro released",
+    "pass": true
+  }
+]

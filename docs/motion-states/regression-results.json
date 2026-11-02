@@ -1,0 +1,182 @@
+{
+  "checks": [
+    {
+      "name": "390 initial loading state",
+      "pass": true
+    },
+    {
+      "name": "390 loader panels and original razor asset",
+      "pass": true
+    },
+    {
+      "name": "390 loader exits automatically",
+      "pass": true
+    },
+    {
+      "name": "390 hero razor completes seamless handoff",
+      "pass": true
+    },
+    {
+      "name": "390 editorial headline finished",
+      "pass": true
+    },
+    {
+      "name": "390 parallax is composited on actual photography",
+      "pass": true
+    },
+    {
+      "name": "390 section title choreography",
+      "pass": true
+    },
+    {
+      "name": "390 team change",
+      "pass": true
+    },
+    {
+      "name": "390 portrait retains one current image and horizontal transition",
+      "pass": true
+    },
+    {
+      "name": "390 product roll-in completes",
+      "pass": true
+    },
+    {
+      "name": "390 catalogue opens",
+      "pass": true
+    },
+    {
+      "name": "390 catalogue closes smoothly",
+      "pass": true
+    },
+    {
+      "name": "390 gallery opens",
+      "pass": true
+    },
+    {
+      "name": "390 gallery exits smoothly",
+      "pass": true
+    },
+    {
+      "name": "390 no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "390 no visible decorative hyphens",
+      "pass": true
+    },
+    {
+      "name": "1440 initial loading state",
+      "pass": true
+    },
+    {
+      "name": "1440 loader panels and original razor asset",
+      "pass": true
+    },
+    {
+      "name": "1440 loader exits automatically",
+      "pass": true
+    },
+    {
+      "name": "1440 hero razor completes seamless handoff",
+      "pass": true
+    },
+    {
+      "name": "1440 editorial headline finished",
+      "pass": true
+    },
+    {
+      "name": "1440 parallax is composited on actual photography",
+      "pass": true
+    },
+    {
+      "name": "1440 section title choreography",
+      "pass": true
+    },
+    {
+      "name": "1440 team change",
+      "pass": true
+    },
+    {
+      "name": "1440 portrait retains one current image and horizontal transition",
+      "pass": true
+    },
+    {
+      "name": "1440 product roll-in completes",
+      "pass": true
+    },
+    {
+      "name": "1440 catalogue opens",
+      "pass": true
+    },
+    {
+      "name": "1440 catalogue closes smoothly",
+      "pass": true
+    },
+    {
+      "name": "1440 gallery opens",
+      "pass": true
+    },
+    {
+      "name": "1440 gallery exits smoothly",
+      "pass": true
+    },
+    {
+      "name": "1440 no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "1440 no visible decorative hyphens",
+      "pass": true
+    },
+    {
+      "name": "390 initial loading state",
+      "pass": true
+    },
+    {
+      "name": "390 reduced motion keeps hero",
+      "pass": true
+    },
+    {
+      "name": "390 team change",
+      "pass": true
+    },
+    {
+      "name": "390 portrait retains one current image and horizontal transition",
+      "pass": true
+    },
+    {
+      "name": "390 product roll-in completes",
+      "pass": true
+    },
+    {
+      "name": "390 catalogue opens",
+      "pass": true
+    },
+    {
+      "name": "390 catalogue closes smoothly",
+      "pass": true
+    },
+    {
+      "name": "390 gallery opens",
+      "pass": true
+    },
+    {
+      "name": "390 gallery exits smoothly",
+      "pass": true
+    },
+    {
+      "name": "390 no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "390 no visible decorative hyphens",
+      "pass": true
+    },
+    {
+      "name": "zero uncaught JavaScript errors",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "errors": []
+}

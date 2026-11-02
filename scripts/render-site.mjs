@@ -35,7 +35,7 @@ const tokens={
  TEAM_CONTROLS:professionals.map((p,i)=>`<button type="button" data-person="${p.id}" aria-pressed="${i===0}" aria-controls="person-name"><span>${p.name}</span>${arrow}</button>`).join(''),
  GALLERY_FEATURED:gallery.slice(0,3).map(([id,name],i)=>`<figure class="work-print print-${i}"><div data-depth="${8+i*3}"><a href="assets/images/v8/${id}-960.webp" data-open-gallery="${i}" aria-label="Ampliar: ${name}"><img src="assets/images/v8/${id}-640.webp" width="640" height="640" alt="${name}" loading="lazy"></a></div></figure>`).join(''),
  PRODUCT_OBJECTS:featuredProducts.map((p,i)=>`<a href="${consultation(p)}" class="product-object product-object-${i}" aria-label="Consultar disponibilidade de ${esc(p.name)}" target="_blank" rel="noopener noreferrer"><img src="assets/images/the-cut/products/${p.id}.webp" alt="${esc(p.name)} — embalagem original" width="640" height="640" loading="lazy"></a>`).join(''),
- FEATURED_PRODUCTS:featuredProducts.map((p,i)=>`<article><img src="assets/images/the-cut/products/${p.id}.webp" width="100" height="100" alt="" loading="lazy"><div><h3>${productNames[i]}</h3><a href="${consultation(p)}" target="_blank" rel="noopener noreferrer" aria-label="Consultar disponibilidade de ${esc(p.name)}">Consultar disponibilidade ${arrow}</a></div></article>`).join(''),
+ FEATURED_PRODUCTS:featuredProducts.map((p,i)=>`<article data-reveal="pending"><img src="assets/images/the-cut/products/${p.id}.webp" width="100" height="100" alt="" loading="lazy"><div><h3>${productNames[i]}</h3><a href="${consultation(p)}" target="_blank" rel="noopener noreferrer" aria-label="Consultar disponibilidade de ${esc(p.name)}">Consultar disponibilidade ${arrow}</a></div></article>`).join(''),
  PRODUCT_CATEGORIES:['Todos',...new Set(products.map(p=>p.category))].map(c=>`<option>${esc(c)}</option>`).join(''),
  ALL_PRODUCTS:products.map(p=>`<article data-product="${p.id}" data-category="${esc(p.category)}" data-search="${esc(p.name)}">${p.image?`<img src="${p.image}" width="120" height="120" alt="${esc(p.name)}" loading="lazy">`:`<span class="product-placeholder">Fotografia indisponível</span>`}<div><h3>${esc(p.name)}</h3><p>${esc(p.category)} · ${esc(p.price)}</p><a href="${consultation(p)}" target="_blank" rel="noopener noreferrer">Consultar disponibilidade ${arrow}</a></div></article>`).join(''),
  SERVICE_OPTIONS:services.map(s=>`<option value="${s.id}">${esc(s.name)} — ${s.fromPrice?'a partir de ':''}${esc(s.price)}</option>`).join(''),
@@ -54,6 +54,18 @@ function noVisibleHyphens(html){
  });
 }
 html=decorateLinks(html);
-html=noVisibleHyphens(html);
+html=html.split(/(<script\b[\s\S]*?<\/script>)/gi).map(part=>part.startsWith('<script')?part:noVisibleHyphens(part)).join('');
+// Persist the initial state in the delivered HTML, not in a late observer callback.
+const entrances=new Set(['house-main','house-detail','portrait-stage','facade',
+ 'product-object','service-panel','hero-brand','hero-eyebrow','hero-description','hero-actions','footer-signature']);
+html=html.replace(/<([a-z][a-z0-9]*)\b([^>]*)>/g,(tag,name,attrs)=>{
+ const classes=(attrs.match(/class="([^"]*)"/)?.[1]||'').split(/\s+/);
+ const marked=classes.some(c=>entrances.has(c));
+ const heading=/\bdata-type=/.test(attrs);
+ const gallery=/\bdata-open-gallery=/.test(attrs)&&!classes.includes('gallery-all');
+ // Instrument entry stays on the image; its parent owns parallax.
+ const instrument=name==='img'&&attrs.includes('/scissors.webp');
+ return marked||heading||gallery||instrument?`<${name}${attrs} data-reveal="pending">`:tag;
+});
 await writeFile(new URL('../index.html',import.meta.url),html);
 console.log('The Cut: index.html assembled from templates/the-cut and original commercial data.');

@@ -1,0 +1,61 @@
+PASS 320 The Cut stylesheet and razor
+PASS 320 five original transparent portraits
+PASS 320 catalogues preserve data
+PASS 320 3 editorial service panels
+PASS 320 content inside viewport
+PASS 320 main CTA goes to booking
+PASS 320 assets load
+PASS 390 The Cut stylesheet and razor
+PASS 390 five original transparent portraits
+PASS 390 catalogues preserve data
+PASS 390 3 editorial service panels
+PASS 390 content inside viewport
+PASS 390 main CTA goes to booking
+PASS 390 assets load
+PASS 390 real photographs load after scroll
+PASS 390 team portrait selection
+PASS 390 service filter
+PASS 390 product filter
+PASS 390 gallery modal opens
+PASS 390 gallery moves
+PASS 390 gallery closes
+PASS 390 serious a11y violations
+PASS 768 The Cut stylesheet and razor
+PASS 768 five original transparent portraits
+PASS 768 catalogues preserve data
+PASS 768 3 editorial service panels
+PASS 768 content inside viewport
+PASS 768 main CTA goes to booking
+PASS 768 assets load
+PASS 900 The Cut stylesheet and razor
+PASS 900 five original transparent portraits
+PASS 900 catalogues preserve data
+PASS 900 3 editorial service panels
+PASS 900 content inside viewport
+PASS 900 main CTA goes to booking
+PASS 900 assets load
+PASS 1366 The Cut stylesheet and razor
+PASS 1366 five original transparent portraits
+PASS 1366 catalogues preserve data
+PASS 1366 3 editorial service panels
+PASS 1366 content inside viewport
+PASS 1366 main CTA goes to booking
+PASS 1366 assets load
+PASS 1440 The Cut stylesheet and razor
+PASS 1440 five original transparent portraits
+PASS 1440 catalogues preserve data
+PASS 1440 3 editorial service panels
+PASS 1440 content inside viewport
+PASS 1440 main CTA goes to booking
+PASS 1440 assets load
+PASS 1440 real photographs load after scroll
+PASS 1440 team portrait selection
+PASS 1440 service filter
+PASS 1440 product filter
+PASS 1440 gallery modal opens
+PASS 1440 gallery moves
+PASS 1440 gallery closes
+PASS 1440 serious a11y violations
+PASS reduced motion keeps content visible
+PASS no uncaught JS errors
+RESULT 60/60

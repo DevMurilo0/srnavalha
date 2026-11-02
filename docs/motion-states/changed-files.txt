@@ -1,0 +1,20 @@
+.github/workflows/v6-regression.yml
+css/ritual/catalog-atelier.css
+css/the-cut-motion.css
+css/the-cut.css
+index.html
+js/ritual/products.js
+js/the-cut/app.js
+js/the-cut/motion.js
+scripts/render-site.mjs
+scripts/test-the-cut-motion.mjs
+scripts/test-the-cut.mjs
+templates/the-cut/agendamento.html
+templates/the-cut/equipe.html
+templates/the-cut/footer.html
+templates/the-cut/head.html
+templates/the-cut/header.html
+templates/v17/loader.html
+scripts/test-motion-states.mjs
+scripts/capture-motion-frames.mjs
+docs/motion-states/ (relatório, resultados e capturas temporais)

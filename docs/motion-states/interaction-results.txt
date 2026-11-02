@@ -1,0 +1,6 @@
+menu closed true
+service filter 2
+product filter 7
+dialog open true
+dialog closed true
+booking opens true
