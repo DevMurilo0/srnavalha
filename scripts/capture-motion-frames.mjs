@@ -1,12 +1,12 @@
 import {createRequire} from 'node:module';
 import {mkdirSync,writeFileSync} from 'node:fs';
-const {chromium}=createRequire('/tmp/srnavalha-validation/package.json')('playwright-core');
-const b=await chromium.launch({executablePath:'/home/murilo/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell'});
+const {chromium}=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url))('playwright-core');
+const b=await chromium.launch({executablePath:process.env.CHROME_PATH||chromium.executablePath()});
 const dir='docs/motion-states';mkdirSync(dir,{recursive:true});const measurements=[];
 for(const width of [390,1440]){
  const p=await b.newPage({viewport:{width,height:900}});await p.route('https://**/*',r=>r.abort());
  await p.addInitScript(()=>{const timeout=window.setTimeout;window.setTimeout=(fn,ms,...args)=>timeout(fn,ms>=1000?ms*20:ms,...args);window.captured=[];const animate=Element.prototype.animate;Element.prototype.animate=function(...args){const a=animate.apply(this,args);if(this.matches('.razor-flight')||this.closest('#cut-intro')||this.matches('.motion-glyph')||this.matches('[data-reveal]')){a.pause();window.captured.push(a)}return a}});
- await p.goto('http://127.0.0.1:8047',{waitUntil:'domcontentloaded'});
+ await p.goto((process.env.SITE_URL||'http://127.0.0.1:8047'),{waitUntil:'domcontentloaded'});
  await p.waitForFunction(()=>document.querySelector('.razor-flight'));
  for(const time of [0,300,750,1250,1549]){
   await p.evaluate(t=>captured.forEach(a=>a.currentTime=t),time);
@@ -30,7 +30,7 @@ for(const width of [390,1440]){
    window.captured=[];const animate=Element.prototype.animate;
    Element.prototype.animate=function(...args){const a=animate.apply(this,args);a.pause();captured.push(a);return a};
   });
-  await framePage.goto('http://127.0.0.1:8047/#motion-capture',{waitUntil:'domcontentloaded'});
+  await framePage.goto((process.env.SITE_URL||'http://127.0.0.1:8047')+'/#motion-capture',{waitUntil:'domcontentloaded'});
   if(!await framePage.locator(selector).count()){await framePage.close();continue}
   await framePage.locator(selector).first().evaluate(n=>n.scrollIntoView({behavior:'instant',block:'center'}));
   await framePage.waitForFunction(s=>document.querySelector(s)?.dataset.reveal==='playing',selector);

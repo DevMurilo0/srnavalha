@@ -1,7 +1,7 @@
 // Motion 02 — temporal screenshots and interaction regression in real Chromium.
 import{createRequire}from'node:module';
 import{mkdirSync,writeFileSync}from'node:fs';
-const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||'/tmp/srnavalha-validation/package.json');
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));
 const{chromium}=require('playwright-core');
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||chromium.executablePath()});
 const url=(process.env.SITE_URL||'http://127.0.0.1:8047').replace(/\/$/,'');

@@ -2,7 +2,7 @@
    Screenshot artifacts are independent evidence, not a synthetic mockup. */
 import {createRequire} from 'node:module';
 import {mkdirSync,writeFileSync} from 'node:fs';
-const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||'/tmp/srnavalha-validation/package.json');
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));
 const {chromium}=require('playwright-core');
 const {AxeBuilder}=require('@axe-core/playwright');
 const site=(process.env.SITE_URL||'http://127.0.0.1:8047').replace(/\/$/,'');

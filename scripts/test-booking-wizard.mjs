@@ -1,7 +1,7 @@
 import {createRequire} from 'node:module';import {writeFileSync} from 'node:fs';
-const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||'/tmp/srnavalha-validation/package.json');const {chromium}=require('playwright-core');
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));const {chromium}=require('playwright-core');
 const {AxeBuilder}=require('@axe-core/playwright');
-const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/home/murilo/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome'});
+const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||chromium.executablePath()});
 const base=process.env.SITE_URL||'http://127.0.0.1:8047';const results=[],errors=[];
 const check=(name,pass,detail)=>{results.push({name,pass:!!pass,detail});console.log(`${pass?'PASS':'FAIL'} ${name}`)};
 const context=await b.newContext();await context.route('https://**/*',r=>r.abort());const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));

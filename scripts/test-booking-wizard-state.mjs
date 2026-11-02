@@ -1,6 +1,6 @@
 import {createRequire} from 'node:module';import {writeFileSync} from 'node:fs';
-const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||'/tmp/srnavalha-validation/package.json');const {chromium}=require('playwright-core');
-const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/home/murilo/.cache/ms-playwright/chromium-1243/chrome-linux64/chrome'});const ctx=await b.newContext({viewport:{width:390,height:800},reducedMotion:'reduce'});const p=await ctx.newPage();const results=[];const check=(name,pass)=>{results.push({name,pass:!!pass});console.log(pass?'PASS':'FAIL',name)};const base=process.env.SITE_URL||'http://127.0.0.1:8047';
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));const {chromium}=require('playwright-core');
+const b=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||chromium.executablePath()});const ctx=await b.newContext({viewport:{width:390,height:800},reducedMotion:'reduce'});const p=await ctx.newPage();const results=[];const check=(name,pass)=>{results.push({name,pass:!!pass});console.log(pass?'PASS':'FAIL',name)};const base=process.env.SITE_URL||'http://127.0.0.1:8047';
 const step=()=>p.locator('.bk-step:not([hidden])').getAttribute('id');
 async function setup(){await p.goto(base+'/agendar.html?servico=cortee&profissional=damiao',{waitUntil:'domcontentloaded'});await p.waitForSelector('.bk-wizard');await p.locator('#bk-next').click();await p.locator('#bk-next').click();const day=await p.locator('#bk-date').getAttribute('max');await p.locator('#bk-date').fill(day);await p.locator('#bk-date').dispatchEvent('change');return day}
 try{

@@ -1,7 +1,7 @@
 // Temporal contract: inspect every painted frame, not only final visibility.
 import {createRequire} from 'node:module';
 import {mkdirSync,writeFileSync} from 'node:fs';
-const require=createRequire('/tmp/srnavalha-validation/package.json');
+const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));
 const {chromium}=require('playwright-core');
 const {AxeBuilder}=require('@axe-core/playwright');
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||chromium.executablePath()});
