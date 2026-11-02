@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test:booking": "node scripts/test-booking-local.mjs",
-    "test:api": "node scripts/test-api-contract.mjs"
+    "test:api": "node scripts/test-api-contract.mjs",
+    "test:whatsapp": "node scripts/test-whatsapp-cloud.mjs"
   },
   "engines": {
     "node": ">=22"
