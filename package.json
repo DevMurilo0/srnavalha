@@ -1,0 +1,12 @@
+{
+  "name": "srnavalha",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:booking": "node scripts/test-booking-local.mjs",
+    "test:api": "node scripts/test-api-contract.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
