@@ -20,8 +20,8 @@
   root.classList.add('motion-enabled');
   if(!location.hash)root.classList.add('opening-active');
   window.__motionWatchdog=setTimeout(release,7500);
-  addEventListener('error',release);
-  addEventListener('unhandledrejection',release);
+  // Fail-safe is handled by the watchdog. An unrelated UI rejection must not
+  // globally cancel scroll animation and reveal the entire page without motion.
   media.addEventListener('change',event=>{if(event.matches)release()});
  }
 })();
