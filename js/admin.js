@@ -77,9 +77,9 @@ function prepareWhatsApp(booking){
  if(!/^55\d{10,11}$/.test(phone)){feedback('O WhatsApp deste agendamento não está em um formato válido.');return}
  const link='https://wa.me/'+phone+'?text='+encodeURIComponent(message);
  // Open directly in response to the click, not from asynchronous code.
- const tab=window.open(link,'_blank','noopener,noreferrer');
- if(tab===null)feedback('Se o WhatsApp não abriu, permita novas abas para esta página.');
- else feedback('Conversa preparada no WhatsApp. Confira e envie a mensagem manualmente.');
+ const tab=window.open(link,'_blank');
+ if(tab){tab.opener=null;feedback('Conversa aberta no WhatsApp. Confira e envie a mensagem manualmente.');}
+ else feedback('Se o WhatsApp não abriu, permita novas abas para esta página.');
  try{markDemoReminderOpened(booking.id)}catch{ /* WhatsApp can still open even when localStorage is blocked */ }
  renderDashboard();
 }
