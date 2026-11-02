@@ -12,6 +12,8 @@ on:
       - 'scripts/**'
       - 'index.html'
       - 'agendar.html'
+      - 'admin.html'
+      - 'confirmar.html'
       - '.github/workflows/v6-regression.yml'
   workflow_dispatch:
 permissions:
@@ -28,6 +30,11 @@ jobs:
       - name: Verify generated HTML and JavaScript
         run: |
           node --check js/the-cut/app.js
+          node --check js/agendar.js
+          node --check js/admin.js
+          node --check js/confirmar.js
+          node --check js/booking-local.js
+          node --check scripts/test-admin.mjs
           node --check js/the-cut/motion.js
           node --check scripts/test-the-cut-motion.mjs
           node --check scripts/render-site.mjs
@@ -64,11 +71,12 @@ jobs:
           node scripts/test-motion-states.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
+          node scripts/test-admin.mjs
       - name: Package working source for download
         if: always()
         run: |
           mkdir -p dist
-          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html assets css js templates scripts print README.md DESIGN.md PRODUCT.md
+          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html admin.html confirmar.html assets css js templates scripts print README.md DESIGN.md PRODUCT.md
       - name: Upload source ZIP
         if: always()
         uses: actions/upload-artifact@v4
