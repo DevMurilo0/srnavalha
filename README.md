@@ -71,10 +71,14 @@ O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as v
 
 ## Confirmação pública por WhatsApp — configuração de produção
 
-O botão **Preparar WhatsApp** envia uma mensagem preenchida para revisão manual.
-O site **não** dispõe de autorização da WhatsApp Business Platform para enviar
-templates com botões nativos nem para receber webhooks da Meta; os dois endereços
-HTTPS de resposta funcionam como links clicáveis em mensagens comuns.
+O painel agora oferece duas formas de contato, conforme a configuração da conta:
+- **Enviar botões no WhatsApp**: quando a conta Meta Business está integrada e existe
+  um modelo *Utility* aprovado, envia uma mensagem com botões nativos de
+  resposta rápida **Confirmar** e **Cancelar**. O webhook verifica a assinatura
+  da Meta, confere o telefone do cliente e atualiza a agenda compartilhada.
+- **Preparar WhatsApp**: abre a conversa comum com mensagem preenchida. Nessa
+  modalidade não é possível inserir botões nativos; a equipe verifica a resposta
+  manualmente. A mensagem não contém links de localhost.
 
 Os endpoints em `api/` já foram implementados para confirmação real **entre
 dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
@@ -96,3 +100,63 @@ A conta do painel em produção é protegida por cookie assinado HTTP-only e cre
 
 A demonstração local (sem backend) preserva a funcionalidade anterior do navegador. Nela, links de confirmação só são exibidos na simulação interna; eles não vão para mensagens de WhatsApp.
 
+
+## Ativação dos botões dentro do WhatsApp (Cloud API Meta)
+
+Além das variáveis do Redis e da agenda acima, configurar na Vercel, como segredos
+do servidor:
+
+- `WHATSAPP_PHONE_NUMBER_ID`: ID do número conectado à WhatsApp Cloud API;
+- `WHATSAPP_ACCESS_TOKEN`: token de acesso do sistema com permissão de envio;
+- `WHATSAPP_APP_SECRET`: segredo do aplicativo Meta, usado para verificar a
+  assinatura de todos os eventos recebidos;
+- `WHATSAPP_VERIFY_TOKEN`: segredo de verificação do webhook, escolhido pela equipe;
+- `WHATSAPP_TEMPLATE_NAME`: nome **exato** do modelo aprovado na Meta
+  (sugestão: `confirmacao_agendamento_srn`);
+- `WHATSAPP_TEMPLATE_LANGUAGE`: `pt_BR` (opcional; é o padrão);
+- `WHATSAPP_GRAPH_VERSION`: versão da Graph API habilitada pela Meta (opcional;
+  há um valor padrão no código, que deve ser atualizado periodicamente).
+
+No **WhatsApp Manager**, criar e enviar para aprovação um modelo da categoria
+**Utility** com idioma **Português (Brasil)** e texto:
+
+> Olá, {{1}}! Aqui é da Barbearia Sr. Navalha. Precisamos confirmar o
+> atendimento de {{2}}, no dia {{3}}, com {{4}}.
+> Você poderá comparecer? Escolha uma das opções abaixo.
+
+Adicionar **dois botões do tipo Resposta rápida**, nesta ordem exata:
+
+1. Botão índice **0**: `Confirmar`
+2. Botão índice **1**: `Cancelar`
+
+**Não** usar botões de URL, chamada, copiar código ou botão de envio comum,
+pois a integração espera o retorno de uma **Resposta rápida**. Os quatro campos
+dinâmicos do texto e os dois índices dos botões precisam coincidir com o template
+aprovado. A Meta poderá rejeitar o modelo se a categoria/texto não respeitar
+as políticas.
+
+Em **WhatsApp Business Platform → Webhooks**:
+- URL de callback: `https://DOMINIO-PUBLICO/api/whatsapp-webhook`.
+- Token de verificação: mesmo valor de `WHATSAPP_VERIFY_TOKEN`.
+- Assinar o campo `messages` da conta do WhatsApp Business.
+- Manter `WHATSAPP_APP_SECRET` somente no servidor.
+
+Fluxo:
+1. A equipe abre a agenda, escolhe um pedido **Aguardando** e clica em
+   **Enviar botões no WhatsApp**.
+2. O endpoint `POST /api/whatsapp` verifica o login do administrador,
+   confirma o horário e solicita o envio do template aprovado à Meta.
+3. O cliente recebe **Confirmar** e **Cancelar** dentro do WhatsApp.
+4. O clique retorna à plataforma por webhook assinado; somente respostas do
+   número do cliente correspondente são aceitas.
+5. A agenda atualiza o status automaticamente (consulta a cada 15 s ou
+   botão Atualizar). Um cancelamento libera novamente o horário.
+
+Os endpoints exigem acesso administrativo e um armazenamento compartilhado;
+o envio também limita reenvios de um mesmo pedido a uma vez a cada 10 minutos.
+**Sem Redis, tokens válidos e template aprovado, o sistema permanece na
+demonstração**, sem fingir que enviou mensagens.
+
+Os botões do WhatsApp não podem ser injetados por `wa.me`, WhatsApp Web ou
+texto formatado. A Meta exige o canal oficial para que o aplicativo renderize
+componentes interativos. Não enviar tokens por mensagem ou salvar no GitHub.
