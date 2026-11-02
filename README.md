@@ -68,3 +68,31 @@ Um status de sucesso do Vercel para uma *Preview* não significa publicação em
 ## Testes de movimento
 
 O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as verificações de estados antes da primeira pintura, a transferência da navalha, acessibilidade e movimento reduzido. Os scripts de diagnóstico não dependem mais de caminhos particulares de outro computador. Para executar localmente, instale `playwright-core` e `@axe-core/playwright` em um ambiente de testes e disponibilize um Chromium. Use `PLAYWRIGHT_PACKAGE` para apontar para o `package.json` desse ambiente e, se necessário, `CHROME_PATH` para o executável do navegador. Os testes temporais usam `SITE_URL` (padrão `http://127.0.0.1:8047`). As capturas são produzidas em `docs/motion-states/` e o GitHub Actions também entrega artefatos de screenshots.
+
+## Confirmação pública por WhatsApp — configuração de produção
+
+O botão **Preparar WhatsApp** envia uma mensagem preenchida para revisão manual.
+O site **não** dispõe de autorização da WhatsApp Business Platform para enviar
+templates com botões nativos nem para receber webhooks da Meta; os dois endereços
+HTTPS de resposta funcionam como links clicáveis em mensagens comuns.
+
+Os endpoints em `api/` já foram implementados para confirmação real **entre
+dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
+Sem essas variáveis, a aplicação permanece em **modo demonstração local** e
+**nunca inclui `localhost` ou `127.0.0.1` nas mensagens de WhatsApp**.
+
+Para ativar:
+
+1. Na Vercel, abra o projeto `srnavalha`, vá a **Storage / Marketplace** e conecte um Redis Upstash (verifique o plano antes de concluir a instalação).
+2. Configure `UPSTASH_REDIS_REST_URL` e `UPSTASH_REDIS_REST_TOKEN` no ambiente do projeto. Normalmente são adicionados pela integração.
+3. Configure `BOOKING_SESSION_SECRET` (32 bytes ou mais de aleatoriedade), `BOOKING_ADMIN_EMAIL` e `BOOKING_ADMIN_PASSWORD` (uma senha forte, diferente do login de demonstração).
+4. Configure `BOOKING_PUBLIC_ORIGIN` com o endereço HTTPS **público e acessível pelos clientes** que contém `confirmar.html` e `/api/confirm` — por exemplo, `https://srnavalha.vercel.app`. Não use domínio de prévia protegido por login nem `localhost`.
+5. Aplique as mudanças ao ambiente de produção, publique e confirme que `/api/health` retorna `{"enabled":true,"mode":"shared"}`.
+6. Verifique a criação do pedido no celular e sua presença no painel de outro dispositivo. Teste os dois links de confirmação e cancelamento, e confira se o horário cancelado volta a ficar disponível.
+
+A conta do painel em produção é protegida por cookie assinado HTTP-only e credenciais mantidas no servidor. Os links de confirmação/cancelamento são assinados e expiram. Não publique senhas nem tokens no GitHub.
+
+**Importante:** a `main` não recebe automaticamente as alterações da branch de desenvolvimento. Antes de testar publicamente, publique a versão revisada no domínio de produção. Links emitidos por uma prévia com autenticação Vercel não podem ser usados diretamente pelos clientes.
+
+A demonstração local (sem backend) preserva a funcionalidade anterior do navegador. Nela, links de confirmação só são exibidos na simulação interna; eles não vão para mensagens de WhatsApp.
+
