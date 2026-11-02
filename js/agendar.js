@@ -8,11 +8,16 @@ const featured = ['cortee', 'barba-simples', 'comb-cort-barb-simples'];
 const qs = new URLSearchParams(location.search);
 const tz = 'America/Recife';
 let sharedMode=false;
+let slotCheckToken=0;
 const connectionReady=fetch('/api/health',{cache:'no-store'}).then(async r=>{
  if(!r.ok)return false;
  const data=await r.json();
  sharedMode=data.enabled===true;
  if(sharedMode){
+  const heading=$('.bk-ticket-content h2');
+  if(heading)heading.textContent='Seu agendamento.';
+  const footnote=$('.bk-ticket-footnote');
+  if(footnote)footnote.textContent='Os horários são verificados com a agenda compartilhada e a equipe entrará em contato para confirmar.';
   const consent=$('.bk-consent span');
   if(consent)consent.textContent='Autorizo o uso do meu nome e WhatsApp para contato da equipe Sr. Navalha sobre este agendamento.';
   const note=$('.bk-form-local-note');
@@ -136,8 +141,8 @@ function formatHour(iso) {
 function setSelectionFeedback() {
   if (!state.service) showStatus('Escolha um serviço para testar a agenda.', 'neutral');
   else if (state.service.category === 'Assinantes') showStatus('Planos de assinatura ainda não estão disponíveis neste protótipo.', 'warning');
-  else if (!state.slot) showStatus('Escolha um horário de demonstração.', 'neutral');
-  else showStatus('Horário de teste escolhido. Preencha os dados para salvar apenas neste navegador.', 'good');
+  else if (!state.slot) showStatus(sharedMode?'Escolha o horário desejado.':'Escolha um horário de demonstração.', 'neutral');
+  else showStatus(sharedMode?'Preencha os dados para enviar a solicitação à barbearia.':'Horário de teste escolhido. Preencha os dados para salvar apenas neste navegador.', 'good');
   updateSummary();
 }
 function renderFilters() {
@@ -321,7 +326,7 @@ function refreshSlots() {
     $('#bk-slot-state').textContent = 'Escolha uma data entre hoje e os próximos 30 dias.';
     return;
   }
-  state.slots = availableSlots(state.service.id, day, state.professional?.id || null);
+  state.slots = availableSlots(state.service.id, day, state.professional?.id || null,sharedMode);
   state.slot = state.slots.find(slot => slot.slot_at === previous?.slot_at && slot.professional_id === previous?.professional_id) || null;
   renderSlots();
   setSelectionFeedback();
@@ -330,8 +335,25 @@ function refreshSlots() {
     $('#bk-step-error').textContent = 'O horário de teste anterior não está mais disponível. Escolha outro horário aqui.';
   }
   $('#bk-slot-state').textContent = state.slots.length
-    ? state.slots.length + ' horário(s) ilustrativo(s) nesta data — não são vagas reais.'
-    : 'Nenhum horário de teste disponível. Experimente outro dia ou profissional.';
+    ? state.slots.length + (sharedMode?' horário(s) nesta data.':' horário(s) ilustrativo(s) nesta data — não são vagas reais.')
+    : 'Nenhum horário disponível. Experimente outro dia ou profissional.';
+  const token=++slotCheckToken;
+  if(sharedMode){
+    void fetch('/api/blocked?date='+encodeURIComponent(day),{cache:'no-store'}).then(async reply=>{
+      if(!reply.ok)throw Error('Sem conexão com a agenda');
+      const data=await reply.json();
+      if(token!==slotCheckToken||$('#bk-date').value!==day)return;
+      const duration=Number.parseInt(state.service.duration,10)*60000;
+      state.slots=state.slots.filter(slot=>!data.busy.some(item=>{
+        if(item.professional_id!==slot.professional_id)return false;
+        const start=Date.parse(slot.slot_at);
+        return start<Date.parse(item.ends_at)&&start+duration>Date.parse(item.starts_at);
+      }));
+      if(state.slot&&!state.slots.some(slot=>slot.slot_at===state.slot.slot_at&&slot.professional_id===state.slot.professional_id))state.slot=null;
+      renderSlots();syncContact();setSelectionFeedback();
+      $('#bk-slot-state').textContent=state.slots.length?state.slots.length+' horário(s) disponíveis nesta data.':'Nenhum horário disponível nessa data.';
+    }).catch(()=>{if(token===slotCheckToken)$('#bk-slot-state').textContent='Não foi possível consultar a agenda. Tente atualizar a página.'});
+  }
 }
 function validateFields() {
   if (!state.service) return 'Selecione o serviço.';
