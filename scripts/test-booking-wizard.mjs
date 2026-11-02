@@ -25,13 +25,24 @@ for(const width of [320,360,390,430,768,1440]){
  await p.locator('.bk-service').first().click();await next();
  check(`${width}: profissional e foco`,await current()==='bk-step-1'&&await p.evaluate(()=>document.activeElement.id==='bk-prof-title'));
  await p.screenshot({path:`docs/booking-v5/team-${width}.png`});
- await next();check(`${width}: sem preferência válido`,await current()==='bk-step-2');await next();check(`${width}: exige horário`,await current()==='bk-step-2');
- await p.locator('#bk-date').fill('2000-01-01');await p.locator('#bk-date').dispatchEvent('change');await next();check(`${width}: data inválida rejeitada`,await current()==='bk-step-2'&&await p.locator('.bk-slot').count()===0);
+ await next();check(`${width}: sem preferência válido`,await current()==='bk-step-2');
+ check(`${width}: tela da data não revela horários`,await p.locator('#bk-slots:visible').count()===0&&await p.locator('#bk-date').inputValue()==='');
+ await next();check(`${width}: exige escolha da data`,await current()==='bk-step-2'&&(await p.locator('#bk-step-error').textContent()).includes('data'));
+ await p.locator('#bk-date').fill('2000-01-01');await p.locator('#bk-date').dispatchEvent('change');await next();
+ check(`${width}: data inválida rejeitada`,await current()==='bk-step-2'&&await p.locator('#bk-slots:visible').count()===0);
  const date=await p.locator('#bk-date').getAttribute('min');const d=new Date(date+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+1);if(d.getUTCDay()===0)d.setUTCDate(d.getUTCDate()+1);
- await p.locator('#bk-date').fill(d.toISOString().slice(0,10));await p.locator('#bk-date').dispatchEvent('change');await p.locator('.bk-slot').first().click();const chosen=await p.locator('#bk-recap-date').textContent();await next();
- check(`${width}: dados e resumo`,await current()==='bk-step-3'&&await p.locator('.bk-summary:visible').count()===1);
+ await p.locator('#bk-date').fill(d.toISOString().slice(0,10));await p.locator('#bk-date').dispatchEvent('change');await next();
+ check(`${width}: data abre horários em tela separada`,await current()==='bk-step-3'&&await p.locator('#bk-slots:visible .bk-slot').count()>0);
+ check(`${width}: dados aguardam o horário`,await p.locator('#bk-form:visible').count()===0);
+ await p.locator('.bk-slot').first().click();
+ check(`${width}: nome e WhatsApp aparecem junto dos horários`,await current()==='bk-step-3'&&
+  await p.locator('#bk-form:visible #bk-name').count()===1&&await p.locator('#bk-form:visible #bk-phone').count()===1);
+ const chosen=await p.locator('#bk-recap-date').textContent();
+ check(`${width}: resumo acompanha horário`,await p.locator('.bk-summary:visible').count()===1);
  await p.screenshot({path:`docs/booking-v5/data-${width}.png`});
- await p.locator('#bk-back').click();check(`${width}: volta preserva horário`,await p.locator('.bk-slot[aria-pressed=true]').count()===1);await next();check(`${width}: avanço preserva resumo`,await p.locator('#bk-recap-date').textContent()===chosen);
+ await p.locator('#bk-back').click();check(`${width}: voltar conserva a data`,await current()==='bk-step-2'&&await p.locator('#bk-date').inputValue()===d.toISOString().slice(0,10));
+ await next();check(`${width}: avançar conserva horário e dados`,await p.locator('#bk-recap-date').textContent()===chosen&&
+  await p.locator('.bk-slot[aria-pressed=true]').count()===1&&await p.locator('#bk-form:visible').count()===1);
  await p.locator('#bk-submit').click();check(`${width}: valida nome e foco`,await p.locator('#bk-name').getAttribute('aria-invalid')==='true'&&await p.evaluate(()=>document.activeElement.id==='bk-name'));
  await p.locator('#bk-name').fill('Teste local');await p.locator('#bk-phone').fill('123');await p.locator('#bk-submit').click();check(`${width}: valida telefone`,await p.locator('#bk-phone').getAttribute('aria-invalid')==='true');
  await p.locator('#bk-phone').fill('81999999999');await p.locator('#bk-consent').check();await p.locator('#bk-submit').click();await p.waitForSelector('#bk-success:visible');
