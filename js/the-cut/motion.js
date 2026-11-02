@@ -185,8 +185,11 @@ function editorialPhotographs(){
 }
 function productRollIn(){
  const nodes=all('.product-object');
+ // Preload the visible product images before the scroll reveal begins.
+ nodes.forEach(item=>{const img=one('img',item);if(img)img.loading='eager'});
  observe(nodes,async item=>{
-  if(!await assetsReady(item)){done(item);return}
+  // Image decode timeouts must not cancel the entrance entirely.
+  await assetsReady(item);
   const i=nodes.indexOf(item),x=[-70,-24,70][i],angle=[-28,-15,25][i],scale=innerWidth<700?.55:1;
   await animate(item,[{opacity:0,transform:`translate(${x*scale}px,-12px) rotate(${angle}deg)`},{offset:.8,opacity:1,transform:`translate(0,0) rotate(${i===1?-1:2}deg)`},{opacity:1,transform:'translate(0,0) rotate(0deg)'}],{duration:1900,delay:260+i*180,easing:'cubic-bezier(.35,.04,.18,1)'});
  });
