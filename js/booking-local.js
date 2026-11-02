@@ -91,7 +91,7 @@ function validDay(day) {
     day >= localeDay() && day <= addDays(localeDay(), DEMO_SCHEDULE.daysAhead);
 }
 
-export function availableSlots(serviceId, day, professionalId = null) {
+export function availableSlots(serviceId, day, professionalId = null, ignoreLocal = false) {
   const service = services.find(s => s.id === serviceId);
   if (!service || service.category === 'Assinantes' || !validDay(day)) return [];
   const duration = Number.parseInt(service.duration, 10);
@@ -103,7 +103,7 @@ export function availableSlots(serviceId, day, professionalId = null) {
   const team = professionalId
     ? professionals.filter(pro => pro.id === professionalId)
     : professionals;
-  const bookings = readDemoBookings();
+  const bookings = ignoreLocal ? [] : readDemoBookings();
   const earliest = Date.now() + 30 * 60 * 1000;
   const list = [];
 
