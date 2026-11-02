@@ -28,6 +28,8 @@ jobs:
       - name: Verify generated HTML and JavaScript
         run: |
           node --check js/the-cut/app.js
+          node --check js/the-cut/motion.js
+          node --check scripts/test-the-cut-motion.mjs
           node --check scripts/render-site.mjs
           node --check scripts/test-motion-states.mjs
           node --check scripts/capture-motion-frames.mjs
