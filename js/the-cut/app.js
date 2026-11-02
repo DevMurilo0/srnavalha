@@ -77,9 +77,13 @@ function initTeam(){
    }
   }
   if(serial!==currentToken)return;
-  // Measured travel: EXIT beyond right viewport edge; ENTER from left.
-  $$('img.is-departing',stage).forEach(img=>{img.getAnimations().forEach(a=>a.cancel());img.remove()});
+  // Keep the image's current computed pose when another barber is chosen mid-flight.
+  // Both portraits cross the full section in one continuous, slower glide.
+  const departing=$('img.is-departing',stage);
+  if(departing.length>2)departing.slice(0,-2).forEach(img=>{img.getAnimations().forEach(a=>a.cancel());img.remove()});
   const existing=$('img.is-current',stage);
+  const startTransform=existing?getComputedStyle(existing).transform:'none';
+  const startOpacity=existing?getComputedStyle(existing).opacity:'1';
   existing?.getAnimations().forEach(a=>a.cancel());
   const next=document.createElement('img');
   next.src=source(person);next.alt=person.name+', profissional da Sr. Navalha';
@@ -87,29 +91,29 @@ function initTeam(){
   next.className='is-current';stage.append(next);
   if(existing)existing.classList.replace('is-current','is-departing');
   if(motion()&&typeof next.animate==='function'){
-   const r=stage.getBoundingClientRect(),extra=Math.max(60,r.width*.15);
+   const r=stage.getBoundingClientRect(),extra=Math.max(70,r.width*.2);
    const right=Math.ceil(innerWidth-r.left+extra),left=-Math.ceil(r.right+extra);
-   const config={duration:990,easing:'cubic-bezier(.22,.82,.2,1)',fill:'both'};
+   const config={duration:1650,easing:'cubic-bezier(.4,.03,.19,1)',fill:'both'};
    if(existing){
     const exit=existing.animate([
-     {offset:0,opacity:1,transform:'translate3d(0,0,0)'},
-     {offset:.83,opacity:1,transform:'translate3d('+(right*.87)+'px,0,0)'},
+     {offset:0,opacity:Number(startOpacity),transform:startTransform},
+     {offset:.76,opacity:1,transform:'translate3d('+(right*.82)+'px,0,0)'},
      {offset:1,opacity:0,transform:'translate3d('+right+'px,0,0)'}
     ],config);
     exit.finished.catch(()=>{}).finally(()=>{exit.cancel();existing.remove()});
    }
    const enter=next.animate([
     {offset:0,opacity:0,transform:'translate3d('+left+'px,0,0)'},
-    {offset:.16,opacity:1,transform:'translate3d('+(left*.82)+'px,0,0)'},
-    {offset:.82,opacity:1,transform:'translate3d(12px,0,0)'},
+    {offset:.24,opacity:1,transform:'translate3d('+(left*.72)+'px,0,0)'},
+    {offset:.88,opacity:1,transform:'translate3d(5px,0,0)'},
     {offset:1,opacity:1,transform:'translate3d(0,0,0)'}
-   ],{...config,duration:1060});
+   ],{...config,duration:1760});
    enter.finished.catch(()=>{}).finally(()=>enter.cancel());
   }else existing?.remove();
   if(motion())$('#person-name')?.animate([
-   {opacity:.25,transform:'translate3d(-10px,0,0)'},
+   {opacity:.3,transform:'translate3d(-12px,0,0)'},
    {opacity:1,transform:'translate3d(0,0,0)'}
-  ],{duration:380,easing:'cubic-bezier(.22,1,.36,1)'});
+  ],{duration:600,easing:'cubic-bezier(.22,1,.36,1)'});
   chosen=id;
   buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.person===id)));
   if(name)name.textContent=person.name;
