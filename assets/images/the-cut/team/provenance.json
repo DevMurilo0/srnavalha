@@ -1,0 +1,103 @@
+{
+  "method": "U2-Net small ONNX foreground segmentation; lossless WebP; source RGB preserved; alpha-only processing",
+  "model_url": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx",
+  "model_sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8",
+  "parameters": {
+    "input": [
+      320,
+      320
+    ],
+    "alpha_background_threshold": 0.08,
+    "alpha_foreground_threshold": 0.92,
+    "edge_inset_px": 1,
+    "edge_antialias_radius_px": 0.25
+  },
+  "limitations": "Source resolution is725×725 for Damião and800×800 for the other portraits; original photographs already crop the lower body. No missing anatomy was generated.",
+  "assets": [
+    {
+      "name": "damiao",
+      "source": "assets/images/v8/damiao-960.webp",
+      "source_sha256": "e6789cc2597c9a37848c17c981b324e6362d2e4d6a305bff763ae92d280a6b2d",
+      "output": "assets/images/the-cut/team/damiao.webp",
+      "output_sha256": "e55a23d0d89bc361184adcdd84dd7de65646557e1cba17199a579fe88282023a",
+      "dimensions": [
+        725,
+        725
+      ],
+      "bytes": 267172,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 279444,
+      "soft_edge_pixels": 7395,
+      "visible_rgb_matches_source": true
+    },
+    {
+      "name": "eduardo",
+      "source": "assets/images/v8/eduardo-960.webp",
+      "source_sha256": "3baebb02722f8a8737d8cae32e95fa4e9496b7effc658521e53fb536d55c85aa",
+      "output": "assets/images/the-cut/team/eduardo.webp",
+      "output_sha256": "6ff8ed771830cccae4cec48f9374725f56a5c803b844656bfdb9832c97fc9d27",
+      "dimensions": [
+        800,
+        800
+      ],
+      "bytes": 360184,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 317183,
+      "soft_edge_pixels": 14314,
+      "visible_rgb_matches_source": true
+    },
+    {
+      "name": "kaua",
+      "source": "assets/images/v8/kaua-960.webp",
+      "source_sha256": "90e5187dfd472040e002f0928d9296e84ea820c53ecf2b5282657972594109e0",
+      "output": "assets/images/the-cut/team/kaua.webp",
+      "output_sha256": "a70989f9e4168710d791b4f39da0204c890d512ea230c0979ba82b9ed0953f0a",
+      "dimensions": [
+        800,
+        800
+      ],
+      "bytes": 374802,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 305729,
+      "soft_edge_pixels": 10317,
+      "visible_rgb_matches_source": true
+    },
+    {
+      "name": "rafael",
+      "source": "assets/images/v8/rafael-960.webp",
+      "source_sha256": "020be4af70335c44c2aefcf922d6ed5e21404d5f8725bca443295b666a71d595",
+      "output": "assets/images/the-cut/team/rafael.webp",
+      "output_sha256": "0e86e566d51958b78f4b0e5fef1371ee82cd5fe458a28687df440cd769eb952c",
+      "dimensions": [
+        800,
+        800
+      ],
+      "bytes": 248172,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 389961,
+      "soft_edge_pixels": 15841,
+      "visible_rgb_matches_source": true
+    },
+    {
+      "name": "yan",
+      "source": "assets/images/v8/yan-960.webp",
+      "source_sha256": "9c247ea3d0528a10ef1ca743e2f3f271e2afe1798112e4b093285a8aba87bcb6",
+      "output": "assets/images/the-cut/team/yan.webp",
+      "output_sha256": "cfa786dac2d7fef5c348a5ffa4382a0916e09756da09c947c9c37b6628d9c768",
+      "dimensions": [
+        800,
+        800
+      ],
+      "bytes": 240080,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 397517,
+      "soft_edge_pixels": 8777,
+      "visible_rgb_matches_source": true
+    }
+  ]
+}

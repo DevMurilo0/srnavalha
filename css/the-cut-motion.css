@@ -1,0 +1,112 @@
+/* The Cut / Motion 05: the actual hero razor travels from the editorial
+   opening into its final position without substituting a different object. */
+.cut-intro{position:fixed;inset:0;z-index:1000;isolation:isolate;overflow:hidden;pointer-events:auto;background:#151511;animation:cut-intro-clear .16s 2.37s both}
+.cut-intro__upper,.cut-intro__lower{position:absolute;inset:-1%;pointer-events:none}
+.cut-intro__upper{background:radial-gradient(ellipse at 74% 32%,#37342b,#151512 70%);clip-path:polygon(0 0,100% 0,100% 55%,0 65%);animation:cut-plate-rise .97s 1.17s cubic-bezier(.76,.08,.15,1) both}
+.cut-intro__lower{background:repeating-linear-gradient(110deg,#fff2 0 1px,transparent 1px 53px),linear-gradient(120deg,#e9e3d8,#c8bba9);clip-path:polygon(0 65%,100% 55%,100% 100%,0 100%);animation:cut-plate-fall .97s 1.17s cubic-bezier(.76,.08,.15,1) both}
+.cut-intro__monogram{position:absolute;inset:0;display:grid;grid-auto-flow:column;place-content:center;align-items:center;color:#e9e3d81b;font:900 min(38vw,440px)/1 Manrope,Arial,sans-serif;letter-spacing:-.13em;animation:cut-monogram .8s .15s both}
+.cut-intro__monogram span{font:italic .65em Bodoni,Georgia,serif;color:#a3654b99}
+.cut-intro__identity{position:absolute;left:50%;top:19%;width:min(80vw,360px);text-align:center;transform:translateX(-50%);z-index:4;color:#eee7dc;animation:cut-identity-away .32s 1.07s both}
+.cut-intro__identity .official-logo{display:block;width:clamp(145px,17vw,220px);margin:auto;filter:brightness(0) invert(1)}
+.cut-intro__issue{display:block;font:650 clamp(8px,.85vw,12px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.19em;margin-bottom:8px}
+.cut-intro__issue span{color:#d79b73}
+.cut-intro__identity strong{display:block;margin-top:9px;font:850 clamp(22px,3vw,45px)/1.1 Manrope,Arial,sans-serif;letter-spacing:-.065em}
+.cut-intro__identity em{display:block;font:italic clamp(21px,2.9vw,45px)/1.15 Bodoni,Georgia,serif}
+.cut-intro__razor{position:fixed;left:50%;top:56%;width:min(56vw,650px);aspect-ratio:389/166;transform:translate(-50%,-50%);z-index:9;pointer-events:none;transform-origin:center}
+.cut-intro__razor img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 22px 13px #100b0b70);animation:cut-razor-first-look .66s .38s both}
+.cut-intro__seam{position:absolute;left:-5%;top:62%;width:110%;height:2px;background:linear-gradient(90deg,transparent,#b8bab6,#c9885f,transparent);transform:rotate(-5deg);transform-origin:50% 50%;z-index:3;animation:cut-seam-glide .95s .5s both}
+.cut-intro__edition{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);white-space:nowrap;font:650 clamp(8px,.9vw,11px)/1.5 Manrope,Arial,sans-serif;letter-spacing:.16em;color:#3d2d25;z-index:3;animation:cut-identity-away .3s 1.12s both}
+.cut-intro__edition span{color:#946047}
+@keyframes cut-monogram{from{opacity:0;transform:scale(1.07)}to{opacity:1;transform:scale(1)}}
+@keyframes cut-razor-first-look{from{opacity:0;transform:translate3d(0,16px,0) rotate(-7deg) scale(.93)}to{opacity:1;transform:translate3d(0,0,0) rotate(0deg) scale(1)}}
+@keyframes cut-identity-away{to{opacity:0}}
+@keyframes cut-seam-glide{from{opacity:0;clip-path:inset(0 90% 0 0)}50%{opacity:1}to{opacity:0;clip-path:inset(0 0 0 0)}}
+@keyframes cut-plate-rise{to{transform:translate3d(0,-110%,0)}}
+@keyframes cut-plate-fall{to{transform:translate3d(0,110%,0)}}
+@keyframes cut-intro-clear{to{opacity:0;visibility:hidden;pointer-events:none}}
+@media(max-width:700px){.cut-intro__identity{top:22%;width:85%}.cut-intro__identity .official-logo{max-width:190px}.cut-intro__monogram{font-size:56vw}.cut-intro__razor{top:55%;width:83vw}.cut-intro__edition{bottom:11%;letter-spacing:.07em}}
+@media(prefers-reduced-motion:reduce){.cut-intro{display:none!important;animation:none!important}}
+
+/* Reveal only the editorial headlines explicitly marked in the approved layout. */
+.motion-armed>:is(span,em){opacity:0}
+.motion-armed .motion-word{opacity:0}
+.motion-word{display:inline-block;white-space:nowrap;transform-origin:50% 85%}
+h1[data-type],h2[data-type],.instrument-copy [data-type]{text-wrap:balance}
+
+/* Feedback: small, legible state changes instead of global motion. */
+.button,.service-panel>a,.service-extras a,.team-list button,.product-selection a,.work-print a,.catalog-disclosure>summary,.gallery-controls button,.gallery-all,.desktop-nav a,.floating-booking{transition-property:background-color,color,border-color,box-shadow,opacity,transform;transition-duration:220ms;transition-timing-function:cubic-bezier(.22,1,.36,1)}
+.button:active,.gallery-controls button:active,.team-list button:active{transform:scale(.975)}
+.service-panel>a .arrow,.service-extras a .arrow,.team-list .arrow{transition:transform 230ms cubic-bezier(.22,1,.36,1),opacity 220ms ease}
+.catalog-disclosure>summary{min-height:48px;touch-action:manipulation}
+.catalog-disclosure>summary span{transform-origin:center;transition:transform 240ms cubic-bezier(.22,1,.36,1)}
+.mobile-menu[open] nav{transform-origin:top center}
+.gallery-dialog[open],.reviews-dialog[open]{animation:cut-dialog-enter 260ms cubic-bezier(.22,1,.36,1)}
+.gallery-dialog::backdrop,.reviews-dialog::backdrop{animation:cut-dialog-backdrop 240ms ease-out}
+@keyframes cut-dialog-enter{from{opacity:0;transform:translate3d(0,14px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cut-dialog-backdrop{from{opacity:0}to{opacity:1}}
+@media(hover:hover) and (pointer:fine){
+ .service-panel>a:hover .arrow,.service-extras a:hover .arrow{transform:translate3d(4px,-4px,0)}
+ .service-panel:hover .service-description{color:#e9d8c5}
+ .team-list button:hover .arrow{transform:translate3d(3px,-3px,0)}
+ .product-selection article:hover .arrow{transform:translate3d(3px,-3px,0)}
+ .gallery-controls button:hover{background:#e9e3d8;color:#141412}
+ .work-print a:hover{box-shadow:inset 0 0 0 2px #e9e3d8}
+}
+@media(max-width:700px){
+ .cut-intro__identity{top:29%;width:min(80vw,360px)}
+ .cut-intro__identity .official-logo{max-width:200px}
+ .cut-intro__blade{width:min(73vw,360px);top:43%}
+ .cut-intro__edition{bottom:10%;letter-spacing:.12em}
+ .service-panel>a:active,.product-selection a:active{opacity:.72}
+}
+@media(prefers-reduced-motion:reduce){
+ .cut-intro{display:none!important;animation:none!important}
+ .motion-armed>:is(span,em),.motion-armed .motion-word{opacity:1!important}
+ .gallery-dialog[open],.reviews-dialog[open],.gallery-dialog::backdrop,.reviews-dialog::backdrop{animation:none!important}
+}
+
+/* Directional portrait procession; both people occupy one art-directed scene. */
+.portrait-stage{overflow:hidden;isolation:isolate}
+.portrait-stage img{transform:translate3d(0,0,0);opacity:1;transition:transform 800ms cubic-bezier(.18,.85,.24,1),opacity 660ms cubic-bezier(.18,.85,.24,1)}
+.portrait-stage img.is-departing{transform:translate3d(105%,0,0);opacity:.45;pointer-events:none}
+.portrait-stage img.is-arriving{transform:translate3d(-105%,0,0);opacity:.65}
+.portrait-scene{overflow:hidden}
+.team-list button span{transition:transform 280ms cubic-bezier(.22,1,.36,1)}
+.team-list button[aria-pressed="true"] span{transform:translate3d(4px,0,0)}
+.team-list button:not([aria-pressed="true"]):hover span{transform:translate3d(3px,0,0)}
+.team-aside #person-name{display:inline-block;transition:opacity 200ms ease,transform 200ms ease}
+.team-aside.is-changing #person-name{opacity:.1;transform:translate3d(10px,0,0)}
+/* Rotation is authored on the physical product anchors; parent parallax remains independent. */
+.product-object{transform-origin:50% 84%;backface-visibility:hidden}
+.product-object:focus-visible{outline:2px solid #a3654b;outline-offset:4px}
+.ui-icon{display:inline-block;flex:none;width:17px;height:17px;vertical-align:-.18em}
+a:has(>.ui-icon),button:has(>.ui-icon){display:inline-flex;align-items:center;justify-content:space-between;gap:8px}
+.service-panel>a .ui-icon,.floating-booking .ui-icon{width:17px;height:17px}
+.all-services article>a .ui-icon{width:15px;height:15px}
+.footer-signature>a{display:inline-flex;align-items:center;gap:9px}
+.footer-legal>a{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:4px;line-height:1.6}
+.footer-legal>a span{color:#d9bc9c;text-decoration:underline;text-underline-offset:3px}
+.booking-demo>a .ui-icon{width:14px;height:14px}
+@media(hover:hover) and (pointer:fine){
+ .button:hover .ui-icon{transform:translate3d(1px,-1px,0)}
+ .service-panel>a:hover .ui-icon{transform:rotate(-7deg)}
+ .footer-signature>a:hover .ui-icon{transform:scale(1.07)}
+}
+.ui-icon{transition:transform 210ms cubic-bezier(.22,1,.36,1)}
+@media(prefers-reduced-motion:reduce){
+ .portrait-stage img,.team-aside #person-name,.team-list button span,.ui-icon{transition:none!important}
+ .portrait-stage img.is-arriving,.portrait-stage img.is-departing{opacity:1;transform:none}
+}
+
+/* Do not clip portraits at the photographic column: they traverse the section. */
+.team{overflow:hidden}
+.portrait-scene,.portrait-depth,.portrait-stage{overflow:visible!important}
+.motion-glyph{display:inline-block;white-space:pre;transform-origin:50% 88%;backface-visibility:hidden}
+.motion-word{display:inline-block;white-space:nowrap;transform-origin:50% 90%}
+@media(prefers-reduced-motion:reduce){.motion-glyph,.motion-word{opacity:1!important;transform:none!important}}
+
+/* An independent, layered parallax material detail. Background photographs are
+   shifted on the compositor only; body text stays anchored and readable. */
+.hero-background .depth-plane,.house-photos .depth-plane,.instrument-photo .depth-plane,.facade .depth-plane{backface-visibility:hidden}
+.house:after{content:"";position:absolute;inset:auto 7% 4% auto;width:min(15vw,165px);height:1px;background:linear-gradient(90deg,transparent,#a3654b,#14141220);transform:translate3d(0,var(--house-parallax,0px),0);pointer-events:none;opacity:.8}
+@media(prefers-reduced-motion:reduce){.house:after{transform:none}}

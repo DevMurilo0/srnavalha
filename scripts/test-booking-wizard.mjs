@@ -33,13 +33,22 @@ await p.setViewportSize({width:390,height:800});await p.goto(base+'/agendar.html
 await p.emulateMedia({reducedMotion:'reduce'});await next();check('Movimento reduzido',await p.locator('.bk-step:visible').evaluate(e=>e.getAnimations().length===0));
 const axe=await new AxeBuilder({page:p}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();check('Axe agendamento',!axe.violations.length,axe.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})));
 await p.emulateMedia({reducedMotion:'no-preference'});
+// The public-facing interface is The Cut. Legacy V6 loader, .hero-pole and
+// .sr-booking-fixed assertions no longer apply. Exercise the new fixed CTA.
 for(const width of [320,390,1440]){
- await p.setViewportSize({width,height:800});await p.goto(base+'/',{waitUntil:'domcontentloaded'});await p.waitForSelector('.snv2-run');
- check(`${width}: botão sob loader e dois cilindros exclusivos do hero`,!await p.locator('.sr-booking-fixed').isVisible()&&await p.locator('.hero-pole').count()===2&&await p.locator('#sr-loader-stage .snv2-signature').count()===0);
- await p.waitForTimeout(1300);await p.screenshot({path:`docs/booking-v5/sign-${width}.png`});await p.waitForFunction(()=>!document.querySelector('#sr-loader-stage'));
- await p.locator('#casa').evaluate(e=>e.scrollIntoView({behavior:'instant'}));await p.waitForTimeout(250);check(`${width}: CTA fixo único`,await p.locator('.sr-booking-fixed:visible').count()===1);await p.screenshot({path:`docs/booking-v5/cta-${width}.png`});
- await p.locator('footer').evaluate(e=>e.scrollIntoView());await p.waitForTimeout(200);check(`${width}: CTA libera rodapé`,!await p.locator('.sr-booking-fixed').isVisible());
- await p.locator('#casa').evaluate(e=>e.scrollIntoView({behavior:'instant'}));await p.waitForTimeout(250);await p.locator('.sr-booking-fixed').click();await p.waitForURL('**/agendar.html');check(`${width}: CTA abre agenda sem flutuante`,await p.locator('.sr-booking-fixed,.bk-mobile-direct').count()===0);
+ await p.setViewportSize({width,height:800});
+ await p.goto(base+'/',{waitUntil:'domcontentloaded'});
+ await p.waitForSelector('.hero .razor');
+ check(`${width}: entrada editorial preserva navegação e postes`,
+   await p.locator('.barber-pole').count()===2&&
+   await p.locator('.hero-actions .button[href="agendar.html"]').count()===1);
+ await p.locator('#servicos').scrollIntoViewIfNeeded();
+ await p.waitForFunction(()=>{const b=document.querySelector('.floating-booking');return b&&!b.hidden;},
+   null,{timeout:3500});
+ check(`${width}: CTA flutuante aparece depois do hero`,await p.locator('.floating-booking').isVisible());
+ await p.locator('.floating-booking').click();
+ await p.waitForURL('**/agendar.html');
+ check(`${width}: CTA abre o sistema próprio`,await p.locator('.bk-wizard').count()===1);
 }
 check('Sem exceções',!errors.length,errors);
 }catch(e){check('Execução completa',false,e.stack)}finally{writeFileSync('docs/booking-v5/results.json',JSON.stringify(results,null,2));await b.close()}

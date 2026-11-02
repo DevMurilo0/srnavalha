@@ -1,0 +1,62 @@
+{
+  "assets": [
+    {
+      "id": "pomada-fox-premium",
+      "source": "assets/images/v8/pomada-fox-premium-960.webp",
+      "source_sha256": "16170a3b950a95ce13f0e214846c01d1d0c318d1cc0d83d8ae667cc59199533b",
+      "output": "assets/images/the-cut/products/pomada-fox-premium.webp",
+      "output_sha256": "873de66f0015158d29c4c61419437988be0f08b9b405a087e09b61673d8b8dc4",
+      "dimensions": [
+        795,
+        775
+      ],
+      "crop_bounds": [
+        5,
+        19,
+        800,
+        794
+      ],
+      "bytes": 391154,
+      "method": "Photograph-derived connected coloured rim with enclosed label for jars; manually traced photographic contour for oil; antialiased alpha, source RGB unchanged; lossless WebP"
+    },
+    {
+      "id": "oleo-para-barba",
+      "source": "assets/images/v8/oleo-para-barba-960.webp",
+      "source_sha256": "fccb8ba49b2b3609eb49e57484cc95b8d30c7c929d79ae714f2c754e39561b67",
+      "output": "assets/images/the-cut/products/oleo-para-barba.webp",
+      "output_sha256": "1e49715adcf379bc0df7cc7bd7fb1008e6efe4dbb75507cb7d8461c8893e4da5",
+      "dimensions": [
+        243,
+        796
+      ],
+      "crop_bounds": [
+        261,
+        4,
+        504,
+        800
+      ],
+      "bytes": 170636,
+      "method": "Photograph-derived connected coloured rim with enclosed label for jars; manually traced photographic contour for oil; antialiased alpha, source RGB unchanged; lossless WebP"
+    },
+    {
+      "id": "pomada-orange",
+      "source": "assets/images/v8/pomada-orange-960.webp",
+      "source_sha256": "480f738c065f0ccd1c899181d27c10e1836fa8bf7cd37c02ee05a8c59841e97d",
+      "output": "assets/images/the-cut/products/pomada-orange.webp",
+      "output_sha256": "374f3b87ca200b5834991aa7db6c9aa3003a5702c046c9aea508056a107689d3",
+      "dimensions": [
+        624,
+        593
+      ],
+      "crop_bounds": [
+        157,
+        200,
+        781,
+        793
+      ],
+      "bytes": 319854,
+      "method": "Photograph-derived connected coloured rim with enclosed label for jars; manually traced photographic contour for oil; antialiased alpha, source RGB unchanged; lossless WebP"
+    }
+  ],
+  "limitations": "Premium and Orange container edges meet the original photograph bounds. No missing edges or changed packaging were generated."
+}

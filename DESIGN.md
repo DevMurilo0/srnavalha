@@ -1,3 +1,9 @@
+## Identidade ativa — The Cut (novo conceito)
+
+A referência aprovada é `print/Site editorial da Sr. Navalha.png`. O frontend canônico agora está em `templates/the-cut`, `css/the-cut.css`, `js/the-cut/app.js` e `scripts/render-site.mjs`. A paleta ativa combina carvão `#141412`, marfim `#e9e3d8`, nogueira `#493126` e cobre `#a3654b`; a tipografia usa Manrope e Bodoni itálica. A navalha da composição é um asset derivado do mockup e os cinco retratos foram segmentados com transparência. As instruções V17 abaixo são históricas e não substituem a nova referência.
+
+---
+
 ---
 name: Sr. Navalha — A arte do ritual
 description: Fotografia documental, gravura e enquadramentos em marfim, carvão quente e cobre

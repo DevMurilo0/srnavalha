@@ -1,17 +1,16 @@
-# index.html · V17
+# Homepage — The Cut
 
-Mode: Experience with a persistent official booking action. Code-led intervention on the existing V16 artifact; the user explicitly commissioned implementation, preserving brand, real content and Live Server. No generated comp or replacement brand was requested.
+Mode: Persuade / Experience. Authority: user-approved `print/Site editorial da Sr. Navalha.png` (724×2172), opened and visually inspected before implementation. No alternative concept or design vote: the explicit brief settles composition and authorizes reconstruction.
 
 ## Direction contract
 
-THESIS: Uma oficina de enquadramentos: gravura, fotografia e nomes participam da mesma composição, do primeiro traço à assinatura final.
+THESIS: the exact open wooden straight razor bridges the dark real barbershop and ivory paper, making the cut the physical seam of the page.
+OWN-WORLD: charcoal #141412, ivory #e9e3d8, walnut #493126, silver, terracotta #a3654b; heavy sans and contrasting italic serif, thin photo edges and diagonal joins.
+STORY: recognize the real house and people, compare genuine services, explore products, then choose a service and professional in the existing local booking demonstration.
+FIRST VIEWPORT: compact ivory header; centered official logo between two poles; heavy left-aligned headline and italic second line; light rectangular CTA; photographic room on right; exact extracted razor across the diagonal at lower right.
+FORM: fixed approved comp; seed: none (user-supplied authority). Regions: header 0–2.3%, hero 2.3–19.1%, Casa 19.1–30.8%, services 30.8–41.6%, team 41.6–54.8%, work 54.8–63.5%, products 63.5–76%, instrument 76–81.3%, booking 81.3–87.4%, location 87.4–96%, footer 96–100%. Desktop geometry follows ratios; phone layout preserves content and isolated media.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 
-OWN-WORLD: Marfim #f1eae0, carvão #171615, tabaco #302620 e cobre #bd946e; Sora e Manrope. Vetores originais constroem esquadrias, lombada, estudo de tesoura e placa. Fotografias oficiais sem geração nem ampliação adicional.
+## Asset truth and constraints
 
-STORY: Conhecer o espaço, explorar serviços e profissionais, folhear trabalhos reais, consultar produtos e reputação, localizar a casa e agendar no AppBarber.
-
-FIRST VIEWPORT: Preservar a marca original acima do título central. Fachada à esquerda, salão maior no centro e detalhe/CTA à direita; no telefone, fotografias antes do convite. Uma matriz escura abre uma janela real sobre essa composição, sem cortinas ou contagem falsa.
-
-FORM: Direção fixada pelo briefing V17; não houve sorteio Impeccable nem aprovação de comp. Taste: uneven-photographs, seed 1139092228. Assinaturas funcionais: Álbum de Estilos (folhas ↔ parede com FLIP) e Painel de Profissionais (retrato, nome, índice e indicador coordenados). Movimentos canceláveis, rolagem nativa, conteúdo visível por padrão.
-
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+Original approved raster remains unchanged. User specifically authorizes extraction of razor and segmentation of all five original portraits. Isolated material/instrument fragments are presentation assets, never whole-page backgrounds. Real room, products, faces and facade must retain original identity; differences from the illustrative mockup are documented. No image-generated person or packaging. The existing booking is a local demo, not a real availability source.

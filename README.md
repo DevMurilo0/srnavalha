@@ -1,231 +1,63 @@
-# Sr. Navalha · The Perfect Cut
+# Sr. Navalha — The Cut
 
-## Atualização V7 — Revelação editorial sem deslocamento (29/10/2026)
+Website editorial da Sr. Navalha Barbearia, reconstruído a partir da arte aprovada
+em **[print/Site editorial da Sr. Navalha.png](print/Site%20editorial%20da%20Sr.%20Navalha.png)**.
 
-A antiga animação de **queda e quique** do hero foi substituída por uma revelação estável e discreta. Durante a passagem da tesoura pelo meio do corte, a assinatura, os títulos e os botões surgem suavemente em opacidade; as três fotografias são **descobertas progressivamente de cima para baixo** com `clip-path` e `opacity`. Nenhuma foto, cartão ou texto recebe `transform` nessa animação: os enquadramentos, as inclinações e as posições finais ficam idênticos desde o primeiro frame. A transferência FLIP da logo permanece independente. Os dois cilindros pretos e brancos conservam a rotação.
+## Rodar localmente
 
-Os elementos começam ocultos desde o `head` (`sr-hero-queued`) e o preenchimento dos efeitos Web Animations API é mantido até que todos estejam visíveis. Interrupções, redução de movimento e erros liberam o estado normal do hero. O novo teste de navegador mede caixas das fotografias durante a animação e depois do término; não deve haver nenhum deslocamento.
+Abra este repositório no VS Code e inicie o **Live Server** em `index.html`.
+Não precisa instalar dependências para navegar pelo site. Para servir manualmente:
 
-
-## V6.1 — Sem flash antes da queda do hero (29/10/2026)
-
-A intro foi corrigida para não renderizar imagens, título e CTA em seu estado definitivo antes de as animações começarem. O `head` arma `sr-hero-queued` junto com `sr-loader-boot` antes de o CSS pintar a primeira tela; o CSS posiciona os elementos de chegada com opacidade zero. `initHeroExperience()` inicia cada queda após `openingend`, preservando os dois rebotes. O preenchimento WAAPI `fill:'both',persist:true` retém cada elemento visível em seu frame final até o último pousar. Então todos os efeitos são cancelados em conjunto, no mesmo ciclo de pintura em que a classe de fila é retirada — **sem reaparecimento inicial e sem segundo flash ao concluir**.
-
-O SVG oficial não participa dessa ocultação: sua transferência FLIP permanece intacta, e apenas a pequena inscrição lateral recebe queda separada. Falhas, interrupções, navegação, movimento reduzido e falta de JavaScript liberam a fila por segurança. Os novos testes em `scripts/test-experience-v6.mjs` verificam opacidade antes da queda, no primeiro frame e após o último rebote; os de `scripts/test-reflexo-static.mjs` verificam a estrutura.
-
-
-## Estado atual — Creative Motion & Experience V6 (27/10/2026)
-
-A branch `reconstruction/arte-do-ritual` contém a **V6 integrada**. A ordem atual é **carregamento → tesoura e abertura gradual → saída completa do loader → evento `openingend` (`detail.completed === true`) → queda com dois rebotes decrescentes dos elementos do hero**. O hero utiliza `initHeroExperience()`, que é independente da timeline de `opening.js`; a marca oficial termina seu FLIP antes da queda. Dois barber poles minimalistas pretos e brancos giram em sentidos opostos sem recomeçar a rotação ao pousar.
-
-A V6 inclui animações editoriais de seções, filtros, galeria, produtos, localização e rodapé. O agendamento continua sendo **uma demonstração local** e mantém seu wizard de quatro etapas. Os registros e screenshots históricos de testes estão em `docs/experience-v6`, `docs/perfect-cut-v4` e `docs/booking-v5`; são evidência do momento em que foram gerados, não garantem resultados de builds posteriores.
-
-**Correções de estabilidade posteriores:** `opening.js` recupera erros durante callbacks temporizados e usa fallback quando a estrutura SVG do FLIP está ausente; o overlay de carregamento captura o gesto inteiro (`pointerdown → pointerup → click`) sem repassar o clique aos CTAs atrás dele; o watchdog no `head` atua quando o módulo não chega a iniciar, mas não interrompe uma animação ativa em rede lenta; `app.js` comunica falhas do carregamento como `completed:false`. O teste automático é `.github/workflows/v6-regression.yml`, que valida JavaScript, HTML gerado, Perfect Cut, V6, agendamento e resiliência em Chromium. **A aprovação só vale quando o job da revisão atual estiver verde.**
-
-
-## Validação final da V6
-
-A matriz específica da experiência cobre 320, 360, 390, 430, 768, 1024 e 1440 px. A suíte geral verifica navegação e capítulos em dez larguras, com o mapa externo isolado para evitar dependência de rede; a presença do iframe e do link de rota continua sendo verificada. Os artefatos do CI incluem os JSON de navegação, acessibilidade e resiliência.
-
-Para reproduzir, sirva o projeto em `http://127.0.0.1:8047/`, instale as dependências de validação fora do site como descrito no workflow e execute as suítes **em sequência**: `test-experience-v6.mjs`, `test-perfect-cut-v4.mjs`, `test-reflexo.mjs`, `test-reflexo-resilience.mjs`, `test-booking-wizard.mjs` e `test-booking-wizard-state.mjs`. `CHROME_PATH` e `PLAYWRIGHT_PACKAGE` permitem usar outro Chromium e outra pasta de ferramentas. Não são dependências de produção.
-
-## Histórico V3 — queda durante o corte (substituída pela V6)
-
-A revelação do hero agora tem uma entrada **física e divertida**: cada elemento cai de um ponto acima de sua posição final, toca o lugar de repouso, comprime-se discretamente no impacto, dá um primeiro rebote e um segundo menor, e se estabiliza. A sequência é gradual do topo para a base — cilindro/assinatura → título → introdução → fachada, salão e detalhe → texto e botões — já **durante** a abertura da tela carregada. As 11 faixas temporais pertencem ao mesmo `document.timeline` que a tesoura, sem timers paralelos ou scripts de scroll.
-
-Foi preservada a geometria final: a transformação original calculada (`getComputedStyle(node).transform`) acompanha cada etapa, mantendo os ângulos das fotos e a escala do cilindro. Apenas `transform` e `opacity` são animados, com dois impactos progressivamente menores. No mobile, a distância de queda e as durações são reduzidas. O handoff FLIP da logo oficial não é substituído por um salto, e o loader continua reaparecendo a cada F5. A classe da introdução é encerrada depois do último repouso, sem cortar a animação no meio. Acessibilidade, movimento reduzido e cancelamento por interação permanecem como antes.
-
-Código: `js/ritual/hero-sign.js`, acionado por `js/ritual/opening.js`. Regressões estruturais: `scripts/test-reflexo-static.mjs`. Teste real de fluidez e composição no navegador ainda é necessário.
-
-
-## Correção de carregamento e cilindro minimalista · 27/10/2026
-
-O carregamento The Perfect Cut deixou de animar após a edição do hero porque `js/ritual/opening.js` possuía `import { $, $, ... }`, que produz **SyntaxError** e impede o entry point `app.js` de executar. Corrigido para importar `$` e `$$` separadamente e preservar a progressão completa: anel/assinatura/progresso → tesoura exclusiva do corte → duas metades da tela → hero sincronizado. Também corrigido o listener do menu que tentava chamar `.forEach` sobre um único elemento retornado por `$`, agora usando `$$` para todos os links.
-
-O cilindro do hero continua **preto puro / branco puro**, porém menor e mais limpo: acabamento metálico simplificado, projeção de sombra quase imperceptível, sem halo externo, sem brilho pulsante e sem reflexo artificial atravessando as fotografias. A rotação fluida do rotor e a animação de entrada dos elementos do hero durante o corte permanecem.
-
-O teste estático `scripts/test-reflexo-static.mjs` agora verifica as duas importações e o seletor correto do menu, além das cores e ausência de halo. Fazer teste visual no navegador real para confirmar suavidade; verificações de fonte não são equivalentes a medições de FPS.
-
-
-## Hero: preto absoluto e revelação sincronizada de cima para baixo · 27/10/2026
-
-O cilindro do hero agora tem listras em **preto puro (`#000`) e branco puro (`#fff`)**, metal cromado neutro, sombreamento mínimo e apenas uma discreta iluminação branca estática no vidro. O grande halo pulsante e o reflexo luminoso que atravessava as fotografias foram completamente removidos.
-
-A entrada do hero deixou de acontecer DEPOIS da abertura: `js/ritual/hero-sign.js` oferece `scheduleHeroEntrance(play,{tCut,CUT,mobile})`, invocado por `opening.js` com o **mesmo relógio de animação (`document.timeline`)** que move a tesoura e separa os painéis. A sequência entra **de cima para baixo**, ainda DURANTE o corte: cilindro / assinatura superior → título e subtítulo → fachada e foto principal → foto detalhe / informações → CTA e parte inferior. Cada bloco desce suavemente de um pequeno deslocamento negativo até sua posição original, com opacidade progressiva. Ângulos originais das fotos são preservados usando a matriz de transformação calculada. Não há animação do hero após `openingend`, nem alteração do layout final.
-
-A classe `sr-cut-reveal` apenas expõe a camada do hero atrás dos painéis; a coreografia é comandada por Web Animations API antes da exposição, com preenchimento inicial, cleanup e acessibilidade preservados. Em celulares o deslocamento e a duração são menores; `prefers-reduced-motion` desativa a sequência. Testes de regressão em `scripts/test-reflexo-static.mjs` e verificações no Chromium em `scripts/test-reflexo.mjs` (quando disponível).
-
-### Histórico: barber pole noir com néon e reflexo fotográfico · 27/10/2026 (substituído)
-
-O cilindro físico do hero foi refinado conforme a referência: **listras exclusivamente em preto, branco e grafite**, com tampas cromadas e borda de vidro refletiva. A luz de néon branco é simulada por brilho estático nas bordas e um halo muito discreto cuja **opacidade** varia suavemente; a rotação interna conserva seu período contínuo de 52,962px sem salto. Vermelho e azul foram removidos somente desse objeto, sem alterar a paleta marfim/cobre do restante do site.
-
-Além do movimento contínuo do cilindro, a chegada ao hero agora traz um único **reflexo luminoso editorial** sobre as três fotografias, em tempos desencontrados, acionado por `openingend` ao terminar o Perfect Cut. Não desloca nem esconde o título, a marca ou as fotografias reais e é desativado em `prefers-reduced-motion`. Os efeitos pausam com a aba oculta. CSS e JS em `css/ritual/hero-sign.css` e `js/ritual/hero-sign.js`; alt atualizado em `templates/v17/inicio.html`.
-
-## Hero: barber pole físico e microinterações · 26/10/2026
-
-A antiga placa retangular do canto superior direito do hero foi removida. Agora há **somente um barber pole cilíndrico**, com corpo de vidro, faixas clássicas vermelha/branca/azul, iluminação nas bordas e tampas metálicas na paleta cobre/madeira. O movimento da faixa foi ajustado para percorrer exatamente o passo de repetição do gradiente (52,962px), reduzindo saltos perceptíveis na volta do loop. A entrada do objeto usa `js/ritual/hero-sign.js` com animação independente; a rotação é interrompida em abas inativas ou sob `prefers-reduced-motion`. O objeto não é link nem botão.
-
-No CTA fixo **FAZER AGENDAMENTO**, o antigo traço foi substituído por um SVG de calendário com confirmação. O destino continua `agendar.html`, sem alterações na lógica de agendamento. O menu mobile continua com `<details>` nativo e acrescenta hover do ícone, interpolação das linhas para X e painel com entrada **e saída** suaves; respeita Escape, clique externo, links, foco, resize e movimento reduzido. `js/ritual/app.js` sincroniza o atributo `open` com o fim da animação de fechamento.
-
-Fontes: `templates/v17/inicio.html`, `css/ritual/hero-sign.css`, `js/ritual/hero-sign.js`, `templates/v17/footer.html`, `css/ritual/barber-sign-and-booking-v5.css`, `css/ritual/header.css`, `js/ritual/app.js`. O HTML final é gerado dos templates por `scripts/render-site.mjs`. Conferir sempre no navegador real antes de afirmar testes visuais.
-
-
-Site estático da Barbearia Sr. Navalha, no Prado, Gravatá–PE. Fotografias, marca, serviços, equipe, produtos, avaliações e destinos comerciais reais preservados.
-
-## Abrir
-
-Use **Open with Live Server** em `index.html`. Não precisa instalar dependências, rodar `npm run dev` ou gerar o site. Os módulos JavaScript precisam de HTTP; `file://` não substitui Live Server.
-
-Alternativas opcionais:
-
-```sh
+```bash
 python3 -m http.server 8047
+# http://127.0.0.1:8047/
 ```
 
-ou:
+Para regerar o HTML a partir dos templates e dados existentes:
 
-```sh
-PORT=8047 node scripts/serve.mjs
+```bash
+node scripts/render-site.mjs
 ```
 
-Abra `http://127.0.0.1:8047/`. O pacote `entrega/sr-navalha-v17-live-server.zip` contém uma pasta pronta para extrair. O pacote anterior permanece preservado.
+**Fonte visual canônica:** `templates/the-cut/*.html` + `css/the-cut.css`.
+**Interações:** `js/the-cut/app.js`.
+**Conteúdo real:** `js/data/services.js`, `products.js`, `professionals.js` e `reviews.js`.
 
-### Refinamento: logo transparente e passagem ao hero
+Os recursos do conceito foram preservados nos arquivos `assets/images/the-cut`,
+incluindo a navalha do mockup, a textura, os produtos e **cinco retratos com canal alfa**.
+Os arquivos de proveniência explicam a segmentação das fotos de profissionais e
+as limitações da resolução do mockup.
 
-A WebP oficial de `assets/images/v8/logo-640.webp` contém um fundo escuro incorporado. O loader usa essa mesma arte dentro de um SVG com `feColorMatrix`: os pixels escuros se tornam alfa zero, enquanto o lettering claro é renderizado em tinta carvão. O círculo por trás da marca passou a ser totalmente transparente; a imagem original em disco **não foi modificada** nem recriada por inteligência artificial. Fallback "SN" aparece se a marca não carregar.
+## Conteúdo, funcionamento e limites
 
-[Histórico da versão V2, substituída pelo The Perfect Cut] A revelação radial e o anel exterior partiam da mesma curva de movimento. O selo e o anel se dissolvem enquanto a máscara abre o hero; os elementos do hero entram com stagger discreto. A classe que controla a transição só é retirada **depois** da maior entrada do hero, evitando o salto final visto na versão anterior. Mantidos F5/reload, redução de movimento, skip, fallback e animações do scroll otimizadas.
+- **42 serviços**, incluindo Corte (R$ 30), Barba simples (R$ 20) e Corte + barba simples (R$ 50), com catálogo completo expansível e buscável.
+- **5 profissionais** (Damião, Eduardo, Kauã, Rafael e Yan), mostrados com imagens transparentes e troca interativa.
+- **18 produtos com fotografias**, com consulta de disponibilidade pelo WhatsApp e filtro por nome/categoria.
+- **Galeria fotográfica** com visualizador acessível, navegação e Escape.
+- **Agendamento próprio em `agendar.html`**: somente demonstração local, horários ilustrativos; **não reserva horários reais**. O atendimento deve confirmar pelo WhatsApp.
+- Localização e redes sociais vinculadas ao estabelecimento real.
+- Sem servidor de aplicação, checkout ou pagamento.
 
-### Correções após análise do vídeo (V3.1)
+## Verificação
 
-A gravação mobile de 26/10/2026 revelou aberturas em retângulos descontínuos, deslocamentos bruscos nas fotografias e um handoff de marca impreciso. A transição foi reestruturada com dois painéis de altura completa que se afastam depois do corte da lâmina. Uma única costura com `scaleY` compartilha a mesma curva de deslocamento do eixo da tesoura. O zoom global do hero foi removido, evitando mudanças aparentes no tamanho das fotos e da tipografia. A transferência da logo passa a usar escala uniforme, centro compensado pelo tamanho final e dissolução cruzada, sem duas logos opacas juntas.
+GitHub Actions: [workflow The Cut](.github/workflows/v6-regression.yml).
+Após cada push na branch de desenvolvimento:
 
-A barra e a tesoura da contagem agora começam junto com o contador: a classe `snv2-run` só é ativada pelo módulo JavaScript, e a porcentagem usa a mesma curva `cubic-bezier(.65,0,.35,1)` do CSS. Resize causado apenas pela altura da barra do navegador móvel não encerra a abertura; rotação real continua encerrando com segurança. Continua sendo necessário validar a execução completa no navegador mobile e desktop para atestar a sensação visual e o FPS.
+1. `node --check` e `node scripts/render-site.mjs`.
+2. `git diff --exit-code -- index.html` para garantir fonte e HTML sincronizados.
+3. Teste local do armazenamento de agendamentos.
+4. Capturas reais de Chromium em 320, 390, 768, 900, 1366 e 1440 px; fotos são carregadas ao passar pelas seções.
+5. Troca de profissionais, catálogos, galeria, Axe e movimento reduzido.
+6. Testes do agendamento em etapas.
+7. Artefatos ZIP e screenshots anexados ao workflow.
 
-## The Perfect Cut · 26/10/2026
+Os scripts de animação das versões V6–V31 e os templates anteriores
+permanecem no histórico do repositório, mas não são carregados pelo `index.html` atual.
 
-A abertura segue o protótipo **`Sr. Navalha · The Perfect Cut.html` enviado pelo proprietário**, integrado ao site verdadeiro. A sequência inicial V2 (anel, logo recortada com transparência, marca letra a letra, postes laterais e progresso com tesoura) permanece igual. Ao atingir 100%, a tesoura deixa a régua, antecipa o corte, encontra o eixo central, gira para apontar para baixo e corta verticalmente. A superfície opaca é dividida em faixas esquerda/direita que se afastam logo depois que a lâmina passa, revelando o hero por trás.
+## Operação
 
-A logo oficial do loader é transferida para o `svg.hero-logo-transparent` com uma única medição FLIP e animações somente de `transform`/`opacity`; o SVG do hero é restaurado sem piscar. **Refinamento V3.1 após análise de vídeo em celular (26/10):** o mecanismo anterior de 7 faixas por lado no mobile e 12 por lado no desktop gerava recortes retangulares visíveis, saltos e elementos parcialmente descobertos. Foi substituído por **duas metades de altura completa**, com abertura coordenada SOMENTE após a ponta da tesoura percorrer toda a linha vertical. A cicatriz do corte usa `scaleY` com o mesmo intervalo linear do movimento da ponta, sem ler geometria por frame. O hero não recebe zoom global. Dessa forma o navegador anima menos camadas e as fotografias entram em um movimento contínuo. Essas alterações não provocam scroll artificial, mudança de layout global ou novas requisições de imagem. A passagem é coordenada em `js/ritual/opening.js`, com estilos isolados em `css/ritual/perfect-cut-v3.css`.
+Todas as alterações de desenvolvimento ficam na branch
+`reconstruction/arte-do-ritual`. A `main` não recebe alterações automaticamente.
+Um status de sucesso do Vercel para uma *Preview* não significa publicação em produção.
 
-A antiga íris radial deixou de ser a saída ativa; o CSS do loader V2 continua fornecendo os elementos da abertura inicial e o CSS Perfect Cut substitui somente o efeito final. O hero verdadeiro, a paleta quente, os oito capítulos editoriais, agendamento frontend local e as otimizações do scroll não foram redesenhados. O F5 repete a introdução; reduzido movimento, links profundos, interação, resize e falhas liberam o hero. A abertura conta com watchdog e limpeza de WAAPI, temporários, timers e foco.
-
-Regressão estrutural: `node scripts/test-reflexo-static.mjs`. Teste real opcional com Playwright instalado fora do projeto: `scripts/test-reflexo.mjs`. Os screenshots e traces da implementação anterior são históricos, não medições da versão atual.
-
-## Loader v2 · referência fornecida (26/10/2026)
-
-A entrada da homepage agora reproduz a **sequência visual do protótipo `Sr. Navalha · Loader v2.html` enviado pelo proprietário**: postes listrados nas laterais, círculo de cobre desenhado, ponteiros/ticks do emblema, marca oficial com fallback SN, letras de SR. NAVALHA em cascata, brilho sobre a marca, régua de progresso com tesoura e porcentagem, e por fim uma **abertura radial (iris)** acompanhada por um anel expansivo, revelando o **hero real** com entrada leve de seus elementos. O HTML fictício e a fotografia-placeholder do protótipo NÃO substituem a homepage.
-
-A paleta original da homepage permanece inalterada. O loader usa cores marfim, grafite e bronze somente em `css/ritual/loader-v2.css`, importado por último. A foto da fachada, os títulos, as sessões e os oito capítulos restaurados continuam no mesmo lugar. Não há novas dependências, fontes externas obrigatórias, Supabase ou alteração do agendamento local.
-
-O contador 0–100% e a régua são **progresso visual da animação**, não medição de bytes baixados: a experiência não deve ser confundida com download efetivo. O conteúdo permanece acessível após timeout, mesmo se a logo ou o JavaScript falharem. O progresso e a tesoura usam transformações CSS em vez de escritas de `width` por frame. O recorte radial usa `@property` + `mask-image` apenas durante a saída, com fade/removal como fallback. O efeito respeita movimento reduzido, pode ser pulado, não bloqueia a rolagem e aparece novamente em cada F5/reload da página inicial (links diretos para seções são respeitados sem intro).
-
-Fontes canônicas: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/loader-v2.css`. O `index.html` foi remontado dos templates para preservar o build. Verificação: `node scripts/test-reflexo-static.mjs`; teste real com navegador quando disponível: `scripts/test-reflexo.mjs`.
-
-## Identidade restaurada e novo prólogo · 26/10/2026
-
-[Histórico anterior, substituído pelo Loader v2] A versão Reflexo modificou indevidamente a paleta global, eliminou texturas de fundo e substituiu os oito separadores originais por passagens genéricas. **Essas alterações visuais foram desfeitas seletivamente**, recuperando as cores originais de `css/ritual/tokens.css`, a atmosfera de `css/ritual/atmosphere-v18.css`, as superfícies de `css/ritual/scene-craft-v19.css` e os capítulos detalhados de `css/ritual/first-cut-v23.css`. Foram mantidas as otimizações de `js/ritual/motion.js`, `js/ritual/scene-cuts.js`, `js/ritual/core.js`, controles e demais ajustes de responsividade, scroll e interrupção das animações.
-
-**Negativo 349** é a nova abertura. O logo e a fotografia oficial do salão começam em uma composição escura, recebem uma explosão geométrica de traços de cobre e se deslocam até suas posições correspondentes no hero. Somente a abertura usa direção visual própria; as cores e fundos da página NÃO são alterados. Os movimentos utilizam `transform` e `opacity`, sem mudar o DOM do hero ou bloquear a rolagem.
-
-A abertura aparece em **toda atualização (F5, Ctrl+F5, recarregamento completo)**. Não usa `sessionStorage` nem cookies para esconder o efeito. Âncoras profundas, preferência por movimento reduzido e histórico de retorno entram diretamente; interação interrompe imediatamente; watchdog libera a interface em caso de erro. O modo local de agendamento permanece sem backend.
-
-Arquivos: `templates/v17/loader.html`, `templates/v17/head.html`, `js/ritual/opening.js`, `css/ritual/negative-349-v24.css` e HTML reconstruído de `templates/v17/`. Para teste estrutural, execute `node scripts/test-reflexo-static.mjs` (atualizado para os contratos V24).
-
-**Testes visuais recomendados antes do lançamento:** atualizar várias vezes no desktop e mobile, testar com cache frio, pular, rolar durante a intro, movimento reduzido, orientação landscape, largura de 320px, e verificar se fotografias/títulos entram sem flash ou salto. A validação de fluidez precisa ser confirmada em navegador real.
-
-## Reconstrução de motion · 26/10/2026
-
-Histórico da otimização Reflexo: rolagem nativa sem cálculos de geometria por frame, entradas com concorrência limitada e correções funcionais preservadas. A antiga abertura e as passagens simplificadas não são mais ativas.
-
-[Relatório, referências e comparação medida](docs/reflexo/RELATORIO.md). A fonte continua em `templates/v17/`; `node scripts/render-site.mjs` produz o mesmo `index.html`.
-
-Verificações atuais:
-
-```sh
-node scripts/test-reflexo-static.mjs
-node --experimental-default-type=module scripts/test-booking-local.mjs
-PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/test-reflexo.mjs
-PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/test-reflexo-resilience.mjs
-PLAYWRIGHT_PACKAGE=/tmp/srnavalha-validation/package.json node scripts/profile-ritual.mjs after
-```
-
-`CHROME_PATH` e `PLAYWRIGHT_PACKAGE` permitem outros executáveis/instalações. Os testes Chromium usam `playwright-core` e `@axe-core/playwright` como ferramentas externas, sem alterar a entrega Live Server. Firefox: servidor BiDi com perfil isolado e `FIREFOX_PORT=9241 node scripts/test-reflexo-firefox.mjs`.
-
-## Histórico V17
-
-
-
-Abertura com placa gravada e máscara sobre o hero; tipografia por palavras e variantes por seção; oito vetores originais; Painel de Profissionais coordenando retrato, nome e régua; Álbum de Estilos que reorganiza as seis fotos entre folhas e parede com FLIP. Espelho e produtos mantêm a fotografia anterior durante a troca. Rolagem nativa, estados interrompíveis e pausa dos efeitos fora de vista.
-
-O agendamento está em uma versão frontend de demonstração com horários fictícios e salvamento local no navegador. Nenhuma reserva é enviada à barbearia. Produtos continuam consultando disponibilidade pelo WhatsApp.
-
-## Movimento autoral · V23 — O Primeiro Traço (24/10/2026)
-
-A abertura V22 anterior foi **substituída integralmente** por um prólogo novo, inspirado no gesto preciso de uma navalha: a marca oficial surge no ateliê escuro; um traço de cobre se desenha; duas superfícies se afastam lateralmente e revelam a homepage. Não há porcentagem de carregamento falsa nem dependências de animação.
-
-**Oito transições de capítulo** também foram recriadas, com layouts editoriais novos e diferentes entre A Casa, Serviços, Equipe, Trabalhos, Produtos, Avaliações, Localização e Rodapé. Cada passagem usa formas, tipografia e emblemas SVG autorais. O gatilho `IntersectionObserver` faz as passagens aparecerem antes de entrarem na área visível, sem recalcular parallax em cada evento de scroll.
-
-As animações de títulos, molduras e textos foram atenuadas para reduzir saltos e movimentos de perspectiva. A implementação prefere `transform`, `opacity` e `translate` nas superfícies móveis. Não usa GSAP, WebGL, canvas ou bibliotecas externas. A navegação continua nativa e o sistema de agendamento local permanece intocado.
-
-Arquivos principais: `templates/v17/loader.html`, `templates/v17/{inicio,casa,servicos,equipe,trabalhos,produtos,avaliacoes,localizacao}.html`, `index.html`, `js/ritual/opening.js`, `js/ritual/scene-cuts.js`, `js/ritual/motion.js` e `css/ritual/first-cut-v23.css`. `css/ritual.css` removeu os imports dos estilos antigos da cortina e dos interlúdios, mas preserva o restante do design.
-
-A intro admite pular pelo botão, pelas teclas ou pela rolagem; não atrapalha âncoras e desativa movimento com `prefers-reduced-motion`. Fallback automático se a animação não finalizar. Os capítulos nunca dependem do efeito para mostrar informação vital: são decorativos e `aria-hidden`.
-
-**QA final a executar no navegador:** F5 / Ctrl+Shift+R, abertura com conexão lenta, botão pular, rolagem enquanto abre, voltar do histórico, deep link `#servicos`, telas 320/375/390/768/1024/1440 px e preferência por movimento reduzido. Validação estática de sintaxe, HTML e preservação dos links já realizada. Os testes visuais em navegador real precisam ser confirmados antes de publicar na `main`.
-
-**Referências (inspiração, não cópia):** Codrops “R—K ’26: The Thinking and Code Behind a Portfolio Led by Presence” (2026), guia de animações de alta performance do web.dev e padrões de respeitar movimento reduzido da MDN.
-
-## Histórico: abertura anterior V22 (substituída)
-
-A animação inicial foi simplificada a partir de referências de transições editoriais (Codrops) e das recomendações de performance do web.dev. Mantém a marca real no centro e revela a homepage com **uma cortina que sobe por `transform`**, seguida por uma entrada discreta do hero (`opacity` + `transform`), em vez de animar várias máscaras `clip-path` e fotografias simultaneamente.
-
-Arquivos ativos: `js/ritual/opening.js`, `css/ritual/loader-harmony-v22.css`, `css/ritual.css`, `templates/v17/head.html`, `templates/v17/loader.html` e `index.html`. O CSS V22 vem por último na cascata e substitui apenas o comportamento da abertura, preservando os demais capítulos e recursos do site.
-
-A abertura reinicia após F5, aceita interrupção por interação, é omitida para âncoras internas e com `prefers-reduced-motion: reduce`, e tem salvaguarda para liberar conteúdo se o JavaScript falhar. O `js/ritual/app.js` inicializa primeiro somente a coreografia e os elementos visuais necessários; catálogo, equipe, álbum, galeria, produtos e mapa entram após o término da cortina para reduzir trabalho inicial na thread principal. Verificação manual recomendada em 320, 375, 390, 768, 1024, 1366 e 1440 px; testar F5, Ctrl+Shift+R, retorno pelo navegador, scroll durante a abertura e redução de movimento.
-
-## Agendamento próprio — protótipo frontend local (23/10/2026)
-
-O cliente pode testar o fluxo em `agendar.html`: selecionar serviço (42 itens do catálogo), profissional (cinco nomes reais), dia, horário ilustrativo e preencher dados de exemplo. A simulação gera um código e pode ser visualizada ou excluída na lista de registros do mesmo navegador.
-
-**Tudo funciona sem Supabase, sem backend e sem dependências externas de agendamento.** Os dados são mantidos em `localStorage`, com chave `srnavalha:agendamentos-demo:v1`, apenas para experimentar a interface. Os horários configurados são **fictícios** (segunda a sábado, 9h–12h e 14h–19h) e não indicam vagas reais. **Não há confirmação, envio ou recebimento pela barbearia.**
-
-Arquivos: `agendar.html`, `css/agendar.css`, `js/agendar.js`, `js/booking-local.js`. Instruções de teste e limites: `docs/AGENDAMENTO_PROPRIO.md`. O painel admin ficará para outra fase.
-
-## Editar
-
-- `templates/v17/`: fonte canônica dos parciais HTML. `node scripts/render-site.mjs` monta opcionalmente o `index.html`, já entregue pronto.
-- `css/ritual/`: tokens, base, cabeçalho, hero, seções, rodapé, ornamentos, painel de equipe, álbum e motion; entrada única `css/ritual.css`.
-- `js/ritual/`: núcleo WAAPI, abertura, orquestração de cenas e interações de cada componente.
-- `js/data/`: conteúdo comercial e origens. Alterações de conteúdo devem ser refletidas também nos parciais estáticos correspondentes.
-- `assets/decor/v17/`: vetores originais; `assets/fonts/`: Sora e Manrope locais com licenças; `assets/originals/`: originais preservados.
-- `scripts/history/` e `templates/ritual/`: ferramentas/fontes históricas, sem participação no runtime ativo.
-
-## Acessibilidade e fallback
-
-Menu e expansão do catálogo usam elementos nativos. Sem JavaScript, fotografias e produtos mantêm links reais. O script acrescenta filtros, seleções, lightbox e coreografia. Movimento reduzido elimina a abertura e mantém os componentes funcionais com troca direta. A esteira possui pausa por botão, foco e hover; vídeo e movimentos decorativos pausam fora de vista e com aba oculta.
-
-## Documentação e testes
-
-[Direção e motion V17](docs/DIRECAO_MOTION_V17.md), [relatório executado](docs/v17/TESTES.md), [antes/depois](capturas/v17/comparacao.html), [sistema visual](DESIGN.md) e [produto](PRODUCT.md).
-
-Chromium: 46/46 verificações. Firefox: 24/24. Larguras 320, 375, 390, 768, 1024, 1366 e 1440 px. Capturas e dados intermediários em `capturas/v17/motion/` e `docs/v17/motion-evidence.json`. Limitações e alertas das ferramentas constam no relatório, sem equivaler testes automáticos a certificação.
-
-Ferramentas de desenvolvimento opcionais: Node22+, Playwright Core e Axe. `PLAYWRIGHT_PACKAGE` aponta para um `package.json` onde Playwright Core está instalado; `CHROME_PATH` aponta para o executável Chromium; `AXE_PATH` aponta para `axe.min.js`. Os caminhos padrão dos scripts refletem o ambiente usado nesta entrega.
-
-```sh
-node scripts/test-v17.mjs
-node scripts/capture-motion-v17.mjs
-```
-
-Firefox usa `scripts/lib/firefox-bidi.mjs`, com Firefox headless em `--remote-debugging-port 9237` e perfil isolado; `FIREFOX_PORT` permite outro porto.
-
-```sh
-node scripts/test-v17-firefox.mjs
-```
-
-## Conteúdo
-
-A integridade foi comparada ao commit `554e5e2`: 42 serviços, planos, 22 produtos, cinco profissionais, quatro depoimentos, mapa, agendamento e 35 imagens do conteúdo principal. Os preços e números de avaliações continuam snapshots datados dos documentos de origem, não disponibilidade em tempo real. Inventário e fontes comerciais: `docs/ritual/IMAGENS.md`, `inventario-imagens.json` e documentos de coleta nessa pasta.
-
-Desenvolvido por [Murilo Gabriel](https://murilogabriel.com.br).
+**Crédito:** [Murilo Gabriel](https://murilogabriel.com.br).
