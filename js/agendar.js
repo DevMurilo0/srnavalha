@@ -7,6 +7,19 @@ const state = { service: null, professional: null, slot: null, filter: 'Destaque
 const featured = ['cortee', 'barba-simples', 'comb-cort-barb-simples'];
 const qs = new URLSearchParams(location.search);
 const tz = 'America/Recife';
+let sharedMode=false;
+const connectionReady=fetch('/api/health',{cache:'no-store'}).then(async r=>{
+ if(!r.ok)return false;
+ const data=await r.json();
+ sharedMode=data.enabled===true;
+ if(sharedMode){
+  const consent=$('.bk-consent span');
+  if(consent)consent.textContent='Autorizo o uso do meu nome e WhatsApp para contato da equipe Sr. Navalha sobre este agendamento.';
+  const note=$('.bk-form-local-note');
+  if(note)note.textContent='Seus dados serão usados somente para organizar este atendimento e enviar a mensagem de confirmação da barbearia.';
+ }
+ return sharedMode;
+}).catch(()=>false);
 let requestInFlight = false;
 let stepAnimation;
 const steps = [...document.querySelectorAll('.bk-step')];
@@ -328,7 +341,7 @@ function validateFields() {
   if (!$('#bk-consent').checked) return 'Confirme que entendeu que os dados serão salvos apenas neste navegador.';
   return '';
 }
-function submitBooking(event) {
+async function submitBooking(event) {
   event.preventDefault();
   if (requestInFlight || state.step !== 3) return;
   const problem = validateFields();
@@ -344,21 +357,28 @@ function submitBooking(event) {
   requestInFlight = true;
   updateSummary();
   try {
-    const entry = saveDemoBooking({
-      serviceId: state.service.id,
-      professionalId: state.slot.professional_id,
-      slotAt: state.slot.slot_at,
-      name: $('#bk-name').value.trim(),
-      phone: normalizedPhone($('#bk-phone').value)
-    });
+    await connectionReady;
+    const input={
+      serviceId:state.service.id,professionalId:state.slot.professional_id,
+      slotAt:state.slot.slot_at,name:$('#bk-name').value.trim(),phone:normalizedPhone($('#bk-phone').value)
+    };
+    let entry;
+    if(sharedMode){
+      const result=await fetch('/api/bookings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input),credentials:'same-origin'});
+      const data=await result.json();
+      if(!result.ok)throw Object.assign(new Error(data.error||'Falha ao registrar'),{code:result.status===409?'SLOT_TAKEN':'SHARED_ERROR'});
+      entry=data.item;
+    }else entry=saveDemoBooking(input);
     $('#bk-confirm-ref').textContent = entry.reference;
     $('#bk-confirm-date').textContent = readableDate($('#bk-date').value);
     $('#bk-confirm-hour').textContent = formatHour(entry.starts_at);
     $('#bk-confirm-service').textContent = entry.service_name;
     $('#bk-confirm-prof').textContent = entry.professional_name;
-    $('#bk-confirm-name').textContent = entry.customer_name;
+    $('#bk-confirm-name').textContent = $('#bk-name').value.trim();
     $('#bk-confirm-phone').textContent = $('#bk-phone').value.trim();
-    $('#bk-confirm-state').textContent = 'Demonstração: solicitação registrada somente neste navegador. Nenhum WhatsApp automático foi enviado.';
+    $('#bk-confirm-state').textContent = sharedMode
+      ? 'Solicitação registrada na agenda da barbearia. O contato de confirmação será feito pela equipe, sem envio automático neste momento.'
+      : 'Demonstração local: nenhum horário real foi reservado e nenhuma mensagem foi enviada. A conexão da agenda compartilhada ainda não está ativa.';
     $('#escolhas').hidden = true;
     $('#bk-success').hidden = false;
     document.body.classList.add('bk-booked');
@@ -370,9 +390,10 @@ function submitBooking(event) {
       SLOT_TAKEN: 'Este horário já foi utilizado nos testes locais. Escolha outro.',
       STORAGE_BLOCKED: 'Não foi possível salvar neste navegador. Verifique o armazenamento local.',
       INVALID_SELECTION: 'Selecione novamente o serviço, profissional e horário.',
-      INVALID_CUSTOMER: 'Revise seu nome e número de WhatsApp.'
+      INVALID_CUSTOMER: 'Revise seu nome e número de WhatsApp.',
+      SHARED_ERROR: 'Não foi possível registrar na agenda compartilhada. Tente novamente.'
     };
-    const message = messages[error.code] || 'O teste não pôde ser salvo. Tente novamente.';
+    const message = messages[error.code] || error.message || 'Não foi possível concluir o agendamento.';
     showStatus(message, 'warning');
     $('#bk-form-error').textContent = message;
     if (error.code === 'SLOT_TAKEN') refreshSlots();
