@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1d2220">
+<meta name="description" content="Painel de gestão de horários da Sr. Navalha — demonstração de interface.">
+<title>Gestão de horários · Sr. Navalha</title>
+<link rel="icon" href="assets/decor/favicon-v8.png">
+<link rel="stylesheet" href="css/admin.css">
+<script type="module" src="js/admin.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Ir para a agenda</a>
+<section id="login-screen" class="auth-layout">
+ <aside class="auth-art">
+  <div class="auth-brand"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="156" height="112"><span>BARBEARIA · GRAVATÁ / PE</span></div>
+  <div class="auth-message"><p>ÁREA DA EQUIPE</p><h1>A casa em<br><em>boas mãos.</em></h1><span>Serviço, cuidado e organização no mesmo lugar.</span></div>
+  <p class="auth-bottom">SR. NAVALHA — GESTÃO DE HORÁRIOS</p>
+ </aside>
+ <main class="auth-main">
+  <a class="auth-back" href="agendar.html">← Voltar ao agendamento</a>
+  <div class="login-card">
+   <p class="micro-label">ACESSO À AGENDA</p>
+   <h2>Bem-vindo de volta.</h2>
+   <p>Entre para acompanhar os agendamentos e organizar as confirmações dos clientes.</p>
+   <form id="admin-login" autocomplete="off" novalidate>
+    <label for="admin-email">E-mail</label><input id="admin-email" type="email" autocomplete="username" placeholder="seu@email.com" required>
+    <label for="admin-password">Senha</label>
+    <div class="password-wrap"><input id="admin-password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required><button type="button" id="show-password" aria-label="Mostrar senha">Mostrar</button></div>
+    <p id="admin-login-error" class="form-error" role="alert" aria-live="polite"></p>
+    <button class="primary-action" type="submit">Entrar na agenda <span aria-hidden="true">↗</span></button>
+   </form>
+   <details class="demo-credentials"><summary>Dados para apresentar o painel</summary><p>E-mail: <code>equipe@srnavalha.demo</code></p><p>Senha: <code>Navalha2026!</code></p><button id="fill-demo" type="button">Preencher acesso</button></details>
+  </div>
+  <p class="auth-foot">SR. NAVALHA · UMA EXPERIÊNCIA DE GESTÃO</p>
+ </main>
+</section>
+<section class="dashboard" id="dashboard" hidden>
+ <aside class="dash-sidebar">
+  <a class="dash-logo" href="index.html"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="150" height="101"></a>
+  <span class="side-caption">ESPAÇO DA EQUIPE</span>
+  <nav aria-label="Navegação administrativa"><a class="active" href="#main"><span aria-hidden="true">▦</span> Visão geral</a><a href="#agenda-list"><span aria-hidden="true">▤</span> Agendamentos</a><a href="agendar.html"><span aria-hidden="true">↗</span> Ver agendamento</a></nav>
+  <div class="side-bottom"><span>GRAVATÁ · PERNAMBUCO</span><button id="admin-logout" type="button">Sair do painel ↗</button></div>
+ </aside>
+ <main id="main" class="dash-content">
+  <header class="dash-top"><div class="dash-breadcrumb">GESTÃO <span>/</span> VISÃO GERAL</div><div class="dash-top-right"><span id="dash-clock"></span><span class="admin-avatar" aria-label="Equipe Sr. Navalha">SN</span></div></header>
+  <div class="dash-wrap">
+   <div class="dash-intro"><div><p class="micro-label">AGENDA DA BARBEARIA</p><h1>Seu dia, <em>organizado.</em></h1><p>Acompanhe os pedidos, prepare os contatos e registre as respostas dos clientes.</p></div><a class="new-booking" href="agendar.html">Novo agendamento <span aria-hidden="true">↗</span></a></div>
+   <div class="stats" aria-label="Resumo da agenda">
+    <div class="stat"><span>Total de pedidos</span><strong id="stat-total">0</strong><small>registrados no navegador</small></div>
+    <div class="stat"><span>Aguardando retorno</span><strong id="stat-pending">0</strong><small>precisam de confirmação</small></div>
+    <div class="stat"><span>Confirmados</span><strong id="stat-confirmed">0</strong><small>presenças registradas</small></div>
+    <div class="stat"><span>Cancelados</span><strong id="stat-cancelled">0</strong><small>horários liberados</small></div>
+   </div>
+   <section class="appointments" id="agenda-list" aria-labelledby="agenda-title">
+    <div class="section-heading"><div><p class="micro-label">CONTROLE DE HORÁRIOS</p><h2 id="agenda-title">Agendamentos</h2><p>Escolha um pedido para preparar o WhatsApp ou atualizar a resposta.</p></div><div class="refresh-actions"><button type="button" id="refresh-bookings">Atualizar ↻</button></div></div>
+    <div class="list-toolbar"><div class="filters" role="group" aria-label="Filtrar agendamentos"><button type="button" data-status="all" aria-pressed="true">Todos</button><button type="button" data-status="pending" aria-pressed="false">Aguardando</button><button type="button" data-status="confirmed" aria-pressed="false">Confirmados</button><button type="button" data-status="cancelled" aria-pressed="false">Cancelados</button></div><label class="search-box"><span class="sr-only">Buscar agendamento</span><input id="admin-search" type="search" placeholder="Buscar nome, serviço ou código"></label></div>
+    <p class="admin-feedback" id="admin-feedback" role="status" aria-live="polite"></p>
+    <div id="appointments-list" class="appointments-list" aria-live="polite"></div>
+    <div id="empty-list" class="empty-list" hidden><span aria-hidden="true">✳</span><h3>Nenhum horário por aqui.</h3><p>Os agendamentos realizados neste navegador aparecerão nesta agenda.</p><a href="agendar.html">Criar agendamento de demonstração ↗</a></div>
+   </section>
+   <section class="how-it-works"><div><span class="micro-label">CONFIRMAÇÃO PELO WHATSAPP</span><h2>Um contato mais<br><em>pessoal.</em></h2></div><div><p>Ao clicar em <strong>Preparar mensagem</strong>, o WhatsApp abre com o texto preenchido. Revise e envie ao cliente. A equipe pode registrar a resposta usando os controles da agenda.</p><p class="demo-note">Na demonstração, os registros ficam neste navegador e as mensagens não são disparadas automaticamente. Uma integração posterior permitirá sincronização entre celulares e respostas automáticas.</p></div></section>
+   <footer class="dash-footer"><span>SR. NAVALHA · GRAVATÁ / PE</span><span>Desenvolvido por <a href="https://murilogabriel.com.br" target="_blank" rel="noopener noreferrer">Murilo Gabriel</a></span></footer>
+  </div>
+ </main>
+</section>
+<dialog id="reply-dialog" class="reply-dialog" aria-labelledby="reply-title">
+ <button class="dialog-x" type="button" id="close-reply" aria-label="Fechar janela">×</button><p class="micro-label">SIMULAR RESPOSTA</p><h2 id="reply-title">Confirmação do cliente</h2>
+ <p>Teste a experiência dos links de resposta neste mesmo navegador. O status será atualizado na agenda local.</p>
+ <div class="reply-links"><a id="reply-yes" href="#">Abrir “Vou comparecer” ↗</a><a id="reply-no" href="#">Abrir “Não poderei ir” ↗</a></div>
+</dialog>
+</body>
+</html>
