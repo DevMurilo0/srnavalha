@@ -136,6 +136,7 @@ function renderServices() {
     (!query || fold(service.name + ' ' + service.category + ' ' + service.description).includes(query))
   ).sort((a,b)=> state.filter === 'Destaques' ? featured.indexOf(a.id)-featured.indexOf(b.id) : 0);
   const container = $('#bk-services');
+  container.classList.toggle('is-featured', state.filter === 'Destaques' && !query);
   const fragment = document.createDocumentFragment();
   selected.forEach(service => {
     const pressed = state.service?.id === service.id;
