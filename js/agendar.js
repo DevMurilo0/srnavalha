@@ -50,7 +50,7 @@ function showStep(index, {focus = true, motion = false} = {}) {
   });
   $('#bk-back').disabled = index === 0;
   $('#bk-next').hidden = index === 3;
-  $('#bk-next').textContent = index === 0 && state.service ? 'Continuar com ' + state.service.name + ' →' : 'Continuar →';
+  $('#bk-next').textContent = index === 2 ? 'Próximo: ver horários →' : index === 0 && state.service ? 'Continuar com ' + state.service.name + ' →' : 'Próximo →';
   $('#bk-submit').hidden = index !== 3;
   $('#bk-step-error').textContent = '';
   document.title = `${index+1} de 4 · ${['Serviço','Profissional','Data','Horário e dados'][index]} · Sr. Navalha`;
