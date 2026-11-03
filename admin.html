@@ -40,12 +40,18 @@
  <aside class="dash-sidebar">
   <a class="dash-logo" href="index.html"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="150" height="101"></a>
   <span class="side-caption">ESPAÇO DA EQUIPE</span>
-  <nav aria-label="Navegação administrativa"><a class="active" href="#main"><span aria-hidden="true">▦</span> Visão geral</a><a href="#agenda-list"><span aria-hidden="true">▤</span> Agendamentos</a><a href="agendar.html"><span aria-hidden="true">↗</span> Ver agendamento</a></nav>
+  <nav aria-label="Navegação administrativa">
+   <a class="active" href="#main" data-admin-nav="overview" aria-current="page"><span aria-hidden="true">▦</span> Visão geral</a>
+   <a href="#agenda-list" data-admin-nav="agenda"><span aria-hidden="true">▤</span> Agendamentos</a>
+   <a href="#confirmados" data-admin-nav="confirmed"><span aria-hidden="true">✓</span> Confirmados <span class="side-confirmed-count" id="side-confirmed-count">0</span></a>
+   <a href="agendar.html"><span aria-hidden="true">↗</span> Ver agendamento</a>
+  </nav>
   <div class="side-bottom"><span>GRAVATÁ · PERNAMBUCO</span><button id="admin-logout" type="button">Sair do painel ↗</button></div>
  </aside>
  <main id="main" class="dash-content">
-  <header class="dash-top"><div class="dash-breadcrumb"><span class="breadcrumb-mark" aria-hidden="true">✦</span> SR. NAVALHA <span>/</span> AGENDA</div><div class="dash-top-right"><span id="delivery-mode" class="delivery-mode">Verificando conexão</span><span id="dash-clock"></span><span class="admin-avatar" aria-label="Equipe Sr. Navalha">SN</span></div></header>
+  <header class="dash-top"><div class="dash-breadcrumb"><span class="breadcrumb-mark" aria-hidden="true">✦</span> SR. NAVALHA <span>/</span> <span id="current-view-label">AGENDA</span></div><div class="dash-top-right"><span id="delivery-mode" class="delivery-mode">Verificando conexão</span><span id="dash-clock"></span><span class="admin-avatar" aria-label="Equipe Sr. Navalha">SN</span></div></header>
   <div class="dash-wrap">
+   <section id="overview-view" class="dash-view" aria-label="Visão geral da agenda">
    <div class="dash-intro"><div><p class="micro-label">PAINEL DE ATENDIMENTO</p><h1>Sua agenda.<br><em>Sob controle.</em></h1><p>Visualize horários, acompanhe respostas e organize o dia com poucos cliques.</p><p class="dash-date" id="dash-date"></p></div><a class="new-booking" href="agendar.html"><span aria-hidden="true">＋</span> Novo agendamento</a></div>
    <div class="stats" aria-label="Resumo da agenda">
     <div class="stat"><span>Agendamentos</span><strong id="stat-total">0</strong><small>todos os registros</small></div>
@@ -53,6 +59,11 @@
     <div class="stat"><span>Confirmados</span><strong id="stat-confirmed">0</strong><small>presenças registradas</small></div>
     <div class="stat"><span>Cancelados</span><strong id="stat-cancelled">0</strong><small>horários liberados</small></div>
    </div>
+   <section class="upcoming" id="upcoming-section" aria-labelledby="upcoming-title">
+    <div class="upcoming-head"><div><h2 id="upcoming-title">Próximos atendimentos</h2><p>Somente os horários futuros mais próximos.</p></div><span class="upcoming-window" id="upcoming-window">Próximos horários</span></div>
+    <div id="upcoming-list" class="upcoming-list" aria-live="polite"></div>
+    <p id="upcoming-empty" class="upcoming-empty" hidden>Nenhum atendimento futuro encontrado.</p>
+   </section>
    <section class="appointments" id="agenda-list" aria-labelledby="agenda-title">
     <div class="section-heading"><div><p class="micro-label">ATENDIMENTOS</p><h2 id="agenda-title">Agenda de horários</h2><p id="agenda-description">Localize um cliente e acompanhe a situação de cada reserva.</p></div><div class="refresh-actions"><button type="button" id="refresh-bookings" aria-label="Atualizar agendamentos">↻ Atualizar</button></div></div>
     <div class="list-toolbar"><div class="filters" role="group" aria-label="Filtrar agendamentos"><button type="button" data-status="all" aria-pressed="true">Todos</button><button type="button" data-status="pending" aria-pressed="false">Aguardando</button><button type="button" data-status="confirmed" aria-pressed="false">Confirmados</button><button type="button" data-status="cancelled" aria-pressed="false">Cancelados</button></div><div class="toolbar-tools"><label class="date-filter" for="admin-period">Período <select id="admin-period"><option value="all">Todas as datas</option><option value="today">Hoje</option><option value="week">Próximos 7 dias</option></select></label><label class="search-box"><span class="sr-only">Buscar agendamento</span><input id="admin-search" type="search" placeholder="Buscar cliente, serviço ou código" autocomplete="off"></label></div></div>
@@ -61,7 +72,21 @@
     <div id="appointments-list" class="appointments-list" aria-live="polite"></div>
     <div id="empty-list" class="empty-list" hidden><span aria-hidden="true">✳</span><h3>Nenhum horário por aqui.</h3><p>Os agendamentos realizados neste navegador aparecerão nesta agenda.</p><a href="agendar.html">Criar agendamento de demonstração ↗</a></div>
    </section>
-   <section class="how-it-works" aria-label="Sobre as mensagens"><div><p class="micro-label">COMUNICAÇÃO</p><h2>Mensagens,<br><em>sem confusão.</em></h2></div><div><p>Use <strong>Mensagem</strong> em cada agendamento. Com a API oficial conectada, o envio acontece diretamente pelo painel. Sem a integração, você pode visualizar e copiar o texto sem sair da agenda.</p><p class="demo-note" id="whatsapp-mode-details">Verificando disponibilidade do envio direto.</p></div></section>
+   <section class="how-it-works" aria-label="Sobre as mensagens"><div><p class="micro-label">COMUNICAÇÃO</p><h2>Mensagens,<br><em>sem confusão.</em></h2></div><div><p>Abra o WhatsApp do cliente com o texto de confirmação já preenchido. Depois de enviar na conversa, marque o contato como enviado no painel para manter a agenda organizada.</p><p class="demo-note" id="whatsapp-mode-details">O WhatsApp exige que a equipe confirme o envio na própria conversa.</p></div></section>
+   </section>
+   <section id="confirmed-view" class="dash-view confirmed-view" aria-labelledby="confirmed-title" hidden>
+    <div class="confirmed-heading">
+     <div><p class="micro-label">PRESENÇAS REGISTRADAS</p><h1 id="confirmed-title">Quem já <em>confirmou.</em></h1><p>Veja os clientes que confirmaram a presença e têm horário marcado.</p></div>
+     <div class="confirmed-count"><strong id="confirmed-count">0</strong><span>clientes confirmados<br>para próximos dias</span></div>
+    </div>
+    <div class="confirmed-toolbar">
+     <label class="confirmed-search"><span>Encontrar cliente</span><input id="confirmed-search" type="search" autocomplete="off" placeholder="Nome, telefone, serviço ou código"></label>
+     <label class="confirmed-period"><span>Mostrar</span><select id="confirmed-period"><option value="upcoming">Próximos atendimentos</option><option value="all">Todos os confirmados</option><option value="past">Histórico anterior</option></select></label>
+    </div>
+    <div class="confirmed-table-head" aria-hidden="true"><span>CLIENTE / CONTATO</span><span>SERVIÇO / PROFISSIONAL</span><span>DATA / HORÁRIO</span><span>SITUAÇÃO</span></div>
+    <div class="confirmed-list" id="confirmed-list" aria-live="polite"></div>
+    <div class="confirmed-empty" id="confirmed-empty" hidden><h2>Nenhum cliente por aqui.</h2><p id="confirmed-empty-detail">Quando alguém confirmar o horário, aparecerá nesta lista.</p><button id="confirmed-clear" type="button">Limpar filtros</button></div>
+   </section>
    <footer class="dash-footer"><span>SR. NAVALHA · GRAVATÁ / PE</span><span>Desenvolvido por <a href="https://murilogabriel.com.br" target="_blank" rel="noopener noreferrer">Murilo Gabriel</a></span></footer>
   </div>
  </main>
@@ -71,8 +96,9 @@
  <p id="message-recipient" class="message-recipient"></p>
  <div class="message-preview-head"><span>PRÉVIA DA MENSAGEM</span><span>WHATSAPP</span></div>
  <div class="message-preview"><p id="message-preview"></p></div>
- <p class="message-info" id="message-info">Envio automático indisponível neste ambiente. Para enviar sem abrir o WhatsApp, conecte a API oficial.</p>
- <div class="message-dialog-actions"><button id="message-copy" type="button">Copiar mensagem</button><button id="message-dismiss" type="button">Voltar à agenda</button></div>
+ <p class="message-info" id="message-info">A mensagem fica pronta na conversa do cliente; confirme o envio por lá.</p>
+ <a id="message-open-link" class="message-open-link" href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer">Abrir conversa no WhatsApp ↗</a>
+ <div class="message-dialog-actions"><button id="message-copy" type="button">Copiar texto</button><button id="message-dismiss" type="button">Ainda não enviei</button><button id="message-confirm-sent" type="button">Já enviei no WhatsApp</button></div>
 </dialog>
 <dialog id="status-dialog" class="status-dialog" aria-labelledby="status-title">
  <p class="micro-label">REVISAR AGENDAMENTO</p>
