@@ -60,6 +60,8 @@ if (extensionAllowed) {
       extensionResponse('RESULT', request.id, {
         ok: Boolean(result?.ok),
         reused: Boolean(result?.reused),
+        mode: result?.mode || '',
+        message: result?.message || '',
         error: result?.error || ''
       });
     } catch (error) {
