@@ -1,14 +1,14 @@
-import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoReminderOpened} from './booking-local.js';
+import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoReminderOpened,markDemoMessageSent} from './booking-local.js';
 const $ = selector => document.querySelector(selector);
 const STATUS = Object.freeze({pending:['Aguardando','pending'],confirmed:['Confirmado','confirmed'],cancelled:['Cancelado','cancelled']});
 const TZ = 'America/Recife';
 const LOGIN_KEY = 'srnavalha:admin-apresentacao:v1';
-let sharedMode=false,cloudButtonsAvailable=false;
+let sharedMode=false;
 try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(await r.json()).enabled===true}catch{}
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
-let currentFilter='all', currentSearch='', currentPeriod='all', previewBooking=null;
+let currentFilter='all', currentSearch='', currentPeriod='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -34,16 +34,7 @@ async function presentDashboard() {
   catch{authorized=false}
  }
  $('#login-screen').hidden=authorized;$('#dashboard').hidden=!authorized;
- if(authorized){
-  if(sharedMode){
-   try{
-    const r=await fetch('/api/whatsapp',{credentials:'same-origin',cache:'no-store'});
-    cloudButtonsAvailable=r.ok&&(await r.json()).available===true;
-   }catch{cloudButtonsAvailable=false}
-  }
-  updateWhatsAppMode();
-  void renderDashboard();document.title='Agenda da equipe · Sr. Navalha';
- }
+ if(authorized){updateWhatsAppMode();showView();void renderDashboard();}
  else document.title='Entrar na agenda · Sr. Navalha';
 }
 $('#admin-login').addEventListener('submit',async event=>{
@@ -83,39 +74,23 @@ function feedback(message,tone='success'){
  node.hidden=!message;
 }
 function updateWhatsAppMode(){
- const note=$('#whatsapp-mode-details');
  const badge=$('#delivery-mode');
- if(cloudButtonsAvailable){
-  note.textContent='Envio direto habilitado. Ao clicar em Mensagem, o pedido é enviado à API do WhatsApp Business sem abrir outras janelas. O painel receberá as respostas pela integração.';
-  badge.textContent='Envio direto conectado';
-  badge.dataset.mode='connected';
- }else if(sharedMode){
-  note.textContent='O sistema de reservas está conectado, mas não há envio automático do WhatsApp configurado. O botão Mensagem permite copiar o texto e os links públicos para envio manual.';
-  badge.textContent='WhatsApp manual';
-  badge.dataset.mode='manual';
- }else{
-  note.textContent='O envio automático ainda não está conectado. A ação Mensagem mostra o texto para envio manual; para que um clique envie ao cliente sem abrir o WhatsApp, configure a WhatsApp Business Platform e a agenda compartilhada.';
-  badge.textContent='Envio não conectado';
-  badge.dataset.mode='demo';
- }
+ badge.textContent='WhatsApp manual';badge.dataset.mode='manual';
+ $('#whatsapp-mode-details').textContent='O botão Mensagem abre a conversa com o texto pronto. O envio é feito no WhatsApp, e a equipe registra depois no painel. Nenhuma automação não oficial é utilizada.';
 }
-async function sendNativeWhatsApp(booking,button){
- if(!sharedMode||!cloudButtonsAvailable){feedback('Conecte a conta WhatsApp Business para enviar botões nativos.');return}
- button.disabled=true;
- const original=button.textContent;
- button.textContent='Enviando botões…';
- try{
-  const r=await fetch('/api/whatsapp',{
-   method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({id:booking.id})
-  });
-  const data=await r.json();
-  if(!r.ok)throw Error(data.error||'Falha ao enviar');
-  feedback('A API do WhatsApp aceitou a solicitação de envio. A entrega ao cliente ainda depende da confirmação da plataforma.','success');
-  await renderDashboard();
- }catch(e){feedback(e.message,'error');button.disabled=false;button.textContent=original}
+function showView(){
+ const confirmed=location.hash==='#confirmados';
+ $('#overview-view').hidden=confirmed;$('#confirmed-view').hidden=!confirmed;
+ $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'AGENDA';
+ document.querySelectorAll('[data-admin-nav]').forEach(link=>{
+  const active=confirmed?link.dataset.adminNav==='confirmed':link.getAttribute('href')===(location.hash==='#agenda-list'?'#agenda-list':'#main');
+  link.classList.toggle('active',active);
+  if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
+ });
+ document.title=(confirmed?'Confirmados':'Agenda da equipe')+' · Sr. Navalha';
+ if(location.hash==='#agenda-list')requestAnimationFrame(()=>$('#agenda-list').scrollIntoView({block:'start'}));
 }
-
+window.addEventListener('hashchange',()=>{if(!$('#dashboard').hidden)showView()});
 function confirmationUrls(booking){
  // These routes work as interactive demos in the same browser that owns localStorage.
  // Cross-device synchronization requires persistent storage and a server later.
@@ -151,13 +126,24 @@ function composeMessage(booking){
  ];
  return message.join('\n');
 }
-function openMessagePreview(booking){
+function sendMessage(booking){
+ const phone=String(booking.customer_phone||'').replace(/\D/g,'');
+ if(!/^55\d{10,11}$/.test(phone)){
+  feedback('O número de WhatsApp deste cliente está inválido. Confira o cadastro.','error');return;
+ }
  previewBooking=booking;
- $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
+ const link='https://wa.me/'+phone+'?text='+encodeURIComponent(composeMessage(booking));
+ $('#message-open-link').href=link;
+ $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
- $('#message-info').textContent='Mensagem ainda não enviada. Para disparar diretamente deste painel, é necessário conectar um número à API oficial do WhatsApp Business. Até lá, você pode copiar o texto e enviá-lo manualmente.';
- $('#message-copy').textContent='Copiar mensagem';
+ $('#message-copy').textContent='Copiar texto';
+ $('#message-info').textContent='A conversa abrirá com o texto preenchido. Toque em Enviar no WhatsApp e, quando terminar, registre o envio aqui.';
+ const tab=window.open(link,'_blank');
+ if(tab)tab.opener=null;
+ else $('#message-info').textContent='O navegador bloqueou a nova aba. Use o link “Abrir conversa no WhatsApp” abaixo; depois do envio, registre o contato.';
+ try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
  $('#message-dialog').showModal();
+ void renderDashboard();
 }
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
@@ -168,22 +154,29 @@ $('#message-copy').addEventListener('click',async()=>{
  try{
   if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(body);
   else{
-   const input=document.createElement('textarea');input.value=body;
-   document.body.append(input);input.select();
+   const textarea=document.createElement('textarea');textarea.value=body;
+   document.body.append(textarea);textarea.select();
    if(!document.execCommand('copy'))throw Error('Cópia indisponível');
-   input.remove();
+   textarea.remove();
   }
-  $('#message-copy').textContent='Copiado ✓';
-  feedback('Texto copiado, mas não enviado. Cole em uma conversa com o cliente para fazer o envio manual.','success');
- }catch{
-  $('#message-info').textContent='Não foi possível copiar automaticamente. Selecione o texto acima e copie pelo navegador.';
-  feedback('Não foi possível copiar a mensagem neste navegador.','error');
- }
+  $('#message-copy').textContent='Texto copiado';
+ }catch{$('#message-info').textContent='Não foi possível copiar. Selecione o texto e copie manualmente.'}
 });
-function sendMessage(booking,button){
- if(cloudButtonsAvailable)return sendNativeWhatsApp(booking,button);
- openMessagePreview(booking);
-}
+$('#message-confirm-sent').addEventListener('click',async()=>{
+ if(!previewBooking)return;
+ const button=$('#message-confirm-sent');button.disabled=true;
+ try{
+  if(sharedMode){
+   const reply=await fetch('/api/bookings',{method:'PATCH',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:previewBooking.id,action:'manual_message_sent'})});
+   if(!reply.ok)throw Error('Não foi possível registrar o envio. Tente novamente.');
+  }else markDemoMessageSent(previewBooking.id);
+  $('#message-dialog').close();
+  feedback('Envio registrado pela equipe. O agendamento continua aguardando a resposta do cliente.');
+  previewBooking=null;
+  await renderDashboard();
+ }catch(error){feedback(error.message||'Não foi possível registrar o envio.','error')}
+ finally{button.disabled=false}
+});
 function actionButton(text,kind,fn,disabled=false){
  const button=el('button',kind,text);
  button.type='button';button.disabled=disabled;button.addEventListener('click',fn);
@@ -251,11 +244,12 @@ function createRow(booking){
  const state=el('div','appointment-status');
  const pill=el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando');
  state.append(pill);
- if(booking.whatsapp_last_sent_at)state.append(el('small','message-indicator','Enviado à API'));
- else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Prévia preparada'));
+ if(booking.whatsapp_manual_sent_at)state.append(el('small','message-indicator','Envio registrado pela equipe'));
+ else if(booking.whatsapp_last_sent_at)state.append(el('small','message-indicator','Solicitado à API'));
+ else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','WhatsApp aberto'));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
- const msg=actionButton('Mensagem','message',()=>sendMessage(booking,msg),status!=='pending');
+ const msg=actionButton('Mensagem','message',()=>sendMessage(booking),status!=='pending');
  if(status!=='pending')msg.title='A mensagem de confirmação é destinada aos pedidos aguardando resposta';
  group.append(msg);
  const menu=el('details','appointment-manage');
