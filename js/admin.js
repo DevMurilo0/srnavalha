@@ -8,7 +8,7 @@ try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(aw
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
-let currentFilter='all', currentSearch='', currentPeriod='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
+let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
 let whatsappWindow=null;
 const WHATSAPP_WINDOW_NAME='srnavalha_whatsapp';
 function whatsappWebLink(phone,message){
@@ -270,12 +270,13 @@ function createRow(booking){
  const state=el('div','appointment-status');
  const pill=el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando');
  state.append(pill);
- if(booking.whatsapp_manual_sent_at)state.append(el('small','message-indicator','Envio registrado pela equipe'));
- else if(booking.whatsapp_last_sent_at)state.append(el('small','message-indicator','Solicitado à API'));
- else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','WhatsApp aberto'));
+ const messageSent=Boolean(booking.whatsapp_manual_sent_at);
+ state.append(el('span','contact-chip '+(messageSent?'is-sent':'is-pending'),messageSent?'Mensagem enviada':'Aguardando envio'));
+ if(messageSent)state.append(el('small','message-indicator','Envio registrado pela equipe'));
+ else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Conversa aberta, ainda não enviado'));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
- const msg=actionButton('Mensagem','message',()=>sendMessage(booking),status!=='pending');
+ const msg=actionButton(booking.whatsapp_manual_sent_at?'Reenviar mensagem':'Mensagem','message',()=>sendMessage(booking),status!=='pending');
  if(status!=='pending')msg.title='A mensagem de confirmação é destinada aos pedidos aguardando resposta';
  group.append(msg);
  const menu=el('details','appointment-manage');
@@ -340,6 +341,10 @@ async function renderDashboard(){
  $('#stat-pending').textContent=String(counts.pending);
  $('#stat-confirmed').textContent=String(counts.confirmed);
  $('#stat-cancelled').textContent=String(counts.cancelled);
+ const sentCount=entries.filter(b=>Boolean(b.whatsapp_manual_sent_at)).length;
+ $('#msg-total-count').textContent=String(entries.length);
+ $('#msg-sent-count').textContent=String(sentCount);
+ $('#msg-unsent-count').textContent=String(entries.length-sentCount);
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
  const now=Date.now(),today=dateKey(new Date()),week=weekEnd(today);
  $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'}).format(new Date());
@@ -354,6 +359,9 @@ async function renderDashboard(){
  const query=currentSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const matching=entries.filter(b=>{
   if(currentFilter!=='all'&&normalizedStatus(b)!==currentFilter)return false;
+  const hasSent=Boolean(b.whatsapp_manual_sent_at);
+  if(messageFilter==='sent'&&!hasSent)return false;
+  if(messageFilter==='unsent'&&hasSent)return false;
   const day=dateKey(b.starts_at);
   if(currentPeriod==='today'&&day!==today)return false;
   if(currentPeriod==='week'&&(day<today||day>week))return false;
@@ -367,7 +375,7 @@ async function renderDashboard(){
  $('#result-count').textContent=matching.length+(matching.length===1?' agendamento encontrado':' agendamentos encontrados');
  $('#empty-list').hidden=matching.length>0;
  if(!matching.length){
-  $('#empty-list p').textContent=entries.length?'Nenhum agendamento corresponde aos filtros. Tente outra busca ou período.':'Os agendamentos realizados aparecerão nesta agenda.';
+  $('#empty-list p').textContent=entries.length?'Nenhum agendamento corresponde aos filtros de contato, situação ou período. Experimente outra opção.':'Os agendamentos realizados aparecerão nesta agenda.';
   $('#empty-list a').hidden=entries.length>0;
  }
 
@@ -396,6 +404,11 @@ document.querySelectorAll('.filters button').forEach(button=>button.addEventList
  currentFilter=button.dataset.status;
  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
  renderDashboard();
+}));
+document.querySelectorAll('[data-message-filter]').forEach(button=>button.addEventListener('click',()=>{
+ messageFilter=button.dataset.messageFilter;
+ document.querySelectorAll('[data-message-filter]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+ void renderDashboard();
 }));
 $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.value.trim();renderDashboard()});
 $('#confirmed-search').addEventListener('input',event=>{confirmedSearch=event.target.value.trim();void renderDashboard()});
