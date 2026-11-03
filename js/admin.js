@@ -41,20 +41,21 @@ window.addEventListener('message',event=>{
   whatsappBridgePending.delete(data.id);
   const info=$('#message-info');
   if(data.ok){
-   if(info)info.textContent=data.mode==='searched'
-    ?'O número foi pesquisado no WhatsApp Web sem atualizar a página. Selecione a conversa na lista e use “Copiar texto” para preparar a mensagem.'
+   if(info)info.textContent=data.mode==='draft-ready'
+    ?'Conversa encontrada e mensagem pronta no campo do WhatsApp. Confira o destinatário e clique em Enviar.'
     :data.mode==='first-navigation'
-     ?'A aba do WhatsApp foi aberta. Nos próximos clientes, a extensão pesquisará o contato sem recarregar o aplicativo.'
-     :'WhatsApp atualizado. Confira o contato e envie a mensagem manualmente.';
+     ?'WhatsApp aberto com o número e a mensagem. Para os próximos clientes, o auxiliar tenta preparar o rascunho sem recarregar.'
+     :'WhatsApp aberto. Confira o destinatário e envie a mensagem manualmente.';
   }else{
-   if(info)info.textContent='Não foi possível pesquisar o contato na aba existente: '+(data.error||'verifique a lista de conversas')+'. O WhatsApp não foi recarregado.';
+   if(info)info.textContent=(data.error||'Não foi possível abrir o contato automaticamente.')+
+    ' Use “Copiar texto” se precisar concluir o envio manualmente. A aba do WhatsApp não foi recarregada.';
   }
  }
 });
 function updateWhatsappHelperHint(){
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar v2.1 conectado: o telefone será pesquisado no WhatsApp existente, sem atualizar a página.'
+  ?'Auxiliar v2.2 conectado: tenta abrir a conversa e preparar o texto no WhatsApp, sem recarregar a página.'
   :bridgeError
    ?'O auxiliar respondeu com um erro: '+bridgeError+'. Recarregue a extensão e esta página.'
    :fallbackOpened
@@ -62,7 +63,7 @@ function updateWhatsappHelperHint(){
     :'A extensão não foi detectada. Após instalá-la, atualize esta página e clique em Verificar extensão.';
  const status=$('#whatsapp-helper-status');
  if(status){
-  status.textContent=whatsappBridgeReady?'Extensão conectada · v2.1':bridgeError?'Extensão com erro':'Extensão não detectada';
+  status.textContent=whatsappBridgeReady?'Extensão conectada · v2.2':bridgeError?'Extensão com erro':'Extensão não detectada';
   status.dataset.connected=String(whatsappBridgeReady);
  }
  const link=$('#message-open-link');
@@ -186,7 +187,7 @@ function updateWhatsAppMode(){
  badge.textContent=whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
  badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
  $('#whatsapp-mode-details').textContent=whatsappBridgeReady
-  ?'Auxiliar conectado: Mensagem pesquisa o número no WhatsApp Web sem recarregar a aba. Selecione o resultado e envie pelo WhatsApp.'
+  ?'Auxiliar conectado: Mensagem tenta abrir o contato e preencher o rascunho no WhatsApp, sem recarregar a aba. Confira e clique em Enviar.'
   :'Instale o auxiliar universal para que Mensagem sempre use a aba do WhatsApp que já está aberta. O envio continua manual, sem automações não oficiais.';
 }
 function showView(){
