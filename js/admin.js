@@ -36,13 +36,15 @@ function updateWhatsappHelperHint(){
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
   ?'Auxiliar conectado: a aba do WhatsApp já aberta será reutilizada, sem criar outras.'
-  :'Para usar exatamente a aba do WhatsApp que já está aberta, ative o auxiliar do Firefox/Floorp. Sem ele, copie o texto e envie naquela aba.';
+  :'Sem o auxiliar, o site não consegue localizar outras abas do navegador. Para evitar duplicações, não abre nenhuma automaticamente; copie o texto e envie na aba que já está aberta.';
+ const link=$('#message-open-link');
+ if(link)link.textContent=whatsappBridgeReady?'Abrir na aba existente do WhatsApp ↗':'Abrir WhatsApp Web (pode criar outra aba) ↗';
 }
-function askWhatsappBridge(){
+function askWhatsappBridge(link){
  if(!whatsappBridgeReady)return false;
  const id=++bridgeSequence;
  whatsappBridgePending.add(id);
- window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:arguments[0]},location.origin);
+ window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:link},location.origin);
  return true;
 }
 function openWhatsAppWeb(link){
