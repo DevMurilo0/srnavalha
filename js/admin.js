@@ -193,7 +193,7 @@ function actionButton(text,kind,fn,disabled=false){
 }
 async function changeStatus(booking,next){
  if(normalizedStatus(booking)===next)return;
- const message=next==='cancelled'?'Cancelar o horário de '+booking.customer_name+'? O horário ficará livre nesta demonstração.':'Marcar a presença de '+booking.customer_name+' como confirmada?';
+ const message=next==='cancelled'?'Cancelar o horário de '+booking.customer_name+'? O horário ficará disponível novamente.':'Marcar a presença de '+booking.customer_name+' como confirmada?';
  if(!confirm(message))return;
  try{
   if(sharedMode){
@@ -220,27 +220,30 @@ function createRow(booking){
  const date=el('div','appointment-date');
  date.append(el('strong','',fmtDay(booking.starts_at)),el('small','',fmtHour(booking.starts_at)+' · '+booking.professional_name));
  const person=el('div','appointment-person');
- person.append(el('strong','',booking.customer_name||'Cliente'),el('span','',booking.customer_phone?.replace(/^55/,'+')||'WhatsApp não informado'));
+ person.append(el('strong','',booking.customer_name||'Cliente'),el('span','',booking.customer_phone?.replace(/^55/,'+55 ')||'WhatsApp não informado'));
  const service=el('div','appointment-service');
- service.append(el('strong','',booking.service_name||'Serviço'),el('span','',booking.service_id==='cortee'?'Corte clássico':'Horário solicitado'));
+ service.append(el('strong','',booking.service_name||'Serviço'),el('span','',booking.professional_name));
  const state=el('div','appointment-status');
  const pill=el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando');
  state.append(pill);
- if(booking.reminder_prepared_at)state.append(el('small','', 'Mensagem preparada'));
+ if(booking.whatsapp_last_sent_at)state.append(el('small','message-indicator','Enviado à API'));
+ else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Prévia preparada'));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
- if(cloudButtonsAvailable){
-  const send=actionButton('Enviar botões no WhatsApp','message',()=>sendNativeWhatsApp(booking,send),status!=='pending');
-  group.append(send);
- }else group.append(actionButton('Preparar WhatsApp ↗','message',()=>prepareWhatsApp(booking)));
- group.append(
+ const msg=actionButton('Mensagem','message',()=>sendMessage(booking,msg),status!=='pending');
+ if(status!=='pending')msg.title='A mensagem de confirmação é destinada aos pedidos aguardando resposta';
+ group.append(msg);
+ const menu=el('details','appointment-manage');
+ const toggle=el('summary','', 'Gerenciar');toggle.setAttribute('aria-label','Gerenciar agendamento de '+booking.customer_name);
+ const options=el('div','manage-actions');
+ options.append(
   actionButton('Confirmar presença','',()=>changeStatus(booking,'confirmed'),status==='confirmed'),
-  actionButton('Cancelar horário','',()=>changeStatus(booking,'cancelled'),status==='cancelled')
+  actionButton('Cancelar horário','action-danger',()=>changeStatus(booking,'cancelled'),status==='cancelled'),
+  actionButton('Simular resposta','action-secondary',()=>openResponsePreview(booking))
  );
- const more=el('div','action-main');
- more.append(actionButton('Simular resposta ↗','action-secondary',()=>openResponsePreview(booking)));
- actions.append(group,more);
- const serial=el('span','appointment-serial','#'+String(booking.reference||booking.id.slice(0,8)).toUpperCase());
+ menu.append(toggle,options);
+ actions.append(group,menu);
+ const serial=el('span','appointment-serial','REF. '+String(booking.reference||booking.id.slice(0,8)).toUpperCase());
  row.append(date,person,service,state,actions,serial);
  return row;
 }
@@ -261,16 +264,30 @@ async function renderDashboard(){
  $('#stat-confirmed').textContent=String(counts.confirmed);
  $('#stat-cancelled').textContent=String(counts.cancelled);
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
+ const today=dateKey(new Date());
+ const end=weekEnd(today);
+ $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{
+  timeZone:TZ,weekday:'long',day:'numeric',month:'long'
+ }).format(new Date());
  const query=currentSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const matching=entries.filter(b=>{
   if(currentFilter!=='all'&&normalizedStatus(b)!==currentFilter)return false;
+  const day=dateKey(b.starts_at);
+  if(currentPeriod==='today'&&day!==today)return false;
+  if(currentPeriod==='week'&&(day<today||day>end))return false;
   const haystack=[b.customer_name,b.service_name,b.professional_name,b.reference,b.customer_phone].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   return haystack.includes(query);
  }).sort((a,b)=>String(a.starts_at).localeCompare(String(b.starts_at)));
- $('#appointments-list').replaceChildren(...matching.map(createRow));
+ const expandedIds=new Set([...document.querySelectorAll('.appointment-manage[open]')].map(node=>node.closest('.appointment')?.dataset.id));
+ const rows=matching.map(createRow);
+ rows.forEach(row=>{const menu=row.querySelector('.appointment-manage');if(menu&&expandedIds.has(row.dataset.id))menu.open=true});
+ $('#appointments-list').replaceChildren(...rows);
+ $('#result-count').textContent=matching.length+(matching.length===1?' agendamento encontrado':' agendamentos encontrados');
  $('#empty-list').hidden=matching.length>0;
  if(!matching.length){
-  $('#empty-list p').textContent=entries.length?'Nenhum agendamento corresponde a esse filtro.':'Os agendamentos realizados neste navegador aparecerão nesta agenda.';
+  $('#empty-list p').textContent=entries.length
+   ?'Nenhum agendamento corresponde aos filtros escolhidos. Limpe a busca ou selecione outro período.'
+   : sharedMode?'Os próximos agendamentos aparecerão aqui assim que forem realizados.':'Os agendamentos de demonstração realizados neste navegador aparecerão aqui.';
   $('#empty-list a').hidden=entries.length>0;
  }
 }
@@ -280,6 +297,7 @@ document.querySelectorAll('.filters button').forEach(button=>button.addEventList
  renderDashboard();
 }));
 $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.value.trim();renderDashboard()});
+$('#admin-period').addEventListener('change',event=>{currentPeriod=event.target.value;void renderDashboard()});
 $('#refresh-bookings').addEventListener('click',()=>{renderDashboard();feedback('Agenda atualizada.')});
 window.addEventListener('storage',event=>{if(event.key===BOOKING_STORAGE_KEY)renderDashboard()});
 window.addEventListener('pageshow',()=>renderDashboard());
