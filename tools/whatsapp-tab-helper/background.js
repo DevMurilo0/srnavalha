@@ -85,6 +85,10 @@ async function reuseWhatsApp(link, sender) {
 // Use sendResponse + return true in BOTH browser families.
 // Returning only a Promise from an MV3 listener is unreliable in Chrome.
 API.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message?.type === 'SRN_EXTENSION_PING') {
+    sendResponse({ok: true, version: '2.0.0'});
+    return false;
+  }
   if (message?.type !== 'SRN_OPEN_WHATSAPP_TAB') return false;
   reuseWhatsApp(message.url, sender)
     .then(sendResponse)
