@@ -76,13 +76,14 @@ O envio continua manual para evitar automações não oficiais.
 1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
    ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
    Os filtros possuem contadores independentes de Presença confirmada/cancelada.
-2. Clique em **Mensagem** no agendamento. Com a extensão universal
-   **Sr. Navalha — WhatsApp em uma aba v3.0** instalada em Firefox, Floorp
-   ou Chrome, o painel abre o link de conversa pelo número diretamente na
-   **aba existente do WhatsApp Web**, com texto preenchido. Não usa a barra
-   lateral de pesquisa e aceita números sem conversas anteriores.
-   A troca de cliente pode recarregar o WhatsApp dentro da mesma aba.
-   O painel exibe **Extensão conectada · v3.0**.
+2. Clique em **Mensagem** no agendamento. Com o auxiliar universal
+   **Sr. Navalha — WhatsApp em uma aba v4.0** instalado no Firefox, Floorp
+   ou Chrome, o painel reutiliza a aba já aberta e tenta abrir o número
+   pela interface **Nova conversa** do WhatsApp Web, preenchendo o texto
+   sem recarregar a página. A seleção só ocorre se for possível identificar
+   com segurança o número. Caso contrário, o painel exibe um aviso e
+   mantém a mensagem disponível para cópia. O envio continua manual.
+   A versão antiga é bloqueada para não provocar recarregamentos.
 3. Envie a mensagem **dentro do WhatsApp**.
 4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
@@ -105,13 +106,28 @@ Chrome, pode ser carregada como extensão sem compactação, em modo desenvolved
 Remova versões antigas e atualize `admin.html` após instalar.
 
 
-**Importante:** a versão anterior usava `tabs.update({url: ...})`, que
-recarregava o WhatsApp a cada cliente. A v2.1 usa um script de pesquisa
-na própria aba. Como o WhatsApp Web pode mudar seu HTML, se o campo de
-busca não for encontrado a extensão **não forçará um reload**: informará
-o erro e permitirá localizar o cliente manualmente.
-Para atualizar, faça `git pull --ff-only`, recarregue a extensão em
-`about:debugging` ou `chrome://extensions`, e então atualize `admin.html`.
+**Nota sobre o WhatsApp:** a versão 3.0 usava a navegação direta por URL,
+o que recarregava o WhatsApp Web. A v4.0 não navega uma aba existente.
+Como a interface de novas conversas pertence ao WhatsApp e pode mudar,
+não é possível garantir a abertura de todos os números sem recarregamento.
+A extensão nunca força um reload como alternativa: se não encontrar um
+contato correspondente com segurança, informa a falha.
+
+**Abrir WhatsApp pelo aplicativo (celular e desktop):** no Android/iPhone, o
+botão **Mensagem** tenta abrir `whatsapp://send?phone=...&text=...` diretamente
+no aplicativo instalado, sem criar uma aba do WhatsApp Web. A mensagem é
+preparada, mas **não é enviada automaticamente**. O painel também apresenta
+**Abrir no aplicativo** (para repetir a tentativa) e a opção separada
+**WhatsApp Web (alternativa)**. Não há redirecionamento automático para web
+se o protocolo nativo não for reconhecido. O comportamento final depende das
+permissões e do navegador do celular.
+
+No desktop, **Abrir no aplicativo** só funciona quando o sistema tem
+um aplicativo registrado para o protocolo `whatsapp://`. O WhatsApp não
+fornece aplicativo oficial para Linux; clientes Linux não oficiais geralmente
+envolvem WhatsApp Web e podem continuar sujeitos a recarregamentos. Por
+isso, o comportamento padrão do painel no desktop permanece usando
+o auxiliar Web ou a cópia manual.
 
 O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
 próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).

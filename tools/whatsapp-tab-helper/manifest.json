@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Sr. Navalha — WhatsApp em uma aba",
-  "version": "3.0.0",
-  "description": "Abre diretamente a conversa e preenche a mensagem no WhatsApp Web reutilizando uma unica aba.",
+  "version": "4.0.0",
+  "description": "Abre conversas na interface do WhatsApp Web sem recarregar a aba; prepara o texto sem enviar.",
   "permissions": [
-    "tabs"
+    "tabs",
+    "scripting"
   ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
-    "https://api.whatsapp.com/*",
     "https://srnavalha.vercel.app/*",
     "https://*.vercel.app/*",
     "https://srnavalha.com.br/*",
@@ -33,6 +33,16 @@
         "bridge.js"
       ],
       "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "js": [
+        "whatsapp-page.js"
+      ],
+      "run_at": "document_idle",
       "all_frames": false
     }
   ],
