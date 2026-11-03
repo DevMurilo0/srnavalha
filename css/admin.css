@@ -463,3 +463,19 @@ body{background:var(--paper)}
 .message-destinations>a[hidden],.helper-connection[hidden],.helper-install-link[hidden]{display:none!important}
 @media(max-width:580px){.message-destinations{flex-direction:column}.message-destinations>a{width:100%}}
 @media(prefers-reduced-motion:reduce){.message-destinations>a{transition:none}}
+
+/* Mobile-first WhatsApp handoff: a native anchor preserves user activation.
+ * No extension, popup or automatic WhatsApp Web redirect is involved. */
+.appointment-actions a.message{
+ display:inline-flex;align-items:center;justify-content:center;min-height:41px;
+ padding:12px 21px;border:1px solid #243b2b;border-radius:3px;
+ background:#243b2b;color:#fff;text-decoration:none;white-space:nowrap;
+ font:780 12px/1.35 var(--body);letter-spacing:.01em;
+ transition:background-color .18s ease-out,transform .18s ease-out;
+}
+.appointment-actions a.message::before{content:"✉";margin-right:9px;font-size:15px;line-height:1}
+.appointment-actions a.message:hover{background:#3c5843;color:#fff;transform:translateY(-1px)}
+.appointment-actions a.message:focus-visible{outline:2px solid #6a9f71;outline-offset:3px}
+.message-destinations{margin-top:15px}
+.message-destinations .message-app-link{flex:1 1 auto;text-align:center}
+@media(prefers-reduced-motion:reduce){.appointment-actions a.message{transition:none;transform:none}}
