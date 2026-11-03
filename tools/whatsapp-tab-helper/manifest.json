@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Sr. Navalha — WhatsApp em uma aba",
-  "version": "2.2.0",
-  "description": "Abre conversa e prepara o rascunho no WhatsApp Web existente, sem recarregar a aba ou enviar mensagens.",
+  "version": "3.0.0",
+  "description": "Abre diretamente a conversa e preenche a mensagem no WhatsApp Web reutilizando uma unica aba.",
   "permissions": [
-    "tabs",
-    "scripting"
+    "tabs"
   ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
@@ -34,16 +33,6 @@
         "bridge.js"
       ],
       "run_at": "document_start",
-      "all_frames": false
-    },
-    {
-      "matches": [
-        "https://web.whatsapp.com/*"
-      ],
-      "js": [
-        "whatsapp-page.js"
-      ],
-      "run_at": "document_idle",
       "all_frames": false
     }
   ],
