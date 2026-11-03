@@ -1,6 +1,5 @@
-/* Sr. Navalha · Cross-browser WebExtension MV3 background.
- * Chrome: service worker + callback API. Firefox/Floorp: background script +
- * Promise API. Only navigates tabs; never reads or sends WhatsApp messages.
+/* Sr. Navalha · Universal MV3 click-to-chat. Reuses existing WhatsApp tab.
+ * Different phones can reload the tab; never searches the sidebar or sends.
  */
 const isFirefoxApi = typeof browser !== 'undefined' && Boolean(browser?.tabs);
 const API = isFirefoxApi ? browser : chrome;
@@ -47,78 +46,44 @@ function validChat(input) {
   }
 }
 
-async function searchInsideWhatsApp(tabId, phone, text) {
-  const request = {type: 'SRN_WHATSAPP_FIND_CONTACT', phone, text};
-  try {
-    return await apiCall(API.tabs, 'sendMessage', tabId, request);
-  } catch {
-    // An already-open WhatsApp tab may predate installation of the extension.
-    // Inject the lightweight search script without navigating or reloading.
-    await apiCall(API.scripting, 'executeScript', {
-      target: {tabId},
-      files: ['whatsapp-page.js']
-    });
-    return await apiCall(API.tabs, 'sendMessage', tabId, request);
-  }
-}
 
 async function reuseWhatsApp(link, sender) {
-  if (!allowedAdmin(sender?.url) && !allowedAdmin(sender?.tab?.url)) {
-    return {ok: false, error: 'Painel não autorizado. Abra admin.html do Sr. Navalha.'};
-  }
-  if (!validChat(link)) return {ok: false, error: 'Link do WhatsApp inválido.'};
+  if (!allowedAdmin(sender?.url) && !allowedAdmin(sender?.tab?.url))
+    return {ok:false,error:'Painel não autorizado'};
+  if (!validChat(link))
+    return {ok:false,error:'Número ou mensagem inválido'};
 
-  const url = new URL(link);
-  const phone = url.searchParams.get('phone');
-  const text = url.searchParams.get('text');
-  const tabs = await apiCall(API.tabs, 'query', {
-    url: ['https://web.whatsapp.com/*', 'https://api.whatsapp.com/*']
+  const requested=new URL(link);
+  const destination='https://web.whatsapp.com/send?phone='+
+    requested.searchParams.get('phone')+'&text='+
+    encodeURIComponent(requested.searchParams.get('text'));
+  const tabs=await apiCall(API.tabs,'query',{
+    url:['https://web.whatsapp.com/*','https://api.whatsapp.com/*']
   });
-  const web = tabs.filter(tab => tab.url?.startsWith('https://web.whatsapp.com/'));
-  const candidates = web.length ? web : tabs;
-  const sameWindow = candidates.filter(tab => tab.windowId === sender?.tab?.windowId);
-  const available = sameWindow.length ? sameWindow : candidates;
-  const target = [...available].sort((a,b) =>
-    (Number(b.active) - Number(a.active)) ||
-    ((b.lastAccessed || 0) - (a.lastAccessed || 0))
+  const web=tabs.filter(t=>t.url?.startsWith('https://web.whatsapp.com/'));
+  const candidates=web.length?web:tabs;
+  const same=candidates.filter(t=>t.windowId===sender?.tab?.windowId);
+  const pool=same.length?same:candidates;
+  const target=[...pool].sort((x,y)=>
+    (Number(y.active)-Number(x.active))||
+    ((y.lastAccessed||0)-(x.lastAccessed||0))
   )[0];
-
-  if (Number.isInteger(target?.id)) {
-    // CRITICAL: never pass a URL into tabs.update for an existing
-    // WhatsApp Web tab. That reloads the whole app for every customer.
-    await apiCall(API.tabs, 'update', target.id, {active: true});
-    if (Number.isInteger(target.windowId)) {
-      try { await apiCall(API.windows, 'update', target.windowId, {focused: true}); }
-      catch { /* focusing is optional */ }
+  if(Number.isInteger(target?.id)){
+    // The URL-based click-to-chat feature opens unsaved numbers and prefills
+    // the message. It can reload WhatsApp, but ALWAYS uses the same tab.
+    const unchanged=target.url===destination;
+    await apiCall(API.tabs,'update',target.id,
+      unchanged?{active:true}:{url:destination,active:true});
+    if(Number.isInteger(target.windowId)){
+      try{await apiCall(API.windows,'update',target.windowId,{focused:true})}
+      catch{/* Nonessential; target was opened. */}
     }
-    if (target.url?.startsWith('https://web.whatsapp.com/')) {
-      try {
-        const result = await searchInsideWhatsApp(target.id, phone, text);
-        return {
-          ok: Boolean(result?.ok),
-          reused: true,
-          mode: result?.mode || 'search-unavailable',
-          error: result?.error || '',
-          message: result?.message || '',
-          tabId: target.id
-        };
-      } catch (error) {
-        return {ok: false, reused: true, mode: 'search-unavailable',
-          error: 'Não foi possível pesquisar na aba existente: ' +
-            String(error?.message || error), tabId: target.id};
-      }
-    }
-    // This was merely the intermediate api.whatsapp.com page, not an active
-    // WhatsApp Web tab; one initial navigation is needed to enter the app.
-    await apiCall(API.tabs, 'update', target.id, {url: link, active: true});
-    return {ok: true, reused: true, mode: 'first-navigation', tabId: target.id};
+    return {ok:true,reused:true,mode:'direct-chat',mayReload:!unchanged,tabId:target.id};
   }
-
-  // No WhatsApp tabs exist. One initial load is unavoidable.
-  const options = {url: link, active: true};
-  if (Number.isInteger(sender?.tab?.windowId)) options.windowId = sender.tab.windowId;
-  const created = await apiCall(API.tabs, 'create', options);
-  return {ok: true, reused: false, mode: 'first-navigation', tabId: created?.id};
+  const options={url:destination,active:true};
+  if(Number.isInteger(sender?.tab?.windowId))options.windowId=sender.tab.windowId;
+  const created=await apiCall(API.tabs,'create',options);
+  return {ok:true,reused:false,mode:'direct-chat',mayReload:true,tabId:created?.id};
 }
 
 // Use sendResponse + return true in BOTH browser families.
