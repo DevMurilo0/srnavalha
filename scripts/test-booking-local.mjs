@@ -13,7 +13,7 @@ globalThis.localStorage = {
 const { default: services } = await import('../js/data/services.js');
 const { default: professionals } = await import('../js/data/professionals.js');
 const { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking,
-  normalizedStatus, updateDemoBookingStatus, markDemoReminderOpened } =
+  normalizedStatus, updateDemoBookingStatus, markDemoReminderOpened, markDemoMessageSent } =
   await import('../js/booking-local.js');
 
 const nextDay = offset => {
@@ -49,6 +49,9 @@ assert.throws(() => saveDemoBooking({
 }), { code: 'SLOT_TAKEN' }, 'colisão local recusada');
 assert.equal(normalizedStatus(saved),'pending','novo pedido começa aguardando');
 assert.ok(markDemoReminderOpened(saved.id).reminder_prepared_at,'preparo do WhatsApp anotado');
+assert.equal(readDemoBookings()[0].whatsapp_manual_sent_at,undefined,'abrir a conversa não comprova envio');
+assert.ok(markDemoMessageSent(saved.id).whatsapp_manual_sent_at,'envio registrado após confirmação da equipe');
+assert.equal(normalizedStatus(readDemoBookings()[0]),'pending','registro de mensagem não confirma presença');
 assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'confirmed')),'confirmed','confirmação salva');
 assert.ok(!availableSlots('cortee', testDate, professional.id).some(s=>s.slot_at===first.slot_at),'confirmação mantém bloqueio');
 assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'cancelled')),'cancelled','cancelamento salvo');
