@@ -86,10 +86,14 @@ O envio continua manual para evitar automações não oficiais.
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
 
 **Sem o complemento:** nenhum site comum pode localizar/atualizar uma aba do
-WhatsApp aberta manualmente. Para evitar dezenas de abas, o clique em Mensagem
-não abre outras automaticamente; oferece o texto pronto para copiar e um link
-explícito para abrir o WhatsApp se você quiser. O complemento é opcional,
-gratuito e não envia mensagens automaticamente.
+WhatsApp aberta manualmente. Para que Mensagem não deixe de funcionar, o
+**primeiro clique abre o WhatsApp Web** em uma aba nomeada, com o texto
+preenchido. Se o navegador perder a referência à aba por isolamento de origem,
+o painel evita criar outra a cada clique: oferece o texto pronto para copiar
+e colar na aba existente. A sessão do painel registra essa primeira abertura
+para evitar dezenas de abas, mesmo depois de atualizar a página. O complemento
+é opcional, gratuito e permite reutilizar a aba que já estava aberta, sem
+enviar mensagens automaticamente.
 
 Código do complemento: [tools/whatsapp-tab-helper](tools/whatsapp-tab-helper).
 Instruções de instalação temporária no Firefox/Floorp disponíveis no
