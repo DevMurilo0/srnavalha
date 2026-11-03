@@ -9,29 +9,49 @@ if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
-let whatsappWindow=null;
-const WHATSAPP_WINDOW_NAME='srnavalha_whatsapp';
-function whatsappWebLink(phone,message){
- return 'https://web.whatsapp.com/send?phone='+encodeURIComponent(phone)+'&text='+encodeURIComponent(message);
-}
-function openWhatsAppWeb(link){
- // Reuse the tab that this admin panel previously opened. Browser security
- // prevents finding or taking over an unrelated WhatsApp tab opened by the user.
- if(whatsappWindow){
-  try{
-   if(!whatsappWindow.closed){
-    whatsappWindow.location.href=link;
-    whatsappWindow.focus();
-    return true;
-   }
-  }catch{ /* the remote tab may have severed its WindowProxy */ }
+const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
+let whatsappBridgeReady=false,bridgeSequence=0;
+const whatsappBridgePending=new Set();
+window.addEventListener('message',event=>{
+ if(event.source!==window||event.origin!==location.origin)return;
+ const data=event.data;
+ if(data?.scope!==WHATSAPP_BRIDGE_SCOPE||data.sender!=='extension')return;
+ if(data.type==='READY'){
+  whatsappBridgeReady=true;
+  updateWhatsappHelperHint();
+  return;
  }
- const tab=window.open(link,WHATSAPP_WINDOW_NAME);
- if(!tab)return false;
- whatsappWindow=tab;
- try{tab.opener=null}catch{/* some browser protections block opener changes */}
+ if(data.type==='RESULT'&&whatsappBridgePending.delete(data.id)){
+  const info=$('#message-info');
+  if(data.ok){
+   if(info)info.textContent=data.reused
+    ?'Conversa aberta na aba do WhatsApp que já estava no navegador. Envie a mensagem e registre o envio aqui.'
+    :'Uma aba do WhatsApp foi criada. Os próximos contatos reutilizarão essa mesma aba.';
+  }else{
+   if(info)info.textContent='Não foi possível acessar a aba do WhatsApp: '+(data.error||'verifique o auxiliar')+'. Use a aba já aberta para enviar manualmente.';
+  }
+ }
+});
+function updateWhatsappHelperHint(){
+ const hint=$('#message-reuse-hint');
+ if(hint)hint.textContent=whatsappBridgeReady
+  ?'Auxiliar conectado: a aba do WhatsApp já aberta será reutilizada, sem criar outras.'
+  :'Para usar exatamente a aba do WhatsApp que já está aberta, ative o auxiliar do Firefox/Floorp. Sem ele, copie o texto e envie naquela aba.';
+}
+function askWhatsappBridge(){
+ if(!whatsappBridgeReady)return false;
+ const id=++bridgeSequence;
+ whatsappBridgePending.add(id);
+ window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:arguments[0]},location.origin);
  return true;
 }
+function openWhatsAppWeb(link){
+ // A regular page cannot enumerate tabs; doing window.open() repeatedly
+ // creates duplicates when WhatsApp isolates itself with COOP.
+ // The opt-in browser extension can target an already-open WhatsApp tab.
+ return askWhatsappBridge(link);
+}
+window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence},location.origin);
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -160,16 +180,20 @@ function sendMessage(booking){
  $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='WhatsApp Web aberto com a mensagem pronta. Clique em Enviar na conversa e depois registre o envio no painel. As próximas mensagens reutilizam essa mesma aba.';
- if(!openWhatsAppWeb(link))$('#message-info').textContent='O navegador bloqueou a aba do WhatsApp. Use “Abrir conversa no WhatsApp” abaixo e depois registre o envio.';
+ $('#message-info').textContent='Clique em Enviar na conversa e, depois, registre o contato neste painel.';
+ updateWhatsappHelperHint();
+ if(!openWhatsAppWeb(link))$('#message-info').textContent='O navegador não permite acessar a aba do WhatsApp aberta manualmente. Para não abrir outras abas, copie a mensagem e envie na aba existente, ou ative o auxiliar do Firefox/Floorp.';
  try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
  $('#message-dialog').showModal();
  void renderDashboard();
 }
 $('#message-open-link').addEventListener('click',event=>{
- event.preventDefault();
- const link=$('#message-open-link').href;
- if(!openWhatsAppWeb(link))$('#message-info').textContent='Seu navegador bloqueou a abertura do WhatsApp. Verifique a permissão para abrir novas abas.';
+ if(whatsappBridgeReady){
+  event.preventDefault();
+  openWhatsAppWeb($('#message-open-link').href);
+ }
+ // Without the helper this is a user-chosen normal link. The main Mensagem
+ // action never creates tabs behind the user's back.
 });
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
