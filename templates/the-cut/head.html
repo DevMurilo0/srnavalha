@@ -19,9 +19,9 @@
  if(!media.matches&&'IntersectionObserver' in window&&typeof Element.prototype.animate==='function'){
   root.classList.add('motion-enabled');
   if(!location.hash)root.classList.add('opening-active');
-  window.__motionWatchdog=setTimeout(release,5000);
-  addEventListener('error',release);
-  addEventListener('unhandledrejection',release);
+  window.__motionWatchdog=setTimeout(release,6500);
+  // Fail-safe is handled by the watchdog. An unrelated UI rejection must not
+  // globally cancel scroll animation and reveal the entire page without motion.
   media.addEventListener('change',event=>{if(event.matches)release()});
  }
 })();

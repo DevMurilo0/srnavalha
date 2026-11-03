@@ -10,8 +10,11 @@ on:
       - 'templates/**'
       - 'assets/images/the-cut/**'
       - 'scripts/**'
+      - 'tools/whatsapp-tab-helper/**'
       - 'index.html'
       - 'agendar.html'
+      - 'admin.html'
+      - 'confirmar.html'
       - '.github/workflows/v6-regression.yml'
   workflow_dispatch:
 permissions:
@@ -28,12 +31,37 @@ jobs:
       - name: Verify generated HTML and JavaScript
         run: |
           node --check js/the-cut/app.js
+          node --check js/agendar.js
+          node --check js/admin.js
+          node --check lib/booking-server.js
+          node --check api/health.js
+          node --check api/bookings.js
+          node --check api/confirm.js
+          node --check api/session.js
+          node --check api/blocked.js
+          node --check lib/whatsapp-cloud.js
+          node --check api/whatsapp.js
+          node --check api/whatsapp-webhook.js
+          node --check scripts/test-whatsapp-cloud.mjs
+          node --check js/confirmar.js
+          node --check js/booking-local.js
+          node --check scripts/test-admin.mjs
+          node --check scripts/test-admin-whatsapp-link.mjs
+          node --check tools/whatsapp-tab-helper/background.js
+          node --check tools/whatsapp-tab-helper/bridge.js
+          node --check scripts/test-whatsapp-tab-helper.mjs
+          node --check js/the-cut/motion.js
+          node --check scripts/test-the-cut-motion.mjs
           node --check scripts/render-site.mjs
           node --check scripts/test-motion-states.mjs
           node --check scripts/capture-motion-frames.mjs
           node scripts/render-site.mjs
           git diff --exit-code -- index.html
           node --experimental-default-type=module scripts/test-booking-local.mjs
+          node scripts/test-api-contract.mjs
+          node scripts/test-whatsapp-cloud.mjs
+          node scripts/test-whatsapp-tab-helper.mjs
+          node scripts/test-admin-whatsapp-link.mjs
       - name: Install browser and accessibility dependencies
         run: |
           mkdir -p /tmp/srnavalha-validation
@@ -62,11 +90,12 @@ jobs:
           node scripts/test-motion-states.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
+          node scripts/test-admin.mjs
       - name: Package working source for download
         if: always()
         run: |
           mkdir -p dist
-          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html assets css js templates scripts print README.md DESIGN.md PRODUCT.md
+          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html admin.html confirmar.html api lib package.json assets css js templates scripts tools/whatsapp-tab-helper print README.md DESIGN.md PRODUCT.md
       - name: Upload source ZIP
         if: always()
         uses: actions/upload-artifact@v4

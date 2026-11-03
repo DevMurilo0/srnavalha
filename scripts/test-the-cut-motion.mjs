@@ -59,7 +59,20 @@ async function test(width,reducedMotion='no-preference'){
     await page.locator('.portrait-stage img.is-current').count()===1 &&
     (reduce || await page.locator('.portrait-stage').evaluate(stage=>[...stage.querySelectorAll('img')]
       .every(img=>img.getAnimations().length>0||img.classList.contains('is-current')))));
+ await page.locator('.team-list button[data-person="yan"]').click();
+ await page.locator('.team-list button[data-person="eduardo"]').click();
+ await page.waitForFunction(()=>document.querySelector('#person-name')?.textContent==='Eduardo',null,{timeout:5000});
+ check(width+' rapid team switching remains responsive',
+  await page.locator('.team-list button[data-person="eduardo"]').getAttribute('aria-pressed')==='true'&&
+  await page.locator('.portrait-stage img.is-current').getAttribute('src')==='assets/images/the-cut/team/eduardo.webp');
  await page.locator('.product-still-life').scrollIntoViewIfNeeded();
+ if(!reduce){
+  await page.waitForFunction(()=>
+   [...document.querySelectorAll('.product-object')].some(node=>
+    node.dataset.reveal==='playing'&&node.getAnimations().some(animation=>animation.playState==='running')
+   ),null,{timeout:4500});
+  check(width+' products perform real rolling animation',true);
+ }
  // The three objects have separate starts and durations. Wait for the whole
  // physical sequence to settle, not just the first package.
  await page.waitForFunction(()=>document.querySelectorAll('.product-object[data-motion-done="1"]').length===3,null,{timeout:10000});

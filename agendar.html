@@ -24,7 +24,7 @@
   </header>
   <main id="agendamento">
     <section class="bk-hero" aria-labelledby="bk-title">
-      <div class="bk-hero-copy"><h1 id="bk-title">Seu próximo ritual.</h1><p>Escolha em quatro etapas. <strong>Demonstração local: não cria uma reserva real.</strong></p></div>
+      <div class="bk-hero-copy"><h1 id="bk-title">Seu horário, do seu jeito.</h1><p>Comece pelo serviço e escolha seu profissional. <strong>Os horários são apenas ilustrativos e não criam uma reserva real.</strong></p></div>
       <img class="bk-wizard-photo" src="assets/images/hero-redesign/interior-480.webp" width="480" height="707" alt="Cadeiras e espelhos do salão da Sr. Navalha">
     </section>
     <section class="bk-workshop" id="escolhas" aria-labelledby="bk-choose-title">
@@ -32,44 +32,52 @@
       <nav class="bk-progress" aria-label="Etapas do agendamento"><ol>
         <li><button type="button" data-step="0" aria-current="step"><span>01</span> Serviço</button></li>
         <li><button type="button" data-step="1" disabled><span>02</span> Profissional</button></li>
-        <li><button type="button" data-step="2" disabled><span>03</span> Horário</button></li>
-        <li><button type="button" data-step="3" disabled><span>04</span> Seus dados</button></li>
+        <li><button type="button" data-step="2" disabled><span>03</span> Data</button></li>
+        <li><button type="button" data-step="3" disabled><span>04</span> Horário e dados</button></li>
       </ol></nav>
       <div class="bk-workshop-grid">
         <div class="bk-steps">
           <div class="bk-stage">
           <section class="bk-step" aria-labelledby="bk-service-title" id="bk-step-0">
-            <div class="bk-step-heading"><span class="bk-step-number">01</span><div><h3 id="bk-service-title">Qual serviço combina com você?</h3><p>Escolha um dos serviços do catálogo.</p></div></div>
-            <label class="bk-search-label" for="bk-search">Buscar serviço</label>
-            <div class="bk-search-shell"><span aria-hidden="true">⌕</span><input type="search" id="bk-search" autocomplete="off" placeholder="Ex.: corte, barba, hidratação"></div>
-            <div class="bk-filters" id="bk-filters" role="group" aria-label="Filtrar tipos de serviço"><button type="button" data-filter="Destaques" aria-pressed="true">Destaques</button><button type="button" data-filter="Todos" aria-pressed="false">Todos os serviços</button></div>
-            <div class="bk-services" id="bk-services" aria-label="Serviços disponíveis no catálogo"><p>Carregando serviços...</p></div>
+            <div class="bk-step-heading"><span class="bk-step-number">01</span><div><h3 id="bk-service-title">Qual serviço combina com você?</h3><p>Selecione o que você precisa. Para outros serviços, use a busca logo abaixo.</p></div></div>
+            <p class="bk-quick-intro">Comece por um dos três serviços principais. Um toque já leva você à próxima etapa.</p>
+            <div class="bk-services" id="bk-services" aria-label="Selecione seu serviço"><p>Carregando serviços...</p></div>
             <p class="bk-empty" id="bk-empty" hidden>Nenhum serviço encontrado. Tente outro termo ou escolha “Todos os serviços”.</p>
+            <div class="bk-service-explore">
+              <p>Procurando outro serviço?</p>
+              <label class="bk-search-label" for="bk-search">Buscar no catálogo completo</label>
+              <div class="bk-search-shell"><span aria-hidden="true">⌕</span><input type="search" id="bk-search" autocomplete="off" placeholder="Ex.: hidratação, corte infantil"></div>
+              <div class="bk-filters" id="bk-filters" role="group" aria-label="Filtrar tipos de serviço"><button type="button" data-filter="Destaques" aria-pressed="true">Principais</button><button type="button" data-filter="Todos" aria-pressed="false">Todos os serviços</button></div>
+            </div>
           </section>
           <section class="bk-step" aria-labelledby="bk-prof-title" id="bk-step-1">
             <div class="bk-step-heading"><span class="bk-step-number">02</span><div><h3 id="bk-prof-title">Com quem você quer cortar?</h3><p>Escolha alguém da equipe ou deixe em aberto.</p></div></div>
             <div class="bk-professionals" id="bk-professionals" role="group" aria-label="Selecionar profissional"><button class="bk-prof bk-prof-any" type="button" aria-pressed="true" data-pro="any"><span class="bk-prof-symbol" aria-hidden="true">✳</span><span>Sem preferência</span></button></div>
           </section>
           <section class="bk-step bk-step-last" aria-labelledby="bk-when-title" id="bk-step-2">
-            <div class="bk-step-heading"><span class="bk-step-number">03</span><div><h3 id="bk-when-title">Quando você quer vir?</h3><p>Veja horários de exemplo para experimentar o fluxo. Não representam a agenda verdadeira dos profissionais.</p></div></div>
+            <div class="bk-step-heading"><span class="bk-step-number">03</span><div><h3 id="bk-when-title">Qual dia fica melhor?</h3><p>Escolha primeiro a data. Os horários aparecerão depois que você clicar em “Próximo”.</p></div></div>
             <div class="bk-day-head"><label for="bk-date">Escolha a data</label><span>PRÓXIMOS 30 DIAS · TESTE</span></div>
-            <div class="bk-days" id="bk-days" aria-label="Próximos sete dias"></div>
-            <div class="bk-preferences"><label>Outra data para simular<input type="date" id="bk-date" required aria-describedby="bk-date-help"></label></div>
-            <p class="bk-help" id="bk-date-help">Expediente ilustrativo: segunda a sábado, das 9h às 12h e das 14h às 19h. Esses horários não representam disponibilidade real.</p>
-            <div class="bk-slot-head"><strong>Horários de demonstração</strong><span>EXEMPLOS · GRAVATÁ / PE</span></div>
-            <p class="bk-slot-state" id="bk-slot-state" role="status" aria-live="polite">Escolha seu serviço para ver os horários.</p>
-            <div class="bk-slots" id="bk-slots" role="group" aria-label="Escolher um horário disponível"></div>
-            <div id="bk-slot-error" hidden><button type="button" class="bk-retry" id="bk-slot-retry">Tentar consultar novamente ↗</button></div>
+            <div class="bk-days" id="bk-days" aria-label="Escolher um dos próximos sete dias"></div>
+            <div class="bk-preferences"><label>Ou selecione outra data<input type="date" id="bk-date" required aria-describedby="bk-date-help"></label></div>
+            <p class="bk-help" id="bk-date-help">Escolha uma data de segunda a sábado. Os horários apresentados depois são apenas exemplos, não vagas reais.</p>
           </section>
           <section class="bk-step bk-step-last" aria-labelledby="bk-data-title" id="bk-step-3">
-            <div class="bk-step-heading"><span class="bk-step-number">04</span><div><h3 id="bk-data-title">Para finalizar o teste.</h3><p>Use dados fictícios para testar. Nada será enviado à equipe.</p></div></div>
-            <form id="bk-form" class="bk-form" novalidate>
-              <label for="bk-name">Nome para o teste</label>
+            <div class="bk-step-heading"><span class="bk-step-number">04</span><div><h3 id="bk-data-title">Escolha o horário.</h3><p id="bk-selected-day">Selecione um horário ilustrativo para continuar com seu nome e WhatsApp nesta mesma tela.</p></div></div>
+            <div class="bk-slot-head"><strong>Horários para o dia escolhido</strong><span>APENAS DEMONSTRAÇÃO</span></div>
+            <p class="bk-slot-state" id="bk-slot-state" role="status" aria-live="polite">Escolha um horário de exemplo.</p>
+            <div class="bk-slots" id="bk-slots" role="group" aria-label="Escolher um horário ilustrativo"></div>
+            <div id="bk-slot-error" hidden><button type="button" class="bk-retry" id="bk-slot-retry">Atualizar os horários</button></div>
+            <div class="bk-contact-heading" id="bk-contact-heading" hidden>
+              <h4>Agora, seus dados.</h4>
+              <p>Horário escolhido. Preencha o nome e o WhatsApp logo abaixo para salvar a simulação neste navegador.</p>
+            </div>
+            <form id="bk-form" class="bk-form" novalidate hidden>
+              <label for="bk-name">Seu nome (teste)</label>
               <input class="bk-name" aria-describedby="bk-form-error" id="bk-name" name="name" type="text" minlength="2" maxlength="70" autocomplete="off" placeholder="Ex.: Cliente de teste" required>
-              <label for="bk-phone">Telefone de exemplo com DDD</label>
+              <label for="bk-phone">WhatsApp com DDD (teste)</label>
               <input class="bk-name" aria-describedby="bk-form-error" id="bk-phone" name="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="off" placeholder="(81) 99999-9999" required>
-              <label class="bk-consent"><input type="checkbox" id="bk-consent" required><span>Entendo que este é um teste local e que os dados ficam apenas neste navegador, sem envio à barbearia.</span></label>
-              <p class="bk-form-local-note"><strong>Privacidade:</strong> para testar, não informe dados pessoais reais. Você pode excluir os registros locais abaixo.</p>
+              <label class="bk-consent"><input type="checkbox" id="bk-consent" required><span>Entendo que este é um teste local: meu WhatsApp não receberá mensagens e os dados não serão enviados à barbearia.</span></label>
+              <p class="bk-form-local-note"><strong>Privacidade:</strong> use dados fictícios. Este formulário não confirma reservas reais e você pode excluir o registro de teste ao final.</p>
               <p class="bk-form-error" id="bk-form-error" role="alert" aria-live="assertive"></p>
             </form>
           </section>
@@ -97,25 +105,42 @@
       </div>
     </section>
     <section class="bk-success" id="bk-success" hidden aria-labelledby="bk-success-title">
-      <div class="bk-success-box"><span class="bk-success-symbol" aria-hidden="true">✓</span>
-        <p>SR. NAVALHA · DEMONSTRAÇÃO</p>
-        <h2 id="bk-success-title" tabindex="-1">Teste salvo<br><em>no navegador.</em></h2>
-        <p id="bk-confirm-state">Nenhuma reserva foi enviada à barbearia.</p>
-        <div class="bk-success-facts"><span>CÓDIGO DO TESTE <strong id="bk-confirm-ref">—</strong></span><span id="bk-confirm-detail"></span></div>
-        <p class="bk-success-note">Este protocolo é somente de demonstração. O registro pode ser excluído na lista de testes deste navegador.</p>
-        <div class="bk-success-actions"><button type="button" id="bk-new-booking"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="15" rx="2"/><path d="M7.5 3.5V8M16.5 3.5V8M3 10h18M8 14h4M8 17h6"/></svg> Fazer outro agendamento ↗</button><a href="index.html">Voltar ao site →</a></div>
-      </div>
-    </section>
-    <section class="bk-saved" aria-labelledby="bk-saved-title">
-      <div class="bk-saved-inner">
-        <div><p class="bk-saved-eyebrow">SEUS TESTES</p><h2 id="bk-saved-title">Registros <em>neste navegador.</em></h2>
-        <p>Os agendamentos abaixo são simulações locais. Você pode apagar cada registro e liberar novamente os horários de demonstração. Nenhum deles aparece em outros dispositivos ou para a equipe.</p></div>
-        <div class="bk-saved-list" id="bk-saved-list"><p>Nenhum teste salvo.</p></div>
-        <p class="bk-form-error" id="bk-saved-error" role="status"></p>
+      <div class="bk-success-shell">
+        <div class="bk-confirmation-message">
+          <span class="bk-message-symbol" aria-hidden="true">✦</span>
+          <div><h3>Você receberá um WhatsApp para confirmar.</h3>
+          <p>Perto da data escolhida, a equipe entrará em contato pelo número informado para confirmar sua presença. Responda à mensagem para manter seu horário.</p></div>
+        </div>
+        <div class="bk-success-intro">
+          <div class="bk-success-mark" aria-hidden="true">✓</div>
+          <p class="bk-success-overline">SOLICITAÇÃO RECEBIDA · SR. NAVALHA</p>
+          <h2 id="bk-success-title" tabindex="-1">Seu próximo corte<br><em>já tem um dia.</em></h2>
+          <p class="bk-success-subline">Anote as informações abaixo e acompanhe a confirmação da barbearia.</p>
+        </div>
+        <div class="bk-receipt" aria-label="Resumo do horário solicitado">
+          <div class="bk-receipt-top">
+            <span>SR. NAVALHA <small>BARBEARIA · GRAVATÁ</small></span>
+            <span class="bk-receipt-status"><span aria-hidden="true"></span> Aguardando confirmação</span>
+          </div>
+          <div class="bk-receipt-main">
+            <p class="bk-receipt-label">HORÁRIO SOLICITADO</p>
+            <h3 id="bk-confirm-date">—</h3>
+            <p class="bk-receipt-time" id="bk-confirm-hour">—</p>
+          </div>
+          <dl class="bk-receipt-details">
+            <div><dt>Serviço</dt><dd id="bk-confirm-service">—</dd></div>
+            <div><dt>Profissional</dt><dd id="bk-confirm-prof">—</dd></div>
+            <div><dt>Nome</dt><dd id="bk-confirm-name">—</dd></div>
+            <div><dt>WhatsApp informado</dt><dd id="bk-confirm-phone">—</dd></div>
+          </dl>
+          <div class="bk-receipt-bottom"><span>REFERÊNCIA <strong id="bk-confirm-ref">—</strong></span><span>SEU ESTILO. NOSSA ASSINATURA.</span></div>
+        </div>
+        <p class="bk-demo-fineprint" id="bk-confirm-state">Esta é uma demonstração local: nenhuma reserva real ou mensagem automática foi enviada à barbearia.</p>
+        <div class="bk-success-actions"><button type="button" id="bk-new-booking">Fazer outro agendamento <span aria-hidden="true">↗</span></button><a href="index.html">Voltar para o site <span aria-hidden="true">→</span></a></div>
       </div>
     </section>
   </main>
-  <footer class="bk-footer"><div><strong>SR. NAVALHA</strong><p>Av. Governador Agamenon Magalhães, 349<br>Prado · Gravatá, PE</p></div><div><a href="index.html">Voltar ao site ↗</a><a href="https://www.instagram.com/barbeariasrnavalha01/" target="_blank" rel="noopener noreferrer"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.7" y="2.7" width="18.6" height="18.6" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram ↗</a><a href="https://wa.me/5581995722396" target="_blank" rel="noopener noreferrer"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 11.7a8.3 8.3 0 0 1-12.2 7.3L3 20.4l1.4-4.9a8.3 8.3 0 1 1 15.9-3.8Z"/><path d="M8.6 8.3c-.5-.7-1.1-.6-1.5 0-.5.7-.4 1.8.1 2.8 1.3 2.7 3.1 4.1 5.7 4.9 1 .3 2 .1 2.7-.5.6-.6.8-1.2.3-1.5l-2-1a.8.8 0 0 0-.9.2l-.6.6c-1.2-.4-2.2-1.2-3-2.3l.5-.7a.8.8 0 0 0 .1-.9Z"/></svg> WhatsApp ↗</a></div><p class="bk-made">Design &amp; desenvolvimento <a href="https://murilogabriel.com.br" target="_blank" rel="noopener noreferrer">Murilo Gabriel · murilogabriel.com.br</a></p></footer>
+  <footer class="bk-footer"><div><strong>SR. NAVALHA</strong><p>Av. Governador Agamenon Magalhães, 349<br>Prado · Gravatá, PE</p></div><div><a href="index.html">Voltar ao site ↗</a><a href="https://www.instagram.com/barbeariasrnavalha01/" target="_blank" rel="noopener noreferrer"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.7" y="2.7" width="18.6" height="18.6" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> Instagram ↗</a><a href="https://wa.me/5581995722396" target="_blank" rel="noopener noreferrer"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 11.7a8.3 8.3 0 0 1-12.2 7.3L3 20.4l1.4-4.9a8.3 8.3 0 1 1 15.9-3.8Z"/><path d="M8.6 8.3c-.5-.7-1.1-.6-1.5 0-.5.7-.4 1.8.1 2.8 1.3 2.7 3.1 4.1 5.7 4.9 1 .3 2 .1 2.7-.5.6-.6.8-1.2.3-1.5l-2-1a.8.8 0 0 0-.9.2l-.6.6c-1.2-.4-2.2-1.2-3-2.3l.5-.7a.8.8 0 0 0 .1-.9Z"/></svg> WhatsApp ↗</a></div><p class="bk-made"><a class="bk-staff-link" href="admin.html">Área da equipe</a><span class="bk-footer-separator" aria-hidden="true">·</span> Design &amp; desenvolvimento <a href="https://murilogabriel.com.br" target="_blank" rel="noopener noreferrer">Murilo Gabriel · murilogabriel.com.br</a></p></footer>
   <noscript><p class="bk-noscript">Para experimentar o agendamento local, ative o JavaScript. Para marcar um horário real, entre em contato com a equipe pelo <a href="https://wa.me/5581995722396"><svg class="bk-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 11.7a8.3 8.3 0 0 1-12.2 7.3L3 20.4l1.4-4.9a8.3 8.3 0 1 1 15.9-3.8Z"/><path d="M8.6 8.3c-.5-.7-1.1-.6-1.5 0-.5.7-.4 1.8.1 2.8 1.3 2.7 3.1 4.1 5.7 4.9 1 .3 2 .1 2.7-.5.6-.6.8-1.2.3-1.5l-2-1a.8.8 0 0 0-.9.2l-.6.6c-1.2-.4-2.2-1.2-3-2.3l.5-.7a.8.8 0 0 0 .1-.9Z"/></svg> WhatsApp</a>.</p></noscript>
 </body>
 </html>

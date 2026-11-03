@@ -12,7 +12,8 @@ globalThis.localStorage = {
 };
 const { default: services } = await import('../js/data/services.js');
 const { default: professionals } = await import('../js/data/professionals.js');
-const { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking } =
+const { availableSlots, saveDemoBooking, readDemoBookings, removeDemoBooking,
+  normalizedStatus, updateDemoBookingStatus, markDemoReminderOpened, markDemoMessageSent } =
   await import('../js/booking-local.js');
 
 const nextDay = offset => {
@@ -46,6 +47,17 @@ assert.throws(() => saveDemoBooking({
   serviceId: 'cortee', professionalId: professional.id, slotAt: first.slot_at,
   name: 'Outro de Teste', phone: '5581999999999'
 }), { code: 'SLOT_TAKEN' }, 'colisão local recusada');
+assert.equal(normalizedStatus(saved),'pending','novo pedido começa aguardando');
+assert.ok(markDemoReminderOpened(saved.id).reminder_prepared_at,'preparo do WhatsApp anotado');
+assert.equal(readDemoBookings()[0].whatsapp_manual_sent_at,undefined,'abrir a conversa não comprova envio');
+assert.ok(markDemoMessageSent(saved.id).whatsapp_manual_sent_at,'envio registrado após confirmação da equipe');
+assert.equal(normalizedStatus(readDemoBookings()[0]),'pending','registro de mensagem não confirma presença');
+assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'confirmed')),'confirmed','confirmação salva');
+assert.ok(!availableSlots('cortee', testDate, professional.id).some(s=>s.slot_at===first.slot_at),'confirmação mantém bloqueio');
+assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'cancelled')),'cancelled','cancelamento salvo');
+assert.ok(availableSlots('cortee',testDate,professional.id).some(s=>s.slot_at===first.slot_at),'cancelamento libera horário');
+assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'pending')),'pending','reabrir pedido pendente');
+assert.ok(!availableSlots('cortee',testDate,professional.id).some(s=>s.slot_at===first.slot_at),'pedido pendente bloqueia horário');
 removeDemoBooking(saved.id);
 assert.equal(readDemoBookings().length, 0, 'teste excluído');
 assert.ok(availableSlots('cortee', testDate, professional.id).some(slot => slot.slot_at === first.slot_at),
@@ -54,4 +66,4 @@ const sunday = Array.from({ length: 7 }, (_, i) => nextDay(i + 1))
   .find(day => new Date(day + 'T12:00:00Z').getUTCDay() === 0);
 assert.equal(availableSlots('cortee', sunday, professional.id).length, 0, 'domingo ilustrativo sem agenda');
 assert.equal(availableSlots('assinatura-corte', testDate, professional.id).length, 0, 'assinatura desabilitada');
-console.log('Agendamento frontend local: 10 verificações concluídas.');
+console.log('Agendamento frontend local: persistência, conflito e transições de status verificados.');

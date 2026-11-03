@@ -1,4 +1,13 @@
-<section class="booking paper" id="agendamento" aria-labelledby="booking-title">
- <div class="booking-copy"><p class="eyebrow">AGENDAMENTO</p><h2 id="booking-title" data-type="cut"><span>Reserve</span><em>seu horário.</em></h2><p>Escolha o serviço, o profissional e a melhor data para você.</p></div>
- <div class="booking-controls"><ol class="booking-steps" aria-label="Etapas do agendamento"><li data-reveal="pending"><span>1</span> Serviço</li><li data-reveal="pending"><span>2</span> Profissional</li><li data-reveal="pending"><span>3</span> Data e horário</li></ol><form class="booking-form" action="agendar.html" method="get"><label><span class="sr-only">Serviço</span><select name="servico" required><option value="">Selecione o serviço</option>{{SERVICE_OPTIONS}}</select></label><label><span class="sr-only">Profissional</span><select name="profissional" required><option value="">Profissional</option>{{TEAM_OPTIONS}}</select></label><label class="date-field"><span>Data desejada</span><input name="data" type="date" aria-label="Data desejada"></label><button class="button" type="submit">Escolher meu horário {{ARROW}}</button></form><p class="booking-demo">Demonstração local: horários ilustrativos, sem reserva real. <a href="https://wa.me/5581995722396">Confirmar com a barbearia</a>.</p></div>
+<section class="booking paper booking-cta" id="agendamento" aria-labelledby="booking-title">
+ <div class="booking-copy">
+  <p class="eyebrow">AGENDAMENTO</p>
+  <h2 id="booking-title" data-type="cut"><span>Seu próximo</span><em>ritual começa aqui.</em></h2>
+  <p>Escolha o serviço, encontre seu profissional e planeje o melhor horário.</p>
+ </div>
+ <div class="booking-cta-panel">
+  <p class="booking-cta-label">O PRÓXIMO PASSO É SIMPLES</p>
+  <p class="booking-cta-description">Corte, barba ou o ritual completo. Encontre sua escolha em um só lugar.</p>
+  <a class="button booking-cta-button" href="agendar.html">Escolher meu serviço {{ARROW}}</a>
+  <p class="booking-demo">Experiência de demonstração. Os horários são ilustrativos e não representam reservas reais.</p>
+ </div>
 </section>

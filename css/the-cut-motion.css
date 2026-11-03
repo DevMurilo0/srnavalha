@@ -101,3 +101,8 @@ a:has(>.ui-icon),button:has(>.ui-icon){display:inline-flex;align-items:center;ju
 .hero-background .depth-plane,.house-photos .depth-plane,.instrument-photo .depth-plane,.facade .depth-plane{backface-visibility:hidden}
 .house:after{content:"";position:absolute;inset:auto 7% 4% auto;width:min(15vw,165px);height:1px;background:linear-gradient(90deg,transparent,#a3654b,#14141220);transform:translate3d(0,var(--house-parallax,0px),0);pointer-events:none;opacity:.8}
 @media(prefers-reduced-motion:reduce){.house:after{transform:none}}
+
+/* Product display is editorial, not a WhatsApp checkout or outbound CTA. */
+.products .product-note{display:block;color:#665c50;line-height:1.5}
+.product-selection .product-note{border-top:1px solid #857a6c;margin-top:9px;padding-top:9px;font-size:clamp(10px,.95vw,13px);letter-spacing:.015em}
+.all-products .product-note{font-size:11px;margin-top:7px;color:#6b6258}

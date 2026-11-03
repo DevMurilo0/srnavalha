@@ -9,25 +9,53 @@ const current=()=>p.locator('.bk-step:not([hidden])').getAttribute('id');
 async function next(){await p.locator('#bk-next').click()}
 try{
 for(const width of [320,360,390,430,768,1440]){
- await p.setViewportSize({width,height:800});await p.goto(base+'/agendar.html',{waitUntil:'domcontentloaded'});await p.waitForSelector('.bk-wizard');
+ await p.setViewportSize({width,height:800});await p.goto(base+'/agendar.html',{waitUntil:'domcontentloaded'});await p.evaluate(()=>localStorage.removeItem('srnavalha:agendamentos-demo:v1'));await p.reload({waitUntil:'domcontentloaded'});await p.waitForSelector('.bk-wizard');
  check(`${width}: próximo dentro da viewport`,await p.locator('#bk-next').evaluate(e=>e.getBoundingClientRect().bottom<=innerHeight));
  check(`${width}: etapa única e largura`,await p.locator('.bk-step:visible').count()===1&&await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await p.screenshot({path:`docs/booking-v5/service-${width}.png`});
+ check(`${width}: três serviços principais imediatamente acessíveis`,
+  JSON.stringify(await p.locator('#bk-services .bk-service').evaluateAll(nodes=>nodes.map(n=>n.dataset.id)))===
+  JSON.stringify(['cortee','barba-simples','comb-cort-barb-simples']));
+ if(width===390){
+  await p.locator('[data-filter="Todos"]').click();
+  check('catálogo completo segue acessível',await p.locator('#bk-services .bk-service').count()===42);
+  await p.locator('[data-filter="Destaques"]').click();
+ }
  await next();check(`${width}: exige serviço`,await current()==='bk-step-0'&&await p.locator('#bk-step-error').textContent()!=='');
  await p.locator('.bk-service').first().click();await next();
  check(`${width}: profissional e foco`,await current()==='bk-step-1'&&await p.evaluate(()=>document.activeElement.id==='bk-prof-title'));
  await p.screenshot({path:`docs/booking-v5/team-${width}.png`});
- await next();check(`${width}: sem preferência válido`,await current()==='bk-step-2');await next();check(`${width}: exige horário`,await current()==='bk-step-2');
- await p.locator('#bk-date').fill('2000-01-01');await p.locator('#bk-date').dispatchEvent('change');await next();check(`${width}: data inválida rejeitada`,await current()==='bk-step-2'&&await p.locator('.bk-slot').count()===0);
+ await next();check(`${width}: sem preferência válido`,await current()==='bk-step-2');
+ check(`${width}: tela da data não revela horários`,await p.locator('#bk-slots:visible').count()===0&&await p.locator('#bk-date').inputValue()==='');
+ await next();check(`${width}: exige escolha da data`,await current()==='bk-step-2'&&(await p.locator('#bk-step-error').textContent()).includes('data'));
+ await p.locator('#bk-date').fill('2000-01-01');await p.locator('#bk-date').dispatchEvent('change');await next();
+ check(`${width}: data inválida rejeitada`,await current()==='bk-step-2'&&await p.locator('#bk-slots:visible').count()===0);
  const date=await p.locator('#bk-date').getAttribute('min');const d=new Date(date+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+1);if(d.getUTCDay()===0)d.setUTCDate(d.getUTCDate()+1);
- await p.locator('#bk-date').fill(d.toISOString().slice(0,10));await p.locator('#bk-date').dispatchEvent('change');await p.locator('.bk-slot').first().click();const chosen=await p.locator('#bk-recap-date').textContent();await next();
- check(`${width}: dados e resumo`,await current()==='bk-step-3'&&await p.locator('.bk-summary:visible').count()===1);
+ await p.locator('#bk-date').fill(d.toISOString().slice(0,10));await p.locator('#bk-date').dispatchEvent('change');await next();
+ check(`${width}: data abre horários em tela separada`,await current()==='bk-step-3'&&await p.locator('#bk-slots:visible .bk-slot').count()>0);
+ check(`${width}: dados aguardam o horário`,await p.locator('#bk-form:visible').count()===0);
+ await p.locator('.bk-slot').first().click();
+ check(`${width}: nome e WhatsApp aparecem junto dos horários`,await current()==='bk-step-3'&&
+  await p.locator('#bk-form:visible #bk-name').count()===1&&await p.locator('#bk-form:visible #bk-phone').count()===1);
+ const chosen=await p.locator('#bk-recap-date').textContent();
+ check(`${width}: resumo acompanha horário`,await p.locator('.bk-summary:visible').count()===1);
  await p.screenshot({path:`docs/booking-v5/data-${width}.png`});
- await p.locator('#bk-back').click();check(`${width}: volta preserva horário`,await p.locator('.bk-slot[aria-pressed=true]').count()===1);await next();check(`${width}: avanço preserva resumo`,await p.locator('#bk-recap-date').textContent()===chosen);
+ await p.locator('#bk-back').click();check(`${width}: voltar conserva a data`,await current()==='bk-step-2'&&await p.locator('#bk-date').inputValue()===d.toISOString().slice(0,10));
+ await next();check(`${width}: avançar conserva horário e dados`,await p.locator('#bk-recap-date').textContent()===chosen&&
+  await p.locator('.bk-slot[aria-pressed=true]').count()===1&&await p.locator('#bk-form:visible').count()===1);
  await p.locator('#bk-submit').click();check(`${width}: valida nome e foco`,await p.locator('#bk-name').getAttribute('aria-invalid')==='true'&&await p.evaluate(()=>document.activeElement.id==='bk-name'));
  await p.locator('#bk-name').fill('Teste local');await p.locator('#bk-phone').fill('123');await p.locator('#bk-submit').click();check(`${width}: valida telefone`,await p.locator('#bk-phone').getAttribute('aria-invalid')==='true');
  await p.locator('#bk-phone').fill('81999999999');await p.locator('#bk-consent').check();await p.locator('#bk-submit').click();await p.waitForSelector('#bk-success:visible');
- check(`${width}: gravação local`,await p.locator('.bk-saved-row').count()===1);await p.locator('.bk-saved-row button').click();check(`${width}: exclusão local`,await p.locator('.bk-saved-row').count()===0);
+ check(`${width}: comprovante com orientação WhatsApp e informações completas`,
+  await p.locator('.bk-confirmation-message').count()===1&&
+  await p.locator('#bk-confirm-date').textContent()!==''&&
+  await p.locator('#bk-confirm-name').textContent()==='Teste local'&&
+  await p.locator('#bk-confirm-phone').textContent()==='81999999999');
+ check(`${width}: histórico de agendamentos oculto do cliente`,await p.locator('.bk-saved').count()===0&&
+  await p.locator('.bk-saved-row').count()===0);
+ check(`${width}: registro acessível à agenda da equipe neste navegador`,await p.evaluate(()=>
+  JSON.parse(localStorage.getItem('srnavalha:agendamentos-demo:v1')||'[]').length===1));
+
 }
 await p.setViewportSize({width:390,height:800});await p.goto(base+'/agendar.html?servico=cortee&profissional=damiao',{waitUntil:'domcontentloaded'});await p.waitForSelector('.bk-wizard');check('Pré-seleção de profissional',await p.locator('.bk-prof[aria-pressed=true]').textContent()==='Damião');check('Pré-seleção do serviço',await p.locator('.bk-service[data-id=cortee]').getAttribute('aria-pressed')==='true');
 await p.emulateMedia({reducedMotion:'reduce'});await next();check('Movimento reduzido',await p.locator('.bk-step:visible').evaluate(e=>e.getAnimations().length===0));

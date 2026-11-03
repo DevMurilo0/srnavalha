@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Sr. Navalha — WhatsApp em uma aba",
+  "version": "3.0.0",
+  "description": "Abre diretamente a conversa e preenche a mensagem no WhatsApp Web reutilizando uma unica aba.",
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://api.whatsapp.com/*",
+    "https://srnavalha.vercel.app/*",
+    "https://*.vercel.app/*",
+    "https://srnavalha.com.br/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://127.0.0.1/*",
+        "http://localhost/*",
+        "https://*.vercel.app/*",
+        "https://srnavalha.com.br/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "srnavalha-whatsapp-tabs@murilogabriel.com.br",
+      "strict_min_version": "121.0"
+    }
+  }
+}

@@ -5,6 +5,8 @@ import services from './data/services.js';
 import professionals from './data/professionals.js';
 
 export const BOOKING_STORAGE_KEY = 'srnavalha:agendamentos-demo:v1';
+export const BOOKING_STATUSES = Object.freeze(['pending','confirmed','cancelled']);
+export const normalizedStatus = booking => booking?.status === 'demo' ? 'pending' : booking?.status || 'pending';
 export const DEMO_SCHEDULE = Object.freeze({
   weekdays: [1, 2, 3, 4, 5, 6], // 0 = domingo (sem horários na demonstração)
   ranges: [['09:00', '12:00'], ['14:00', '19:00']],
@@ -51,6 +53,36 @@ export function removeDemoBooking(id) {
 export function clearDemoBookings() {
   store([]);
 }
+// These transitions are shared by the booking form, the dashboard and local
+// confirmation preview. No network writes happen in this frontend-only demo.
+export function updateDemoBookingStatus(id,status) {
+  if (!BOOKING_STATUSES.includes(status)) throw new LocalBookingError('INVALID_STATUS');
+  const all = readDemoBookings();
+  const index = all.findIndex(booking => booking.id === id);
+  if (index < 0) throw new LocalBookingError('BOOKING_NOT_FOUND');
+  const next = {...all[index], status, responded_at: new Date().toISOString()};
+  all[index] = next;
+  store(all);
+  return next;
+}
+export function markDemoReminderOpened(id) {
+  const all = readDemoBookings();
+  const index = all.findIndex(booking => booking.id === id);
+  if (index < 0) throw new LocalBookingError('BOOKING_NOT_FOUND');
+  const next = {...all[index], reminder_prepared_at: new Date().toISOString()};
+  all[index] = next;
+  store(all);
+  return next;
+}
+export function markDemoMessageSent(id) {
+  const all = readDemoBookings();
+  const index = all.findIndex(booking => booking.id === id);
+  if (index < 0) throw new LocalBookingError('BOOKING_NOT_FOUND');
+  const next = {...all[index], whatsapp_manual_sent_at: new Date().toISOString()};
+  all[index] = next;
+  store(all);
+  return next;
+}
 function localeDay(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Recife', year: 'numeric', month: '2-digit', day: '2-digit'
@@ -68,7 +100,7 @@ function validDay(day) {
     day >= localeDay() && day <= addDays(localeDay(), DEMO_SCHEDULE.daysAhead);
 }
 
-export function availableSlots(serviceId, day, professionalId = null) {
+export function availableSlots(serviceId, day, professionalId = null, ignoreLocal = false) {
   const service = services.find(s => s.id === serviceId);
   if (!service || service.category === 'Assinantes' || !validDay(day)) return [];
   const duration = Number.parseInt(service.duration, 10);
@@ -80,7 +112,7 @@ export function availableSlots(serviceId, day, professionalId = null) {
   const team = professionalId
     ? professionals.filter(pro => pro.id === professionalId)
     : professionals;
-  const bookings = readDemoBookings();
+  const bookings = ignoreLocal ? [] : readDemoBookings();
   const earliest = Date.now() + 30 * 60 * 1000;
   const list = [];
 
@@ -92,7 +124,7 @@ export function availableSlots(serviceId, day, professionalId = null) {
         if (start < earliest) continue;
         const end = new Date(start + duration * 60 * 1000).toISOString();
         const candidate = { professional_id: pro.id, starts_at: slot_at, ends_at: end };
-        if (bookings.some(item => item.status === 'demo' && isSameSlot(item, candidate))) continue;
+        if (bookings.some(item => normalizedStatus(item) !== 'cancelled' && isSameSlot(item, candidate))) continue;
         list.push({ slot_at, professional_id: pro.id, professional_name: pro.name });
       }
     }
@@ -120,7 +152,7 @@ export function saveDemoBooking({ serviceId, professionalId, slotAt, name, phone
   const id = crypto.randomUUID();
   const entry = {
     id, reference: id.slice(0, 8).toUpperCase(),
-    status: 'demo', service_id: serviceId, service_name: service.name,
+    status: 'pending', service_id: serviceId, service_name: service.name,
     professional_id: professionalId, professional_name: pro.name,
     starts_at: slotAt, ends_at: new Date(Date.parse(slotAt) + duration * 60000).toISOString(),
     customer_name: cleanName, customer_phone: cleanPhone, created_at: new Date().toISOString()
