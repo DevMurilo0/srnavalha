@@ -38,8 +38,9 @@ as regras do Firefox/AMO. Não ignore avisos de segurança de extensões.
 ## Sem extensão
 
 Por segurança, o site não consegue controlar abas abertas manualmente.
-O painel tenta usar sua aba nomeada; se a referência for perdida, não abre
-novas abas indefinidamente: apresenta instruções para utilizar a aba existente,
-copiando o texto da mensagem ou instalando este complemento.
+Sem este complemento, o painel **não abre novas abas automaticamente**:
+apresenta a mensagem pronta para copiar e encaminhar na aba do WhatsApp
+que já está aberta. A opção de direcionar diretamente à aba existente só
+é habilitada depois que o complemento responde ao painel.
 
 O código fica junto ao repositório, para auditoria e alterações futuras.
