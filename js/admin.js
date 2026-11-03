@@ -41,21 +41,19 @@ window.addEventListener('message',event=>{
   whatsappBridgePending.delete(data.id);
   const info=$('#message-info');
   if(data.ok){
-   if(info)info.textContent=data.mode==='draft-ready'
-    ?'Conversa encontrada e mensagem pronta no campo do WhatsApp. Confira o destinatário e clique em Enviar.'
-    :data.mode==='first-navigation'
-     ?'WhatsApp aberto com o número e a mensagem. Para os próximos clientes, o auxiliar tenta preparar o rascunho sem recarregar.'
-     :'WhatsApp aberto. Confira o destinatário e envie a mensagem manualmente.';
+   if(info)info.textContent=data.mode==='direct-chat'
+    ?'Conversa do número aberta na aba do WhatsApp com a mensagem preenchida. Confira o destinatário e clique em Enviar. O WhatsApp pode recarregar ao trocar de contato, mas não cria outra aba.'
+    :'Conversa aberta. Confira o destinatário e envie a mensagem no WhatsApp.';
   }else{
-   if(info)info.textContent=(data.error||'Não foi possível abrir o contato automaticamente.')+
-    ' Use “Copiar texto” se precisar concluir o envio manualmente. A aba do WhatsApp não foi recarregada.';
+   if(info)info.textContent=(data.error||'Não foi possível abrir a conversa.')+
+    ' A mensagem continua disponível em “Copiar texto”.';
   }
  }
 });
 function updateWhatsappHelperHint(){
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar v2.2 conectado: tenta abrir a conversa e preparar o texto no WhatsApp, sem recarregar a página.'
+  ?'Auxiliar v3.0 conectado: abre diretamente a conversa com o texto pronto, reutilizando a aba existente.'
   :bridgeError
    ?'O auxiliar respondeu com um erro: '+bridgeError+'. Recarregue a extensão e esta página.'
    :fallbackOpened
@@ -63,7 +61,7 @@ function updateWhatsappHelperHint(){
     :'A extensão não foi detectada. Após instalá-la, atualize esta página e clique em Verificar extensão.';
  const status=$('#whatsapp-helper-status');
  if(status){
-  status.textContent=whatsappBridgeReady?'Extensão conectada · v2.2':bridgeError?'Extensão com erro':'Extensão não detectada';
+  status.textContent=whatsappBridgeReady?'Extensão conectada · v3.0':bridgeError?'Extensão com erro':'Extensão não detectada';
   status.dataset.connected=String(whatsappBridgeReady);
  }
  const link=$('#message-open-link');
@@ -187,7 +185,7 @@ function updateWhatsAppMode(){
  badge.textContent=whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
  badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
  $('#whatsapp-mode-details').textContent=whatsappBridgeReady
-  ?'Auxiliar conectado: Mensagem tenta abrir o contato e preencher o rascunho no WhatsApp, sem recarregar a aba. Confira e clique em Enviar.'
+  ?'Auxiliar conectado: Mensagem abre diretamente o número e preenche o texto na mesma aba. O WhatsApp pode atualizar ao trocar de contato; clique em Enviar após revisar.'
   :'Instale o auxiliar universal para que Mensagem sempre use a aba do WhatsApp que já está aberta. O envio continua manual, sem automações não oficiais.';
 }
 function showView(){
