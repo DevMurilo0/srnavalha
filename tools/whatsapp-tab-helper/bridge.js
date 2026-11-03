@@ -61,6 +61,7 @@ if (extensionAllowed) {
         ok: Boolean(result?.ok),
         reused: Boolean(result?.reused),
         mode: result?.mode || '',
+        mayReload: Boolean(result?.mayReload),
         message: result?.message || '',
         error: result?.error || ''
       });
