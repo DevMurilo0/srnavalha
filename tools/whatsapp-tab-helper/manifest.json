@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Sr. Navalha — WhatsApp em uma aba",
-  "version": "2.1.0",
-  "description": "Pesquisa contatos no WhatsApp Web existente sem atualizar a página; funciona no Firefox, Floorp e Chrome.",
+  "version": "2.2.0",
+  "description": "Abre conversa e prepara o rascunho no WhatsApp Web existente, sem recarregar a aba ou enviar mensagens.",
   "permissions": [
     "tabs",
     "scripting"
