@@ -266,34 +266,71 @@ function createRow(booking){
  row.append(date,person,service,state,actions,serial);
  return row;
 }
+function createUpcomingRow(booking){
+ const row=el('article','upcoming-item');
+ const day=el('div','upcoming-date');
+ day.append(el('strong','',fmtDay(booking.starts_at)),el('span','',fmtHour(booking.starts_at)));
+ const customer=el('div','upcoming-customer');
+ customer.append(el('strong','',booking.customer_name||'Cliente'),el('span','',booking.service_name+' · '+booking.professional_name));
+ const state=el('span','status '+(normalizedStatus(booking)==='confirmed'?'confirmed':''),STATUS[normalizedStatus(booking)]?.[0]||'Aguardando');
+ row.append(day,customer,state);
+ return row;
+}
+function createConfirmedRow(booking){
+ const row=el('article','confirmed-item');
+ row.dataset.id=booking.id;
+ const client=el('div','confirmed-client');
+ client.append(el('strong','',booking.customer_name||'Cliente'));
+ const phone=String(booking.customer_phone||'').replace(/\D/g,'');
+ if(/^55\d{10,11}$/.test(phone)){
+  const link=el('a','confirmed-phone','+'+phone.replace(/^55/,'55 '));
+  link.href='tel:+'+phone;
+  link.title='Ligar para '+booking.customer_name;
+  client.append(link);
+ }else client.append(el('span','confirmed-phone','Telefone não informado'));
+ const service=el('div','confirmed-service');
+ service.append(el('strong','',booking.service_name||'Serviço'),el('span','',booking.professional_name||'Profissional'));
+ const date=el('div','confirmed-date');
+ date.append(el('strong','',fmtDay(booking.starts_at)),el('span','',fmtHour(booking.starts_at)));
+ const badge=el('span','status confirmed','Confirmado');
+ row.append(client,service,date,badge);
+ return row;
+}
 async function renderDashboard(){
  if($('#dashboard').hidden)return;
+ const request=++renderCounter;
  let entries;
  if(sharedMode){
   try{
    const res=await fetch('/api/bookings',{credentials:'same-origin',cache:'no-store'});
-   if(!res.ok)throw Error('Sua sessão terminou. Entre novamente no painel.');
+   if(!res.ok)throw Error('Não foi possível carregar a agenda. Confira seu acesso.');
    entries=(await res.json()).items;
-  }catch(e){feedback(e.message);return}
- }else entries=readDemoBookings().filter(b=>b && b.id && b.starts_at);
+   if(request!==renderCounter)return;
+  }catch(e){if(request===renderCounter)feedback(e.message,'error');return}
+ }else entries=readDemoBookings().filter(b=>b&&b.id&&b.starts_at);
  const counts={pending:0,confirmed:0,cancelled:0};
- entries.forEach(b=>{const s=normalizedStatus(b);if(s in counts)counts[s]++});
+ entries.forEach(b=>{const status=normalizedStatus(b);if(status in counts)counts[status]++});
  $('#stat-total').textContent=String(entries.length);
  $('#stat-pending').textContent=String(counts.pending);
  $('#stat-confirmed').textContent=String(counts.confirmed);
  $('#stat-cancelled').textContent=String(counts.cancelled);
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
- const today=dateKey(new Date());
- const end=weekEnd(today);
- $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{
-  timeZone:TZ,weekday:'long',day:'numeric',month:'long'
- }).format(new Date());
+ const now=Date.now(),today=dateKey(new Date()),week=weekEnd(today);
+ $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'}).format(new Date());
+
+ // The front of the dashboard only shows the closest future dates.
+ const upcoming=entries.filter(b=>normalizedStatus(b)!=='cancelled'&&Date.parse(b.starts_at)>=now)
+  .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at)).slice(0,5);
+ $('#upcoming-list').replaceChildren(...upcoming.map(createUpcomingRow));
+ $('#upcoming-empty').hidden=upcoming.length>0;
+ $('#upcoming-window').textContent=upcoming.length+' '+(upcoming.length===1?'próximo horário':'próximos horários');
+
  const query=currentSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const matching=entries.filter(b=>{
   if(currentFilter!=='all'&&normalizedStatus(b)!==currentFilter)return false;
   const day=dateKey(b.starts_at);
   if(currentPeriod==='today'&&day!==today)return false;
-  if(currentPeriod==='week'&&(day<today||day>end))return false;
+  if(currentPeriod==='week'&&(day<today||day>week))return false;
   const haystack=[b.customer_name,b.service_name,b.professional_name,b.reference,b.customer_phone].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   return haystack.includes(query);
  }).sort((a,b)=>String(a.starts_at).localeCompare(String(b.starts_at)));
@@ -304,10 +341,29 @@ async function renderDashboard(){
  $('#result-count').textContent=matching.length+(matching.length===1?' agendamento encontrado':' agendamentos encontrados');
  $('#empty-list').hidden=matching.length>0;
  if(!matching.length){
-  $('#empty-list p').textContent=entries.length
-   ?'Nenhum agendamento corresponde aos filtros escolhidos. Limpe a busca ou selecione outro período.'
-   : sharedMode?'Os próximos agendamentos aparecerão aqui assim que forem realizados.':'Os agendamentos de demonstração realizados neste navegador aparecerão aqui.';
+  $('#empty-list p').textContent=entries.length?'Nenhum agendamento corresponde aos filtros. Tente outra busca ou período.':'Os agendamentos realizados aparecerão nesta agenda.';
   $('#empty-list a').hidden=entries.length>0;
+ }
+
+ // A dedicated consultation view for customers who have confirmed attendance.
+ const confirmed=entries.filter(b=>normalizedStatus(b)==='confirmed')
+  .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at));
+ const future=confirmed.filter(b=>Date.parse(b.starts_at)>=now);
+ $('#side-confirmed-count').textContent=String(future.length);
+ $('#confirmed-count').textContent=String(future.length);
+ const normalized=confirmedSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const digits=confirmedSearch.replace(/\D/g,'');
+ const visible=confirmed.filter(b=>{
+  const isFuture=Date.parse(b.starts_at)>=now;
+  if(confirmedPeriod==='upcoming'&&!isFuture)return false;
+  if(confirmedPeriod==='past'&&isFuture)return false;
+  const name=[b.customer_name,b.customer_phone,b.service_name,b.professional_name,b.reference].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  return !normalized||name.includes(normalized)||(digits.length>=2&&String(b.customer_phone).includes(digits));
+ });
+ $('#confirmed-list').replaceChildren(...visible.map(createConfirmedRow));
+ $('#confirmed-empty').hidden=visible.length>0;
+ if(!visible.length){
+  $('#confirmed-empty-detail').textContent=confirmed.length?'Nenhum confirmado corresponde a essa busca ou período.':'Ainda não há clientes confirmados. Quando uma presença for confirmada, ela aparecerá aqui.';
  }
 }
 document.querySelectorAll('.filters button').forEach(button=>button.addEventListener('click',()=>{
@@ -316,6 +372,14 @@ document.querySelectorAll('.filters button').forEach(button=>button.addEventList
  renderDashboard();
 }));
 $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.value.trim();renderDashboard()});
+$('#confirmed-search').addEventListener('input',event=>{confirmedSearch=event.target.value.trim();void renderDashboard()});
+$('#confirmed-period').addEventListener('change',event=>{confirmedPeriod=event.target.value;void renderDashboard()});
+$('#confirmed-clear').addEventListener('click',()=>{
+ confirmedSearch='';confirmedPeriod='upcoming';
+ $('#confirmed-search').value='';$('#confirmed-period').value='upcoming';
+ void renderDashboard();
+});
+
 $('#admin-period').addEventListener('change',event=>{currentPeriod=event.target.value;void renderDashboard()});
 $('#refresh-bookings').addEventListener('click',()=>{renderDashboard();feedback('Agenda atualizada.')});
 window.addEventListener('storage',event=>{if(event.key===BOOKING_STORAGE_KEY)renderDashboard()});
