@@ -77,11 +77,12 @@ O envio continua manual para evitar automações não oficiais.
    ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
    Os filtros possuem contadores independentes de Presença confirmada/cancelada.
 2. Clique em **Mensagem** no agendamento. Com o complemento universal
-   **Sr. Navalha — WhatsApp em uma aba v2** instalado, o painel usa a API de abas
-   do **Firefox, Floorp ou Chrome** para localizar uma aba do WhatsApp Web
-   já aberta, inclusive se foi aberta manualmente, e reutilizá-la para o
-   próximo cliente. Se não existir nenhuma, cria uma única aba. O painel
-   exibe **Extensão conectada · v2** quando o serviço da extensão responde.
+   **Sr. Navalha — WhatsApp em uma aba v2.1** instalado, o painel encontra a
+   aba existente do WhatsApp Web em **Firefox, Floorp ou Chrome** e pesquisa
+   o telefone na barra de conversas, **sem recarregar a página**. Selecione
+   o resultado correto, use **Copiar texto** no painel e envie manualmente.
+   Se nenhuma aba do WhatsApp existir, é criada apenas uma.
+   O painel exibe **Extensão conectada · v2.1** após verificar o complemento.
 3. Envie a mensagem **dentro do WhatsApp**.
 4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
@@ -102,6 +103,15 @@ O **mesmo pacote** tem instruções para Firefox, Floorp e Chrome no
 a instalação temporária precisa ser refeita após reiniciar o navegador; no
 Chrome, pode ser carregada como extensão sem compactação, em modo desenvolvedor.
 Remova versões antigas e atualize `admin.html` após instalar.
+
+
+**Importante:** a versão anterior usava `tabs.update({url: ...})`, que
+recarregava o WhatsApp a cada cliente. A v2.1 usa um script de pesquisa
+na própria aba. Como o WhatsApp Web pode mudar seu HTML, se o campo de
+busca não for encontrado a extensão **não forçará um reload**: informará
+o erro e permitirá localizar o cliente manualmente.
+Para atualizar, faça `git pull --ff-only`, recarregue a extensão em
+`about:debugging` ou `chrome://extensions`, e então atualize `admin.html`.
 
 O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
 próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
