@@ -74,6 +74,15 @@ export function markDemoReminderOpened(id) {
   store(all);
   return next;
 }
+export function markDemoMessageSent(id) {
+  const all = readDemoBookings();
+  const index = all.findIndex(booking => booking.id === id);
+  if (index < 0) throw new LocalBookingError('BOOKING_NOT_FOUND');
+  const next = {...all[index], whatsapp_manual_sent_at: new Date().toISOString()};
+  all[index] = next;
+  store(all);
+  return next;
+}
 function localeDay(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Recife', year: 'numeric', month: '2-digit', day: '2-digit'
