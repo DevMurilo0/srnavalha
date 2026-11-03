@@ -31,28 +31,33 @@ try{
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
  check('Mensagem é a ação principal',await page.locator('.appointment button.message').textContent()==='Mensagem');
  check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
- const whatsAppPopup=page.waitForEvent('popup',{timeout:5000});
+ // Without the optional browser helper, the site must not spawn more tabs.
  await page.locator('.appointment button.message').click();
- const popup=await whatsAppPopup;
  const href=await page.locator('#message-open-link').getAttribute('href');
- check('Abre direto WhatsApp Web com telefone e mensagem preenchida',
+ check('WhatsApp direct link contains phone and message',
   new URL(href).hostname==='web.whatsapp.com'&&
   new URL(href).pathname==='/send'&&
   new URL(href).searchParams.get('phone')==='5581999999999'&&
   new URL(href).searchParams.get('text').includes('Cliente'));
- check('WhatsApp abre em uma aba dedicada',context.pages().length===2);
- await page.locator('#message-dismiss').click();
- await page.locator('.appointment button.message').click();
- await page.waitForTimeout(100);
- check('Próximo clique reaproveita a aba WhatsApp',context.pages().length===2&&popup.url().startsWith('https://web.whatsapp.com/send?'));
- await page.locator('#message-dismiss').click();
- check('O painel não marca envio só por abrir a conversa',
+ check('No unsolicited WhatsApp tabs without helper',context.pages().length===1);
+ check('Opening message does not claim it was sent',
+  (await page.locator('#message-info').textContent()).includes('não permite acessar')&&
   await page.locator('.appointment .message-indicator').textContent()==='WhatsApp aberto');
+ await page.locator('#message-dismiss').click();
  await page.locator('.appointment button.message').click();
+ check('Repeated message clicks do not create any tabs without helper',context.pages().length===1);
  await page.locator('#message-confirm-sent').click();
- await popup.close();
- check('Envio é registrado só após confirmação do operador',await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
+ check('Staff marks message sent without confirming attendance',
+  await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
   await page.locator('#stat-pending').textContent()==='1');
+ check('Contact status counters reflect manual confirmation',
+  await page.locator('#msg-unsent-count').textContent()==='0'&&
+  await page.locator('#msg-sent-count').textContent()==='1');
+ await page.locator('[data-message-filter="unsent"]').click();
+ check('Pending-contact filter excludes sent messages',await page.locator('.appointment').count()===0);
+ await page.locator('[data-message-filter="sent"]').click();
+ check('Sent-message filter shows marked client',await page.locator('.appointment').count()===1);
+ await page.locator('[data-message-filter="all"]').click();
 
  await page.locator('#admin-period').selectOption('today');
  check('Filtro de data aparece e pode ser alterado',await page.locator('#admin-period').inputValue()==='today');
