@@ -71,14 +71,19 @@ O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as v
 
 ## Confirmação pública por WhatsApp — configuração de produção
 
-O painel agora oferece duas formas de contato, conforme a configuração da conta:
-- **Enviar botões no WhatsApp**: quando a conta Meta Business está integrada e existe
-  um modelo *Utility* aprovado, envia uma mensagem com botões nativos de
-  resposta rápida **Confirmar** e **Cancelar**. O webhook verifica a assinatura
-  da Meta, confere o telefone do cliente e atualiza a agenda compartilhada.
-- **Preparar WhatsApp**: abre a conversa comum com mensagem preenchida. Nessa
-  modalidade não é possível inserir botões nativos; a equipe verifica a resposta
-  manualmente. A mensagem não contém links de localhost.
+O painel oferece uma única ação primária, **Mensagem**, por agendamento.
+- **Com a API Meta configurada**: ao clicar em Mensagem, o sistema pede o envio
+  diretamente ao servidor, sem abrir WhatsApp Web, guia adicional ou aplicativo.
+  Um template *Utility* aprovado contém as respostas rápidas **Confirmar** e
+  **Cancelar**; o webhook verifica a assinatura e o telefone e atualiza a agenda.
+  A resposta da API sinaliza a aceitação do pedido de envio, não garante entrega.
+- **Sem API configurada**: Mensagem abre uma prévia dentro do painel, com um botão
+  para copiar o texto. **Nenhuma mensagem é enviada automaticamente.** Não são
+  exibidos links `localhost` ou `127.0.0.1`. O operador precisa enviar a
+  mensagem manualmente. Um site não tem permissão para detectar/controlar uma
+  sessão aberta do WhatsApp e mandar mensagens sem interação.
+- **Interface**: o painel apresenta período, busca, filtros por status, ações
+  secundárias agrupadas em Gerenciar e diálogos de confirmação acessíveis.
 
 Os endpoints em `api/` já foram implementados para confirmação real **entre
 dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
@@ -143,7 +148,8 @@ Em **WhatsApp Business Platform → Webhooks**:
 
 Fluxo:
 1. A equipe abre a agenda, escolhe um pedido **Aguardando** e clica em
-   **Enviar botões no WhatsApp**.
+   **Mensagem**. Quando o modo oficial está ativo, o envio é solicitado
+   diretamente à API do WhatsApp Business.
 2. O endpoint `POST /api/whatsapp` verifica o login do administrador,
    confirma o horário e solicita o envio do template aprovado à Meta.
 3. O cliente recebe **Confirmar** e **Cancelar** dentro do WhatsApp.
