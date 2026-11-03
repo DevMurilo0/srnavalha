@@ -426,3 +426,26 @@ body{background:var(--paper)}
 
 /* Never expose the fallback tab opener when safe reuse is unavailable. */
 .message-open-link[hidden]{display:none!important}
+
+/* Cross-browser WhatsApp helper state: diagnosis is visible, not silent. */
+.helper-connection{
+ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ gap:12px;padding:13px 15px;margin-top:14px;background:#f1f3ec;
+ border:1px solid #d7dfd2;border-radius:4px;
+}
+#whatsapp-helper-status{
+ display:inline-flex;align-items:center;gap:8px;font:740 12px/1.5 var(--body);
+ color:#6b6048;
+}
+#whatsapp-helper-status::before{
+ content:"";width:8px;height:8px;flex:none;border-radius:50%;background:#b89452;
+}
+#whatsapp-helper-status[data-connected="true"]{color:#2e6540}
+#whatsapp-helper-status[data-connected="true"]::before{background:#49a266}
+#whatsapp-helper-check{
+ padding:9px 12px;border:1px solid #c0cabf;border-radius:3px;
+ background:#fff;color:#304d39;font:750 11px var(--body);cursor:pointer;
+}
+#whatsapp-helper-check:hover{background:#e5ede2}
+#whatsapp-helper-check:focus-visible{outline:2px solid #558b62;outline-offset:3px}
+@media(max-width:460px){.helper-connection{align-items:stretch}.helper-connection button{width:100%}}
