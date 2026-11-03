@@ -341,3 +341,21 @@ body{background:var(--paper)}
  .confirmed-item>.status{font-size:10px}
  .message-dialog-actions #message-confirm-sent{order:-1}
 }
+
+
+.mobile-admin-nav{display:none}
+@media(max-width:800px){
+ .mobile-admin-nav{
+  display:flex;align-items:stretch;gap:22px;
+  background:#f6f5ef;border-bottom:1px solid #dde0d8;
+  padding:0 18px;overflow-x:auto;scrollbar-width:thin;
+ }
+ .mobile-admin-nav a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:15px 0 13px;min-height:48px;white-space:nowrap;
+  color:#68746a;font:700 12px/1.4 var(--body);
+  border-bottom:2px solid transparent;
+ }
+ .mobile-admin-nav a.active{color:#28452f;border-bottom-color:#315b3c}
+}
+@media(max-width:600px){.mobile-admin-nav{padding-inline:14px}}
