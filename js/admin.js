@@ -11,55 +11,83 @@ const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
 const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
 const WHATSAPP_FALLBACK_FLAG='srnavalha:whatsapp-aba-aberta';
-let whatsappBridgeReady=false,bridgeSequence=0;
+let whatsappBridgeReady=false,bridgeSequence=0,bridgeError='';
 let fallbackTab=null;
 let fallbackOpened=sessionStorage.getItem(WHATSAPP_FALLBACK_FLAG)==='1';
-const whatsappBridgePending=new Set();
+const whatsappBridgePending=new Map();
+
+function probeWhatsappHelper(){
+ if(whatsappBridgeReady)return;
+ window.postMessage({
+  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence
+ },location.origin);
+}
 window.addEventListener('message',event=>{
  if(event.source!==window||event.origin!==location.origin)return;
  const data=event.data;
  if(data?.scope!==WHATSAPP_BRIDGE_SCOPE||data.sender!=='extension')return;
  if(data.type==='READY'){
-  whatsappBridgeReady=true;
+  whatsappBridgeReady=true;bridgeError='';
+  updateWhatsappHelperHint();updateWhatsAppMode();
+  return;
+ }
+ if(data.type==='ERROR'){
+  bridgeError=String(data.error||'Serviço da extensão indisponível').slice(0,160);
   updateWhatsappHelperHint();
   return;
  }
- if(data.type==='RESULT'&&whatsappBridgePending.delete(data.id)){
+ if(data.type==='RESULT'&&whatsappBridgePending.has(data.id)){
+  clearTimeout(whatsappBridgePending.get(data.id));
+  whatsappBridgePending.delete(data.id);
   const info=$('#message-info');
   if(data.ok){
    if(info)info.textContent=data.reused
     ?'Conversa aberta na aba do WhatsApp que já estava no navegador. Envie a mensagem e registre o envio aqui.'
-    :'Uma aba do WhatsApp foi criada. Os próximos contatos reutilizarão essa mesma aba.';
+    :'Uma única aba do WhatsApp foi criada. Os próximos contatos usarão essa mesma aba.';
   }else{
-   if(info)info.textContent='Não foi possível acessar a aba do WhatsApp: '+(data.error||'verifique o auxiliar')+'. Use a aba já aberta para enviar manualmente.';
+   if(info)info.textContent='Falha ao reutilizar o WhatsApp: '+(data.error||'verifique as permissões da extensão')+'. Clique em Verificar extensão para tentar novamente.';
   }
  }
 });
 function updateWhatsappHelperHint(){
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar conectado: a aba do WhatsApp que você já tem aberta será reutilizada.'
-  :fallbackOpened
-   ?'O WhatsApp já foi aberto nesta sessão. Se a conversa não mudar automaticamente, copie o texto e cole na aba existente; com o auxiliar instalado, o painel conseguirá trocar o cliente sem criar abas.'
-   :'Sem o auxiliar, a primeira mensagem abre uma aba do WhatsApp Web. As próximas não criarão outras; para reutilizar inclusive uma aba aberta manualmente, instale o auxiliar do Floorp.';
+  ?'Auxiliar universal conectado. Firefox, Floorp e Chrome: a aba do WhatsApp já aberta será reutilizada.'
+  :bridgeError
+   ?'O auxiliar respondeu com um erro: '+bridgeError+'. Recarregue a extensão e esta página.'
+   :fallbackOpened
+    ?'O WhatsApp já foi aberto nesta sessão. Sem a extensão conectada, copie a mensagem para não criar mais abas.'
+    :'A extensão não foi detectada. Após instalá-la, atualize esta página e clique em Verificar extensão.';
+ const status=$('#whatsapp-helper-status');
+ if(status){
+  status.textContent=whatsappBridgeReady?'Extensão conectada · v2':bridgeError?'Extensão com erro':'Extensão não detectada';
+  status.dataset.connected=String(whatsappBridgeReady);
+ }
  const link=$('#message-open-link');
  if(link){
-  link.textContent=whatsappBridgeReady?'Ir para a aba existente do WhatsApp ↗':'Abrir WhatsApp Web manualmente ↗';
+  link.textContent=whatsappBridgeReady?'Abrir na aba existente do WhatsApp ↗':'Abrir WhatsApp Web manualmente ↗';
   link.hidden=whatsappBridgeReady?false:!fallbackOpened;
  }
 }
 function askWhatsappBridge(link){
  if(!whatsappBridgeReady)return false;
  const id=++bridgeSequence;
- whatsappBridgePending.add(id);
- window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:link},location.origin);
+ const timer=setTimeout(()=>{
+  if(!whatsappBridgePending.has(id))return;
+  whatsappBridgePending.delete(id);
+  const info=$('#message-info');
+  if(info)info.textContent='O auxiliar não respondeu à troca de conversa. Clique em Verificar extensão, atualize o painel e tente novamente.';
+ },7000);
+ whatsappBridgePending.set(id,timer);
+ window.postMessage({
+  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:link
+ },location.origin);
  return true;
 }
 function openWhatsAppWeb(link){
- // With the helper, use the actual existing WhatsApp tab (even if opened manually).
  if(whatsappBridgeReady)return askWhatsappBridge(link)?'helper':'blocked';
- // Without the helper, open no more than one tab for the lifetime of the
- // dashboard's browser session. WhatsApp's COOP can invalidate WindowProxy.
+ // Without permission to manage existing tabs, avoid opening multiple tabs
+ // when WhatsApp severs the WindowProxy via cross-origin isolation.
  if(fallbackOpened){
   try{
    if(fallbackTab&&!fallbackTab.closed){
@@ -67,10 +95,9 @@ function openWhatsAppWeb(link){
     fallbackTab.focus();
     return 'reused';
    }
-  }catch{/* cross-origin isolation revoked this window handle */}
+  }catch{ /* browser isolation revoked access */ }
   return 'copy';
  }
- // This runs synchronously inside the actual Mensagem button click.
  const tab=window.open(link,'srnavalha_whatsapp');
  if(!tab)return 'blocked';
  fallbackTab=tab;
@@ -78,7 +105,16 @@ function openWhatsAppWeb(link){
  sessionStorage.setItem(WHATSAPP_FALLBACK_FLAG,'1');
  return 'opened';
 }
-window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence},location.origin);
+$('#whatsapp-helper-check').addEventListener('click',()=>{
+ bridgeError='';
+ updateWhatsappHelperHint();
+ probeWhatsappHelper();
+ const status=$('#whatsapp-helper-status');
+ if(status&&!whatsappBridgeReady)status.textContent='Verificando extensão…';
+});
+probeWhatsappHelper();
+setInterval(()=>{if(!whatsappBridgeReady&&!document.hidden)probeWhatsappHelper()},3000);
+window.addEventListener('focus',probeWhatsappHelper);
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -145,8 +181,11 @@ function feedback(message,tone='success'){
 }
 function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
- badge.textContent='WhatsApp manual';badge.dataset.mode='manual';
- $('#whatsapp-mode-details').textContent='Mensagem abre direto no WhatsApp Web, reaproveitando a mesma aba do primeiro contato. Revise, envie pelo WhatsApp e registre o envio no painel.';
+ badge.textContent=whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
+ badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
+ $('#whatsapp-mode-details').textContent=whatsappBridgeReady
+  ?'Auxiliar conectado: Mensagem reutiliza uma aba já aberta do WhatsApp Web, mesmo que você a tenha aberto manualmente. Envie pelo WhatsApp e registre o contato.'
+  :'Instale o auxiliar universal para que Mensagem sempre use a aba do WhatsApp que já está aberta. O envio continua manual, sem automações não oficiais.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
