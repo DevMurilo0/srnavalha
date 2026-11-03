@@ -61,6 +61,8 @@ const valid=await call(confirmations,'GET',null,query);
 check('signed confirmation returns public details without phone',valid.status===200&&!('customer_phone' in valid.json.item));
 const denied=await call(confirmations,'GET',null,{...query,sig:'bad'});
 check('tampering denied',denied.status===403);
+const marked=await call(bookings,'PATCH',{id:identifier,action:'manual_message_sent'},{},cookie);
+check('operator-reported message sent saved without changing attendance',marked.status===200&&Boolean(marked.json.item.whatsapp_manual_sent_at)&&marked.json.item.status==='pending');
 const answer=await call(confirmations,'POST',query);
 check('customer confirmation persisted',answer.status===200&&answer.json.status==='confirmed');
 const busy=await call(blocked,'GET',null,{date:future});
