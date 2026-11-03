@@ -197,3 +197,24 @@ body{background:var(--paper)}
 @media(prefers-reduced-motion:reduce){
  .appointment,.new-booking,.appointment-actions button.message,.dash-sidebar nav a,.filters button,.appointment-manage summary::after{transition:none!important;transform:none!important}
 }
+
+/* Confirmation stays inside the interface, never a browser-native blocking alert. */
+.status-dialog{
+ width:min(92vw,440px);
+ border:1px solid #d8ddd4;
+ border-radius:6px;
+ background:#fbfaf6;
+ padding:clamp(24px,3.5vw,38px);
+ color:#243428;
+ box-shadow:0 32px 82px #16231b55;
+}
+.status-dialog::backdrop{background:#102017b3;backdrop-filter:blur(3px)}
+.status-dialog h2{font:650 clamp(24px,3vw,31px)/1.23 var(--font);letter-spacing:-.045em;margin:13px 0 11px}
+.status-dialog>p:not(.micro-label){font-size:13px;line-height:1.7;color:#69776b;margin:0}
+.status-dialog-actions{display:flex;gap:10px;margin-top:30px;justify-content:flex-end}
+.status-dialog-actions button{padding:12px 16px;min-height:44px;font-size:12px;font-weight:740;border:1px solid #cfd6cb;border-radius:3px;background:#f6f7f2;color:#344333}
+.status-dialog-actions #status-apply{background:#263f2e;color:#fff;border-color:#263f2e}
+.status-dialog-actions #status-apply:hover{background:#436148}
+.status-dialog-actions #status-apply.danger{background:#944f45;border-color:#944f45}
+.status-dialog-actions #status-apply.danger:hover{background:#ad6254}
+@media(max-width:460px){.status-dialog-actions{flex-direction:column-reverse}.status-dialog-actions button{width:100%}}
