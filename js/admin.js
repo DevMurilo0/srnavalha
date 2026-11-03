@@ -94,8 +94,8 @@ function updateWhatsAppMode(){
   badge.textContent='WhatsApp manual';
   badge.dataset.mode='manual';
  }else{
-  note.textContent='Esta é uma demonstração no navegador. O botão Mensagem mostra o texto e permite copiá-lo, sem enviar nenhuma mensagem ao cliente. Para o envio direto, é necessária a integração oficial.';
-  badge.textContent='Modo demonstração';
+  note.textContent='O envio automático ainda não está conectado. A ação Mensagem mostra o texto para envio manual; para que um clique envie ao cliente sem abrir o WhatsApp, configure a WhatsApp Business Platform e a agenda compartilhada.';
+  badge.textContent='Envio não conectado';
   badge.dataset.mode='demo';
  }
 }
@@ -155,9 +155,7 @@ function openMessagePreview(booking){
  previewBooking=booking;
  $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
- $('#message-info').textContent=sharedMode
-  ? 'O WhatsApp não está conectado para envio automático. Copie o texto para enviá-lo manualmente. Não houve envio.'
-  : 'Modo demonstração: nenhuma mensagem será enviada. Copie o texto para conferir como ficará a comunicação.';
+ $('#message-info').textContent='Mensagem ainda não enviada. Para disparar diretamente deste painel, é necessário conectar um número à API oficial do WhatsApp Business. Até lá, você pode copiar o texto e enviá-lo manualmente.';
  $('#message-copy').textContent='Copiar mensagem';
  $('#message-dialog').showModal();
 }
@@ -176,7 +174,7 @@ $('#message-copy').addEventListener('click',async()=>{
    input.remove();
   }
   $('#message-copy').textContent='Copiado ✓';
-  feedback('Mensagem copiada. Para enviá-la, cole em uma conversa com o cliente.','success');
+  feedback('Texto copiado, mas não enviado. Cole em uma conversa com o cliente para fazer o envio manual.','success');
  }catch{
   $('#message-info').textContent='Não foi possível copiar automaticamente. Selecione o texto acima e copie pelo navegador.';
   feedback('Não foi possível copiar a mensagem neste navegador.','error');
