@@ -1,48 +1,71 @@
-# Sr. Navalha — WhatsApp Universal v3.0
+# Sr. Navalha — WhatsApp em uma aba (v4.0)
 
-Extensão para Firefox, Floorp e Chrome. Ao clicar em **Mensagem** no painel,
-ela reutiliza uma aba do WhatsApp Web já aberta e acessa **diretamente a
-conversa do número com a mensagem preenchida**. Não pesquisa na barra lateral
-e não envia mensagens automaticamente.
+Extensão universal de navegador para **Firefox, Floorp e Chrome**.
+
+## O que mudou nesta versão
+
+A versão 3 navegava para `web.whatsapp.com/send?...` ao selecionar outro
+cliente; isso recarregava o WhatsApp Web inteiro.
+
+A versão 4 **não navega para outra URL quando a aba já existe**. Em vez disso,
+ela tenta usar o botão **Nova conversa** e os resultados do próprio WhatsApp
+Web para abrir o número e colocar a mensagem como rascunho. A conversa só é
+selecionada automaticamente quando há **uma correspondência exata** do número.
+
+**Limitação importante:** o WhatsApp Web não possui uma API pública e estável
+para controlar sua interface. Como a extensão depende dos controles visuais,
+ela pode deixar de reconhecer um resultado depois de uma atualização do site,
+ou não encontrar números que o WhatsApp não exibe na lista de novos chats.
+Nessas situações, ela **não atualiza a página nem troca para outro cliente**;
+mostra uma mensagem de erro no painel, onde o texto continua disponível para
+cópia manual. O recurso de abrir números não salvos com maior compatibilidade
+é o link oficial de conversa por número, mas ele pode provocar recarregamento.
+
+O auxiliar **não lê histórico, não aperta Enviar e não confirma agendamentos**.
+O funcionário precisa conferir o número e enviar pelo WhatsApp.
 
 ## Instalação
 
-**Floorp/Firefox**: extraia o ZIP; abra
-`about:debugging#/runtime/this-firefox`, remova a extensão antiga e clique em
-**Carregar extensão temporária**; selecione `manifest.json`. Depois atualize
-`admin.html` com Ctrl+Shift+R. O painel deve mostrar **Extensão conectada · v3.0**.
+**Floorp / Firefox**
 
-**Chrome/Chromium**: extraia o ZIP; acesse `chrome://extensions/`, ative
-Modo do desenvolvedor, remova a extensão antiga e clique em
-**Carregar sem compactação**, selecionando a pasta do `manifest.json`.
-Atualize `admin.html`.
+1. Extraia este ZIP (não carregue o ZIP diretamente).
+2. Abra `about:debugging#/runtime/this-firefox`.
+3. **Remova a extensão antiga** Sr. Navalha — WhatsApp em uma aba.
+4. Clique em **Carregar extensão temporária** e selecione `manifest.json`
+   da nova pasta.
+5. Volte ao painel `admin.html` e use **Ctrl + Shift + R**.
+6. No botão **Mensagem**, confirme **Extensão conectada · v4.0**.
 
-## Como funciona
+**Chrome / navegadores Chromium**
 
-1. Mantenha o WhatsApp Web conectado no mesmo navegador/perfil.
-2. No agendamento, clique em **Mensagem**.
-3. A extensão reutiliza a aba existente e abre
-   `https://web.whatsapp.com/send?phone=55...&text=...`.
-4. Confira o destinatário e clique em **Enviar** no próprio WhatsApp.
-5. Volte ao painel e clique em **Já enviei no WhatsApp** para registrar o envio.
+1. Extraia o mesmo ZIP e abra `chrome://extensions/`.
+2. Ative **Modo do desenvolvedor**.
+3. Remova a versão antiga, clique em **Carregar sem compactação** e selecione
+   a pasta extraída que contém `manifest.json`.
+4. Atualize `admin.html` e confira **Extensão conectada · v4.0**.
 
-**Diferença para v2.2:** a versão anterior procurava números na barra lateral,
-o que falhava para clientes sem conversas anteriores. A versão 3.0 usa o recurso
-de link direto por número, sem depender do histórico ou de encontrar um item
-na lista lateral.
+## Teste
 
-**Limitação:** ao trocar de cliente, o WhatsApp Web **pode recarregar na mesma
-aba**. Não existe API pública estável do WhatsApp Web para abrir qualquer chat
-e preencher o campo sem navegação. É preferível à busca que não abria o contato
-corretamente. A extensão nunca abre uma segunda aba se já houver uma aba do
-WhatsApp acessível no mesmo perfil.
+1. Deixe `https://web.whatsapp.com/` aberto e conectado.
+2. Clique em **Mensagem** para um cliente no painel.
+3. A extensão tentará abrir a conversa pela interface existente, sem recarregar.
+4. Se houver um resultado exato, o texto ficará no campo de composição.
+5. Confira o destinatário, clique em **Enviar** no WhatsApp e depois em
+   **Já enviei no WhatsApp** no painel.
+6. Experimente outro cliente e confira se a URL da aba do WhatsApp não mudou.
 
-A extensão não lê conversas nem aperta Enviar.
+Se o painel mostrar **“Extensão desatualizada”**, a v3 ainda está carregada.
+Remova a versão antiga e instale a v4. Se aparecer **“Nova conversa não
+encontrada”** ou **“Selecione manualmente”**, o WhatsApp não mostrou os
+controles ou o número de forma identificável; use **Copiar texto** em vez de
+forçar uma navegação.
 
-## Diagnóstico
+## Conteúdo do pacote
 
-- **Extensão não detectada**: atualize o painel após carregar a extensão.
-- **O WhatsApp não abriu**: clique em **Verificar extensão** no painel.
-- **Abriu outra aba**: confirme que o WhatsApp está no mesmo navegador/perfil.
-- **Mensagem não foi preenchida**: confira número válido e avisos de
-  confirmação que o WhatsApp possa exibir; use **Copiar texto** como alternativa.
+- `manifest.json` — extensão universal Manifest V3.
+- `background.js` — reutilização da aba existente sem alterar sua URL.
+- `bridge.js` — comunicação entre o painel e a extensão.
+- `whatsapp-page.js` — automação de nova conversa e rascunho, sem envio.
+- `test-helper.mjs` — testes locais simulados: `node test-helper.mjs`.
+
+Código-fonte: https://github.com/DevMurilo0/srnavalha/tree/reconstruction/arte-do-ritual/tools/whatsapp-tab-helper
