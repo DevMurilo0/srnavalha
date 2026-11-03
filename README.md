@@ -69,70 +69,40 @@ Um status de sucesso do Vercel para uma *Preview* não significa publicação em
 
 O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as verificações de estados antes da primeira pintura, a transferência da navalha, acessibilidade e movimento reduzido. Os scripts de diagnóstico não dependem mais de caminhos particulares de outro computador. Para executar localmente, instale `playwright-core` e `@axe-core/playwright` em um ambiente de testes e disponibilize um Chromium. Use `PLAYWRIGHT_PACKAGE` para apontar para o `package.json` desse ambiente e, se necessário, `CHROME_PATH` para o executável do navegador. Os testes temporais usam `SITE_URL` (padrão `http://127.0.0.1:8047`). As capturas são produzidas em `docs/motion-states/` e o GitHub Actions também entrega artefatos de screenshots.
 
-## Confirmação pública por WhatsApp — configuração de produção
+## Mensagens de confirmação no aplicativo WhatsApp (celular)
 
-O envio continua manual para evitar automações não oficiais.
+O fluxo de contato da área administrativa foi simplificado para **celulares**,
+sem extensão de navegador, sem WhatsApp Web, sem automação não oficial e sem
+disparo de mensagens por servidor.
 
-1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
-   ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
-   Os filtros possuem contadores independentes de Presença confirmada/cancelada.
-2. Clique em **Mensagem** no agendamento. Com o auxiliar universal
-   **Sr. Navalha — WhatsApp em uma aba v4.0** instalado no Firefox, Floorp
-   ou Chrome, o painel reutiliza a aba já aberta e tenta abrir o número
-   pela interface **Nova conversa** do WhatsApp Web, preenchendo o texto
-   sem recarregar a página. A seleção só ocorre se for possível identificar
-   com segurança o número. Caso contrário, o painel exibe um aviso e
-   mantém a mensagem disponível para cópia. O envio continua manual.
-   A versão antiga é bloqueada para não provocar recarregamentos.
-3. Envie a mensagem **dentro do WhatsApp**.
-4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
-   muda para **Mensagem enviada**, sem alterar a confirmação da presença.
+1. O administrador abre `admin.html` no celular e escolhe um agendamento
+   **Aguardando**.
+2. O botão **Mensagem** é um link verdadeiro para
+   `whatsapp://send?phone=55DDDNUMERO&text=MENSAGEM_CODIFICADA`, preenchido
+   dinamicamente com **o telefone do próprio agendamento** e a mensagem de
+   confirmação (serviço, profissional, data e hora).
+3. O navegador solicita a abertura do **aplicativo WhatsApp instalado**.
+   Não há redirecionamento automático para WhatsApp Web.
+4. O administrador confere o destinatário e **toca em Enviar** no aplicativo.
+   O site não envia automaticamente nem pode verificar o envio.
+5. Ao voltar ao painel, clica em **Já enviei no WhatsApp** para registrar
+   `whatsapp_manual_sent_at` na agenda e organizar os filtros independentes
+   **Aguardando contato** e **Mensagem enviada**.
 
-**Sem o complemento:** nenhum site comum pode localizar/atualizar uma aba do
-WhatsApp aberta manualmente. Para que Mensagem não deixe de funcionar, o
-**primeiro clique abre o WhatsApp Web** em uma aba nomeada, com o texto
-preenchido. Se o navegador perder a referência à aba por isolamento de origem,
-o painel evita criar outra a cada clique: oferece o texto pronto para copiar
-e colar na aba existente. A sessão do painel registra essa primeira abertura
-para evitar dezenas de abas, mesmo depois de atualizar a página. O complemento
-é opcional, gratuito e permite reutilizar a aba que já estava aberta, sem
-enviar mensagens automaticamente.
+O link principal é um elemento `<a>` real (navegação nativa iniciada por
+um clique), não uma tentativa via `window.location.assign` ou pop-up.
+A página mantém uma prévia e uma segunda opção **Abrir conversa no aplicativo
+WhatsApp** caso o navegador exija nova interação. Para números inválidos,
+o botão fica desabilitado e mostra por quê.
 
-Código do complemento: [tools/whatsapp-tab-helper](tools/whatsapp-tab-helper).
-O **mesmo pacote** tem instruções para Firefox, Floorp e Chrome no
-[README do complemento](tools/whatsapp-tab-helper/README.md). No Firefox/Floorp,
-a instalação temporária precisa ser refeita após reiniciar o navegador; no
-Chrome, pode ser carregada como extensão sem compactação, em modo desenvolvedor.
-Remova versões antigas e atualize `admin.html` após instalar.
+**Limitação:** é necessário ter o WhatsApp instalado no celular. A abertura
+de links `whatsapp://` depende das permissões do navegador/sistema. O foco
+deste fluxo é Android/iPhone; navegadores desktop sem aplicativo associado
+ao protocolo podem não abrir o link. A extensão antiga continua disponível
+no repositório para referência, mas **não é utilizada no painel**.
 
-
-**Nota sobre o WhatsApp:** a versão 3.0 usava a navegação direta por URL,
-o que recarregava o WhatsApp Web. A v4.0 não navega uma aba existente.
-Como a interface de novas conversas pertence ao WhatsApp e pode mudar,
-não é possível garantir a abertura de todos os números sem recarregamento.
-A extensão nunca força um reload como alternativa: se não encontrar um
-contato correspondente com segurança, informa a falha.
-
-**Abrir WhatsApp pelo aplicativo (celular e desktop):** no Android/iPhone, o
-botão **Mensagem** tenta abrir `whatsapp://send?phone=...&text=...` diretamente
-no aplicativo instalado, sem criar uma aba do WhatsApp Web. A mensagem é
-preparada, mas **não é enviada automaticamente**. O painel também apresenta
-**Abrir no aplicativo** (para repetir a tentativa) e a opção separada
-**WhatsApp Web (alternativa)**. Não há redirecionamento automático para web
-se o protocolo nativo não for reconhecido. O comportamento final depende das
-permissões e do navegador do celular.
-
-No desktop, **Abrir no aplicativo** só funciona quando o sistema tem
-um aplicativo registrado para o protocolo `whatsapp://`. O WhatsApp não
-fornece aplicativo oficial para Linux; clientes Linux não oficiais geralmente
-envolvem WhatsApp Web e podem continuar sujeitos a recarregamentos. Por
-isso, o comportamento padrão do painel no desktop permanece usando
-o auxiliar Web ou a cópia manual.
-
-O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
-próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
-O controle de contato é independente da presença do cliente: marcar uma
-mensagem como enviada não significa que foi entregue ou que o cliente confirmou.
+Os estados de contato e presença são diferentes: registrar que a equipe
+enviou uma mensagem **não** significa que o cliente confirmou a reserva.
 
 Os endpoints em `api/` já foram implementados para confirmação real **entre
 dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
