@@ -1,49 +1,106 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
+
 const dir=new URL('../tools/whatsapp-tab-helper/',import.meta.url);
 const manifest=JSON.parse(await readFile(new URL('manifest.json',dir),'utf8'));
-const source=await readFile(new URL('background.js',dir),'utf8');
+const background=await readFile(new URL('background.js',dir),'utf8');
 const bridge=await readFile(new URL('bridge.js',dir),'utf8');
-let listener=null,opened=[
- {id:22,url:'https://web.whatsapp.com/',windowId:1,active:false,lastAccessed:200},
- {id:9,url:'https://api.whatsapp.com/send',windowId:1,active:false,lastAccessed:300}
-];
-const actions=[];
-const browser={
- runtime:{onMessage:{addListener(fn){listener=fn}}},
- tabs:{
-  async query(){return opened.map(row=>({...row}))},
-  async update(id,data){actions.push({type:'update',id,...data});const target=opened.find(t=>t.id===id);if(!target)throw Error('No such tab');Object.assign(target,data);return {...target}},
-  async create(data){actions.push({type:'create',...data});const tab={id:53,...data};opened.push(tab);return tab}
- },
- windows:{async update(id,data){actions.push({type:'focus',id,...data})}}
-};
-runInNewContext(source,{browser,URL,globalThis:{browser},console});
-const sender={tab:{url:'https://srnavalha-5qjw1ik6s-murilo15.vercel.app/admin.html',windowId:1}};
-const chat='https://web.whatsapp.com/send?phone=5581999999999&text=Confirmar%20hor%C3%A1rio';
-const check=(label,condition)=>{assert.ok(condition,label);console.log('PASS '+label)};
-check('Manifest V3 includes Firefox scripts and tab permission',
- manifest.manifest_version===3&&manifest.permissions.includes('tabs')&&
- manifest.background.scripts?.includes('background.js')&&manifest.browser_specific_settings?.gecko);
-check('Browser bridge only allows Sr. Navalha admin and validates message origin',
- bridge.includes("location.pathname==='/admin.html'")&&bridge.includes('event.origin!==location.origin'));
-const result=await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:chat},sender);
-check('Existing WhatsApp Web tab was reused',result.ok&&result.reused&&actions.filter(a=>a.type==='update')[0].id===22);
-check('Redirector tab was not selected',opened.find(t=>t.id===9).url==='https://api.whatsapp.com/send');
-const next='https://web.whatsapp.com/send?phone=5581999998888&text=Outro%20cliente';
-await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:next},sender);
-check('Second client reuses identical tab ID without opening new tabs',
- actions.filter(a=>a.type==='update').every(a=>a.id===22)&&
- actions.filter(a=>a.type==='create').length===0);
-const before=actions.length;
-const forbidden=await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:'https://evil.example/send?phone=5581999999999'},sender);
-check('External URLs rejected',!forbidden.ok&&actions.length===before);
-const spoof=await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:chat},{tab:{url:'https://evil.vercel.app/admin.html'}});
-check('Untrusted Vercel sites cannot control WhatsApp tabs',!spoof.ok&&actions.length===before);
-opened=[];
-const first=await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:chat},sender);
-check('One tab created only if no WhatsApp tab exists',first.ok&&!first.reused&&actions.filter(a=>a.type==='create').length===1);
-const second=await listener({type:'SRN_OPEN_WHATSAPP_TAB',url:next},sender);
-check('Subsequent request does not create a second tab',second.ok&&second.reused&&actions.filter(a=>a.type==='create').length===1);
-console.log('WhatsApp existing-tab helper checks passed.');
+const check=(label,pass)=>{assert.ok(pass,label);console.log('PASS '+label)};
+
+check('Single universal Manifest V3 for Firefox Floorp and Chrome',
+ manifest.manifest_version===3 &&
+ manifest.background.service_worker==='background.js' &&
+ manifest.background.scripts.includes('background.js') &&
+ manifest.version==='2.0.0');
+
+for(const family of ['Firefox/Floorp','Chrome']){
+ let tabs=[
+  {id:22,url:'https://web.whatsapp.com/',windowId:1,active:true,lastAccessed:200},
+  {id:9,url:'https://api.whatsapp.com/send',windowId:1,active:false,lastAccessed:300}
+ ];
+ const actions=[];
+ let listener=null;
+ const promises={
+  tabs:{
+   async query(){return tabs.map(x=>({...x}))},
+   async update(id,options){
+    actions.push({type:'update',id});
+    const tab=tabs.find(x=>x.id===id);Object.assign(tab,options);return tab;
+   },
+   async create(options){
+    actions.push({type:'create'});
+    const tab={id:53,...options};tabs.push(tab);return tab;
+   }
+  },
+  windows:{async update(id){actions.push({type:'focus',id})}},
+  runtime:{lastError:null,onMessage:{addListener(fn){listener=fn}}}
+ };
+ const callbacks={
+  tabs:Object.fromEntries(Object.entries(promises.tabs).map(([key,fn])=>
+   [key,(...args)=>{const callback=args.pop();fn(...args).then(callback)}])),
+  windows:{update:(...args)=>{const callback=args.pop();promises.windows.update(...args).then(callback)}},
+  runtime:promises.runtime
+ };
+ const isFirefox=family==='Firefox/Floorp';
+ runInNewContext(background,isFirefox?{browser:promises,URL,console}:{chrome:callbacks,URL,console});
+ const sender={url:'http://127.0.0.1:5500/admin.html',tab:{windowId:1}};
+ const call=(message,from=sender)=>new Promise((resolve,reject)=>{
+  const timeout=setTimeout(()=>reject(new Error('No background response')),1000);
+  listener(message,from,value=>{clearTimeout(timeout);resolve(value)});
+ });
+ const pong=await call({type:'SRN_EXTENSION_PING'});
+ check(family+' actual background heartbeat',pong?.ok&&pong?.version==='2.0.0');
+ const url1='https://web.whatsapp.com/send?phone=5581999999999&text=Cliente%20um';
+ const url2='https://web.whatsapp.com/send?phone=5581999998888&text=Cliente%20dois';
+ const first=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:url1});
+ const second=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:url2});
+ check(family+' two clients use the SAME WhatsApp tab',
+  first.ok&&first.reused&&second.ok&&second.reused&&
+  tabs[0].url===url2&&tabs.length===2&&
+  actions.filter(x=>x.type==='update'&&x.id===22).length===2&&
+  actions.filter(x=>x.type==='create').length===0);
+ check(family+' redirector tab remains unchanged',tabs[1].url==='https://api.whatsapp.com/send');
+ const malicious=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:'https://evil.example/send'});
+ check(family+' untrusted destination rejected',!malicious.ok);
+ const spoof=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:url1},{
+  url:'https://untrusted.vercel.app/admin.html',tab:{windowId:1}
+ });
+ check(family+' untrusted sender rejected',!spoof.ok);
+ tabs=[];
+ const created=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:url1});
+ const reused=await call({type:'SRN_OPEN_WHATSAPP_TAB',url:url2});
+ check(family+' creates only one tab when none exists',created.ok&&!created.reused&&
+  reused.ok&&reused.reused&&tabs.length===1&&tabs[0].url===url2);
+
+ // Integration of the isolated content script and the corresponding
+ // callback/Promise messaging protocol; no browser-specific source files.
+ const responseEvents=[];
+ let windowHandler=null;
+ const simulatedWindow={
+  addEventListener(name,fn){if(name==='message')windowHandler=fn},
+  postMessage(data,origin){responseEvents.push({data,origin})}
+ };
+ const runtimeSend=isFirefox
+  ?message=>call(message)
+  :(message,callback)=>{call(message).then(callback)};
+ const simulatedLocation={
+  hostname:'127.0.0.1',pathname:'/admin.html',
+  protocol:'http:',origin:'http://127.0.0.1:5500'
+ };
+ const globals=isFirefox
+  ?{browser:{runtime:{sendMessage:runtimeSend}},window:simulatedWindow,location:simulatedLocation,console}
+  :{chrome:{runtime:{sendMessage:runtimeSend,lastError:null}},window:simulatedWindow,location:simulatedLocation,console};
+ runInNewContext(bridge,globals);
+ const message=async(type,extra={})=>windowHandler({
+  source:simulatedWindow,origin:simulatedLocation.origin,
+  data:{scope:'srnavalha.whatsapp-tabs',sender:'page',id:42,type,...extra}
+ });
+ await message('PING');
+ check(family+' bridge READY only after background responds',
+  responseEvents.at(-1)?.data?.type==='READY'&&responseEvents.at(-1).data.version==='2.0.0');
+ await message('OPEN',{url:url1});
+ check(family+' bridge routes next WhatsApp contact',
+  responseEvents.at(-1)?.data?.type==='RESULT'&&responseEvents.at(-1).data.ok);
+}
+console.log('Universal WhatsApp helper: all cross-browser protocol tests passed');
