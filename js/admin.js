@@ -10,7 +10,10 @@ const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
 const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
+const WHATSAPP_FALLBACK_FLAG='srnavalha:whatsapp-aba-aberta';
 let whatsappBridgeReady=false,bridgeSequence=0;
+let fallbackTab=null;
+let fallbackOpened=sessionStorage.getItem(WHATSAPP_FALLBACK_FLAG)==='1';
 const whatsappBridgePending=new Set();
 window.addEventListener('message',event=>{
  if(event.source!==window||event.origin!==location.origin)return;
@@ -35,12 +38,14 @@ window.addEventListener('message',event=>{
 function updateWhatsappHelperHint(){
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar conectado: a aba do WhatsApp já aberta será reutilizada, sem criar outras.'
-  :'Sem o auxiliar, o site não consegue localizar outras abas do navegador. Para evitar duplicações, não abre nenhuma automaticamente; copie o texto e envie na aba que já está aberta.';
+  ?'Auxiliar conectado: a aba do WhatsApp que você já tem aberta será reutilizada.'
+  :fallbackOpened
+   ?'O WhatsApp já foi aberto nesta sessão. Se a conversa não mudar automaticamente, copie o texto e cole na aba existente; com o auxiliar instalado, o painel conseguirá trocar o cliente sem criar abas.'
+   :'Sem o auxiliar, a primeira mensagem abre uma aba do WhatsApp Web. As próximas não criarão outras; para reutilizar inclusive uma aba aberta manualmente, instale o auxiliar do Floorp.';
  const link=$('#message-open-link');
  if(link){
-  link.textContent='Abrir na aba existente do WhatsApp ↗';
-  link.hidden=!whatsappBridgeReady;
+  link.textContent=whatsappBridgeReady?'Ir para a aba existente do WhatsApp ↗':'Abrir WhatsApp Web manualmente ↗';
+  link.hidden=whatsappBridgeReady?false:!fallbackOpened;
  }
 }
 function askWhatsappBridge(link){
@@ -51,10 +56,27 @@ function askWhatsappBridge(link){
  return true;
 }
 function openWhatsAppWeb(link){
- // A regular page cannot enumerate tabs; doing window.open() repeatedly
- // creates duplicates when WhatsApp isolates itself with COOP.
- // The opt-in browser extension can target an already-open WhatsApp tab.
- return askWhatsappBridge(link);
+ // With the helper, use the actual existing WhatsApp tab (even if opened manually).
+ if(whatsappBridgeReady)return askWhatsappBridge(link)?'helper':'blocked';
+ // Without the helper, open no more than one tab for the lifetime of the
+ // dashboard's browser session. WhatsApp's COOP can invalidate WindowProxy.
+ if(fallbackOpened){
+  try{
+   if(fallbackTab&&!fallbackTab.closed){
+    fallbackTab.location.href=link;
+    fallbackTab.focus();
+    return 'reused';
+   }
+  }catch{/* cross-origin isolation revoked this window handle */}
+  return 'copy';
+ }
+ // This runs synchronously inside the actual Mensagem button click.
+ const tab=window.open(link,'srnavalha_whatsapp');
+ if(!tab)return 'blocked';
+ fallbackTab=tab;
+ fallbackOpened=true;
+ sessionStorage.setItem(WHATSAPP_FALLBACK_FLAG,'1');
+ return 'opened';
 }
 window.postMessage({scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence},location.origin);
 const dateKey = value => {
@@ -185,9 +207,13 @@ function sendMessage(booking){
  $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='Clique em Enviar na conversa e, depois, registre o contato neste painel.';
+ $('#message-info').textContent='Clique em Enviar no WhatsApp e, depois, registre o contato neste painel.';
+ const opened=openWhatsAppWeb(link);
  updateWhatsappHelperHint();
- if(!openWhatsAppWeb(link))$('#message-info').textContent='O navegador não permite acessar a aba do WhatsApp aberta manualmente. Para não abrir outras abas, copie a mensagem e envie na aba existente, ou ative o auxiliar do Firefox/Floorp.';
+ if(opened==='copy')$('#message-info').textContent='A aba do WhatsApp já foi aberta. Para não criar outra, copie a mensagem e cole na conversa existente. Instale o auxiliar do Floorp para trocar o cliente automaticamente naquela aba.';
+ if(opened==='blocked')$('#message-info').textContent='O navegador bloqueou a abertura do WhatsApp. Use o link abaixo ou ative o auxiliar do Floorp.';
+ if(opened==='opened')$('#message-info').textContent='WhatsApp Web aberto em uma aba. Envie a mensagem por lá; nas próximas vezes, o painel não criará várias abas.';
+ if(opened==='reused')$('#message-info').textContent='A conversa foi atualizada na mesma aba do WhatsApp. Envie a mensagem por lá.';
  try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
  $('#message-dialog').showModal();
  void renderDashboard();
@@ -197,8 +223,8 @@ $('#message-open-link').addEventListener('click',event=>{
   event.preventDefault();
   openWhatsAppWeb($('#message-open-link').href);
  }
- // Without the helper this is a user-chosen normal link. The main Mensagem
- // action never creates tabs behind the user's back.
+ // Without the helper this is an explicit, user-chosen recovery link.
+ // The primary Mensagem button never opens more than one fallback tab.
 });
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
