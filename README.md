@@ -77,12 +77,14 @@ O envio continua manual para evitar automações não oficiais.
    ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
    Os filtros possuem contadores independentes de Presença confirmada/cancelada.
 2. Clique em **Mensagem** no agendamento. Com o complemento universal
-   **Sr. Navalha — WhatsApp em uma aba v2.1** instalado, o painel encontra a
-   aba existente do WhatsApp Web em **Firefox, Floorp ou Chrome** e pesquisa
-   o telefone na barra de conversas, **sem recarregar a página**. Selecione
-   o resultado correto, use **Copiar texto** no painel e envie manualmente.
-   Se nenhuma aba do WhatsApp existir, é criada apenas uma.
-   O painel exibe **Extensão conectada · v2.1** após verificar o complemento.
+   **Sr. Navalha — WhatsApp em uma aba v2.2** instalado, o painel encontra a
+   aba existente do WhatsApp Web em **Firefox, Floorp ou Chrome**, pesquisa
+   o telefone, tenta abrir a conversa exata e preencher a mensagem no campo
+   de texto, **sem recarregar a página e sem enviar automaticamente**.
+   Confira o destinatário e clique em Enviar. Se o número não aparecer
+   com segurança, a seleção permanece manual, com **Copiar texto**.
+   Se não existir aba do WhatsApp, uma será criada.
+   O painel exibe **Extensão conectada · v2.2** após verificar o complemento.
 3. Envie a mensagem **dentro do WhatsApp**.
 4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
