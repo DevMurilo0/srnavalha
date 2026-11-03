@@ -38,7 +38,10 @@ function updateWhatsappHelperHint(){
   ?'Auxiliar conectado: a aba do WhatsApp já aberta será reutilizada, sem criar outras.'
   :'Sem o auxiliar, o site não consegue localizar outras abas do navegador. Para evitar duplicações, não abre nenhuma automaticamente; copie o texto e envie na aba que já está aberta.';
  const link=$('#message-open-link');
- if(link)link.textContent=whatsappBridgeReady?'Abrir na aba existente do WhatsApp ↗':'Abrir WhatsApp Web (pode criar outra aba) ↗';
+ if(link){
+  link.textContent='Abrir na aba existente do WhatsApp ↗';
+  link.hidden=!whatsappBridgeReady;
+ }
 }
 function askWhatsappBridge(link){
  if(!whatsappBridgeReady)return false;
