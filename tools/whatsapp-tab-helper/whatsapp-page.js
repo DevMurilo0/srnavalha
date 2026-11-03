@@ -1,222 +1,204 @@
-/* Sr. Navalha · WhatsApp Web conversation opener (Firefox / Floorp / Chrome).
- * Uses the visible interface only. It never presses Send, never reloads the page,
- * and refuses to pick an ambiguous contact or overwrite a different draft.
- * WhatsApp controls are third-party UI and can change without notice.
+/* Sr. Navalha — opens chat using WhatsApp Web's visible New Chat interface.
+ * This script never navigates the page, sends a message, chooses an ambiguous
+ * contact, or overwrites a different draft. DOM changes can break the flow.
  */
 (() => {
-  if (globalThis.__srnWhatsappSearchInstalled) return;
-  globalThis.__srnWhatsappSearchInstalled = true;
-
+  if (globalThis.__srnWhatsappInAppV4) return;
+  globalThis.__srnWhatsappInAppV4 = true;
   const runtime = typeof browser !== 'undefined' ? browser.runtime : chrome.runtime;
-  const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
-  let queue = Promise.resolve();
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  let busy = Promise.resolve();
 
   const selectors = {
-    sidebarSearch: [
-      '#side [contenteditable="true"][role="textbox"]',
-      '#side [contenteditable="true"][data-tab]',
-      '#side input[type="text"]',
-      '[data-testid="chat-list-search"] [contenteditable="true"]',
-      '[data-testid="chat-list-search"] input'
-    ],
-    newChatButton: [
+    newChat: [
+      '[data-testid="new-chat-button"]',
       '#side [data-icon="new-chat-outline"]',
       '#side [data-icon="new-chat-filled"]',
-      '#side button[aria-label="New chat"]',
+      '#side [data-icon="new-chat"]',
       '#side button[aria-label="Nova conversa"]',
-      '#side [aria-label="New chat"]',
-      '#side [aria-label="Nova conversa"]'
+      '#side button[aria-label="New chat"]',
+      '#side [title="Nova conversa"]',
+      '#side [title="New chat"]',
+      '#app button[aria-label="Nova conversa"]',
+      '#app button[aria-label="New chat"]',
+      '[data-testid="new-chat"]'
     ],
     newChatSearch: [
-      '[aria-label="Search name or number"][contenteditable="true"]',
+      '[data-testid="new-chat-search"] [contenteditable="true"]',
+      '[data-testid="contact-search"] [contenteditable="true"]',
       '[aria-label="Pesquisar nome ou número"][contenteditable="true"]',
-      '[aria-label="Buscar nome ou número"][contenteditable="true"]',
+      '[aria-label="Search name or number"][contenteditable="true"]',
+      '[placeholder="Pesquisar nome ou número"]',
       '[placeholder="Search name or number"]',
-      '[placeholder="Pesquisar nome ou número"]'
+      '[role="dialog"] [contenteditable="true"]',
+      '[data-testid="contact-list"] [contenteditable="true"]'
     ],
-    conversationRows: [
+    resultRows: [
+      '[data-testid="contact-list"] [data-testid="cell-frame-container"]',
+      '[data-testid="contact-list"] [role="row"]',
       '#pane-side [data-testid="cell-frame-container"]',
       '#pane-side [role="row"]',
       '#pane-side [role="listitem"]',
-      '#side [data-testid="cell-frame-container"]',
-      '[data-testid="contact-list"] [role="row"]',
-      '[data-testid="contact-item"]'
+      '[data-testid="contact-item"]',
+      '[data-testid="contact-row"]',
+      '[role="dialog"] [role="button"]',
+      '[data-testid="chat-with-phone"]'
     ],
     composer: [
       '#main footer [contenteditable="true"][role="textbox"]',
-      '#main footer div[contenteditable="true"]',
-      '#main [data-testid="conversation-compose-box-input"]',
-      'footer [data-testid="conversation-compose-box-input"]'
+      '#main footer [contenteditable="true"]',
+      '#main [data-testid="conversation-compose-box-input"]'
     ]
   };
 
-  function visible(node) {
-    return Boolean(node && node.isConnected !== false && node.getClientRects?.().length
-      && !node.closest?.('[aria-hidden="true"]'));
-  }
-  function find(selectorsList, options = {}) {
-    for (const selector of selectorsList) {
+  const visible = el => !!(el && el.isConnected && el.getClientRects?.().length &&
+    !el.closest?.('[aria-hidden="true"]'));
+  const find = list => {
+    for (const selector of list) {
       const node = document.querySelector(selector);
-      if (visible(node) && (!options.outsideMain || !node.closest('#main'))) return node;
+      if (visible(node)) return node;
     }
     return null;
-  }
-  async function waitFor(action, ms = 2600) {
-    const limit = Date.now() + ms;
+  };
+  async function until(fn, timeout = 4600) {
+    const ends = Date.now() + timeout;
     do {
-      const value = action();
-      if (value) return value;
-      await pause(120);
-    } while (Date.now() < limit);
+      const found = fn();
+      if (found) return found;
+      await sleep(130);
+    } while (Date.now() < ends);
     return null;
   }
-  function fill(field, value) {
-    if (!visible(field)) return false;
-    field.focus();
-    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-      const proto = field.tagName === 'INPUT' ? HTMLInputElement.prototype : HTMLTextAreaElement.prototype;
-      const setter = Object.getOwnPropertyDescriptor(proto, 'value')?.set;
-      if (setter) setter.call(field, value);
-      else field.value = value;
-      field.dispatchEvent(new Event('input', {bubbles: true}));
-      return field.value === value;
+  function edit(el, text) {
+    if (!visible(el)) return false;
+    el.focus();
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      const klass = el.tagName === 'INPUT' ? HTMLInputElement : HTMLTextAreaElement;
+      const setter = Object.getOwnPropertyDescriptor(klass.prototype, 'value')?.set;
+      if (setter) setter.call(el, text); else el.value = text;
+      el.dispatchEvent(new Event('input', {bubbles: true}));
+      return el.value === text;
     }
     const selection = window.getSelection();
     if (!selection) return false;
     const range = document.createRange();
-    range.selectNodeContents(field);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    // Input through an editing command instead of changing innerHTML:
-    // WhatsApp needs a real input event to update its draft state.
-    let inserted = false;
-    try { inserted = document.execCommand('insertText', false, value); }
-    catch { /* Browser may disable the legacy editing command. */ }
-    if (!inserted) {
-      field.textContent = value;
-      field.dispatchEvent(new InputEvent('input', {
-        bubbles: true, inputType: 'insertText', data: value
-      }));
+    range.selectNodeContents(el);selection.removeAllRanges();selection.addRange(range);
+    let result = false;
+    try { result = document.execCommand('insertText', false, text); }
+    catch { /* Fallback for unsupported editing commands. */ }
+    if (!result) {
+      el.textContent = text;
+      el.dispatchEvent(new InputEvent('input', {bubbles: true, inputType: 'insertText', data: text}));
     }
-    const observed = String(field.innerText || field.textContent || '').trim().replace(/\r/g,'');
-    return observed === value.trim() ||
-      (value.includes('\n') && observed.replace(/\s+/g,'') === value.trim().replace(/\s+/g,''));
+    const actual = String(el.innerText ?? el.textContent ?? '').replace(/\r/g, '').trim();
+    return actual === text.trim() || actual.replace(/\s+/g, '') === text.trim().replace(/\s+/g, '');
   }
-
-  function matchesPhone(node, phone) {
-    const pieces = [
-      node.textContent,
-      node.getAttribute?.('aria-label'),
-      node.getAttribute?.('title'),
-      node.getAttribute?.('data-id'),
-      node.getAttribute?.('data-jid'),
-      ...Array.from(node.querySelectorAll?.('[title],[aria-label]') || [])
-        .slice(0, 12).map(item => (item.getAttribute('title') || '') +
-          ' ' + (item.getAttribute('aria-label') || ''))
-    ].join(' ');
-    const clean = pieces.replace(/\D/g, '');
-    // Full number or local number with matching area code; never match
-    // unrelated 4-digit fragments or message search snippets.
-    return clean.includes(phone) || clean.includes(phone.slice(-11));
+  const digits = s => String(s || '').replace(/\D/g, '');
+  function exactPhoneIn(node, phone) {
+    // Check individual visible labels, not the whole side panel (which can
+    // contain several unrelated phone numbers and messages).
+    const values = [node.getAttribute?.('title'),node.getAttribute?.('aria-label'),
+      node.getAttribute?.('data-id'),node.getAttribute?.('data-jid'),node.textContent];
+    for (const child of [...(node.querySelectorAll?.('[title],[aria-label]') || [])].slice(0, 12)) {
+      values.push(child.getAttribute('title'),child.getAttribute('aria-label'));
+    }
+    return values.some(v => {
+      if (!v) return false;
+      const matches = String(v).match(/\+?\d[\d\s().-]{8,}\d/g) || [];
+      return matches.some(part => {
+        const value = digits(part);
+        return value === phone || value === phone.slice(2);
+      });
+    });
   }
-
-  function candidateRows(phone) {
-    const unique = new Set();
-    for (const selector of selectors.conversationRows) {
+  function findResult(phone) {
+    const items = new Set();
+    for (const selector of selectors.resultRows) {
       for (const node of document.querySelectorAll(selector)) {
-        if (!visible(node) || node.closest('#main')) continue;
-        if (matchesPhone(node, phone)) unique.add(node);
+        if (visible(node) && !node.closest('#main') && exactPhoneIn(node, phone)) items.add(node);
       }
     }
-    return [...unique].filter(row => ![...unique].some(other =>
-      row !== other && row.contains?.(other)));
+    const matches = [...items];
+    return matches.filter(node => !matches.some(other => other !== node && node.contains?.(other)));
   }
-
-  function tap(node) {
-    const target = node?.closest?.('[role="button"],button') || node;
+  const chatHeader = () => {
+    const header = document.querySelector('#main header');
+    return header ? (header.getAttribute('data-id') || header.textContent || '').trim() : '';
+  };
+  function useSearch(input, phone) {
+    if (!edit(input, phone)) return false;
+    return true;
+  }
+  function choose(row) {
+    const button = row.querySelector?.('button[aria-label="Conversar"],button[aria-label="Chat"],button[aria-label="Message"]');
+    const target = visible(button) ? button : row;
     if (!visible(target)) return false;
     target.click();
     return true;
   }
+  async function prepare({phone, text}) {
+    if (!/^55\d{10,11}$/.test(phone) || !text?.trim() || text.length > 6000)
+      return {ok: false, error: 'Número ou texto inválido'};
+    const oldHeader = chatHeader();
+    const button = await until(() => find(selectors.newChat), 2600);
+    if (!button) return {ok: false, mode: 'unsupported-ui',
+      error: 'O botão Nova conversa do WhatsApp não foi encontrado nesta versão.'};
+    const trigger = button.closest?.('button,[role="button"]') || button;
+    trigger.click();
 
-  async function findContact(phone) {
-    let search = await waitFor(() => find(selectors.sidebarSearch, {outsideMain: true}), 2200);
-    if (!search) return {ok:false, error:'A pesquisa lateral do WhatsApp não foi encontrada.'};
-    if (!fill(search, phone)) return {ok:false, error:'Não foi possível pesquisar o telefone.'};
-
-    let rows = await waitFor(() => {
-      const found = candidateRows(phone);
-      return found.length ? found : null;
-    }, 3200);
-    if (!rows?.length) {
-      // Attempt WhatsApp's native New chat flow for numbers not yet in the chat
-      // list. If we cannot resolve an exact phone, leave it for manual choice.
-      const icon = find(selectors.newChatButton, {outsideMain:true});
-      if (icon && tap(icon)) {
-        search = await waitFor(() => find(selectors.newChatSearch, {outsideMain:true}), 2200);
-        if (search && fill(search, phone)) {
-          rows = await waitFor(() => {
-            const found = candidateRows(phone);
-            return found.length ? found : null;
-          }, 3000);
-        }
-      }
+    let input = await until(() => find(selectors.newChatSearch), 3200);
+    if (!input) {
+      // The new-chat screen may autofocus a search input with variable labels.
+      const active = document.activeElement;
+      if (visible(active) && active !== button &&
+          (active.matches?.('input,[contenteditable="true"]')) && !active.closest('#main')) input = active;
     }
+    if (!input || !useSearch(input, phone)) return {ok: false, mode: 'unsupported-ui',
+      error: 'Não foi possível iniciar uma nova conversa pelo número. Nenhuma página foi recarregada.'};
 
-    if (!rows?.length) return {
-      ok: false, mode:'needs-selection',
-      error:'Número pesquisado, mas o WhatsApp não mostrou um contato identificável. Selecione o cliente manualmente; nenhuma conversa foi alterada.'
-    };
-    if (rows.length !== 1) return {
-      ok:false, mode:'needs-selection',
-      error:'Há mais de um resultado para este número. Selecione o contato correto no WhatsApp.'
-    };
-
-    if (!tap(rows[0])) return {ok:false, error:'Não foi possível abrir o contato encontrado.'};
-    const composer = await waitFor(() => find(selectors.composer), 3700);
-    if (!composer) return {
-      ok:false, mode:'needs-selection',
-      error:'O WhatsApp não abriu o campo de mensagem. Confira a conversa e selecione o cliente manualmente.'
-    };
-    return {ok:true, composer};
-  }
-
-  async function prepareDraft({phone, text}) {
-    const digits = String(phone || '').replace(/\D/g, '');
-    const draft = String(text || '');
-    if (!/^55\d{10,11}$/.test(digits) || !draft.trim() || draft.length > 6000) {
-      return {ok:false, error:'Telefone ou texto da mensagem inválido.'};
+    let results = await until(() => {
+      const matches = findResult(phone);
+      return matches.length ? matches : null;
+    }, 5600);
+    if (!results && phone.startsWith('55')) {
+      // Some WhatsApp versions index the local number without +55.
+      useSearch(input, phone.slice(2));
+      results = await until(() => {
+        const matches = findResult(phone);
+        return matches.length ? matches : null;
+      }, 3400);
     }
-    const contact = await findContact(digits);
-    if (!contact.ok) return contact;
-    const composer = contact.composer;
-    const existing = (composer.value ?? composer.textContent ?? '').trim();
-    if (existing && existing !== draft.trim()) return {
-      ok:false, mode:'draft-conflict',
-      error:'O cliente já possui um rascunho diferente. Para não apagar sua mensagem, o texto novo ficou disponível no painel.'
-    };
-    if (!existing && !fill(composer, draft)) return {
-      ok:false, mode:'needs-selection',
-      error:'A conversa abriu, mas o WhatsApp não aceitou o rascunho. Copie a mensagem no painel.'
-    };
+    if (!results || results.length !== 1) return {ok: false, mode: 'needs-selection',
+      error: results?.length > 1
+        ? 'Mais de um resultado corresponde ao telefone. Selecione manualmente o correto.'
+        : 'O WhatsApp não apresentou uma correspondência exata. Selecione a conversa manualmente.'};
+
+    if (!choose(results[0])) return {ok:false, mode:'needs-selection',
+      error:'O resultado apareceu, mas não foi possível abrir a conversa.'};
+    const composer = await until(() => {
+      const field = find(selectors.composer);
+      const newHeader = chatHeader();
+      // Guard against filling the composer of the PREVIOUS customer.
+      return field && (!oldHeader || (newHeader && newHeader !== oldHeader) ||
+        exactPhoneIn(document.querySelector('#main header') || field, phone)) ? field : null;
+    }, 4500);
+    if (!composer) return {ok: false, mode:'needs-selection',
+      error:'Não foi possível comprovar que a conversa correta abriu. A mensagem não foi inserida.'};
+    const draft = String(composer.innerText ?? composer.textContent ?? '').trim();
+    if (draft && draft !== text.trim()) return {ok:false, mode:'draft-conflict',
+      error:'Há um rascunho diferente nesta conversa; ele foi preservado.'};
+    if (!draft && !edit(composer, text)) return {ok:false, mode:'needs-selection',
+      error:'A conversa abriu, mas o WhatsApp não aceitou o texto. Copie-o pelo painel.'};
     composer.focus();
-    return {
-      ok:true, mode:'draft-ready',
-      message:'Conversa aberta e mensagem preparada no campo do WhatsApp. Revise e clique em Enviar.'
-    };
+    return {ok:true,mode:'draft-ready',reloaded:false,
+      message:'Conversa aberta e mensagem preenchida. Confira o destinatário e pressione Enviar.'};
   }
 
-  runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message?.type === 'SRN_WHATSAPP_SEARCH_PING') {
-      sendResponse({ok:true});
-      return false;
-    }
-    if (message?.type !== 'SRN_WHATSAPP_FIND_CONTACT') return false;
-    // Serialize clicks so repeated admin requests cannot interleave drafts.
-    queue = queue.catch(() => {}).then(() => prepareDraft(message));
-    queue.then(sendResponse).catch(error => sendResponse({
-      ok:false, error:String(error?.message || error)
-    }));
+  runtime.onMessage.addListener((message, sender, reply) => {
+    if (message?.type === 'SRN_WHATSAPP_READY') {reply({ok:true});return false;}
+    if (message?.type !== 'SRN_WHATSAPP_OPEN_CHAT_IN_APP') return false;
+    busy = busy.catch(() => {}).then(() => prepare(message));
+    busy.then(reply).catch(err => reply({ok:false,reloaded:false,error:String(err?.message || err)}));
     return true;
   });
 })();
