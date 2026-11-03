@@ -113,6 +113,22 @@ não é possível garantir a abertura de todos os números sem recarregamento.
 A extensão nunca força um reload como alternativa: se não encontrar um
 contato correspondente com segurança, informa a falha.
 
+**Abrir WhatsApp pelo aplicativo (celular e desktop):** no Android/iPhone, o
+botão **Mensagem** tenta abrir `whatsapp://send?phone=...&text=...` diretamente
+no aplicativo instalado, sem criar uma aba do WhatsApp Web. A mensagem é
+preparada, mas **não é enviada automaticamente**. O painel também apresenta
+**Abrir no aplicativo** (para repetir a tentativa) e a opção separada
+**WhatsApp Web (alternativa)**. Não há redirecionamento automático para web
+se o protocolo nativo não for reconhecido. O comportamento final depende das
+permissões e do navegador do celular.
+
+No desktop, **Abrir no aplicativo** só funciona quando o sistema tem
+um aplicativo registrado para o protocolo `whatsapp://`. O WhatsApp não
+fornece aplicativo oficial para Linux; clientes Linux não oficiais geralmente
+envolvem WhatsApp Web e podem continuar sujeitos a recarregamentos. Por
+isso, o comportamento padrão do painel no desktop permanece usando
+o auxiliar Web ou a cópia manual.
+
 O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
 próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
 O controle de contato é independente da presença do cliente: marcar uma
