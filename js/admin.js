@@ -9,6 +9,29 @@ if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
+let whatsappWindow=null;
+const WHATSAPP_WINDOW_NAME='srnavalha_whatsapp';
+function whatsappWebLink(phone,message){
+ return 'https://web.whatsapp.com/send?phone='+encodeURIComponent(phone)+'&text='+encodeURIComponent(message);
+}
+function openWhatsAppWeb(link){
+ // Reuse the tab that this admin panel previously opened. Browser security
+ // prevents finding or taking over an unrelated WhatsApp tab opened by the user.
+ if(whatsappWindow){
+  try{
+   if(!whatsappWindow.closed){
+    whatsappWindow.location.href=link;
+    whatsappWindow.focus();
+    return true;
+   }
+  }catch{ /* the remote tab may have severed its WindowProxy */ }
+ }
+ const tab=window.open(link,WHATSAPP_WINDOW_NAME);
+ if(!tab)return false;
+ whatsappWindow=tab;
+ try{tab.opener=null}catch{/* some browser protections block opener changes */}
+ return true;
+}
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -76,7 +99,7 @@ function feedback(message,tone='success'){
 function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
  badge.textContent='WhatsApp manual';badge.dataset.mode='manual';
- $('#whatsapp-mode-details').textContent='O botão Mensagem abre a conversa com o texto pronto. O envio é feito no WhatsApp, e a equipe registra depois no painel. Nenhuma automação não oficial é utilizada.';
+ $('#whatsapp-mode-details').textContent='Mensagem abre direto no WhatsApp Web, reaproveitando a mesma aba do primeiro contato. Revise, envie pelo WhatsApp e registre o envio no painel.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
@@ -132,19 +155,22 @@ function sendMessage(booking){
   feedback('O número de WhatsApp deste cliente está inválido. Confira o cadastro.','error');return;
  }
  previewBooking=booking;
- const link='https://wa.me/'+phone+'?text='+encodeURIComponent(composeMessage(booking));
+ const link=whatsappWebLink(phone,composeMessage(booking));
  $('#message-open-link').href=link;
  $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='A conversa abrirá com o texto preenchido. Toque em Enviar no WhatsApp e, quando terminar, registre o envio aqui.';
- const tab=window.open(link,'_blank');
- if(tab)tab.opener=null;
- else $('#message-info').textContent='O navegador bloqueou a nova aba. Use o link “Abrir conversa no WhatsApp” abaixo; depois do envio, registre o contato.';
+ $('#message-info').textContent='WhatsApp Web aberto com a mensagem pronta. Clique em Enviar na conversa e depois registre o envio no painel. As próximas mensagens reutilizam essa mesma aba.';
+ if(!openWhatsAppWeb(link))$('#message-info').textContent='O navegador bloqueou a aba do WhatsApp. Use “Abrir conversa no WhatsApp” abaixo e depois registre o envio.';
  try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
  $('#message-dialog').showModal();
  void renderDashboard();
 }
+$('#message-open-link').addEventListener('click',event=>{
+ event.preventDefault();
+ const link=$('#message-open-link').href;
+ if(!openWhatsAppWeb(link))$('#message-info').textContent='Seu navegador bloqueou a abertura do WhatsApp. Verifique a permissão para abrir novas abas.';
+});
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dialog').addEventListener('click',event=>{if(event.target===$('#message-dialog'))event.target.close()});
