@@ -191,16 +191,43 @@ function actionButton(text,kind,fn,disabled=false){
  button.type='button';button.disabled=disabled;button.addEventListener('click',fn);
  return button;
 }
+function askStatusChange(message,next){
+ const dialog=$('#status-dialog');
+ const confirmButton=$('#status-apply');
+ const cancelButton=$('#status-cancel');
+ const destructive=next==='cancelled';
+ $('#status-title').textContent=destructive?'Cancelar este horário?':'Confirmar a presença?';
+ $('#status-description').textContent=message;
+ confirmButton.textContent=destructive?'Sim, cancelar horário':'Sim, confirmar presença';
+ confirmButton.classList.toggle('danger',destructive);
+ dialog.showModal();
+ return new Promise(resolve=>{
+  const clear=()=>{
+   confirmButton.removeEventListener('click',yes);
+   cancelButton.removeEventListener('click',no);
+   dialog.removeEventListener('cancel',escape);
+  };
+  const done=result=>{clear();dialog.close();resolve(result)};
+  const yes=()=>done(true);
+  const no=()=>done(false);
+  const escape=e=>{e.preventDefault();done(false)};
+  confirmButton.addEventListener('click',yes);
+  cancelButton.addEventListener('click',no);
+  dialog.addEventListener('cancel',escape);
+  cancelButton.focus();
+ });
+}
 async function changeStatus(booking,next){
  if(normalizedStatus(booking)===next)return;
  const message=next==='cancelled'?'Cancelar o horário de '+booking.customer_name+'? O horário ficará disponível novamente.':'Marcar a presença de '+booking.customer_name+' como confirmada?';
- if(!confirm(message))return;
+ if(!await askStatusChange(message,next))return;
  try{
   if(sharedMode){
    const reply=await fetch('/api/bookings',{method:'PATCH',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:booking.id,status:next})});
    if(!reply.ok)throw Error('Não foi possível salvar na agenda compartilhada');
   }else updateDemoBookingStatus(booking.id,next);
   feedback(next==='confirmed'?'Presença registrada como confirmada.':'Agendamento cancelado; horário liberado.');
+  document.querySelectorAll('.appointment-manage[open]').forEach(menu=>{menu.open=false});
   await renderDashboard();
  }catch{feedback('Não foi possível atualizar este registro no navegador.')}
 }
