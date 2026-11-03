@@ -73,14 +73,19 @@ O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as v
 
 O fluxo atual, escolhido para evitar os riscos da automação não oficial, é manual:
 
-1. O atendente clica em **Mensagem** para abrir `wa.me` do cliente com o texto
-   personalizado já preenchido. O painel continua aberto em outra aba.
+1. O atendente clica em **Mensagem** para abrir diretamente
+   `https://web.whatsapp.com/send?phone=...&text=...` do cliente com o texto
+   personalizado já preenchido. O painel continua aberto; a aba do WhatsApp
+   criada pelo site é **reutilizada nos próximos contatos**, quando o navegador
+   mantém sua referência. Não usa a tela intermediária de `api.whatsapp.com`.
 2. O atendente toca em **Enviar** dentro do WhatsApp.
 3. Ao retornar, escolhe **Já enviei no WhatsApp**. Somente esse segundo clique
    grava `whatsapp_manual_sent_at` na reserva, com o aviso
    **Envio registrado pela equipe** (não é comprovante de entrega).
 4. A equipe acompanha a resposta e atualiza o status para **Confirmado** ou
    **Cancelado**, conforme necessário.
+
+Um site também não pode tomar o controle de uma aba do WhatsApp aberta manualmente pelo usuário: por restrições do navegador, ele só pode reutilizar uma aba que tenha aberto e ainda consiga referenciar. Se a aba tiver sido fechada ou o navegador bloquear a referência, uma nova poderá ser criada.
 
 Um website não consegue detectar mensagens enviadas pelo WhatsApp Web nem enviá-las
 por conta própria somente por haver uma conversa aberta. Não usamos Evolution API
