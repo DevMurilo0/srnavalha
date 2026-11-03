@@ -1,14 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Sr. Navalha — WhatsApp em uma aba",
-  "version": "1.0.0",
-  "description": "Reutiliza uma aba já aberta do WhatsApp Web ao clicar em Mensagem no painel Sr. Navalha.",
+  "version": "2.0.0",
+  "description": "Reutiliza a mesma aba do WhatsApp Web no Firefox, Floorp e Chrome, sem ler ou enviar mensagens.",
   "permissions": [
     "tabs"
   ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
-    "https://api.whatsapp.com/*"
+    "https://api.whatsapp.com/*",
+    "https://srnavalha.vercel.app/*",
+    "https://*.vercel.app/*",
+    "https://srnavalha.com.br/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
   ],
   "background": {
     "scripts": [
@@ -27,7 +32,8 @@
       "js": [
         "bridge.js"
       ],
-      "run_at": "document_start"
+      "run_at": "document_start",
+      "all_frames": false
     }
   ],
   "browser_specific_settings": {
