@@ -29,27 +29,30 @@ try{
  await page.locator('#admin-login button[type="submit"]').click();
  check('Painel é exibido após acesso',await page.locator('#dashboard').isVisible());
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
- check('Mensagem é a ação principal',await page.locator('.appointment button.message').textContent()==='Mensagem');
+ check('Mensagem é a ação principal',await page.locator('.appointment a.message').textContent()==='Mensagem');
  check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
- // Without the optional helper, the first click still opens WhatsApp;
- // subsequent clicks must never generate an unbounded series of tabs.
- const firstPopup=page.waitForEvent('popup',{timeout:5000});
- await page.locator('.appointment button.message').click();
- const opened=await firstPopup;
- const href=await page.locator('#message-open-link').getAttribute('href');
- check('WhatsApp direct link contains phone and message',
-  new URL(href).hostname==='web.whatsapp.com'&&
-  new URL(href).pathname==='/send'&&
-  new URL(href).searchParams.get('phone')==='5581999999999'&&
-  new URL(href).searchParams.get('text').includes('Cliente'));
- check('First click without helper opens WhatsApp Web',context.pages().length===2&&!!opened);
- check('Opening message does not claim it was sent',
-  await page.locator('.appointment .message-indicator').textContent()==='WhatsApp aberto');
+ // The primary action is now a real app deep link. Intercept only for
+ // browser automation so tests don't launch an external application.
+ await page.evaluate(()=>document.addEventListener('click',event=>{
+  if(event.target.closest('.appointment a.message'))event.preventDefault();
+ },true));
+ const link=await page.locator('.appointment a.message').getAttribute('href');
+ check('WhatsApp app receives exact phone and prepared message',
+  new URL(link).protocol==='whatsapp:'&&
+  new URL(link).searchParams.get('phone')==='5581999999999'&&
+  new URL(link).searchParams.get('text').includes('Cliente de teste'));
+ await page.locator('.appointment a.message').click();
+ check('Preview remains available when returning from WhatsApp',
+  await page.locator('#message-dialog').isVisible()&&
+  await page.locator('#message-app-link').getAttribute('href')===link);
+ check('No WhatsApp Web or additional browser tabs',
+  context.pages().length===1);
+ check('Opening WhatsApp never marks the message as sent',
+  await page.locator('#msg-unsent-count').textContent()==='1'&&
+  await page.locator('#msg-sent-count').textContent()==='0');
  await page.locator('#message-dismiss').click();
- await page.locator('.appointment button.message').click();
- check('Repeated message clicks never create more than one fallback tab',context.pages().length===2);
+ await page.locator('.appointment a.message').click();
  await page.locator('#message-confirm-sent').click();
- await opened.close();
  check('Staff marks message sent without confirming attendance',
   await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
   await page.locator('#stat-pending').textContent()==='1');
