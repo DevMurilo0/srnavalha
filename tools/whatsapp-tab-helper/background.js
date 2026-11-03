@@ -1,103 +1,108 @@
-/* Sr. Navalha · Universal MV3 click-to-chat. Reuses existing WhatsApp tab.
- * Different phones can reload the tab; never searches the sidebar or sends.
+/* Sr. Navalha — WhatsApp helper 4.0.0 (Firefox / Floorp / Chrome).
+ * Existing WhatsApp tabs are NEVER navigated or reloaded. The content script
+ * operates the visible New Chat UI, and never clicks Send.
  */
-const isFirefoxApi = typeof browser !== 'undefined' && Boolean(browser?.tabs);
-const API = isFirefoxApi ? browser : chrome;
-
-function apiCall(target, method, ...args) {
-  if (isFirefoxApi) return Promise.resolve(target[method](...args));
-  return new Promise((resolve, reject) => {
-    target[method](...args, result => {
+const isFirefox = typeof browser !== 'undefined' && !!browser.tabs;
+const ext = isFirefox ? browser : chrome;
+const api = (object, method, ...args) => isFirefox
+  ? Promise.resolve(object[method](...args))
+  : new Promise((resolve, reject) => object[method](...args, value => {
       const error = chrome.runtime.lastError;
-      if (error) reject(new Error(error.message));
-      else resolve(result);
-    });
-  });
-}
+      error ? reject(new Error(error.message)) : resolve(value);
+    }));
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-function allowedAdmin(input) {
+function authorized(urlString) {
   try {
-    const url = new URL(input);
+    const url = new URL(urlString);
+    if (url.pathname !== '/admin.html') return false;
     const host = url.hostname;
-    const local = ['127.0.0.1', 'localhost'].includes(host) && url.protocol === 'http:';
-    const deployed = url.protocol === 'https:' && (
-      host === 'srnavalha.vercel.app' ||
-      host === 'srnavalha.com.br' ||
-      /^srnavalha-[a-z0-9-]+-murilo15\.vercel\.app$/.test(host)
-    );
-    return url.pathname === '/admin.html' && (local || deployed);
-  } catch {
-    return false;
-  }
+    return (url.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(host)) ||
+      (url.protocol === 'https:' && (host === 'srnavalha.vercel.app' ||
+        host === 'srnavalha.com.br' ||
+        /^srnavalha-[a-z0-9-]+-murilo15\.vercel\.app$/.test(host)));
+  } catch { return false; }
+}
+function extractRequest(input) {
+  const url = new URL(input);
+  if (url.protocol !== 'https:' || url.hostname !== 'web.whatsapp.com' ||
+      url.pathname !== '/send') throw Error('Destino WhatsApp inválido');
+  const phone = url.searchParams.get('phone') || '';
+  const text = url.searchParams.get('text') || '';
+  if (!/^55\d{10,11}$/.test(phone) || !text.trim() || text.length > 6000)
+    throw Error('Número ou mensagem inválidos');
+  return {phone, text};
 }
 
-function validChat(input) {
-  try {
-    const url = new URL(input);
-    const phone = url.searchParams.get('phone') || '';
-    const message = url.searchParams.get('text') || '';
-    return url.protocol === 'https:' &&
-      url.hostname === 'web.whatsapp.com' &&
-      url.pathname === '/send' &&
-      /^55\d{10,11}$/.test(phone) &&
-      message.length >= 1 && message.length <= 6000;
-  } catch {
-    return false;
+async function requestInTab(tabId, data) {
+  try { return await api(ext.tabs, 'sendMessage', tabId, data); }
+  catch {
+    // Tabs open before extension installation lack the injected script.
+    await api(ext.scripting, 'executeScript', {
+      target: {tabId}, files: ['whatsapp-page.js']
+    });
+    return api(ext.tabs, 'sendMessage', tabId, data);
   }
 }
+async function activate(tab) {
+  await api(ext.tabs, 'update', tab.id, {active: true});
+  if (Number.isInteger(tab.windowId)) {
+    try { await api(ext.windows, 'update', tab.windowId, {focused: true}); }
+    catch { /* Window focus is optional. */ }
+  }
+}
+async function openChat(url, sender) {
+  if (!authorized(sender?.url) && !authorized(sender?.tab?.url))
+    return {ok: false, error: 'Painel administrativo não autorizado'};
+  let request;
+  try { request = extractRequest(url); }
+  catch (error) { return {ok: false, error: error.message}; }
 
+  const found = await api(ext.tabs, 'query', {url: ['https://web.whatsapp.com/*']});
+  const inWindow = found.filter(tab => tab.windowId === sender?.tab?.windowId);
+  const pool = inWindow.length ? inWindow : found;
+  const target = [...pool].sort((a, b) =>
+    Number(b.active) - Number(a.active) ||
+    (b.lastAccessed || 0) - (a.lastAccessed || 0))[0];
 
-async function reuseWhatsApp(link, sender) {
-  if (!allowedAdmin(sender?.url) && !allowedAdmin(sender?.tab?.url))
-    return {ok:false,error:'Painel não autorizado'};
-  if (!validChat(link))
-    return {ok:false,error:'Número ou mensagem inválido'};
-
-  const requested=new URL(link);
-  const destination='https://web.whatsapp.com/send?phone='+
-    requested.searchParams.get('phone')+'&text='+
-    encodeURIComponent(requested.searchParams.get('text'));
-  const tabs=await apiCall(API.tabs,'query',{
-    url:['https://web.whatsapp.com/*','https://api.whatsapp.com/*']
-  });
-  const web=tabs.filter(t=>t.url?.startsWith('https://web.whatsapp.com/'));
-  const candidates=web.length?web:tabs;
-  const same=candidates.filter(t=>t.windowId===sender?.tab?.windowId);
-  const pool=same.length?same:candidates;
-  const target=[...pool].sort((x,y)=>
-    (Number(y.active)-Number(x.active))||
-    ((y.lastAccessed||0)-(x.lastAccessed||0))
-  )[0];
-  if(Number.isInteger(target?.id)){
-    // The URL-based click-to-chat feature opens unsaved numbers and prefills
-    // the message. It can reload WhatsApp, but ALWAYS uses the same tab.
-    const unchanged=target.url===destination;
-    await apiCall(API.tabs,'update',target.id,
-      unchanged?{active:true}:{url:destination,active:true});
-    if(Number.isInteger(target.windowId)){
-      try{await apiCall(API.windows,'update',target.windowId,{focused:true})}
-      catch{/* Nonessential; target was opened. */}
+  if (target?.id != null) {
+    await activate(target);
+    try {
+      const result = await requestInTab(target.id, {
+        type: 'SRN_WHATSAPP_OPEN_CHAT_IN_APP', ...request
+      });
+      return { ...result, reused: true, tabId: target.id, reloaded: false };
+    } catch (error) {
+      return {ok: false, reused: true, reloaded: false,
+        error: 'Falha ao acessar o WhatsApp já aberto: ' + error.message};
     }
-    return {ok:true,reused:true,mode:'direct-chat',mayReload:!unchanged,tabId:target.id};
   }
-  const options={url:destination,active:true};
-  if(Number.isInteger(sender?.tab?.windowId))options.windowId=sender.tab.windowId;
-  const created=await apiCall(API.tabs,'create',options);
-  return {ok:true,reused:false,mode:'direct-chat',mayReload:true,tabId:created?.id};
+
+  // Only the *first* WhatsApp visit loads a page, because no tab exists.
+  const options = {url: 'https://web.whatsapp.com/', active: true};
+  if (Number.isInteger(sender?.tab?.windowId)) options.windowId = sender.tab.windowId;
+  const created = await api(ext.tabs, 'create', options);
+  for (let i = 0; i < 35; i++) {
+    await delay(450);
+    try {
+      const result = await requestInTab(created.id, {
+        type: 'SRN_WHATSAPP_OPEN_CHAT_IN_APP', ...request
+      });
+      return {...result, reused: false, tabId: created.id, reloaded: false};
+    } catch { /* WhatsApp may still be loading. */ }
+  }
+  return {ok: false, reused: false, reloaded: false,
+    error: 'O WhatsApp abriu, mas ainda não está pronto. Aguarde o login e tente novamente.'};
 }
 
-// Use sendResponse + return true in BOTH browser families.
-// Returning only a Promise from an MV3 listener is unreliable in Chrome.
-API.runtime.onMessage.addListener((message, sender, sendResponse) => {
+ext.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === 'SRN_EXTENSION_PING') {
-    sendResponse({ok: true, version: '2.2.0'});
+    sendResponse({ok: true, version: '4.0.0'});
     return false;
   }
   if (message?.type !== 'SRN_OPEN_WHATSAPP_TAB') return false;
-  reuseWhatsApp(message.url, sender)
-    .then(sendResponse)
-    .catch(error => sendResponse({
-      ok: false, error: String(error?.message || error)
-    }));
+  openChat(message.url, sender).then(sendResponse).catch(error => sendResponse({
+    ok: false, reloaded: false, error: String(error?.message || error)
+  }));
   return true;
 });
