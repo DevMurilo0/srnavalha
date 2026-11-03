@@ -249,8 +249,8 @@ function sendMessage(booking){
  $('#message-info').textContent='Clique em Enviar no WhatsApp e, depois, registre o contato neste painel.';
  const opened=openWhatsAppWeb(link);
  updateWhatsappHelperHint();
- if(opened==='copy')$('#message-info').textContent='A aba do WhatsApp já foi aberta. Para não criar outra, copie a mensagem e cole na conversa existente. Instale o auxiliar do Floorp para trocar o cliente automaticamente naquela aba.';
- if(opened==='blocked')$('#message-info').textContent='O navegador bloqueou a abertura do WhatsApp. Use o link abaixo ou ative o auxiliar do Floorp.';
+ if(opened==='copy')$('#message-info').textContent='O WhatsApp já foi aberto. Para não criar outra aba, copie a mensagem e cole na conversa existente. Ative o auxiliar universal para trocar o cliente automaticamente.';
+ if(opened==='blocked')$('#message-info').textContent='O navegador bloqueou a abertura do WhatsApp. Confira a permissão de pop-ups ou ative o auxiliar universal.';
  if(opened==='opened')$('#message-info').textContent='WhatsApp Web aberto em uma aba. Envie a mensagem por lá; nas próximas vezes, o painel não criará várias abas.';
  if(opened==='reused')$('#message-info').textContent='A conversa foi atualizada na mesma aba do WhatsApp. Envie a mensagem por lá.';
  try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
