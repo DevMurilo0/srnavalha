@@ -16,6 +16,11 @@ export default async function handler(req,res){
   if(req.method==='PATCH'){
    const item=await getBooking(body.id);
    if(!item)return response(res,404,{error:'Agendamento não encontrado'});
+   if(body.action==='manual_message_sent'){
+    item.whatsapp_manual_sent_at=new Date().toISOString();
+    await setBooking(item);
+    return response(res,200,{item});
+   }
    if(!['pending','confirmed','cancelled'].includes(body.status))return response(res,400,{error:'Status inválido'});
    item.status=body.status;item.responded_at=new Date().toISOString();
    await setBooking(item);return response(res,200,{item});
