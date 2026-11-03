@@ -10,6 +10,12 @@ const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
 const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
+const isMobileWhatsApp=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent||'');
+function openInstalledWhatsApp(url){
+ // Deep links need to be dispatched synchronously from a real user gesture.
+ // Do not automatically redirect to WhatsApp Web if the app is not installed.
+ try{window.location.assign(url);return true}catch{return false}
+}
 const WHATSAPP_FALLBACK_FLAG='srnavalha:whatsapp-aba-aberta';
 let whatsappBridgeReady=false,bridgeSequence=0,bridgeError='',whatsappHelperVersion='';
 let fallbackTab=null;
@@ -51,6 +57,17 @@ window.addEventListener('message',event=>{
  }
 });
 function updateWhatsappHelperHint(){
+ if(isMobileWhatsApp()){
+  const helper=$('.helper-connection');if(helper)helper.hidden=true;
+  const instructions=$('.helper-install-link');if(instructions)instructions.hidden=true;
+  const hint=$('#message-reuse-hint');
+  if(hint)hint.textContent='No celular, o botão Mensagem tenta abrir o aplicativo WhatsApp instalado. Se o navegador não abrir, toque em “Abrir no aplicativo”.';
+  const fallback=$('#message-open-link');
+  if(fallback){fallback.hidden=false;fallback.textContent='Abrir pelo WhatsApp Web (alternativa)';}
+  return;
+ }
+ const helper=$('.helper-connection');if(helper)helper.hidden=false;
+ const instructions=$('.helper-install-link');if(instructions)instructions.hidden=false;
  const hint=$('#message-reuse-hint');
  if(hint)hint.textContent=whatsappBridgeReady
   ?'Auxiliar v4.0 conectado: tenta abrir o chat e preparar o texto dentro do WhatsApp, sem atualizar a aba.'
@@ -183,11 +200,13 @@ function feedback(message,tone='success'){
 }
 function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
- badge.textContent=whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
+ badge.textContent=isMobileWhatsApp()?'WhatsApp · aplicativo':whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
  badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
- $('#whatsapp-mode-details').textContent=whatsappBridgeReady
-  ?'Auxiliar conectado: Mensagem tenta abrir a conversa e preparar o texto sem recarregar a aba. Confira o destinatário e clique em Enviar.'
-  :'Instale o auxiliar universal para que Mensagem sempre use a aba do WhatsApp que já está aberta. O envio continua manual, sem automações não oficiais.';
+ $('#whatsapp-mode-details').textContent=isMobileWhatsApp()
+  ?'No celular, Mensagem tenta abrir o aplicativo WhatsApp instalado, com o texto preparado. Se o aplicativo não responder, use a opção explícita no painel; o envio continua manual.'
+  :whatsappBridgeReady
+   ?'Auxiliar conectado: Mensagem tenta abrir a conversa dentro do WhatsApp Web sem recarregar. Confira o destinatário e clique em Enviar.'
+   :'No computador, use Abrir no aplicativo se ele tiver sido instalado e associado ao protocolo WhatsApp. Caso contrário, use a opção de WhatsApp Web; o envio continua manual.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
@@ -213,6 +232,11 @@ function confirmationUrls(booking){
   return url.href;
  };
  return {yes:urlFor('confirmar'),no:urlFor('cancelar')};
+}
+function whatsappAppLink(phone,message){
+ const digits=String(phone||'').replace(/\D/g,'');
+ if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
+ return 'whatsapp://send?phone='+digits+'&text='+encodeURIComponent(String(message||''));
 }
 function whatsappWebLink(phone,message){
  // Open WhatsApp Web directly. The extension reuses an existing browser tab.
@@ -250,14 +274,20 @@ function sendMessage(booking){
   feedback('O número de WhatsApp deste cliente está inválido. Confira o cadastro.','error');return;
  }
  previewBooking=booking;
- const link=whatsappWebLink(phone,composeMessage(booking));
+ const message=composeMessage(booking);
+ const link=whatsappWebLink(phone,message);
+ const appLink=whatsappAppLink(phone,message);
  $('#message-open-link').href=link;
+ $('#message-app-link').href=appLink;
  $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
- $('#message-preview').textContent=composeMessage(booking);
+ $('#message-preview').textContent=message;
  $('#message-copy').textContent='Copiar texto';
  $('#message-info').textContent='Clique em Enviar no WhatsApp e, depois, registre o contato neste painel.';
- const opened=openWhatsAppWeb(link);
+ const onPhone=isMobileWhatsApp();
+ const opened=onPhone?(openInstalledWhatsApp(appLink)?'native-app':'app-unavailable'):openWhatsAppWeb(link);
  updateWhatsappHelperHint();
+ if(opened==='native-app')$('#message-info').textContent='Solicitamos a abertura do aplicativo WhatsApp com a mensagem pronta. Confira o destinatário e toque em Enviar. Se não abriu, use “Abrir no aplicativo”.';
+ if(opened==='app-unavailable')$('#message-info').textContent='O aplicativo não pôde ser aberto automaticamente. Use “Abrir no aplicativo” ou a alternativa web.';
  if(opened==='copy')$('#message-info').textContent='O WhatsApp já foi aberto. Para não criar outra aba, copie a mensagem e cole na conversa existente. Ative o auxiliar universal para trocar o cliente automaticamente.';
  if(opened==='blocked')$('#message-info').textContent='Não foi possível abrir o WhatsApp. Verifique a extensão ou a permissão de pop-ups.';
  if(opened==='outdated')$('#message-info').textContent='A extensão instalada é antiga. Atualize para a v4.0 e recarregue-a antes de tentar novamente.';
@@ -268,7 +298,7 @@ function sendMessage(booking){
  void renderDashboard();
 }
 $('#message-open-link').addEventListener('click',event=>{
- if(whatsappBridgeReady){
+ if(whatsappBridgeReady&&!isMobileWhatsApp()){
   event.preventDefault();
   openWhatsAppWeb($('#message-open-link').href);
  }
