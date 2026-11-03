@@ -108,6 +108,8 @@
       node.textContent,
       node.getAttribute?.('aria-label'),
       node.getAttribute?.('title'),
+      node.getAttribute?.('data-id'),
+      node.getAttribute?.('data-jid'),
       ...Array.from(node.querySelectorAll?.('[title],[aria-label]') || [])
         .slice(0, 12).map(item => (item.getAttribute('title') || '') +
           ' ' + (item.getAttribute('aria-label') || ''))
