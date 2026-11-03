@@ -74,6 +74,12 @@
  <p class="message-info" id="message-info">Envio automático indisponível neste ambiente. Para enviar sem abrir o WhatsApp, conecte a API oficial.</p>
  <div class="message-dialog-actions"><button id="message-copy" type="button">Copiar mensagem</button><button id="message-dismiss" type="button">Voltar à agenda</button></div>
 </dialog>
+<dialog id="status-dialog" class="status-dialog" aria-labelledby="status-title">
+ <p class="micro-label">REVISAR AGENDAMENTO</p>
+ <h2 id="status-title">Confirmar alteração</h2>
+ <p id="status-description">Deseja alterar o status deste horário?</p>
+ <div class="status-dialog-actions"><button id="status-cancel" type="button">Voltar</button><button id="status-apply" type="button">Confirmar alteração</button></div>
+</dialog>
 <dialog id="reply-dialog" class="reply-dialog" aria-labelledby="reply-title">
  <button class="dialog-x" type="button" id="close-reply" aria-label="Fechar janela">×</button><p class="micro-label">SIMULAR RESPOSTA</p><h2 id="reply-title">Confirmação do cliente</h2>
  <p>Teste a experiência dos links de resposta neste mesmo navegador. O status será atualizado na agenda local.</p>
