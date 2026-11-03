@@ -98,7 +98,9 @@
         bubbles: true, inputType: 'insertText', data: value
       }));
     }
-    return String(field.textContent || '').trim() === value.trim();
+    const observed = String(field.innerText || field.textContent || '').trim().replace(/\r/g,'');
+    return observed === value.trim() ||
+      (value.includes('\n') && observed.replace(/\s+/g,'') === value.trim().replace(/\s+/g,''));
   }
 
   function matchesPhone(node, phone) {
@@ -140,7 +142,10 @@
     if (!search) return {ok:false, error:'A pesquisa lateral do WhatsApp não foi encontrada.'};
     if (!fill(search, phone)) return {ok:false, error:'Não foi possível pesquisar o telefone.'};
 
-    let rows = await waitFor(() => candidateRows(phone), 3200);
+    let rows = await waitFor(() => {
+      const found = candidateRows(phone);
+      return found.length ? found : null;
+    }, 3200);
     if (!rows?.length) {
       // Attempt WhatsApp's native New chat flow for numbers not yet in the chat
       // list. If we cannot resolve an exact phone, leave it for manual choice.
@@ -148,7 +153,10 @@
       if (icon && tap(icon)) {
         search = await waitFor(() => find(selectors.newChatSearch, {outsideMain:true}), 2200);
         if (search && fill(search, phone)) {
-          rows = await waitFor(() => candidateRows(phone), 3000);
+          rows = await waitFor(() => {
+            const found = candidateRows(phone);
+            return found.length ? found : null;
+          }, 3000);
         }
       }
     }
