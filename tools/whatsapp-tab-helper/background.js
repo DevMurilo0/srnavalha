@@ -47,8 +47,8 @@ function validChat(input) {
   }
 }
 
-async function searchInsideWhatsApp(tabId, phone) {
-  const request = {type: 'SRN_WHATSAPP_FIND_CONTACT', phone};
+async function searchInsideWhatsApp(tabId, phone, text) {
+  const request = {type: 'SRN_WHATSAPP_FIND_CONTACT', phone, text};
   try {
     return await apiCall(API.tabs, 'sendMessage', tabId, request);
   } catch {
@@ -70,6 +70,7 @@ async function reuseWhatsApp(link, sender) {
 
   const url = new URL(link);
   const phone = url.searchParams.get('phone');
+  const text = url.searchParams.get('text');
   const tabs = await apiCall(API.tabs, 'query', {
     url: ['https://web.whatsapp.com/*', 'https://api.whatsapp.com/*']
   });
@@ -92,7 +93,7 @@ async function reuseWhatsApp(link, sender) {
     }
     if (target.url?.startsWith('https://web.whatsapp.com/')) {
       try {
-        const result = await searchInsideWhatsApp(target.id, phone);
+        const result = await searchInsideWhatsApp(target.id, phone, text);
         return {
           ok: Boolean(result?.ok),
           reused: true,
@@ -124,7 +125,7 @@ async function reuseWhatsApp(link, sender) {
 // Returning only a Promise from an MV3 listener is unreliable in Chrome.
 API.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.type === 'SRN_EXTENSION_PING') {
-    sendResponse({ok: true, version: '2.1.0'});
+    sendResponse({ok: true, version: '2.2.0'});
     return false;
   }
   if (message?.type !== 'SRN_OPEN_WHATSAPP_TAB') return false;
