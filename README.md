@@ -35,9 +35,9 @@ as limitações da resolução do mockup.
 - **18 produtos com fotografias**, catálogo pesquisável por nome/categoria; a consulta é feita diretamente na barbearia, sem links de WhatsApp na seção.
 - **Galeria fotográfica** com visualizador acessível, navegação e Escape.
 - **Agendamento em `agendar.html`**: escolha serviço, profissional, data, horário, nome e WhatsApp, com comprovante redesenhado e aviso de confirmação futura; horários ilustrativos, **sem reserva real**.
-- **Gestão em `admin.html`**: acesso de apresentação com e-mail/senha, lista de solicitações, pesquisa, filtros e status de confirmação/cancelamento; tudo acessa o mesmo armazenamento local do navegador.
+- **Gestão em `admin.html`**: acesso por e-mail/senha, visão geral com os cinco horários futuros mais próximos, agenda completa com filtros e uma tela **Confirmados** que lista nome, telefone, serviço, profissional, data e horário. A tela de confirmados permite busca por nome ou telefone e exibe atendimentos futuros por padrão.
 - **Respostas em `confirmar.html`**: links de demonstração que registram confirmação ou cancelamento apenas quando abertos no navegador onde existe o registro. Em outros dispositivos, será necessária uma agenda centralizada.
-- **WhatsApp**: o botão do painel abre conversa com mensagem preenchida para envio manual; respostas e envios automáticos exigirão integração posterior com WhatsApp Business Platform e webhooks.
+- **WhatsApp**: o botão **Mensagem** abre a conversa do número do cliente com texto preenchido; a equipe toca em **Enviar** no WhatsApp e só então em **Já enviei no WhatsApp** para registrar o contato no painel. Abrir a conversa não equivale a enviar. Sem automação não oficial, sem envio silencioso.
 - Localização e redes sociais vinculadas ao estabelecimento real.
 - Sem servidor de aplicação, checkout ou pagamento.
 
@@ -71,19 +71,26 @@ O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as v
 
 ## Confirmação pública por WhatsApp — configuração de produção
 
-O painel oferece uma única ação primária, **Mensagem**, por agendamento.
-- **Com a API Meta configurada**: ao clicar em Mensagem, o sistema pede o envio
-  diretamente ao servidor, sem abrir WhatsApp Web, guia adicional ou aplicativo.
-  Um template *Utility* aprovado contém as respostas rápidas **Confirmar** e
-  **Cancelar**; o webhook verifica a assinatura e o telefone e atualiza a agenda.
-  A resposta da API sinaliza a aceitação do pedido de envio, não garante entrega.
-- **Sem API configurada**: Mensagem abre uma prévia dentro do painel, com um botão
-  para copiar o texto. **Nenhuma mensagem é enviada automaticamente.** Não são
-  exibidos links `localhost` ou `127.0.0.1`. O operador precisa enviar a
-  mensagem manualmente. Um site não tem permissão para detectar/controlar uma
-  sessão aberta do WhatsApp e mandar mensagens sem interação.
-- **Interface**: o painel apresenta período, busca, filtros por status, ações
-  secundárias agrupadas em Gerenciar e diálogos de confirmação acessíveis.
+O fluxo atual, escolhido para evitar os riscos da automação não oficial, é manual:
+
+1. O atendente clica em **Mensagem** para abrir `wa.me` do cliente com o texto
+   personalizado já preenchido. O painel continua aberto em outra aba.
+2. O atendente toca em **Enviar** dentro do WhatsApp.
+3. Ao retornar, escolhe **Já enviei no WhatsApp**. Somente esse segundo clique
+   grava `whatsapp_manual_sent_at` na reserva, com o aviso
+   **Envio registrado pela equipe** (não é comprovante de entrega).
+4. A equipe acompanha a resposta e atualiza o status para **Confirmado** ou
+   **Cancelado**, conforme necessário.
+
+Um website não consegue detectar mensagens enviadas pelo WhatsApp Web nem enviá-las
+por conta própria somente por haver uma conversa aberta. Não usamos Evolution API
+ou qualquer automação não oficial nesta versão.
+
+O painel tem a seção **Próximos atendimentos**, com até cinco reservas futuras
+mais próximas, e uma tela independente **Confirmados**. Essa tela inclui
+busca por nome/número/serviço, histórico opcional, telefone clicável e ordenação
+por data crescente. As telas mantêm os mesmos dados do armazenamento local ou
+da agenda compartilhada, quando conectada.
 
 Os endpoints em `api/` já foram implementados para confirmação real **entre
 dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
