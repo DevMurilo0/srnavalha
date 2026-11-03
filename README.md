@@ -106,15 +106,6 @@ Chrome, pode ser carregada como extensão sem compactação, em modo desenvolved
 Remova versões antigas e atualize `admin.html` após instalar.
 
 
-**Importante:** a versão anterior usava `tabs.update({url: ...})`, que
-recarregava o WhatsApp a cada cliente. A v2.1 usa um script de pesquisa
-na própria aba. Como o WhatsApp Web pode mudar seu HTML, se o campo de
-busca não for encontrado a extensão **não forçará um reload**: informará
-o erro e permitirá localizar o cliente manualmente.
-Para atualizar, faça `git pull --ff-only`, recarregue a extensão em
-`about:debugging` ou `chrome://extensions`, e então atualize `admin.html`.
-
-
 **Nota sobre o WhatsApp:** a versão 3.0 usava a navegação direta por URL,
 o que recarregava o WhatsApp Web. A v4.0 não navega uma aba existente.
 Como a interface de novas conversas pertence ao WhatsApp e pode mudar,
