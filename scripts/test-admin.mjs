@@ -7,7 +7,7 @@ const results=[];
 const check=(label,pass)=>{results.push({label,pass:!!pass});console.log((pass?'PASS ':'FAIL ')+label)};
 const context=await browser.newContext({viewport:{width:1366,height:820}});
 const page=await context.newPage();
-await context.route('https://wa.me/**',route=>route.fulfill({status:200,contentType:'text/html',body:'WhatsApp URL intercepted for this browser test'}));
+await context.route('https://web.whatsapp.com/**',route=>route.fulfill({status:200,contentType:'text/html',body:'WhatsApp Web navigation intercepted for this browser test'}));
 page.on('dialog',dialog=>dialog.accept());
 try{
  await page.goto(base+'/agendar.html',{waitUntil:'domcontentloaded'});
@@ -35,12 +35,22 @@ try{
  await page.locator('.appointment button.message').click();
  const popup=await whatsAppPopup;
  const href=await page.locator('#message-open-link').getAttribute('href');
- check('Abre WhatsApp com telefone e mensagem preenchida',new URL(href).hostname==='wa.me'&&
-  new URL(href).pathname.includes('5581999999999')&&new URL(href).searchParams.get('text').includes('Cliente'));
- await popup.close();
- check('O painel não marca envio só por abrir a conversa',await page.locator('#message-dialog').isVisible()&&
+ check('Abre direto WhatsApp Web com telefone e mensagem preenchida',
+  new URL(href).hostname==='web.whatsapp.com'&&
+  new URL(href).pathname==='/send'&&
+  new URL(href).searchParams.get('phone')==='5581999999999'&&
+  new URL(href).searchParams.get('text').includes('Cliente'));
+ check('WhatsApp abre em uma aba dedicada',context.pages().length===2);
+ await page.locator('#message-dismiss').click();
+ await page.locator('.appointment button.message').click();
+ await page.waitForTimeout(100);
+ check('Próximo clique reaproveita a aba WhatsApp',context.pages().length===2&&popup.url().startsWith('https://web.whatsapp.com/send?'));
+ await page.locator('#message-dismiss').click();
+ check('O painel não marca envio só por abrir a conversa',
   await page.locator('.appointment .message-indicator').textContent()==='WhatsApp aberto');
+ await page.locator('.appointment button.message').click();
  await page.locator('#message-confirm-sent').click();
+ await popup.close();
  check('Envio é registrado só após confirmação do operador',await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
   await page.locator('#stat-pending').textContent()==='1');
 
