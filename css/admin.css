@@ -423,3 +423,6 @@ body{background:var(--paper)}
  .contact-chip{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.contact-filters button{transition:none!important}}
+
+/* Never expose the fallback tab opener when safe reuse is unavailable. */
+.message-open-link[hidden]{display:none!important}
