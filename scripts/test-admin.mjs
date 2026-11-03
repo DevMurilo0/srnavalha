@@ -7,6 +7,7 @@ const results=[];
 const check=(label,pass)=>{results.push({label,pass:!!pass});console.log((pass?'PASS ':'FAIL ')+label)};
 const context=await browser.newContext({viewport:{width:1366,height:820}});
 const page=await context.newPage();
+await context.route('https://wa.me/**',route=>route.fulfill({status:200,contentType:'text/html',body:'WhatsApp URL intercepted for this browser test'}));
 page.on('dialog',dialog=>dialog.accept());
 try{
  await page.goto(base+'/agendar.html',{waitUntil:'domcontentloaded'});
@@ -29,10 +30,20 @@ try{
  check('Painel é exibido após acesso',await page.locator('#dashboard').isVisible());
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
  check('Mensagem é a ação principal',await page.locator('.appointment button.message').textContent()==='Mensagem');
+ check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
+ const whatsAppPopup=page.waitForEvent('popup',{timeout:5000});
  await page.locator('.appointment button.message').click();
- check('Mensagem permanece no painel e não abre o WhatsApp',await page.locator('#message-dialog').isVisible()&&
-  (await page.locator('#message-preview').textContent()).includes('Cliente')&&page.url().includes('/admin.html'));
- await page.locator('#message-close').click();
+ const popup=await whatsAppPopup;
+ const href=await page.locator('#message-open-link').getAttribute('href');
+ check('Abre WhatsApp com telefone e mensagem preenchida',new URL(href).hostname==='wa.me'&&
+  new URL(href).pathname.includes('5581999999999')&&new URL(href).searchParams.get('text').includes('Cliente'));
+ await popup.close();
+ check('O painel não marca envio só por abrir a conversa',await page.locator('#message-dialog').isVisible()&&
+  await page.locator('.appointment .message-indicator').textContent()==='WhatsApp aberto');
+ await page.locator('#message-confirm-sent').click();
+ check('Envio é registrado só após confirmação do operador',await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
+  await page.locator('#stat-pending').textContent()==='1');
+
  await page.locator('#admin-period').selectOption('today');
  check('Filtro de data aparece e pode ser alterado',await page.locator('#admin-period').inputValue()==='today');
  await page.locator('#admin-period').selectOption('all');
@@ -45,6 +56,20 @@ try{
   (await page.locator('#status-title').textContent()).includes('Confirmar'));
  await page.locator('#status-apply').click();
  check('Status confirmado e contagem atualizados',await page.locator('#stat-confirmed').textContent()==='1'&&await page.locator('.appointment .status.confirmed').count()===1);
+ await page.locator('.dash-sidebar a[href="#confirmados"]').click();
+ check('Tela separada de confirmados mostra nome e telefone',await page.locator('#confirmed-view').isVisible()&&
+  await page.locator('.confirmed-item').count()===1&&
+  (await page.locator('.confirmed-client').textContent()).includes('Cliente de teste')&&
+  (await page.locator('.confirmed-phone').textContent()).includes('81999999999'));
+ await page.locator('#confirmed-search').fill('naoexiste');
+ check('Busca por nome filtra os confirmados',await page.locator('.confirmed-item').count()===0);
+ await page.locator('#confirmed-search').fill('81999999999');
+ check('Busca por telefone encontra o cliente confirmado',await page.locator('.confirmed-item').count()===1);
+ await page.setViewportSize({width:390,height:844});
+ check('Navegação para confirmados acessível no celular',await page.locator('.mobile-admin-nav a[href="#confirmados"]').isVisible());
+ await page.locator('.mobile-admin-nav a[href="#main"]').click();
+ check('Volta à agenda no celular',await page.locator('#overview-view').isVisible());
+ await page.setViewportSize({width:1366,height:820});
  await page.locator('.appointment-manage summary').click();
  await page.locator('.appointment button').filter({hasText:'Simular resposta'}).click();
  check('Links da resposta apontam para o protocolo',new URL(await page.locator('#reply-no').getAttribute('href')).searchParams.get('ref')===booking.id);
