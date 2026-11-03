@@ -71,31 +71,35 @@ O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as v
 
 ## Confirmação pública por WhatsApp — configuração de produção
 
-O fluxo atual, escolhido para evitar os riscos da automação não oficial, é manual:
+O envio continua manual para evitar automações não oficiais.
 
-1. O atendente clica em **Mensagem** para abrir diretamente
-   `https://web.whatsapp.com/send?phone=...&text=...` do cliente com o texto
-   personalizado já preenchido. O painel continua aberto; a aba do WhatsApp
-   criada pelo site é **reutilizada nos próximos contatos**, quando o navegador
-   mantém sua referência. Não usa a tela intermediária de `api.whatsapp.com`.
-2. O atendente toca em **Enviar** dentro do WhatsApp.
-3. Ao retornar, escolhe **Já enviei no WhatsApp**. Somente esse segundo clique
-   grava `whatsapp_manual_sent_at` na reserva, com o aviso
-   **Envio registrado pela equipe** (não é comprovante de entrega).
-4. A equipe acompanha a resposta e atualiza o status para **Confirmado** ou
-   **Cancelado**, conforme necessário.
+1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
+   ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
+   Os filtros possuem contadores independentes de Presença confirmada/cancelada.
+2. Clique em **Mensagem** no agendamento. Com o complemento de navegador
+   **Sr. Navalha — WhatsApp em uma aba** instalado, o painel usa a API de abas
+   do Firefox/Floorp para procurar **uma aba do WhatsApp Web já aberta**, inclusive
+   se foi aberta manualmente, e reutilizá-la para o próximo cliente. Se não
+   existir nenhuma, abre uma única aba, reutilizada nos próximos contatos.
+3. Envie a mensagem **dentro do WhatsApp**.
+4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
+   muda para **Mensagem enviada**, sem alterar a confirmação da presença.
 
-Um site também não pode tomar o controle de uma aba do WhatsApp aberta manualmente pelo usuário: por restrições do navegador, ele só pode reutilizar uma aba que tenha aberto e ainda consiga referenciar. Se a aba tiver sido fechada ou o navegador bloquear a referência, uma nova poderá ser criada.
+**Sem o complemento:** nenhum site comum pode localizar/atualizar uma aba do
+WhatsApp aberta manualmente. Para evitar dezenas de abas, o clique em Mensagem
+não abre outras automaticamente; oferece o texto pronto para copiar e um link
+explícito para abrir o WhatsApp se você quiser. O complemento é opcional,
+gratuito e não envia mensagens automaticamente.
 
-Um website não consegue detectar mensagens enviadas pelo WhatsApp Web nem enviá-las
-por conta própria somente por haver uma conversa aberta. Não usamos Evolution API
-ou qualquer automação não oficial nesta versão.
+Código do complemento: [tools/whatsapp-tab-helper](tools/whatsapp-tab-helper).
+Instruções de instalação temporária no Firefox/Floorp disponíveis no
+[README do complemento](tools/whatsapp-tab-helper/README.md). Não há suporte
+a instalação permanente sem uma extensão assinada para distribuição.
 
-O painel tem a seção **Próximos atendimentos**, com até cinco reservas futuras
-mais próximas, e uma tela independente **Confirmados**. Essa tela inclui
-busca por nome/número/serviço, histórico opcional, telefone clicável e ordenação
-por data crescente. As telas mantêm os mesmos dados do armazenamento local ou
-da agenda compartilhada, quando conectada.
+O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
+próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
+O controle de contato é independente da presença do cliente: marcar uma
+mensagem como enviada não significa que foi entregue ou que o cliente confirmou.
 
 Os endpoints em `api/` já foram implementados para confirmação real **entre
 dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
