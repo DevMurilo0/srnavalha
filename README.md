@@ -76,11 +76,12 @@ O envio continua manual para evitar automações não oficiais.
 1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
    ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
    Os filtros possuem contadores independentes de Presença confirmada/cancelada.
-2. Clique em **Mensagem** no agendamento. Com o complemento de navegador
-   **Sr. Navalha — WhatsApp em uma aba** instalado, o painel usa a API de abas
-   do Firefox/Floorp para procurar **uma aba do WhatsApp Web já aberta**, inclusive
-   se foi aberta manualmente, e reutilizá-la para o próximo cliente. Se não
-   existir nenhuma, abre uma única aba, reutilizada nos próximos contatos.
+2. Clique em **Mensagem** no agendamento. Com o complemento universal
+   **Sr. Navalha — WhatsApp em uma aba v2** instalado, o painel usa a API de abas
+   do **Firefox, Floorp ou Chrome** para localizar uma aba do WhatsApp Web
+   já aberta, inclusive se foi aberta manualmente, e reutilizá-la para o
+   próximo cliente. Se não existir nenhuma, cria uma única aba. O painel
+   exibe **Extensão conectada · v2** quando o serviço da extensão responde.
 3. Envie a mensagem **dentro do WhatsApp**.
 4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
@@ -96,9 +97,11 @@ para evitar dezenas de abas, mesmo depois de atualizar a página. O complemento
 enviar mensagens automaticamente.
 
 Código do complemento: [tools/whatsapp-tab-helper](tools/whatsapp-tab-helper).
-Instruções de instalação temporária no Firefox/Floorp disponíveis no
-[README do complemento](tools/whatsapp-tab-helper/README.md). Não há suporte
-a instalação permanente sem uma extensão assinada para distribuição.
+O **mesmo pacote** tem instruções para Firefox, Floorp e Chrome no
+[README do complemento](tools/whatsapp-tab-helper/README.md). No Firefox/Floorp,
+a instalação temporária precisa ser refeita após reiniciar o navegador; no
+Chrome, pode ser carregada como extensão sem compactação, em modo desenvolvedor.
+Remova versões antigas e atualize `admin.html` após instalar.
 
 O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
 próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
