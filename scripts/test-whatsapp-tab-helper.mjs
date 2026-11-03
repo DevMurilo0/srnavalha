@@ -58,7 +58,14 @@ for(const family of ['Firefox/Floorp','Chrome']){
  const callbacks={
   ...api,
   tabs:Object.fromEntries(Object.entries(api.tabs).map(([method,fn])=>
-   [method,(...args)=>{const cb=args.pop();fn(...args).then(cb,()=>cb(undefined))}])),
+   [method,(...args)=>{
+    const cb=args.pop();
+    fn(...args).then(cb,error=>{
+     callbacks.runtime.lastError={message:String(error?.message||error)};
+     cb(undefined);
+     callbacks.runtime.lastError=null;
+    });
+   }])),
   scripting:{executeScript:(...args)=>{
    const cb=args.pop();api.scripting.executeScript(...args).then(cb);
   }},
