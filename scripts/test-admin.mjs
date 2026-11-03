@@ -31,22 +31,25 @@ try{
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
  check('Mensagem é a ação principal',await page.locator('.appointment button.message').textContent()==='Mensagem');
  check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
- // Without the optional browser helper, the site must not spawn more tabs.
+ // Without the optional helper, the first click still opens WhatsApp;
+ // subsequent clicks must never generate an unbounded series of tabs.
+ const firstPopup=page.waitForEvent('popup',{timeout:5000});
  await page.locator('.appointment button.message').click();
+ const opened=await firstPopup;
  const href=await page.locator('#message-open-link').getAttribute('href');
  check('WhatsApp direct link contains phone and message',
   new URL(href).hostname==='web.whatsapp.com'&&
   new URL(href).pathname==='/send'&&
   new URL(href).searchParams.get('phone')==='5581999999999'&&
   new URL(href).searchParams.get('text').includes('Cliente'));
- check('No unsolicited WhatsApp tabs without helper',context.pages().length===1);
+ check('First click without helper opens WhatsApp Web',context.pages().length===2&&!!opened);
  check('Opening message does not claim it was sent',
-  (await page.locator('#message-info').textContent()).includes('não permite acessar')&&
   await page.locator('.appointment .message-indicator').textContent()==='WhatsApp aberto');
  await page.locator('#message-dismiss').click();
  await page.locator('.appointment button.message').click();
- check('Repeated message clicks do not create any tabs without helper',context.pages().length===1);
+ check('Repeated message clicks never create more than one fallback tab',context.pages().length===2);
  await page.locator('#message-confirm-sent').click();
+ await opened.close();
  check('Staff marks message sent without confirming attendance',
   await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
   await page.locator('#stat-pending').textContent()==='1');
