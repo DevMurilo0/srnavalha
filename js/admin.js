@@ -8,7 +8,16 @@ try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(aw
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
-let currentFilter = 'all',currentSearch = '';
+let currentFilter='all', currentSearch='', currentPeriod='all', previewBooking=null;
+const dateKey = value => {
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
+ const p=key=>parts.find(part=>part.type===key)?.value||'';
+ return [p('year'),p('month'),p('day')].join('-');
+};
+const weekEnd = day => {
+ const date=new Date(day+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+6);
+ return date.toISOString().slice(0,10);
+};
 const fmtDay = value => new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,day:'2-digit',month:'short'}).format(new Date(value));
 const fmtFull = value => new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'2-digit',month:'long'}).format(new Date(value));
 const fmtHour = value => new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit'}).format(new Date(value));
@@ -67,13 +76,28 @@ $('#admin-logout').addEventListener('click',async()=>{
  else sessionStorage.removeItem(LOGIN_KEY);
  await presentDashboard();$('#admin-email').focus();
 });
-function feedback(message){$('#admin-feedback').textContent=message}
+function feedback(message,tone='success'){
+ const node=$('#admin-feedback');
+ node.textContent=message;
+ node.dataset.tone=tone;
+ node.hidden=!message;
+}
 function updateWhatsAppMode(){
  const note=$('#whatsapp-mode-details');
- if(!note)return;
- note.textContent=cloudButtonsAvailable
-  ? 'O cliente receberá dois botões no próprio WhatsApp: Confirmar e Cancelar. A resposta atualizará a agenda automaticamente após ser recebida pela integração da Meta.'
-  : 'O envio de botões nativos exige a WhatsApp Business Platform com um template aprovado. Enquanto a integração estiver desativada, o painel abre uma conversa para envio manual e oferece uma simulação das respostas.';
+ const badge=$('#delivery-mode');
+ if(cloudButtonsAvailable){
+  note.textContent='Envio direto habilitado. Ao clicar em Mensagem, o pedido é enviado à API do WhatsApp Business sem abrir outras janelas. O painel receberá as respostas pela integração.';
+  badge.textContent='Envio direto conectado';
+  badge.dataset.mode='connected';
+ }else if(sharedMode){
+  note.textContent='O sistema de reservas está conectado, mas não há envio automático do WhatsApp configurado. O botão Mensagem permite copiar o texto e os links públicos para envio manual.';
+  badge.textContent='WhatsApp manual';
+  badge.dataset.mode='manual';
+ }else{
+  note.textContent='Esta é uma demonstração no navegador. O botão Mensagem mostra o texto e permite copiá-lo, sem enviar nenhuma mensagem ao cliente. Para o envio direto, é necessária a integração oficial.';
+  badge.textContent='Modo demonstração';
+  badge.dataset.mode='demo';
+ }
 }
 async function sendNativeWhatsApp(booking,button){
  if(!sharedMode||!cloudButtonsAvailable){feedback('Conecte a conta WhatsApp Business para enviar botões nativos.');return}
@@ -87,9 +111,9 @@ async function sendNativeWhatsApp(booking,button){
   });
   const data=await r.json();
   if(!r.ok)throw Error(data.error||'Falha ao enviar');
-  feedback('Mensagem enviada ao WhatsApp do cliente com os botões Confirmar e Cancelar.');
+  feedback('A API do WhatsApp aceitou a solicitação de envio. A entrega ao cliente ainda depende da confirmação da plataforma.','success');
   await renderDashboard();
- }catch(e){feedback(e.message);button.disabled=false;button.textContent=original}
+ }catch(e){feedback(e.message,'error');button.disabled=false;button.textContent=original}
 }
 
 function confirmationUrls(booking){
@@ -104,36 +128,63 @@ function confirmationUrls(booking){
  };
  return {yes:urlFor('confirmar'),no:urlFor('cancelar')};
 }
-function prepareWhatsApp(booking){
- const phone=String(booking.customer_phone||'').replace(/\D/g,'');
+function composeMessage(booking){
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
  const links=booking.links||null;
  const message=[
   'Olá, '+name+'! Tudo bem?',
-  'Aqui é da Barbearia Sr. Navalha. Estamos entrando em contato para confirmar seu horário:',
+  'Aqui é da Barbearia Sr. Navalha. Gostaríamos de confirmar seu horário:',
   '',
   'Serviço: '+booking.service_name,
   'Data: '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
   'Profissional: '+booking.professional_name,
   '',
-  'Por favor, responda CONFIRMO ou CANCELAR nesta conversa.',
-  '',
+  'Você poderá comparecer?',
   ...(links?[
-   'Para confirmar ou cancelar pelo site:',
+   '',
+   'Confirme ou cancele pelo nosso site:',
    'Confirmar: '+links.yes,
-   'Cancelar: '+links.no,
-   ''
-  ]:[]),
+   'Cancelar: '+links.no
+  ]:['Responda CONFIRMO ou CANCELAR nesta conversa.']),
+  '',
   'Obrigado! Sr. Navalha · Gravatá'
- ].join('\n');
- if(!/^55\d{10,11}$/.test(phone)){feedback('O WhatsApp deste agendamento não está em um formato válido.');return}
- const link='https://wa.me/'+phone+'?text='+encodeURIComponent(message);
- // Open directly in response to the click, not from asynchronous code.
- const tab=window.open(link,'_blank');
- if(tab){tab.opener=null;feedback('Conversa aberta no WhatsApp. Confira e envie a mensagem manualmente.');}
- else feedback('Se o WhatsApp não abriu, permita novas abas para esta página.');
- if(!sharedMode)try{markDemoReminderOpened(booking.id)}catch{ /* demo storage unavailable */ }
- renderDashboard();
+ ];
+ return message.join('\n');
+}
+function openMessagePreview(booking){
+ previewBooking=booking;
+ $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
+ $('#message-preview').textContent=composeMessage(booking);
+ $('#message-info').textContent=sharedMode
+  ? 'O WhatsApp não está conectado para envio automático. Copie o texto para enviá-lo manualmente. Não houve envio.'
+  : 'Modo demonstração: nenhuma mensagem será enviada. Copie o texto para conferir como ficará a comunicação.';
+ $('#message-copy').textContent='Copiar mensagem';
+ $('#message-dialog').showModal();
+}
+$('#message-close').addEventListener('click',()=>$('#message-dialog').close());
+$('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
+$('#message-dialog').addEventListener('click',event=>{if(event.target===$('#message-dialog'))event.target.close()});
+$('#message-copy').addEventListener('click',async()=>{
+ if(!previewBooking)return;
+ const body=composeMessage(previewBooking);
+ try{
+  if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(body);
+  else{
+   const input=document.createElement('textarea');input.value=body;
+   document.body.append(input);input.select();
+   if(!document.execCommand('copy'))throw Error('Cópia indisponível');
+   input.remove();
+  }
+  $('#message-copy').textContent='Copiado ✓';
+  feedback('Mensagem copiada. Para enviá-la, cole em uma conversa com o cliente.','success');
+ }catch{
+  $('#message-info').textContent='Não foi possível copiar automaticamente. Selecione o texto acima e copie pelo navegador.';
+  feedback('Não foi possível copiar a mensagem neste navegador.','error');
+ }
+});
+function sendMessage(booking,button){
+ if(cloudButtonsAvailable)return sendNativeWhatsApp(booking,button);
+ openMessagePreview(booking);
 }
 function actionButton(text,kind,fn,disabled=false){
  const button=el('button',kind,text);
