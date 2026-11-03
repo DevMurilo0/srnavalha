@@ -41,6 +41,9 @@ try{
  await page.locator('.filters [data-status="all"]').click();
  await page.locator('.appointment-manage summary').click();
  await page.locator('.appointment button').filter({hasText:'Confirmar presença'}).click();
+ check('Confirmar presença usa diálogo próprio',await page.locator('#status-dialog').isVisible()&&
+  (await page.locator('#status-title').textContent()).includes('Confirmar'));
+ await page.locator('#status-apply').click();
  check('Status confirmado e contagem atualizados',await page.locator('#stat-confirmed').textContent()==='1'&&await page.locator('.appointment .status.confirmed').count()===1);
  await page.locator('.appointment-manage summary').click();
  await page.locator('.appointment button').filter({hasText:'Simular resposta'}).click();
