@@ -1,4 +1,4 @@
-# Sr. Navalha — WhatsApp em uma aba (universal v2)
+# Sr. Navalha — WhatsApp em uma aba (universal v2.1)
 
 **Um único complemento para Firefox, Floorp e Google Chrome**, desenvolvido em
 WebExtensions Manifest V3. Não é necessário um ZIP diferente para cada navegador:
@@ -27,9 +27,9 @@ Instale o conteúdo **extraído**, não o arquivo ZIP diretamente.
 2. Na lista de **Extensões temporárias**, remova a versão antiga se existir.
 3. Clique em **Carregar extensão temporária** (*Load Temporary Add-on*).
 4. Escolha **manifest.json** da pasta extraída.
-5. Veja se aparece **Sr. Navalha — WhatsApp em uma aba, versão 2.0.0**.
+5. Veja se aparece **Sr. Navalha — WhatsApp em uma aba, versão 2.1.0**.
 6. Volte ao `admin.html` e pressione **Ctrl + Shift + R**. Abra **Mensagem**.
-7. Verifique se o aviso exibe **Extensão conectada · v2**. Caso contrário,
+7. Verifique se o aviso exibe **Extensão conectada · v2.1**. Caso contrário,
    clique em **Verificar extensão** na janela de mensagem.
 
 Extensões temporárias são desinstaladas ao **reiniciar o navegador**. Para
@@ -44,7 +44,7 @@ instalação permanente no Firefox/Floorp é necessário assinar o complemento.
 5. Selecione a **pasta extraída** `srnavalha-whatsapp-universal`
    (aquela onde está o arquivo `manifest.json`).
 6. Atualize o painel com **Ctrl + Shift + R** e entre em **Mensagem**.
-7. O painel deve informar **Extensão conectada · v2**.
+7. O painel deve informar **Extensão conectada · v2.1**.
 
 O Chrome permite conservar a extensão carregada sem compactação enquanto a
 pasta original continuar no mesmo lugar. Não mova a pasta depois de carregá-la.
@@ -55,15 +55,25 @@ pasta original continuar no mesmo lugar. Não mova a pasta depois de carregá-la
 - Abra `admin.html` do Sr. Navalha no **mesmo navegador e perfil**.
 - Clique em **Mensagem** para um cliente. O complemento procura uma aba do
   WhatsApp Web e **reutiliza a mesma aba**, inclusive se você a abriu antes.
-- Ao escolher outro cliente, a conversa muda **nessa mesma aba**.
+- Ao escolher outro cliente, **o WhatsApp Web não recarrega**. O auxiliar
+  procura o número na barra lateral de busca da mesma aba e deixa os
+  resultados visíveis. Clique no cliente certo para abrir a conversa.
+- A mensagem continua disponível na prévia do painel, em **Copiar texto**.
+  Cole-a no campo da conversa e pressione Enviar manualmente.
+- Se a barra de busca do WhatsApp mudar em uma futura atualização e não for
+  identificada, o painel exibirá um erro. Ele **não** recarregará a aba como
+  alternativa. A interface do WhatsApp é externa e pode mudar.
 - Se não houver WhatsApp aberto, uma aba nova é criada somente uma vez.
 - **Clique em Enviar no WhatsApp**. Em seguida, confirme **Já enviei no
   WhatsApp** no painel. Abrir uma conversa não significa que a mensagem foi
   enviada ou entregue.
 
-O complemento não acessa conversas, não lê mensagens e não executa envio
-automático. Apenas navega pela API oficial de **abas do navegador**
-(`tabs.query`, `tabs.update`, `tabs.create`).
+O complemento não lê mensagens recebidas nem executa envios automáticos.
+Ele apenas acessa a caixa de busca da interface e digita o número de telefone
+para localizar a conversa. As APIs do navegador usadas são `tabs.query`,
+`tabs.update` (somente ativação da aba), `tabs.sendMessage` e,
+quando necessário, `scripting.executeScript` para executar a busca
+sem atualizar a página.
 
 ## Diagnóstico: ainda não funciona?
 
@@ -87,3 +97,16 @@ Domínios arbitrários da Vercel não podem controlar as abas do WhatsApp:
 os scripts validam a origem da mensagem no servidor da extensão.
 
 O código é aberto e está incluído no repositório Sr. Navalha.
+
+## Atualização da v2 para v2.1
+
+Se já instalou o auxiliar anterior, faça `git pull --ff-only` na pasta do
+projeto e recarregue a extensão: em `about:debugging`, clique em **Recarregar**,
+ou no Chrome clique no ícone de atualização da extensão em
+`chrome://extensions`. Depois atualize **somente** `admin.html` com
+**Ctrl + Shift + R**. Não é necessário atualizar a aba do WhatsApp.
+
+A alteração principal é que `tabs.update({url: ...})` foi substituído por
+uma pesquisa feita na barra lateral do WhatsApp Web. Essa alteração evita
+reinicializar o WhatsApp quando o contato muda. Ela não altera a conversa
+por trás dos controles oficiais e não envia mensagens automaticamente.
