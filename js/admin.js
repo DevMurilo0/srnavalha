@@ -1,4 +1,4 @@
-import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoReminderOpened,markDemoMessageSent} from './booking-local.js';
+import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoMessageSent} from './booking-local.js';
 const $ = selector => document.querySelector(selector);
 const STATUS = Object.freeze({pending:['Aguardando','pending'],confirmed:['Confirmado','confirmed'],cancelled:['Cancelado','cancelled']});
 const TZ = 'America/Recife';
@@ -9,131 +9,6 @@ if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
 let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
-const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
-const isMobileWhatsApp=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent||'');
-function openInstalledWhatsApp(url){
- // Deep links need to be dispatched synchronously from a real user gesture.
- // Do not automatically redirect to WhatsApp Web if the app is not installed.
- try{window.location.assign(url);return true}catch{return false}
-}
-const WHATSAPP_FALLBACK_FLAG='srnavalha:whatsapp-aba-aberta';
-let whatsappBridgeReady=false,bridgeSequence=0,bridgeError='',whatsappHelperVersion='';
-let fallbackTab=null;
-let fallbackOpened=sessionStorage.getItem(WHATSAPP_FALLBACK_FLAG)==='1';
-const whatsappBridgePending=new Map();
-
-function probeWhatsappHelper(){
- if(whatsappBridgeReady)return;
- window.postMessage({
-  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence
- },location.origin);
-}
-window.addEventListener('message',event=>{
- if(event.source!==window||event.origin!==location.origin)return;
- const data=event.data;
- if(data?.scope!==WHATSAPP_BRIDGE_SCOPE||data.sender!=='extension')return;
- if(data.type==='READY'){
-  whatsappHelperVersion=String(data.version||'');
-  whatsappBridgeReady=whatsappHelperVersion==='4.0.0';
-  bridgeError=whatsappBridgeReady?'':('Extensão desatualizada ('+(whatsappHelperVersion||'versão desconhecida')+'). Instale a v4.0 e recarregue a extensão no navegador.');
-  updateWhatsappHelperHint();updateWhatsAppMode();
-  return;
- }
- if(data.type==='ERROR'){
-  bridgeError=String(data.error||'Serviço da extensão indisponível').slice(0,160);
-  updateWhatsappHelperHint();
-  return;
- }
- if(data.type==='RESULT'&&whatsappBridgePending.has(data.id)){
-  clearTimeout(whatsappBridgePending.get(data.id));
-  whatsappBridgePending.delete(data.id);
-  const info=$('#message-info');
-  if(data.ok && data.mode==='draft-ready'){
-   if(info)info.textContent='A conversa foi aberta dentro do WhatsApp, sem recarregar a aba. A mensagem está pronta: confira o destinatário e clique em Enviar.';
-  }else{
-   if(info)info.textContent=(data.error||'A conversa não pôde ser aberta automaticamente.')+
-    ' O WhatsApp não foi recarregado. Confira o contato e use “Copiar texto” se necessário.';
-  }
- }
-});
-function updateWhatsappHelperHint(){
- if(isMobileWhatsApp()){
-  const helper=$('.helper-connection');if(helper)helper.hidden=true;
-  const instructions=$('.helper-install-link');if(instructions)instructions.hidden=true;
-  const hint=$('#message-reuse-hint');
-  if(hint)hint.textContent='No celular, o botão Mensagem tenta abrir o aplicativo WhatsApp instalado. Se o navegador não abrir, toque em “Abrir no aplicativo”.';
-  const fallback=$('#message-open-link');
-  if(fallback){fallback.hidden=false;fallback.textContent='Abrir pelo WhatsApp Web (alternativa)';}
-  return;
- }
- const helper=$('.helper-connection');if(helper)helper.hidden=false;
- const instructions=$('.helper-install-link');if(instructions)instructions.hidden=false;
- const hint=$('#message-reuse-hint');
- if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar v4.0 conectado: tenta abrir o chat e preparar o texto dentro do WhatsApp, sem atualizar a aba.'
-  :bridgeError
-   ?'O auxiliar respondeu com um erro: '+bridgeError+'. Recarregue a extensão e esta página.'
-   :fallbackOpened
-    ?'O WhatsApp já foi aberto nesta sessão. Sem a extensão conectada, copie a mensagem para não criar mais abas.'
-    :'A extensão não foi detectada. Após instalá-la, atualize esta página e clique em Verificar extensão.';
- const status=$('#whatsapp-helper-status');
- if(status){
-  status.textContent=whatsappBridgeReady?'Extensão conectada · v4.0':bridgeError?'Extensão desatualizada ou com erro':'Extensão não detectada';
-  status.dataset.connected=String(whatsappBridgeReady);
- }
- const link=$('#message-open-link');
- if(link){
-  link.textContent=whatsappBridgeReady?'Abrir na aba existente do WhatsApp ↗':'Abrir WhatsApp Web manualmente ↗';
-  link.hidden=whatsappBridgeReady?false:!fallbackOpened;
- }
-}
-function askWhatsappBridge(link){
- if(!whatsappBridgeReady)return false;
- const id=++bridgeSequence;
- const timer=setTimeout(()=>{
-  if(!whatsappBridgePending.has(id))return;
-  whatsappBridgePending.delete(id);
-  const info=$('#message-info');
-  if(info)info.textContent='O auxiliar não respondeu à troca de conversa. Clique em Verificar extensão, atualize o painel e tente novamente.';
- },25000);
- whatsappBridgePending.set(id,timer);
- window.postMessage({
-  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:link
- },location.origin);
- return true;
-}
-function openWhatsAppWeb(link){
- if(whatsappBridgeReady)return askWhatsappBridge(link)?'helper':'blocked';
- if(bridgeError)return 'outdated';
- // Without permission to manage existing tabs, avoid opening multiple tabs
- // when WhatsApp severs the WindowProxy via cross-origin isolation.
- if(fallbackOpened){
-  try{
-   if(fallbackTab&&!fallbackTab.closed){
-    fallbackTab.location.href=link;
-    fallbackTab.focus();
-    return 'reused';
-   }
-  }catch{ /* browser isolation revoked access */ }
-  return 'copy';
- }
- const tab=window.open(link,'srnavalha_whatsapp');
- if(!tab)return 'blocked';
- fallbackTab=tab;
- fallbackOpened=true;
- sessionStorage.setItem(WHATSAPP_FALLBACK_FLAG,'1');
- return 'opened';
-}
-$('#whatsapp-helper-check').addEventListener('click',()=>{
- bridgeError='';
- updateWhatsappHelperHint();
- probeWhatsappHelper();
- const status=$('#whatsapp-helper-status');
- if(status&&!whatsappBridgeReady)status.textContent='Verificando extensão…';
-});
-probeWhatsappHelper();
-setInterval(()=>{if(!whatsappBridgeReady&&!document.hidden)probeWhatsappHelper()},3000);
-window.addEventListener('focus',probeWhatsappHelper);
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -200,13 +75,9 @@ function feedback(message,tone='success'){
 }
 function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
- badge.textContent=isMobileWhatsApp()?'WhatsApp · aplicativo':whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
- badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
- $('#whatsapp-mode-details').textContent=isMobileWhatsApp()
-  ?'No celular, Mensagem tenta abrir o aplicativo WhatsApp instalado, com o texto preparado. Se o aplicativo não responder, use a opção explícita no painel; o envio continua manual.'
-  :whatsappBridgeReady
-   ?'Auxiliar conectado: Mensagem tenta abrir a conversa dentro do WhatsApp Web sem recarregar. Confira o destinatário e clique em Enviar.'
-   :'No computador, use Abrir no aplicativo se ele tiver sido instalado e associado ao protocolo WhatsApp. Caso contrário, use a opção de WhatsApp Web; o envio continua manual.';
+ badge.textContent='WhatsApp · aplicativo';
+ badge.dataset.mode='manual';
+ $('#whatsapp-mode-details').textContent='No celular, Mensagem abre a conversa no aplicativo WhatsApp com o texto preparado. Confira o número e toque em Enviar. Depois, registre o contato na agenda.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
@@ -238,13 +109,6 @@ function whatsappAppLink(phone,message){
  if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
  return 'whatsapp://send?phone='+digits+'&text='+encodeURIComponent(String(message||''));
 }
-function whatsappWebLink(phone,message){
- // Open WhatsApp Web directly. The extension reuses an existing browser tab.
- const digits=String(phone||'').replace(/\D/g,'');
- if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
- return 'https://web.whatsapp.com/send?phone='+digits+
-  '&text='+encodeURIComponent(String(message||''));
-}
 function composeMessage(booking){
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
  const links=booking.links||null;
@@ -268,43 +132,35 @@ function composeMessage(booking){
  ];
  return message.join('\n');
 }
-function sendMessage(booking){
- const phone=String(booking.customer_phone||'').replace(/\D/g,'');
- if(!/^55\d{10,11}$/.test(phone)){
-  feedback('O número de WhatsApp deste cliente está inválido. Confira o cadastro.','error');return;
- }
+function prepareMessage(booking,appLink){
  previewBooking=booking;
- const message=composeMessage(booking);
- const link=whatsappWebLink(phone,message);
- const appLink=whatsappAppLink(phone,message);
- $('#message-open-link').href=link;
  $('#message-app-link').href=appLink;
- $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
- $('#message-preview').textContent=message;
+ $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
+ $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='Clique em Enviar no WhatsApp e, depois, registre o contato neste painel.';
- const onPhone=isMobileWhatsApp();
- const opened=onPhone?(openInstalledWhatsApp(appLink)?'native-app':'app-unavailable'):openWhatsAppWeb(link);
- updateWhatsappHelperHint();
- if(opened==='native-app')$('#message-info').textContent='Solicitamos a abertura do aplicativo WhatsApp com a mensagem pronta. Confira o destinatário e toque em Enviar. Se não abriu, use “Abrir no aplicativo”.';
- if(opened==='app-unavailable')$('#message-info').textContent='O aplicativo não pôde ser aberto automaticamente. Use “Abrir no aplicativo” ou a alternativa web.';
- if(opened==='copy')$('#message-info').textContent='O WhatsApp já foi aberto. Para não criar outra aba, copie a mensagem e cole na conversa existente. Ative o auxiliar universal para trocar o cliente automaticamente.';
- if(opened==='blocked')$('#message-info').textContent='Não foi possível abrir o WhatsApp. Verifique a extensão ou a permissão de pop-ups.';
- if(opened==='outdated')$('#message-info').textContent='A extensão instalada é antiga. Atualize para a v4.0 e recarregue-a antes de tentar novamente.';
- if(opened==='opened')$('#message-info').textContent='WhatsApp Web aberto em uma aba. Envie a mensagem por lá; nas próximas vezes, o painel não criará várias abas.';
- if(opened==='reused')$('#message-info').textContent='A conversa foi atualizada na mesma aba do WhatsApp. Envie a mensagem por lá.';
- try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
+ $('#message-info').textContent='O WhatsApp será aberto no aplicativo com o número e a mensagem preparados. Confira a conversa e toque em Enviar. Quando voltar, registre o envio aqui.';
+ // This dialog remains behind WhatsApp for marking manual delivery on return.
+ // Do NOT preventDefault on the real anchor: the browser must follow the
+ // whatsapp:// deep link as a trusted, user-initiated navigation.
  $('#message-dialog').showModal();
- void renderDashboard();
 }
-$('#message-open-link').addEventListener('click',event=>{
- if(whatsappBridgeReady&&!isMobileWhatsApp()){
-  event.preventDefault();
-  openWhatsAppWeb($('#message-open-link').href);
+function messageAction(booking,status){
+ const label=booking.whatsapp_manual_sent_at?'Reenviar mensagem':'Mensagem';
+ const phone=String(booking.customer_phone||'').replace(/\D/g,'');
+ if(status!=='pending'||!/^55\d{10,11}$/.test(phone)){
+  const disabled=el('button','message',label);
+  disabled.type='button';disabled.disabled=true;
+  disabled.title=status!=='pending'
+   ?'A mensagem de confirmação é destinada a agendamentos pendentes'
+   :'Número de WhatsApp inválido; confira o cadastro';
+  return disabled;
  }
- // Without the helper this is an explicit, user-chosen recovery link.
- // The primary Mensagem button never opens more than one fallback tab.
-});
+ const link=el('a','message',label);
+ link.href=whatsappAppLink(phone,composeMessage(booking));
+ link.setAttribute('aria-label','Abrir o WhatsApp de '+booking.customer_name+' com mensagem de confirmação pronta');
+ link.addEventListener('click',()=>prepareMessage(booking,link.href));
+ return link;
+}
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dialog').addEventListener('click',event=>{if(event.target===$('#message-dialog'))event.target.close()});
@@ -410,8 +266,7 @@ function createRow(booking){
  else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Conversa aberta, ainda não enviado'));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
- const msg=actionButton(booking.whatsapp_manual_sent_at?'Reenviar mensagem':'Mensagem','message',()=>sendMessage(booking),status!=='pending');
- if(status!=='pending')msg.title='A mensagem de confirmação é destinada aos pedidos aguardando resposta';
+ const msg=messageAction(booking,status);
  group.append(msg);
  const menu=el('details','appointment-manage');
  const toggle=el('summary','', 'Gerenciar');toggle.setAttribute('aria-label','Gerenciar agendamento de '+booking.customer_name);
