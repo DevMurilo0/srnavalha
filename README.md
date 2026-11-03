@@ -76,15 +76,13 @@ O envio continua manual para evitar automações não oficiais.
 1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
    ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
    Os filtros possuem contadores independentes de Presença confirmada/cancelada.
-2. Clique em **Mensagem** no agendamento. Com o complemento universal
-   **Sr. Navalha — WhatsApp em uma aba v2.2** instalado, o painel encontra a
-   aba existente do WhatsApp Web em **Firefox, Floorp ou Chrome**, pesquisa
-   o telefone, tenta abrir a conversa exata e preencher a mensagem no campo
-   de texto, **sem recarregar a página e sem enviar automaticamente**.
-   Confira o destinatário e clique em Enviar. Se o número não aparecer
-   com segurança, a seleção permanece manual, com **Copiar texto**.
-   Se não existir aba do WhatsApp, uma será criada.
-   O painel exibe **Extensão conectada · v2.2** após verificar o complemento.
+2. Clique em **Mensagem** no agendamento. Com a extensão universal
+   **Sr. Navalha — WhatsApp em uma aba v3.0** instalada em Firefox, Floorp
+   ou Chrome, o painel abre o link de conversa pelo número diretamente na
+   **aba existente do WhatsApp Web**, com texto preenchido. Não usa a barra
+   lateral de pesquisa e aceita números sem conversas anteriores.
+   A troca de cliente pode recarregar o WhatsApp dentro da mesma aba.
+   O painel exibe **Extensão conectada · v3.0**.
 3. Envie a mensagem **dentro do WhatsApp**.
 4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
    muda para **Mensagem enviada**, sem alterar a confirmação da presença.
