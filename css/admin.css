@@ -449,3 +449,17 @@ body{background:var(--paper)}
 #whatsapp-helper-check:hover{background:#e5ede2}
 #whatsapp-helper-check:focus-visible{outline:2px solid #558b62;outline-offset:3px}
 @media(max-width:460px){.helper-connection{align-items:stretch}.helper-connection button{width:100%}}
+
+
+/* App-first WhatsApp navigation: native app as an explicit primary destination. */
+.message-destinations{display:flex;align-items:stretch;flex-wrap:wrap;gap:10px;margin-top:14px}
+.message-destinations>a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+ padding:11px 15px;border-radius:4px;text-decoration:none;font:740 12px/1.45 var(--body);
+ transition:background-color .18s ease,border-color .18s ease}
+.message-destinations .message-app-link{border:1px solid #294d34;background:#294d34;color:#fff}
+.message-destinations .message-app-link:hover{background:#3b6547;border-color:#3b6547;color:#fff}
+.message-destinations .message-open-link{margin-top:0;border:1px solid #cad5ca;background:#eff4ec;color:#365940}
+.message-destinations>a:focus-visible{outline:2px solid #63896a;outline-offset:3px}
+.message-destinations>a[hidden],.helper-connection[hidden],.helper-install-link[hidden]{display:none!important}
+@media(max-width:580px){.message-destinations{flex-direction:column}.message-destinations>a{width:100%}}
+@media(prefers-reduced-motion:reduce){.message-destinations>a{transition:none}}
