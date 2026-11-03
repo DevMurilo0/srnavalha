@@ -212,6 +212,13 @@ function confirmationUrls(booking){
  };
  return {yes:urlFor('confirmar'),no:urlFor('cancelar')};
 }
+function whatsappWebLink(phone,message){
+ // Open WhatsApp Web directly. The extension reuses an existing browser tab.
+ const digits=String(phone||'').replace(/\D/g,'');
+ if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
+ return 'https://web.whatsapp.com/send?phone='+digits+
+  '&text='+encodeURIComponent(String(message||''));
+}
 function composeMessage(booking){
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
  const links=booking.links||null;
