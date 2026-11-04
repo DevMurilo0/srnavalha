@@ -33,7 +33,7 @@ async function inspect(width){
   await page.locator('.cut-intro .official-logo').count()===1 &&
   await page.locator('.cut-intro__progress-fill').count()===1);
  check(width+' nova frase e cada palavra animada',
-  await page.locator('.cut-intro__tagline').innerText()==='Precisão em cada movimento.' &&
+  (await page.locator('.cut-intro__tagline').textContent()).replace(/\s+/g,' ').trim()==='Precisão em cada movimento.' &&
   await page.locator('.cut-intro__tagline span').count()===3 &&
   await page.locator('.cut-intro__logo-mask').count()===1);
  const earlyProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
