@@ -42,13 +42,19 @@ function observe(nodes,play){
 async function opening(){
  const root=document.documentElement;
  const intro=one('#cut-intro');
- // Deep links, history traversal and reduced motion bypass the opening.
- if(!intro||!root.classList.contains('opening-active')||!canAnimate()){
-  intro?.remove();root.classList.remove('opening-active');return;
+ const target=one('.razor-stage .razor');
+ // The exact hero image becomes the loader image. There are never two razors.
+ if(!intro||!target||!root.classList.contains('opening-active')||!canAnimate()){
+  intro?.remove();
+  root.classList.remove('opening-active');
+  return;
  }
+ const parent=target.parentNode;
+ const sibling=target.nextSibling;
  const controller=new AbortController(),signal=controller.signal;
  const effects=[];
- let ended=false,resolveEnd,releaseFrame=0,revealTimer=0;
+ let placeholder=null,ended=false,revealTimer=0,releaseFrame=0;
+ let resolveEnd;
  const endedPromise=new Promise(resolve=>{resolveEnd=resolve});
  const finish=()=>{
   if(ended)return;
@@ -57,19 +63,26 @@ async function opening(){
   clearTimeout(watchdog);clearTimeout(revealTimer);
   cancelAnimationFrame(releaseFrame);
   effects.forEach(effect=>{try{effect.cancel()}catch{}});
+  // Restore the physical razor before dropping the loader's visibility class.
+  // The placeholder holds its destination geometry throughout the flight.
+  if(target.parentNode!==parent)parent.insertBefore(target,sibling);
+  target.classList.remove('razor-flight');
+  target.removeAttribute('style');
+  placeholder?.remove();
   root.classList.remove('opening-active');
   intro.remove();
   resolveEnd();
  };
- const watchdog=setTimeout(finish,2700);
+ const watchdog=setTimeout(finish,4900);
  const run=(node,frames,options={})=>{
   if(!node||!node.animate)return null;
   const effect=node.animate(frames,{fill:'both',easing:eased,...options});
-  effects.push(effect);effect.finished.catch(()=>{});
+  effects.push(effect);
+  effect.finished.catch(()=>{});
   return effect;
  };
- // A pointer gesture is swallowed by the overlay. Never pass the same click
- // through to the booking CTA behind the sheet.
+ const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ // One pointer gesture belongs to the cover and cannot click a hidden CTA.
  intro.addEventListener('pointerdown',event=>{
   if(event.cancelable)event.preventDefault();
  },{signal});
@@ -80,12 +93,13 @@ async function opening(){
   event.preventDefault();event.stopImmediatePropagation();
  },{capture:true,signal});
  for(const type of ['scroll','wheel','keydown','pagehide']){
-  addEventListener(type,finish,{once:true,passive:type!=='keydown',signal});
+  addEventListener(type,finish,{once:true,passive:true,signal});
  }
  addEventListener('resize',finish,{once:true,passive:true,signal});
  document.addEventListener('visibilitychange',()=>{
   if(document.hidden)finish();
  },{signal});
+ document.addEventListener('motionrelease',finish,{signal});
  reduced.addEventListener('change',()=>{
   if(reduced.matches)finish();
  },{signal});
@@ -93,38 +107,88 @@ async function opening(){
  const status=one('.cut-intro__status',intro);
  const progress=one('.cut-intro__progress-fill',intro);
  const veil=one('.cut-intro__veil',intro);
- run(identity,[
-  {opacity:0,transform:'translate3d(-50%,calc(-50% + 8px),0)'},
-  {opacity:1,transform:'translate3d(-50%,-50%,0)'}
- ],{duration:300,easing:'cubic-bezier(.23,1,.32,1)'});
- run(status,[{opacity:0},{opacity:1}],{duration:230,delay:95});
- run(progress,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],
-  {duration:410,delay:35,easing:'cubic-bezier(.65,0,.35,1)'});
- // Decode the hero photo opportunistically, but never block navigation on it.
- await Promise.all([
-  bounded(Promise.all([
+ try{
+  // Quiet typography first: enough room below the mark for the real razor.
+  run(identity,[
+   {opacity:0,transform:'translate3d(-50%,calc(-50% + 12px),0)'},
+   {opacity:1,transform:'translate3d(-50%,-50%,0)'}
+  ],{duration:420,easing:'cubic-bezier(.23,1,.32,1)'});
+  run(status,[{opacity:0},{opacity:1}],{duration:320,delay:180});
+  run(progress,[
+   {transform:'scaleX(0)'},
+   {transform:'scaleX(.83)'}
+  ],{duration:1060,easing:'cubic-bezier(.65,0,.35,1)'});
+  // Short decoding deadline; no prolonged blank screen on slow connections.
+  await bounded(Promise.all([
    document.fonts.ready,
+   target.decode(),
    one('.hero-background img')?.decode?.()
-  ]),660),
-  new Promise(resolve=>setTimeout(resolve,390))
- ]);
- if(ended)return endedPromise;
- // The single reveal is a smooth sheet lift. Hero elements enter underneath.
- revealTimer=setTimeout(()=>{
-  if(!ended)document.dispatchEvent(new Event('cutintroreveal'));
- },160);
- run(identity,[
-  {opacity:1,transform:'translate3d(-50%,-50%,0)'},
-  {opacity:0,transform:'translate3d(-50%,calc(-50% - 12px),0)'}
- ],{duration:265,easing:'cubic-bezier(.4,0,.6,1)'});
- run(status,[{opacity:1},{opacity:0}],
-  {duration:200,easing:eased});
- const lift=run(veil,[
-  {transform:'translate3d(0,0,0)'},
-  {transform:'translate3d(0,-101%,0)'}
- ],{duration:570,easing:'cubic-bezier(.77,0,.175,1)'});
- if(lift)await bounded(lift.finished,730);
- finish();
+  ]),700);
+  if(ended)return endedPromise;
+  if(!target.naturalWidth){finish();return endedPromise}
+  const destination=target.getBoundingClientRect();
+  if(destination.width<10||destination.height<10){finish();return endedPromise}
+  // Keep the original hero layout unchanged while the image lives at body level.
+  placeholder=document.createElement('span');
+  placeholder.className='razor-flight-placeholder';
+  placeholder.style.cssText='display:block;width:100%;height:'+destination.height+'px;';
+  parent.insertBefore(placeholder,target);
+  document.body.append(target);
+  target.classList.add('razor-flight');
+  Object.assign(target.style,{
+   left:destination.left+'px',top:destination.top+'px',
+   width:destination.width+'px',height:destination.height+'px'
+  });
+  const w=innerWidth,h=innerHeight,mobile=w<=700;
+  const centerX=destination.left+destination.width/2;
+  const centerY=destination.top+destination.height/2;
+  const introX=w/2;
+  const introY=h*(mobile?.61:.615);
+  const introWidth=Math.min(mobile?w*.74:w*.37,mobile?290:475);
+  const scale=Math.min(1.45,Math.max(.48,introWidth/destination.width));
+  const pose=(x,y,s,angle)=>
+   'translate3d('+(x-centerX).toFixed(2)+'px,'+
+   (y-centerY).toFixed(2)+'px,0) rotate('+angle+'deg) scale('+s.toFixed(4)+')';
+  const atRest=pose(introX,introY,scale,-6);
+  const openingBlade=run(target,[
+   {offset:0,opacity:0,transform:pose(introX-22,introY+18,scale*.94,-14)},
+   {offset:.75,opacity:1,transform:pose(introX+4,introY-3,scale*1.02,-5)},
+   {offset:1,opacity:1,transform:atRest}
+  ],{duration:680,delay:180,easing:'cubic-bezier(.23,1,.32,1)'});
+  // Hold the physical object long enough to establish it as the main motif.
+  await Promise.all([
+   delay(970),
+   openingBlade?bounded(openingBlade.finished,960):Promise.resolve()
+  ]);
+  if(ended)return endedPromise;
+  run(progress,[{transform:'scaleX(.83)'},{transform:'scaleX(1)'}],
+   {duration:360,easing:'cubic-bezier(.65,0,.35,1)'});
+  // A single compositor-only trajectory connects the loading cover to the
+  // exact hero destination, with no second image and no last-frame substitution.
+  const flight=run(target,[
+   {offset:0,opacity:1,transform:atRest},
+   {offset:.2,opacity:1,transform:pose(introX+15,introY-19,scale*.96,-10)},
+   {offset:1,opacity:1,transform:'translate3d(0px,0px,0) rotate(0deg) scale(1)'}
+  ],{duration:1170,easing:'cubic-bezier(.4,.08,.16,1)'});
+  run(identity,[
+   {opacity:1,transform:'translate3d(-50%,-50%,0)'},
+   {opacity:0,transform:'translate3d(-50%,calc(-50% - 16px),0)'}
+  ],{duration:430,delay:55,easing:'cubic-bezier(.4,0,.6,1)'});
+  run(status,[{opacity:1},{opacity:0}],{duration:275,delay:70});
+  run(veil,[
+   {transform:'translate3d(0,0,0)'},
+   {transform:'translate3d(0,-101%,0)'}
+  ],{duration:920,delay:150,easing:'cubic-bezier(.77,0,.175,1)'});
+  // Editorial content emerges while the blade is still approaching its home.
+  revealTimer=setTimeout(()=>{
+   if(!ended)document.dispatchEvent(new Event('cutintroreveal'));
+  },370);
+  if(flight)await bounded(flight.finished,1480);
+  finish();
+ }catch(error){
+  console.warn('Sr. Navalha: abertura interrompida com segurança.',error);
+  finish();
+ }
  return endedPromise;
 }
 

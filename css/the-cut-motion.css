@@ -19,7 +19,7 @@
  backface-visibility:hidden;will-change:transform;
 }
 .cut-intro__identity{
- position:absolute;left:50%;top:49%;z-index:1;
+ position:absolute;left:50%;top:36%;z-index:1;
  display:flex;flex-direction:column;align-items:center;
  width:min(290px,76vw);text-align:center;color:#171715;
  transform:translate3d(-50%,-50%,0);
@@ -33,7 +33,7 @@
  letter-spacing:.025em;color:#645d54;
 }
 .cut-intro__status{
- position:absolute;left:50%;top:calc(49% + 130px);z-index:1;
+ position:absolute;left:50%;top:79%;z-index:1;
  width:124px;transform:translateX(-50%);
 }
 .cut-intro__progress{
@@ -45,15 +45,27 @@
  background:#23211f;transform:scaleX(0);transform-origin:left center;
 }
 @media(max-width:700px){
- .cut-intro__identity{top:48%;width:84vw}
+ .cut-intro__identity{top:35%;width:84vw}
  .cut-intro__identity .official-logo{width:min(205px,60vw)}
- .cut-intro__status{top:calc(48% + 118px);width:110px}
+ .cut-intro__status{top:80%;width:110px}
  .cut-intro__tagline{margin-top:13px;font-size:11px}
 }
 @media(max-height:560px){
- .cut-intro__identity{top:45%}
+ .cut-intro__identity{top:30%}
  .cut-intro__identity .official-logo{width:min(170px,35vh)}
- .cut-intro__status{top:calc(45% + 95px)}
+ .cut-intro__status{top:85%}
+}
+/* The single original razor is temporarily promoted above the opening sheet.
+   All movement occurs on the compositor; the hero retains a placeholder. */
+.razor-flight{
+ position:fixed!important;z-index:1002;
+ max-width:none!important;margin:0!important;
+ object-fit:contain!important;transform-origin:50% 50%!important;
+ pointer-events:none!important;backface-visibility:hidden;
+ will-change:transform,opacity;
+}
+@media(prefers-reduced-motion:reduce){
+ .razor-flight{will-change:auto}
 }
 @media(prefers-reduced-motion:reduce){
  .cut-intro{display:none!important}
