@@ -53,6 +53,7 @@ jobs:
           node --check scripts/test-whatsapp-tab-helper.mjs
           node --check js/the-cut/motion.js
           node --check scripts/test-the-cut-motion.mjs
+          node --check scripts/test-cut-intro.mjs
           node --check scripts/render-site.mjs
           node --check scripts/test-motion-states.mjs
           node --check scripts/capture-motion-frames.mjs
@@ -89,6 +90,7 @@ jobs:
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
           # Run the operational booking + customer reply flow before homepage
           # visual tests, so unrelated gallery failures cannot hide admin regressions.
+          node scripts/test-cut-intro.mjs
           node scripts/test-admin.mjs
           node scripts/test-the-cut.mjs
           node scripts/test-the-cut-motion.mjs
