@@ -47,11 +47,13 @@ jobs:
           node --check js/booking-local.js
           node --check scripts/test-admin.mjs
           node --check scripts/test-admin-whatsapp-link.mjs
+          node --check scripts/test-admin-redesign.mjs
           node --check tools/whatsapp-tab-helper/background.js
           node --check tools/whatsapp-tab-helper/bridge.js
           node --check scripts/test-whatsapp-tab-helper.mjs
           node --check js/the-cut/motion.js
           node --check scripts/test-the-cut-motion.mjs
+          node --check scripts/test-cut-intro.mjs
           node --check scripts/render-site.mjs
           node --check scripts/test-motion-states.mjs
           node --check scripts/capture-motion-frames.mjs
@@ -62,6 +64,7 @@ jobs:
           node scripts/test-whatsapp-cloud.mjs
           node scripts/test-whatsapp-tab-helper.mjs
           node scripts/test-admin-whatsapp-link.mjs
+          node scripts/test-admin-redesign.mjs
       - name: Install browser and accessibility dependencies
         run: |
           mkdir -p /tmp/srnavalha-validation
@@ -85,17 +88,20 @@ jobs:
         run: |
           set -euo pipefail
           export CHROME_PATH="$(cd /tmp/srnavalha-validation && node -p "require('playwright-core').chromium.executablePath()")"
+          # Run the operational booking + customer reply flow before homepage
+          # visual tests, so unrelated gallery failures cannot hide admin regressions.
+          node scripts/test-cut-intro.mjs
+          node scripts/test-admin.mjs
           node scripts/test-the-cut.mjs
           node scripts/test-the-cut-motion.mjs
           node scripts/test-motion-states.mjs
           node scripts/test-booking-wizard.mjs
           node scripts/test-booking-wizard-state.mjs
-          node scripts/test-admin.mjs
       - name: Package working source for download
         if: always()
         run: |
           mkdir -p dist
-          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html admin.html confirmar.html api lib package.json assets css js templates scripts tools/whatsapp-tab-helper print README.md DESIGN.md PRODUCT.md
+          zip -qr dist/srnavalha-the-cut-source.zip index.html agendar.html admin.html confirmar.html api lib package.json assets css js templates scripts tools/whatsapp-tab-helper print README.md DESIGN.md PRODUCT.md docs/CONFIRMACAO_CLIENTE.md docs/TESTE_WHATSAPP_DESKTOP.md
       - name: Upload source ZIP
         if: always()
         uses: actions/upload-artifact@v4
@@ -113,3 +119,4 @@ jobs:
           path: |
             docs/the-cut/qa/**
             docs/motion-states/**
+            docs/admin-qa/**

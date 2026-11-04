@@ -4,7 +4,7 @@ export default async function handler(req,res){
  if(req.method==='GET'){
   if(!session(req))return response(res,401,{error:'Acesso restrito à equipe'});
   try{
-   const items=(await listBookings()).map(b=>({...b,links:{yes:nextResponseLink(b,'confirmar'),no:nextResponseLink(b,'cancelar')}}));
+   const items=(await listBookings()).map(b=>({...b,links:{reply:nextResponseLink(b,'escolher'),yes:nextResponseLink(b,'confirmar'),no:nextResponseLink(b,'cancelar')}}));
    return response(res,200,{items});
   }catch{return response(res,502,{error:'Não foi possível consultar a agenda'})}
  }
@@ -22,7 +22,10 @@ export default async function handler(req,res){
     return response(res,200,{item});
    }
    if(!['pending','confirmed','cancelled'].includes(body.status))return response(res,400,{error:'Status inválido'});
-   item.status=body.status;item.responded_at=new Date().toISOString();
+   if(item.status===body.status)return response(res,200,{item});
+   item.status=body.status;
+   item.responded_at=new Date().toISOString();
+   item.confirmation_channel='staff';
    await setBooking(item);return response(res,200,{item});
   }
   const ip=String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'visitor').split(',')[0].trim();

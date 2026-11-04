@@ -46,7 +46,8 @@ const booking={
 const cookie=sessionCookie().split(';')[0];
 async function call(handler,{method='GET',body=null,headers={},query={},raw=null}={}){
  const req={
-  method,headers:{host:'srnavalha.vercel.app',origin:'https://srnavalha.vercel.app',cookie,...headers},
+  // Requests are unauthenticated unless the caller explicitly supplies a session.
+  method,headers:{host:'srnavalha.vercel.app',origin:'https://srnavalha.vercel.app',cookie:'',...headers},
   body,query,
   async *[Symbol.asyncIterator](){if(raw)yield raw}
  };

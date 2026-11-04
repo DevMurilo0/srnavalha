@@ -55,6 +55,8 @@ const cookie=login.headers['Set-Cookie'].split(';')[0];
 const listed=await call(bookings,'GET',null,{},cookie);
 check('admin sees new booking and HTTPS links',listed.json.items.length===1&&listed.json.items[0].links.yes.startsWith('https://srnavalha.vercel.app/confirmar.html?'));
 check('public links contain no localhost',!JSON.stringify(listed.json.items[0].links).includes('127.0.0.1'));
+check('single signed reply link is provided',
+ new URL(listed.json.items[0].links.reply).searchParams.get('acao')==='escolher');
 const link=new URL(listed.json.items[0].links.yes);
 const query={ref:link.searchParams.get('ref'),acao:link.searchParams.get('acao'),exp:link.searchParams.get('exp'),sig:link.searchParams.get('sig')};
 const valid=await call(confirmations,'GET',null,query);
@@ -63,12 +65,44 @@ const denied=await call(confirmations,'GET',null,{...query,sig:'bad'});
 check('tampering denied',denied.status===403);
 const marked=await call(bookings,'PATCH',{id:identifier,action:'manual_message_sent'},{},cookie);
 check('operator-reported message sent saved without changing attendance',marked.status===200&&Boolean(marked.json.item.whatsapp_manual_sent_at)&&marked.json.item.status==='pending');
-const answer=await call(confirmations,'POST',query);
-check('customer confirmation persisted',answer.status===200&&answer.json.status==='confirmed');
+const single=new URL(listed.json.items[0].links.reply);
+const choiceQuery={ref:single.searchParams.get('ref'),acao:single.searchParams.get('acao'),
+ exp:single.searchParams.get('exp'),sig:single.searchParams.get('sig')};
+const choiceInfo=await call(confirmations,'GET',null,choiceQuery);
+check('single link opens customer decision page with no private phone',
+ choiceInfo.status===200&&choiceInfo.json.item.professional_name==='Eduardo'&&!('customer_phone' in choiceInfo.json.item));
+const changedAction=await call(confirmations,'POST',{...choiceQuery,acao:'cancelar',decisao:'cancelar'});
+check('customer cannot change signed link purpose',changedAction.status===403);
+const noChoice=await call(confirmations,'POST',choiceQuery);
+check('single link requires explicit choice',noChoice.status===400);
+const answer=await call(confirmations,'POST',{...choiceQuery,decisao:'confirmar'});
+check('customer confirmation persisted with site source',
+ answer.status===200&&answer.json.status==='confirmed');
+const afterAnswer=await call(bookings,'GET',null,{},cookie);
+check('admin sees separately attributable site response',
+ afterAnswer.json.items[0].confirmation_channel==='site'&&
+ Boolean(afterAnswer.json.items[0].responded_at)&&
+ Boolean(afterAnswer.json.items[0].whatsapp_manual_sent_at));
+const repeated=await call(confirmations,'POST',{...choiceQuery,decisao:'confirmar'});
+check('reopening same response is idempotent',repeated.status===200&&repeated.json.already===true);
+const conflicting=await call(confirmations,'POST',{...choiceQuery,decisao:'cancelar'});
+check('opposite response cannot silently replace confirmed attendance',conflicting.status===409);
 const busy=await call(blocked,'GET',null,{date:future});
 check('confirmed time remains blocked',busy.json.busy.length===1);
 const cancelled=await call(bookings,'PATCH',{id:identifier,status:'cancelled'}, {},cookie);
 check('admin cancellation persisted',cancelled.status===200&&cancelled.json.item.status==='cancelled');
 const free=await call(blocked,'GET',null,{date:future});
 check('cancelled time becomes available',free.json.busy.length===0);
+const second=await call(bookings,'POST',{...input,name:'Cliente cancelamento',phone:'5581988888888'});
+check('new request can occupy freed time',second.status===201);
+const secondList=await call(bookings,'GET',null,{},cookie);
+const secondItem=secondList.json.items.find(item=>item.id===second.json.item.id);
+const cancelLink=new URL(secondItem.links.reply);
+const cancelRequest={ref:cancelLink.searchParams.get('ref'),acao:'escolher',
+ exp:cancelLink.searchParams.get('exp'),sig:cancelLink.searchParams.get('sig'),decisao:'cancelar'};
+const answerNo=await call(confirmations,'POST',cancelRequest);
+check('customer cancellation from one link is persisted',answerNo.status===200&&answerNo.json.status==='cancelled');
+const afterCancel=await call(bookings,'GET',null,{},cookie);
+check('site cancellation has source and timestamp',afterCancel.json.items.find(item=>item.id===second.json.item.id)?.confirmation_channel==='site');
+
 console.log('API integration contract:',count.passed,'checks passed');

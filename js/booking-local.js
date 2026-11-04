@@ -55,12 +55,15 @@ export function clearDemoBookings() {
 }
 // These transitions are shared by the booking form, the dashboard and local
 // confirmation preview. No network writes happen in this frontend-only demo.
-export function updateDemoBookingStatus(id,status) {
+export function updateDemoBookingStatus(id,status,channel='staff') {
   if (!BOOKING_STATUSES.includes(status)) throw new LocalBookingError('INVALID_STATUS');
   const all = readDemoBookings();
   const index = all.findIndex(booking => booking.id === id);
   if (index < 0) throw new LocalBookingError('BOOKING_NOT_FOUND');
-  const next = {...all[index], status, responded_at: new Date().toISOString()};
+  const next = {
+    ...all[index],status,responded_at:new Date().toISOString(),
+    confirmation_channel:channel==='site'?'site':'staff'
+  };
   all[index] = next;
   store(all);
   return next;

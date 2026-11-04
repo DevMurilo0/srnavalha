@@ -1,4 +1,6 @@
 /* Default/no-JS is the complete, usable page. Only the head opt-in arms it. */
+/* Opening title sequence — precision blade / editorial iris.
+   The template is visible only while the head explicitly opts into motion. */
 .cut-intro{display:none}
 .motion-enabled [data-reveal="pending"]{opacity:0;transition:none!important}
 .motion-enabled [data-reveal="playing"]{transition:none!important}
@@ -6,21 +8,40 @@
 .motion-overlay{position:absolute;inset:0;pointer-events:none}
 .motion-overlay .motion-glyph{position:absolute;display:block;white-space:pre;line-height:inherit}
 [data-type]{position:relative}
-.opening-active .cut-intro{display:block;position:fixed;inset:0;z-index:1000;pointer-events:none;overflow:hidden}
-.cut-intro__upper,.cut-intro__lower{position:absolute;inset:-1%}
-.cut-intro__upper{background:radial-gradient(ellipse at 74% 32%,#37342b,#151512 70%);clip-path:polygon(0 0,100% 0,100% 55%,0 65%)}
-.cut-intro__lower{background:linear-gradient(120deg,#e9e3d8ee,#c8bba9ee),url('../assets/images/the-cut/paper.webp');clip-path:polygon(0 65%,100% 55%,100% 100%,0 100%)}
-.cut-intro__identity{opacity:0;position:absolute;left:50%;top:17%;width:min(80vw,360px);text-align:center;transform:translateX(-50%);color:#eee7dc}
-.cut-intro__identity .official-logo{width:clamp(145px,17vw,220px);margin:auto;filter:brightness(0) invert(1)}
-.cut-intro__issue{display:block;font:650 10px/1.5 var(--body);letter-spacing:.19em;margin-bottom:8px}
-.cut-intro__issue span{color:#d79b73}
-.cut-intro__identity strong{display:block;margin-top:9px;font:850 clamp(22px,3vw,45px)/1.1 var(--body);letter-spacing:-.065em}
-.cut-intro__identity em{display:block;font:italic clamp(21px,2.9vw,45px)/1.15 var(--serif)}
-.cut-intro__seam{position:absolute;left:-5%;top:62%;width:110%;height:2px;background:linear-gradient(90deg,transparent,#b8bab6,#c9885f,transparent);transform:rotate(-5deg)}
-.cut-intro__edition{position:absolute;bottom:8%;width:100%;text-align:center;font:650 10px/1.5 var(--body);letter-spacing:.12em;color:#3d2d25}
-.cut-intro__edition span{color:#946047}
+.opening-active .cut-intro{display:block;position:fixed;inset:0;z-index:1000;pointer-events:none;overflow:hidden;isolation:isolate;contain:layout paint}
+.cut-intro__upper,.cut-intro__lower{position:absolute;inset:-2%;will-change:transform;backface-visibility:hidden}
+.cut-intro__upper{background:radial-gradient(ellipse at 72% 31%,#343029 0%,#1b1b18 48%,#10110f 100%);clip-path:polygon(0 0,100% 0,100% 47%,0 64%)}
+.cut-intro__upper::after{content:"";position:absolute;inset:0;opacity:.24;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff05 4px,transparent 5px)}
+.cut-intro__lower{background:linear-gradient(146deg,#ebe4d8 0%,#d9d0c1 54%,#c9b9a6 100%);clip-path:polygon(0 64%,100% 47%,100% 100%,0 100%)}
+.cut-intro__lower::after{content:"";position:absolute;inset:0;opacity:.11;background:url('../assets/images/the-cut/paper.webp') center/cover}
+.cut-intro__identity{position:absolute;top:clamp(5%,11svh,14%);left:50%;width:min(72vw,380px);transform:translateX(-50%);text-align:center;color:#f0e8db;opacity:0;will-change:opacity}
+.cut-intro__identity .official-logo{display:block;width:min(60vw,225px);margin:0 auto 10px;filter:brightness(0) invert(1)}
+.cut-intro__issue{display:block;font:700 clamp(8px,.73vw,11px)/1.45 var(--body);letter-spacing:.14em;margin-top:4px;color:#b9ae9e}
+.cut-intro__issue span{color:#c89265;margin:0 3px}
+.cut-intro__identity strong{display:block;margin-top:clamp(10px,2svh,20px);font:780 clamp(23px,3.5vw,47px)/1.05 var(--body);letter-spacing:-.04em}
+.cut-intro__identity em{display:block;font:italic clamp(25px,3.35vw,49px)/1.05 var(--serif);color:#e2c9ae}
+.cut-intro__seam{position:absolute;top:55%;left:-9%;width:118%;height:2px;transform:rotate(-7deg);transform-origin:50% 50%;background:linear-gradient(90deg,transparent,#a3654b44 7%,#eee4d5 40%,#c28558 74%,transparent);box-shadow:0 0 14px 1px #e3b58233;overflow:visible;will-change:opacity}
+.cut-intro__glint{position:absolute;top:-2px;left:0;width:22%;height:6px;opacity:0;background:linear-gradient(90deg,transparent,#eee8db66 30%,#fff3d3 56%,#d4a06caa 74%,transparent);filter:blur(2px);will-change:transform,opacity}
+.cut-intro__spark{position:absolute;top:55%;left:0;width:90px;height:90px;transform:translate(-50%,-50%);background:radial-gradient(circle,#fff1d6 0,#e9b17cbb 6%,#c78e5944 25%,transparent 65%);opacity:0;mix-blend-mode:screen;will-change:transform,opacity}
+.cut-intro__status{position:absolute;bottom:clamp(15%,19svh,24%);left:50%;width:min(340px,68vw);transform:translateX(-50%);color:#4e4031;opacity:0;will-change:opacity}
+.cut-intro__status-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;color:#51483e;font:760 clamp(8px,.69vw,10px)/1.4 var(--body);letter-spacing:.13em}
+.cut-intro__status-heading span:last-child{color:#8b7c6d}
+.cut-intro__progress{display:block;width:100%;height:2px;background:#857e7280;overflow:hidden}
+.cut-intro__progress-fill{display:block;width:0;height:100%;background:#382c21;transform-origin:left center;will-change:width}
+.cut-intro__edition{position:absolute;left:0;right:0;bottom:clamp(4%,8svh,11%);text-align:center;font:730 9px/1.5 var(--body);letter-spacing:.25em;color:#796755;opacity:0;will-change:opacity}
 .opening-active .hero .razor{opacity:0}
-.razor-flight{position:fixed!important;z-index:1001;max-width:none;object-fit:contain;transform-origin:50% 50%!important;pointer-events:none}
+.razor-flight{position:fixed!important;z-index:1001;max-width:none;object-fit:contain;transform-origin:50% 50%!important;backface-visibility:hidden;pointer-events:none;will-change:transform,opacity}
+@media(max-width:700px){
+ .cut-intro__identity{top:13svh;width:82vw}
+ .cut-intro__identity .official-logo{width:clamp(130px,42vw,215px)}
+ .cut-intro__identity .cut-intro__issue{font-size:8px;letter-spacing:.075em}
+ .cut-intro__identity strong{font-size:clamp(23px,8vw,36px)}
+ .cut-intro__identity em{font-size:clamp(25px,8vw,38px)}
+ .cut-intro__seam{transform:rotate(-10deg)}
+ .cut-intro__status{width:min(300px,76vw);bottom:20svh}
+ .cut-intro__status-heading{font-size:8px;letter-spacing:.07em}
+ .cut-intro__edition{font-size:8px;letter-spacing:.17em}
+}
 @media(prefers-reduced-motion:reduce){
  .cut-intro{display:none!important}
  [data-reveal]{opacity:1!important}

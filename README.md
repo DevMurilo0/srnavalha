@@ -69,149 +69,67 @@ Um status de sucesso do Vercel para uma *Preview* não significa publicação em
 
 O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as verificações de estados antes da primeira pintura, a transferência da navalha, acessibilidade e movimento reduzido. Os scripts de diagnóstico não dependem mais de caminhos particulares de outro computador. Para executar localmente, instale `playwright-core` e `@axe-core/playwright` em um ambiente de testes e disponibilize um Chromium. Use `PLAYWRIGHT_PACKAGE` para apontar para o `package.json` desse ambiente e, se necessário, `CHROME_PATH` para o executável do navegador. Os testes temporais usam `SITE_URL` (padrão `http://127.0.0.1:8047`). As capturas são produzidas em `docs/motion-states/` e o GitHub Actions também entrega artefatos de screenshots.
 
-## Confirmação pública por WhatsApp — configuração de produção
 
-O envio continua manual para evitar automações não oficiais.
+### Painel da equipe — organização de operações
 
-1. Na área administrativa, escolha **Aguardando contato** para encontrar clientes
-   ainda sem mensagem ou **Mensagem enviada** para consultar os registros marcados.
-   Os filtros possuem contadores independentes de Presença confirmada/cancelada.
-2. Clique em **Mensagem** no agendamento. Com o auxiliar universal
-   **Sr. Navalha — WhatsApp em uma aba v4.0** instalado no Firefox, Floorp
-   ou Chrome, o painel reutiliza a aba já aberta e tenta abrir o número
-   pela interface **Nova conversa** do WhatsApp Web, preenchendo o texto
-   sem recarregar a página. A seleção só ocorre se for possível identificar
-   com segurança o número. Caso contrário, o painel exibe um aviso e
-   mantém a mensagem disponível para cópia. O envio continua manual.
-   A versão antiga é bloqueada para não provocar recarregamentos.
-3. Envie a mensagem **dentro do WhatsApp**.
-4. Volte ao painel e clique em **Já enviei no WhatsApp**. A situação do contato
-   muda para **Mensagem enviada**, sem alterar a confirmação da presença.
+A versão atual de `admin.html` prioriza:
+- **Próximos horários** e **Contatos pendentes** na primeira tela.
+- Quatro indicadores compactos (contato a enviar, aguardando resposta,
+  confirmados e total), com contagem independente de presença e mensagem.
+- **Agenda completa** com busca por cliente/telefone, filtro de mensagem
+  imediatamente acessível e filtros de situação/período recolhidos.
+- **Presenças confirmadas** em uma tela de consulta separada.
+- Fluxo manual de WhatsApp pelo aplicativo instalado, sem API não oficial.
 
-**Sem o complemento:** nenhum site comum pode localizar/atualizar uma aba do
-WhatsApp aberta manualmente. Para que Mensagem não deixe de funcionar, o
-**primeiro clique abre o WhatsApp Web** em uma aba nomeada, com o texto
-preenchido. Se o navegador perder a referência à aba por isolamento de origem,
-o painel evita criar outra a cada clique: oferece o texto pronto para copiar
-e colar na aba existente. A sessão do painel registra essa primeira abertura
-para evitar dezenas de abas, mesmo depois de atualizar a página. O complemento
-é opcional, gratuito e permite reutilizar a aba que já estava aberta, sem
-enviar mensagens automaticamente.
+Para conferir a integração com o WhatsApp Desktop oficial no Windows e
+fazer um teste preliminar no Linux com ZapZap, siga o
+[guia Windows + Linux](docs/TESTE_WHATSAPP_DESKTOP.md).
+O protocolo `whatsapp://` depende de uma associação válida de aplicativo:
+ter o aplicativo instalado não garante, sozinho, que o link será aceito.
 
-Código do complemento: [tools/whatsapp-tab-helper](tools/whatsapp-tab-helper).
-O **mesmo pacote** tem instruções para Firefox, Floorp e Chrome no
-[README do complemento](tools/whatsapp-tab-helper/README.md). No Firefox/Floorp,
-a instalação temporária precisa ser refeita após reiniciar o navegador; no
-Chrome, pode ser carregada como extensão sem compactação, em modo desenvolvedor.
-Remova versões antigas e atualize `admin.html` após instalar.
+## Confirmação de agendamentos pelo link do site
 
+A barbearia pode enviar a mensagem pelo aplicativo WhatsApp instalado,
+**sem API paga do WhatsApp, sem extensão e sem envio automático**.
 
-**Nota sobre o WhatsApp:** a versão 3.0 usava a navegação direta por URL,
-o que recarregava o WhatsApp Web. A v4.0 não navega uma aba existente.
-Como a interface de novas conversas pertence ao WhatsApp e pode mudar,
-não é possível garantir a abertura de todos os números sem recarregamento.
-A extensão nunca força um reload como alternativa: se não encontrar um
-contato correspondente com segurança, informa a falha.
+- O funcionário toca em **Mensagem**; o site abre `whatsapp://send` com o
+  telefone do cliente e uma mensagem curta e amigável.
+- Em ambiente compartilhado, essa mensagem contém **um único link assinado**
+  para `confirmar.html?acao=escolher&...`.
+- A página mostra serviço, profissional, data e horário. O cliente escolhe
+  **Vou comparecer** ou **Cancelar horário**, e depois precisa confirmar
+  essa escolha na janela **Tem certeza?**.
+- O registro é salvo com `confirmation_channel: site` e `responded_at`.
+- O painel destaca **Atendimentos de hoje**, **Respostas recebidas** e uma
+  página própria **Respostas dos clientes**, com consulta e filtro de período.
+- **Mensagem enviada** (registrada manualmente pela equipe) e **resposta
+  do cliente pelo site** são eventos independentes. Não há detecção das
+  mensagens comuns recebidas dentro do chat do WhatsApp.
 
-**Abrir WhatsApp pelo aplicativo (celular e desktop):** no Android/iPhone, o
-botão **Mensagem** tenta abrir `whatsapp://send?phone=...&text=...` diretamente
-no aplicativo instalado, sem criar uma aba do WhatsApp Web. A mensagem é
-preparada, mas **não é enviada automaticamente**. O painel também apresenta
-**Abrir no aplicativo** (para repetir a tentativa) e a opção separada
-**WhatsApp Web (alternativa)**. Não há redirecionamento automático para web
-se o protocolo nativo não for reconhecido. O comportamento final depende das
-permissões e do navegador do celular.
+**Para funcionar entre dispositivos**, a aplicação necessita de Redis e das
+variáveis de ambiente de produção (`UPSTASH_REDIS_REST_URL`,
+`UPSTASH_REDIS_REST_TOKEN`, `BOOKING_SESSION_SECRET`,
+`BOOKING_ADMIN_EMAIL`, `BOOKING_ADMIN_PASSWORD` e
+`BOOKING_PUBLIC_ORIGIN`). Consulte o guia completo:
+[Confirmação do cliente, segurança e testes](docs/CONFIRMACAO_CLIENTE.md).
 
-No desktop, **Abrir no aplicativo** só funciona quando o sistema tem
-um aplicativo registrado para o protocolo `whatsapp://`. O WhatsApp não
-fornece aplicativo oficial para Linux; clientes Linux não oficiais geralmente
-envolvem WhatsApp Web e podem continuar sujeitos a recarregamentos. Por
-isso, o comportamento padrão do painel no desktop permanece usando
-o auxiliar Web ou a cópia manual.
+Sem backend, o site continua em **modo demonstração local**: o WhatsApp
+não recebe um link público, e o painel disponibiliza um link de teste
+válido **somente no navegador da demonstração**. Não envie esse link de
+teste para clientes reais.
 
-O painel também separa **Próximos atendimentos** (cinco reservas futuras mais
-próximas) e **Confirmados** (busca por nome/número/serviço e histórico opcional).
-O controle de contato é independente da presença do cliente: marcar uma
-mensagem como enviada não significa que foi entregue ou que o cliente confirmou.
+Para testar o protocolo `whatsapp://` no ZapZap (Linux) ou no aplicativo
+oficial Windows, consulte [Guia Windows/Linux](docs/TESTE_WHATSAPP_DESKTOP.md).
 
-Os endpoints em `api/` já foram implementados para confirmação real **entre
-dispositivos**, mas precisam de um Redis Upstash conectado à Vercel.
-Sem essas variáveis, a aplicação permanece em **modo demonstração local** e
-**nunca inclui `localhost` ou `127.0.0.1` nas mensagens de WhatsApp**.
+### Testes
 
-Para ativar:
+```bash
+npm run test:booking
+npm run test:api
+node scripts/test-admin-whatsapp-link.mjs
+node scripts/test-admin-redesign.mjs
+```
 
-1. Na Vercel, abra o projeto `srnavalha`, vá a **Storage / Marketplace** e conecte um Redis Upstash (verifique o plano antes de concluir a instalação).
-2. Configure `UPSTASH_REDIS_REST_URL` e `UPSTASH_REDIS_REST_TOKEN` no ambiente do projeto. Normalmente são adicionados pela integração.
-3. Configure `BOOKING_SESSION_SECRET` (32 bytes ou mais de aleatoriedade), `BOOKING_ADMIN_EMAIL` e `BOOKING_ADMIN_PASSWORD` (uma senha forte, diferente do login de demonstração).
-4. Configure `BOOKING_PUBLIC_ORIGIN` com o endereço HTTPS **público e acessível pelos clientes** que contém `confirmar.html` e `/api/confirm` — por exemplo, `https://srnavalha.vercel.app`. Não use domínio de prévia protegido por login nem `localhost`.
-5. Aplique as mudanças ao ambiente de produção, publique e confirme que `/api/health` retorna `{"enabled":true,"mode":"shared"}`.
-6. Verifique a criação do pedido no celular e sua presença no painel de outro dispositivo. Teste os dois links de confirmação e cancelamento, e confira se o horário cancelado volta a ficar disponível.
-
-A conta do painel em produção é protegida por cookie assinado HTTP-only e credenciais mantidas no servidor. Os links de confirmação/cancelamento são assinados e expiram. Não publique senhas nem tokens no GitHub.
-
-**Importante:** a `main` não recebe automaticamente as alterações da branch de desenvolvimento. Antes de testar publicamente, publique a versão revisada no domínio de produção. Links emitidos por uma prévia com autenticação Vercel não podem ser usados diretamente pelos clientes.
-
-A demonstração local (sem backend) preserva a funcionalidade anterior do navegador. Nela, links de confirmação só são exibidos na simulação interna; eles não vão para mensagens de WhatsApp.
-
-
-## Ativação dos botões dentro do WhatsApp (Cloud API Meta)
-
-Além das variáveis do Redis e da agenda acima, configurar na Vercel, como segredos
-do servidor:
-
-- `WHATSAPP_PHONE_NUMBER_ID`: ID do número conectado à WhatsApp Cloud API;
-- `WHATSAPP_ACCESS_TOKEN`: token de acesso do sistema com permissão de envio;
-- `WHATSAPP_APP_SECRET`: segredo do aplicativo Meta, usado para verificar a
-  assinatura de todos os eventos recebidos;
-- `WHATSAPP_VERIFY_TOKEN`: segredo de verificação do webhook, escolhido pela equipe;
-- `WHATSAPP_TEMPLATE_NAME`: nome **exato** do modelo aprovado na Meta
-  (sugestão: `confirmacao_agendamento_srn`);
-- `WHATSAPP_TEMPLATE_LANGUAGE`: `pt_BR` (opcional; é o padrão);
-- `WHATSAPP_GRAPH_VERSION`: versão da Graph API habilitada pela Meta (opcional;
-  há um valor padrão no código, que deve ser atualizado periodicamente).
-
-No **WhatsApp Manager**, criar e enviar para aprovação um modelo da categoria
-**Utility** com idioma **Português (Brasil)** e texto:
-
-> Olá, {{1}}! Aqui é da Barbearia Sr. Navalha. Precisamos confirmar o
-> atendimento de {{2}}, no dia {{3}}, com {{4}}.
-> Você poderá comparecer? Escolha uma das opções abaixo.
-
-Adicionar **dois botões do tipo Resposta rápida**, nesta ordem exata:
-
-1. Botão índice **0**: `Confirmar`
-2. Botão índice **1**: `Cancelar`
-
-**Não** usar botões de URL, chamada, copiar código ou botão de envio comum,
-pois a integração espera o retorno de uma **Resposta rápida**. Os quatro campos
-dinâmicos do texto e os dois índices dos botões precisam coincidir com o template
-aprovado. A Meta poderá rejeitar o modelo se a categoria/texto não respeitar
-as políticas.
-
-Em **WhatsApp Business Platform → Webhooks**:
-- URL de callback: `https://DOMINIO-PUBLICO/api/whatsapp-webhook`.
-- Token de verificação: mesmo valor de `WHATSAPP_VERIFY_TOKEN`.
-- Assinar o campo `messages` da conta do WhatsApp Business.
-- Manter `WHATSAPP_APP_SECRET` somente no servidor.
-
-Fluxo:
-1. A equipe abre a agenda, escolhe um pedido **Aguardando** e clica em
-   **Mensagem**. Quando o modo oficial está ativo, o envio é solicitado
-   diretamente à API do WhatsApp Business.
-2. O endpoint `POST /api/whatsapp` verifica o login do administrador,
-   confirma o horário e solicita o envio do template aprovado à Meta.
-3. O cliente recebe **Confirmar** e **Cancelar** dentro do WhatsApp.
-4. O clique retorna à plataforma por webhook assinado; somente respostas do
-   número do cliente correspondente são aceitas.
-5. A agenda atualiza o status automaticamente (consulta a cada 15 s ou
-   botão Atualizar). Um cancelamento libera novamente o horário.
-
-Os endpoints exigem acesso administrativo e um armazenamento compartilhado;
-o envio também limita reenvios de um mesmo pedido a uma vez a cada 10 minutos.
-**Sem Redis, tokens válidos e template aprovado, o sistema permanece na
-demonstração**, sem fingir que enviou mensagens.
-
-Os botões do WhatsApp não podem ser injetados por `wa.me`, WhatsApp Web ou
-texto formatado. A Meta exige o canal oficial para que o aplicativo renderize
-componentes interativos. Não enviar tokens por mensagem ou salvar no GitHub.
+O teste visual e funcional completo é executado no CI do GitHub quando
+o workflow de regressão estiver habilitado. A branch
+`reconstruction/arte-do-ritual` não altera automaticamente a `main`.

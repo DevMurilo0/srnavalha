@@ -463,3 +463,377 @@ body{background:var(--paper)}
 .message-destinations>a[hidden],.helper-connection[hidden],.helper-install-link[hidden]{display:none!important}
 @media(max-width:580px){.message-destinations{flex-direction:column}.message-destinations>a{width:100%}}
 @media(prefers-reduced-motion:reduce){.message-destinations>a{transition:none}}
+
+/* Mobile-first WhatsApp handoff: a native anchor preserves user activation.
+ * No extension, popup or automatic WhatsApp Web redirect is involved. */
+.appointment-actions a.message{
+ display:inline-flex;align-items:center;justify-content:center;min-height:41px;
+ padding:12px 21px;border:1px solid #243b2b;border-radius:3px;
+ background:#243b2b;color:#fff;text-decoration:none;white-space:nowrap;
+ font:780 12px/1.35 var(--body);letter-spacing:.01em;
+ transition:background-color .18s ease-out,transform .18s ease-out;
+}
+.appointment-actions a.message::before{content:"✉";margin-right:9px;font-size:15px;line-height:1}
+.appointment-actions a.message:hover{background:#3c5843;color:#fff;transform:translateY(-1px)}
+.appointment-actions a.message:focus-visible{outline:2px solid #6a9f71;outline-offset:3px}
+.message-destinations{margin-top:15px}
+.message-destinations .message-app-link{flex:1 1 auto;text-align:center}
+@media(prefers-reduced-motion:reduce){.appointment-actions a.message{transition:none;transform:none}}
+
+
+/* Sr. Navalha · Operações
+   Redesign for fast, repeated front-desk tasks. Brand through paper, charcoal
+   and restrained sage. No staged entrance or unnecessary dashboard motion. */
+:root{--ops-paper:#f5f5f1;--ops-surface:#fffefa;--ops-ink:#243027;--ops-soft:#66736b;--ops-border:#dedfd8;--ops-deep:#1b2620;--ops-sage:#526b54;--ops-amber:#967141}
+html{scroll-padding-top:24px}
+body{background:var(--ops-paper);color:var(--ops-ink)}
+button,select,input{font-family:var(--body)}
+::selection{background:#cbd9c4;color:#213827}
+.dashboard{grid-template-columns:222px minmax(0,1fr);background:var(--ops-paper)}
+.dash-sidebar{background:var(--ops-deep);padding:27px 17px 20px}
+.dash-logo{padding:4px 13px 23px;border-color:#f1f2ed24}
+.dash-logo img{width:138px}
+.side-caption{color:#a4b4a6;font-size:10px;letter-spacing:.1em;margin:28px 13px 13px}
+.dash-sidebar nav{gap:3px}
+.dash-sidebar nav a{padding:13px 14px;min-height:47px;font-size:12px;line-height:1.4;font-weight:630;border-radius:5px;color:#c0c8c0}
+.dash-sidebar nav a.active{color:#fff;background:#384d3d;box-shadow:inset 2px 0 0 #b4c8a6}
+.dash-sidebar nav a:hover{background:#334538;color:#fff}
+.dash-sidebar nav a span.side-confirmed-count{margin-left:auto;width:auto;height:auto;min-width:24px;color:#e0e9db}
+.side-booking-link{display:flex;align-items:center;justify-content:space-between;margin:24px 13px 0;padding:13px 0 15px;font-size:11px;font-weight:730;color:#e3e8dd;border-top:1px solid #ffffff24}
+.side-booking-link:hover{color:#fff}
+.side-bottom{margin-top:auto;border-color:#ffffff23;padding:18px 13px 8px}
+.side-bottom button{color:#d7e0d7}
+.dash-top{background:#fffefa;border-bottom:1px solid var(--ops-border);padding:16px clamp(20px,3.4vw,52px)}
+.dash-breadcrumb{letter-spacing:.045em;font-size:11px;color:#647267}
+.dash-breadcrumb span.breadcrumb-separator{padding:0 9px;color:#afb7ad}
+.dash-top-right{gap:16px}
+.dash-top-right #dash-clock{color:#67746a;font-weight:650;white-space:nowrap}
+.admin-avatar{width:34px;height:34px;background:#284532}
+.dash-wrap{max-width:1470px;padding:clamp(26px,3.6vw,50px) clamp(20px,3.4vw,52px) 30px}
+.dash-intro{align-items:center;gap:20px}
+.dash-intro h1{font:650 35px/1.15 var(--font);letter-spacing:-.037em;margin:0 0 9px}
+.dash-intro .intro-copy>p{margin:0;color:#647167;font-size:13px;line-height:1.6}
+.dash-intro .dash-date{margin-top:13px!important;font-size:11px!important;text-transform:capitalize;color:#788278!important}
+.new-booking{min-height:44px;border-radius:5px;padding:12px 18px;font-size:12px;background:#294735;color:#fff;border-color:#294735;gap:10px}
+.new-booking:hover{background:#3b5d45}
+.new-booking span{font:600 18px/1 var(--body)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;overflow:hidden;margin:28px 0 26px;background:var(--ops-surface);border:1px solid var(--ops-border);border-radius:8px}
+.stat{border:none;background:transparent;padding:21px 22px 20px;min-width:0}
+.stat+.stat{border-left:1px solid #e4e6df}
+.stat>span{font-size:11px;color:#536257;font-weight:740;line-height:1.45}
+.stat strong{font:640 35px/1 var(--font);letter-spacing:-.035em;margin:13px 0 8px;color:#273c2c;font-variant-numeric:tabular-nums}
+.stat small{font-size:10px;line-height:1.55;color:#79837a}
+.stat-attention{background:#f0f3eb}
+.stat-attention strong{color:#3a6a46}
+.stat-minor{background:#fbfaf7}
+.operations-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.8fr);gap:16px;align-items:start;margin-bottom:52px}
+.operations-grid .upcoming,.operations-grid .contact-queue{display:flex;flex-direction:column;min-width:0;margin:0;background:var(--ops-surface);border:1px solid var(--ops-border);border-radius:8px;min-height:355px;overflow:hidden}
+.operations-grid .upcoming-head,.contact-queue-head{padding:24px 23px 19px;border-bottom:1px solid #ebede6}
+.operations-grid h2{font:640 20px/1.25 var(--font);letter-spacing:-.03em;margin:0 0 7px;color:#2b3c30}
+.operations-grid .upcoming-head p,.contact-queue-head p{font-size:11px;color:#737f75;line-height:1.6;margin:0}
+.upcoming-window{font:760 10px var(--body);background:#eff1eb;color:#556857;border-radius:4px;padding:7px 9px;white-space:nowrap}
+.operations-grid .upcoming-list{padding:0 22px}
+.operations-grid .upcoming-item{padding:16px 0;grid-template-columns:94px minmax(0,1fr) auto;gap:12px}
+.operations-grid .upcoming-date strong{font:700 15px/1.3 var(--font)}
+.operations-grid .upcoming-date span{font-size:11px}
+.operations-grid .upcoming-customer strong{font:760 12px/1.45 var(--body)}
+.operations-grid .upcoming-customer span{font-size:11px}
+.operations-grid .upcoming .status{white-space:nowrap}
+.section-bottom-link{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:9px;padding:15px 23px;min-height:49px;border:0;border-top:1px solid #e9ebe6;border-radius:0;background:#fafbf7;color:#3f6148;font:730 11px/1.4 var(--body);text-align:left}
+.section-bottom-link:hover{background:#f0f4ec;color:#214d32}
+.section-bottom-link:disabled{opacity:.55;cursor:default}
+.contact-queue-list{padding:0 22px}
+.contact-queue-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}
+.contact-queue-item+.contact-queue-item{border-top:1px solid #e7eae3}
+.contact-queue-item-details{display:flex;flex-direction:column;gap:5px;min-width:0}
+.contact-queue-item-details strong{font:760 12px/1.4 var(--body);overflow-wrap:anywhere;color:#28372d}
+.contact-queue-item-details span{font:500 10px/1.6 var(--body);color:#737d72;overflow-wrap:anywhere}
+.contact-queue-item a.message{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 12px;border-radius:4px;border:1px solid #b8c9bb;background:#eff5ee;font:750 11px/1.3 var(--body);color:#335e40;white-space:nowrap}
+.contact-queue-item a.message:hover{background:#dce9dc;border-color:#a7bfa9}
+.contact-queue-empty{padding:23px;color:#677668;font-size:12px}
+.appointments{margin-top:8px}
+.appointments .section-heading{align-items:center}
+.appointments .section-heading h2{font:650 25px/1.2 var(--font);letter-spacing:-.035em;margin:0 0 8px}
+.appointments .section-heading>div>p{font-size:12px;color:#778176;margin:0;line-height:1.55}
+.refresh-bookings{border:1px solid #cbd5cc;border-radius:5px;background:#fff;padding:11px 15px;color:#48604e;font:710 11px var(--body);white-space:nowrap}
+.refresh-bookings:hover{background:#f0f5ec}
+.refresh-bookings span{margin-left:6px;font-size:14px}
+.agenda-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;padding:16px;margin:21px 0 0;border:1px solid var(--ops-border);border-radius:7px 7px 0 0;background:var(--ops-surface)}
+.agenda-controls .search-box{flex:1 1 255px;min-width:220px;margin:0}
+.agenda-controls .search-box input{min-height:44px;border:1px solid #cfd5cd;border-radius:4px;font:600 12px var(--body);padding:12px 14px;background:#fff}
+.agenda-controls .search-box input:focus{border-color:#547b5b;outline:2px solid #d3e3d3;outline-offset:0}
+.agenda-controls .contact-filters{display:flex;align-items:center;gap:5px;flex:0 1 auto;width:auto}
+.agenda-controls .contact-filters button{min-height:38px;min-width:0;padding:9px 10px;border:1px solid transparent;background:transparent;border-radius:4px;color:#627167;font-size:11px;gap:8px}
+.agenda-controls .contact-filters button:hover{background:#f0f3ed;border-color:#e2e8df}
+.agenda-controls .contact-filters button[aria-pressed="true"]{background:#31523a;border-color:#31523a;color:#fff;box-shadow:none}
+.agenda-advanced{border:1px solid var(--ops-border);border-top:0;background:#fffefa}
+.agenda-advanced>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 17px;cursor:pointer;font:690 11px var(--body);color:#647066;min-height:42px}
+.agenda-advanced>summary::-webkit-details-marker{display:none}
+.agenda-advanced>summary span{transition:transform .18s ease}
+.agenda-advanced[open]>summary span{transform:rotate(180deg)}
+.agenda-advanced>summary:hover{background:#f7f9f5}
+.agenda-advanced-content{padding:15px 17px 19px;border-top:1px solid #e8ebe4;display:flex;gap:25px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.agenda-advanced .filters{display:flex;gap:8px;flex-wrap:wrap;overflow:visible}
+.agenda-advanced .filters button{border:1px solid #d8e1d7;border-radius:4px;padding:9px 12px;font-size:11px;background:#f9faf7;color:#667467;white-space:nowrap}
+.agenda-advanced .filters button[aria-pressed="true"]{background:#e1eae0;border-color:#aabda9;color:#304c37}
+.agenda-advanced .date-filter{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:740;color:#5c685f}
+.agenda-advanced .date-filter select{padding:9px 12px;min-height:40px;border:1px solid #d2dbd0;border-radius:4px;background:#fff;font-size:11px}
+.list-overview{padding:14px 3px!important;margin:0!important;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:11px}
+.list-overview .overview-hint{color:#8b948b}
+.appointments-list{gap:0;border:1px solid var(--ops-border);border-radius:8px;overflow:visible;background:var(--ops-surface)}
+.appointment{grid-template-columns:110px minmax(140px,1.2fr) minmax(115px,.9fr) minmax(120px,.85fr) minmax(112px,.7fr);gap:15px;min-height:105px;align-items:center;padding:17px 18px;border:0;background:transparent}
+.appointment+.appointment{border-top:1px solid #e8eae4}
+.appointment:hover{background:#fafbf8}
+.appointment-date strong{font:680 17px/1.25 var(--font);letter-spacing:-.02em}
+.appointment-date small{font-size:10px;line-height:1.6;margin-top:7px}
+.appointment-person strong{font:750 13px/1.35 var(--body)}
+.appointment-person span{font-size:11px;margin-top:5px}
+.appointment-service strong{font:710 12px/1.45 var(--body)}
+.appointment-service span{font-size:10px;margin-top:5px}
+.appointment-status{gap:6px;min-width:0}
+.appointment-status .message-indicator{font-size:9px;line-height:1.4}
+.status{border-radius:4px;padding:7px 9px;font-size:10px;line-height:1.2}
+.contact-chip{padding:5px 8px;line-height:1.3;font-size:10px;border-radius:4px}
+.appointment-actions{grid-column:auto;border:0;padding:0;display:flex;align-items:stretch;justify-content:center;flex-direction:column;gap:8px;min-width:0}
+.action-main{display:flex;min-width:0}
+.appointment-actions a.message,.appointment-actions button.message{width:100%;min-height:40px;min-width:0;white-space:normal;font-size:11px;padding:10px 11px;border-radius:4px;text-align:center;letter-spacing:0;transform:none}
+.appointment-actions a.message::before{display:none}
+.appointment-actions button:disabled{opacity:.55}
+.appointment-manage{min-width:0}
+.appointment-manage summary{font-size:10px;color:#5c695e;padding:6px 8px;min-height:28px;text-align:center;cursor:pointer}
+.appointment-manage summary:hover{color:#294a34}
+.appointment-serial{display:none}
+.empty-list{border-radius:8px;padding:50px 20px}
+.workflow-guide{margin:25px 0 14px;border:1px solid #e0e4da;border-radius:7px;background:#f9faf5}
+.workflow-guide>summary{list-style:none;padding:16px 19px;display:flex;justify-content:space-between;gap:15px;cursor:pointer;font:740 12px/1.5 var(--body);color:#4f6454}
+.workflow-guide>summary::-webkit-details-marker{display:none}
+.workflow-guide>summary span{color:#859687}
+.workflow-guide[open]>summary span{transform:rotate(180deg)}
+.workflow-guide>ol{margin:0;padding:2px 25px 8px 44px;font-size:12px;line-height:1.9;color:#566958;max-width:85ch}
+.workflow-guide>p{padding:0 20px;margin:0 0 11px;font-size:11px;color:#6c7c6e}
+.workflow-guide>a{margin:2px 20px 20px;display:inline-block;font:720 11px var(--body);color:#44684b;text-decoration:underline;text-underline-offset:4px}
+.confirmed-heading{align-items:center}
+.confirmed-heading h1{font:650 34px/1.14 var(--font);letter-spacing:-.036em;margin:0 0 10px}
+.confirmed-heading p:not(.micro-label){font-size:13px}
+.confirmed-count{background:#edf2e9;border:1px solid #dbe7d9;border-radius:6px;padding:15px 19px}
+.confirmed-count strong{font-size:38px}
+.confirmed-count span{font-size:11px}
+.confirmed-toolbar{border-radius:7px;padding:18px}
+.confirmed-list{border-radius:7px}
+.confirmed-item{min-height:90px}
+.message-dialog{border-radius:9px;box-shadow:0 25px 70px rgba(13,35,19,.25);width:min(94vw,600px);background:#fffefa}
+.message-dialog-head h2{font:670 25px/1.22 var(--font);letter-spacing:-.035em;margin:0 0 8px}
+.message-step-note{font-size:12px;line-height:1.65;color:#6b7b6c;margin:0 0 10px}
+.message-preview{background:#eff3eb;border:1px solid #dce5da;box-shadow:none;border-radius:6px;padding:17px 20px}
+.message-preview p{font-size:12px;line-height:1.72}
+.message-info{border-left:1px solid #bba67e;background:#faf6e8;padding:12px 13px;border-radius:3px;font-size:11px}
+.message-dialog-actions{gap:8px}
+.message-dialog-actions button{min-height:42px}
+.message-destinations .message-app-link{border-radius:5px}
+@media(max-width:1200px){
+ .operations-grid{grid-template-columns:1fr}
+ .operations-grid .upcoming,.operations-grid .contact-queue{min-height:0}
+ .appointment{grid-template-columns:100px minmax(125px,1.2fr) minmax(100px,.85fr) minmax(105px,.75fr)}
+ .appointment-actions{grid-column:2/-1;flex-direction:row;justify-content:flex-end;border-top:1px solid #e8ebe4;padding-top:9px}
+ .appointment-actions a.message,.appointment-actions button.message{width:auto;min-width:125px}
+}
+@media(max-width:900px){
+ .dashboard{grid-template-columns:190px minmax(0,1fr)}
+ .dash-wrap{padding:26px 24px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stat:nth-child(3){border-left:0;border-top:1px solid #e4e6df}
+ .stat:nth-child(4){border-top:1px solid #e4e6df}
+ .appointment{grid-template-columns:98px minmax(0,1fr) minmax(95px,.8fr);padding:16px;gap:14px}
+ .appointment-service{grid-column:2;grid-row:2}
+ .appointment-status{grid-column:3;grid-row:1 / span 2}
+ .appointment-actions{grid-column:1/-1;grid-row:3;justify-content:space-between}
+ .agenda-controls{flex-direction:column;align-items:stretch}
+ .agenda-controls .contact-filters{width:100%;flex-wrap:wrap}
+}
+@media(max-width:800px){
+ .dashboard{display:block}
+ .dash-sidebar{height:auto;position:relative;padding:10px 18px;background:var(--ops-deep)}
+ .dash-logo img{width:100px}
+ .dash-sidebar nav,.side-caption,.side-booking-link{display:none}
+ .dash-wrap{padding:25px 18px}
+ .mobile-admin-nav{background:#fffefa;padding:0 18px;gap:23px;position:sticky;top:0;z-index:5;border-bottom:1px solid #dce4d9}
+ .mobile-admin-nav a{font:720 12px var(--body);min-height:48px;padding:16px 0 13px}
+ .mobile-admin-nav a.active{color:#284f35;border-bottom-color:#416d4e}
+ .dash-top{padding:12px 18px}
+ .dash-top-right .delivery-mode{display:none}
+ .dash-intro h1{font-size:29px}
+}
+@media(max-width:600px){
+ .dash-wrap{padding:23px 14px}
+ .dash-intro{flex-direction:column;align-items:stretch;gap:18px}
+ .dash-intro h1{font-size:27px}
+ .dash-intro .intro-copy>p{font-size:12px}
+ .new-booking{width:max-content;max-width:100%}
+ .stats{margin:22px 0;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stat{padding:16px 14px}
+ .stat strong{font-size:28px;margin:12px 0 5px}
+ .stat>span{font-size:10px}
+ .stat small{font-size:9px}
+ .operations-grid{gap:12px;margin-bottom:34px}
+ .operations-grid .upcoming-head,.contact-queue-head{padding:20px 15px 14px}
+ .operations-grid h2{font-size:18px}
+ .operations-grid .upcoming-list,.contact-queue-list{padding:0 15px}
+ .operations-grid .upcoming-item{grid-template-columns:78px minmax(0,1fr);gap:9px}
+ .operations-grid .upcoming-item .status{grid-column:2;justify-self:start}
+ .section-bottom-link{padding:14px 15px}
+ .contact-queue-item{gap:9px;align-items:start}
+ .contact-queue-item a.message{flex:none;padding:9px 10px;font-size:10px}
+ .appointments .section-heading{align-items:flex-start;gap:13px}
+ .appointments .section-heading h2{font-size:23px}
+ .refresh-bookings{padding:9px 11px;font-size:10px}
+ .agenda-controls{padding:12px;gap:11px}
+ .agenda-controls .search-box{flex:1 1 auto;min-width:100%;width:100%}
+ .agenda-controls .contact-filters{display:flex;gap:5px}
+ .agenda-controls .contact-filters button{flex:1 1 auto;padding:8px;min-height:40px;font-size:10px}
+ .agenda-controls .contact-filters button:first-child{flex:0 1 auto}
+ .agenda-advanced-content{align-items:stretch;gap:13px}
+ .agenda-advanced .filters{gap:6px}
+ .agenda-advanced .date-filter{align-items:stretch;flex-direction:column}
+ .appointment{grid-template-columns:minmax(0,1fr) minmax(106px,.7fr);gap:12px;padding:16px 13px}
+ .appointment-date{grid-column:1;grid-row:1}
+ .appointment-person{grid-column:1;grid-row:2}
+ .appointment-service{grid-column:1;grid-row:3}
+ .appointment-status{grid-column:2;grid-row:1 / span 3;align-self:center}
+ .appointment-status .status,.appointment-status .contact-chip{font-size:9px}
+ .appointment-actions{grid-column:1/-1;grid-row:4}
+ .appointment-actions a.message,.appointment-actions button.message{flex:1 1 auto;width:auto}
+ .appointment-date strong{font-size:16px}
+ .confirmed-heading h1{font-size:28px}
+ .confirmed-count{width:max-content}
+ .message-dialog{padding:21px}
+ .message-dialog-actions{display:flex;flex-wrap:wrap;gap:8px}
+ .message-dialog-actions button{flex:1 1 135px}
+ .message-dialog-actions #message-confirm-sent{flex:1 1 100%}
+ .workflow-guide>summary{padding:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .new-booking,.agenda-controls button,.section-bottom-link,.appointment-actions a.message{transition:none!important}
+ html{scroll-behavior:auto}
+}
+
+
+/* Entry surface shares the operations identity without dashboard ornament. */
+.auth-layout{grid-template-columns:minmax(340px,.9fr) minmax(0,1.1fr);background:#f6f5f0}
+.auth-art{background:#1c2820;padding:clamp(30px,4vw,65px)}
+.auth-art::after{content:none!important;display:none}
+.auth-brand span{color:#c3cec3}
+.auth-message h1{font:640 clamp(35px,3.4vw,53px)/1.16 var(--font);letter-spacing:-.038em;margin:0 0 25px}
+.auth-message h1 em{color:#c8d9c0;font-size:1em}
+.auth-message>span{font-size:13px;color:#d0d8d0;max-width:35ch;line-height:1.7}
+.auth-bottom{font-size:10px;color:#a9baa9}
+.auth-main{background:#f6f5f0}
+.login-card{width:min(100%,420px)}
+.login-card h2{font:660 33px/1.2 var(--font);letter-spacing:-.035em;margin:0 0 12px}
+.login-card>p:not(.micro-label){font-size:13px;color:#627067;line-height:1.7}
+.login-card form{margin-top:29px;gap:9px}
+.login-card label{color:#3d5042;font-size:11px}
+.login-card input{border-radius:5px;background:#fffefa;border-color:#c9d3c8;font-size:13px}
+.login-card input:focus{border-color:#5b855d;outline:2px solid #d2e2ce;outline-offset:0}
+.primary-action{border-radius:5px;font-size:12px;min-height:52px;background:#294b35}
+.primary-action:hover{background:#3e6548}
+.demo-credentials{margin-top:24px;border-color:#d9ded7;color:#607164}
+.demo-credentials summary{font-size:11px}
+@media(max-width:800px){
+ .auth-layout{grid-template-columns:1fr}
+ .auth-art{min-height:205px;padding:28px}
+ .auth-message{margin-top:22px}
+ .auth-message h1{font-size:29px;line-height:1.2;margin-bottom:12px}
+ .auth-message>span{font-size:12px}
+ .auth-main{padding:73px 23px 62px}
+ .login-card h2{font-size:27px}
+}
+
+
+/* Last pass: prevent clipped actions and oversized nav badges. */
+.dash-sidebar nav a span.side-confirmed-count{font-size:10px;line-height:1.3;font-weight:760;min-width:24px;min-height:24px;display:inline-grid;place-items:center}
+.appointment-manage .manage-actions{left:auto;right:0;max-width:min(265px,calc(100vw - 44px))}
+.appointment-manage[open]{z-index:25}
+@media(max-width:600px){.appointment-manage .manage-actions{min-width:178px}}
+
+
+/* Customer-site response tracking — separate from outbound WhatsApp messages. */
+.side-response-count{margin-left:auto;min-width:24px;height:24px;display:inline-grid;place-items:center;border-radius:4px;color:#e1ebdd;background:#405945;font:740 10px/1.2 var(--body)}
+.day-response-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px;align-items:start;margin:-18px 0 48px}
+.day-overview,.recent-replies{display:flex;flex-direction:column;min-width:0;background:var(--ops-surface);border:1px solid var(--ops-border);border-radius:8px;overflow:hidden}
+.day-response-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:23px 23px 19px;border-bottom:1px solid #ebeee7}
+.day-response-head h2{font:660 20px/1.25 var(--font);letter-spacing:-.03em;margin:0 0 7px;color:#2b3c30}
+.day-response-head p{font:510 11px/1.65 var(--body);color:#69786b;margin:0;max-width:42ch}
+.day-badge{flex:none;background:#eff3ec;color:#4f7155;font:750 10px/1.3 var(--body);border-radius:4px;padding:7px 9px}
+.today-totals{display:flex;flex-wrap:wrap;gap:17px;border-bottom:1px solid #e8ede6;padding:12px 23px;background:#fbfcf9}
+.today-totals span{display:inline-flex;align-items:baseline;gap:5px;font:600 11px/1.45 var(--body);color:#697567}
+.today-totals strong{font:760 13px/1 var(--body);color:#315640;font-variant-numeric:tabular-nums}
+.today-list,.recent-replies-list{display:flex;flex-direction:column;padding:0 23px}
+.today-item{display:grid;grid-template-columns:59px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0}
+.today-item+.today-item,.site-response-item+.site-response-item{border-top:1px solid #edf0e9}
+.today-hour{font:740 13px/1.35 var(--font);color:#2b422f;white-space:nowrap}
+.today-identity{display:grid;gap:5px;min-width:0}
+.today-identity strong{font:730 12px/1.4 var(--body);overflow-wrap:anywhere}
+.today-identity span{font:520 10px/1.55 var(--body);color:#6d7a70;overflow-wrap:anywhere}
+.today-result{display:grid;justify-items:end;gap:5px;min-width:0}
+.today-result small{max-width:16ch;text-align:right;color:#849185;font:540 9px/1.4 var(--body)}
+.today-empty{padding:21px 23px;color:#738074;font:550 12px/1.6 var(--body);margin:0}
+.site-response-item{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:12px;align-items:center;padding:15px 0;min-width:0}
+.site-response-mark{height:30px;width:30px;display:grid;place-items:center;background:#e5efe4;border-radius:5px;color:#3e7850;font:750 14px/1 var(--body)}
+.site-response-mark.is-cancel{background:#fae8e5;color:#9b5649}
+.site-response-details{display:grid;gap:4px;min-width:0}
+.site-response-details strong{font:740 12px/1.4 var(--body);color:#263d2b;overflow-wrap:anywhere}
+.site-response-details span{font:660 11px/1.5 var(--body);color:#4d6655}
+.site-response-item:has(.is-cancel) .site-response-details span{color:#965b51}
+.site-response-details small{font:530 10px/1.5 var(--body);color:#78857a;overflow-wrap:anywhere}
+.site-response-time{font:650 10px/1.45 var(--body);color:#6c7d71;white-space:nowrap}
+.responses-heading{display:flex;align-items:center;justify-content:space-between;gap:26px;margin:10px 0 25px}
+.responses-heading h1{font:660 32px/1.15 var(--font);letter-spacing:-.035em;margin:0 0 9px}
+.responses-heading p{font:500 13px/1.7 var(--body);color:#657468;max-width:65ch;margin:0}
+.responses-toolbar{display:flex;align-items:end;gap:13px;flex-wrap:wrap;margin-bottom:18px;padding:17px;border:1px solid var(--ops-border);border-radius:7px;background:#fffefa}
+.responses-toolbar label{display:grid;gap:8px;font:730 11px/1.45 var(--body);color:#526856;flex:1 1 250px}
+.responses-toolbar label:last-child{flex:0 1 220px}
+.responses-toolbar input,.responses-toolbar select{width:100%;min-height:44px;font:570 12px var(--body);border:1px solid #cbd7cc;border-radius:5px;padding:10px 12px;background:#fff;color:#253c2b}
+.responses-list{background:var(--ops-surface);border:1px solid var(--ops-border);border-radius:7px;overflow:hidden;padding:0 22px}
+.responses-list .site-response-item{padding:20px 0}
+.responses-list .site-response-details strong{font-size:13px}
+.responses-empty{padding:34px 22px;background:var(--ops-surface);border:1px solid var(--ops-border);border-radius:7px}
+.responses-empty h2{font:650 17px var(--font);margin:0 0 9px}
+.responses-empty p{font-size:12px;color:#667466}
+.responses-empty button{background:#eef4ee;border:1px solid #c8d7c8;padding:10px 15px;border-radius:4px;color:#3c6345;font-weight:760;font-size:12px;cursor:pointer}
+.appointment-status .reply-channel{font:620 10px/1.5 var(--body);color:#526b59;max-width:20ch}
+.message-demo-link{display:inline-flex;align-items:center;margin-top:11px;font:730 11px/1.5 var(--body);color:#365d40;text-decoration:underline;text-underline-offset:4px}
+.message-demo-link[hidden]{display:none!important}
+@media(max-width:1200px){.day-response-grid{grid-template-columns:1fr;margin-top:0}.today-item{grid-template-columns:70px minmax(0,1fr) auto}}
+@media(max-width:800px){.responses-heading h1{font-size:28px}.responses-heading{align-items:start}.day-response-grid{margin-bottom:32px}}
+@media(max-width:600px){
+ .day-response-grid{gap:12px}
+ .day-response-head{padding:18px 15px 15px}
+ .day-response-head h2{font-size:18px}
+ .today-totals{padding:12px 15px;gap:10px}
+ .today-list,.recent-replies-list{padding:0 14px}
+ .today-item{grid-template-columns:54px minmax(0,1fr);gap:9px;padding:15px 0}
+ .today-result{grid-column:2;justify-items:start}
+ .today-result small{text-align:left;max-width:none}
+ .site-response-item{grid-template-columns:30px minmax(0,1fr);gap:8px}
+ .site-response-time{grid-column:2;justify-self:start}
+ .responses-heading{flex-direction:column;align-items:flex-start}
+ .responses-heading h1{font-size:27px}
+ .responses-toolbar{flex-direction:column;align-items:stretch}
+ .responses-toolbar label:last-child{flex:1 1 auto}
+ .responses-list{padding:0 14px}
+}
+@media(prefers-reduced-motion:reduce){.responses-toolbar button,.responses-list button{transition:none}}
+
+
+/* The supplied raster logo has a dark opaque background. Screen blending
+   treats the black backdrop as transparent on dark brand surfaces while
+   preserving the bright lettering; avoid whitening the whole rectangle. */
+.dash-logo img,.auth-brand img{
+ filter:grayscale(1) contrast(2.4)!important;
+ mix-blend-mode:screen;
+}
+
+
+/* Accessible final contrast on the action-required metric. */
+.stats .stat-attention>span{color:#385441!important}
+.stats .stat-attention small{color:#52695a!important}

@@ -52,9 +52,11 @@ assert.ok(markDemoReminderOpened(saved.id).reminder_prepared_at,'preparo do What
 assert.equal(readDemoBookings()[0].whatsapp_manual_sent_at,undefined,'abrir a conversa não comprova envio');
 assert.ok(markDemoMessageSent(saved.id).whatsapp_manual_sent_at,'envio registrado após confirmação da equipe');
 assert.equal(normalizedStatus(readDemoBookings()[0]),'pending','registro de mensagem não confirma presença');
-assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'confirmed')),'confirmed','confirmação salva');
+assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'confirmed','site')),'confirmed','confirmação salva');
+assert.equal(readDemoBookings()[0].confirmation_channel,'site','resposta pelo site tem origem própria');
 assert.ok(!availableSlots('cortee', testDate, professional.id).some(s=>s.slot_at===first.slot_at),'confirmação mantém bloqueio');
 assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'cancelled')),'cancelled','cancelamento salvo');
+assert.equal(readDemoBookings()[0].confirmation_channel,'staff','mudança manual tem origem da equipe');
 assert.ok(availableSlots('cortee',testDate,professional.id).some(s=>s.slot_at===first.slot_at),'cancelamento libera horário');
 assert.equal(normalizedStatus(updateDemoBookingStatus(saved.id,'pending')),'pending','reabrir pedido pendente');
 assert.ok(!availableSlots('cortee',testDate,professional.id).some(s=>s.slot_at===first.slot_at),'pedido pendente bloqueia horário');

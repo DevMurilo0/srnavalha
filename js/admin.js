@@ -1,4 +1,4 @@
-import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoReminderOpened,markDemoMessageSent} from './booking-local.js';
+import {BOOKING_STORAGE_KEY,readDemoBookings,normalizedStatus,updateDemoBookingStatus,markDemoMessageSent} from './booking-local.js';
 const $ = selector => document.querySelector(selector);
 const STATUS = Object.freeze({pending:['Aguardando','pending'],confirmed:['Confirmado','confirmed'],cancelled:['Cancelado','cancelled']});
 const TZ = 'America/Recife';
@@ -8,132 +8,7 @@ try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(aw
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
-let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
-const WHATSAPP_BRIDGE_SCOPE='srnavalha.whatsapp-tabs';
-const isMobileWhatsApp=()=>/Android|iPhone|iPad|iPod/i.test(navigator.userAgent||'');
-function openInstalledWhatsApp(url){
- // Deep links need to be dispatched synchronously from a real user gesture.
- // Do not automatically redirect to WhatsApp Web if the app is not installed.
- try{window.location.assign(url);return true}catch{return false}
-}
-const WHATSAPP_FALLBACK_FLAG='srnavalha:whatsapp-aba-aberta';
-let whatsappBridgeReady=false,bridgeSequence=0,bridgeError='',whatsappHelperVersion='';
-let fallbackTab=null;
-let fallbackOpened=sessionStorage.getItem(WHATSAPP_FALLBACK_FLAG)==='1';
-const whatsappBridgePending=new Map();
-
-function probeWhatsappHelper(){
- if(whatsappBridgeReady)return;
- window.postMessage({
-  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'PING',id:++bridgeSequence
- },location.origin);
-}
-window.addEventListener('message',event=>{
- if(event.source!==window||event.origin!==location.origin)return;
- const data=event.data;
- if(data?.scope!==WHATSAPP_BRIDGE_SCOPE||data.sender!=='extension')return;
- if(data.type==='READY'){
-  whatsappHelperVersion=String(data.version||'');
-  whatsappBridgeReady=whatsappHelperVersion==='4.0.0';
-  bridgeError=whatsappBridgeReady?'':('Extensão desatualizada ('+(whatsappHelperVersion||'versão desconhecida')+'). Instale a v4.0 e recarregue a extensão no navegador.');
-  updateWhatsappHelperHint();updateWhatsAppMode();
-  return;
- }
- if(data.type==='ERROR'){
-  bridgeError=String(data.error||'Serviço da extensão indisponível').slice(0,160);
-  updateWhatsappHelperHint();
-  return;
- }
- if(data.type==='RESULT'&&whatsappBridgePending.has(data.id)){
-  clearTimeout(whatsappBridgePending.get(data.id));
-  whatsappBridgePending.delete(data.id);
-  const info=$('#message-info');
-  if(data.ok && data.mode==='draft-ready'){
-   if(info)info.textContent='A conversa foi aberta dentro do WhatsApp, sem recarregar a aba. A mensagem está pronta: confira o destinatário e clique em Enviar.';
-  }else{
-   if(info)info.textContent=(data.error||'A conversa não pôde ser aberta automaticamente.')+
-    ' O WhatsApp não foi recarregado. Confira o contato e use “Copiar texto” se necessário.';
-  }
- }
-});
-function updateWhatsappHelperHint(){
- if(isMobileWhatsApp()){
-  const helper=$('.helper-connection');if(helper)helper.hidden=true;
-  const instructions=$('.helper-install-link');if(instructions)instructions.hidden=true;
-  const hint=$('#message-reuse-hint');
-  if(hint)hint.textContent='No celular, o botão Mensagem tenta abrir o aplicativo WhatsApp instalado. Se o navegador não abrir, toque em “Abrir no aplicativo”.';
-  const fallback=$('#message-open-link');
-  if(fallback){fallback.hidden=false;fallback.textContent='Abrir pelo WhatsApp Web (alternativa)';}
-  return;
- }
- const helper=$('.helper-connection');if(helper)helper.hidden=false;
- const instructions=$('.helper-install-link');if(instructions)instructions.hidden=false;
- const hint=$('#message-reuse-hint');
- if(hint)hint.textContent=whatsappBridgeReady
-  ?'Auxiliar v4.0 conectado: tenta abrir o chat e preparar o texto dentro do WhatsApp, sem atualizar a aba.'
-  :bridgeError
-   ?'O auxiliar respondeu com um erro: '+bridgeError+'. Recarregue a extensão e esta página.'
-   :fallbackOpened
-    ?'O WhatsApp já foi aberto nesta sessão. Sem a extensão conectada, copie a mensagem para não criar mais abas.'
-    :'A extensão não foi detectada. Após instalá-la, atualize esta página e clique em Verificar extensão.';
- const status=$('#whatsapp-helper-status');
- if(status){
-  status.textContent=whatsappBridgeReady?'Extensão conectada · v4.0':bridgeError?'Extensão desatualizada ou com erro':'Extensão não detectada';
-  status.dataset.connected=String(whatsappBridgeReady);
- }
- const link=$('#message-open-link');
- if(link){
-  link.textContent=whatsappBridgeReady?'Abrir na aba existente do WhatsApp ↗':'Abrir WhatsApp Web manualmente ↗';
-  link.hidden=whatsappBridgeReady?false:!fallbackOpened;
- }
-}
-function askWhatsappBridge(link){
- if(!whatsappBridgeReady)return false;
- const id=++bridgeSequence;
- const timer=setTimeout(()=>{
-  if(!whatsappBridgePending.has(id))return;
-  whatsappBridgePending.delete(id);
-  const info=$('#message-info');
-  if(info)info.textContent='O auxiliar não respondeu à troca de conversa. Clique em Verificar extensão, atualize o painel e tente novamente.';
- },25000);
- whatsappBridgePending.set(id,timer);
- window.postMessage({
-  scope:WHATSAPP_BRIDGE_SCOPE,sender:'page',type:'OPEN',id,url:link
- },location.origin);
- return true;
-}
-function openWhatsAppWeb(link){
- if(whatsappBridgeReady)return askWhatsappBridge(link)?'helper':'blocked';
- if(bridgeError)return 'outdated';
- // Without permission to manage existing tabs, avoid opening multiple tabs
- // when WhatsApp severs the WindowProxy via cross-origin isolation.
- if(fallbackOpened){
-  try{
-   if(fallbackTab&&!fallbackTab.closed){
-    fallbackTab.location.href=link;
-    fallbackTab.focus();
-    return 'reused';
-   }
-  }catch{ /* browser isolation revoked access */ }
-  return 'copy';
- }
- const tab=window.open(link,'srnavalha_whatsapp');
- if(!tab)return 'blocked';
- fallbackTab=tab;
- fallbackOpened=true;
- sessionStorage.setItem(WHATSAPP_FALLBACK_FLAG,'1');
- return 'opened';
-}
-$('#whatsapp-helper-check').addEventListener('click',()=>{
- bridgeError='';
- updateWhatsappHelperHint();
- probeWhatsappHelper();
- const status=$('#whatsapp-helper-status');
- if(status&&!whatsappBridgeReady)status.textContent='Verificando extensão…';
-});
-probeWhatsappHelper();
-setInterval(()=>{if(!whatsappBridgeReady&&!document.hidden)probeWhatsappHelper()},3000);
-window.addEventListener('focus',probeWhatsappHelper);
+let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', responseSearch='',responsePeriod='all',renderCounter=0;
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -200,25 +75,31 @@ function feedback(message,tone='success'){
 }
 function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
- badge.textContent=isMobileWhatsApp()?'WhatsApp · aplicativo':whatsappBridgeReady?'WhatsApp · extensão conectada':'WhatsApp manual';
- badge.dataset.mode=whatsappBridgeReady?'connected':'manual';
- $('#whatsapp-mode-details').textContent=isMobileWhatsApp()
-  ?'No celular, Mensagem tenta abrir o aplicativo WhatsApp instalado, com o texto preparado. Se o aplicativo não responder, use a opção explícita no painel; o envio continua manual.'
-  :whatsappBridgeReady
-   ?'Auxiliar conectado: Mensagem tenta abrir a conversa dentro do WhatsApp Web sem recarregar. Confira o destinatário e clique em Enviar.'
-   :'No computador, use Abrir no aplicativo se ele tiver sido instalado e associado ao protocolo WhatsApp. Caso contrário, use a opção de WhatsApp Web; o envio continua manual.';
+ badge.textContent='WhatsApp · aplicativo';
+ badge.dataset.mode='manual';
+ $('#whatsapp-mode-details').textContent='O WhatsApp é enviado manualmente. O link de confirmação permite ao cliente escolher e registrar sua resposta na agenda compartilhada.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
- $('#overview-view').hidden=confirmed;$('#confirmed-view').hidden=!confirmed;
- $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'AGENDA';
+ const responses=location.hash==='#respostas';
+ $('#overview-view').hidden=confirmed||responses;
+ $('#confirmed-view').hidden=!confirmed;
+ $('#responses-view').hidden=!responses;
+ $('#current-view-label').textContent=confirmed?'CONFIRMADOS':responses?'RESPOSTAS':'VISÃO GERAL';
  document.querySelectorAll('[data-admin-nav]').forEach(link=>{
-  const active=confirmed?link.dataset.adminNav==='confirmed':(link.closest('.mobile-admin-nav')?link.dataset.adminNav==='overview':link.getAttribute('href')===(location.hash==='#agenda-list'?'#agenda-list':'#main'));
+  const active=confirmed
+   ?link.dataset.adminNav==='confirmed'
+   :responses
+    ?link.dataset.adminNav==='responses'
+    :location.hash==='#agenda-list'
+     ?link.dataset.adminNav==='agenda'
+     :link.dataset.adminNav==='overview';
   link.classList.toggle('active',active);
   if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
  });
- document.title=(confirmed?'Confirmados':'Agenda da equipe')+' · Sr. Navalha';
- if(location.hash==='#agenda-list')requestAnimationFrame(()=>$('#agenda-list').scrollIntoView({block:'start'}));
+ document.title=(confirmed?'Confirmados':responses?'Respostas dos clientes':'Agenda da equipe')+' · Sr. Navalha';
+ if(location.hash==='#agenda-list')
+  requestAnimationFrame(()=>$('#agenda-list').scrollIntoView({block:'start'}));
 }
 window.addEventListener('hashchange',()=>{if(!$('#dashboard').hidden)showView()});
 function confirmationUrls(booking){
@@ -231,80 +112,65 @@ function confirmationUrls(booking){
   url.searchParams.set('acao',action);
   return url.href;
  };
- return {yes:urlFor('confirmar'),no:urlFor('cancelar')};
+ return {reply:urlFor('escolher'),yes:urlFor('confirmar'),no:urlFor('cancelar')};
 }
 function whatsappAppLink(phone,message){
  const digits=String(phone||'').replace(/\D/g,'');
  if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
  return 'whatsapp://send?phone='+digits+'&text='+encodeURIComponent(String(message||''));
 }
-function whatsappWebLink(phone,message){
- // Open WhatsApp Web directly. The extension reuses an existing browser tab.
- const digits=String(phone||'').replace(/\D/g,'');
- if(!/^55\d{10,11}$/.test(digits))throw Error('Número do WhatsApp inválido');
- return 'https://web.whatsapp.com/send?phone='+digits+
-  '&text='+encodeURIComponent(String(message||''));
-}
 function composeMessage(booking){
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
- const links=booking.links||null;
- const message=[
-  'Olá, '+name+'! Tudo bem?',
-  'Aqui é da Barbearia Sr. Navalha. Gostaríamos de confirmar seu horário:',
+ const link=booking.links?.reply;
+ const lines=[
+  'Olá, '+name+'! Tudo bem? 😊',
+  'Aqui é da Barbearia Sr. Navalha.',
   '',
-  'Serviço: '+booking.service_name,
-  'Data: '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
-  'Profissional: '+booking.professional_name,
+  'Seu horário: '+fmtDay(booking.starts_at)+' às '+fmtHour(booking.starts_at)+'.',
+  booking.service_name+' com '+booking.professional_name+'.',
   '',
-  'Você poderá comparecer?',
-  ...(links?[
-   '',
-   'Confirme ou cancele pelo nosso site:',
-   'Confirmar: '+links.yes,
-   'Cancelar: '+links.no
-  ]:['Responda CONFIRMO ou CANCELAR nesta conversa.']),
+  ...(link?['Confirme ou cancele seu horário neste link:',link]
+   :['Para confirmar ou cancelar, entre em contato com a barbearia.']),
   '',
-  'Obrigado! Sr. Navalha · Gravatá'
+  'Ficou com alguma dúvida? Pode responder esta mensagem por aqui! 💈'
  ];
- return message.join('\n');
+ return lines.join('\n');
 }
-function sendMessage(booking){
- const phone=String(booking.customer_phone||'').replace(/\D/g,'');
- if(!/^55\d{10,11}$/.test(phone)){
-  feedback('O número de WhatsApp deste cliente está inválido. Confira o cadastro.','error');return;
- }
+function prepareMessage(booking,appLink){
  previewBooking=booking;
- const message=composeMessage(booking);
- const link=whatsappWebLink(phone,message);
- const appLink=whatsappAppLink(phone,message);
- $('#message-open-link').href=link;
  $('#message-app-link').href=appLink;
- $('#message-recipient').textContent=booking.customer_name+' · '+phone.replace(/^55/,'+55 ');
- $('#message-preview').textContent=message;
+ $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
+ $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='Clique em Enviar no WhatsApp e, depois, registre o contato neste painel.';
- const onPhone=isMobileWhatsApp();
- const opened=onPhone?(openInstalledWhatsApp(appLink)?'native-app':'app-unavailable'):openWhatsAppWeb(link);
- updateWhatsappHelperHint();
- if(opened==='native-app')$('#message-info').textContent='Solicitamos a abertura do aplicativo WhatsApp com a mensagem pronta. Confira o destinatário e toque em Enviar. Se não abriu, use “Abrir no aplicativo”.';
- if(opened==='app-unavailable')$('#message-info').textContent='O aplicativo não pôde ser aberto automaticamente. Use “Abrir no aplicativo” ou a alternativa web.';
- if(opened==='copy')$('#message-info').textContent='O WhatsApp já foi aberto. Para não criar outra aba, copie a mensagem e cole na conversa existente. Ative o auxiliar universal para trocar o cliente automaticamente.';
- if(opened==='blocked')$('#message-info').textContent='Não foi possível abrir o WhatsApp. Verifique a extensão ou a permissão de pop-ups.';
- if(opened==='outdated')$('#message-info').textContent='A extensão instalada é antiga. Atualize para a v4.0 e recarregue-a antes de tentar novamente.';
- if(opened==='opened')$('#message-info').textContent='WhatsApp Web aberto em uma aba. Envie a mensagem por lá; nas próximas vezes, o painel não criará várias abas.';
- if(opened==='reused')$('#message-info').textContent='A conversa foi atualizada na mesma aba do WhatsApp. Envie a mensagem por lá.';
- try{if(!sharedMode)markDemoReminderOpened(booking.id)}catch{}
+ const link=booking.links?.reply;
+ $('#message-info').textContent=link
+  ?'O WhatsApp abrirá com a mensagem e o link de confirmação. Confira o número, envie e registre o contato ao voltar.'
+  :'Modo demonstração: o WhatsApp abrirá com a mensagem, mas sem link público. Para testar a confirmação entre dispositivos, configure a agenda compartilhada.';
+ const demo=$('#message-demo-link');
+ demo.hidden=Boolean(link);
+ if(!link)demo.href=confirmationUrls(booking).reply;
+ // This dialog remains behind WhatsApp for marking manual delivery on return.
+ // Do NOT preventDefault on the real anchor: the browser must follow the
+ // whatsapp:// deep link as a trusted, user-initiated navigation.
  $('#message-dialog').showModal();
- void renderDashboard();
 }
-$('#message-open-link').addEventListener('click',event=>{
- if(whatsappBridgeReady&&!isMobileWhatsApp()){
-  event.preventDefault();
-  openWhatsAppWeb($('#message-open-link').href);
+function messageAction(booking,status){
+ const label=booking.whatsapp_manual_sent_at?'Reenviar mensagem':'Mensagem';
+ const phone=String(booking.customer_phone||'').replace(/\D/g,'');
+ if(status!=='pending'||!/^55\d{10,11}$/.test(phone)){
+  const disabled=el('button','message',label);
+  disabled.type='button';disabled.disabled=true;
+  disabled.title=status!=='pending'
+   ?'A mensagem de confirmação é destinada a agendamentos pendentes'
+   :'Número de WhatsApp inválido; confira o cadastro';
+  return disabled;
  }
- // Without the helper this is an explicit, user-chosen recovery link.
- // The primary Mensagem button never opens more than one fallback tab.
-});
+ const link=el('a','message',label);
+ link.href=whatsappAppLink(phone,composeMessage(booking));
+ link.setAttribute('aria-label','Abrir o WhatsApp de '+booking.customer_name+' com mensagem de confirmação pronta');
+ link.addEventListener('click',()=>prepareMessage(booking,link.href));
+ return link;
+}
 $('#message-close').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dismiss').addEventListener('click',()=>$('#message-dialog').close());
 $('#message-dialog').addEventListener('click',event=>{if(event.target===$('#message-dialog'))event.target.close()});
@@ -384,8 +250,7 @@ async function changeStatus(booking,next){
 }
 function openResponsePreview(booking){
  const urls=booking.links||confirmationUrls(booking);
- $('#reply-yes').href=urls.yes;
- $('#reply-no').href=urls.no;
+ $('#reply-choice').href=urls.reply||confirmationUrls(booking).reply;
  $('#reply-title').textContent='Respostas de '+booking.customer_name;
  $('#reply-dialog').showModal();
 }
@@ -405,13 +270,12 @@ function createRow(booking){
  const pill=el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando');
  state.append(pill);
  const messageSent=Boolean(booking.whatsapp_manual_sent_at);
- state.append(el('span','contact-chip '+(messageSent?'is-sent':'is-pending'),messageSent?'Mensagem enviada':'Aguardando envio'));
- if(messageSent)state.append(el('small','message-indicator','Envio registrado pela equipe'));
- else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Conversa aberta, ainda não enviado'));
+ state.append(el('span','contact-chip '+(messageSent?'is-sent':'is-pending'),messageSent?'Mensagem enviada':'Envio não registrado'));
+ if(messageSent)state.append(el('small','message-indicator','Registrado pela equipe'));
+ if(status!=='pending')state.append(el('small','reply-channel',responseSourceLabel(booking)));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
- const msg=actionButton(booking.whatsapp_manual_sent_at?'Reenviar mensagem':'Mensagem','message',()=>sendMessage(booking),status!=='pending');
- if(status!=='pending')msg.title='A mensagem de confirmação é destinada aos pedidos aguardando resposta';
+ const msg=messageAction(booking,status);
  group.append(msg);
  const menu=el('details','appointment-manage');
  const toggle=el('summary','', 'Gerenciar');toggle.setAttribute('aria-label','Gerenciar agendamento de '+booking.customer_name);
@@ -435,6 +299,53 @@ function createUpcomingRow(booking){
  customer.append(el('strong','',booking.customer_name||'Cliente'),el('span','',booking.service_name+' · '+booking.professional_name));
  const state=el('span','status '+(normalizedStatus(booking)==='confirmed'?'confirmed':''),STATUS[normalizedStatus(booking)]?.[0]||'Aguardando');
  row.append(day,customer,state);
+ return row;
+}
+function createContactQueueRow(booking){
+ const row=el('article','contact-queue-item');
+ const details=el('div','contact-queue-item-details');
+ details.append(
+  el('strong','',booking.customer_name||'Cliente'),
+  el('span','',fmtDay(booking.starts_at)+' · '+fmtHour(booking.starts_at)+' · '+(booking.service_name||'Serviço'))
+ );
+ const action=messageAction(booking,'pending');
+ action.textContent='Mensagem';
+ row.append(details,action);
+ return row;
+}
+function responseSourceLabel(booking){
+ if(booking.confirmation_channel==='site')return 'Respondeu pelo link';
+ if(booking.confirmation_channel==='whatsapp')return 'Respondeu pelo WhatsApp Business';
+ if(booking.confirmation_channel==='staff')return 'Atualizado pela equipe';
+ return 'Situação registrada';
+}
+function createTodayRow(booking){
+ const status=normalizedStatus(booking);
+ const row=el('article','today-item');
+ const time=el('strong','today-hour',fmtHour(booking.starts_at));
+ const identity=el('div','today-identity');
+ identity.append(el('strong','',booking.customer_name||'Cliente'),
+  el('span','',booking.service_name+' · '+booking.professional_name));
+ const result=el('div','today-result');
+ result.append(el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando'));
+ if(status!=='pending')result.append(el('small','',responseSourceLabel(booking)));
+ row.append(time,identity,result);
+ return row;
+}
+function createSiteResponseRow(booking){
+ const status=normalizedStatus(booking);
+ const row=el('article','site-response-item');
+ const avatar=el('span','site-response-mark '+(status==='cancelled'?'is-cancel':''),status==='cancelled'?'×':'✓');
+ avatar.setAttribute('aria-hidden','true');
+ const details=el('div','site-response-details');
+ details.append(el('strong','',booking.customer_name||'Cliente'),
+  el('span','',status==='cancelled'?'Cancelou pelo link':'Confirmou pelo link'),
+  el('small','',booking.service_name+' · '+fmtDay(booking.starts_at)+' às '+fmtHour(booking.starts_at)));
+ const when=el('time','site-response-time',booking.responded_at?new Intl.DateTimeFormat('pt-BR',{
+  timeZone:TZ,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'
+ }).format(new Date(booking.responded_at)):'');
+ if(booking.responded_at)when.dateTime=booking.responded_at;
+ row.append(avatar,details,when);
  return row;
 }
 function createConfirmedRow(booking){
@@ -476,26 +387,65 @@ async function renderDashboard(){
  $('#stat-confirmed').textContent=String(counts.confirmed);
  $('#stat-cancelled').textContent=String(counts.cancelled);
  const sentCount=entries.filter(b=>Boolean(b.whatsapp_manual_sent_at)).length;
+ const waitingCount=entries.filter(b=>!b.whatsapp_manual_sent_at&&normalizedStatus(b)!=='cancelled').length;
  $('#msg-total-count').textContent=String(entries.length);
  $('#msg-sent-count').textContent=String(sentCount);
- $('#msg-unsent-count').textContent=String(entries.length-sentCount);
+ $('#msg-unsent-count').textContent=String(waitingCount);
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
  const now=Date.now(),today=dateKey(new Date()),week=weekEnd(today);
  $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'}).format(new Date());
+ // Today's appointments are separate from outgoing WhatsApp and incoming link replies.
+ const todayBookings=entries.filter(b=>dateKey(b.starts_at)===today)
+  .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at));
+ $('#today-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,day:'2-digit',month:'short'}).format(new Date());
+ $('#today-all').textContent=String(todayBookings.length);
+ $('#today-confirmed').textContent=String(todayBookings.filter(b=>normalizedStatus(b)==='confirmed').length);
+ $('#today-cancelled').textContent=String(todayBookings.filter(b=>normalizedStatus(b)==='cancelled').length);
+ $('#today-list').replaceChildren(...todayBookings.map(createTodayRow));
+ $('#today-empty').hidden=todayBookings.length>0;
+
+ const siteResponses=entries.filter(b=>b.confirmation_channel==='site'&&
+  ['confirmed','cancelled'].includes(normalizedStatus(b))&&b.responded_at)
+  .sort((a,b)=>Date.parse(b.responded_at)-Date.parse(a.responded_at));
+ $('#stat-site-responses').textContent=String(siteResponses.length);
+ $('#side-response-count').textContent=String(siteResponses.length);
+ $('#recent-replies-count').textContent=String(siteResponses.length);
+ $('#recent-replies-list').replaceChildren(...siteResponses.slice(0,4).map(createSiteResponseRow));
+ $('#recent-replies-empty').hidden=siteResponses.length>0;
+ $('#responses-count').textContent=String(siteResponses.length);
+ const responseQuery=responseSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const filteredResponses=siteResponses.filter(b=>{
+  if(responsePeriod==='today'&&dateKey(b.responded_at)!==today)return false;
+  const name=[b.customer_name,b.customer_phone,b.service_name,b.professional_name,b.reference].join(' ')
+   .normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  return name.includes(responseQuery);
+ });
+ $('#responses-list').replaceChildren(...filteredResponses.map(createSiteResponseRow));
+ $('#responses-empty').hidden=filteredResponses.length>0;
+ if(!filteredResponses.length)$('#responses-empty-text').textContent=siteResponses.length
+  ?'Nenhuma resposta corresponde à busca ou ao período selecionado.'
+  :'Quando um cliente confirmar ou cancelar pelo link, a resposta aparecerá aqui.';
 
  // The front of the dashboard only shows the closest future dates.
  const upcoming=entries.filter(b=>normalizedStatus(b)!=='cancelled'&&Date.parse(b.starts_at)>=now)
   .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at)).slice(0,5);
  $('#upcoming-list').replaceChildren(...upcoming.map(createUpcomingRow));
  $('#upcoming-empty').hidden=upcoming.length>0;
- $('#upcoming-window').textContent=upcoming.length+' '+(upcoming.length===1?'próximo horário':'próximos horários');
+ $('#upcoming-window').textContent=upcoming.length+' '+(upcoming.length===1?'horário':'horários');
+ const contactQueue=entries.filter(b=>
+  normalizedStatus(b)==='pending'&&!b.whatsapp_manual_sent_at&&Date.parse(b.starts_at)>=now
+ ).sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at));
+ $('#stat-contact-waiting').textContent=String(contactQueue.length);
+ $('#contact-queue-list').replaceChildren(...contactQueue.slice(0,3).map(createContactQueueRow));
+ $('#contact-queue-empty').hidden=contactQueue.length>0;
+ $('#open-pending-contacts').disabled=contactQueue.length===0;
 
  const query=currentSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const matching=entries.filter(b=>{
   if(currentFilter!=='all'&&normalizedStatus(b)!==currentFilter)return false;
   const hasSent=Boolean(b.whatsapp_manual_sent_at);
   if(messageFilter==='sent'&&!hasSent)return false;
-  if(messageFilter==='unsent'&&hasSent)return false;
+  if(messageFilter==='unsent'&&(hasSent||normalizedStatus(b)==='cancelled'))return false;
   const day=dateKey(b.starts_at);
   if(currentPeriod==='today'&&day!==today)return false;
   if(currentPeriod==='week'&&(day<today||day>week))return false;
@@ -534,6 +484,16 @@ async function renderDashboard(){
   $('#confirmed-empty-detail').textContent=confirmed.length?'Nenhum confirmado corresponde a essa busca ou período.':'Ainda não há clientes confirmados. Quando uma presença for confirmada, ela aparecerá aqui.';
  }
 }
+$('#open-pending-contacts').addEventListener('click',()=>{
+ messageFilter='unsent';
+ currentFilter='all';currentPeriod='all';currentSearch='';
+ $('#admin-search').value='';$('#admin-period').value='all';
+ document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status==='all')));
+ document.querySelectorAll('[data-message-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.messageFilter==='unsent')));
+ void renderDashboard();
+ location.hash='#agenda-list';
+ $('#agenda-list').scrollIntoView({behavior:'smooth',block:'start'});
+});
 document.querySelectorAll('.filters button').forEach(button=>button.addEventListener('click',()=>{
  currentFilter=button.dataset.status;
  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
@@ -545,6 +505,13 @@ document.querySelectorAll('[data-message-filter]').forEach(button=>button.addEve
  void renderDashboard();
 }));
 $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.value.trim();renderDashboard()});
+$('#responses-search').addEventListener('input',event=>{responseSearch=event.target.value.trim();void renderDashboard()});
+$('#responses-period').addEventListener('change',event=>{responsePeriod=event.target.value;void renderDashboard()});
+$('#responses-clear').addEventListener('click',()=>{
+ responseSearch='';responsePeriod='all';
+ $('#responses-search').value='';$('#responses-period').value='all';
+ void renderDashboard();
+});
 $('#confirmed-search').addEventListener('input',event=>{confirmedSearch=event.target.value.trim();void renderDashboard()});
 $('#confirmed-period').addEventListener('change',event=>{confirmedPeriod=event.target.value;void renderDashboard()});
 $('#confirmed-clear').addEventListener('click',()=>{

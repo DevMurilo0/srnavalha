@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1d2220">
-<meta name="description" content="Painel de gestão de horários da Sr. Navalha — demonstração de interface.">
+<meta name="description" content="Agenda da equipe Sr. Navalha. Acompanhe horários, contatos e presenças.">
 <title>Gestão de horários · Sr. Navalha</title>
 <link rel="icon" href="assets/decor/favicon-v8.png">
 <link rel="stylesheet" href="css/admin.css">
@@ -15,81 +15,158 @@
 <section id="login-screen" class="auth-layout">
  <aside class="auth-art">
   <div class="auth-brand"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="156" height="112"><span>BARBEARIA · GRAVATÁ / PE</span></div>
-  <div class="auth-message"><p>ÁREA DA EQUIPE</p><h1>A casa em<br><em>boas mãos.</em></h1><span>Serviço, cuidado e organização no mesmo lugar.</span></div>
-  <p class="auth-bottom">SR. NAVALHA — GESTÃO DE HORÁRIOS</p>
+  <div class="auth-message"><h1>Todos os horários.<br><em>Uma só agenda.</em></h1><span>Uma rotina mais simples para cuidar de cada cliente.</span></div>
+  <p class="auth-bottom">SR. NAVALHA · EQUIPE</p>
  </aside>
  <main class="auth-main">
   <a class="auth-back" href="agendar.html">← Voltar ao agendamento</a>
   <div class="login-card">
-   <p class="micro-label">ACESSO À AGENDA</p>
-   <h2>Bem-vindo de volta.</h2>
-   <p>Entre para acompanhar os agendamentos e organizar as confirmações dos clientes.</p>
+   <h2>Acessar agenda</h2>
+   <p>Consulte os atendimentos e organize as confirmações do dia.</p>
    <form id="admin-login" autocomplete="off" novalidate>
     <label for="admin-email">E-mail</label><input id="admin-email" type="email" autocomplete="username" placeholder="seu@email.com" required>
     <label for="admin-password">Senha</label>
     <div class="password-wrap"><input id="admin-password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required><button type="button" id="show-password" aria-label="Mostrar senha">Mostrar</button></div>
     <p id="admin-login-error" class="form-error" role="alert" aria-live="polite"></p>
-    <button class="primary-action" type="submit">Entrar na agenda <span aria-hidden="true">↗</span></button>
+    <button class="primary-action" type="submit">Entrar no painel <span aria-hidden="true">↗</span></button>
    </form>
    <details class="demo-credentials"><summary>Dados para apresentar o painel</summary><p>E-mail: <code>equipe@srnavalha.demo</code></p><p>Senha: <code>Navalha2026!</code></p><button id="fill-demo" type="button">Preencher acesso</button></details>
   </div>
-  <p class="auth-foot">SR. NAVALHA · UMA EXPERIÊNCIA DE GESTÃO</p>
+  <p class="auth-foot">SR. NAVALHA · GESTÃO DA EQUIPE</p>
  </main>
 </section>
 <section class="dashboard" id="dashboard" hidden>
  <aside class="dash-sidebar">
   <a class="dash-logo" href="index.html"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="150" height="101"></a>
-  <span class="side-caption">ESPAÇO DA EQUIPE</span>
+  <div class="side-caption">GESTÃO DA BARBEARIA</div>
   <nav aria-label="Navegação administrativa">
-   <a class="active" href="#main" data-admin-nav="overview" aria-current="page"><span aria-hidden="true">▦</span> Visão geral</a>
-   <a href="#agenda-list" data-admin-nav="agenda"><span aria-hidden="true">▤</span> Agendamentos</a>
-   <a href="#confirmados" data-admin-nav="confirmed"><span aria-hidden="true">✓</span> Confirmados <span class="side-confirmed-count" id="side-confirmed-count">0</span></a>
-   <a href="agendar.html"><span aria-hidden="true">↗</span> Ver agendamento</a>
+   <a class="active" href="#main" data-admin-nav="overview" aria-current="page">Visão geral</a>
+   <a href="#agenda-list" data-admin-nav="agenda">Agenda completa</a>
+   <a href="#respostas" data-admin-nav="responses">Respostas dos clientes <span class="side-response-count" id="side-response-count">0</span></a>
+   <a href="#confirmados" data-admin-nav="confirmed">Presenças confirmadas <span class="side-confirmed-count" id="side-confirmed-count">0</span></a>
   </nav>
+  <a class="side-booking-link" href="agendar.html">Abrir agendamento <span aria-hidden="true">↗</span></a>
   <div class="side-bottom"><span>GRAVATÁ · PERNAMBUCO</span><button id="admin-logout" type="button">Sair do painel ↗</button></div>
  </aside>
  <main id="main" class="dash-content">
-  <header class="dash-top"><div class="dash-breadcrumb"><span class="breadcrumb-mark" aria-hidden="true">✦</span> SR. NAVALHA <span>/</span> <span id="current-view-label">AGENDA</span></div><div class="dash-top-right"><span id="delivery-mode" class="delivery-mode">Verificando conexão</span><span id="dash-clock"></span><span class="admin-avatar" aria-label="Equipe Sr. Navalha">SN</span></div></header>
+  <header class="dash-top"><div class="dash-breadcrumb">SR. NAVALHA <span class="breadcrumb-separator">/</span> <span id="current-view-label">VISÃO GERAL</span></div><div class="dash-top-right"><span id="delivery-mode" class="delivery-mode">WhatsApp · aplicativo</span><span id="dash-clock"></span><span class="admin-avatar" aria-label="Equipe Sr. Navalha">SN</span></div></header>
   <nav class="mobile-admin-nav" aria-label="Telas da área administrativa">
-   <a href="#main" data-admin-nav="overview" aria-current="page">Agenda</a>
-   <a href="#confirmados" data-admin-nav="confirmed">Confirmados <span aria-hidden="true">✓</span></a>
+   <a href="#main" data-admin-nav="overview" aria-current="page">Visão geral</a>
+   <a href="#agenda-list" data-admin-nav="agenda">Agenda</a>
+   <a href="#respostas" data-admin-nav="responses">Respostas</a>
+   <a href="#confirmados" data-admin-nav="confirmed">Confirmados</a>
   </nav>
   <div class="dash-wrap">
    <section id="overview-view" class="dash-view" aria-label="Visão geral da agenda">
-   <div class="dash-intro"><div><p class="micro-label">PAINEL DE ATENDIMENTO</p><h1>Sua agenda.<br><em>Sob controle.</em></h1><p>Visualize horários, acompanhe respostas e organize o dia com poucos cliques.</p><p class="dash-date" id="dash-date"></p></div><a class="new-booking" href="agendar.html"><span aria-hidden="true">＋</span> Novo agendamento</a></div>
+   <header class="dash-intro">
+    <div class="intro-copy"><h1>Agenda da barbearia</h1><p>Horários, clientes e confirmações organizados em um só lugar.</p><p class="dash-date" id="dash-date"></p></div>
+    <a class="new-booking" href="agendar.html"><span aria-hidden="true">＋</span> Novo agendamento</a>
+   </header>
    <div class="stats" aria-label="Resumo da agenda">
-    <div class="stat"><span>Agendamentos</span><strong id="stat-total">0</strong><small>todos os registros</small></div>
-    <div class="stat stat-attention"><span>Precisam de resposta</span><strong id="stat-pending">0</strong><small>aguardando cliente</small></div>
-    <div class="stat"><span>Confirmados</span><strong id="stat-confirmed">0</strong><small>presenças registradas</small></div>
-    <div class="stat"><span>Cancelados</span><strong id="stat-cancelled">0</strong><small>horários liberados</small></div>
+    <div class="stat stat-attention"><span>Contatos para enviar</span><strong id="stat-contact-waiting">0</strong><small>próximos clientes sem mensagem</small></div>
+    <div class="stat"><span>Aguardando confirmação</span><strong id="stat-pending">0</strong><small>aguardando resposta do cliente</small></div>
+    <div class="stat"><span>Presenças confirmadas</span><strong id="stat-confirmed">0</strong><small>agendamentos confirmados</small></div>
+    <div class="stat stat-minor"><span>Clientes responderam pelo link</span><strong id="stat-site-responses">0</strong><small><span id="stat-total">0</span> agendamentos · <span id="stat-cancelled">0</span> cancelados</small></div>
    </div>
-   <section class="upcoming" id="upcoming-section" aria-labelledby="upcoming-title">
-    <div class="upcoming-head"><div><h2 id="upcoming-title">Próximos atendimentos</h2><p>Somente os horários futuros mais próximos.</p></div><span class="upcoming-window" id="upcoming-window">Próximos horários</span></div>
-    <div id="upcoming-list" class="upcoming-list" aria-live="polite"></div>
-    <p id="upcoming-empty" class="upcoming-empty" hidden>Nenhum atendimento futuro encontrado.</p>
-   </section>
+   <div class="operations-grid">
+    <section class="upcoming" id="upcoming-section" aria-labelledby="upcoming-title">
+     <div class="upcoming-head"><div><h2 id="upcoming-title">Próximos horários</h2><p>Os cinco atendimentos mais próximos.</p></div><span class="upcoming-window" id="upcoming-window">Próximos horários</span></div>
+     <div id="upcoming-list" class="upcoming-list" aria-live="polite"></div>
+     <p id="upcoming-empty" class="upcoming-empty" hidden>Nenhum horário futuro agendado.</p>
+     <a class="section-bottom-link" href="#agenda-list">Ver agenda completa <span aria-hidden="true">↗</span></a>
+    </section>
+    <section class="contact-queue" id="contact-queue" aria-labelledby="contact-queue-title">
+     <div class="contact-queue-head">
+      <h2 id="contact-queue-title">Contatos pendentes</h2>
+      <p>Mensagens ainda não registradas como enviadas.</p>
+     </div>
+     <div class="contact-queue-list" id="contact-queue-list" aria-live="polite"></div>
+     <p class="contact-queue-empty" id="contact-queue-empty" hidden>Nenhum contato pendente nos próximos horários.</p>
+     <button id="open-pending-contacts" class="section-bottom-link" type="button">Ver todos os pendentes <span aria-hidden="true">↗</span></button>
+    </section>
+   </div>
+   <div class="day-response-grid">
+    <section class="day-overview" aria-labelledby="today-title">
+     <div class="day-response-head">
+      <div><h2 id="today-title">Atendimentos de hoje</h2><p>Quem vem, quem respondeu e o que foi cancelado.</p></div>
+      <span id="today-date" class="day-badge">Hoje</span>
+     </div>
+     <div class="today-totals" aria-label="Situação dos horários de hoje">
+      <span><strong id="today-all">0</strong> horários</span>
+      <span><strong id="today-confirmed">0</strong> confirmados</span>
+      <span><strong id="today-cancelled">0</strong> cancelados</span>
+     </div>
+     <div class="today-list" id="today-list" aria-live="polite"></div>
+     <p class="today-empty" id="today-empty" hidden>Nenhum agendamento para hoje.</p>
+    </section>
+    <section class="recent-replies" aria-labelledby="recent-replies-title">
+     <div class="day-response-head">
+      <div><h2 id="recent-replies-title">Respostas recebidas</h2><p>Clientes que confirmaram ou cancelaram pelo link.</p></div>
+      <span class="day-badge" id="recent-replies-count">0</span>
+     </div>
+     <div class="recent-replies-list" id="recent-replies-list" aria-live="polite"></div>
+     <p id="recent-replies-empty" class="today-empty" hidden>Ainda não há respostas enviadas pelo formulário.</p>
+     <a class="section-bottom-link" href="#respostas">Ver todas as respostas <span aria-hidden="true">↗</span></a>
+    </section>
+   </div>
    <section class="appointments" id="agenda-list" aria-labelledby="agenda-title">
-    <div class="section-heading"><div><p class="micro-label">ATENDIMENTOS</p><h2 id="agenda-title">Agenda de horários</h2><p id="agenda-description">Localize um cliente e acompanhe a situação de cada reserva.</p></div><div class="refresh-actions"><button type="button" id="refresh-bookings" aria-label="Atualizar agendamentos">↻ Atualizar</button></div></div>
-    <div class="list-toolbar"><div class="filters" role="group" aria-label="Filtrar agendamentos"><button type="button" data-status="all" aria-pressed="true">Todos</button><button type="button" data-status="pending" aria-pressed="false">Aguardando</button><button type="button" data-status="confirmed" aria-pressed="false">Confirmados</button><button type="button" data-status="cancelled" aria-pressed="false">Cancelados</button></div><div class="toolbar-tools"><label class="date-filter" for="admin-period">Período <select id="admin-period"><option value="all">Todas as datas</option><option value="today">Hoje</option><option value="week">Próximos 7 dias</option></select></label><label class="search-box"><span class="sr-only">Buscar agendamento</span><input id="admin-search" type="search" placeholder="Buscar cliente, serviço ou código" autocomplete="off"></label></div></div>
+    <div class="section-heading"><div><h2 id="agenda-title">Todos os agendamentos</h2><p id="agenda-description">Busque um cliente e acompanhe cada horário.</p></div><button type="button" id="refresh-bookings" class="refresh-bookings" aria-label="Atualizar lista de agendamentos">Atualizar lista <span aria-hidden="true">↻</span></button></div>
     <p class="admin-feedback" id="admin-feedback" role="status" aria-live="polite" hidden></p>
-    <div class="contact-filter-bar" aria-label="Situação das mensagens do WhatsApp">
-  <div class="contact-filter-heading"><span class="contact-filter-title">CONTATO COM O CLIENTE</span><span class="contact-filter-description">Acompanhe quais clientes já receberam a mensagem</span></div>
-  <div class="contact-filters" role="group" aria-label="Filtrar por envio de mensagem">
-   <button type="button" data-message-filter="all" aria-pressed="true">Todas <span id="msg-total-count">0</span></button>
-   <button type="button" data-message-filter="unsent" aria-pressed="false">Aguardando contato <span id="msg-unsent-count">0</span></button>
-   <button type="button" data-message-filter="sent" aria-pressed="false">Mensagem enviada <span id="msg-sent-count">0</span></button>
-  </div>
- </div>
- <div class="list-overview"><span id="result-count">0 agendamentos</span><span class="overview-hint">Horários organizados do mais próximo ao mais distante</span></div>
+    <div class="agenda-controls">
+     <label class="search-box" for="admin-search"><span class="sr-only">Buscar cliente, telefone ou serviço</span><input id="admin-search" type="search" placeholder="Buscar nome, telefone ou serviço" autocomplete="off"></label>
+     <div class="contact-filters" role="group" aria-label="Situação das mensagens">
+      <button type="button" data-message-filter="all" aria-pressed="true">Todos <span id="msg-total-count">0</span></button>
+      <button type="button" data-message-filter="unsent" aria-pressed="false">Sem mensagem <span id="msg-unsent-count">0</span></button>
+      <button type="button" data-message-filter="sent" aria-pressed="false">Mensagem enviada <span id="msg-sent-count">0</span></button>
+     </div>
+    </div>
+    <details class="agenda-advanced" id="agenda-advanced">
+     <summary>Mais filtros <span aria-hidden="true">⌄</span></summary>
+     <div class="agenda-advanced-content">
+      <div class="filters" role="group" aria-label="Filtrar situação do agendamento">
+       <button type="button" data-status="all" aria-pressed="true">Todas as situações</button>
+       <button type="button" data-status="pending" aria-pressed="false">Aguardando</button>
+       <button type="button" data-status="confirmed" aria-pressed="false">Confirmado</button>
+       <button type="button" data-status="cancelled" aria-pressed="false">Cancelado</button>
+      </div>
+      <label class="date-filter" for="admin-period">Período <select id="admin-period"><option value="all">Todas as datas</option><option value="today">Hoje</option><option value="week">Próximos 7 dias</option></select></label>
+     </div>
+    </details>
+    <div class="list-overview"><span id="result-count">0 agendamentos</span><span class="overview-hint">Ordenados pela data do horário</span></div>
     <div id="appointments-list" class="appointments-list" aria-live="polite"></div>
     <div id="empty-list" class="empty-list" hidden><span aria-hidden="true">✳</span><h3>Nenhum horário por aqui.</h3><p>Os agendamentos realizados neste navegador aparecerão nesta agenda.</p><a href="agendar.html">Criar agendamento de demonstração ↗</a></div>
    </section>
-   <section class="how-it-works" aria-label="Sobre as mensagens"><div><p class="micro-label">COMUNICAÇÃO</p><h2>Mensagens,<br><em>sem confusão.</em></h2></div><div><p>Abra o WhatsApp do cliente com o texto de confirmação já preenchido. Depois de enviar na conversa, marque o contato como enviado no painel para manter a agenda organizada.</p><p class="demo-note" id="whatsapp-mode-details">O WhatsApp exige que a equipe confirme o envio na própria conversa.</p></div></section>
+   <details class="workflow-guide">
+    <summary>Como funciona a confirmação pelo WhatsApp? <span aria-hidden="true">⌄</span></summary>
+    <ol>
+     <li>Toque em <strong>Mensagem</strong> para abrir o aplicativo com o texto e o link de resposta.</li>
+     <li>Confira o número, envie no WhatsApp e registre em <strong>Já enviei no WhatsApp</strong>.</li>
+     <li>O cliente abre o link, escolhe <strong>Confirmar</strong> ou <strong>Cancelar</strong> e confirma a decisão. A resposta aparece neste painel.</li>
+    </ol>
+    <p id="whatsapp-mode-details">O envio é manual. As respostas pelo link só sincronizam entre dispositivos com a agenda compartilhada configurada.</p>
+    <a href="https://www.whatsapp.com/download/desktop" target="_blank" rel="noopener noreferrer">Instalar WhatsApp no Windows ↗</a>
+   </details>
+   </section>
+   <section id="responses-view" class="dash-view responses-view" aria-labelledby="responses-title" hidden>
+    <header class="responses-heading">
+     <div><h1 id="responses-title">Respostas dos clientes</h1><p>Aqui ficam somente as escolhas feitas no link de confirmação do site. O envio manual do WhatsApp é acompanhado separadamente na agenda.</p></div>
+     <div class="confirmed-count"><strong id="responses-count">0</strong><span>respostas pelo link</span></div>
+    </header>
+    <div class="responses-toolbar">
+     <label for="responses-search">Encontrar cliente <input id="responses-search" type="search" autocomplete="off" placeholder="Nome, telefone ou serviço"></label>
+     <label for="responses-period">Período <select id="responses-period"><option value="all">Todas as respostas</option><option value="today">Respondidas hoje</option></select></label>
+    </div>
+    <div class="responses-list" id="responses-list" aria-live="polite"></div>
+    <div class="responses-empty" id="responses-empty" hidden>
+     <h2>Nenhuma resposta encontrada.</h2>
+     <p id="responses-empty-text">Quando um cliente confirmar ou cancelar pelo link, aparecerá aqui.</p>
+     <button id="responses-clear" type="button">Limpar filtros</button>
+    </div>
    </section>
    <section id="confirmed-view" class="dash-view confirmed-view" aria-labelledby="confirmed-title" hidden>
     <div class="confirmed-heading">
-     <div><p class="micro-label">PRESENÇAS REGISTRADAS</p><h1 id="confirmed-title">Quem já <em>confirmou.</em></h1><p>Veja os clientes que confirmaram a presença e têm horário marcado.</p></div>
-     <div class="confirmed-count"><strong id="confirmed-count">0</strong><span>clientes confirmados<br>para próximos dias</span></div>
+     <div><h1 id="confirmed-title">Presenças confirmadas</h1><p>Consulte os clientes que vão comparecer, com telefone e horário.</p></div>
+     <div class="confirmed-count"><strong id="confirmed-count">0</strong><span>confirmados para os<br>próximos dias</span></div>
     </div>
     <div class="confirmed-toolbar">
      <label class="confirmed-search"><span>Encontrar cliente</span><input id="confirmed-search" type="search" autocomplete="off" placeholder="Nome, telefone, serviço ou código"></label>
@@ -104,20 +181,14 @@
  </main>
 </section>
 <dialog id="message-dialog" class="message-dialog" aria-labelledby="message-title">
- <div class="message-dialog-head"><div><p class="micro-label">CONTATO DO CLIENTE</p><h2 id="message-title">Mensagem de confirmação</h2></div><button id="message-close" class="dialog-x" type="button" aria-label="Fechar mensagem">×</button></div>
+ <div class="message-dialog-head"><div><h2 id="message-title">Confirmar envio</h2><p class="message-step-note">Depois de enviar a mensagem no aplicativo, registre o contato aqui.</p></div><button id="message-close" class="dialog-x" type="button" aria-label="Fechar mensagem">×</button></div>
  <p id="message-recipient" class="message-recipient"></p>
- <div class="message-preview-head"><span>PRÉVIA DA MENSAGEM</span><span>WHATSAPP</span></div>
+ <div class="message-preview-head"><span>TEXTO DA MENSAGEM</span><span>WHATSAPP</span></div>
  <div class="message-preview"><p id="message-preview"></p></div>
- <p class="message-info" id="message-info">A mensagem fica pronta na conversa do cliente; confirme o envio por lá.</p>
- <div class="helper-connection" aria-label="Conexão com a extensão">
-  <span id="whatsapp-helper-status" data-connected="false" role="status" aria-live="polite">Verificando extensão…</span>
-  <button id="whatsapp-helper-check" type="button">Verificar extensão</button>
- </div>
- <p class="message-reuse-hint" id="message-reuse-hint">O auxiliar permite reutilizar a aba do WhatsApp já aberta.</p>
- <a class="helper-install-link" href="https://github.com/DevMurilo0/srnavalha/tree/reconstruction/arte-do-ritual/tools/whatsapp-tab-helper" target="_blank" rel="noopener noreferrer">Instruções para Firefox, Floorp e Chrome ↗</a>
- <div class="message-destinations" aria-label="Escolher onde abrir a conversa">
-  <a id="message-app-link" class="message-app-link" href="whatsapp://app">Abrir no aplicativo WhatsApp ↗</a>
-  <a id="message-open-link" class="message-open-link" href="https://web.whatsapp.com/" target="srnavalha_whatsapp" rel="noopener noreferrer">WhatsApp Web (alternativa) ↗</a>
+ <p class="message-info" id="message-info">Confira o destinatário e envie no WhatsApp. Depois registre o envio no painel.</p>
+ <a class="message-demo-link" id="message-demo-link" href="confirmar.html" hidden>Testar página de resposta neste navegador ↗</a>
+ <div class="message-destinations" aria-label="Abrir a mensagem no aplicativo">
+  <a id="message-app-link" class="message-app-link" href="whatsapp://send">Abrir conversa no aplicativo WhatsApp ↗</a>
  </div>
  <div class="message-dialog-actions"><button id="message-copy" type="button">Copiar texto</button><button id="message-dismiss" type="button">Ainda não enviei</button><button id="message-confirm-sent" type="button">Já enviei no WhatsApp</button></div>
 </dialog>
@@ -129,8 +200,8 @@
 </dialog>
 <dialog id="reply-dialog" class="reply-dialog" aria-labelledby="reply-title">
  <button class="dialog-x" type="button" id="close-reply" aria-label="Fechar janela">×</button><p class="micro-label">SIMULAR RESPOSTA</p><h2 id="reply-title">Confirmação do cliente</h2>
- <p>Teste a experiência dos links de resposta neste mesmo navegador. O status será atualizado na agenda local.</p>
- <div class="reply-links"><a id="reply-yes" href="#">Abrir “Vou comparecer” ↗</a><a id="reply-no" href="#">Abrir “Não poderei ir” ↗</a></div>
+ <p>Visualize como o cliente confirma ou cancela pelo site. No modo de demonstração, a resposta só será registrada neste navegador.</p>
+ <div class="reply-links"><a id="reply-choice" href="#">Abrir página de confirmação ↗</a></div>
 </dialog>
 </body>
 </html>
