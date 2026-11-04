@@ -77,12 +77,12 @@ function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
  badge.textContent='WhatsApp · aplicativo';
  badge.dataset.mode='manual';
- $('#whatsapp-mode-details').textContent='No celular, Mensagem abre a conversa no aplicativo WhatsApp com o texto preparado. Confira o número e toque em Enviar. Depois, registre o contato na agenda.';
+ $('#whatsapp-mode-details').textContent='Abra a mensagem no aplicativo, confira o destinatário e envie. Depois, registre o contato na agenda; isso não confirma a presença.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
  $('#overview-view').hidden=confirmed;$('#confirmed-view').hidden=!confirmed;
- $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'AGENDA';
+ $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'VISÃO GERAL';
  document.querySelectorAll('[data-admin-nav]').forEach(link=>{
   const active=confirmed?link.dataset.adminNav==='confirmed':(link.closest('.mobile-admin-nav')?link.dataset.adminNav==='overview':link.getAttribute('href')===(location.hash==='#agenda-list'?'#agenda-list':'#main'));
   link.classList.toggle('active',active);
@@ -292,6 +292,18 @@ function createUpcomingRow(booking){
  row.append(day,customer,state);
  return row;
 }
+function createContactQueueRow(booking){
+ const row=el('article','contact-queue-item');
+ const details=el('div','contact-queue-item-details');
+ details.append(
+  el('strong','',booking.customer_name||'Cliente'),
+  el('span','',fmtDay(booking.starts_at)+' · '+fmtHour(booking.starts_at)+' · '+(booking.service_name||'Serviço'))
+ );
+ const action=messageAction(booking,'pending');
+ action.textContent='Mensagem';
+ row.append(details,action);
+ return row;
+}
 function createConfirmedRow(booking){
  const row=el('article','confirmed-item');
  row.dataset.id=booking.id;
@@ -331,9 +343,10 @@ async function renderDashboard(){
  $('#stat-confirmed').textContent=String(counts.confirmed);
  $('#stat-cancelled').textContent=String(counts.cancelled);
  const sentCount=entries.filter(b=>Boolean(b.whatsapp_manual_sent_at)).length;
+ const waitingCount=entries.filter(b=>!b.whatsapp_manual_sent_at&&normalizedStatus(b)!=='cancelled').length;
  $('#msg-total-count').textContent=String(entries.length);
  $('#msg-sent-count').textContent=String(sentCount);
- $('#msg-unsent-count').textContent=String(entries.length-sentCount);
+ $('#msg-unsent-count').textContent=String(waitingCount);
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
  const now=Date.now(),today=dateKey(new Date()),week=weekEnd(today);
  $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'}).format(new Date());
@@ -343,14 +356,21 @@ async function renderDashboard(){
   .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at)).slice(0,5);
  $('#upcoming-list').replaceChildren(...upcoming.map(createUpcomingRow));
  $('#upcoming-empty').hidden=upcoming.length>0;
- $('#upcoming-window').textContent=upcoming.length+' '+(upcoming.length===1?'próximo horário':'próximos horários');
+ $('#upcoming-window').textContent=upcoming.length+' '+(upcoming.length===1?'horário':'horários');
+ const contactQueue=entries.filter(b=>
+  normalizedStatus(b)==='pending'&&!b.whatsapp_manual_sent_at&&Date.parse(b.starts_at)>=now
+ ).sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at));
+ $('#stat-contact-waiting').textContent=String(contactQueue.length);
+ $('#contact-queue-list').replaceChildren(...contactQueue.slice(0,3).map(createContactQueueRow));
+ $('#contact-queue-empty').hidden=contactQueue.length>0;
+ $('#open-pending-contacts').disabled=contactQueue.length===0;
 
  const query=currentSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const matching=entries.filter(b=>{
   if(currentFilter!=='all'&&normalizedStatus(b)!==currentFilter)return false;
   const hasSent=Boolean(b.whatsapp_manual_sent_at);
   if(messageFilter==='sent'&&!hasSent)return false;
-  if(messageFilter==='unsent'&&hasSent)return false;
+  if(messageFilter==='unsent'&&(hasSent||normalizedStatus(b)==='cancelled'))return false;
   const day=dateKey(b.starts_at);
   if(currentPeriod==='today'&&day!==today)return false;
   if(currentPeriod==='week'&&(day<today||day>week))return false;
@@ -389,6 +409,16 @@ async function renderDashboard(){
   $('#confirmed-empty-detail').textContent=confirmed.length?'Nenhum confirmado corresponde a essa busca ou período.':'Ainda não há clientes confirmados. Quando uma presença for confirmada, ela aparecerá aqui.';
  }
 }
+$('#open-pending-contacts').addEventListener('click',()=>{
+ messageFilter='unsent';
+ currentFilter='all';currentPeriod='all';currentSearch='';
+ $('#admin-search').value='';$('#admin-period').value='all';
+ document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status==='all')));
+ document.querySelectorAll('[data-message-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.messageFilter==='unsent')));
+ void renderDashboard();
+ location.hash='#agenda-list';
+ $('#agenda-list').scrollIntoView({behavior:'smooth',block:'start'});
+});
 document.querySelectorAll('.filters button').forEach(button=>button.addEventListener('click',()=>{
  currentFilter=button.dataset.status;
  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
