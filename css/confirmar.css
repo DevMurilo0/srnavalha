@@ -63,3 +63,7 @@ button:disabled{cursor:wait;opacity:.65}
  .confirm-footer{padding:18px;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.confirmation-actions button{transition:none}}
+
+
+/* Keep the letterforms, not the source raster's opaque dark rectangle. */
+.confirm-logo img{filter:grayscale(1) contrast(2.4);mix-blend-mode:screen}
