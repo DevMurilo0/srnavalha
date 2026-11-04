@@ -1,9 +1,11 @@
 import {createRequire} from 'node:module';
+import {mkdirSync} from 'node:fs';
 const require=createRequire(process.env.PLAYWRIGHT_PACKAGE||new URL('../package.json',import.meta.url));
 const {chromium}=require('playwright-core');
 const base=process.env.SITE_URL||'http://127.0.0.1:8047';
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||chromium.executablePath()});
 const results=[];
+mkdirSync('docs/admin-qa',{recursive:true});
 const check=(label,pass)=>{results.push({label,pass:!!pass});console.log((pass?'PASS ':'FAIL ')+label)};
 const context=await browser.newContext({viewport:{width:1366,height:820}});
 const page=await context.newPage();
@@ -32,6 +34,7 @@ try{
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
  check('Mensagem é a ação principal',await page.locator('.appointment a.message').textContent()==='Mensagem');
  check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
+ await page.screenshot({path:'docs/admin-qa/dashboard-desktop.png',fullPage:true});
  check('Painel apresenta contatos pendentes com mensagem pronta',
   await page.locator('#stat-contact-waiting').textContent()==='1'&&
   await page.locator('#contact-queue-list .contact-queue-item').count()===1&&
@@ -101,6 +104,8 @@ try{
  await page.locator('#confirmed-search').fill('81999999999');
  check('Busca por telefone encontra o cliente confirmado',await page.locator('.confirmed-item').count()===1);
  await page.setViewportSize({width:390,height:844});
+ await page.locator('#confirmed-view').waitFor({state:'visible'});
+ await page.screenshot({path:'docs/admin-qa/confirmados-mobile.png',fullPage:true});
  check('Navegação para confirmados acessível no celular',await page.locator('.mobile-admin-nav a[href="#confirmados"]').isVisible());
  check('Layout mobile preserva a consulta por telefone',await page.locator('#confirmed-search').isVisible());
  await page.locator('.mobile-admin-nav a[href="#main"]').click();
@@ -127,6 +132,7 @@ try{
  await page.locator('#reply-choice').click();
  await page.locator('#confirm-action').waitFor({state:'visible'});
  await page.locator('#cancel-action').waitFor({state:'visible'});
+ await page.screenshot({path:'docs/admin-qa/confirmacao-cliente.png',fullPage:true});
  check('Cliente pode escolher confirmar ou cancelar',
   await page.locator('#confirm-action').isVisible()&&
   await page.locator('#cancel-action').isVisible());
@@ -142,6 +148,7 @@ try{
  check('Status cancelado reflete no painel',await page.locator('#stat-cancelled').textContent()==='1');
  await page.locator('.dash-sidebar a[href="#respostas"]').click();
  await page.locator('#responses-view').waitFor({state:'visible'});
+ await page.screenshot({path:'docs/admin-qa/respostas-desktop.png',fullPage:true});
  check('Resposta pelo site aparece em consulta própria',
   await page.locator('#responses-view').isVisible()&&
   await page.locator('#responses-list .site-response-item').count()===1);
