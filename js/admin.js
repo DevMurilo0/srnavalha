@@ -84,7 +84,11 @@ function showView(){
  $('#overview-view').hidden=confirmed;$('#confirmed-view').hidden=!confirmed;
  $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'VISÃO GERAL';
  document.querySelectorAll('[data-admin-nav]').forEach(link=>{
-  const active=confirmed?link.dataset.adminNav==='confirmed':(link.closest('.mobile-admin-nav')?link.dataset.adminNav==='overview':link.getAttribute('href')===(location.hash==='#agenda-list'?'#agenda-list':'#main'));
+  const active=confirmed
+   ?link.dataset.adminNav==='confirmed'
+   :location.hash==='#agenda-list'
+    ?link.dataset.adminNav==='agenda'
+    :link.dataset.adminNav==='overview';
   link.classList.toggle('active',active);
   if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
  });
