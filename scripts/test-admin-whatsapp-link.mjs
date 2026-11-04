@@ -28,7 +28,9 @@ function el(tag,cls,label=''){
 const context={
  $,el,
  fmtFull:()=> 'sexta-feira, 06 de novembro',
+ fmtDay:()=> '06 nov',
  fmtHour:()=> '11:00',
+ confirmationUrls:()=>({reply:'http://127.0.0.1:8047/confirmar.html?ref=booking-1&acao=escolher'}),
  previewBooking:null
 };
 runInNewContext(admin.slice(start,end)+'\nthis.api={whatsappAppLink,composeMessage,messageAction};',context);
@@ -59,13 +61,22 @@ assert.match(new URL(action.href).searchParams.get('text'),/Eduardo/);
 assert.match(new URL(action.href).searchParams.get('text'),/Corte/);
 assert.match(action.attributes['aria-label'],/Cliente de teste/);
 console.log('PASS Each pending booking has a trusted direct WhatsApp app link');
+const signed={...booking,links:{reply:'https://srnavalha.vercel.app/confirmar.html?ref=booking-1&acao=escolher&sig=example'}};
+const signedAction=context.api.messageAction(signed,'pending');
+const signedText=new URL(signedAction.href).searchParams.get('text');
+assert.match(signedText,/https:\/\/srnavalha\.vercel\.app\/confirmar\.html/);
+assert.match(signedText,/Ficou com alguma dúvida\?/);
+assert.ok(!signedText.includes('localhost'));
+console.log('PASS Short message contains one public confirmation link and a friendly question invitation');
 
 action.click();
 assert.equal($('#message-dialog').opened,true);
 assert.equal($('#message-app-link').href,action.href);
 assert.equal($('#message-preview').textContent,context.api.composeMessage(booking));
 assert.equal(context.previewBooking?.id,booking.id);
-assert.match($('#message-info').textContent,/Env[ií]ar/);
+assert.match($('#message-info').textContent,/demonstração/i);
+assert.equal($('#message-demo-link').hidden,false);
+assert.match($('#message-demo-link').href,/acao=escolher/);
 console.log('PASS Preview opens for manual sent tracking without changing the destination');
 
 const alreadySent=context.api.messageAction({...booking,whatsapp_manual_sent_at:'2026-11-03T12:00:00Z'},'pending');
