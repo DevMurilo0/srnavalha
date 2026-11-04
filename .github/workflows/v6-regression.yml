@@ -117,3 +117,4 @@ jobs:
           path: |
             docs/the-cut/qa/**
             docs/motion-states/**
+            docs/admin-qa/**
