@@ -69,6 +69,24 @@ Um status de sucesso do Vercel para uma *Preview* não significa publicação em
 
 O CI executa Playwright na branch de desenvolvimento e na `main`, incluindo as verificações de estados antes da primeira pintura, a transferência da navalha, acessibilidade e movimento reduzido. Os scripts de diagnóstico não dependem mais de caminhos particulares de outro computador. Para executar localmente, instale `playwright-core` e `@axe-core/playwright` em um ambiente de testes e disponibilize um Chromium. Use `PLAYWRIGHT_PACKAGE` para apontar para o `package.json` desse ambiente e, se necessário, `CHROME_PATH` para o executável do navegador. Os testes temporais usam `SITE_URL` (padrão `http://127.0.0.1:8047`). As capturas são produzidas em `docs/motion-states/` e o GitHub Actions também entrega artefatos de screenshots.
 
+
+### Painel da equipe — organização de operações
+
+A versão atual de `admin.html` prioriza:
+- **Próximos horários** e **Contatos pendentes** na primeira tela.
+- Quatro indicadores compactos (contato a enviar, aguardando resposta,
+  confirmados e total), com contagem independente de presença e mensagem.
+- **Agenda completa** com busca por cliente/telefone, filtro de mensagem
+  imediatamente acessível e filtros de situação/período recolhidos.
+- **Presenças confirmadas** em uma tela de consulta separada.
+- Fluxo manual de WhatsApp pelo aplicativo instalado, sem API não oficial.
+
+Para conferir a integração com o WhatsApp Desktop oficial no Windows e
+fazer um teste preliminar no Linux com ZapZap, siga o
+[guia Windows + Linux](docs/TESTE_WHATSAPP_DESKTOP.md).
+O protocolo `whatsapp://` depende de uma associação válida de aplicativo:
+ter o aplicativo instalado não garante, sozinho, que o link será aceito.
+
 ## Mensagens de confirmação no aplicativo WhatsApp (celular)
 
 O fluxo de contato da área administrativa foi simplificado para **celulares**,
