@@ -41,56 +41,120 @@ function observe(nodes,play){
 }
 async function opening(){
  const root=document.documentElement,intro=one('#cut-intro'),target=one('.razor-stage .razor');
- if(!intro||!target||!root.classList.contains('opening-active')||!canAnimate()){intro?.remove();root.classList.remove('opening-active');return}
+ if(!intro||!target||!root.classList.contains('opening-active')||!canAnimate()){
+  intro?.remove();root.classList.remove('opening-active');return;
+ }
  let ended=false,resolveEnd;
  const endedPromise=new Promise(resolve=>resolveEnd=resolve);
  const parent=target.parentNode,next=target.nextSibling;
- const effects=[];
- let placeholder;
+ const effects=[],timers=[];
+ let placeholder=null;
  const finish=()=>{
   if(ended)return;ended=true;
-  // Restore the same image, not a second rendering of the asset.
-  parent.insertBefore(target,next);placeholder?.remove();
+  // Restore THE SAME element to its actual hero slot. No duplicate image or
+  // replacement frame means the last flight pose and first hero pose agree.
+  parent.insertBefore(target,next);
+  placeholder?.remove();
   target.classList.remove('razor-flight');target.removeAttribute('style');
   root.classList.remove('opening-active');intro.remove();
-  effects.forEach(a=>a.cancel());
+  effects.forEach(effect=>effect.cancel());
+  timers.forEach(clearTimeout);
   removeEventListener('resize',finish);removeEventListener('scroll',finish);
   document.removeEventListener('visibilitychange',visibility);
   document.removeEventListener('motionrelease',finish);
-  clearTimeout(watchdog);resolveEnd();
+  clearTimeout(watchdog);
+  resolveEnd();
  };
  const visibility=()=>{if(document.hidden)finish()};
- const watchdog=setTimeout(finish,6700);
- addEventListener('resize',finish,{once:true});addEventListener('scroll',finish,{once:true,passive:true});
- document.addEventListener('visibilitychange',visibility);document.addEventListener('motionrelease',finish);
- const run=(node,frames,options)=>{const a=node.animate(frames,{fill:'both',easing:eased,...options});effects.push(a);return a};
- run(one('.cut-intro__identity',intro),[{opacity:0,translate:'0 8px'},{opacity:1,translate:'0 0'}],{duration:730,easing:'cubic-bezier(.22,1,.36,1)'});
- await bounded(Promise.all([document.fonts.ready,target.decode(),one('.hero-background img').decode()]),1200);
- if(ended)return endedPromise;
- // Allow the identity to settle before the cinematic hand-off begins.
- await new Promise(resolve=>setTimeout(resolve,520));
+ const watchdog=setTimeout(finish,5700);
+ addEventListener('resize',finish,{once:true});
+ addEventListener('scroll',finish,{once:true,passive:true});
+ document.addEventListener('visibilitychange',visibility);
+ document.addEventListener('motionrelease',finish);
+ const later=(fn,ms)=>timers.push(setTimeout(()=>{if(!ended)fn()},ms));
+ const run=(node,frames,options)=>{
+  if(!node)return null;
+  const effect=node.animate(frames,{fill:'both',easing:eased,...options});
+  effects.push(effect);return effect;
+ };
+ const identity=one('.cut-intro__identity',intro);
+ const status=one('.cut-intro__status',intro);
+ const edition=one('.cut-intro__edition',intro);
+ run(identity,[{opacity:0,translate:'0 13px'},{opacity:1,translate:'0 0'}],
+  {duration:460,easing:'cubic-bezier(.22,1,.36,1)'});
+ run(status,[{opacity:0},{opacity:1}],{duration:340,delay:170});
+ run(edition,[{opacity:0},{opacity:.9}],{duration:340,delay:210});
+ const progress=one('.cut-intro__progress-fill',intro);
+ run(progress,[{width:'0%'},{width:'66%'}],{duration:640,easing:'cubic-bezier(.25,.1,.25,1)'});
+ await bounded(Promise.all([document.fonts.ready,target.decode(),one('.hero-background img')?.decode?.()]),1100);
  if(ended)return endedPromise;
  if(!target.naturalWidth){finish();return endedPromise}
+ // The progress bar never claims an invented percentage. Its final phase
+ // starts only after the assets are ready (or their bounded deadline).
+ run(progress,[{width:'66%'},{width:'100%'}],{duration:330,easing:'cubic-bezier(.22,1,.36,1)'});
+ await new Promise(resolve=>setTimeout(resolve,160));
+ if(ended)return endedPromise;
  const rect=target.getBoundingClientRect();
- // Freeze the landing geometry while its real image is in the viewport layer.
- placeholder=document.createElement('span');placeholder.style.cssText=`display:block;width:100%;aspect-ratio:${rect.width}/${rect.height}`;
+ if(rect.width<=0||rect.height<=0){finish();return endedPromise}
+ placeholder=document.createElement('span');
+ placeholder.style.cssText=`display:block;width:100%;aspect-ratio:${rect.width}/${rect.height}`;
  parent.insertBefore(placeholder,target);
  const filter=getComputedStyle(target).filter;
  document.body.append(target);target.classList.add('razor-flight');
  target.style.cssText=`left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;filter:${filter}`;
- const scale=Math.min(innerWidth*.78,640)/rect.width;
- const dx=innerWidth*.5-(rect.left+rect.width/2),dy=innerHeight*.57-(rect.top+rect.height/2);
- // The single, original image performs two full rotations while travelling to its exact hero box.
- // Position, angle and scale share one easing curve, so the final landing has no jump or bounce.
- const start=`translate(${dx}px,${dy}px) rotate(-720deg) scale(${scale})`;
- const travel=run(target,[{transform:start},{transform:'translate(0,0) rotate(0deg) scale(1)'}],
-  {duration:3000,easing:'cubic-bezier(.43,.03,.13,1)'});
- run(target,[{opacity:0},{opacity:1}],{duration:840,delay:120,easing:'cubic-bezier(.22,1,.36,1)'});
- run(one('.cut-intro__upper',intro),[{transform:'translateY(0)'},{transform:'translateY(-110%)'}],{duration:1860,delay:900,easing:'cubic-bezier(.65,.04,.17,1)'});
- run(one('.cut-intro__lower',intro),[{transform:'translateY(0)'},{transform:'translateY(110%)'}],{duration:1860,delay:900,easing:'cubic-bezier(.65,.04,.17,1)'});
- for(const n of all('.cut-intro__identity,.cut-intro__edition,.cut-intro__seam',intro))
-  run(n,[{opacity:1},{opacity:0}],{duration:620,delay:840,easing:'ease-in-out',fill:'forwards'});
- await travel.finished.catch(()=>{});finish();return endedPromise;
+ const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+ const w=innerWidth,h=innerHeight;
+ const mobile=w<701;
+ const maxSize=mobile?Math.min(w*.76,340):Math.min(w*.51,660);
+ const scale=Math.max(.8,maxSize/rect.width);
+ // Constant transform-function ordering prevents the familiar last-frame jump.
+ // Perspective + Y/X tilt sells depth using the actual barbershop razor artwork;
+ // animation stays on the compositor with no WebGL dependency.
+ const pose=(x,y,angle,yaw,tilt,size)=>
+  `translate3d(${(x-cx).toFixed(2)}px,${(y-cy).toFixed(2)}px,0px) perspective(960px) rotateZ(${angle}deg) rotateY(${yaw}deg) rotateX(${tilt}deg) scale(${size.toFixed(4)})`;
+ const frames=[
+  {offset:0,transform:pose(-.13*w,.66*h,-64,-58,-12,scale*.84),opacity:0},
+  {offset:.12,transform:pose(.12*w,.63*h,-29,-32,-11,scale),opacity:1},
+  {offset:.37,transform:pose(.41*w,.57*h,-13,-9,-4,scale*1.08),opacity:1},
+  {offset:.58,transform:pose(.74*w,.52*h,-8,18,0,scale*1.03),opacity:1},
+  {offset:.71,transform:pose(1.05*w,.48*h,5,43,7,scale*.91),opacity:1},
+  {offset:.85,transform:pose(Math.min(.90*w,cx+w*.15),Math.min(.64*h,cy+h*.02),18,-27,-5,scale*.94),opacity:1},
+  {offset:1,transform:pose(cx,cy,0,0,0,1),opacity:1}
+ ];
+ const flight=run(target,frames,{duration:2520,easing:'cubic-bezier(.37,.06,.16,1)'});
+ // The blade scores the panel. Its light passes once, then the two cut
+ // surfaces pull apart as the SAME razor curves down into the hero.
+ const seam=one('.cut-intro__seam',intro);
+ run(one('.cut-intro__glint',intro),[
+  {opacity:0,transform:'translate3d(-25%,0,0)'},
+  {offset:.18,opacity:1},
+  {offset:.78,opacity:1},
+  {opacity:0,transform:'translate3d(570%,0,0)'}
+ ],{duration:880,delay:320,easing:'cubic-bezier(.25,.04,.49,.97)'});
+ run(one('.cut-intro__spark',intro),[
+  {opacity:0,transform:'translate3d(-60px,-45px,0) scale(.35)'},
+  {offset:.23,opacity:.86,transform:'translate3d(18vw,-49px,0) scale(.87)'},
+  {offset:.70,opacity:.66},
+  {opacity:0,transform:'translate3d(97vw,-55px,0) scale(.3)'}
+ ],{duration:930,delay:370,easing:'cubic-bezier(.31,.08,.31,1)'});
+ const peel={duration:1270,delay:940,easing:'cubic-bezier(.66,.04,.18,1)'};
+ run(one('.cut-intro__upper',intro),[
+  {transform:'translate3d(0,0,0)'},
+  {offset:.4,transform:'translate3d(0,-38%,0)'},
+  {transform:'translate3d(0,-110%,0)'}
+ ],peel);
+ run(one('.cut-intro__lower',intro),[
+  {transform:'translate3d(0,0,0)'},
+  {offset:.4,transform:'translate3d(0,38%,0)'},
+  {transform:'translate3d(0,110%,0)'}
+ ],peel);
+ run(seam,[{opacity:1},{opacity:0}],{duration:370,delay:1050,easing:eased});
+ [identity,status,edition].forEach((node,i)=>run(node,[{opacity:1},{opacity:0}],
+  {duration:400,delay:780+i*60,easing:'cubic-bezier(.48,0,.6,1)'}));
+ // Reveal the hero wordmark while the cut opens, not after the page is clear.
+ later(()=>document.dispatchEvent(new Event('cutintroreveal')),1180);
+ await flight.finished.catch(()=>{});
+ finish();return endedPromise;
 }
 
 function headings(ready){
@@ -204,7 +268,19 @@ function tactileScroll(){
  });
 }
 function heroEntrance(ready){
- ready.then(()=>all('.hero-brand,.hero-eyebrow,.hero-description,.hero-actions').forEach((node,i)=>animate(node,[{opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:600,delay:i*80})));
+ const nodes=all('.hero-brand,.hero-eyebrow,.hero-description,.hero-actions');
+ let started=false;
+ const reveal=()=>{
+  if(started)return;started=true;
+  document.removeEventListener('cutintroreveal',reveal);
+  nodes.forEach((node,i)=>animate(node,[
+   {opacity:0,transform:'translate3d(0,16px,0)'},
+   {opacity:1,transform:'translate3d(0,0,0)'}
+  ],{duration:650,delay:i*100,easing:'cubic-bezier(.22,1,.36,1)'}));
+ };
+ document.addEventListener('cutintroreveal',reveal,{once:true});
+ // The reveal event may not fire after early cancellation or unsupported media.
+ ready.then(reveal);
 }
 export const settleEditorialMotion=done;
 export function initEditorialMotion(){
