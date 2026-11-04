@@ -50,7 +50,7 @@ try{
  check('WhatsApp app receives exact phone and prepared message',
   new URL(link).protocol==='whatsapp:'&&
   new URL(link).searchParams.get('phone')==='5581999999999'&&
-  new URL(link).searchParams.get('text').includes('Cliente de teste'));
+  new URL(link).searchParams.get('text').includes('Olá, Cliente'));
  await page.locator('.appointment a.message').click();
  check('Preview remains available when returning from WhatsApp',
   await page.locator('#message-dialog').isVisible()&&
@@ -64,7 +64,7 @@ try{
  await page.locator('.appointment a.message').click();
  await page.locator('#message-confirm-sent').click();
  check('Staff marks message sent without confirming attendance',
-  await page.locator('.appointment .message-indicator').textContent()==='Envio registrado pela equipe'&&
+  await page.locator('.appointment .message-indicator').textContent()==='Registrado pela equipe'&&
   await page.locator('#stat-pending').textContent()==='1');
  check('Contact status counters reflect manual confirmation',
   await page.locator('#msg-unsent-count').textContent()==='0'&&
@@ -104,6 +104,7 @@ try{
  check('Navegação para confirmados acessível no celular',await page.locator('.mobile-admin-nav a[href="#confirmados"]').isVisible());
  check('Layout mobile preserva a consulta por telefone',await page.locator('#confirmed-search').isVisible());
  await page.locator('.mobile-admin-nav a[href="#main"]').click();
+ await page.locator('#overview-view').waitFor({state:'visible'});
  check('Volta à agenda no celular',await page.locator('#overview-view').isVisible());
  await page.setViewportSize({width:1366,height:820});
  const replyBooking=await page.evaluate(async()=>{
@@ -124,6 +125,8 @@ try{
   new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('ref')===replyBooking.id&&
   new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('acao')==='escolher');
  await page.locator('#reply-choice').click();
+ await page.locator('#confirm-action').waitFor({state:'visible'});
+ await page.locator('#cancel-action').waitFor({state:'visible'});
  check('Cliente pode escolher confirmar ou cancelar',
   await page.locator('#confirm-action').isVisible()&&
   await page.locator('#cancel-action').isVisible());
@@ -138,6 +141,7 @@ try{
  await page.goto(base+'/admin.html',{waitUntil:'domcontentloaded'});
  check('Status cancelado reflete no painel',await page.locator('#stat-cancelled').textContent()==='1');
  await page.locator('.dash-sidebar a[href="#respostas"]').click();
+ await page.locator('#responses-view').waitFor({state:'visible'});
  check('Resposta pelo site aparece em consulta própria',
   await page.locator('#responses-view').isVisible()&&
   await page.locator('#responses-list .site-response-item').count()===1);
