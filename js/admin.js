@@ -8,7 +8,7 @@ try{const r=await fetch('/api/health',{cache:'no-store'});if(r.ok)sharedMode=(aw
 if(sharedMode)document.querySelector('.demo-credentials').hidden=true;
 const DEMO_EMAIL = 'equipe@srnavalha.demo';
 const DEMO_PASSWORD = 'Navalha2026!';
-let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', renderCounter=0;
+let currentFilter='all', currentSearch='', currentPeriod='all', messageFilter='all', previewBooking=null, confirmedSearch='', confirmedPeriod='upcoming', responseSearch='',responsePeriod='all',renderCounter=0;
 const dateKey = value => {
  const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,day:'2-digit',month:'2-digit',year:'numeric'}).formatToParts(new Date(value));
  const p=key=>parts.find(part=>part.type===key)?.value||'';
@@ -77,23 +77,29 @@ function updateWhatsAppMode(){
  const badge=$('#delivery-mode');
  badge.textContent='WhatsApp · aplicativo';
  badge.dataset.mode='manual';
- $('#whatsapp-mode-details').textContent='Abra a mensagem no aplicativo, confira o destinatário e envie. Depois, registre o contato na agenda; isso não confirma a presença.';
+ $('#whatsapp-mode-details').textContent='O WhatsApp é enviado manualmente. O link de confirmação permite ao cliente escolher e registrar sua resposta na agenda compartilhada.';
 }
 function showView(){
  const confirmed=location.hash==='#confirmados';
- $('#overview-view').hidden=confirmed;$('#confirmed-view').hidden=!confirmed;
- $('#current-view-label').textContent=confirmed?'CONFIRMADOS':'VISÃO GERAL';
+ const responses=location.hash==='#respostas';
+ $('#overview-view').hidden=confirmed||responses;
+ $('#confirmed-view').hidden=!confirmed;
+ $('#responses-view').hidden=!responses;
+ $('#current-view-label').textContent=confirmed?'CONFIRMADOS':responses?'RESPOSTAS':'VISÃO GERAL';
  document.querySelectorAll('[data-admin-nav]').forEach(link=>{
   const active=confirmed
    ?link.dataset.adminNav==='confirmed'
-   :location.hash==='#agenda-list'
-    ?link.dataset.adminNav==='agenda'
-    :link.dataset.adminNav==='overview';
+   :responses
+    ?link.dataset.adminNav==='responses'
+    :location.hash==='#agenda-list'
+     ?link.dataset.adminNav==='agenda'
+     :link.dataset.adminNav==='overview';
   link.classList.toggle('active',active);
   if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
  });
- document.title=(confirmed?'Confirmados':'Agenda da equipe')+' · Sr. Navalha';
- if(location.hash==='#agenda-list')requestAnimationFrame(()=>$('#agenda-list').scrollIntoView({block:'start'}));
+ document.title=(confirmed?'Confirmados':responses?'Respostas dos clientes':'Agenda da equipe')+' · Sr. Navalha';
+ if(location.hash==='#agenda-list')
+  requestAnimationFrame(()=>$('#agenda-list').scrollIntoView({block:'start'}));
 }
 window.addEventListener('hashchange',()=>{if(!$('#dashboard').hidden)showView()});
 function confirmationUrls(booking){
@@ -106,7 +112,7 @@ function confirmationUrls(booking){
   url.searchParams.set('acao',action);
   return url.href;
  };
- return {yes:urlFor('confirmar'),no:urlFor('cancelar')};
+ return {reply:urlFor('escolher'),yes:urlFor('confirmar'),no:urlFor('cancelar')};
 }
 function whatsappAppLink(phone,message){
  const digits=String(phone||'').replace(/\D/g,'');
@@ -115,26 +121,20 @@ function whatsappAppLink(phone,message){
 }
 function composeMessage(booking){
  const name=String(booking.customer_name||'Cliente').trim().split(/\s+/)[0];
- const links=booking.links||null;
- const message=[
-  'Olá, '+name+'! Tudo bem?',
-  'Aqui é da Barbearia Sr. Navalha. Gostaríamos de confirmar seu horário:',
+ const link=booking.links?.reply;
+ const lines=[
+  'Olá, '+name+'! Tudo bem? 😊',
+  'Aqui é da Barbearia Sr. Navalha.',
   '',
-  'Serviço: '+booking.service_name,
-  'Data: '+fmtFull(booking.starts_at)+' às '+fmtHour(booking.starts_at),
-  'Profissional: '+booking.professional_name,
+  'Seu horário: '+fmtDay(booking.starts_at)+' às '+fmtHour(booking.starts_at)+'.',
+  booking.service_name+' com '+booking.professional_name+'.',
   '',
-  'Você poderá comparecer?',
-  ...(links?[
-   '',
-   'Confirme ou cancele pelo nosso site:',
-   'Confirmar: '+links.yes,
-   'Cancelar: '+links.no
-  ]:['Responda CONFIRMO ou CANCELAR nesta conversa.']),
+  ...(link?['Confirme ou cancele seu horário neste link:',link]
+   :['Para confirmar ou cancelar, entre em contato com a barbearia.']),
   '',
-  'Obrigado! Sr. Navalha · Gravatá'
+  'Ficou com alguma dúvida? Pode responder esta mensagem por aqui! 💈'
  ];
- return message.join('\n');
+ return lines.join('\n');
 }
 function prepareMessage(booking,appLink){
  previewBooking=booking;
@@ -142,7 +142,13 @@ function prepareMessage(booking,appLink){
  $('#message-recipient').textContent=booking.customer_name+' · '+String(booking.customer_phone||'').replace(/^55/,'+55 ');
  $('#message-preview').textContent=composeMessage(booking);
  $('#message-copy').textContent='Copiar texto';
- $('#message-info').textContent='O WhatsApp será aberto no aplicativo com o número e a mensagem preparados. Confira a conversa e toque em Enviar. Quando voltar, registre o envio aqui.';
+ const link=booking.links?.reply;
+ $('#message-info').textContent=link
+  ?'O WhatsApp abrirá com a mensagem e o link de confirmação. Confira o número, envie e registre o contato ao voltar.'
+  :'Modo demonstração: o WhatsApp abrirá com a mensagem, mas sem link público. Para testar a confirmação entre dispositivos, configure a agenda compartilhada.';
+ const demo=$('#message-demo-link');
+ demo.hidden=Boolean(link);
+ if(!link)demo.href=confirmationUrls(booking).reply;
  // This dialog remains behind WhatsApp for marking manual delivery on return.
  // Do NOT preventDefault on the real anchor: the browser must follow the
  // whatsapp:// deep link as a trusted, user-initiated navigation.
@@ -244,8 +250,7 @@ async function changeStatus(booking,next){
 }
 function openResponsePreview(booking){
  const urls=booking.links||confirmationUrls(booking);
- $('#reply-yes').href=urls.yes;
- $('#reply-no').href=urls.no;
+ $('#reply-choice').href=urls.reply||confirmationUrls(booking).reply;
  $('#reply-title').textContent='Respostas de '+booking.customer_name;
  $('#reply-dialog').showModal();
 }
