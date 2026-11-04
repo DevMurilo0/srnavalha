@@ -25,6 +25,7 @@ try{
  });
  await page.goto(base+'/admin.html',{waitUntil:'domcontentloaded'});
  check('Acesso por e-mail e senha presente',await page.locator('#admin-login').isVisible()&&await page.locator('#dashboard').isHidden());
+ await page.locator('.demo-credentials summary').click();
  await page.locator('#fill-demo').click();
  await page.locator('#admin-login button[type="submit"]').click();
  check('Painel é exibido após acesso',await page.locator('#dashboard').isVisible());
