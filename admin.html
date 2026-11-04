@@ -42,6 +42,7 @@
   <nav aria-label="Navegação administrativa">
    <a class="active" href="#main" data-admin-nav="overview" aria-current="page">Visão geral</a>
    <a href="#agenda-list" data-admin-nav="agenda">Agenda completa</a>
+   <a href="#respostas" data-admin-nav="responses">Respostas dos clientes <span class="side-response-count" id="side-response-count">0</span></a>
    <a href="#confirmados" data-admin-nav="confirmed">Presenças confirmadas <span class="side-confirmed-count" id="side-confirmed-count">0</span></a>
   </nav>
   <a class="side-booking-link" href="agendar.html">Abrir agendamento <span aria-hidden="true">↗</span></a>
@@ -52,6 +53,7 @@
   <nav class="mobile-admin-nav" aria-label="Telas da área administrativa">
    <a href="#main" data-admin-nav="overview" aria-current="page">Visão geral</a>
    <a href="#agenda-list" data-admin-nav="agenda">Agenda</a>
+   <a href="#respostas" data-admin-nav="responses">Respostas</a>
    <a href="#confirmados" data-admin-nav="confirmed">Confirmados</a>
   </nav>
   <div class="dash-wrap">
@@ -64,7 +66,7 @@
     <div class="stat stat-attention"><span>Contatos para enviar</span><strong id="stat-contact-waiting">0</strong><small>próximos clientes sem mensagem</small></div>
     <div class="stat"><span>Aguardando confirmação</span><strong id="stat-pending">0</strong><small>aguardando resposta do cliente</small></div>
     <div class="stat"><span>Presenças confirmadas</span><strong id="stat-confirmed">0</strong><small>agendamentos confirmados</small></div>
-    <div class="stat stat-minor"><span>Registros</span><strong id="stat-total">0</strong><small><span id="stat-cancelled">0</span> cancelados</small></div>
+    <div class="stat stat-minor"><span>Clientes responderam pelo link</span><strong id="stat-site-responses">0</strong><small><span id="stat-total">0</span> agendamentos · <span id="stat-cancelled">0</span> cancelados</small></div>
    </div>
    <div class="operations-grid">
     <section class="upcoming" id="upcoming-section" aria-labelledby="upcoming-title">
@@ -81,6 +83,30 @@
      <div class="contact-queue-list" id="contact-queue-list" aria-live="polite"></div>
      <p class="contact-queue-empty" id="contact-queue-empty" hidden>Nenhum contato pendente nos próximos horários.</p>
      <button id="open-pending-contacts" class="section-bottom-link" type="button">Ver todos os pendentes <span aria-hidden="true">↗</span></button>
+    </section>
+   </div>
+   <div class="day-response-grid">
+    <section class="day-overview" aria-labelledby="today-title">
+     <div class="day-response-head">
+      <div><h2 id="today-title">Atendimentos de hoje</h2><p>Quem vem, quem respondeu e o que foi cancelado.</p></div>
+      <span id="today-date" class="day-badge">Hoje</span>
+     </div>
+     <div class="today-totals" aria-label="Situação dos horários de hoje">
+      <span><strong id="today-all">0</strong> horários</span>
+      <span><strong id="today-confirmed">0</strong> confirmados</span>
+      <span><strong id="today-cancelled">0</strong> cancelados</span>
+     </div>
+     <div class="today-list" id="today-list" aria-live="polite"></div>
+     <p class="today-empty" id="today-empty" hidden>Nenhum agendamento para hoje.</p>
+    </section>
+    <section class="recent-replies" aria-labelledby="recent-replies-title">
+     <div class="day-response-head">
+      <div><h2 id="recent-replies-title">Respostas recebidas</h2><p>Clientes que confirmaram ou cancelaram pelo link.</p></div>
+      <span class="day-badge" id="recent-replies-count">0</span>
+     </div>
+     <div class="recent-replies-list" id="recent-replies-list" aria-live="polite"></div>
+     <p id="recent-replies-empty" class="today-empty" hidden>Ainda não há respostas enviadas pelo formulário.</p>
+     <a class="section-bottom-link" href="#respostas">Ver todas as respostas <span aria-hidden="true">↗</span></a>
     </section>
    </div>
    <section class="appointments" id="agenda-list" aria-labelledby="agenda-title">
@@ -113,13 +139,29 @@
    <details class="workflow-guide">
     <summary>Como funciona a confirmação pelo WhatsApp? <span aria-hidden="true">⌄</span></summary>
     <ol>
-     <li>Na agenda, toque em <strong>Mensagem</strong> para abrir o contato no aplicativo instalado.</li>
-     <li>Confira o número e toque em <strong>Enviar</strong> dentro do WhatsApp.</li>
-     <li>Ao voltar, registre em <strong>Já enviei no WhatsApp</strong>. A presença só é confirmada quando o cliente responder.</li>
+     <li>Toque em <strong>Mensagem</strong> para abrir o aplicativo com o texto e o link de resposta.</li>
+     <li>Confira o número, envie no WhatsApp e registre em <strong>Já enviei no WhatsApp</strong>.</li>
+     <li>O cliente abre o link, escolhe <strong>Confirmar</strong> ou <strong>Cancelar</strong> e confirma a decisão. A resposta aparece neste painel.</li>
     </ol>
-    <p id="whatsapp-mode-details">O envio é manual; abrir a conversa não equivale a enviar.</p>
+    <p id="whatsapp-mode-details">O envio é manual. As respostas pelo link só sincronizam entre dispositivos com a agenda compartilhada configurada.</p>
     <a href="https://www.whatsapp.com/download/desktop" target="_blank" rel="noopener noreferrer">Instalar WhatsApp no Windows ↗</a>
    </details>
+   </section>
+   <section id="responses-view" class="dash-view responses-view" aria-labelledby="responses-title" hidden>
+    <header class="responses-heading">
+     <div><h1 id="responses-title">Respostas dos clientes</h1><p>Aqui ficam somente as escolhas feitas no link de confirmação do site. O envio manual do WhatsApp é acompanhado separadamente na agenda.</p></div>
+     <div class="confirmed-count"><strong id="responses-count">0</strong><span>respostas pelo link</span></div>
+    </header>
+    <div class="responses-toolbar">
+     <label for="responses-search">Encontrar cliente <input id="responses-search" type="search" autocomplete="off" placeholder="Nome, telefone ou serviço"></label>
+     <label for="responses-period">Período <select id="responses-period"><option value="all">Todas as respostas</option><option value="today">Respondidas hoje</option></select></label>
+    </div>
+    <div class="responses-list" id="responses-list" aria-live="polite"></div>
+    <div class="responses-empty" id="responses-empty" hidden>
+     <h2>Nenhuma resposta encontrada.</h2>
+     <p id="responses-empty-text">Quando um cliente confirmar ou cancelar pelo link, aparecerá aqui.</p>
+     <button id="responses-clear" type="button">Limpar filtros</button>
+    </div>
    </section>
    <section id="confirmed-view" class="dash-view confirmed-view" aria-labelledby="confirmed-title" hidden>
     <div class="confirmed-heading">
@@ -143,7 +185,8 @@
  <p id="message-recipient" class="message-recipient"></p>
  <div class="message-preview-head"><span>TEXTO DA MENSAGEM</span><span>WHATSAPP</span></div>
  <div class="message-preview"><p id="message-preview"></p></div>
- <p class="message-info" id="message-info">A mensagem fica pronta na conversa do cliente; confirme o envio por lá.</p>
+ <p class="message-info" id="message-info">Confira o destinatário e envie no WhatsApp. Depois registre o envio no painel.</p>
+ <a class="message-demo-link" id="message-demo-link" href="confirmar.html" hidden>Testar página de resposta neste navegador ↗</a>
  <div class="message-destinations" aria-label="Abrir a mensagem no aplicativo">
   <a id="message-app-link" class="message-app-link" href="whatsapp://send">Abrir conversa no aplicativo WhatsApp ↗</a>
  </div>
@@ -157,8 +200,8 @@
 </dialog>
 <dialog id="reply-dialog" class="reply-dialog" aria-labelledby="reply-title">
  <button class="dialog-x" type="button" id="close-reply" aria-label="Fechar janela">×</button><p class="micro-label">SIMULAR RESPOSTA</p><h2 id="reply-title">Confirmação do cliente</h2>
- <p>Teste a experiência dos links de resposta neste mesmo navegador. O status será atualizado na agenda local.</p>
- <div class="reply-links"><a id="reply-yes" href="#">Abrir “Vou comparecer” ↗</a><a id="reply-no" href="#">Abrir “Não poderei ir” ↗</a></div>
+ <p>Visualize como o cliente confirma ou cancela pelo site. No modo de demonstração, a resposta só será registrada neste navegador.</p>
+ <div class="reply-links"><a id="reply-choice" href="#">Abrir página de confirmação ↗</a></div>
 </dialog>
 </body>
 </html>
