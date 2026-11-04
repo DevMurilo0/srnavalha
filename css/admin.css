@@ -747,3 +747,10 @@ button,select,input{font-family:var(--body)}
  .auth-main{padding:73px 23px 62px}
  .login-card h2{font-size:27px}
 }
+
+
+/* Last pass: prevent clipped actions and oversized nav badges. */
+.dash-sidebar nav a span.side-confirmed-count{font-size:10px;line-height:1.3;font-weight:760;min-width:24px;min-height:24px;display:inline-grid;place-items:center}
+.appointment-manage .manage-actions{left:auto;right:0;max-width:min(265px,calc(100vw - 44px))}
+.appointment-manage[open]{z-index:25}
+@media(max-width:600px){.appointment-manage .manage-actions{min-width:178px}}
