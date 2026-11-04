@@ -42,112 +42,90 @@ function observe(nodes,play){
 async function opening(){
  const root=document.documentElement;
  const intro=one('#cut-intro');
- const target=one('.razor-stage .razor');
- if(!intro||!target||!root.classList.contains('opening-active')||!canAnimate()){
+ // Deep links, history traversal and reduced motion bypass the opening.
+ if(!intro||!root.classList.contains('opening-active')||!canAnimate()){
   intro?.remove();root.classList.remove('opening-active');return;
  }
- let ended=false,resolveEnd;
- const endedPromise=new Promise(resolve=>{resolveEnd=resolve});
- const parent=target.parentNode,next=target.nextSibling;
+ const controller=new AbortController(),signal=controller.signal;
  const effects=[];
- let placeholder=null;
- const visibility=()=>{if(document.hidden)finish()};
+ let ended=false,resolveEnd,releaseFrame=0,revealTimer=0;
+ const endedPromise=new Promise(resolve=>{resolveEnd=resolve});
  const finish=()=>{
-  if(ended)return;ended=true;
-  if(target.parentNode!==parent)parent.insertBefore(target,next);
-  placeholder?.remove();
-  target.classList.remove('razor-flight');
-  target.removeAttribute('style');
+  if(ended)return;
+  ended=true;
+  controller.abort();
+  clearTimeout(watchdog);clearTimeout(revealTimer);
+  cancelAnimationFrame(releaseFrame);
+  effects.forEach(effect=>{try{effect.cancel()}catch{}});
   root.classList.remove('opening-active');
   intro.remove();
-  effects.forEach(effect=>effect.cancel());
-  removeEventListener('resize',finish);
-  removeEventListener('scroll',finish);
-  document.removeEventListener('visibilitychange',visibility);
-  document.removeEventListener('motionrelease',finish);
-  clearTimeout(watchdog);
   resolveEnd();
  };
- const watchdog=setTimeout(finish,4400);
- addEventListener('resize',finish,{once:true});
- addEventListener('scroll',finish,{once:true,passive:true});
- document.addEventListener('visibilitychange',visibility);
- document.addEventListener('motionrelease',finish);
+ const watchdog=setTimeout(finish,2700);
  const run=(node,frames,options={})=>{
-  if(!node)return null;
-  const animation=node.animate(frames,{fill:'both',easing:eased,...options});
-  effects.push(animation);return animation;
+  if(!node||!node.animate)return null;
+  const effect=node.animate(frames,{fill:'both',easing:eased,...options});
+  effects.push(effect);effect.finished.catch(()=>{});
+  return effect;
  };
+ // A pointer gesture is swallowed by the overlay. Never pass the same click
+ // through to the booking CTA behind the sheet.
+ intro.addEventListener('pointerdown',event=>{
+  if(event.cancelable)event.preventDefault();
+ },{signal});
+ intro.addEventListener('pointerup',()=>{
+  releaseFrame=requestAnimationFrame(finish);
+ },{signal});
+ intro.addEventListener('click',event=>{
+  event.preventDefault();event.stopImmediatePropagation();
+ },{capture:true,signal});
+ for(const type of ['scroll','wheel','keydown','pagehide']){
+  addEventListener(type,finish,{once:true,passive:type!=='keydown',signal});
+ }
+ addEventListener('resize',finish,{once:true,passive:true,signal});
+ document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)finish();
+ },{signal});
+ reduced.addEventListener('change',()=>{
+  if(reduced.matches)finish();
+ },{signal});
  const identity=one('.cut-intro__identity',intro);
  const status=one('.cut-intro__status',intro);
  const progress=one('.cut-intro__progress-fill',intro);
  const veil=one('.cut-intro__veil',intro);
- // Only two quiet signals: the official wordmark settles, then a hairline fills.
  run(identity,[
-  {opacity:0,translate:'0 9px'},
-  {opacity:1,translate:'0 0'}
- ],{duration:490,delay:30,easing:'cubic-bezier(.22,1,.36,1)'});
- run(status,[{opacity:0},{opacity:1}],{duration:360,delay:160});
- run(progress,[
-  {transform:'scaleX(0)'},
-  {transform:'scaleX(.82)'}
- ],{duration:630,easing:'cubic-bezier(.45,0,.2,1)'});
- // A bounded asset gate prevents flashes without delaying a fast page needlessly.
+  {opacity:0,transform:'translate3d(-50%,calc(-50% + 8px),0)'},
+  {opacity:1,transform:'translate3d(-50%,-50%,0)'}
+ ],{duration:300,easing:'cubic-bezier(.23,1,.32,1)'});
+ run(status,[{opacity:0},{opacity:1}],{duration:230,delay:95});
+ run(progress,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],
+  {duration:410,delay:35,easing:'cubic-bezier(.65,0,.35,1)'});
+ // Decode the hero photo opportunistically, but never block navigation on it.
  await Promise.all([
   bounded(Promise.all([
    document.fonts.ready,
-   target.decode(),
    one('.hero-background img')?.decode?.()
-  ]),950),
-  new Promise(resolve=>setTimeout(resolve,520))
+  ]),660),
+  new Promise(resolve=>setTimeout(resolve,390))
  ]);
  if(ended)return endedPromise;
- if(!target.naturalWidth){finish();return endedPromise}
- run(progress,[{transform:'scaleX(.82)'},{transform:'scaleX(1)'}],
-  {duration:240,easing:eased});
- await new Promise(resolve=>setTimeout(resolve,155));
- if(ended)return endedPromise;
- const rect=target.getBoundingClientRect();
- if(rect.width<=0||rect.height<=0){finish();return endedPromise}
- placeholder=document.createElement('span');
- placeholder.style.cssText='display:block;width:100%;aspect-ratio:'+rect.width+'/'+rect.height;
- parent.insertBefore(placeholder,target);
- const filter=getComputedStyle(target).filter;
- document.body.append(target);
- target.classList.add('razor-flight');
- target.style.cssText='left:'+rect.left+'px;top:'+rect.top+'px;width:'+rect.width+'px;height:'+rect.height+'px;filter:'+filter;
- const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
- const w=innerWidth,h=innerHeight,mobile=w<701;
- const x0=w*(mobile?.61:.68),y0=h*(mobile?.73:.71);
- const firstScale=Math.min(.95,Math.max(.49,(mobile?w*.48:w*.31)/rect.width));
- // Small perspective changes imply a physical blade, not a spinning 3D spectacle.
- const pose=(x,y,angle,scale)=>
-  'translate3d('+(x-cx).toFixed(2)+'px,'+(y-cy).toFixed(2)+'px,0) '+
-  'perspective(960px) rotateZ('+angle+'deg) rotateY('+(angle*.48)+'deg) '+
-  'scale('+scale.toFixed(4)+')';
- const flight=run(target,[
-  {offset:0,opacity:0,transform:pose(x0,y0,8,firstScale)},
-  {offset:.16,opacity:.92,transform:pose(x0+(cx-x0)*.15,y0+(cy-y0)*.15,6,firstScale*.97)},
-  {offset:.64,opacity:1,transform:pose(x0+(cx-x0)*.73,y0+(cy-y0)*.73,2,firstScale+(1-firstScale)*.74)},
-  {offset:1,opacity:1,transform:pose(cx,cy,0,1)}
- ],{duration:1510,easing:'cubic-bezier(.44,0,.19,1)'});
- // A single quiet paper lift reveals the photographic hero; the razor is shared.
- run(veil,[
-  {transform:'translate3d(0,0,0)'},
-  {transform:'translate3d(0,-102%,0)'}
- ],{duration:1060,delay:340,easing:'cubic-bezier(.75,0,.23,1)'});
- run(identity,[
-  {opacity:1,translate:'0 0'},
-  {opacity:0,translate:'0 -12px'}
- ],{duration:420,delay:330,easing:'cubic-bezier(.48,0,.6,1)'});
- run(status,[{opacity:1},{opacity:0}],
-  {duration:290,delay:300,easing:eased});
- const revealTimer=setTimeout(()=>{
+ // The single reveal is a smooth sheet lift. Hero elements enter underneath.
+ revealTimer=setTimeout(()=>{
   if(!ended)document.dispatchEvent(new Event('cutintroreveal'));
- },705);
- effects.push({cancel:()=>clearTimeout(revealTimer)});
- await flight.finished.catch(()=>{});
- finish();return endedPromise;
+ },160);
+ run(identity,[
+  {opacity:1,transform:'translate3d(-50%,-50%,0)'},
+  {opacity:0,transform:'translate3d(-50%,calc(-50% - 12px),0)'}
+ ],{duration:265,easing:'cubic-bezier(.4,0,.6,1)'});
+ run(status,[{opacity:1},{opacity:0}],
+  {duration:200,easing:eased});
+ const lift=run(veil,[
+  {transform:'translate3d(0,0,0)'},
+  {transform:'translate3d(0,-101%,0)'}
+ ],{duration:570,easing:'cubic-bezier(.77,0,.175,1)'});
+ if(lift)await bounded(lift.finished,730);
+ finish();
+ return endedPromise;
 }
 
 function headings(ready){

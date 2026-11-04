@@ -7,66 +7,53 @@
 .motion-overlay .motion-glyph{position:absolute;display:block;white-space:pre;line-height:inherit}
 [data-type]{position:relative}
 
-/* Editorial opener: one warm-ivory sheet, the original logo and one hairline.
-   No sparks, sliced polygons, fake percentage or secondary blade. */
+/* Abertura essencial: uma folha de papel, marca oficial e gesto único.
+   Apenas opacity/transform; sem simulação de porcentagem nem voo de lâmina. */
 .opening-active .cut-intro{
  display:block;position:fixed;inset:0;z-index:1000;
- pointer-events:none;overflow:hidden;isolation:isolate;contain:layout paint
+ overflow:hidden;isolation:isolate;pointer-events:auto;
+ background:#e9e3d8;contain:layout paint;
 }
 .cut-intro__veil{
  position:absolute;inset:-1px;background:#e9e3d8;
- will-change:transform;backface-visibility:hidden
-}
-.cut-intro__veil::after{
- content:"";position:absolute;bottom:0;left:0;right:0;
- height:1px;background:#a99e8e88
+ backface-visibility:hidden;will-change:transform;
 }
 .cut-intro__identity{
- position:absolute;z-index:1;left:50%;top:40%;
- width:min(76vw,340px);transform:translate(-50%,-50%);
- text-align:center;color:#171715;will-change:opacity
+ position:absolute;left:50%;top:49%;z-index:1;
+ display:flex;flex-direction:column;align-items:center;
+ width:min(290px,76vw);text-align:center;color:#171715;
+ transform:translate3d(-50%,-50%,0);
 }
 .cut-intro__identity .official-logo{
- display:block;width:min(57vw,230px);height:auto;margin:0 auto;
- /* Keep the official raster artwork and its authored SVG ink filter. */
+ display:block;width:min(226px,62vw);height:auto;flex:none;
 }
 .cut-intro__tagline{
- margin:10px 0 0;font:650 clamp(9px,.85vw,11px)/1.6 var(--body);
- letter-spacing:.14em;color:#62574d
+ margin:16px 0 0;
+ font:500 clamp(11px,.95vw,13px)/1.45 var(--body);
+ letter-spacing:.025em;color:#645d54;
 }
 .cut-intro__status{
- position:absolute;z-index:1;top:59%;left:50%;
- width:min(210px,57vw);transform:translateX(-50%);
- display:flex;flex-direction:column;align-items:center;gap:16px;
- color:#62584c;will-change:opacity
+ position:absolute;left:50%;top:calc(49% + 130px);z-index:1;
+ width:124px;transform:translateX(-50%);
 }
 .cut-intro__progress{
- display:block;width:100%;height:1px;overflow:hidden;background:#a9a0926b
+ display:block;width:100%;height:1px;
+ background:#a49c91;overflow:hidden;
 }
 .cut-intro__progress-fill{
- display:block;height:100%;width:100%;
- background:#3f362e;transform:scaleX(0);
- transform-origin:left center;will-change:transform
-}
-.cut-intro__caption{
- display:block;text-align:center;white-space:nowrap;
- font:670 clamp(8px,.68vw,10px)/1.5 var(--body);
- letter-spacing:.16em;color:#706558
-}
-/* The same physical hero asset moves above the cover, then returns to its
-   original DOM position, with no image replacement during the landing. */
-.opening-active .hero .razor{opacity:0}
-.razor-flight{
- position:fixed!important;z-index:1001;max-width:none;
- object-fit:contain;transform-origin:50% 50%!important;
- backface-visibility:hidden;pointer-events:none;will-change:transform,opacity
+ display:block;width:100%;height:100%;
+ background:#23211f;transform:scaleX(0);transform-origin:left center;
 }
 @media(max-width:700px){
- .cut-intro__identity{top:39%;width:86vw}
- .cut-intro__identity .official-logo{width:clamp(165px,52vw,220px)}
- .cut-intro__tagline{font-size:9px;letter-spacing:.105em}
- .cut-intro__status{top:57%;width:min(200px,57vw);gap:14px}
- .cut-intro__caption{font-size:8px;letter-spacing:.105em}
+ .cut-intro__identity{top:48%;width:84vw}
+ .cut-intro__identity .official-logo{width:min(205px,60vw)}
+ .cut-intro__status{top:calc(48% + 118px);width:110px}
+ .cut-intro__tagline{margin-top:13px;font-size:11px}
+}
+@media(max-height:560px){
+ .cut-intro__identity{top:45%}
+ .cut-intro__identity .official-logo{width:min(170px,35vh)}
+ .cut-intro__status{top:calc(45% + 95px)}
 }
 @media(prefers-reduced-motion:reduce){
  .cut-intro{display:none!important}
