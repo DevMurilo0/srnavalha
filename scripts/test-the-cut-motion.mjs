@@ -18,8 +18,9 @@ async function test(width,reducedMotion='no-preference'){
   await page.locator('#cut-intro').count()===1);
  if(!reduce){
   await page.waitForTimeout(320);
-  check(width+' loader panels and original razor asset',
-   await page.locator('.cut-intro__upper,.cut-intro__lower').count()===2 &&
+  check(width+' minimal loader and original razor asset',
+   await page.locator('.cut-intro__veil').count()===1 &&
+   await page.locator('.cut-intro__upper,.cut-intro__lower,.cut-intro__spark').count()===0 &&
    await page.locator('.cut-intro .official-logo').count()===1 &&
    await page.locator('img.razor').count()===1 &&
    await page.locator('.cut-intro__monogram,.portrait-monogram').count()===0);
