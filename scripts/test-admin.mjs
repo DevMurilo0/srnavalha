@@ -105,10 +105,22 @@ try{
  await page.locator('.mobile-admin-nav a[href="#main"]').click();
  check('Volta à agenda no celular',await page.locator('#overview-view').isVisible());
  await page.setViewportSize({width:1366,height:820});
- await page.locator('.appointment-manage summary').click();
- await page.locator('.appointment button').filter({hasText:'Simular resposta'}).click();
+ const replyBooking=await page.evaluate(async()=>{
+  const m=await import('./js/booking-local.js');
+  const original=m.readDemoBookings()[0];
+  const localDay=new Date(Date.parse(original.starts_at)-3*3600000).toISOString().slice(0,10);
+  const slot=m.availableSlots('cortee',localDay,'damiao')[0];
+  return m.saveDemoBooking({
+   serviceId:'cortee',professionalId:'damiao',slotAt:slot.slot_at,
+   name:'Cliente Resposta Teste',phone:'5581988888888'
+  });
+ });
+ await page.locator('#refresh-bookings').click();
+ const replyRow=page.locator('.appointment[data-id="'+replyBooking.id+'"]');
+ await replyRow.locator('.appointment-manage summary').click();
+ await replyRow.locator('button').filter({hasText:'Simular resposta'}).click();
  check('Prévia oferece um único link para as duas decisões',
-  new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('ref')===booking.id&&
+  new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('ref')===replyBooking.id&&
   new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('acao')==='escolher');
  await page.locator('#reply-choice').click();
  check('Cliente pode escolher confirmar ou cancelar',
@@ -124,11 +136,11 @@ try{
  check('Resposta de cancelamento renderizada',await page.locator('#confirmation-title').textContent()==='Horário cancelado.');
  await page.goto(base+'/admin.html',{waitUntil:'domcontentloaded'});
  check('Status cancelado reflete no painel',await page.locator('#stat-cancelled').textContent()==='1');
- await page.locator('.mobile-admin-nav a[href="#respostas"]').click();
+ await page.locator('.dash-sidebar a[href="#respostas"]').click();
  check('Resposta pelo site aparece em consulta própria',
   await page.locator('#responses-view').isVisible()&&
   await page.locator('#responses-list .site-response-item').count()===1);
- await page.locator('.mobile-admin-nav a[href="#main"]').click();
+ await page.locator('.dash-sidebar a[href="#main"]').click();
  await page.locator('#admin-logout').click();
  check('Sair retorna ao acesso',await page.locator('#admin-login').isVisible());
  await page.evaluate(()=>localStorage.removeItem('srnavalha:agendamentos-demo:v1'));
