@@ -832,3 +832,8 @@ button,select,input{font-family:var(--body)}
  filter:grayscale(1) contrast(2.4)!important;
  mix-blend-mode:screen;
 }
+
+
+/* Accessible final contrast on the action-required metric. */
+.stats .stat-attention>span{color:#385441!important}
+.stats .stat-attention small{color:#52695a!important}
