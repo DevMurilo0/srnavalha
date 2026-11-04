@@ -95,6 +95,7 @@ try{
  await page.locator('#status-apply').click();
  check('Status confirmado e contagem atualizados',await page.locator('#stat-confirmed').textContent()==='1'&&await page.locator('.appointment .status.confirmed').count()===1);
  await page.locator('.dash-sidebar a[href="#confirmados"]').click();
+ await page.locator('#confirmed-view').waitFor({state:'visible'});
  check('Tela separada de confirmados mostra nome e telefone',await page.locator('#confirmed-view').isVisible()&&
   await page.locator('.confirmed-item').count()===1&&
   (await page.locator('.confirmed-client').textContent()).includes('Cliente de teste')&&
