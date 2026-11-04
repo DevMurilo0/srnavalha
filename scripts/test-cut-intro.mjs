@@ -24,13 +24,13 @@ async function test(width){
  await page.goto(base+'/',{waitUntil:'domcontentloaded'});
  check(width+' loader is armed',await page.locator('#cut-intro').count()===1);
  check(width+' physical razor remains a single element',await page.locator('img.razor').count()===1);
- check(width+' brand and progress appear in loader',await page.locator('.cut-intro__identity .official-logo').count()===1 && await page.locator('.cut-intro__progress-fill').count()===1);
+ check(width+' minimal identity and progress appear in loader',await page.locator('.cut-intro__identity .official-logo').count()===1 && await page.locator('.cut-intro__progress-fill').count()===1 && await page.locator('.cut-intro__veil').count()===1 && await page.locator('.cut-intro__spark,.cut-intro__upper,.cut-intro__lower').count()===0);
  await page.waitForTimeout(310);
  await page.screenshot({path:`${dir}/${width}-identity.png`,animations:'allow'});
  await page.waitForTimeout(1020);
- await page.screenshot({path:`${dir}/${width}-cut.png`,animations:'allow'});
+ await page.screenshot({path:`${dir}/${width}-transition.png`,animations:'allow'});
  await page.waitForTimeout(780);
- await page.screenshot({path:`${dir}/${width}-peel.png`,animations:'allow'});
+ await page.screenshot({path:`${dir}/${width}-reveal.png`,animations:'allow'});
  await page.waitForFunction(()=>!document.querySelector('#cut-intro'),null,{timeout:5800});
  await page.screenshot({path:`${dir}/${width}-hero.png`});
  const state=await page.evaluate(()=>{
@@ -43,7 +43,7 @@ async function test(width){
    overflow:document.documentElement.scrollWidth-innerWidth,
    opening:document.documentElement.classList.contains('opening-active')};
  });
- check(width+' razor traveled across loader',state.flightFrames>8,state);
+ check(width+' razor glides gently into hero',state.flightFrames>8,state);
  check(width+' same razor lands with no snap',state.landingDiff!==null&&state.landingDiff<3,state);
  check(width+' overlay releases, page remains usable',!state.opening&&state.parent.includes('razor-depth')&&state.opacity>.99&&state.overflow<=2,state);
  await page.waitForFunction(()=>document.querySelector('#hero-title')?.dataset.reveal==='done',null,{timeout:4000});
