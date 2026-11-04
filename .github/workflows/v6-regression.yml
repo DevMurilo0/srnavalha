@@ -47,6 +47,7 @@ jobs:
           node --check js/booking-local.js
           node --check scripts/test-admin.mjs
           node --check scripts/test-admin-whatsapp-link.mjs
+          node --check scripts/test-admin-redesign.mjs
           node --check tools/whatsapp-tab-helper/background.js
           node --check tools/whatsapp-tab-helper/bridge.js
           node --check scripts/test-whatsapp-tab-helper.mjs
@@ -62,6 +63,7 @@ jobs:
           node scripts/test-whatsapp-cloud.mjs
           node scripts/test-whatsapp-tab-helper.mjs
           node scripts/test-admin-whatsapp-link.mjs
+          node scripts/test-admin-redesign.mjs
       - name: Install browser and accessibility dependencies
         run: |
           mkdir -p /tmp/srnavalha-validation
