@@ -7,8 +7,8 @@
 .motion-overlay .motion-glyph{position:absolute;display:block;white-space:pre;line-height:inherit}
 [data-type]{position:relative}
 
-/* Abertura essencial: uma folha de papel, marca oficial e gesto único.
-   Apenas opacity/transform; sem simulação de porcentagem nem voo de lâmina. */
+/* Um único gesto cinematográfico: marca gravada, texto ritmado, metal em
+   movimento e a navalha REAL que termina na composição do hero. */
 .opening-active .cut-intro{
  display:block;position:fixed;inset:0;z-index:1000;
  overflow:hidden;isolation:isolate;pointer-events:auto;
@@ -19,44 +19,71 @@
  backface-visibility:hidden;will-change:transform;
 }
 .cut-intro__identity{
- position:absolute;left:50%;top:36%;z-index:1;
+ position:absolute;left:50%;top:34%;z-index:1;
  display:flex;flex-direction:column;align-items:center;
- width:min(290px,76vw);text-align:center;color:#171715;
+ width:min(440px,90vw);text-align:center;color:#171715;
  transform:translate3d(-50%,-50%,0);
 }
-.cut-intro__identity .official-logo{
- display:block;width:min(226px,62vw);height:auto;flex:none;
+.cut-intro__logo-mask{
+ display:block;width:min(234px,62vw);overflow:hidden;
+}
+.cut-intro__logo-mask .official-logo{
+ display:block;width:100%;height:auto;
+ opacity:0;transform:translate3d(0,108%,0);
+ will-change:transform,opacity;
 }
 .cut-intro__tagline{
- margin:16px 0 0;
- font:500 clamp(11px,.95vw,13px)/1.45 var(--body);
- letter-spacing:.025em;color:#645d54;
+ display:flex;flex-wrap:wrap;justify-content:center;
+ gap:0 .35em;margin:18px 0 0;
+ font:550 clamp(12px,1.1vw,16px)/1.5 var(--body);
+ letter-spacing:.015em;color:#544b40;
+}
+.cut-intro__tagline span{
+ display:inline-block;white-space:nowrap;
+ opacity:0;transform:translate3d(0,13px,0);
 }
 .cut-intro__status{
  position:absolute;left:50%;top:79%;z-index:1;
- width:124px;transform:translateX(-50%);
+ width:min(205px,54vw);transform:translate3d(-50%,0,0);
+}
+.cut-intro__status-row{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:14px;margin-bottom:12px;color:#60564a;
+ font:700 9px/1.4 var(--body);letter-spacing:.14em;
+}
+.cut-intro__status-label{opacity:0;transform:translate3d(0,6px,0)}
+.cut-intro__status-dot{
+ display:block;flex:none;width:4px;height:4px;
+ border-radius:50%;background:#a3654b;
+ opacity:0;transform:scale(.8);
 }
 .cut-intro__progress{
- display:block;width:100%;height:1px;
- background:#a49c91;overflow:hidden;
+ display:block;position:relative;width:100%;height:2px;
+ background:#c8beb1;transform:scaleX(0);transform-origin:center;
 }
 .cut-intro__progress-fill{
- display:block;width:100%;height:100%;
- background:#23211f;transform:scaleX(0);transform-origin:left center;
+ display:block;position:relative;width:100%;height:100%;
+ background:linear-gradient(90deg,#1d1b19,#77503c);
+ transform:scaleX(0);transform-origin:left center;
+ will-change:transform;
+}
+.cut-intro__progress-fill::after{
+ content:"";position:absolute;right:0;top:-2px;
+ width:2px;height:6px;background:#a3654b;
+ box-shadow:0 1px 8px #6e42254a;
 }
 @media(max-width:700px){
- .cut-intro__identity{top:35%;width:84vw}
- .cut-intro__identity .official-logo{width:min(205px,60vw)}
- .cut-intro__status{top:80%;width:110px}
- .cut-intro__tagline{margin-top:13px;font-size:11px}
+ .cut-intro__identity{top:35%;width:90vw}
+ .cut-intro__logo-mask{width:min(210px,60vw)}
+ .cut-intro__tagline{margin-top:15px;font-size:12px;gap:0 .3em}
+ .cut-intro__status{top:80%;width:min(190px,62vw)}
 }
 @media(max-height:560px){
- .cut-intro__identity{top:30%}
- .cut-intro__identity .official-logo{width:min(170px,35vh)}
- .cut-intro__status{top:85%}
+ .cut-intro__identity{top:29%}
+ .cut-intro__logo-mask{width:min(172px,35vh)}
+ .cut-intro__tagline{margin-top:9px}
+ .cut-intro__status{top:86%;width:min(180px,56vw)}
 }
-/* The single original razor is temporarily promoted above the opening sheet.
-   All movement occurs on the compositor; the hero retains a placeholder. */
 .razor-flight{
  position:fixed!important;z-index:1002;
  max-width:none!important;margin:0!important;
@@ -65,10 +92,8 @@
  will-change:transform,opacity;
 }
 @media(prefers-reduced-motion:reduce){
- .razor-flight{will-change:auto}
-}
-@media(prefers-reduced-motion:reduce){
  .cut-intro{display:none!important}
+ .razor-flight{will-change:auto}
  [data-reveal]{opacity:1!important}
  .motion-original{opacity:1!important}
  .motion-overlay{display:none!important}

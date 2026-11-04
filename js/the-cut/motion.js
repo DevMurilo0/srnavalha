@@ -73,7 +73,7 @@ async function opening(){
   intro.remove();
   resolveEnd();
  };
- const watchdog=setTimeout(finish,4900);
+ const watchdog=setTimeout(finish,5500);
  const run=(node,frames,options={})=>{
   if(!node||!node.animate)return null;
   const effect=node.animate(frames,{fill:'both',easing:eased,...options});
@@ -104,20 +104,48 @@ async function opening(){
   if(reduced.matches)finish();
  },{signal});
  const identity=one('.cut-intro__identity',intro);
+ const logo=one('.cut-intro__logo-mask .official-logo',intro);
+ const tagline=all('.cut-intro__tagline span',intro);
  const status=one('.cut-intro__status',intro);
+ const statusLabel=one('.cut-intro__status-label',intro);
+ const statusDot=one('.cut-intro__status-dot',intro);
+ const track=one('.cut-intro__progress',intro);
  const progress=one('.cut-intro__progress-fill',intro);
  const veil=one('.cut-intro__veil',intro);
  try{
-  // Quiet typography first: enough room below the mark for the real razor.
-  run(identity,[
-   {opacity:0,transform:'translate3d(-50%,calc(-50% + 12px),0)'},
-   {opacity:1,transform:'translate3d(-50%,-50%,0)'}
-  ],{duration:420,easing:'cubic-bezier(.23,1,.32,1)'});
-  run(status,[{opacity:0},{opacity:1}],{duration:320,delay:180});
+  // A reveal from beneath a mask gives the official mark a crafted entrance.
+  run(logo,[
+   {opacity:0,transform:'translate3d(0,108%,0) rotate(-3deg)'},
+   {opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
+  ],{duration:640,delay:55,easing:'cubic-bezier(.18,.7,.25,1)'});
+  tagline.forEach((word,i)=>run(word,[
+   {opacity:0,transform:'translate3d(0,16px,0)'},
+   {opacity:1,transform:'translate3d(0,0,0)'}
+  ],{duration:470,delay:340+i*115,easing:'cubic-bezier(.16,1,.3,1)'}));
+  run(status,[
+   {opacity:0,transform:'translate3d(-50%,14px,0)'},
+   {opacity:1,transform:'translate3d(-50%,0,0)'}
+  ],{duration:440,delay:180,easing:'cubic-bezier(.22,1,.36,1)'});
+  run(statusLabel,[
+   {opacity:0,transform:'translate3d(0,7px,0)'},
+   {opacity:1,transform:'translate3d(0,0,0)'}
+  ],{duration:420,delay:260});
+  run(statusDot,[
+   {offset:0,opacity:.3,transform:'scale(.75)'},
+   {offset:.5,opacity:1,transform:'scale(1.16)'},
+   {offset:1,opacity:.55,transform:'scale(.9)'}
+  ],{duration:900,delay:300,iterations:2,easing:'ease-in-out'});
+  run(track,[
+   {transform:'scaleX(.08)',opacity:0},
+   {transform:'scaleX(1)',opacity:1}
+  ],{duration:660,delay:240,easing:'cubic-bezier(.16,1,.3,1)'});
+  // Progress follows the entrance choreography rather than racing to 100%.
   run(progress,[
-   {transform:'scaleX(0)'},
-   {transform:'scaleX(.83)'}
-  ],{duration:1060,easing:'cubic-bezier(.65,0,.35,1)'});
+   {offset:0,transform:'scaleX(0)'},
+   {offset:.24,transform:'scaleX(.12)'},
+   {offset:.62,transform:'scaleX(.58)'},
+   {offset:1,transform:'scaleX(.84)'}
+  ],{duration:1640,easing:'cubic-bezier(.45,0,.18,1)'});
   // Short decoding deadline; no prolonged blank screen on slow connections.
   await bounded(Promise.all([
    document.fonts.ready,
@@ -150,40 +178,46 @@ async function opening(){
    'translate3d('+(x-centerX).toFixed(2)+'px,'+
    (y-centerY).toFixed(2)+'px,0) rotate('+angle+'deg) scale('+s.toFixed(4)+')';
   const atRest=pose(introX,introY,scale,-6);
+  // Enter from completely off-screen LEFT. The blade stays fully material:
+  // it glides into the atelier and slows down, never fades into existence.
+  const entranceX=-introWidth*.76;
+  const entranceY=introY+Math.min(64,h*.09);
   const openingBlade=run(target,[
-   {offset:0,opacity:0,transform:pose(introX-22,introY+18,scale*.94,-14)},
-   {offset:.75,opacity:1,transform:pose(introX+4,introY-3,scale*1.02,-5)},
+   {offset:0,opacity:1,transform:pose(entranceX,entranceY,scale*.94,-16)},
+   {offset:.7,opacity:1,transform:pose(introX-44,introY+8,scale*.99,-8)},
    {offset:1,opacity:1,transform:atRest}
-  ],{duration:680,delay:180,easing:'cubic-bezier(.23,1,.32,1)'});
-  // Hold the physical object long enough to establish it as the main motif.
+  ],{duration:1170,delay:110,easing:'cubic-bezier(.25,.64,.2,1)'});
+  // A brief settled pose gives the object weight before the hand-off.
   await Promise.all([
-   delay(970),
-   openingBlade?bounded(openingBlade.finished,960):Promise.resolve()
+   delay(1560),
+   openingBlade?bounded(openingBlade.finished,1540):Promise.resolve()
   ]);
   if(ended)return endedPromise;
-  run(progress,[{transform:'scaleX(.83)'},{transform:'scaleX(1)'}],
-   {duration:360,easing:'cubic-bezier(.65,0,.35,1)'});
+  run(progress,[
+   {transform:'scaleX(.84)'},
+   {transform:'scaleX(1)'}
+  ],{duration:1030,easing:'cubic-bezier(.16,1,.3,1)'});
   // A single compositor-only trajectory connects the loading cover to the
   // exact hero destination, with no second image and no last-frame substitution.
   const flight=run(target,[
    {offset:0,opacity:1,transform:atRest},
    {offset:.2,opacity:1,transform:pose(introX+15,introY-19,scale*.96,-10)},
    {offset:1,opacity:1,transform:'translate3d(0px,0px,0) rotate(0deg) scale(1)'}
-  ],{duration:1170,easing:'cubic-bezier(.4,.08,.16,1)'});
+  ],{duration:1240,easing:'cubic-bezier(.32,.04,.16,1)'});
   run(identity,[
    {opacity:1,transform:'translate3d(-50%,-50%,0)'},
    {opacity:0,transform:'translate3d(-50%,calc(-50% - 16px),0)'}
-  ],{duration:430,delay:55,easing:'cubic-bezier(.4,0,.6,1)'});
+  ],{duration:460,delay:55,easing:'cubic-bezier(.4,0,.6,1)'});
   run(status,[{opacity:1},{opacity:0}],{duration:275,delay:70});
   run(veil,[
    {transform:'translate3d(0,0,0)'},
    {transform:'translate3d(0,-101%,0)'}
-  ],{duration:920,delay:150,easing:'cubic-bezier(.77,0,.175,1)'});
+  ],{duration:1020,delay:180,easing:'cubic-bezier(.77,0,.175,1)'});
   // Editorial content emerges while the blade is still approaching its home.
   revealTimer=setTimeout(()=>{
    if(!ended)document.dispatchEvent(new Event('cutintroreveal'));
-  },370);
-  if(flight)await bounded(flight.finished,1480);
+  },405);
+  if(flight)await bounded(flight.finished,1500);
   finish();
  }catch(error){
   console.warn('Sr. Navalha: abertura interrompida com segurança.',error);

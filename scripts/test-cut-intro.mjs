@@ -32,6 +32,19 @@ async function inspect(width){
   await page.locator('img.razor').count()===1 &&
   await page.locator('.cut-intro .official-logo').count()===1 &&
   await page.locator('.cut-intro__progress-fill').count()===1);
+ check(width+' nova frase e cada palavra animada',
+  await page.locator('.cut-intro__tagline').innerText()==='Precisão em cada movimento.' &&
+  await page.locator('.cut-intro__tagline span').count()===3 &&
+  await page.locator('.cut-intro__logo-mask').count()===1);
+ const earlyProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
+ await page.waitForTimeout(380);
+ const laterProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
+ check(width+' barra de progresso anima durante a entrada',earlyProgress!==laterProgress,{earlyProgress,laterProgress});
+ const entry=await page.evaluate(()=>{
+  const frames=window.__bladeFrames.filter(f=>f.flight);
+  return {first:frames[0],travel:frames.length>4?frames[frames.length-1].x-frames[0].x:0};
+ });
+ check(width+' navalha entra deslizando da esquerda',entry.first?.x<0&&entry.travel>15,entry);
  await page.screenshot({path:`${dir}/${width}-opening.png`});
  await page.waitForTimeout(850);
  check(width+' navalha permanece na abertura',await page.locator('.razor-flight').count()===1);
