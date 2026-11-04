@@ -715,3 +715,35 @@ button,select,input{font-family:var(--body)}
  .new-booking,.agenda-controls button,.section-bottom-link,.appointment-actions a.message{transition:none!important}
  html{scroll-behavior:auto}
 }
+
+
+/* Entry surface shares the operations identity without dashboard ornament. */
+.auth-layout{grid-template-columns:minmax(340px,.9fr) minmax(0,1.1fr);background:#f6f5f0}
+.auth-art{background:#1c2820;padding:clamp(30px,4vw,65px)}
+.auth-art::after{content:none!important;display:none}
+.auth-brand span{color:#c3cec3}
+.auth-message h1{font:640 clamp(35px,3.4vw,53px)/1.16 var(--font);letter-spacing:-.038em;margin:0 0 25px}
+.auth-message h1 em{color:#c8d9c0;font-size:1em}
+.auth-message>span{font-size:13px;color:#d0d8d0;max-width:35ch;line-height:1.7}
+.auth-bottom{font-size:10px;color:#a9baa9}
+.auth-main{background:#f6f5f0}
+.login-card{width:min(100%,420px)}
+.login-card h2{font:660 33px/1.2 var(--font);letter-spacing:-.035em;margin:0 0 12px}
+.login-card>p:not(.micro-label){font-size:13px;color:#627067;line-height:1.7}
+.login-card form{margin-top:29px;gap:9px}
+.login-card label{color:#3d5042;font-size:11px}
+.login-card input{border-radius:5px;background:#fffefa;border-color:#c9d3c8;font-size:13px}
+.login-card input:focus{border-color:#5b855d;outline:2px solid #d2e2ce;outline-offset:0}
+.primary-action{border-radius:5px;font-size:12px;min-height:52px;background:#294b35}
+.primary-action:hover{background:#3e6548}
+.demo-credentials{margin-top:24px;border-color:#d9ded7;color:#607164}
+.demo-credentials summary{font-size:11px}
+@media(max-width:800px){
+ .auth-layout{grid-template-columns:1fr}
+ .auth-art{min-height:205px;padding:28px}
+ .auth-message{margin-top:22px}
+ .auth-message h1{font-size:29px;line-height:1.2;margin-bottom:12px}
+ .auth-message>span{font-size:12px}
+ .auth-main{padding:73px 23px 62px}
+ .login-card h2{font-size:27px}
+}
