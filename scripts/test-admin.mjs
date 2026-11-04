@@ -107,12 +107,28 @@ try{
  await page.setViewportSize({width:1366,height:820});
  await page.locator('.appointment-manage summary').click();
  await page.locator('.appointment button').filter({hasText:'Simular resposta'}).click();
- check('Links da resposta apontam para o protocolo',new URL(await page.locator('#reply-no').getAttribute('href')).searchParams.get('ref')===booking.id);
- await page.locator('#reply-no').click();
- await page.locator('#confirm-action').click();
+ check('Prévia oferece um único link para as duas decisões',
+  new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('ref')===booking.id&&
+  new URL(await page.locator('#reply-choice').getAttribute('href')).searchParams.get('acao')==='escolher');
+ await page.locator('#reply-choice').click();
+ check('Cliente pode escolher confirmar ou cancelar',
+  await page.locator('#confirm-action').isVisible()&&
+  await page.locator('#cancel-action').isVisible());
+ await page.locator('#cancel-action').click();
+ check('Cancelamento exige confirmar a intenção',await page.locator('#decision-dialog').isVisible());
+ await page.locator('#decision-back').click();
+ check('Voltar não altera o agendamento',await page.locator('#decision-dialog').isHidden()&&
+  await page.locator('#confirm-action').isVisible());
+ await page.locator('#cancel-action').click();
+ await page.locator('#decision-apply').click();
  check('Resposta de cancelamento renderizada',await page.locator('#confirmation-title').textContent()==='Horário cancelado.');
  await page.goto(base+'/admin.html',{waitUntil:'domcontentloaded'});
  check('Status cancelado reflete no painel',await page.locator('#stat-cancelled').textContent()==='1');
+ await page.locator('.mobile-admin-nav a[href="#respostas"]').click();
+ check('Resposta pelo site aparece em consulta própria',
+  await page.locator('#responses-view').isVisible()&&
+  await page.locator('#responses-list .site-response-item').count()===1);
+ await page.locator('.mobile-admin-nav a[href="#main"]').click();
  await page.locator('#admin-logout').click();
  check('Sair retorna ao acesso',await page.locator('#admin-login').isVisible());
  await page.evaluate(()=>localStorage.removeItem('srnavalha:agendamentos-demo:v1'));
