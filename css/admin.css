@@ -823,3 +823,12 @@ button,select,input{font-family:var(--body)}
  .responses-list{padding:0 14px}
 }
 @media(prefers-reduced-motion:reduce){.responses-toolbar button,.responses-list button{transition:none}}
+
+
+/* The supplied raster logo has a dark opaque background. Screen blending
+   treats the black backdrop as transparent on dark brand surfaces while
+   preserving the bright lettering; avoid whitening the whole rectangle. */
+.dash-logo img,.auth-brand img{
+ filter:grayscale(1) contrast(2.4)!important;
+ mix-blend-mode:screen;
+}
