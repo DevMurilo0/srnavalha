@@ -413,11 +413,11 @@ async function renderDashboard(){
  $('#recent-replies-list').replaceChildren(...siteResponses.slice(0,4).map(createSiteResponseRow));
  $('#recent-replies-empty').hidden=siteResponses.length>0;
  $('#responses-count').textContent=String(siteResponses.length);
- const responseQuery=responseSearch.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
+ const responseQuery=responseSearch.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const filteredResponses=siteResponses.filter(b=>{
   if(responsePeriod==='today'&&dateKey(b.responded_at)!==today)return false;
   const name=[b.customer_name,b.customer_phone,b.service_name,b.professional_name,b.reference].join(' ')
-   .normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
+   .normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   return name.includes(responseQuery);
  });
  $('#responses-list').replaceChildren(...filteredResponses.map(createSiteResponseRow));
