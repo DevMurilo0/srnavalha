@@ -31,6 +31,15 @@ try{
  check('Agendamento aparece na agenda administrativa',await page.locator('.appointment').count()===1&&await page.locator('#stat-pending').textContent()==='1');
  check('Mensagem é a ação principal',await page.locator('.appointment a.message').textContent()==='Mensagem');
  check('Próximo atendimento em destaque',await page.locator('#upcoming-list .upcoming-item').count()===1);
+ check('Painel apresenta contatos pendentes com mensagem pronta',
+  await page.locator('#stat-contact-waiting').textContent()==='1'&&
+  await page.locator('#contact-queue-list .contact-queue-item').count()===1&&
+  (await page.locator('#contact-queue-list a.message').getAttribute('href')).startsWith('whatsapp://send?'));
+ await page.locator('#open-pending-contacts').click();
+ check('Acesso rápido filtra a agenda por contato pendente',
+  await page.locator('[data-message-filter="unsent"]').getAttribute('aria-pressed')==='true'&&
+  await page.locator('.appointment').count()===1);
+ await page.locator('[data-message-filter="all"]').click();
  // The primary action is now a real app deep link. Intercept only for
  // browser automation so tests don't launch an external application.
  await page.evaluate(()=>document.addEventListener('click',event=>{
@@ -58,13 +67,17 @@ try{
   await page.locator('#stat-pending').textContent()==='1');
  check('Contact status counters reflect manual confirmation',
   await page.locator('#msg-unsent-count').textContent()==='0'&&
-  await page.locator('#msg-sent-count').textContent()==='1');
+  await page.locator('#msg-sent-count').textContent()==='1'&&
+  await page.locator('#stat-contact-waiting').textContent()==='0'&&
+  await page.locator('#contact-queue-list .contact-queue-item').count()===0);
  await page.locator('[data-message-filter="unsent"]').click();
  check('Pending-contact filter excludes sent messages',await page.locator('.appointment').count()===0);
  await page.locator('[data-message-filter="sent"]').click();
  check('Sent-message filter shows marked client',await page.locator('.appointment').count()===1);
  await page.locator('[data-message-filter="all"]').click();
 
+ await page.locator('#agenda-advanced summary').click();
+ check('Filtros avançados são acessíveis quando solicitados',await page.locator('#agenda-advanced').getAttribute('open')!==null);
  await page.locator('#admin-period').selectOption('today');
  check('Filtro de data aparece e pode ser alterado',await page.locator('#admin-period').inputValue()==='today');
  await page.locator('#admin-period').selectOption('all');
@@ -88,6 +101,7 @@ try{
  check('Busca por telefone encontra o cliente confirmado',await page.locator('.confirmed-item').count()===1);
  await page.setViewportSize({width:390,height:844});
  check('Navegação para confirmados acessível no celular',await page.locator('.mobile-admin-nav a[href="#confirmados"]').isVisible());
+ check('Layout mobile preserva a consulta por telefone',await page.locator('#confirmed-search').isVisible());
  await page.locator('.mobile-admin-nav a[href="#main"]').click();
  check('Volta à agenda no celular',await page.locator('#overview-view').isVisible());
  await page.setViewportSize({width:1366,height:820});
