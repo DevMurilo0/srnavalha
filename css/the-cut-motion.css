@@ -12,7 +12,7 @@
 .opening-active .cut-intro{
  display:block;position:fixed;inset:0;z-index:1000;
  overflow:hidden;isolation:isolate;pointer-events:auto;
- background:#e9e3d8;contain:layout paint;
+ background:transparent;contain:layout paint;
 }
 .cut-intro__veil{
  position:absolute;inset:-1px;background:#e9e3d8;
