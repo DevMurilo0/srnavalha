@@ -1,34 +1,53 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
- <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
- <meta name="theme-color" content="#202824">
- <meta name="description" content="Resposta à solicitação de horário Sr. Navalha.">
- <title>Resposta ao agendamento · Sr. Navalha</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#1d2821">
+ <meta name="description" content="Confirme ou cancele seu agendamento na Barbearia Sr. Navalha.">
+ <title>Confirmar horário · Sr. Navalha</title>
  <link rel="icon" href="assets/decor/favicon-v8.png">
  <link rel="stylesheet" href="css/confirmar.css">
  <script type="module" src="js/confirmar.js"></script>
 </head>
 <body>
-<header><a href="index.html"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="124" height="92"></a><span>BARBEARIA · GRAVATÁ / PE</span></header>
-<main>
- <section class="confirmation-card" aria-labelledby="confirmation-title">
-  <div class="confirmation-icon" id="confirmation-icon" aria-hidden="true">✳</div>
-  <p class="eyebrow" id="confirmation-label">RESPOSTA AO AGENDAMENTO</p>
-  <h1 id="confirmation-title">Confirme sua <em>presença.</em></h1>
-  <p id="confirmation-description">Revise a solicitação antes de confirmar a resposta.</p>
-  <div class="confirmation-details" id="confirmation-details" hidden>
-   <div><span>CLIENTE</span><strong id="confirm-client">—</strong></div>
-   <div><span>SERVIÇO</span><strong id="confirm-service">—</strong></div>
-   <div><span>DATA E HORÁRIO</span><strong id="confirm-date">—</strong></div>
+ <header class="confirm-header">
+  <a href="index.html" class="confirm-logo" aria-label="Sr. Navalha — início"><img src="assets/images/v8/logo-320.webp" alt="Sr. Navalha" width="130" height="95"></a>
+  <span>AGENDAMENTO · GRAVATÁ / PE</span>
+ </header>
+ <main class="confirm-main">
+  <section class="confirmation-card" aria-labelledby="confirmation-title">
+   <div class="confirmation-icon" id="confirmation-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="25" height="25"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 15l3 3 5-5"/></svg>
+   </div>
+   <h1 id="confirmation-title">Vamos confirmar seu horário?</h1>
+   <p id="confirmation-description">Confira os detalhes e escolha uma opção abaixo.</p>
+   <div class="confirmation-details" id="confirmation-details" hidden>
+    <div><span>CLIENTE</span><strong id="confirm-client">—</strong></div>
+    <div><span>SERVIÇO</span><strong id="confirm-service">—</strong></div>
+    <div><span>PROFISSIONAL</span><strong id="confirm-professional">—</strong></div>
+    <div><span>DATA E HORÁRIO</span><strong id="confirm-date">—</strong></div>
+   </div>
+   <div class="confirmation-actions" id="confirmation-actions" hidden>
+    <button type="button" class="confirm-yes" id="confirm-action">Vou comparecer</button>
+    <button type="button" class="confirm-no" id="cancel-action">Cancelar horário</button>
+   </div>
+   <p class="confirmation-footnote" id="confirmation-footnote">Sua escolha será registrada na agenda da barbearia após a confirmação.</p>
+   <div class="confirmation-help">
+    <span>Ficou com alguma dúvida?</span>
+    <a href="https://wa.me/5581995722396" target="_blank" rel="noopener noreferrer">Falar com a barbearia</a>
+   </div>
+  </section>
+ </main>
+ <dialog id="decision-dialog" class="decision-dialog" aria-labelledby="decision-title" aria-describedby="decision-description">
+  <h2 id="decision-title">Tem certeza?</h2>
+  <p id="decision-description">Confirme sua escolha para atualizar a agenda.</p>
+  <p id="decision-error" class="decision-error" role="alert" hidden></p>
+  <div class="decision-actions">
+   <button id="decision-back" type="button" class="decision-back">Voltar</button>
+   <button id="decision-apply" type="button" class="decision-apply">Sim, confirmar</button>
   </div>
-  <div class="confirmation-actions" id="confirmation-actions" hidden>
-   <button type="button" id="confirm-action">Confirmar</button>
-   <a href="agendar.html">Voltar ao agendamento</a>
-  </div>
-  <p class="confirmation-footnote" id="confirmation-footnote">Esta etapa demonstra como uma resposta poderá funcionar. Nesta versão, ela é registrada apenas no navegador em que a solicitação foi criada. Para confirmações reais entre celulares será necessário conectar a agenda a um serviço compartilhado.</p>
- </section>
-</main>
-<footer><span>SR. NAVALHA · GRAVATÁ</span><a href="index.html">Voltar ao site ↗</a></footer>
+ </dialog>
+ <footer class="confirm-footer"><span>SR. NAVALHA · GRAVATÁ</span><a href="index.html">Voltar ao site</a></footer>
 </body>
 </html>
