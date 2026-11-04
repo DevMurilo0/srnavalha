@@ -270,9 +270,9 @@ function createRow(booking){
  const pill=el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando');
  state.append(pill);
  const messageSent=Boolean(booking.whatsapp_manual_sent_at);
- state.append(el('span','contact-chip '+(messageSent?'is-sent':'is-pending'),messageSent?'Mensagem enviada':'Aguardando envio'));
- if(messageSent)state.append(el('small','message-indicator','Envio registrado pela equipe'));
- else if(booking.reminder_prepared_at)state.append(el('small','message-indicator','Conversa aberta, ainda não enviado'));
+ state.append(el('span','contact-chip '+(messageSent?'is-sent':'is-pending'),messageSent?'Mensagem enviada':'Envio não registrado'));
+ if(messageSent)state.append(el('small','message-indicator','Registrado pela equipe'));
+ if(status!=='pending')state.append(el('small','reply-channel',responseSourceLabel(booking)));
  const actions=el('div','appointment-actions');
  const group=el('div','action-main');
  const msg=messageAction(booking,status);
@@ -311,6 +311,41 @@ function createContactQueueRow(booking){
  const action=messageAction(booking,'pending');
  action.textContent='Mensagem';
  row.append(details,action);
+ return row;
+}
+function responseSourceLabel(booking){
+ if(booking.confirmation_channel==='site')return 'Respondeu pelo link';
+ if(booking.confirmation_channel==='whatsapp')return 'Respondeu pelo WhatsApp Business';
+ if(booking.confirmation_channel==='staff')return 'Atualizado pela equipe';
+ return 'Situação registrada';
+}
+function createTodayRow(booking){
+ const status=normalizedStatus(booking);
+ const row=el('article','today-item');
+ const time=el('strong','today-hour',fmtHour(booking.starts_at));
+ const identity=el('div','today-identity');
+ identity.append(el('strong','',booking.customer_name||'Cliente'),
+  el('span','',booking.service_name+' · '+booking.professional_name));
+ const result=el('div','today-result');
+ result.append(el('span','status '+(status==='pending'?'':status),STATUS[status]?.[0]||'Aguardando'));
+ if(status!=='pending')result.append(el('small','',responseSourceLabel(booking)));
+ row.append(time,identity,result);
+ return row;
+}
+function createSiteResponseRow(booking){
+ const status=normalizedStatus(booking);
+ const row=el('article','site-response-item');
+ const avatar=el('span','site-response-mark '+(status==='cancelled'?'is-cancel':''),status==='cancelled'?'×':'✓');
+ avatar.setAttribute('aria-hidden','true');
+ const details=el('div','site-response-details');
+ details.append(el('strong','',booking.customer_name||'Cliente'),
+  el('span','',status==='cancelled'?'Cancelou pelo link':'Confirmou pelo link'),
+  el('small','',booking.service_name+' · '+fmtDay(booking.starts_at)+' às '+fmtHour(booking.starts_at)));
+ const when=el('time','site-response-time',booking.responded_at?new Intl.DateTimeFormat('pt-BR',{
+  timeZone:TZ,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'
+ }).format(new Date(booking.responded_at)):'');
+ if(booking.responded_at)when.dateTime=booking.responded_at;
+ row.append(avatar,details,when);
  return row;
 }
 function createConfirmedRow(booking){
@@ -359,6 +394,37 @@ async function renderDashboard(){
  $('#dash-clock').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'short',day:'2-digit',month:'short'}).format(new Date());
  const now=Date.now(),today=dateKey(new Date()),week=weekEnd(today);
  $('#dash-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'}).format(new Date());
+ // Today's appointments are separate from outgoing WhatsApp and incoming link replies.
+ const todayBookings=entries.filter(b=>dateKey(b.starts_at)===today)
+  .sort((a,b)=>Date.parse(a.starts_at)-Date.parse(b.starts_at));
+ $('#today-date').textContent=new Intl.DateTimeFormat('pt-BR',{timeZone:TZ,day:'2-digit',month:'short'}).format(new Date());
+ $('#today-all').textContent=String(todayBookings.length);
+ $('#today-confirmed').textContent=String(todayBookings.filter(b=>normalizedStatus(b)==='confirmed').length);
+ $('#today-cancelled').textContent=String(todayBookings.filter(b=>normalizedStatus(b)==='cancelled').length);
+ $('#today-list').replaceChildren(...todayBookings.map(createTodayRow));
+ $('#today-empty').hidden=todayBookings.length>0;
+
+ const siteResponses=entries.filter(b=>b.confirmation_channel==='site'&&
+  ['confirmed','cancelled'].includes(normalizedStatus(b))&&b.responded_at)
+  .sort((a,b)=>Date.parse(b.responded_at)-Date.parse(a.responded_at));
+ $('#stat-site-responses').textContent=String(siteResponses.length);
+ $('#side-response-count').textContent=String(siteResponses.length);
+ $('#recent-replies-count').textContent=String(siteResponses.length);
+ $('#recent-replies-list').replaceChildren(...siteResponses.slice(0,4).map(createSiteResponseRow));
+ $('#recent-replies-empty').hidden=siteResponses.length>0;
+ $('#responses-count').textContent=String(siteResponses.length);
+ const responseQuery=responseSearch.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
+ const filteredResponses=siteResponses.filter(b=>{
+  if(responsePeriod==='today'&&dateKey(b.responded_at)!==today)return false;
+  const name=[b.customer_name,b.customer_phone,b.service_name,b.professional_name,b.reference].join(' ')
+   .normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
+  return name.includes(responseQuery);
+ });
+ $('#responses-list').replaceChildren(...filteredResponses.map(createSiteResponseRow));
+ $('#responses-empty').hidden=filteredResponses.length>0;
+ if(!filteredResponses.length)$('#responses-empty-text').textContent=siteResponses.length
+  ?'Nenhuma resposta corresponde à busca ou ao período selecionado.'
+  :'Quando um cliente confirmar ou cancelar pelo link, a resposta aparecerá aqui.';
 
  // The front of the dashboard only shows the closest future dates.
  const upcoming=entries.filter(b=>normalizedStatus(b)!=='cancelled'&&Date.parse(b.starts_at)>=now)
@@ -439,6 +505,13 @@ document.querySelectorAll('[data-message-filter]').forEach(button=>button.addEve
  void renderDashboard();
 }));
 $('#admin-search').addEventListener('input',event=>{currentSearch=event.target.value.trim();renderDashboard()});
+$('#responses-search').addEventListener('input',event=>{responseSearch=event.target.value.trim();void renderDashboard()});
+$('#responses-period').addEventListener('change',event=>{responsePeriod=event.target.value;void renderDashboard()});
+$('#responses-clear').addEventListener('click',()=>{
+ responseSearch='';responsePeriod='all';
+ $('#responses-search').value='';$('#responses-period').value='all';
+ void renderDashboard();
+});
 $('#confirmed-search').addEventListener('input',event=>{confirmedSearch=event.target.value.trim();void renderDashboard()});
 $('#confirmed-period').addEventListener('change',event=>{confirmedPeriod=event.target.value;void renderDashboard()});
 $('#confirmed-clear').addEventListener('click',()=>{
