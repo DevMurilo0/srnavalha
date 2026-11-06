@@ -148,6 +148,20 @@
 @media(max-width:700px){.hero-message h1 em{font-size:clamp(29px,8.2vw,55px);letter-spacing:-.05em}}
 @media(max-width:360px){.hero-message h1 em{font-size:clamp(28px,8vw,39px)}}
 
+/* Upright display typography throughout the editorial headings. */
+.house h2 em{font-size:clamp(28px,4.5vw,70px);line-height:1.13;letter-spacing:-.055em}
+.team h2 em{font-size:.88em;line-height:1.12}
+.work h2 em{font-size:.92em;line-height:1.1}
+.instrument-copy p em{
+ font-family:var(--serif);font-style:normal;font-weight:400;
+ font-size:clamp(23px,3.25vw,53px);line-height:1.14;letter-spacing:-.055em;
+}
+@media(max-width:700px){
+ .house h2 em{font-size:clamp(29px,8vw,42px)}
+ .team h2 em{font-size:.86em}
+ .instrument-copy p em{font-size:clamp(21px,5.35vw,32px)}
+}
+
 /* Feedback: small, legible state changes instead of global motion. */
 .button,.service-panel>a,.service-extras a,.team-list button,.product-selection a,.work-print a,.catalog-disclosure>summary,.gallery-controls button,.gallery-all,.desktop-nav a,.floating-booking{transition-property:background-color,color,border-color,box-shadow,opacity,transform;transition-duration:220ms;transition-timing-function:cubic-bezier(.22,1,.36,1)}
 .button:active,.gallery-controls button:active,.team-list button:active{transform:scale(.975)}
