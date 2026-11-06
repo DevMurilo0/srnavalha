@@ -423,6 +423,47 @@ function initProductExperience(){
  update(false);
 }
 
+
+function initWorkShowcase(){
+ const root=$('[data-work-showcase]');
+ if(!root)return;
+ const cards=$$('.work-print',root),chips=$$('.work-chip',root);
+ const reset=()=>{root.style.setProperty('--work-x',0);root.style.setProperty('--work-y',0)};
+ const activate=index=>{
+  cards.forEach((card,i)=>card.classList.toggle('is-active',i===index));
+  chips.forEach((chip,i)=>{
+   chip.classList.toggle('is-active',i===index);
+   chip.setAttribute('aria-pressed',String(i===index));
+  });
+ };
+ chips.forEach((chip,index)=>{
+  on(chip,'mouseenter',()=>activate(index));
+  on(chip,'focus',()=>activate(index));
+  on(chip,'click',()=>activate(index));
+ });
+ cards.forEach((card,index)=>{
+  on(card,'mouseenter',()=>activate(index));
+  on(card,'focusin',()=>activate(index));
+ });
+ activate(0);
+ if(!motion())return;
+ let raf=0,nextX=0,nextY=0;
+ const paint=()=>{
+  raf=0;
+  root.style.setProperty('--work-x',String(nextX));
+  root.style.setProperty('--work-y',String(nextY));
+ };
+ on(root,'pointermove',event=>{
+  if(innerWidth<=700)return;
+  const rect=root.getBoundingClientRect();
+  nextX=Number((((event.clientX-rect.left)/rect.width)-.5).toFixed(3));
+  nextY=Number((((event.clientY-rect.top)/rect.height)-.5).toFixed(3));
+  if(!raf)raf=requestAnimationFrame(paint);
+ },{passive:true});
+ on(root,'pointerleave',reset,{passive:true});
+ on(root,'pointercancel',reset,{passive:true});
+}
+
 function initGallery(){
  const dialog=$('.gallery-dialog');
  if(!dialog||typeof dialog.showModal!=='function')return;
@@ -497,6 +538,7 @@ function boot(){
  initTeam();
  initCatalogue('service');
  initProductExperience();
+ initWorkShowcase();
  initGallery();
  initReviews();
  initBooking();

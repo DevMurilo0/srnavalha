@@ -327,14 +327,17 @@ function headings(ready){
 }
 function editorialPhotographs(){
  const nodes=all('.house-main,.house-detail,.portrait-stage,.work-print a,.instrument-photo img,.facade');
+ const workCards=all('.work-print a');
  observe(nodes,async node=>{
   const loaded=await assetsReady(node);
   if(!loaded){done(node);return}
   const final=getComputedStyle(node).transform;
   const wipe=node.matches('.work-print a');
-  const frames=wipe?[{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)'}]
+  const index=wipe?Math.max(0,workCards.indexOf(node)):0;
+  const frames=wipe
+   ?[{opacity:0,clipPath:'inset(0 100% 0 0)',transform:'translate3d(0,18px,0) scale(.985)'},{opacity:1,clipPath:'inset(0 0 0 0)',transform:'translate3d(0,0,0) scale(1)'}]
    :[{opacity:0,transform:`translateY(18px) ${final==='none'?'':final}`},{opacity:1,transform:final}];
-  await animate(node,frames,{duration:800,delay:120});
+  await animate(node,frames,{duration:wipe?920:800,delay:wipe?170+index*140:120});
  });
 }
 function productRollIn(){
