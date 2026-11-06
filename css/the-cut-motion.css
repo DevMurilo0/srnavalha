@@ -177,3 +177,11 @@ a:has(>.ui-icon),button:has(>.ui-icon){display:inline-flex;align-items:center;ju
 .products .product-note{display:block;color:#665c50;line-height:1.5}
 .product-selection .product-note{border-top:1px solid #857a6c;margin-top:9px;padding-top:9px;font-size:clamp(10px,.95vw,13px);letter-spacing:.015em}
 .all-products .product-note{font-size:11px;margin-top:7px;color:#6b6258}
+
+/* Gallery entrance stays above the overlapping photographic prints.
+   On narrow screens it sits clear of the fixed booking control. */
+.work .work-copy{position:relative;z-index:7}
+.work .gallery-all{z-index:12}
+@media(max-width:700px){
+ .work .gallery-all{left:var(--gutter);right:auto;z-index:12}
+}
