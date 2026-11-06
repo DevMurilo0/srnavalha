@@ -446,7 +446,7 @@ function chapterDepth(){
 }
 
 function detailsTransitions(){
- all('.catalog-disclosure').forEach(details=>{
+ all('.catalog-disclosure:not(.product-catalog)').forEach(details=>{
   let closing=false;
   const content=()=>all(':scope > :not(summary)',details);
   details.addEventListener('toggle',()=>{

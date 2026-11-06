@@ -15,6 +15,12 @@ async function inspect(width,reducedMotion='no-preference'){
  await page.goto(site+'/#produtos',{waitUntil:'domcontentloaded'});
  check(width+' Eduardo preselected',await page.locator('.team-list button').first().getAttribute('data-person')==='eduardo'&&await page.locator('#team-booking').getAttribute('href')==='agendar.html?profissional=eduardo');
  check(width+' complete collection',await page.locator('.all-products article').count()===18);
+ check(width+' chamada de produtos e sacola',
+  (await page.locator('.product-catalog__serial').innerText()).includes('18 PRODUTOS')&&
+  (await page.locator('.product-catalog__title').innerText()).includes('produtos.')&&
+  await page.locator('.product-catalog__bag').count()===1&&
+  await page.locator('.product-catalog__preview-img').count()===3);
+
  const displayFaces=await page.evaluate(()=>{
   const selectors=['.house h2 em','.instrument-copy em','.team h2 em'];
   return selectors.map(selector=>{
@@ -29,6 +35,11 @@ async function inspect(width,reducedMotion='no-preference'){
   await page.locator('.product-catalog .product-card__price').count()===18);
  await page.screenshot({path:`${dir}/catalog-${width}-${reducedMotion}.png`,fullPage:false});
  if(width>700){
+  await page.locator('.product-catalog__view[data-product-view="list"]').click();
+  check(width+' modo lista interativo',await page.locator('.all-products').getAttribute('data-view')==='list'&&
+    await page.locator('.product-catalog__view[data-product-view="list"]').getAttribute('aria-pressed')==='true');
+  await page.locator('.product-catalog__view[data-product-view="grid"]').click();
+  check(width+' retorna à grade',await page.locator('.all-products').getAttribute('data-view')==='grid');
   await page.locator('.product-filter[data-category="Barba"]').click();
   check(width+' category chip filters to three',await page.locator('.product-card:not([hidden])').count()===3&&await page.locator('#product-count').innerText()==='3 de 18 produtos');
   check(width+' category aria state',await page.locator('.product-filter[data-category="Barba"]').getAttribute('aria-pressed')==='true');
