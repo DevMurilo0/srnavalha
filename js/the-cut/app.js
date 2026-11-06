@@ -470,6 +470,9 @@ function initGallery(){
  const photo=$('.gallery-room__photo',dialog);
  const layers=$$('.gallery-room__layer',photo);
  const caption=$('.gallery-room__caption',dialog);
+ const featureTitle=$('.gallery-room__feature-title',dialog);
+ const featureSubtitle=$('.gallery-room__feature-subtitle',dialog);
+ const selectionCount=$('.gallery-room__selection-head span:last-child',dialog);
  const status=$('.gallery-controls [role="status"]',dialog);
  const thumbRoot=$('.gallery-room__thumbs',dialog);
  const pictures=[
@@ -500,7 +503,10 @@ function initGallery(){
   const item=pictures[selected];
   caption.replaceChildren(document.createTextNode(item.title));
   const info=document.createElement('span');info.textContent=item.subtitle;caption.append(info);
+  if(featureTitle)featureTitle.textContent=item.title;
+  if(featureSubtitle)featureSubtitle.textContent=item.subtitle;
   if(status)status.textContent=String(selected+1).padStart(2,'0')+' / '+String(pictures.length).padStart(2,'0');
+  if(selectionCount)selectionCount.textContent=String(selected+1).padStart(2,'0')+' · '+String(pictures.length).padStart(2,'0');
   dialog.style.setProperty('--gallery-progress',String((selected+1)/pictures.length));
   thumbs.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===selected)));
  };
