@@ -15,6 +15,14 @@ async function inspect(width,reducedMotion='no-preference'){
  await page.goto(site+'/#produtos',{waitUntil:'domcontentloaded'});
  check(width+' Eduardo preselected',await page.locator('.team-list button').first().getAttribute('data-person')==='eduardo'&&await page.locator('#team-booking').getAttribute('href')==='agendar.html?profissional=eduardo');
  check(width+' complete collection',await page.locator('.all-products article').count()===18);
+ const displayFaces=await page.evaluate(()=>{
+  const selectors=['.house h2 em','.instrument-copy em','.team h2 em'];
+  return selectors.map(selector=>{
+   const node=document.querySelector(selector),style=getComputedStyle(node);
+   return {selector,family:style.fontFamily,italic:style.fontStyle};
+  });
+ });
+ check(width+' upright editorial display family',displayFaces.every(f=>f.family.includes('Young Serif')&&f.italic==='normal'),displayFaces);
  await page.locator('.product-catalog>summary').click();
  await page.locator('.product-catalog .all-products').waitFor({state:'visible'});
  check(width+' collection design loaded',await page.locator('.product-card__photo').count()===18 &&
@@ -24,6 +32,16 @@ async function inspect(width,reducedMotion='no-preference'){
   await page.locator('.product-filter[data-category="Barba"]').click();
   check(width+' category chip filters to three',await page.locator('.product-card:not([hidden])').count()===3&&await page.locator('#product-count').innerText()==='3 de 18 produtos');
   check(width+' category aria state',await page.locator('.product-filter[data-category="Barba"]').getAttribute('aria-pressed')==='true');
+  const lens=await page.evaluate(()=>{
+   const root=document.querySelector('.product-catalog__filters');
+   const target=root.querySelector('.product-filter[aria-pressed="true"]');
+   const indicator=root.querySelector('.product-filter__lens');
+   return {present:!!indicator,targetX:target.offsetLeft,transform:indicator&&getComputedStyle(indicator).transform};
+  });
+  check(width+' category active lens mounted',lens.present&&lens.transform!=='none',lens);
+  await page.locator('.product-filter[data-category="Cabelo"]').click();
+  check(width+' category re-filters immediately',await page.locator('.product-card:not([hidden])').count()===6);
+  await page.locator('.product-filter[data-category="Barba"]').click();
  }else{
   await page.locator('#product-category').selectOption('Barba');
   check(width+' mobile category dropdown',await page.locator('.product-card:not([hidden])').count()===3);
