@@ -6,7 +6,7 @@
   isolation:isolate;overflow:clip;color:#f2ece3;background:#100f0e;
 }
 .work.work-folio::before {
-  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;opacity:.52;
+  content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;opacity:.045;
   background:linear-gradient(140deg,#29211b88,transparent 39%),url('../assets/images/the-cut/paper.webp') center/460px repeat;
 }
 .work.work-folio::after {content:"";display:block;position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.16;background:repeating-linear-gradient(90deg,transparent 0 124px,#c1a28313 124px 125px)}
