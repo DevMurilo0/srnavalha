@@ -73,7 +73,7 @@ async function opening(){
   intro.remove();
   resolveEnd();
  };
- const watchdog=setTimeout(finish,5500);
+ const watchdog=setTimeout(finish,5700);
  const run=(node,frames,options={})=>{
   if(!node||!node.animate)return null;
   const effect=node.animate(frames,{fill:'both',easing:eased,...options});
@@ -113,32 +113,36 @@ async function opening(){
  const progress=one('.cut-intro__progress-fill',intro);
  const veil=one('.cut-intro__veil',intro);
  try{
-  // A reveal from beneath a mask gives the official mark a crafted entrance.
+  // The real logotype drops from above the viewport, settles with a restrained
+  // recoil, and never teleports into view at the first rendered frame.
+  const logoDrop=-Math.max(innerHeight*.82,560);
   run(logo,[
-   {opacity:0,transform:'translate3d(0,108%,0) rotate(-3deg)'},
-   {opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
-  ],{duration:640,delay:55,easing:'cubic-bezier(.18,.7,.25,1)'});
+   {offset:0,opacity:1,transform:'translate3d(0,'+logoDrop+'px,0) rotate(-7deg)',easing:'cubic-bezier(.2,.7,.25,1)'},
+   {offset:.76,opacity:1,transform:'translate3d(0,12px,0) rotate(1.1deg)',easing:'cubic-bezier(.2,.8,.3,1)'},
+   {offset:.92,opacity:1,transform:'translate3d(0,-3px,0) rotate(-.3deg)'},
+   {offset:1,opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
+  ],{duration:1180,delay:45,easing:'linear'});
   tagline.forEach((word,i)=>run(word,[
    {opacity:0,transform:'translate3d(0,16px,0)'},
    {opacity:1,transform:'translate3d(0,0,0)'}
-  ],{duration:470,delay:340+i*115,easing:'cubic-bezier(.16,1,.3,1)'}));
+  ],{duration:490,delay:710+i*115,easing:'cubic-bezier(.16,1,.3,1)'}));
   run(status,[
    {opacity:0,transform:'translate3d(-50%,14px,0)'},
    {opacity:1,transform:'translate3d(-50%,0,0)'}
-  ],{duration:440,delay:180,easing:'cubic-bezier(.22,1,.36,1)'});
+  ],{duration:440,delay:460,easing:'cubic-bezier(.22,1,.36,1)'});
   run(statusLabel,[
    {opacity:0,transform:'translate3d(0,7px,0)'},
    {opacity:1,transform:'translate3d(0,0,0)'}
-  ],{duration:420,delay:260});
+  ],{duration:420,delay:530});
   run(statusDot,[
    {offset:0,opacity:.3,transform:'scale(.75)'},
    {offset:.5,opacity:1,transform:'scale(1.16)'},
    {offset:1,opacity:.55,transform:'scale(.9)'}
-  ],{duration:900,delay:300,iterations:2,easing:'ease-in-out'});
+  ],{duration:900,delay:560,iterations:2,easing:'ease-in-out'});
   run(track,[
    {transform:'scaleX(.08)',opacity:0},
    {transform:'scaleX(1)',opacity:1}
-  ],{duration:660,delay:240,easing:'cubic-bezier(.16,1,.3,1)'});
+  ],{duration:660,delay:520,easing:'cubic-bezier(.16,1,.3,1)'});
   // Progress follows the entrance choreography rather than racing to 100%.
   run(progress,[
    {offset:0,transform:'scaleX(0)'},
@@ -177,20 +181,21 @@ async function opening(){
   const pose=(x,y,s,angle)=>
    'translate3d('+(x-centerX).toFixed(2)+'px,'+
    (y-centerY).toFixed(2)+'px,0) rotate('+angle+'deg) scale('+s.toFixed(4)+')';
-  const atRest=pose(introX,introY,scale,-6);
-  // Enter from completely off-screen LEFT. The blade stays fully material:
-  // it glides into the atelier and slows down, never fades into existence.
-  const entranceX=-introWidth*.76;
-  const entranceY=introY+Math.min(64,h*.09);
+  const atRest=pose(introX,introY,scale,354);
+  // The original blade completes exactly one rotation (-6 to 354 degrees)
+  // while entering from the left. This is a single shared image, not a clone.
+  const entranceX=-introWidth*.86;
+  const entranceY=introY+Math.min(56,h*.075);
   const openingBlade=run(target,[
-   {offset:0,opacity:1,transform:pose(entranceX,entranceY,scale*.94,-16)},
-   {offset:.7,opacity:1,transform:pose(introX-44,introY+8,scale*.99,-8)},
+   {offset:0,opacity:1,transform:pose(entranceX,entranceY,scale*.86,-6),easing:'cubic-bezier(.36,.24,.5,.74)'},
+   {offset:.28,opacity:1,transform:pose(introX-introWidth*.56,introY+36,scale*.92,90),easing:'cubic-bezier(.42,.1,.25,.95)'},
+   {offset:.67,opacity:1,transform:pose(introX-26,introY-16,scale,264),easing:'cubic-bezier(.16,.8,.24,1)'},
    {offset:1,opacity:1,transform:atRest}
-  ],{duration:1170,delay:110,easing:'cubic-bezier(.25,.64,.2,1)'});
-  // A brief settled pose gives the object weight before the hand-off.
+  ],{duration:1460,delay:140,easing:'linear'});
+  // Let the metal settle before its final gravity-led drop into the hero.
   await Promise.all([
-   delay(1560),
-   openingBlade?bounded(openingBlade.finished,1540):Promise.resolve()
+   delay(1760),
+   openingBlade?bounded(openingBlade.finished,1800):Promise.resolve()
   ]);
   if(ended)return endedPromise;
   run(progress,[
@@ -200,10 +205,11 @@ async function opening(){
   // A single compositor-only trajectory connects the loading cover to the
   // exact hero destination, with no second image and no last-frame substitution.
   const flight=run(target,[
-   {offset:0,opacity:1,transform:atRest},
-   {offset:.2,opacity:1,transform:pose(introX+15,introY-19,scale*.96,-10)},
-   {offset:1,opacity:1,transform:'translate3d(0px,0px,0) rotate(0deg) scale(1)'}
-  ],{duration:1240,easing:'cubic-bezier(.32,.04,.16,1)'});
+   {offset:0,opacity:1,transform:atRest,easing:'cubic-bezier(.48,.04,.56,.74)'},
+   {offset:.23,opacity:1,transform:pose(introX+12,introY-21,scale*.96,357),easing:'cubic-bezier(.16,.76,.24,1)'},
+   // A full revolution equals the unrotated end pose: the landing has no snap.
+   {offset:1,opacity:1,transform:'translate3d(0px,0px,0) rotate(360deg) scale(1)'}
+  ],{duration:1160,easing:'linear'});
   run(identity,[
    {opacity:1,transform:'translate3d(-50%,-50%,0)'},
    {opacity:0,transform:'translate3d(-50%,calc(-50% - 16px),0)'}

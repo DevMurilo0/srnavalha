@@ -23,6 +23,10 @@ const selected=['cortee','barba-simples','comb-cort-barb-simples'];
 const featured=selected.map((id,i)=>{const s=services.find(s=>s.id===id);const price=s.price.match(/R\$ (\d+),(\d+)/);return `<article class="service-panel ${i===2?'service-wood':''}"><div class="service-top"><h3>${i===1?'Barba<br>simples':i===2?'Corte +<br>barba simples':'Corte'}</h3><div class="service-numbers"><span>${esc(s.duration)}</span><p><small>R$</small> <strong>${price[1]}</strong><small>,${price[2]}</small></p></div></div><p class="service-description">${['Seu corte. Sua marca.','Precisão nos detalhes.','O clássico da casa.'][i]}</p><a href="${booking(id)}">${['Agendar corte','Agendar barba','Agendar combo'][i]} ${arrow}</a></article>`}).join('');
 const allServices=services.map(s=>`<article data-service="${esc(s.id)}" data-search="${esc(s.name+' '+s.category)}"><div><h3>${esc(s.name)}</h3><p>${esc(s.category)} · ${esc(s.duration)}</p>${s.description?`<p>${esc(s.description)}</p>`:''}</div><strong>${s.fromPrice?'A partir de ':''}${esc(s.price)}</strong><a href="${booking(s.id)}" aria-label="Agendar ${esc(s.name)}">Agendar ${arrow}</a></article>`).join('');
 const productIds=['pomada-fox-premium','oleo-para-barba','pomada-orange'];
+const teamFirst=['eduardo','damiao','kaua','rafael','yan'];
+const teamSorted=[...professionals].sort((a,b)=>teamFirst.indexOf(a.id)-teamFirst.indexOf(b.id));
+const productCategories=['Todos',...new Set(products.map(p=>p.category))];
+const priceNumber=p=>Number(p.price.replace(/[^0-9,]/g,'').replace(',','.'))||0;
 const featuredProducts=productIds.map(id=>products.find(p=>p.id===id));
 const productNames=['Pomada Fox<br>Premium','Óleo para barba<br>Fox','Pomada<br>Orange'];
 const gallery=[['servico-comb-cort-barb-simples','Corte e barba'],['servico-barba-simples','Precisão no desenho da barba'],['servico-luzes','Corte e textura'],['servico-barboterapia','Barboterapia'],['servico-corte-infantil','Corte infantil'],['servico-platinado','Platinado']];
@@ -31,12 +35,25 @@ const tokens={
  FEATURED_SERVICES:featured,
  EXTRA_SERVICES:['barboterapia','comb-corte-barboterapia','barba-premium'].map(id=>{const s=services.find(s=>s.id===id);return `<a href="${booking(id)}"><span>${esc(s.name)}</span><strong>${esc(s.price)}</strong></a>`}).join(''),
  ALL_SERVICES:allServices,
- TEAM_CONTROLS:professionals.map((p,i)=>`<button type="button" data-person="${p.id}" aria-pressed="${i===0}" aria-controls="person-name"><span>${p.name}</span>${arrow}</button>`).join(''),
+ TEAM_CONTROLS:teamSorted.map(p=>`<button type="button" data-person="${p.id}" aria-pressed="${p.id==='eduardo'}" aria-controls="person-name"><span>${p.name}</span>${arrow}</button>`).join(''),
  GALLERY_FEATURED:gallery.slice(0,3).map(([id,name],i)=>`<figure class="work-print print-${i}"><div data-depth="${8+i*3}"><a href="assets/images/v8/${id}-960.webp" data-open-gallery="${i}" aria-label="Ampliar: ${name}"><img src="assets/images/v8/${id}-640.webp" width="640" height="640" alt="${name}" loading="lazy"></a></div></figure>`).join(''),
  PRODUCT_OBJECTS:featuredProducts.map((p,i)=>`<div class="product-object product-object-${i}"><img src="assets/images/the-cut/products/${p.id}.webp" alt="${esc(p.name)} — embalagem original" width="640" height="640" loading="lazy"></div>`).join(''),
  FEATURED_PRODUCTS:featuredProducts.map((p,i)=>`<article data-reveal="pending"><img src="assets/images/the-cut/products/${p.id}.webp" width="100" height="100" alt="" loading="lazy"><div><h3>${productNames[i]}</h3><span class="product-note">Consulte na barbearia</span></div></article>`).join(''),
- PRODUCT_CATEGORIES:['Todos',...new Set(products.map(p=>p.category))].map(c=>`<option>${esc(c)}</option>`).join(''),
- ALL_PRODUCTS:products.map(p=>`<article data-product="${p.id}" data-category="${esc(p.category)}" data-search="${esc(p.name)}">${p.image?`<img src="${p.image}" width="120" height="120" alt="${esc(p.name)}" loading="lazy">`:`<span class="product-placeholder">Fotografia indisponível</span>`}<div><h3>${esc(p.name)}</h3><p>${esc(p.category)} · ${esc(p.price)}</p><span class="product-note">Consulte na barbearia</span></div></article>`).join(''),
+ PRODUCT_CATEGORIES:productCategories.map(c=>`<option>${esc(c)}</option>`).join(''),
+ PRODUCT_FILTERS:productCategories.map(c=>`<button type="button" class="product-filter" data-category="${esc(c)}" aria-pressed="${c==='Todos'}"><span>${esc(c)}</span><span class="product-filter__count">${c==='Todos'?products.length:products.filter(p=>p.category===c).length}</span></button>`).join(''),
+ ALL_PRODUCTS:products.map((p,i)=>`<article class="product-card" data-product="${esc(p.id)}" data-category="${esc(p.category)}" data-search="${esc(p.name)}" data-price="${priceNumber(p)}">
+ <div class="product-card__photo">
+ ${p.image?`<img src="${esc(p.image)}" width="640" height="640" alt="${esc(p.name)}" loading="lazy" decoding="async">`:`<span class="product-placeholder">Fotografia indisponível</span>`}
+ <span class="product-card__edition">${String(i+1).padStart(2,'0')} / ${String(products.length).padStart(2,'0')}</span>
+ <span class="product-card__inspect" aria-hidden="true">EXPLORAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 19 19 5M7 5h12v12"/></svg></span>
+ </div>
+ <div class="product-card__information">
+  <p class="product-card__category">${esc(p.category)}</p>
+  <h3>${esc(p.name)}</h3>
+  <div class="product-card__bottom"><strong class="product-card__price">${esc(p.price)}</strong><span class="product-note">Consulte na barbearia</span></div>
+ </div>
+ <button type="button" class="product-card__open" data-inspect-product="${esc(p.id)}" aria-label="Ver detalhes de ${esc(p.name)}"></button>
+</article>`).join(''),
  SERVICE_OPTIONS:services.map(s=>`<option value="${s.id}">${esc(s.name)} — ${s.fromPrice?'a partir de ':''}${esc(s.price)}</option>`).join(''),
  TEAM_OPTIONS:professionals.map(p=>`<option value="${p.id}">${p.name}</option>`).join(''),
  REVIEWS:reviews.items.map(r=>`<blockquote><p>“${esc(r.text)}”</p><cite><a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.author)}</a></cite></blockquote>`).join('')

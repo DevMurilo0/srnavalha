@@ -36,6 +36,11 @@ async function inspect(width){
   (await page.locator('.cut-intro__tagline').textContent()).replace(/\s+/g,' ').trim()==='Precisão em cada movimento.' &&
   await page.locator('.cut-intro__tagline span').count()===3 &&
   await page.locator('.cut-intro__logo-mask').count()===1);
+ const logoDrop=await page.locator('.cut-intro__logo-mask .official-logo').evaluate(logo=>{
+  const animation=logo.getAnimations()[0];
+  return animation?.effect?.getKeyframes()[0]?.transform||'';
+ });
+ check(width+' logo entra do alto',logoDrop.includes('translate3d(0,-'),logoDrop);
  const earlyProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
  await page.waitForTimeout(380);
  const laterProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
@@ -45,6 +50,13 @@ async function inspect(width){
   return {first:frames[0],travel:frames.length>4?frames[frames.length-1].x-frames[0].x:0};
  });
  check(width+' navalha entra deslizando da esquerda',entry.first?.x<0&&entry.travel>15,entry);
+ const spinPose=await page.locator('.razor-flight').evaluate(img=>{
+  const animations=img.getAnimations();
+  const entry=animations.find(animation=>animation.effect?.getKeyframes().length===4);
+  const frames=entry?.effect.getKeyframes()||[];
+  return {frames:frames.length,first:frames[0]?.transform,last:frames.at(-1)?.transform};
+ });
+ check(width+' navalha realiza volta completa',spinPose.frames===4&&spinPose.first?.includes('-6deg')&&spinPose.last?.includes('354deg'),spinPose);
  await page.screenshot({path:`${dir}/${width}-opening.png`});
  await page.waitForTimeout(850);
  check(width+' navalha permanece na abertura',await page.locator('.razor-flight').count()===1);

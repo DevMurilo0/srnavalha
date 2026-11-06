@@ -25,11 +25,11 @@
  transform:translate3d(-50%,-50%,0);
 }
 .cut-intro__logo-mask{
- display:block;width:min(234px,62vw);overflow:hidden;
+ display:block;width:min(234px,62vw);overflow:visible;
 }
 .cut-intro__logo-mask .official-logo{
  display:block;width:100%;height:auto;
- opacity:0;transform:translate3d(0,108%,0);
+ opacity:1;transform:translate3d(0,-115vh,0);
  will-change:transform,opacity;
 }
 .cut-intro__tagline{
