@@ -67,11 +67,21 @@ async function inspect(width){
  check(width+' navalha entra deslizando da esquerda',entry.first?.x<0&&entry.travel>15,entry);
  const spinPose=await page.locator('.razor-flight').evaluate(img=>{
   const animations=img.getAnimations();
-  const entry=animations.find(animation=>animation.effect?.getKeyframes().length===4);
+  const entry=animations.find(animation=>animation.effect?.getKeyframes().length===2&&
+    animation.effect.getKeyframes()[0].transform?.includes('-6deg'));
   const frames=entry?.effect.getKeyframes()||[];
   return {frames:frames.length,first:frames[0]?.transform,last:frames.at(-1)?.transform};
  });
- check(width+' navalha realiza volta completa',spinPose.frames===4&&spinPose.first?.includes('-6deg')&&spinPose.last?.includes('354deg'),spinPose);
+ check(width+' navalha realiza giro contínuo, sem paradas intermediárias',
+  spinPose.frames===2&&spinPose.first?.includes('-6deg')&&spinPose.last?.includes('354deg'),spinPose);
+ check(width+' abertura com identidade editorial',
+  await page.locator('.cut-intro__masthead').count()===1&&
+  await page.locator('.cut-intro__note').count()===1&&
+  await page.locator('.cut-intro__colophon').count()===1);
+ check(width+' a folha inteira compartilha a subida',
+  await page.locator('.cut-intro__sheet').count()===1&&
+  await page.locator('.cut-intro__sheet .cut-intro__identity').count()===1&&
+  await page.locator('.cut-intro__sheet .cut-intro__progress').count()===1);
  await page.screenshot({path:`${dir}/${width}-opening.png`});
  await page.waitForTimeout(850);
  check(width+' navalha permanece na abertura',await page.locator('.razor-flight').count()===1);
@@ -93,6 +103,8 @@ async function inspect(width){
  });
  check(width+' shared-element landing without snap',state.landingDelta!==null&&state.landingDelta<=3&&state.flightFrames>20,state);
  check(width+' hero intact and responsive',state.razorCount===1&&state.razorHome&&state.restored&&!state.boot&&state.overflow<=2,state);
+ const typography=await page.locator('#hero-title em').evaluate(node=>getComputedStyle(node).fontFamily);
+ check(width+' tipografia exclusiva do subtítulo do hero',typography.includes('Young Serif'),typography);
  check(width+' no script errors',errors.length===0,errors);
  await page.screenshot({path:`${dir}/${width}-hero.png`});
  await context.close();

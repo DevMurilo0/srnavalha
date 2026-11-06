@@ -14,10 +14,33 @@
  overflow:hidden;isolation:isolate;pointer-events:auto;
  background:transparent;contain:layout paint;
 }
-.cut-intro__veil{
- position:absolute;inset:-1px;background:#e9e3d8;
+.cut-intro__sheet{
+ position:absolute;inset:0;isolation:isolate;
  backface-visibility:hidden;will-change:transform;
 }
+.cut-intro__veil{
+ position:absolute;inset:-1px;background:#e9e3d8;
+ backface-visibility:hidden;
+}
+/* Quiet editorial furniture: a masthead, fine rulings, and a closing signature. */
+.cut-intro__masthead,.cut-intro__colophon{
+ position:absolute;left:clamp(22px,5vw,84px);right:clamp(22px,5vw,84px);
+ z-index:1;display:flex;justify-content:space-between;align-items:center;
+ gap:12px;color:#493f37;font:750 clamp(9px,.75vw,12px)/1.35 var(--body);
+ letter-spacing:.14em;
+}
+.cut-intro__masthead{top:clamp(22px,4vh,52px);padding-bottom:20px;border-bottom:1px solid #ae9f8e80}
+.cut-intro__masthead>span:first-child{display:inline-flex;align-items:center;gap:13px}
+.cut-intro__divider{display:block;width:17px;height:1px;background:#a3654b}
+.cut-intro__colophon{bottom:clamp(22px,4vh,50px);padding-top:20px;border-top:1px solid #ae9f8e80;color:#74695e}
+.cut-intro__note{
+ position:absolute;top:68%;left:50%;z-index:1;
+ display:flex;align-items:center;gap:13px;width:max-content;max-width:80vw;
+ transform:translate3d(-50%,0,0);font:550 clamp(11px,.95vw,14px)/1.4 var(--body);
+ color:#6f6051;letter-spacing:.015em;
+}
+.cut-intro__note-rule{display:block;height:1px;width:25px;background:#9a765f}
+
 .cut-intro__identity{
  position:absolute;left:50%;top:34%;z-index:1;
  display:flex;flex-direction:column;align-items:center;
@@ -77,12 +100,21 @@
  .cut-intro__logo-mask{width:min(210px,60vw)}
  .cut-intro__tagline{margin-top:15px;font-size:12px;gap:0 .3em}
  .cut-intro__status{top:80%;width:min(190px,62vw)}
+ .cut-intro__note{top:72%;font-size:11px}
+ .cut-intro__masthead,.cut-intro__colophon{font-size:8px;letter-spacing:.075em}
+ .cut-intro__masthead{padding-bottom:12px}
+ .cut-intro__colophon{padding-top:12px}
+ .cut-intro__masthead>span:first-child{gap:7px}
+ .cut-intro__divider{width:8px}
 }
 @media(max-height:560px){
  .cut-intro__identity{top:29%}
  .cut-intro__logo-mask{width:min(172px,35vh)}
  .cut-intro__tagline{margin-top:9px}
- .cut-intro__status{top:86%;width:min(180px,56vw)}
+ .cut-intro__status{top:80%;width:min(180px,56vw)}
+ .cut-intro__note{top:67%}
+ .cut-intro__masthead{top:10px;padding-bottom:8px}
+ .cut-intro__colophon{bottom:10px;padding-top:8px}
 }
 .razor-flight{
  position:fixed!important;z-index:1002;
@@ -98,6 +130,19 @@
  .motion-original{opacity:1!important}
  .motion-overlay{display:none!important}
 }
+
+/* A grounded, sturdy serif for the second line of the hero. */
+@font-face{
+ font-family:'Young Serif';src:url('../assets/fonts/young-serif.ttf') format('truetype');
+ font-style:normal;font-weight:400;font-display:swap;
+}
+.hero-message h1 em{
+ font-family:'Young Serif',Georgia,serif;
+ font-style:normal;font-weight:400;letter-spacing:-.055em;line-height:1.1;
+}
+@media(min-width:701px){.hero-message h1 em{font-size:.79em}}
+@media(max-width:700px){.hero-message h1 em{font-size:clamp(29px,8.2vw,55px);letter-spacing:-.05em}}
+@media(max-width:360px){.hero-message h1 em{font-size:clamp(28px,8vw,39px)}}
 
 /* Feedback: small, legible state changes instead of global motion. */
 .button,.service-panel>a,.service-extras a,.team-list button,.product-selection a,.work-print a,.catalog-disclosure>summary,.gallery-controls button,.gallery-all,.desktop-nav a,.floating-booking{transition-property:background-color,color,border-color,box-shadow,opacity,transform;transition-duration:220ms;transition-timing-function:cubic-bezier(.22,1,.36,1)}
