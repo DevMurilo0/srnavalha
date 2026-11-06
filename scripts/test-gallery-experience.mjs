@@ -36,7 +36,17 @@ async function run(width,reducedMotion='no-preference'){
   await page.screenshot({path:`${dir}/portfolio-${width}-${reducedMotion}-selected.png`});
   await page.locator('.workroom-feature__zoom').click();
   check(width+' full-screen gallery opens at selected image',await page.locator('.gallery-dialog').evaluate(n=>n.open)&&await page.locator('.gallery-controls [role="status"]').innerText()==='06 / 06');
-  check(width+' authentic barbershop logo + highlighted photo title',await page.locator('.gallery-room__seal img[src$="logo-640.webp"]').count()===1&&await page.locator('.gallery-room__feature-title').textContent()==='Platinado');
+  check(width+' authentic barbershop logo + highlighted photo title',await page.locator('.gallery-room__seal img[src$="gallery-logo-vector.svg"]').count()===1&&await page.locator('.gallery-room__feature-title').textContent()==='Platinado');
+  check(width+' official logo has no square frame',await page.locator('.gallery-room__seal').evaluate(node=>{
+   const styles=getComputedStyle(node);
+   const image=node.querySelector('img');
+   return styles.backgroundColor==='rgba(0, 0, 0, 0)' &&
+    parseFloat(styles.borderTopWidth)===0 && image?.naturalWidth>0;
+  }));
+  check(width+' barbershop tools ornaments are present',
+   await page.locator('.gallery-room__etched-scissors img').count()===1 &&
+   await page.locator('.gallery-room__header-engraving img').count()===1 &&
+   await page.locator('.gallery-room__atelier-photograph img').count()===1);
   check(width+' all six modal thumbnails accessible',await page.locator('.gallery-room__thumb').count()===6);
   await page.screenshot({path:`${dir}/lightbox-${width}-${reducedMotion}.png`});
   await page.keyboard.press('ArrowRight');

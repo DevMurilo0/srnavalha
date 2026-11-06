@@ -113,3 +113,152 @@
  .gallery-dialog.gallery-room .dialog-close,.gallery-dialog.gallery-room .dialog-close svg,.gallery-dialog.gallery-room .gallery-controls button,
  .gallery-room__thumb,.gallery-room__thumb img,.gallery-room__progress span{transition:none!important}
 }
+
+/* Atelier gallery — real blade engraving, archival tools and photographic material. */
+.gallery-dialog.gallery-room{
+ border:1px solid #826b5663;background:#15110e;
+ border-radius:10px;
+}
+.gallery-room__shell{position:relative;isolation:isolate}
+.gallery-room__shell::before{
+ z-index:0;inset:0;opacity:1;
+ background:
+  repeating-linear-gradient(90deg,transparent 0 79px,#d2b58c07 79px 80px),
+  radial-gradient(ellipse 46% 53% at 92% 16%,#75533724,transparent),
+  linear-gradient(125deg,#ffffff03,transparent 45%);
+}
+.gallery-room__shell::after{
+ content:"";position:absolute;inset:7px;border:1px solid #a78e7240;
+ border-radius:5px;pointer-events:none;z-index:4;
+}
+.gallery-room__header{
+ position:relative;z-index:5;gap:14px;padding-block:13px;
+ background:#19140ff5;border-bottom:1px solid #b79b7749;
+}
+.gallery-room__header::after{
+ content:"";position:absolute;left:clamp(17px,2.6vw,36px);right:clamp(17px,2.6vw,36px);
+ bottom:0;height:1px;background:linear-gradient(90deg,transparent,#d2b68b68 22%,#d2b68b20 78%,transparent);
+}
+.gallery-room__header-engraving{
+ position:absolute;right:clamp(153px,14vw,195px);top:50%;transform:translateY(-50%);
+ width:35px;height:35px;opacity:.22;pointer-events:none;overflow:hidden;
+}
+.gallery-room__header-engraving img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1) sepia(.7)}
+.gallery-room__brand{gap:16px;min-width:0}
+.gallery-room__seal{
+ display:block;flex:none;width:clamp(132px,12.3vw,176px);height:auto;
+ max-height:80px;overflow:visible;padding:0;border:0;
+ border-radius:0;background:none;box-shadow:none;
+}
+.gallery-room__seal img{
+ display:block;width:100%;height:auto;max-height:76px;object-fit:contain;
+ object-position:center;filter:drop-shadow(0 3px 10px #0004);
+}
+.gallery-room__brand>span:last-child{
+ padding-left:17px;border-left:1px solid #b89a714b;
+ font-size:10px;line-height:1.4;
+}
+.gallery-room__brand small{color:#c5a581}
+.gallery-room__header-count{font-size:9px;letter-spacing:.15em}
+.gallery-room__main{
+ position:relative;z-index:1;
+ background:
+   radial-gradient(ellipse at 10% 10%,#5e3d2731,transparent 48%),
+   linear-gradient(155deg,#241b16,#18130f 74%)!important;
+}
+.gallery-room__feature{position:relative;padding-bottom:16px}
+.gallery-room__feature::after{
+ content:"";position:absolute;left:0;bottom:0;width:92px;height:2px;
+ background:linear-gradient(90deg,#d7b58a,transparent);
+}
+.gallery-room__photo{border-color:#b89b6c3b}
+.gallery-room__photo::before{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+ background:linear-gradient(90deg,#aa7c451c,transparent 14%,transparent 87%,#aa7c4512);
+}
+.gallery-room__photo-signature{
+ background:#16100cd6;border-color:#e1b78851;border-radius:2px;
+}
+.gallery-room__aside{
+ position:relative;z-index:1;
+ background:
+  repeating-linear-gradient(90deg,transparent 0 59px,#d5b89406 59px 60px),
+  linear-gradient(167deg,#1c1510,#120e0b 76%);
+}
+.gallery-room__aside::before{
+ content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+ background:repeating-linear-gradient(135deg,#a7856250 0 6px,transparent 6px 12px);
+ pointer-events:none;opacity:.48;
+}
+.gallery-room__editorial{position:relative;isolation:isolate}
+.gallery-room__etched-scissors{
+ display:block;position:absolute;top:-16px;right:-21px;z-index:-1;
+ width:min(17vw,140px);height:142px;opacity:.075;transform:rotate(-19deg);
+ pointer-events:none;
+}
+.gallery-room__etched-scissors img{
+ display:block;width:100%;height:100%;object-fit:contain;
+ filter:brightness(0) invert(1) sepia(.6);
+}
+.gallery-room__editorial h2{position:relative;z-index:1}
+.gallery-room__editorial>p{position:relative;z-index:1}
+.gallery-room__tool{opacity:.8;filter:sepia(.75) brightness(1.1)}
+.gallery-room__atelier-photograph{
+ position:relative;display:block;margin:clamp(14px,2.5vh,22px) 0 0;
+ width:100%;height:clamp(90px,12vh,135px);min-height:0;
+ overflow:hidden;border:1px solid #ad8a6945;border-radius:3px;
+ background:#241a13;
+}
+.gallery-room__atelier-photograph::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(90deg,#17100e30,transparent 50%),linear-gradient(0deg,#090707cf,transparent 67%);
+}
+.gallery-room__atelier-photograph img{
+ display:block;width:100%;height:100%;object-fit:cover;object-position:center 56%;
+ filter:brightness(.77) saturate(.63) sepia(.18);transition:transform .65s cubic-bezier(.16,1,.3,1);
+}
+.gallery-room__atelier-photograph figcaption{
+ position:absolute;z-index:1;inset:auto 12px 10px;
+ display:flex;justify-content:space-between;gap:12px;align-items:end;
+ color:#e5d3bd;font:700 8px/1.3 var(--body);letter-spacing:.15em;
+}
+.gallery-room__selection{position:relative}
+.gallery-room__selection::before{
+ content:"";position:absolute;top:-14px;left:0;width:100%;height:1px;
+ background:linear-gradient(90deg,#c39c7563,transparent);
+ pointer-events:none;
+}
+.gallery-room__lower-engraving{
+ position:absolute;right:40%;bottom:0;width:110px;height:42px;
+ opacity:.065;transform:rotate(-8deg);pointer-events:none;z-index:1;
+}
+.gallery-room__lower-engraving img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+.gallery-room__thumb[aria-pressed="true"]{border-color:#deb888;box-shadow:0 0 0 1px #deb88850}
+.gallery-room__thumb:focus-visible{outline:2px solid #f0c793;outline-offset:3px}
+@media(hover:hover) and (pointer:fine){
+ .gallery-room__atelier-photograph:hover img{transform:scale(1.045)}
+}
+@media(max-width:900px){
+ .gallery-room__brand>span:last-child{font-size:9px}
+ .gallery-room__atelier-photograph{height:94px;margin-top:12px}
+ .gallery-room__etched-scissors{width:78px;right:-12px}
+}
+@media(max-width:700px){
+ .gallery-dialog.gallery-room{border-radius:0;border:0}
+ .gallery-room__shell::after{inset:4px;border-color:#ac896a2b}
+ .gallery-room__header{padding:6px 13px;min-height:61px}
+ .gallery-room__header-engraving{display:none}
+ .gallery-room__seal{width:clamp(95px,28vw,124px);max-height:46px}
+ .gallery-room__seal img{max-height:46px}
+ .gallery-room__brand{gap:9px}
+ .gallery-room__brand>span:last-child{padding-left:10px;font-size:9px}
+ .gallery-room__brand small{font-size:7px}
+ .gallery-room__editorial{padding-right:0}
+ .gallery-room__etched-scissors{width:66px;height:66px;opacity:.05;top:-8px;right:0}
+ .gallery-room__atelier-photograph{display:none}
+ .gallery-room__aside::before{width:2px}
+ .gallery-room__lower-engraving{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .gallery-room__atelier-photograph img{transition:none!important}
+}
