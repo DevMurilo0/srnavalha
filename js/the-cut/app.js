@@ -540,10 +540,13 @@ function initWorkShowcase(){
     show.unobserve(entry.target);
     if(!motion())continue;
     const stagger=targets.indexOf(entry.target);
-    entry.target.animate([
-     {opacity:.45,transform:'translate3d(0,19px,0)'},
-     {opacity:1,transform:'translate3d(0,0,0)'}
-    ],{duration:570,delay:Math.min(stagger*55,370),easing:'cubic-bezier(.16,1,.3,1)'});
+    // List rows keep their grid geometry throughout the stagger: never let
+    // neighboring choices overlap, even during their first painted frames.
+    const isRow=entry.target.classList.contains('workroom-choice');
+    entry.target.animate(isRow
+     ?[{opacity:.28},{opacity:1}]
+     :[{opacity:.45,transform:'translate3d(0,19px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}],
+     {duration:570,delay:Math.min(stagger*55,370),easing:'cubic-bezier(.16,1,.3,1)'});
    }
   },{threshold:.08,rootMargin:'60px 0px'});
   targets.forEach(el=>show.observe(el));
