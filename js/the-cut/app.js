@@ -467,26 +467,120 @@ function initWorkShowcase(){
 function initGallery(){
  const dialog=$('.gallery-dialog');
  if(!dialog||typeof dialog.showModal!=='function')return;
- const image=$('figure img',dialog),caption=$('figcaption',dialog),status=$('.gallery-controls [role="status"]',dialog);
+ const photo=$('.gallery-room__photo',dialog);
+ const layers=$$('.gallery-room__layer',photo);
+ const caption=$('.gallery-room__caption',dialog);
+ const status=$('.gallery-controls [role="status"]',dialog);
+ const thumbRoot=$('.gallery-room__thumbs',dialog);
  const pictures=[
-  ['servico-comb-cort-barb-simples','Corte e barba'],
-  ['servico-barba-simples','Precisão no desenho da barba'],
-  ['servico-luzes','Corte e textura'],
-  ['servico-barboterapia','Barboterapia'],
-  ['servico-corte-infantil','Corte infantil'],
-  ['servico-platinado','Platinado']
+  {id:'servico-comb-cort-barb-simples',title:'Corte e barba',subtitle:'Acabamento e equilíbrio'},
+  {id:'servico-barba-simples',title:'Precisão no desenho da barba',subtitle:'Desenho, contorno e cuidado'},
+  {id:'servico-luzes',title:'Corte e textura',subtitle:'Tonalidade e personalidade'},
+  {id:'servico-barboterapia',title:'Barboterapia',subtitle:'Detalhes de um ritual completo'},
+  {id:'servico-corte-infantil',title:'Corte infantil',subtitle:'Os primeiros estilos'},
+  {id:'servico-platinado',title:'Platinado',subtitle:'Nova cor, nova presença'}
  ];
- let selected=0,lastFocus=null;
- function draw(index){
-  selected=(index+pictures.length)%pictures.length;
-  const [id,title]=pictures[selected];
-  image.src='assets/images/v8/'+id+'-960.webp';
-  image.alt=title;caption.textContent=title;
-  if(status)status.textContent=(selected+1)+' de '+pictures.length;
+ const source=(entry,size=960)=>'assets/images/v8/'+entry.id+'-'+size+'.webp';
+ let selected=0,active=0,serial=0,lastFocus=null,transition=null;
+ const thumbs=pictures.map((item,index)=>{
+  const button=document.createElement('button');
+  button.type='button';button.className='gallery-room__thumb';
+  button.setAttribute('aria-label',`Ver fotografia ${index+1} de ${pictures.length}: ${item.title}`);
+  button.setAttribute('aria-pressed',String(index===0));
+  const img=document.createElement('img');
+  img.src=source(item,320);img.alt='';img.width=160;img.height=160;
+  img.loading='lazy';img.decoding='async';
+  const num=document.createElement('span');num.className='gallery-room__thumb-index';
+  num.textContent=String(index+1).padStart(2,'0');
+  button.append(img,num);thumbRoot.append(button);
+  on(button,'click',()=>draw(index));
+  return button;
+ });
+ const updateDetails=()=>{
+  const item=pictures[selected];
+  caption.replaceChildren(document.createTextNode(item.title));
+  const info=document.createElement('span');info.textContent=item.subtitle;caption.append(info);
+  if(status)status.textContent=String(selected+1).padStart(2,'0')+' / '+String(pictures.length).padStart(2,'0');
+  dialog.style.setProperty('--gallery-progress',String((selected+1)/pictures.length));
+  thumbs.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===selected)));
+ };
+ const settle=()=>{
+  if(!transition)return;
+  transition.effects.forEach(effect=>{try{effect.cancel()}catch{}});
+  active=transition.next;
+  transition=null;
+  layers.forEach((img,index)=>{
+   img.classList.toggle('is-active',index===active);
+   img.classList.remove('is-incoming');
+   if(index!==active)img.setAttribute('aria-hidden','true');
+   else img.removeAttribute('aria-hidden');
+  });
+ };
+ const preloadNeighbors=()=>{
+  const indexes=[(selected+1)%pictures.length,(selected-1+pictures.length)%pictures.length];
+  for(const i of indexes){const im=new Image();im.decoding='async';im.src=source(pictures[i]);}
+ };
+ async function draw(index,initial=false){
+  index=(index+pictures.length)%pictures.length;
+  if(index===selected&&!initial)return;
+  const previous=selected;
+  serial++;
+  settle();
+  selected=index;updateDetails();
+  if(!initial&&motion()&&typeof caption.animate==='function'){
+   caption.getAnimations().forEach(animation=>animation.cancel());
+   caption.animate([
+    {opacity:.45,transform:'translate3d(0,9px,0)'},
+    {opacity:1,transform:'translate3d(0,0,0)'}
+   ],{duration:370,easing:'cubic-bezier(.16,1,.3,1)'});
+  }
+  const item=pictures[index],token=serial;
+  if(initial){
+   active=0;
+   layers[0].src=source(item);layers[0].alt=item.title;
+   layers[0].classList.add('is-active');layers[0].removeAttribute('aria-hidden');
+   layers[1].classList.remove('is-active','is-incoming');layers[1].setAttribute('aria-hidden','true');
+   preloadNeighbors();return;
+  }
+  const prepared=new Image();prepared.decoding='async';prepared.src=source(item);
+  try{await prepared.decode()}catch{
+   if(!prepared.complete||!prepared.naturalWidth){
+    if(token===serial){selected=previous;updateDetails();}
+    return;
+   }
+  }
+  if(token!==serial||!dialog.open)return;
+  const next=1-active,current=layers[active],incoming=layers[next];
+  incoming.src=prepared.src;incoming.alt=item.title;incoming.removeAttribute('aria-hidden');
+  incoming.classList.add('is-incoming');
+  if(!motion()||typeof incoming.animate!=='function'){
+   current.classList.remove('is-active');current.setAttribute('aria-hidden','true');
+   incoming.classList.remove('is-incoming');incoming.classList.add('is-active');
+   active=next;preloadNeighbors();return;
+  }
+  const delta=(index-previous+pictures.length)%pictures.length;
+  const forward=delta<=pictures.length/2?1:-1;
+  const shift=forward*28;
+  const effects=[
+   current.animate([
+    {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
+    {opacity:0,transform:`translate3d(${-shift}px,0,0) scale(.982)`}
+   ],{duration:390,easing:'cubic-bezier(.35,.03,.3,1)',fill:'both'}),
+   incoming.animate([
+    {opacity:0,transform:`translate3d(${shift}px,0,0) scale(1.02)`},
+    {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+   ],{duration:460,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'})
+  ];
+  transition={effects,next};
+  await Promise.allSettled(effects.map(effect=>effect.finished));
+  if(token!==serial)return;
+  settle();preloadNeighbors();
  }
  function open(index,opener){
-  lastFocus=opener;draw(index);dialog.showModal();
-  $('.dialog-close',dialog)?.focus();
+  lastFocus=opener;
+  // Opening state is instant; the first photograph gets its source immediately.
+  selected=-1;dialog.showModal();draw(index,true);
+  $('.dialog-close',dialog)?.focus({preventScroll:true});
  }
  $$('[data-open-gallery]').forEach(trigger=>on(trigger,'click',event=>{
   event.preventDefault();open(Number(trigger.dataset.openGallery)||0,trigger);
@@ -496,12 +590,26 @@ function initGallery(){
  on($('.dialog-close',dialog),'click',()=>dialog.close());
  on(dialog,'click',event=>{if(event.target===dialog)dialog.close()});
  on(dialog,'keydown',event=>{
-  if(event.key==='ArrowLeft')draw(selected-1);
-  if(event.key==='ArrowRight')draw(selected+1);
+  if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+   event.preventDefault();draw(selected+(event.key==='ArrowRight'?1:-1));
+  }
+  if(event.key==='Home'){event.preventDefault();draw(0)}
+  if(event.key==='End'){event.preventDefault();draw(pictures.length-1)}
  });
+ let touchStart=null;
+ on(photo,'pointerdown',event=>{
+  if(event.pointerType==='touch')touchStart={x:event.clientX,y:event.clientY};
+ });
+ on(photo,'pointerup',event=>{
+  if(!touchStart||event.pointerType!=='touch')return;
+  const dx=event.clientX-touchStart.x,dy=event.clientY-touchStart.y;
+  touchStart=null;
+  if(Math.abs(dx)>54&&Math.abs(dx)>Math.abs(dy)*1.35)draw(selected+(dx<0?1:-1));
+ });
+ on(photo,'pointercancel',()=>{touchStart=null});
  on(dialog,'close',()=>{
-  image.removeAttribute('src');
-  if(lastFocus?.isConnected)lastFocus.focus();
+  ++serial;settle();touchStart=null;
+  if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true});
  });
 }
 
