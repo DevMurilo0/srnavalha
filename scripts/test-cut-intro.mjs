@@ -55,7 +55,7 @@ async function inspect(width){
   const animation=logo.getAnimations()[0];
   return animation?.effect?.getKeyframes()[0]?.transform||'';
  });
- check(width+' logo entra do alto',logoDrop.includes('translate3d(0,-'),logoDrop);
+ check(width+' logo entra do alto',/translate3d\(0(?:px)?,\s*-/i.test(logoDrop),logoDrop);
  const earlyProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
  await page.waitForTimeout(380);
  const laterProgress=await page.locator('.cut-intro__progress-fill').evaluate(n=>getComputedStyle(n).transform);
