@@ -124,10 +124,13 @@ async function opening(){
    {offset:1,opacity:1,transform:'translate3d(0,0,0) rotate(0deg)'}
   ],{duration:1180,delay:45,easing:'linear'});
   // Editorial annotations arrive like a quiet imprint, not an unrelated effect.
-  furniture.forEach((item,index)=>run(item,[
-   {opacity:0,transform:'translate3d(0,12px,0)'},
-   {opacity:1,transform:'translate3d(0,0,0)'}
-  ],{duration:570,delay:280+index*135,easing:'cubic-bezier(.16,1,.3,1)'}));
+  furniture.forEach((item,index)=>{
+   const x=item.classList.contains('cut-intro__note')?'-50%':'0';
+   run(item,[
+    {opacity:0,transform:`translate3d(${x},12px,0)`},
+    {opacity:1,transform:`translate3d(${x},0,0)`}
+   ],{duration:570,delay:280+index*135,easing:'cubic-bezier(.16,1,.3,1)'});
+  });
   tagline.forEach((word,i)=>run(word,[
    {opacity:0,transform:'translate3d(0,16px,0)'},
    {opacity:1,transform:'translate3d(0,0,0)'}

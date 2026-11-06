@@ -23,6 +23,10 @@
  backface-visibility:hidden;
 }
 /* Quiet editorial furniture: a masthead, fine rulings, and a closing signature. */
+/* No first-paint flash while the module initializes its entrances. */
+.opening-active .cut-intro__masthead,
+.opening-active .cut-intro__colophon,
+.opening-active .cut-intro__note{opacity:0}
 .cut-intro__masthead,.cut-intro__colophon{
  position:absolute;left:clamp(22px,5vw,84px);right:clamp(22px,5vw,84px);
  z-index:1;display:flex;justify-content:space-between;align-items:center;
