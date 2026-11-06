@@ -39,7 +39,7 @@ async function inspect(width,reducedMotion='no-preference'){
    !await page.locator('.product-inspect').evaluate(x=>x.open)&&
    await page.locator('.product-card__open:focus').count()===1);
  await page.locator('#product-search').fill('produto inexistente zyx');
- check(width+' empty results handled',await page.locator('.catalog-empty').isVisible()&&
+ check(width+' empty results handled',await page.locator('.product-catalog .catalog-empty').isVisible()&&
   await page.locator('.product-card:not([hidden])').count()===0);
  await page.locator('[data-clear-product-filters]').click();
  check(width+' filters reset',await page.locator('.product-card:not([hidden])').count()===18);
