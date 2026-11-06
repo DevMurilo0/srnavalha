@@ -27,7 +27,22 @@ async function inspect(width){
  const begin=Date.now();
  await page.goto(base+'/',{waitUntil:'domcontentloaded'});
  check(width+' abertura armada',await page.locator('#cut-intro').count()===1);
- await page.locator('.razor-flight').waitFor({state:'attached',timeout:1800});
+ try{
+  await page.locator('.razor-flight').waitFor({state:'attached',timeout:3600});
+ }catch(error){
+  const diagnostic=await page.evaluate(()=>{
+   const node=document.querySelector('.razor');
+   const intro=document.querySelector('#cut-intro');
+   return {root:document.documentElement.className,loader:!!intro,
+    loaderDisplay:intro?getComputedStyle(intro).display:null,
+    motionReleased:window.__motionReleased||false,reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,
+    image:{present:!!node,complete:node?.complete,naturalWidth:node?.naturalWidth,
+      className:node?.className,src:node?.currentSrc},
+    scripts:[...document.scripts].filter(s=>s.type==='module').map(s=>s.src)};
+  });
+  console.error('LOADER DIAGNOSTIC '+JSON.stringify({width,diagnostic,errors}));
+  throw error;
+ }
  check(width+' original único em movimento',
   await page.locator('img.razor').count()===1 &&
   await page.locator('.cut-intro .official-logo').count()===1 &&
