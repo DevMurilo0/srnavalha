@@ -177,8 +177,8 @@ function initProductExperience(){
  const sort=$('#product-sort',details);
  const count=$('#product-count',details);
  const empty=$('.catalog-empty',details);
- const chips=$('.product-filter',details);
- const cards=$('.product-card',grid);
+ const chips=Array.from(details.querySelectorAll('.product-filter'));
+ const cards=Array.from(grid.querySelectorAll('.product-card'));
  const originalOrder=new Map(cards.map((card,i)=>[card.dataset.product,i]));
  const productsById=new Map(products.map(p=>[p.id,p]));
  const simplify=text=>String(text||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -268,7 +268,7 @@ function initProductExperience(){
    dialog.showModal();
    $('.product-inspect__close',dialog)?.focus();
   });
-  $('[data-close-product-dialog]',dialog).forEach(button=>on(button,'click',()=>dialog.close()));
+  dialog.querySelectorAll('[data-close-product-dialog]').forEach(button=>on(button,'click',()=>dialog.close()));
   on(dialog,'click',event=>{
    if(event.target===dialog)dialog.close();
   });
