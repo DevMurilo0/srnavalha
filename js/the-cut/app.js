@@ -458,7 +458,7 @@ function initWorkShowcase(){
   if(subtitle)subtitle.textContent=item.description;
   if(number)number.innerHTML=String(index+1).padStart(2,'0')+' <span>/ 06</span>';
   if(progress)progress.style.transform='scaleX('+((index+1)/photos.length)+')';
-  if(expand){expand.dataset.openGallery=String(index);expand.setAttribute('aria-label','Ampliar fotografia de '+item.title);}
+  if(expand){expand.dataset.openGallery=String(index);expand.setAttribute('aria-label','Ampliar foto de '+item.title);}
   const viewAll=$('.workroom-view-all',section);
   if(viewAll)viewAll.dataset.openGallery=String(index);
   choices.forEach((button,i)=>{
