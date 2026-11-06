@@ -39,7 +39,7 @@ try{
   await p.waitForTimeout(1200);
   const continuity=await p.evaluate(()=>{const a=audit.rects;const i=a.findIndex((r,i)=>i&&a[i-1].flight&&!r.flight);return i<0?null:Math.max(...['x','y','w','h'].map(k=>Math.abs(a[i][k]-a[i-1][k])))});
   check(width+' same razor landing (<2px)',continuity!==null&&continuity<2,continuity);
-  for(const sel of ['#house-title','.house-main','.house-detail','.service-panel','#team-title','.portrait-stage','#work-title','.work-print a','#products-title','.product-object','.instrument-copy',' #booking-title','#location-title','.facade','.footer-signature']){
+  for(const sel of ['#house-title','.house-main','.house-detail','.service-panel','#team-title','.portrait-stage','#work-title','.workroom-feature__stage','#products-title','.product-object','.instrument-copy',' #booking-title','#location-title','.facade','.footer-signature']){
    if(!await p.locator(sel).count())continue;
    await go(p,sel);await p.waitForTimeout(1400);
   }

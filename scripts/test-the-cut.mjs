@@ -55,7 +55,7 @@ try {
     await page.waitForTimeout(160);
    }
    const photoAudit=await page.evaluate(async()=>{
-    const watched=[...document.querySelectorAll('.folio-image img,.product-object img,.product-selection img,.facade img')];
+    const watched=[...document.querySelectorAll('.workroom-feature__photo.is-active,.workroom-choice img,.product-object img,.product-selection img,.facade img')];
     await Promise.all(watched.map(img=>{
      if(img.complete)return Promise.resolve();
      return new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,3500)});
