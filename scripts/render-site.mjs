@@ -78,7 +78,7 @@ html=html.replace(/<([a-z][a-z0-9]*)\b([^>]*)>/g,(tag,name,attrs)=>{
  const classes=(attrs.match(/class="([^"]*)"/)?.[1]||'').split(/\s+/);
  const marked=classes.some(c=>entrances.has(c));
  const heading=/\bdata-type=/.test(attrs);
- const gallery=/\bdata-open-gallery=/.test(attrs)&&!classes.includes('gallery-all');
+ const gallery=/\bdata-open-gallery=/.test(attrs)&&!classes.includes('gallery-all')&&!classes.includes('folio-link');
  // Instrument entry stays on the image; its parent owns parallax.
  const instrument=name==='img'&&attrs.includes('/scissors.webp');
  return marked||heading||gallery||instrument?`<${name}${attrs} data-reveal="pending">`:tag;

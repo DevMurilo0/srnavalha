@@ -1,0 +1,34 @@
+/* Contact sheet: independent photographs, captions never cover the work. */
+.work.work-folio{display:block;height:auto;min-height:0;padding:80px var(--gutter) 64px;background:#141412;overflow:clip}
+.work.work-folio::before{background:url('../assets/images/the-cut/paper.webp');opacity:.035}
+.work.work-folio::after{display:none}
+.folio-heading{display:grid;grid-template-columns:1.2fr 1fr;align-items:end;gap:40px;margin-bottom:44px}
+.work-folio h2{margin:0;font-size:clamp(38px,5.5vw,78px);line-height:1.08;letter-spacing:-.04em}
+.work-folio h2 em{display:block;font-size:.85em;color:#ceb99d}
+.folio-heading p{max-width:43ch;color:#e0d9ce;font-size:16px;line-height:1.7;margin:0 0 18px}
+.folio-location{font-size:12px;color:#c1b39f;letter-spacing:.08em}
+.folio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,44px);align-items:start}
+.folio-card{margin:0;min-width:0}
+.folio-card:nth-child(2){padding-top:38px}
+.folio-card:nth-child(3){padding-top:76px}
+.folio-link{display:block;border-radius:8px;background:#211f1a;color:#f4ede3;overflow:hidden;transition:transform 350ms cubic-bezier(.22,1,.36,1);box-shadow:0 22px 32px -24px #000}
+.folio-image{position:relative;display:block;overflow:hidden;padding:10px 10px 0}
+.folio-image img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:3px}
+.folio-light{position:absolute;inset:-25%;pointer-events:none;background:radial-gradient(ellipse,#fff3,transparent 60%);opacity:0;transition:opacity 250ms,transform 350ms ease-out}
+.folio-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 18px 22px}
+.folio-caption strong{display:block;font-size:clamp(16px,1.6vw,23px);font-weight:600;letter-spacing:-.03em}
+.folio-caption span span{display:block;margin-top:7px;font-size:13px;color:#c6b8a4}
+.folio-plus{display:grid;place-items:center;flex:none;width:38px;height:38px;border:1px solid #9c886355;border-radius:50%;transition:transform 240ms}
+.folio-plus svg{width:17px;height:17px}
+.folio-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:42px;padding-top:28px;border-top:1px solid #cdbb9f38}
+.folio-bottom p{font-size:17px;color:#ede6da;margin:0}.folio-bottom p span{display:block;color:#bfb29f;font-size:13px;margin-top:8px}
+.work-folio .folio-explore{position:relative;left:auto;right:auto;margin:0;overflow:hidden;isolation:isolate;border-radius:4px;min-height:56px;padding:16px 24px;background:#e9dfcf;color:#211e19;letter-spacing:0;font-size:13px;gap:28px;text-transform:none}
+.folio-explore::before{content:'';position:absolute;inset:0;z-index:-1;background:#c7ad88;transform:translateX(-102%);transition:transform 350ms cubic-bezier(.22,1,.36,1)}
+.work-folio a:focus-visible,.work-folio button:focus-visible{outline:2px solid #e4bd88;outline-offset:5px}
+.folio-link:active,.folio-explore:active{transform:scale(.985)}
+@media(hover:hover) and (pointer:fine){.folio-card:hover .folio-light{opacity:1}.folio-card:hover .folio-plus{transform:rotate(45deg);background:#d7c1a0;color:#171511}.work-folio .folio-explore:hover{background:#e9dfcf;color:#211e19}.folio-explore:hover::before{transform:translateX(0)}}
+@media(max-width:700px){.work.work-folio{padding-block:48px}.folio-heading{grid-template-columns:1fr;gap:22px;margin-bottom:30px}.folio-heading p{margin-bottom:12px}.folio-grid{grid-template-columns:1fr;gap:26px}.folio-card:nth-child(n){padding:0}.folio-link{max-width:480px;margin:auto}.folio-caption{padding:18px}.folio-caption strong{font-size:23px}.folio-bottom{align-items:stretch;flex-direction:column;margin-top:30px}.work-folio .folio-explore{width:100%;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.work-folio *{transition:none!important}.folio-link{transform:none!important}.folio-light{display:none}.folio-plus{transform:none!important}}
+
+/* The persistent booking shortcut must not cover the photographs. */
+html.folio-in-view .floating-booking{visibility:hidden;pointer-events:none}

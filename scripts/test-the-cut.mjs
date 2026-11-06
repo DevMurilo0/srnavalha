@@ -55,7 +55,7 @@ try {
     await page.waitForTimeout(160);
    }
    const photoAudit=await page.evaluate(async()=>{
-    const watched=[...document.querySelectorAll('.work-print img,.product-object img,.product-selection img,.facade img')];
+    const watched=[...document.querySelectorAll('.folio-image img,.product-object img,.product-selection img,.facade img')];
     await Promise.all(watched.map(img=>{
      if(img.complete)return Promise.resolve();
      return new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,3500)});
@@ -83,7 +83,8 @@ try {
    await page.locator('[data-open-gallery="0"]').first().click();
    check(width+' gallery modal opens',await page.locator('.gallery-dialog').evaluate(d=>d.open));
    await page.locator('[data-gallery-next]').click();
-   check(width+' gallery moves',await page.locator('.gallery-controls [role="status"]').textContent()==='2 de 6');
+   await page.waitForFunction(()=>document.querySelector('.gallery-controls [role="status"]').textContent==='02 / 06');
+   check(width+' gallery moves',await page.locator('.gallery-room__feature-title').textContent()==='Precisão no desenho da barba');
    await page.locator('.gallery-dialog .dialog-close').click();
    await page.waitForFunction(()=>!document.querySelector('.gallery-dialog').open,null,{timeout:3000});
    check(width+' gallery closes',await page.locator('.gallery-dialog').evaluate(d=>!d.open));

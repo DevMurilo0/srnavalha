@@ -427,41 +427,37 @@ function initProductExperience(){
 function initWorkShowcase(){
  const root=$('[data-work-showcase]');
  if(!root)return;
- const cards=$$('.work-print',root),chips=$$('.work-chip',root);
- const reset=()=>{root.style.setProperty('--work-x',0);root.style.setProperty('--work-y',0)};
- const activate=index=>{
-  cards.forEach((card,i)=>card.classList.toggle('is-active',i===index));
-  chips.forEach((chip,i)=>{
-   chip.classList.toggle('is-active',i===index);
-   chip.setAttribute('aria-pressed',String(i===index));
-  });
- };
- chips.forEach((chip,index)=>{
-  on(chip,'mouseenter',()=>activate(index));
-  on(chip,'focus',()=>activate(index));
-  on(chip,'click',()=>activate(index));
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const fine=matchMedia('(hover: hover) and (pointer: fine)');
+ const cards=$$('.folio-card',root);
+ const visibility=new IntersectionObserver(entries=>{
+  document.documentElement.classList.toggle('folio-in-view',entries[0].isIntersecting);
+ },{threshold:0});
+ visibility.observe(root.closest('section'));
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  observer.unobserve(entry.target);
+  if(reduced.matches)return;
+  entry.target.animate([{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'none'}],
+   {duration:600,delay:cards.indexOf(entry.target)*75,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});
+ }),{threshold:.12});
+ cards.forEach(card=>{
+  observer.observe(card);
+  const link=$('.folio-link',card),light=$('.folio-light',card);
+  let frame=0,x=0,y=0;
+  const reset=()=>{cancelAnimationFrame(frame);frame=0;link.style.transform='';light.style.transform='';};
+  on(card,'pointermove',event=>{
+   if(!fine.matches||reduced.matches||event.pointerType==='touch')return;
+   const rect=card.getBoundingClientRect();
+   x=(event.clientX-rect.left)/rect.width-.5;y=(event.clientY-rect.top)/rect.height-.5;
+   if(!frame)frame=requestAnimationFrame(()=>{
+    frame=0;link.style.transform=`perspective(1000px) rotateX(${-y*4}deg) rotateY(${x*4}deg) translateY(-4px)`;
+    light.style.transform=`translate(${x*100}px,${y*100}px)`;
+   });
+  },{passive:true});
+  on(card,'pointerleave',reset);on(card,'pointercancel',reset);
+  on(reduced,'change',()=>{reset();if(reduced.matches)card.getAnimations().forEach(a=>a.cancel())});
  });
- cards.forEach((card,index)=>{
-  on(card,'mouseenter',()=>activate(index));
-  on(card,'focusin',()=>activate(index));
- });
- activate(0);
- if(!motion())return;
- let raf=0,nextX=0,nextY=0;
- const paint=()=>{
-  raf=0;
-  root.style.setProperty('--work-x',String(nextX));
-  root.style.setProperty('--work-y',String(nextY));
- };
- on(root,'pointermove',event=>{
-  if(innerWidth<=700)return;
-  const rect=root.getBoundingClientRect();
-  nextX=Number((((event.clientX-rect.left)/rect.width)-.5).toFixed(3));
-  nextY=Number((((event.clientY-rect.top)/rect.height)-.5).toFixed(3));
-  if(!raf)raf=requestAnimationFrame(paint);
- },{passive:true});
- on(root,'pointerleave',reset,{passive:true});
- on(root,'pointercancel',reset,{passive:true});
 }
 
 function initGallery(){
@@ -484,17 +480,18 @@ function initGallery(){
   {id:'servico-platinado',title:'Platinado',subtitle:'Nova cor, nova presença'}
  ];
  const source=(entry,size=960)=>'assets/images/v8/'+entry.id+'-'+size+'.webp';
- let selected=0,active=0,serial=0,lastFocus=null,transition=null;
+ let selected=0,requested=0,active=0,serial=0,lastFocus=null,transition=null;
+ const reduceGallery=matchMedia('(prefers-reduced-motion: reduce)');
  const thumbs=pictures.map((item,index)=>{
   const button=document.createElement('button');
   button.type='button';button.className='gallery-room__thumb';
-  button.setAttribute('aria-label',`Ver fotografia ${index+1} de ${pictures.length}: ${item.title}`);
+  button.setAttribute('aria-label',`Ver fotografia ${String(index+1).padStart(2,'0')} de 06: ${item.title}`);
   button.setAttribute('aria-pressed',String(index===0));
   const img=document.createElement('img');
   img.src=source(item,320);img.alt='';img.width=160;img.height=160;
   img.loading='lazy';img.decoding='async';
   const num=document.createElement('span');num.className='gallery-room__thumb-index';
-  num.textContent=String(index+1).padStart(2,'0');
+  num.textContent=String(index+1).padStart(2,'0');num.setAttribute('aria-hidden','true');
   button.append(img,num);thumbRoot.append(button);
   on(button,'click',()=>draw(index));
   return button;
@@ -528,93 +525,84 @@ function initGallery(){
  };
  async function draw(index,initial=false){
   index=(index+pictures.length)%pictures.length;
-  if(index===selected&&!initial)return;
-  const previous=selected;
-  serial++;
+  if(index===requested&&!initial)return;
+  requested=index;
+  const token=++serial;
   settle();
-  selected=index;updateDetails();
-  if(!initial&&motion()&&typeof caption.animate==='function'){
-   caption.getAnimations().forEach(animation=>animation.cancel());
-   caption.animate([
-    {opacity:.45,transform:'translate3d(0,9px,0)'},
-    {opacity:1,transform:'translate3d(0,0,0)'}
-   ],{duration:370,easing:'cubic-bezier(.16,1,.3,1)'});
-  }
-  const item=pictures[index],token=serial;
-  if(initial){
-   active=0;
-   layers[0].src=source(item);layers[0].alt=item.title;
-   layers[0].classList.add('is-active');layers[0].removeAttribute('aria-hidden');
-   layers[1].classList.remove('is-active','is-incoming');layers[1].setAttribute('aria-hidden','true');
-   preloadNeighbors();return;
-  }
+  const previous=selected,item=pictures[index];
+  photo.setAttribute('aria-busy','true');
   const prepared=new Image();prepared.decoding='async';prepared.src=source(item);
   try{await prepared.decode()}catch{
-   if(!prepared.complete||!prepared.naturalWidth){
-    if(token===serial){selected=previous;updateDetails();}
+   if(!prepared.naturalWidth){
+    if(token===serial){requested=-1;photo.setAttribute('aria-busy','false');status.textContent='Foto indisponível. Selecione para tentar novamente.';}
     return;
    }
   }
   if(token!==serial||!dialog.open)return;
   const next=1-active,current=layers[active],incoming=layers[next];
-  incoming.src=prepared.src;incoming.alt=item.title;incoming.removeAttribute('aria-hidden');
+  incoming.src=prepared.src;incoming.alt=item.title;
+  incoming.removeAttribute('aria-hidden');current.setAttribute('aria-hidden','true');
   incoming.classList.add('is-incoming');
-  if(!motion()||typeof incoming.animate!=='function'){
-   current.classList.remove('is-active');current.setAttribute('aria-hidden','true');
-   incoming.classList.remove('is-incoming');incoming.classList.add('is-active');
+  selected=index;updateDetails();photo.setAttribute('aria-busy','false');
+  if(initial||reduceGallery.matches||!motion()||typeof incoming.animate!=='function'){
+   current.classList.remove('is-active');incoming.classList.remove('is-incoming');incoming.classList.add('is-active');
    active=next;preloadNeighbors();return;
   }
   const delta=(index-previous+pictures.length)%pictures.length;
-  const forward=delta<=pictures.length/2?1:-1;
-  const shift=forward*28;
+  const shift=(delta<=pictures.length/2?1:-1)*32;
+  // Keep the previous photo opaque under the decoded incoming layer: no dark flash.
   const effects=[
-   current.animate([
-    {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
-    {opacity:0,transform:`translate3d(${-shift}px,0,0) scale(.982)`}
-   ],{duration:390,easing:'cubic-bezier(.35,.03,.3,1)',fill:'both'}),
-   incoming.animate([
-    {opacity:0,transform:`translate3d(${shift}px,0,0) scale(1.02)`},
-    {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-   ],{duration:460,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'})
+   current.animate([{transform:'translateX(0)'},{transform:`translateX(${-shift}px)`}],
+    {duration:300,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}),
+   incoming.animate([{opacity:0,transform:`translateX(${shift}px)`},{opacity:1,transform:'translateX(0)'}],
+    {duration:300,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'})
   ];
   transition={effects,next};
   await Promise.allSettled(effects.map(effect=>effect.finished));
   if(token!==serial)return;
   settle();preloadNeighbors();
  }
+ on(reduceGallery,'change',()=>{if(reduceGallery.matches)settle()});
  function open(index,opener){
   lastFocus=opener;
   // Opening state is instant; the first photograph gets its source immediately.
-  selected=-1;dialog.showModal();draw(index,true);
+  dialog.showModal();
+  document.documentElement.classList.add('gallery-is-open');
+  layers.forEach(img=>img.classList.remove('is-active','is-incoming'));
+  status.textContent='Carregando…';draw(index,true);
   $('.dialog-close',dialog)?.focus({preventScroll:true});
  }
  $$('[data-open-gallery]').forEach(trigger=>on(trigger,'click',event=>{
   event.preventDefault();open(Number(trigger.dataset.openGallery)||0,trigger);
  }));
- on($('[data-gallery-prev]',dialog),'click',()=>draw(selected-1));
- on($('[data-gallery-next]',dialog),'click',()=>draw(selected+1));
+ on($('[data-gallery-prev]',dialog),'click',()=>draw(requested-1));
+ on($('[data-gallery-next]',dialog),'click',()=>draw(requested+1));
  on($('.dialog-close',dialog),'click',()=>dialog.close());
  on(dialog,'click',event=>{if(event.target===dialog)dialog.close()});
  on(dialog,'keydown',event=>{
   if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
-   event.preventDefault();draw(selected+(event.key==='ArrowRight'?1:-1));
+   event.preventDefault();draw(requested+(event.key==='ArrowRight'?1:-1));
   }
   if(event.key==='Home'){event.preventDefault();draw(0)}
   if(event.key==='End'){event.preventDefault();draw(pictures.length-1)}
  });
  let touchStart=null;
  on(photo,'pointerdown',event=>{
-  if(event.pointerType==='touch')touchStart={x:event.clientX,y:event.clientY};
+  if(event.pointerType==='touch'&&!touchStart){
+   touchStart={x:event.clientX,y:event.clientY,id:event.pointerId};
+   if(photo.hasPointerCapture?.(event.pointerId)===false&&event.isTrusted)photo.setPointerCapture(event.pointerId);
+  }
  });
  on(photo,'pointerup',event=>{
-  if(!touchStart||event.pointerType!=='touch')return;
+  if(!touchStart||event.pointerType!=='touch'||touchStart.id!==event.pointerId)return;
   const dx=event.clientX-touchStart.x,dy=event.clientY-touchStart.y;
   touchStart=null;
-  if(Math.abs(dx)>54&&Math.abs(dx)>Math.abs(dy)*1.35)draw(selected+(dx<0?1:-1));
+  if(Math.abs(dx)>54&&Math.abs(dx)>Math.abs(dy)*1.35)draw(requested+(dx<0?1:-1));
  });
  on(photo,'pointercancel',()=>{touchStart=null});
  on(dialog,'close',()=>{
   ++serial;settle();touchStart=null;
+  document.documentElement.classList.remove('gallery-is-open');
   if(lastFocus?.isConnected)lastFocus.focus({preventScroll:true});
  });
 }
