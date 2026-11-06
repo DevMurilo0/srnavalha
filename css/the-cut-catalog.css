@@ -20,6 +20,8 @@
 .product-catalog>summary::-webkit-details-marker{display:none}
 .product-catalog__teaser{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
 .product-catalog>summary span{font-size:inherit;transform:none}
+/* The legacy disclosure rule rotates every span when open; isolate rotation to the icon SVG. */
+.products .product-catalog[open]>summary span{transform:none}
 .product-catalog .product-catalog__serial{
  font:750 clamp(9px,.85vw,12px)/1.4 var(--body);
  letter-spacing:.19em;color:#b9a08a;
