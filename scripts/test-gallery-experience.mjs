@@ -47,7 +47,15 @@ async function run(width,reducedMotion='no-preference'){
   check(width+' accessible controls and thumbnails',geometry.sixImagesReady&&geometry.controls);
   check(width+' zero runtime exceptions',errors.length===0,errors);
   await page.locator('.gallery-dialog .dialog-close').click();
-  check(width+' closes and returns focus',!await page.locator('.gallery-dialog').evaluate(d=>d.open)&&await page.locator('#trabalhos .gallery-all:focus').count()===1);
+  // The global motion system retains the overlay for a 160ms exit. Its
+  // close event restores focus only after that transition completes.
+  await page.waitForFunction(()=>{
+   const dialog=document.querySelector('.gallery-dialog');
+   const opener=document.querySelector('#trabalhos .gallery-all');
+   return dialog&&!dialog.open&&document.activeElement===opener;
+  },null,{timeout:3000});
+  check(width+' closes after motion and restores focus',
+   !await page.locator('.gallery-dialog').evaluate(d=>d.open)&&await page.locator('#trabalhos .gallery-all:focus').count()===1);
  }catch(error){check(width+' test completed',false,String(error.stack||error))}
  finally{await context.close()}
 }
